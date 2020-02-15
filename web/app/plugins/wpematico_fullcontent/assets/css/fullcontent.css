@@ -1,0 +1,457 @@
+/*
+	======================================================
+	Global
+	======================================================
+*/
+	.postbox .inside form{
+		margin-top: 12px;
+	}
+	form .input-fullcontent{
+		font-size: 16px;
+		border-radius: 0;
+		margin-right: 0;
+		font-weight: 600;
+		cursor: default;
+		width: 100%;
+		margin-bottom: 10px;
+	}
+	#section_editor_buttons{
+		width:100%;
+		display: flex;
+		flex-direction: column;
+	}
+	#section_editor_area {
+	    display: inline-flex;
+	    width: 100%;
+	    margin: 0 10px 10px 0;
+	}
+	#fullcontent_editor{
+		display: flex;
+		flex-direction: column;
+		background-color:#23282d;
+		border-radius: 0;
+		border-color: #23282d; 
+		color:#fff;
+		font-family: Monaco, Menlo, Consolas, 'Droid Sans Mono', Inconsolata, 'Courier New', monospace;
+		font-size: 13px; 
+		padding: 15px;
+		width: 100%;
+		height: 300px;
+	}
+	#fullcontent_buttons_editor{
+		max-width: 100%;
+		margin-bottom: 10px;
+	}
+	#fullcontent_buttons_editor ol{
+		display: flex;
+		flex-wrap: wrap;
+		list-style: none;
+		padding: 0px;
+		margin: 0px;
+		width: 100%;
+	}
+	#fullcontent_buttons_editor li{
+		margin-bottom: 0;
+	}
+	#fullcontent_buttons_editor li:not(:last-child){
+		margin-right: 10px;
+	}
+	.fullcontent-buttons-top{
+		flex-wrap: wrap;
+		margin-bottom: 10px;
+	}
+	.wp-core-ui form .fullcontent-buttons-top > span{
+		margin-right: 10px;
+	}
+	.wp-core-ui form .fullcontent-buttons-top a{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		line-height: 1;
+		font-size: 15px;
+		font-weight: 600;
+		border-radius: 0;
+		margin: 0;
+		padding: 10px;
+		min-width: 100px;
+	}
+	.wp-core-ui form .fullcontent-buttons-top span a span{
+		margin: 0 !important;
+	}
+	.wp-core-ui form .fullcontent-buttons-top .dashicons{
+		margin-bottom: 5px !important;
+	}
+	#fullcontent_buttons_editor .button{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		border-radius: 0;
+		line-height: 1;
+		font-size: 15px;
+		font-weight: 600;
+		min-width: 100px;
+		min-height: 62px;
+		text-align: center;
+		padding: 10px;
+		width: 100%;
+	}
+	#fullcontent_buttons_editor .button:before{
+		font-size: 20px;
+		margin-bottom: 5px;
+	}
+	#fullcontent_buttons_editor .button span{
+		margin: 0 !important;
+	}
+	#fullcontent_buttons_editor .dashicons,
+	.fullcontent-buttons-top .dashicons{
+		font-size: 20px;
+		margin-bottom: 5px !important;
+		font-weight: 400;
+	}
+	.fullcontent-saveass{
+		background-color:#C9452B !important; 
+		color:white !important; 
+		border:1px solid #8E3B2C !important; 
+	}
+	.addfile:before{
+		content: "\271A";
+	}
+	.play:before{ 
+		content: "\25B6"; 
+	}
+	#visual img {
+		max-width: 100%;
+		height: auto;
+	}
+	.wfc_tag{
+		font-weight: 600;
+	}
+	hr {
+		border:1px solid #333;
+	}
+/*
+	======================================================
+	All messages
+	======================================================
+*/
+	#fullsection_messages{
+		display: flex;
+		align-items: center;
+		background-color: #ececff;
+		min-height: 40px;
+		margin-top: 0px;
+		padding: 2px 15px 5px;
+		border: 1px solid #9aa8b4;
+	}
+	#fullsection_messages br{
+		position: absolute;
+		visibility: hidden;
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+	#statusmessage,
+	#statusmessage p,
+	#fullsection_messages #savingas,
+	form #fullsection_messages #savemessage p,
+	form #fullsection_messages #savingas p{
+		padding: 0px;
+		margin: 0px;
+		font-size: 16px;
+		font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+		font-weight: 600;
+	}
+	#fullsection_messages #statusmessage{
+		border:none;
+		background-color: transparent;
+		padding: 0px;
+		margin: 0px;
+	}
+	.notice{
+		box-shadow: none;
+	}
+	.notice-success{
+		color: green;
+	}
+	.notice-error{
+		color: red;
+	}
+	#savemessage.notice-success {
+		color: green;
+	}
+/*
+	======================================================
+	File list
+	======================================================
+*/
+	#side-sortables .fileonlist{
+		display: inline-flex;
+		align-items: center;
+		color: #999;
+		padding: 2px 0;
+		position: relative;
+		text-decoration:none;
+	}
+	#side-sortables .fileonlist .spinner{
+		position: absolute;
+		left: 100%;
+		margin: 0 0 0 5px;
+	}
+	#side-sortables .fileonlist:focus{
+		box-shadow: none;
+		outline: 0;
+	}
+	#side-sortables .fileonlist:before{
+		content: '';
+		display: block;
+		position: absolute;
+		left: 0;
+		top: 95%;
+		width: 0;
+		height: 2px;
+		background: green;
+		opacity: 0;
+		transition: all .4s ease;
+	}
+	#side-sortables .fileonlist:hover:before{
+		width: 100%;
+		opacity: 1;
+	}
+/*
+	======================================================
+	Upload files
+	======================================================
+*/
+	.upload-file{
+		display: flex;
+		align-items: center;
+		border: 1px solid #777;
+		border-radius: 4px;
+		position: relative;
+		padding-right: 5px;
+		margin: 10px 0;
+		height: 30px;
+	}
+	.upload-file label{
+		max-height: 20px;
+		min-height: 20px;
+		padding: 5px 15px;
+		background-color: #23282d;
+		color: #fff;
+		margin-right: 5px;
+	}
+	.upload-file input[type="file"]{
+		position: absolute;
+		visibility: hidden;
+		height: 0;
+		width: 0;
+		opacity: 0;
+	}
+	.upload-file span{
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+	.button-primary.btn-upload{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-left: auto;
+	}
+/*
+	======================================================
+	Spinner
+	======================================================
+*/
+	#section_spinner{
+		float: left; 
+		position: relative;
+		vertical-align: center;
+	}
+	#section_spinner .spinner{
+		margin-left: 0;
+	}
+/*
+	======================================================
+	Preview area
+	======================================================
+*/
+	.test-header{
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		background-color:#E8E8E8;
+		padding: 5px 10px;
+	}
+	#testtabs .tabNavigation {
+		margin-left: auto;
+		margin-bottom: -5px;
+	}
+	#testtabs #titletext p {
+		font-size: 1.3em;
+		margin: 0;
+		font-weight: 600;
+	}
+	#testtabs .ui-tabs-anchor {
+		font-size: 1.3em;
+	}
+	.ui-tabs { 
+		position: relative; 
+		padding: .2em;
+		zoom: 1; 
+	} 
+	/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+	.ui-tabs .ui-tabs-nav { 
+		margin: 0; 
+		padding: .2em .2em 0; 
+	}
+	.ui-tabs .ui-tabs-nav li { 
+		list-style: none; 
+		float: left; 
+		position: relative; 
+		top: 1px; 
+		margin: 0 .2em 1px 0; 
+		border-bottom: 0 !important; 
+		padding: 0; 
+		white-space: nowrap; 
+	}
+	.ui-tabs .ui-tabs-nav .ui-tabs-active { 
+		background-color: #fff; 
+	}
+	.ui-tabs .ui-tabs-nav li a { 
+		float: left; padding: .5em 1em; 
+		text-decoration: none; 
+		color: #333; 
+	}
+	.ui-tabs .ui-tabs-nav li a:focus {
+		box-shadow: none;
+		outline: 0;
+	}
+	.ui-tabs .ui-tabs-nav .ui-tabs-active a { 
+		font-weight: 600;
+	}
+	.ui-tabs .ui-tabs-nav li.ui-tabs-selected { 
+		margin-bottom: 0; 
+		padding-bottom: 1px; 
+	}
+	.ui-tabs .ui-tabs-nav li.ui-tabs-selected a, 
+	.ui-tabs .ui-tabs-nav li.ui-state-disabled a, 
+	.ui-tabs .ui-tabs-nav li.ui-state-processing a { 
+		cursor: text; 
+	}
+	.ui-tabs .ui-tabs-nav li a, 
+	.ui-tabs.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-selected a { 
+		cursor: pointer; 
+	} 
+	/* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+	.ui-tabs .ui-tabs-panel { 
+		display: block; border-width: 0; 
+		padding: 1em 1.4em; 
+		background: none; 
+	}
+	.ui-tabs .ui-tabs-hide { 
+		display: none !important; 
+	}
+
+/*
+	======================================================
+	Responsive
+	======================================================
+*/
+	@media screen and (min-width: 200px){
+		.has-right-sidebar #post-body-content{
+			margin-right: 0px !important;
+		}
+		div#side-info-column{
+			width: 100% !important;
+		}
+		div#side-sortables{
+			width: 100% !important;
+		}
+	}
+	@media screen and (min-width: 600px){
+		.has-right-sidebar #post-body-content{
+			margin-right: 0px !important;
+		}
+		.fullcontent-buttons-top{
+			flex-wrap: initial;
+		}
+		.wp-core-ui form .fullcontent-buttons-top a{
+			flex-direction: row;
+		}
+		.wp-core-ui form .fullcontent-buttons-top .dashicons{
+			margin-bottom: 0 !important;
+			margin-right: 5px !important;
+		}
+		.wp-core-ui form .fullcontent-buttons-top > span{
+			margin-left: 10px;
+			margin-right: 0;
+		}
+		form .input-fullcontent{
+			margin-bottom: 0;
+		}
+		#fullcontent_buttons_editor ol li{
+			min-width: 100px;
+		}
+		div#side-info-column{
+			width: 100% !important;
+		}
+		div#side-sortables{
+			width: 100% !important;
+		}
+	}
+
+	@media screen and (min-width: 960px){
+		.has-right-sidebar #post-body-content{
+			margin-right: 300px !important;
+		}
+		#fullcontent_editor{
+			flex-direction: row;
+		}
+		#section_editor_buttons{
+			display: flex;		
+			flex-direction: row;
+		}
+		#fullcontent_buttons_editor{
+			max-width: 100px;
+		}
+		#fullcontent_buttons_editor li:not(:last-child){
+			margin-right: 0;
+			margin-bottom: 10px;
+		}
+		#statusmessage,
+		#statusmessage p,
+		#fullsection_messages #savingas,
+		form #fullsection_messages #savemessage p,
+		form #fullsection_messages #savingas p{
+			font-size: 20px;
+		}
+		div#side-info-column{
+			width: 281px !important;
+		}
+		div#side-sortables{
+			width: 281px !important;
+		}
+	}
+
+	@media screen and (min-width: 1200px){
+		#fullcontent_buttons_editor{
+			max-width: 150px;
+		}
+		.wp-core-ui form .fullcontent-buttons-top a,
+		#fullcontent_buttons_editor .button{
+			min-width: 150px;
+		}
+		#fullcontent_editor{
+			font-size: 14px;
+		}
+	}
+
+	@media screen and (max-width: 960px) and (min-width: 600px){
+		#side-info-column,
+		.has-right-sidebar #post-body{
+			float: none;
+		}
+	}

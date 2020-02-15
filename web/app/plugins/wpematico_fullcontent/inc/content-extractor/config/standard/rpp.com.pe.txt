@@ -1,0 +1,13 @@
+body: //div[@id='foto' or @class='box_multimedia'] | //div[@class='box_desarrollo' or @class='box_width-560']
+
+# body: //article//figure[1]//img[1] | //div[@class='post-detalle notatext right' or @class='post-detalle' or contains(@class, 'notatext') or @class='box_width-560']
+
+strip: //div[@class='go_left']
+strip: //div[@class='go_go_right']
+strip: //div[@id='gleyenda']
+
+tidy: no
+autodetect_on_failure: yes
+prune: no
+
+test_url: http://www.rpp.com.pe/minivan-accidente-noticia_805451.html

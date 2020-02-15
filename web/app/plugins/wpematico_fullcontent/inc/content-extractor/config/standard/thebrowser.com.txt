@@ -1,0 +1,5 @@
+title: //h2[contains(@class, 'page-title')]
+body: //div[contains(@class, 'node')]
+
+
+test_url: http://thebrowser.com/interviews/yotam-ottolenghi-on-his-favourite-cookery-books

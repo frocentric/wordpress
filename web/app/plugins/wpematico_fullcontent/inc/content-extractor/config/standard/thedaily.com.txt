@@ -1,0 +1,6 @@
+convert_double_br_tags: no
+strip: //br
+body: //div[@class='content']
+prune: no
+strip: //a[@id='story_note']
+test_url: http://www.thedaily.com/page/2011/02/01/020211-apps-startups-quora-pg3/

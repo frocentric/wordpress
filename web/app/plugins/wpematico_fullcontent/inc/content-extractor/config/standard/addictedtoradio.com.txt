@@ -1,0 +1,16 @@
+body: //div[@id='main']
+# body: //div[@class='post-thumb']
+
+strip: //div[@class='navigation']
+strip: //div[@class='post-heading']
+strip: //div[@class='mr_social_sharing_wrapper']
+strip: //div[@class='post-share']
+strip: //div[@class='post-meta']
+strip: //div[@class='post-author']
+strip: //div[@id='comments']
+
+tidy: yes
+autodetect_on_failure: no
+prune: no
+
+test_url: http://addictedtoradio.com/chris-coco-melodica-week-of-03-07-2016/

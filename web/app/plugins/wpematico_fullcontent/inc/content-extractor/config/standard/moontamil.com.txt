@@ -1,0 +1,7 @@
+
+author: //a[@rel='author']
+# date: //span[@class='time']
+date: //time[@datetime]
+# time class="entry-date" datetime
+
+test_url: http://www.moontamil.com/27-04-2016-time-pass-vijay-tv-shows/

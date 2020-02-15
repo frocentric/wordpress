@@ -1,0 +1,6 @@
+title: //p[@class="txhead"]
+strip: //*[@class="sltb"]
+strip: //*[@class="ijobs-x-link"]
+strip: //*[@class="sponscolour"]
+strip: //*[@class="sponsouter"]
+test_url: http://m.guardian.co.uk/commentisfree/2011/may/16/my-twitterspat-with-paul-kagame?cat=commentisfree&type=article

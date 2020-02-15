@@ -1,0 +1,3 @@
+strip: //*[(@id = "datestamp")]
+strip: //*[(@class = "custom_headline_area")]
+test_url: http://smokingapples.com/opinion/web-development-ipad/

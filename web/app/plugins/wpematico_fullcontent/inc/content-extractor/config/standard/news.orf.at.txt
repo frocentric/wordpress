@@ -1,0 +1,6 @@
+body://div[@id="storyText"]
+strip://h2[contains(.,'Links')]
+strip://a[contains(.,'Seitenanfang')]
+strip://small[@class="credit"]
+strip://small[@class="caption"]
+test_url: http://news.orf.at/stories/2022511/

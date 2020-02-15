@@ -1,0 +1,4 @@
+title: //h1
+body: //div[@class='nota']
+tidy: no
+autodetect_on_failure: no

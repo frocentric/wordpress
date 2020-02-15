@@ -1,0 +1,5 @@
+title: //*[@id='NewsTitle']
+body: //div[@class='row']
+body: //div[@class='news']
+tidy: no
+autodetect_on_failure: no

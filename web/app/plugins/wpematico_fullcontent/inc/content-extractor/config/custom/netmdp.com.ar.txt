@@ -1,0 +1,11 @@
+body: //[@class='fullListenHero l-inner-fullwidth']
+
+# strip: //div[@id='comments']
+
+tidy: no
+autodetect_on_failure: no
+prune: no
+
+test_url: https://soundcloud.com/bayfm/double-x-023
+
+# http://feeds.soundcloud.com/users/soundcloud:users:51814277/sounds.rss

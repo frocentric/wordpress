@@ -1,0 +1,9 @@
+# body: //div[@id='imgTagWrapperId'] | //div[@id='technicalSpecifications_feature_div'] | //div[@id='prodDetails'] | //div[@id='feature-bullets']
+
+# strip: //div[@id='feature-bullets']
+
+tidy: no
+autodetect_on_failure: no
+prune: no
+
+test_url: https://hbr.org/2016/06/some-companies-are-banning-email-and-getting-more-done

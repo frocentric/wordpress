@@ -1,0 +1,97 @@
+{
+  "name": "roots/bedrock",
+  "type": "project",
+  "license": "MIT",
+  "description": "WordPress boilerplate with modern development tools, easier configuration, and an improved folder structure",
+  "homepage": "https://roots.io/bedrock/",
+  "authors": [
+    {
+      "name": "Scott Walkinshaw",
+      "email": "scott.walkinshaw@gmail.com",
+      "homepage": "https://github.com/swalkinshaw"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "homepage": "https://github.com/retlehs"
+    }
+  ],
+  "keywords": [
+    "bedrock", "roots", "wordpress", "stack", "composer", "vagrant", "wp"
+  ],
+  "support": {
+    "issues": "https://github.com/roots/bedrock/issues",
+    "forum": "https://discourse.roots.io/category/bedrock"
+  },
+  "config": {
+    "preferred-install": "dist"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wp-languages.github.io"
+    },
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    }
+  ],
+  "require": {
+    "php": ">=5.6",
+    "composer/installers": "^1.4",
+    "vlucas/phpdotenv": "^2.0.1",
+    "johnpbloch/wordpress": "~5.0",
+    "koodimonni-language/en_gb": "*",
+    "oscarotero/env": "^1.1.0",
+    "roots/wp-password-bcrypt": "1.0.0",
+    "wpackagist-plugin/autodescription": "~4.0",
+    "wpackagist-plugin/cf7-field-validation": "~1.1",
+    "wpackagist-plugin/cf7-live-preview": "~1.0",
+    "wpackagist-plugin/classic-editor": "~1.0",
+    "wpackagist-plugin/clearfy": "~1.2",
+    "wpackagist-plugin/colorlib-coming-soon-maintenance": "~1.0",
+    "wpackagist-plugin/contact-form-7": "~5.0",
+    "wpackagist-plugin/duplicator": "~1.0",
+    "wpackagist-plugin/easy-theme-and-plugin-upgrades": "~2.0",
+    "wpackagist-plugin/elementor": "~2.0",
+    "wpackagist-plugin/events-manager": "~5.0",
+    "wpackagist-plugin/granular-controls-for-elementor": "~1.0",
+    "wpackagist-plugin/jetpack": "~8.0",
+    "wpackagist-plugin/lightweight-grid-columns": "~1.0",
+    "wpackagist-plugin/meta-box": "~5.0",
+    "wpackagist-plugin/really-simple-ssl": "~3.0",
+    "wpackagist-plugin/search-filter": "~1.2",
+    "wpackagist-plugin/wpbase-cache": "~5.0",
+    "wpackagist-plugin/wpematico": "~2.0",
+    "wpackagist-plugin/wp-cerber": "~8.0",
+    "wpackagist-plugin/wp-discourse": "~1.0",
+    "wpackagist-plugin/wp-event-aggregator": "~1.0",
+    "wpackagist-plugin/wp-scss": "~1.2",
+    "wpackagist-plugin/wp-show-posts": "~1.0",
+    "wpackagist-theme/generatepress": "~2.0"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.0.2"
+  },
+  "extra": {
+    "installer-paths": {
+      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+      "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
+      "web/app/themes/{$name}/": ["type:wordpress-theme"]
+    },
+    "dropin-paths": {
+      "web/app/languages/": ["vendor:koodimonni-language"],
+      "web/app/languages/plugins/": ["vendor:koodimonni-plugin-language"],
+      "web/app/languages/themes/": ["vendor:koodimonni-theme-language"]
+    },
+    "wordpress-install-dir": "web/wp"
+  },
+  "scripts": {
+    "post-root-package-install": [
+      "php -r \"copy('.env.example', '.env');\""
+    ],
+    "test": [
+      "phpcs"
+    ]
+  }
+}

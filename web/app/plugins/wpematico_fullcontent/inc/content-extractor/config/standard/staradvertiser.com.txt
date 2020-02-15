@@ -1,0 +1,7 @@
+title: //h1[@id='storyTitle']
+
+body: //div[@class='storytext']
+strip_id_or_class: insideStoryAd 
+strip_id_or_class: printDesc
+prune: no
+test_url: http://www.staradvertiser.com/news/20110429_As_Saddams_birthday_nears_a_phone_call_to_shake_Iraqis.html

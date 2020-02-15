@@ -1,0 +1,9 @@
+#debug_page_include_campaigns_div {
+	display: none;
+}
+.debug-list-campaigns {
+	width: 90%; margin-left: 30px; margin-top: 5px;
+}
+.debug-list-td-check {
+	width: 90px;
+}

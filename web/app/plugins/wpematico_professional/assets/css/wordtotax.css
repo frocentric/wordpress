@@ -1,0 +1,32 @@
+.meta-box-word2tax-custom{
+    padding: 0 0 10px;
+    background-color: #fff;
+}
+.meta-box-word2tax-custom h3{
+    font-size: 14px;
+    padding: 8px 12px;
+    margin: 0;
+    line-height: 1.4;
+    border-bottom: 1px solid #eee;
+}
+.meta-box-word2tax-custom form{
+    padding: 0 10px;
+}
+.meta-box-word2tax-custom p.submit{
+    margin-bottom: 0;
+    padding: 0 0 10px;
+    text-align: right;
+}
+.meta-box-word2tax-custom .row_word_to_tax{
+    padding: 10px 0;
+}
+.meta-box-word2tax-custom .row_word_to_tax:nth-child(2n) {
+    background-color: LightCyan;
+}
+.meta-box-word2tax-custom #paging-box-word2tax {
+    background-color: #F1F1F1;
+    font-size: 11px;
+    height: 30px;
+    padding: 5px 10px;
+    border: 1px solid #e5e5e5;
+}

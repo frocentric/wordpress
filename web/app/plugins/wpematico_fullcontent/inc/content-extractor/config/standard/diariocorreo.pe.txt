@@ -1,0 +1,19 @@
+body: //*[@class='main-news']
+
+strip: //div[@class='breadcrumb']
+strip: //div[@class='volver']
+strip: //h1[@itemprop="headline"]
+strip: //h2[@itemprop="description"]
+strip: //div[@class='autor']
+strip: //div[@class='publicidad-movil']
+strip: //time[@class='date']
+strip: //span[@class='city']
+strip: //div[@class='publicidad_pc']
+strip: //div[@class='tags-title']
+strip: //div[@class='tags']
+
+tidy: no
+autodetect_on_failure: yes
+prune: no
+
+test_url: http://diariocorreo.pe/ciudad/verificaremos-las-pruebas-con-detalle-593475/

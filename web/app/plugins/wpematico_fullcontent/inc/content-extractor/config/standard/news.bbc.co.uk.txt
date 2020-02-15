@@ -1,0 +1,5 @@
+#prune: no
+strip: //noscript
+strip: //a[@class='hidden']
+strip_id_or_class: bbccom_visibility_hidden
+test_url: http://www.bbc.co.uk/news/world-middle-east-13492369

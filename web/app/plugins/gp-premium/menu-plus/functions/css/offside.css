@@ -1,0 +1,404 @@
+/* offside-js 1.3.1 22-05-2016
+* Minimal JavaScript kit without library dependencies to push things off-canvas using just class manipulation
+* https://github.com/toomuchdesign/offside.git
+*
+* by Andrea Carraro
+* Available under the MIT license
+*/
+
+/* Off-canvas element CSS */
+.main-navigation.offside {
+    position: fixed; /* Does not play well with some old browsers (see: README) */
+    width: 265px;
+    height: 100%;
+	height: 100vh;
+    top: 0;
+    z-index: 9999;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch; /* enables momentum scrolling in iOS overflow elements */
+}
+
+/* Left off-canvas elements default status: out of the page */
+.offside,
+.offside--left {
+    left: -265px;
+}
+
+/* Right off-canvas elements default status: out of the page */
+.offside--right {
+    left: auto;
+    right: -265px;
+}
+
+/*
+ * Left off-canvas element is open:
+ * - off-canvas element slides in
+ * - container elements slides out
+ */
+.offside--left.is-open,
+.offside-js--is-left .offside-sliding-element {
+    -webkit-transform: translate3d(265px, 0, 0);
+    -moz-transform: translate3d(265px, 0, 0);
+    -ms-transform: translate3d(265px, 0, 0);
+    -o-transform: translate3d(265px, 0, 0);
+    transform: translate3d(265px, 0, 0);
+}
+
+/*
+ * Right off-canvas element is open:
+ * - off-canvas element slides in
+ * - container elements slides out
+ */
+.offside--right.is-open,
+.offside-js--is-right .offside-sliding-element {
+    -webkit-transform: translate3d(-265px, 0, 0);
+    -moz-transform: translate3d(-265px, 0, 0);
+    -ms-transform: translate3d(-265px, 0, 0);
+    -o-transform: translate3d(-265px, 0, 0);
+    transform: translate3d(-265px, 0, 0);
+}
+
+/* Elements Transitions */
+.offside-js--interact .offside,
+.offside-js--interact .offside-sliding-element {
+    -webkit-transition: -webkit-transform .2s cubic-bezier(.16, .68, .43, .99);
+    -moz-transition: -moz-transform .2s cubic-bezier(.16, .68, .43, .99);
+    -o-transition: -o-transform .2s cubic-bezier(.16, .68, .43, .99);
+    transition: transform .2s cubic-bezier(.16, .68, .43, .99);
+
+    /* improves performance issues on mobile*/
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+}
+
+/* Body overflow */
+.offside-js--init {
+    overflow-x: hidden;
+}
+
+/* Fallback movements for browser not supporting CSS 3d Transitions
+----------------------------------------------- */
+
+/* Modernizr false negative csstransforms3d fix, reset CSS 3d Transitions */
+.no-csstransforms3d .offside {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.no-csstransforms3d .offside-sliding-element {
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Element is open: off-canvas element slides in */
+.no-csstransforms3d .offside--left.is-open {
+    left: 0;
+}
+
+.no-csstransforms3d .offside--right.is-open {
+    right: 0;
+}
+
+/* Element is open: container elements slide out */
+.no-csstransforms3d > .offside-js--is-left .offside-sliding-element {
+    right: -265px;
+}
+
+.no-csstransforms3d > .offside-js--is-right .offside-sliding-element {
+    left: -265px;
+}
+
+/* GP */
+.slideout-overlay {
+    z-index: 100000;
+    position: fixed;
+    width: 100%;
+	height: 100%;
+	height: 100vh;
+	min-height: 100%; /* Safari */
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+    background-color: rgba(0,0,0,0.8);
+    visibility: hidden;
+    opacity: 0;
+    cursor: pointer;
+
+    -webkit-transition: visibility .2s ease, opacity .2s ease;
+    -moz-transition: visibility .2s ease, opacity .2s ease;
+    -o-transition: visibility .2s ease, opacity .2s ease;
+    transition: visibility .2s ease, opacity .2s ease;
+}
+
+.offside-js--is-open .slideout-overlay {
+    visibility: visible;
+    opacity: 1;
+}
+
+.slideout-overlay button.slideout-exit {
+	position: fixed;
+	top: 0;
+	background-color: transparent;
+	color: #fff;
+	font-size: 30px;
+	border: 0;
+}
+
+button.slideout-exit:hover {
+	background-color: transparent;
+}
+
+.slideout-navigation button.slideout-exit {
+    background: transparent;
+    width: 100%;
+    text-align: left;
+    padding-top: 20px;
+	padding-bottom: 20px;
+	box-sizing: border-box;
+	border: 0;
+}
+
+.slide-opened nav.toggled .menu-toggle:before {
+	content: "\f0c9";
+}
+
+.offside-js--is-left.slide-opened .slideout-overlay button.slideout-exit {
+    left: 260px;
+}
+
+.offside-js--is-right.slide-opened .slideout-overlay button.slideout-exit {
+    right: 260px;
+}
+
+.slideout-widget {
+	margin: 20px;
+}
+
+.slideout-navigation .main-nav,
+.slideout-navigation .slideout-widget:not(:last-child) {
+	margin-bottom: 40px;
+}
+
+.slideout-navigation .mega-menu > ul > li {
+	display: block;
+	width: 100% !important;
+}
+
+.slideout-navigation .slideout-menu {
+	display: block;
+}
+
+#generate-slideout-menu {
+	z-index: 100001;
+}
+
+#generate-slideout-menu .slideout-menu li{
+	float: none;
+	width: 100%;
+	clear: both;
+	text-align: left;
+}
+
+.slideout-navigation .slideout-widget li {
+	float: none;
+}
+
+#generate-slideout-menu.do-overlay li {
+	text-align: center;
+}
+
+#generate-slideout-menu.main-navigation ul ul {
+	display: none;
+}
+
+#generate-slideout-menu.main-navigation ul ul.toggled-on {
+	display: block !important;
+}
+
+#generate-slideout-menu .slideout-menu li:hover > ul,
+#generate-slideout-menu .slideout-menu li.sfHover > ul {
+	display: none;
+}
+
+#generate-slideout-menu.main-navigation .main-nav ul ul {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+}
+
+.slideout-toggle:not(.has-svg-icon) a:before {
+	content: "\f0c9";
+	font-family: 'GP Premium';
+	line-height: 1em;
+	width: 1.28571429em;
+	text-align: center;
+	display: inline-block;
+	position: relative;
+	top: 1px;
+}
+
+.slide-opened .slideout-exit:not(.has-svg-icon):before,
+.slideout-navigation button.slideout-exit:not(.has-svg-icon):before {
+	content: "\f00d";
+	font-family: 'GP Premium';
+	line-height: 1em;
+	width: 1.28571429em;
+	text-align: center;
+	display: inline-block;
+}
+
+#generate-slideout-menu li.menu-item-float-right {
+	float: none !important;
+	display: inline-block;
+	width: auto;
+}
+
+.rtl .slideout-navigation {
+	position: fixed;
+}
+
+.slideout-navigation .menu-item-has-children .dropdown-menu-toggle {
+    float: right;
+}
+
+.slideout-navigation .slideout-widget .menu li {
+    float: none;
+}
+
+.slideout-navigation .slideout-widget ul {
+	display: block;
+}
+
+/* Overlay */
+
+.slideout-navigation.do-overlay {
+    transform: none;
+    transition: opacity 0.2s, visibility 0.2s;
+    width: 100%;
+    visibility: hidden;
+    opacity: 0;
+    text-align: center;
+	left: 0;
+	right: 0;
+	pointer-events: none;
+}
+
+.slideout-navigation.do-overlay.is-open {
+    opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+}
+
+.slideout-navigation.do-overlay .inside-navigation {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+	padding: 10% 10% 0;
+	max-width: 700px;
+}
+
+.slideout-navigation.do-overlay .inside-navigation .main-nav,
+.slideout-navigation.do-overlay .inside-navigation .slideout-widget {
+    margin-left: auto;
+    margin-right: auto;
+    min-width: 250px;
+}
+
+.slideout-navigation.do-overlay .slideout-exit {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: auto;
+    font-size: 25px;
+}
+
+.slideout-navigation.do-overlay .slideout-menu li a {
+	display: inline-block;
+}
+
+.slideout-navigation.do-overlay .slideout-menu li {
+	margin-bottom: 5px;
+}
+
+#generate-slideout-menu.do-overlay .slideout-menu li,
+.slideout-navigation.do-overlay .inside-navigation {
+	text-align: center;
+}
+
+.slideout-navigation.do-overlay .menu-item-has-children .dropdown-menu-toggle {
+	border-left: 1px solid rgba(0,0,0,0.07);
+	padding: 0 10px;
+	margin: 0 0 0 10px;
+}
+
+.slideout-navigation.main-navigation.do-overlay .main-nav ul ul li a {
+    font-size: 1em;
+}
+
+.slideout-navigation.do-overlay ul ul {
+	box-shadow: 0 0 0;
+}
+
+.nav-aligned-right .slideout-navigation,
+.nav-aligned-center .slideout-navigation {
+	text-align: left;
+}
+
+.slideout-navigation .sfHover > a > .dropdown-menu-toggle > .gp-icon svg {
+	-webkit-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.slideout-navigation .sub-menu .dropdown-menu-toggle .gp-icon svg {
+	-webkit-transform: rotate(0deg);
+	-ms-transform: rotate(0deg);
+	transform: rotate(0deg);
+}
+
+.slideout-mobile .main-navigation.toggled .main-nav > ul,
+.slideout-both .main-navigation.toggled .main-nav > ul,
+.slideout-desktop .main-navigation.toggled .main-nav li.slideout-toggle {
+	display: none !important;
+}
+
+.sf-menu > li.slideout-toggle {
+	float: right;
+}
+
+.gen-sidebar-nav .sf-menu > li.slideout-toggle {
+	float: none;
+}
+
+.off-canvas-toggle-label {
+	padding-left: 7px;
+}
+
+.gp-icon + .off-canvas-toggle-label {
+	padding-left: 9px;
+}
+
+@media (max-width: 768px) {
+	.slideout-overlay button.slideout-exit {
+		font-size: 20px;
+		padding: 10px;
+	}
+
+	.slideout-overlay {
+		top: -100px;
+		height: calc(100% + 100px);
+		height: calc(100vh + 100px);
+		min-height: calc(100% + 100px); /* Safari */
+	}
+
+	.slideout-navigation.do-overlay .slideout-exit {
+		position: static;
+		text-align: center;
+	}
+}

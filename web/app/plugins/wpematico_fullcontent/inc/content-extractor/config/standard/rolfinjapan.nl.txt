@@ -1,0 +1,14 @@
+body: //div[@class = 'maincontent']
+strip: //div[@class = 'grid_3']
+# The above line should strip the whole sidebar at once, but it doesn't seem to work. The lines below have the same effect.
+strip: //p[@class = 'metaprevnextpost']
+strip: //p[@class = 'metadate']
+strip: //p[@class = 'metaloc']
+strip: //p[@class = 'metapref']
+strip: //p[@class = 'metacountry']
+strip: //p[@class = 'metatags']
+strip: //p[@class = 'metapeople']
+strip: //p[@class = 'metaset']
+strip: //p[@class = 'bottomcaption']
+strip: //p[@class = 'inlayimg']
+test_url: http://www.rolfinjapan.nl/2010/07/rust/

@@ -1,0 +1,9 @@
+body: //div[@class='newsStoryTxt']
+
+# strip: //div[@id='comments']
+
+tidy: no
+autodetect_on_failure: no
+prune: no
+
+test_url: www.youm7.com/story/2016/1/25/بالفيديو-مواطن-لحكمدار-العاصمة-”رخصتى-اتسحبت-على-الدائرى”وال/2555424

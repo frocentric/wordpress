@@ -1,0 +1,66 @@
+#gp_hooks_settings .form-table td,
+#gp_hooks_settings .form-table th {
+	padding: 30px;
+	background: #FFF;
+	display: block;
+	width: 100%;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	margin-bottom: 0;
+}
+
+#gp_hooks_settings .form-table th {
+	padding-bottom: 0;
+}
+
+#gp_hooks_settings .form-table tr {
+	margin-bottom: 20px;
+	display: block;
+	max-width: 100%;
+	border: 1px solid #e5e5e5;
+    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+	
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.execute, div.disable {
+    background: none repeat scroll 0 0 #f1f1f1;
+    display: inline-block;
+    padding: 10px;
+	font-size: 14px;
+}
+
+.admin-bar #gp_hooks_settings .sticky-scroll-box.fixed {
+    top: 52px;
+}
+#gp_hooks_settings .sticky-scroll-box.fixed {
+    position: fixed;
+    right: 18px;
+    top: 20px;
+}
+
+.rtl #gp_hooks_settings .sticky-scroll-box.fixed {
+    position: fixed;
+    left: 18px;
+	right: auto;
+}
+
+#gp_hooks_settings input[type="checkbox"] {
+	margin-top: 1px;
+	margin-right: 0px;
+}
+
+#gp_hooks_settings .form-table {
+	margin-top: 0;
+}
+
+.appearance_page_gp_hooks_settings #setting-error-true {
+	margin-left: 2px;
+	margin-right: 19px;
+	margin-top: 20px;
+}

@@ -1,0 +1,6 @@
+strip: //table[@id='headtable']
+strip: //div[@class='updates']
+strip: //div[@class='eleven']
+strip: //div[@class='rating']
+strip: //div[@class='contentItem']
+test_url: http://www.winsupersite.com/article/commentary/Apple-Gets-it-Right-with-Mac-App-Store.aspx

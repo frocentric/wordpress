@@ -1,0 +1,11 @@
+body: //article
+
+# strip: //div[@id='comments']
+
+tidy: no
+autodetect_on_failure: yes
+prune: no
+
+test_url: https://www.yahoo.com/politics/what-clinton-left-out-about-her-history-with-180109258.html
+
+# http://news.yahoo.com/rss/.

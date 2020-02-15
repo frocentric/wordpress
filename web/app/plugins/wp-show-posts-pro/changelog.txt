@@ -1,0 +1,64 @@
+== changelog ==
+
+= 1.0 =
+* New: Carousel option
+* New: Card Presets
+* New: Title font size
+* New: Section classes option
+* New: Image color overlay (not on hover)
+* New: RGBA color pickers for image overlay colors
+* Tweak: Open social sharing links in small windows
+* Tweak: Remove Google+ option
+* Tweak: Add GDPR message to Love it option
+* Tweak: Use full image in lightbox
+* Tweak: Add support for button class option in AJAX pagination button
+* Tweak: Fix padding option label
+* Tweak: Improve how pro options get list settings
+* Tweak: Update the updater
+* Tweak: Overall code cleanup
+* Tweak: Add wpsp_pro_love_icon_disable_ip_store filter
+* Tweak: Minify featherlight scripts and styles
+* Tweak: Improve hover icon placement
+* Fix: Lightbox/gallery getting confused on pages with multiple lists
+* Fix: Make social icon colors list-specific
+* Fix: Order comments options better in list settings
+
+= 0.5 =
+* New: Background color + hover
+* New: Title color + hover
+* New: Meta color + hover
+* New: Text color + hover
+* New: Link color + hover
+* New: Read more background + hover
+* New: Read more text + hover
+* New: Read more border + hover
+* New: Twitter color + hover
+* New: Facebook color + hover
+* New: Google+ color + hover
+* New: Pinterest color + hover
+* New: Love icon color + hover
+* Tweak: Remove old fixed read more colors - your chosen color will be brought over to your new color options
+* Tweak: Show license key area only to administrators
+* Tweak: Move styling options from "Styling" tab into their respective sections
+* Tweak: Improve licensing system
+* Fix: WooCommerce style conflict
+* Fix: Only add negative margin when columns are active
+
+= 0.4 =
+* Apply filter to load more text and make translatable
+* Apply filter to loading text in ajax pagination
+* Fix bug where image gallery wasn't working on items loaded via ajax
+* Add next/prev arrows to image gallery
+* Add .pot file for translations
+
+= 0.3 =
+* Fix bug where license keys wouldn't save
+* Fix updater bug
+* Improve handling of super large images in lightbox
+
+= 0.2 =
+* Fix bug where some pages weren't loaded in the admin
+* Add focus styling to read more buttons
+
+= 0.1 =
+* Initial release

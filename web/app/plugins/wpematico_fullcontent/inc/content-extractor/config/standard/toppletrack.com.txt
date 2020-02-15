@@ -1,0 +1,5 @@
+title: //h1[@class='post-title']
+body: //div[@class='entry-content']
+body: //div[@class='standard-content']
+tidy: no
+prune: no

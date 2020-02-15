@@ -1,0 +1,82 @@
+.main-navigation .navigation-logo {
+	float: left;
+	display: block;
+	margin-left: -10px;
+	-webkit-transition: height .3s ease;
+    -o-transition: height .3s ease;
+    transition: height .3s ease;
+	opacity: 1;
+}
+
+.main-navigation .navigation-logo img {
+	position: relative;
+	vertical-align:middle;
+	padding: 10px;
+	display: block;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: height .3s ease;
+    -o-transition: height .3s ease;
+    transition: height .3s ease;
+}
+
+.nav-float-left .main-navigation .navigation-logo {
+	float: right;
+}
+
+.nav-float-left .main-navigation .navigation-logo {
+	margin-left: 0;
+	margin-right: -10px;
+}
+
+.sticky-menu-logo .main-navigation .navigation-logo,
+.regular-menu-logo .navigation-stick .navigation-logo {
+	display: none !important;
+}
+
+.sticky-menu-logo .navigation-stick:not(#sticky-placeholder) .navigation-logo {
+	display: block !important;
+}
+
+.main-navigation.grid-container .navigation-logo,
+.main-navigation .inside-navigation:not(.grid-container) .navigation-logo {
+	margin-left: 0;
+}
+
+.gen-sidebar-nav .main-navigation .navigation-logo {
+	float: none;
+	padding: 0;
+	margin: 30px 0 !important;
+	text-align: center;
+}
+
+.gen-sidebar-nav .main-navigation .navigation-logo img {
+    height: auto;
+    max-width: 100%;
+	vertical-align: bottom;
+	padding: 0;
+	margin: 0 auto;
+}
+
+body[class*="nav-float-"].menu-logo-enabled:not(.sticky-menu-logo) .main-navigation .navigation-logo,
+body[class*="nav-float-"].menu-logo-enabled:not(.sticky-menu-logo) .main-navigation .main-nav {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+body[class*="nav-float-"].menu-logo-enabled:not(.sticky-menu-logo) .main-navigation:not(.navigation-stick) .navigation-logo {
+	margin: 0;
+}
+
+.using-floats .main-navigation:not(.slideout-navigation) .inside-navigation:before,
+.using-floats .main-navigation:not(.slideout-navigation) .inside-navigation:after {
+	content: ".";
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	font-size: 0;
+	line-height: 0;
+	width: 0;
+	height: 0;
+}

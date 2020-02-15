@@ -1,0 +1,9 @@
+### Begin Debug Info ###
+
+-- Site      No0 </td></tr>
+<tr><td class="e">bytes_received_ok_packet </td><td class="v">0 </td></tr>
+<tr><td class="e">bytes_received_eof_packet </td><td class="v">0 </td></tr>
+<tr><td class="e">bytes_received_rset_header_packet </td><td class="v">0 </td></tr>
+<tr><td class="e">bytes_received_rset_field_meta_packet </td><td 
+<h2><a name="module_zip">zip</a></h2>
+<table border="0" cellpadding="3" width="600">

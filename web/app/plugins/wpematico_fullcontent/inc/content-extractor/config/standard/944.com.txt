@@ -1,0 +1,2 @@
+strip_id_or_class: subBox
+test_url: http://www.944.com/articles/venus-williams-book-signing-come-to-win/

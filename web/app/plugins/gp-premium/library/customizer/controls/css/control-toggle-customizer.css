@@ -1,0 +1,21 @@
+.generatepress-control-toggles {
+	display: flex;
+}
+
+.generatepress-control-toggles button {
+	flex-basis: 100%;
+	background-color: #fafafa;
+	border: 1px solid #ddd;
+	cursor: pointer;
+	padding: 5px 10px;
+}
+
+.generatepress-control-toggles button:last-child {
+	border-left: 0;
+}
+
+.generatepress-control-toggles button.active {
+	background-color: #fff;
+	border: 1px solid #ccc;
+	font-weight: bold;
+}

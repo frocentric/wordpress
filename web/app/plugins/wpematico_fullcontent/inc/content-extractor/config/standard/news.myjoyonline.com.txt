@@ -1,0 +1,3 @@
+body: //td[@class="lead"]//img[contains(@src, "photos")] | //div[@class="read-text-3"]
+
+test_url: http://news.myjoyonline.com/news/201104/63828.asp

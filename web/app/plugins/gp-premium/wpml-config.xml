@@ -1,0 +1,110 @@
+<wpml-config>
+  <admin-texts>
+    <key name="theme_mods_generatepress">
+      <key name="generate_copyright"/>
+    </key>
+    <key name="generate_blog_settings">
+      <key name="read_more"/>
+    </key>
+    <key name="generate_secondary_nav_settings">
+      <key name="secondary_nav_mobile_label"/>
+    </key>
+    <key name="generate_menu_plus_settings">
+      <key name="mobile_menu_label"/>
+    </key>
+    <key name="generate_hooks">
+      <key name="generate_wp_head"/>
+      <key name="generate_before_header"/>
+      <key name="generate_before_header_content"/>
+      <key name="generate_after_header_content"/>
+      <key name="generate_after_header"/>
+      <key name="generate_before_main_content"/>
+      <key name="generate_before_content"/>
+      <key name="generate_after_entry_header"/>
+      <key name="generate_after_content"/>
+      <key name="generate_before_right_sidebar_content"/>
+      <key name="generate_after_right_sidebar_content"/>
+      <key name="generate_before_left_sidebar_content"/>
+      <key name="generate_after_left_sidebar_content"/>
+      <key name="generate_before_footer"/>
+      <key name="generate_after_footer_widgets"/>
+      <key name="generate_before_footer_content"/>
+      <key name="generate_after_footer_content"/>
+      <key name="generate_wp_footer"/>
+    </key>
+  </admin-texts>
+  <custom-types>
+	  <custom-type translate="1" display-as-translated="1">gp_elements</custom-type>
+  </custom-types>
+  <custom-fields>
+	  <custom-field action="translate">_generate_element_content</custom-field>
+	  <custom-field action="copy-once">_generate_element_type</custom-field>
+	  <custom-field action="copy-once">_generate_element_display_conditions</custom-field>
+	  <custom-field action="copy-once">_generate_element_exclude_conditions</custom-field>
+	  <custom-field action="copy-once">_generate_element_user_conditions</custom-field>
+	  <custom-field action="copy-once">_generate_hook</custom-field>
+	  <custom-field action="copy-once">_generate_hook_execute_shortcodes</custom-field>
+	  <custom-field action="copy-once">_generate_hook_execute_php</custom-field>
+	  <custom-field action="copy-once">_generate_hook_priority</custom-field>
+	  <custom-field action="copy-once">_generate_hook_disable_site_header</custom-field>
+	  <custom-field action="copy-once">_generate_hook_disable_site_footer</custom-field>
+	  <custom-field action="copy-once">_generate_hero_custom_classes</custom-field>
+	  <custom-field action="copy-once">_generate_hero_container</custom-field>
+	  <custom-field action="copy-once">_generate_hero_inner_container</custom-field>
+	  <custom-field action="copy-once">_generate_hero_horizontal_alignment</custom-field>
+	  <custom-field action="copy-once">_generate_hero_padding_top</custom-field>
+	  <custom-field action="copy-once">_generate_hero_padding_right</custom-field>
+	  <custom-field action="copy-once">_generate_hero_padding_bottom</custom-field>
+	  <custom-field action="copy-once">_generate_hero_padding_left</custom-field>
+	  <custom-field action="copy-once">_generate_hero_padding_top_unit</custom-field>
+	  <custom-field action="copy-once">_generate_hero_padding_right_unit</custom-field>
+	  <custom-field action="copy-once">_generate_hero_padding_bottom_unit</custom-field>
+	  <custom-field action="copy-once">_generate_hero_padding_left_unit</custom-field>
+	  <custom-field action="copy-once">_generate_hero_padding_top_mobile</custom-field>
+	  <custom-field action="copy-once">_generate_hero_padding_right_mobile</custom-field>
+	  <custom-field action="copy-once">_generate_hero_padding_bottom_mobile</custom-field>
+	  <custom-field action="copy-once">_generate_hero_padding_left_mobile</custom-field>
+	  <custom-field action="copy-once">_generate_hero_padding_top_unit_mobile</custom-field>
+	  <custom-field action="copy-once">_generate_hero_padding_right_unit_mobile</custom-field>
+	  <custom-field action="copy-once">_generate_hero_padding_bottom_unit_mobile</custom-field>
+	  <custom-field action="copy-once">_generate_hero_padding_left_unit_mobile</custom-field>
+	  <custom-field action="copy-once">_generate_hero_background_image</custom-field>
+	  <custom-field action="copy-once">_generate_hero_background_position</custom-field>
+	  <custom-field action="copy-once">_generate_hero_background_parallax</custom-field>
+	  <custom-field action="copy-once">_generate_hero_disable_featured_image</custom-field>
+	  <custom-field action="copy-once">_generate_hero_background_overlay</custom-field>
+	  <custom-field action="copy-once">_generate_hero_background_color</custom-field>
+	  <custom-field action="copy-once">_generate_hero_text_color</custom-field>
+	  <custom-field action="copy-once">_generate_hero_link_color</custom-field>
+	  <custom-field action="copy-once">_generate_hero_background_link_color_hover</custom-field>
+	  <custom-field action="copy-once">_generate_site_header_merge</custom-field>
+	  <custom-field action="copy-once">_generate_site_header_height</custom-field>
+	  <custom-field action="copy-once">_generate_site_header_height_mobile</custom-field>
+	  <custom-field action="copy-once">_generate_site_header_background_color</custom-field>
+	  <custom-field action="copy-once">_generate_site_header_title_color</custom-field>
+	  <custom-field action="copy-once">_generate_site_header_tagline_color</custom-field>
+	  <custom-field action="copy-once">_generate_site_logo</custom-field>
+	  <custom-field action="copy-once">_generate_retina_logo</custom-field>
+	  <custom-field action="copy-once">_generate_navigation_logo</custom-field>
+	  <custom-field action="copy-once">_generate_mobile_logo</custom-field>
+	  <custom-field action="copy-once">_generate_navigation_location</custom-field>
+	  <custom-field action="copy-once">_generate_navigation_colors</custom-field>
+	  <custom-field action="copy-once">_generate_navigation_background_color</custom-field>
+	  <custom-field action="copy-once">_generate_navigation_text_color</custom-field>
+	  <custom-field action="copy-once">_generate_navigation_background_color_hover</custom-field>
+	  <custom-field action="copy-once">_generate_navigation_text_color_hover</custom-field>
+	  <custom-field action="copy-once">_generate_navigation_background_color_current</custom-field>
+	  <custom-field action="copy-once">_generate_navigation_text_color_current</custom-field>
+	  <custom-field action="copy-once">_generate_sidebar_layout</custom-field>
+	  <custom-field action="copy-once">_generate_footer_widgets</custom-field>
+	  <custom-field action="copy-once">_generate_disable_site_header</custom-field>
+	  <custom-field action="copy-once">_generate_disable_top_bar</custom-field>
+	  <custom-field action="copy-once">_generate_disable_primary_navigation</custom-field>
+	  <custom-field action="copy-once">_generate_disable_secondary_navigation</custom-field>
+	  <custom-field action="copy-once">_generate_disable_featured_image</custom-field>
+	  <custom-field action="copy-once">_generate_disable_content_title</custom-field>
+	  <custom-field action="copy-once">_generate_disable_footer</custom-field>
+	  <custom-field action="copy-once">_generate_content_area</custom-field>
+	  <custom-field action="copy-once">_generate_content_width</custom-field>
+  </custom-fields>
+</wpml-config>

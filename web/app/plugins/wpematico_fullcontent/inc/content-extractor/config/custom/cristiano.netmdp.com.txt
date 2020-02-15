@@ -1,0 +1,7 @@
+body: //div[@class='entry-content']
+
+tidy: no
+autodetect_on_failure: no
+prune: no
+
+test_url: http://cristiano.netmdp.com/la-historia-de-tommy/

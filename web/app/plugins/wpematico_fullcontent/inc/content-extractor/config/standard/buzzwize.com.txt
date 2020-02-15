@@ -1,0 +1,20 @@
+body: //div[@class='single_post']
+
+strip: //header
+strip: //div[@class='theiaPostSlider_slides']/div/*[contains(text(), 'Advertisement')]
+
+strip_id_or_class: navigation
+strip_id_or_class: sam-container
+strip_id_or_class: awac-wrappe
+strip_id_or_class: shareit
+strip_id_or_class: post-info
+strip_id_or_class: adsbygoogle
+strip_id_or_class: wp-share-btns
+
+tidy: yes
+autodetect_on_failure: no
+prune: no
+
+next_page_link: //a[contains(@class,'_next')]/@href
+
+test_url: http://www.buzzwize.com/34-celebrities-you-didnt-know-were-battling-horrific-diseases/

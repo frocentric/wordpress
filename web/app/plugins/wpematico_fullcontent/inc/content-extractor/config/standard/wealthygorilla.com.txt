@@ -1,0 +1,10 @@
+title: //h1[@class='entry-title']
+
+body: //article
+strip: //header
+strip: //div[@class='us_posts_bottom']
+strip: //div[@class='td-a-rec-id-content_bottom']
+strip: //footer
+
+tidy: no
+prune: no

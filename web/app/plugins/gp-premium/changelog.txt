@@ -1,0 +1,516 @@
+== changelog ==
+
+= 1.9.1 =
+* Blog: Fix "null" in infinite scroll load more button text
+* WooCommerce: Fix hidden added to cart panel on mobile when sticky nav active
+* WooCommerce: Fix missing SVG icon in mobile added to cart panel
+
+= 1.9.0 =
+* Blog: Support SVG icon feature
+* Colors: Add navigation search color options
+* Disable Elements: Disable mobile menu in Mobile Header if nav is disabled
+* Elements: Add wp_body_open hook
+* Elements: Allow 0 mobile padding in Elements
+* Elements: Add generate_elements_admin_menu_capability filter
+* Elements: Add generate_page_hero_css_output filter
+* Elements: Prevent error in Header Element if taxonomy doesn't exist
+* Elements: Fix double logo when Header Element has logo + using nav as header
+* Elements: Fix mobile header logo not replacing if merge is disabled
+* Elements: Fix missing arrow in Choose Element Type select in WP 5.3
+* Elements: Add generate_inside_site_container hook option
+* Elements: Add generate_after_entry_content hook option
+* Menu Plus: Add off canvas desktop toggle label option
+* Menu Plus: Add generate_off_canvas_toggle_output filter
+* Menu Plus: Support SVG icon feature
+* Menu Plus: Fix sticky navigation overlapping BB controls
+* Menu Plus: Add align-items: center to nav as header, mobile header and sticky nav with branding
+* Sections: Fix text/visual switch bug in Firefox
+* Sites: Add option to revert site import
+* Sites: Increase site library limit to 100
+* Spacing: Add live preview to group container padding
+* Typography: Add tablet site title/navigation font size options
+* Typography: Add archive post title weight, transform, font size and line height
+* Typography: Add single content title weight, transform, font size and line height
+* Typography: Only call all google fonts once in the Customizer
+* Typography: Get Google fonts from readable JSON list
+* Typography: Make sure font settings aren't lost if list is changed
+* Typography: Only call generate_get_all_google_fonts if needed
+* WooCommerce: Add columns gap options (desktop, tablet, mobile)
+* WooCommerce: Add tablet column options
+* WooCommerce: Add related/upsell tablet column options
+* WooCommerce: Support SVG icon feature
+* WooCommerce: Prevent empty added to cart panel on single products
+* WooCommerce: Fix woocommerce-ordering arrow in old FF versions
+* WooCommerce: Make item/items string translatable
+* General: Better customizer device widths
+* General: Use generate_premium_get_media_query throughout modules
+* General: Improve Customizer control styling
+
+= 1.8.3 =
+* Menu Plus: Use flexbox for center aligned nav with nav branding
+* Menu Plus: Center overlay off canvas exit button on mobile
+* Menu Plus: Add alt tag to sticky nav logo
+* Menu Plus: Set generate_not_mobile_menu_media_query filter based on mobile menu breakpoint
+* Sections: Remember when text tab is active
+* Sections: Disable visual editor if turned off in profile
+* Typography: Add generate_google_font_display filter
+* WooCommerce: Fix single product sidebar layout metabox option
+* WooCommerce: Reduce carousel thumbnail max-width to 100px to match new thumbnail sizes
+
+= 1.8.2 =
+* Elements: Use Page Hero site title color for mobile header site title
+* Menu Plus: Give mobile header site title more left spacing
+* Menu Plus: Fix nav search icon in sticky navigation when using nav branding in Firefox
+* Site Library: Show Site Library tab even if no sites exist
+* Site Library: Show an error message in Site Library if no sites exist
+* Typography: Remove reference to generate_get_navigation_location() function
+* WooCommerce: Remove quantity field arrows when using quantity buttons in Firefox
+* WooCommerce: Remove extra border when loading quantity buttons
+* WooCommerce: Use get_price_html() is sticky add to cart panel
+
+= 1.8.1 =
+* Menu Plus: Revert sticky nav duplicate ID fix due to Cyrillic script bug
+
+= 1.8 =
+* Blog: Apply columns filter to masonry grid sizer
+* Colors: Merge Footer Widgets and Footer controls in Color panel
+* Colors: Remove edit_theme_options capability to Customizer controls (set by default)
+* Disable Elements: Make sure mobile header is disabled when primary navigation is disabled
+* Elements: Add content width option in Layout Element
+* Elements: Fix mobile header logo when mobile menu toggled
+* Elements: Add generate_page_hero_location filter
+* Elements: Add generate_elements_show_object_ids filter to show IDs in Display Rule values
+* Elements: Prevent merged header wrap from conflicting with Elementor controls
+* Elements: Change Container tab name to Content
+* Elements: Add woocommerce_share option to Hooks
+* Elements: Improve WPML compatibility
+* Elements: Improve Polylang compatibility
+* Elements: Prevent PHP notices when adding taxonomy locations to non-existent archives
+* Elements: Add generate_mobile_cart_items hook to hook list
+* Elements: Add generate_element_post_id filter
+* Elements: Escape HTML elements inside Element textarea
+* Elements: Add Beaver Builder templates to the Display Rules
+* Menu Plus: Add mobile header breakpoint option
+* Menu Plus: Add off canvas overlay option
+* Menu Plus: Add navigation as header option
+* Menu Plus: Remove navigation logo option if navigation as header set
+* Menu Plus: Add sticky navigation logo option
+* Menu Plus: Allow site title in mobile header instead of logo
+* Menu Plus: Add option to move exit button inside the off canvas panel
+* Menu Plus: Change Slideout Navigation name to Off Canvas Panel
+* Menu Plus: Only re-focus after slideout close on escape key
+* Menu Plus: Give close slideout event a name so it can be removed
+* Menu Plus: Remove invalid transition-delay
+* Menu Plus: Improve slideout overlay transition
+* Menu Plus: Add mobile open/close icons to GPP font
+* Menu Plus: Allow dynamic widget classes in off canvas panel (fixes WC range slider widget issue)
+* Menu Plus: Basic compatibility with future SVG icons
+* Menu Plus: Prevent duplicate IDs when sticky navigation is cloned
+* Secondary Nav: Add dropdown direction option
+* Secondary Nav: Basic compatibility with future SVG icons
+* Sections: Fix section editor issues in WP 5.0
+* Sections: Show Better Font Awesome icon in editor
+* Sites: Re-design UI
+* Sites: Add option to activate as a module like all the other modules
+* Sites: Don't show backup options button if no options exist
+* Sites: Make JS action classes more specific to the site library
+* Sites: Set mime types of content.xml and widgets.wie
+* Spacing: Add header padding option for mobile
+* Spacing: Add widget padding option for mobile
+* Spacing: Add footer widgets padding option for mobile
+* Spacing: Add content separator option
+* Spacing: Apply mobile menu item width to mobile bar only
+* WooCommerce: Add option for mini cart in the menu
+* WooCommerce: Add option to open off overlay panel on add to cart
+* WooCommerce: Add option to open sticky add to cart panel on single products
+* WooCommerce: Add option to add +/- buttons to the quantity fields
+* WooCommerce: Add option to show number of items in cart menu item
+* WooCommerce: Add option to choose single product image area width
+* WooCommerce: Add color options for price slider widget
+* WooCommerce: Use CSS grid for the product archives
+* WooCommerce: Horizontally align add to cart buttons
+* WooCommerce: Re-design the cart widget
+* WooCommerce: Tighten up product info spacing
+* WooCommerce: Improve product tab design to look more like tabs
+* WooCommerce: Simplify single product image display
+* WooCommerce: Use flexbox for quantity/add to cart alignment
+* WooCommerce: Improve rating star styles
+* WooCommerce: Use product alignment setting for related/upsell products
+* WooCommerce: Remove bottom margin from product image
+* WooCommerce: Organize colors in the Customizer
+* WooCommerce: Remove title attribute from menu cart item
+* WooCommerce: Improve coupon field design
+* WooCommerce: Improve result count/ordering styling
+* WooCommerce: Add gap around WC single product images
+* WooCommerce: Remove arrow from checkout button
+* WooCommerce: Hide view cart link on add to cart click
+* WooCommerce: Organize CSS
+* Introduce in-Customizer shortcuts
+* Add generate_disable_customizer_shortcuts filter
+
+= 1.7.8 =
+* Sites: Prevent future compatibility issues with Elementor by removing automatic URL replacement
+
+= 1.7.7 =
+* Sites: Fix failed content import in specific PHP versions
+
+= 1.7.6 =
+* Elements: Hide Add New button when opening saved Element with no type
+* Sections: Show page title in Gutenberg when Sections are active
+* Sections: Fix relative image URLs inside the Section editor
+* Sites: Fix failed content/widget import in WP 5.0.1/4.9.9
+* Sites: Fix no access to WooCommerce setup wizard
+
+= 1.7.5 =
+* Colors: Improve block editor button color preview
+* Menu Plus: Mobile menu items hidden behind content with higher z-index when sticky
+* Menu Plus: Prevent mobile menu from covering mobile toggle when sticky
+* Menu Plus: Don't close mobile menu if # is the whole URL
+
+= 1.7.4 =
+* Colors: Fix navigation live color preview issues
+* Colors: Move navigation parent item title down in Customizer
+* Elements: Allow slashes in hook names
+* General: Fix smooth scroll anchor location on mobile (requires GP 2.2)
+* Menu Plus: Use https for navigation microdata
+* Menu Plus: Remove header-image class from navigation and mobile header logos
+* Menu Plus: Add navigation search height support to mobile header and sticky nav
+* Typography: Include block editor button in live preview
+
+= 1.7.3 =
+* Blog: Allow masonry to be turned off using a boolean filter
+* Blog: Fix load more button appearing when not needed
+* Blog: Remove infinite scroll load more button from WooCommerce archives
+* Blog: Prevent content width option from applying to columns
+* Elements: Fix empty object fields when Post Archive is set
+* Elements: Allow slashes in custom hook field
+* Elements: Allow multiple layout elements per condition
+* Elements: Allow 0 value in mobile padding options
+* Elements: Prevent PHP notice if $post isn't an object
+* Gutenberg: Add initial support for live preview spacing of Gutenberg blocks
+* Menu Plus: Add menu-item-align-right class to slideout toggle
+* Menu Plus: Fix JS error in slideout navigation when no menu is set
+* Sites: Fix image shadow on hover
+* Sites: Add message when no plugins are needed
+* Sites: Update custom link URL in menu items
+* Sites: Prevent PHP warning in PHP 7.3
+* Sites: Add generate_sites_ignore_plugins filter
+* Sites: Fix WooCommerce setup wizard conflict with Site Library
+* Sites: Fix PHP notices during WooCommerce setup wizard
+* Typography: Add support for H1-H3 bottom margin options
+* WooCommerce: Add menu-item-align-right class to cart menu item
+* WooCommerce: Fix multi column product spacing on mobile
+
+= 1.7.2 =
+* Elements: Fix admin body class spaces
+* General: Fix JS error in anchors when smooth scroll class not added
+* General: Fix sticky navigation offset when using smooth scroll
+* WooCommerce: Apply Elementor Pro WC columns fix to Elementor Pro widget only
+* WooCommerce: Fix BlockUI issue
+
+= 1.7.1 =
+* Elements: Fix PHP error in PHP 5.3
+* Elements: Fix Choose Element not showing due to some third party plugins
+
+= 1.7 =
+* Blog: Prevent masonry container jump on load
+* Blog: Change "Full" label to "Full Content"
+* New: Elements module
+* Elements: Header element (replaces the Page Header module)
+* Elements: Hook element (replaces the Hooks module)
+* Elements: Layout element
+* Hooks: Replaced by Elements module
+* Hooks: Move link to legacy hooks inside Elements area
+* Import/Export: Re-write code
+* Import/Export: Import activated modules
+* Menu Plus: Fix slideout close button alignment/color issues
+* Menu Plus: Fix slideout issue with relative main navigation CSS
+* Menu Plus: Fix ul display inside slideout navigation widget
+* Menu Plus: Change Slideout Navigation theme location label to Slideout Menu
+* Menu Plus: Close slideout navigation when a link within it is clicked
+* Menu Plus: Show slideout navigation theme location option after Primary
+* Menu Plus: Improve a11y of slideout navigation
+* Menu Plus: Add .site-wrapper class compatibility to sticky nav
+* Menu Plus: Prepare offside.js for future button dropdown menu toggle
+* Menu Plus: Add .slideout-exit class to close slideout
+* Page Header: Replaced by Elements module
+* Page Header: Move link to legacy Page Headers inside Elements area
+* Page Header: Fix hentry Google Search Console errors
+* Page Header: Fix clearing element issue
+* Page Header: WPML fix in global locations
+* Page Header: Prevent PHP notices within Elementor Library area
+* Page Header: Fix retina logo issue (in new Elements module only)
+* Page Header: Show original logo in sticky navigation (in new Elements module only)
+* Page Header: Add mobile header logo option (in new Elements module only)
+* Secondary Nav: Show theme location option after Primary
+* Sections: Allow Sections when Gutenberg is activated
+* Sections: Hide Gutenberg editor when Sections enabled
+* Sections: Fix text domain issues
+* Sections: Use regular checkbox for use sections
+* Spacing: Add future support for sub-menu width option
+* Sites: Fix .complete class conflicts
+* Sites: Add GENERATE_DISABLE_SITE_LIBRARY constant
+* Sites: Remove verified provider debug notice
+* Sites: Add class check to prevent future Elementor error
+* WooCommerce: Add shopping bag and shopping basket icon options to cart menu item
+* WooCommerce: Update shopping cart icon
+* WooCommerce: Fix WC error with non-product post types
+* WooCommerce: Fix too many WC star issue
+* WooCommerce: Add CSS for cart menu item in secondary nav
+* WooCommerce: Add WC menu item location filter to mobile cart
+* WooCommerce: Fix issue with disabling sale badge when set to overlay
+* WooCommerce: Add option to disable/enable sale badge on single product pages
+* WooCommerce: Fix my account icon on mobile
+* WooCommerce: Fix columns issue with Elementor Pro
+* General: Fix smooth scroll issues on mobile
+* General: Improve overall smooth scroll functionality
+* General: Add generate_smooth_scroll_elements filter
+* General: Move GPP icons from Font Awesome to custom icons
+* A11y: Add context to all "Contained" strings
+
+= 1.6.2 =
+* Sites: Prevent PHP notice when Sites can't be reached
+
+= 1.6.1 =
+* Blog: Fix infinite scroll masonry issues in Firefox
+* General: Improve smooth scroll script
+* Import/Export: Show modules to export if defined in wp-config.php
+* Sites: Prevent PHP warnings if no Sites are found
+* Sites: Add generate_disable_site_library filter to disable Site Library
+* Sites: Improve page builder filter display
+* Sites: Prevent duplicate site display after details button in preview clicked
+* WooCommerce: Add missing icons if Font Awesome is turned off
+
+= 1.6 =
+* New: Sites module
+* Translations: Merge all translations into gp-premium text domain
+* General: Add smooth scroll option
+* General: Move batch processing files into library
+* General: Add GPP icon set
+* General: WPCS and PHPCS improvements
+* Blog: Fix PHP 7.2 warning
+* Blog: Fix Safari infinite scroll issues with srcset
+* Blog: Refresh masonry on infinite scroll append
+* Blog: Remove infinite scroll on 404 and no results pages
+* Blog: Fix Yoast SEO breaking columns with certain settings
+* Blog: Re-layout masonry on load
+* Colors: Add slideout navigation color options
+* Colors: Merge navigation + sub-navigation options into one section
+* Import/Export: One click export and import
+* Menu Plus: Re-build slideout navigation to use vanilla JS
+* Menu Plus: Add slideout navigation widget area
+* Menu Plus: Add close icon to slideout navigation
+* Menu Plus: Set sticky nav ID on refresh if stuck
+* Menu Plus: Allow WPML to modify Page Header select metabox
+* Menu Plus: Re-build mobile header using flexbox
+* Menu Plus: Use CSS for slideout navigation icon
+* Menu Plus: Fix sticky navigation slide down in Safari
+* Menu Plus: Add workaround for iOS sticky nav search issue
+* Page Header: Improve Page Header metabox UI on smaller screens
+* Page Header: Use author display name in template tag
+* Page Header: Add generate_page_header_id filter
+* Page Header: Fix vertical center issues in IE11
+* Page Header: Remove flexibility.js for IE8 support
+* Page Header: Fix GiveWP compatibility
+* Secondary Navigation: Re-build CSS
+* Sections: Disable Gutenberg if Sections are activated
+* Sections: Add generate_sections_gutenberg_compatible filter
+* Spacing: Fix one container widget padding preview in Customizer
+* Typography: Add Slideout Navigation typography options
+* WooCommerce: Clear up-sells when directly after entry content
+* WooCommerce: Fix placeholder text cut off in Firefox
+* WooCommerce: Use GPP icon set for cart menu item
+* WooCommerce: Load .js in the footer
+* Update Background Process library
+* Clean up code license key activation code
+* Remove verify.php
+* Prevent PHP notice when saving empty license
+* Add beta testing checkbox to license key area
+
+= 1.5.6 =
+* Backgrounds: Make position control description translatable
+* Blog: Fix disabled page featured images if post featured images are disabled
+* Blog: Let WP handle featured image alt attributes
+* Colors: Fix text domain
+* Colors: Improve inconsistent live preview behavior
+* Menu Plus: Prep desktop only slideout icon for GP 2.0
+* Page Header: Allow unfiltered HTML in content if user is allowed
+* Page Header: Only load CSS file if content is added
+* Typography: Fix h5 font size not appearing in GP 2.0
+
+= 1.5.5 =
+* Blog: Fix broken images while using Infinite Scroll in Safari
+* Typography: Fix first variant not appearing when you select a font
+* Typography: Fix select issues when plugins load old versions of the select2 library
+
+= 1.5.4 =
+* Sections: Fix Visual/Text tab in WP 4.9
+* Sections: Fix Content/Settings tab in WP 4.9
+
+= 1.5.3 =
+* Blog: Fix masonry filter not working on custom post type archives
+* Blog: Fix resized featured images when page header resizer is enabled
+* Blog: Fix broken Customizer toggles in Safari
+* Page Header: Fix PHP notice when saving posts
+* Fix/add various gettext values
+
+= 1.5.2 =
+* Backgrounds: Fix issue with saving background image options
+
+= 1.5.1 =
+* Blog: Make infinite scroll container selector more specific
+* Page Header: Fix background video when container is contained
+* Page Header: Remove featured image on attachment pages
+
+= 1.5 =
+* Backgrounds: Rebuild Customizer control
+* Blog: Move Blog panel into the Layout panel
+* Blog: Migrate options from select dropdowns to checkboxes where applicable
+* Blog: Merge masonry + column options into one area
+* Blog: Add new post meta visibility options for single posts
+* Blog: Replace old image resizer (aq_resize) with Image Processing Queue (reload your site once or twice to build new images)
+* Blog: Add single post featured image options
+* Blog: Add page featured image options
+* Blog: Remove masonry meta box
+* Blog: Add option to remove padding around centered featured images
+* Blog: Add option to turn read more link into button
+* Blog: Add option to turn on infinite scroll regardless of layout
+* Blog: Use infinite scroll with or without a load more button
+* Blog: Make read more links better for accessibility
+* Blog: Migrate single post page header position option to single featured image location option
+* Blog: Remove ellipses if excerpt is set to 0
+* Blog: Change style.css handle to include generate prefix
+* Blog: Remove unnecessary IE8 support
+* Blog: Add alt attribute to featured images
+* Blog: Fix pagination spacing when One Container is set
+* Blog: Fix column/masonry spacing at 768px
+* Colors: Add select input live preview settings
+* Colors: Fix button labels
+* Copyright: Move Copyright section into Layout panel
+* Menu Plus: Fix mobile menu logo bug when navigation is set to float right
+* Menu Plus: Fix no transition sticky navigation bug while on mobile
+* Page Header: Replace old image resizer (aq_resize) with Image Processing Queue (reload your site once or twice to build new images)
+* Page Header: Don't use global page header locations if not published
+* Page Header: Sanitize page header content when saved to database
+* Page Header: Make sure Elementor sections are accessible when page header is merged
+* Page Header: Prepare transparent color picker for WP 4.9 changes
+* Page Header: Fix background video in Safari 11
+* Page Header: Add global locations for taxonomies
+* Page Header: Add {{custom_field.description}} template tag to taxonomies (categories etc..)
+* Page Header: Add ID to page header element
+* Page Header: Fix individual taxonomy page header control not appearing on Toolset created taxonomies
+* Page Header: Ensure jQuery Vide (video background) script only loads when needed
+* Page Header: Fix custom images not displaying
+* Page Header: Fix image link option not working
+* Typography: Lay groundwork for H6 options
+* Typography: Space out heading typography options
+* Typography: Add System Stack option
+* Typography: Fix Google Font variant control in WP 4.9
+* Sections: Show Envira button
+* Sections: Show Gridable button
+* Sections: Prepare transparent color picker for WP 4.9 changes
+* WooCommerce: Add filter to cart menu item location
+* WooCommerce: Better activation compatibility with multi-site
+* WooCommerce: Use wc_get_cart_url() for menu item
+* German translations updated (Thanks, Daniel!)
+
+= 1.4.3 =
+* Page Header: Pass args to post_thumbnail_html filter
+* Page Header: Allow custom field template tags on pages
+* Page Header: Re-add generate_page_header_video_loop filter
+* Page Header: Add generate_page_header_video_muted filter
+* Page Header: Remove taxonomy title if page header has title
+* WooCommerce: Improve disabled WC button styling
+
+= 1.4.2 =
+* Page Header: Improve inner container
+* Page Header: Allow contained page header even when position:absolute is set
+* Page Header: Apply page header text color to headings in page header
+* WooCommerce: Fix mobile columns issue
+
+= 1.4.1 =
+* Page Header: Fix error in Customizer when using PHP version < 5.5
+
+= 1.4 =
+* Colors: Add back to top button color options
+* Colors: Add h4-h5 color options
+* Colors: Move button color options into own Buttons section
+* Hooks: Show PHP execution message to admins only
+* Menu Plus: Improve disabling of native mobile menu when slide-out is set
+* Menu Plus: Fix sticky mobile menu when navigation is in sidebar
+* Menu Plus: Fix invisible navigation when slide sticky is shown/hidden quickly
+* Page Header: Complete code re-write
+* Page Header: Turn Page Headers into a custom post type (CPT)
+* Page Header: Can be applied per page, or globally (pages, posts, categories, CPTs etc..)
+* Page Header: Template tags can be used in Page Header content (page title, author, date)
+* Page Header: Turn bg color options in RGBA picker
+* Page Header: New use bg color as image overlay option
+* Page Header: Re-write parallax feature
+* Page Header: Migrate Blog Page Header in Customizer into a CPT post on update
+* Page Header: Add "Inner Container" width option.
+* Page Header: Add menu background color (instead of forcing transparent)
+* Page Header: Show content options all the time
+* Page Header: Force full width page header if merge is set
+* Page Header: Use set default color palettes in color pickers
+* Page Header: New left/right padding option
+* Sections: Make background color rgba color picker
+* Sections: Add background color overlay options
+* Sections: Use set default color palettes in color pickers
+* Sections: Fix dropdown z-index bug introduced in WP 4.8.1
+* Typography: Add H1-H3 line-height options
+* Typography: Add H4-H5 typography options
+* Typography: Add footer/copyright area typography options
+* Typography: Add button typography options
+* Typography: Rename Content Customizer section to Headings
+* Typography: Add widget title separating space option
+* Typography: Make fonts in Customizer search-able
+* Typography: Allow Google Font variants to be added/removed
+* WooCommerce: Fix columns issue on some pages
+* WooCommerce: Fix mobile columns when using shortcode
+* WooCommerce: Fix extra spacing in empty cart menu item
+* WooCommerce: Show Cart text if no icon
+* WooCommerce: Make cart menu item filterable
+* WooCommerce: Fix sales badge height in IE11
+
+= 1.3.1 =
+* Hooks: Add notice to disable PHP execution if DISALLOW_FILE_EDIT is defined
+* Menu Plus: Fix RTL spacing in slide-out menu
+* Menu Plus: Fix bug where sticky nav was interfering with mobile header
+* Menu Plus: Merge all sticky nav transitions into one script
+* Menu Plus: Re-write fade and slide sticky navigation transitions
+* Menu Plus: Add new option to hide sticky navigation while scrolling down
+* WooCommerce: Add padding to terms on checkout
+* WooCommerce: Make shop page options work when shop is set to category display
+* WooCommerce: Style mark element
+* WooCommerce: Remove border/padding from checkout fields
+* WooCommerce: Remove color from my account arrows
+* WooCommerce: Adjust ship to address padding
+* WooCommerce: Fix ul elements when WC image is floating
+* WooCommerce: Fix pagination clearing issue
+* WooCommerce: Add pt_BR translation
+* WooCommerce: Fix spacing issue with menu item cart icon and certain fonts
+* Fix double forward slashes in some script calls inside Customizer
+* Add WPML config file
+
+= 1.3 =
+* Backgrounds: Fix big with 100% auto sizing option
+* Colors: Add WooCommerce add-on colors
+* Import/Export: Add WooCommerce add-on
+* Menu Plus: Improve Navigation Logo sizing
+* Menu Plus: Re-write no transition sticky navigation
+* Secondary Nav: Add padding to sides of top bar when merged
+* Secondary Nav: Only load resources if the Secondary theme location is set
+* Sections: Fix mix up of left/right content padding
+* Spacing: New mobile menu item width/height options
+* Spacing: New sticky menu item height option
+* Spacing: New slide-out menu item height option
+* Typography: New mobile menu item font size option
+* WooCommerce: Introducing new WooCommerce add-on
+* Move all Customizer controls and helper functions into globally accessible library
+* Rebuilt range slider control to include responsive icons which display responsive controls
+* Rebuilt typography control reducing number of controls from 50 to 10 (performance)
+* Updated the automatic updater function
+* Add filter to enable beta updates: generate_premium_beta_tester
+
+== Changelog archives ==
+* See more at https://generatepress.com/category/development/

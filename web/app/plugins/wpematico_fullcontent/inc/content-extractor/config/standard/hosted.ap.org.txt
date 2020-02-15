@@ -1,0 +1,5 @@
+body: //table[@class='ap-smallphoto-table'] | //div[@class='body']//*[@class='entry-content']
+tidy: no
+strip_image_src: analytics.apnewsregistry
+
+test_url: http://hosted.ap.org/dynamic/stories/U/US_NORDSTROM_TRUMP_TWEET?SITE=AP&SECTION=HOME&TEMPLATE=DEFAULT&CTIME=2017-02-09-15-18-18

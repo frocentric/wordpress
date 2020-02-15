@@ -1,0 +1,15 @@
+body: //div[@class='entry']
+
+strip_id_or_class:'shortc-button'
+strip_id_or_class:'st_facebook_hcount'
+strip_id_or_class:'st_twitter_hcount'
+strip_id_or_class:'st_googleplus_hcount'
+strip_id_or_class:'st_linkedin_hcount'
+strip_id_or_class:'st_sharethis_hcount'
+
+tidy: yes
+autodetect_on_failure: no
+prune: yes
+
+test_url: http://bh-vjesnik.net/komplikovana-veza-26-epizoda/
+test_url: http://bh-vjesnik.net/elif-281-epizoda/

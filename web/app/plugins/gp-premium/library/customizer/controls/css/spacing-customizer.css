@@ -1,0 +1,105 @@
+.gp-spacing-control-section-title-area {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.gp-range-slider-controls {
+	margin-left: auto;
+}
+
+.customize-control-spacing .description {
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-style: normal;
+	opacity: 0.7;
+}
+
+.spacing-values-area {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.gp-spacing-section input {
+	min-height: 30px;
+	border-radius: 0;
+	border-color: #ddd;
+}
+
+.gp-link-spacing-section span {
+    display: block;
+    color: #0073aa;
+    font-size: 14px;
+    cursor: pointer;
+    height: auto;
+    min-height: 28px;
+    line-height: 28px;
+    box-sizing: border-box;
+    width: 40px;
+	background: #fff;
+    border: 1px solid #ddd;
+}
+
+.gp-link-spacing-section span.gp-unlink-spacing {
+	background-color: #0073aa;
+	color: #fff;
+}
+
+.gp-spacing-section {
+	margin-right: 2px;
+	text-align:center
+}
+
+.gp-link-spacing-section {
+	margin-right: 0;
+}
+
+.gp-spacing-section .description {
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-style: normal;
+	opacity: 0.7;
+}
+
+.no-edit-field {
+	font-size: 11px;
+	opacity: 0.8;
+	font-weight: 600;
+}
+
+/*
+ * Make sure slider is 100% wide.
+ * Old versions of Secondary Nav will have this set as 50%
+ * so we need to set !important to overwrite that.
+ */
+.customize-control.customize-control-gp-spacing-slider {
+	width: 100% !important;
+}
+
+.customize-control-generatepress-spacing .gp-spacing-control-section-title-area .dashicons {
+	cursor: pointer;
+	font-size: 11px;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	color: #222;
+	text-align: center;
+	position: relative;
+	top: 2px;
+}
+
+.customize-control-generatepress-spacing .gp-spacing-control-section-title-area .dashicons:hover {
+	background: #fafafa;
+}
+
+.customize-control-generatepress-spacing .gp-spacing-control-section-title-area .dashicons.selected {
+	background: #fff;
+	color: #222;
+}
+
+.customize-control-generatepress-spacing .gp-device-controls > span:first-child:last-child {
+	display: none;
+}

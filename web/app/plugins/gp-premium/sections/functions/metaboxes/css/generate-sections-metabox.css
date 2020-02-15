@@ -1,0 +1,351 @@
+body {
+	-webkit-backface-visibility: hidden;
+}
+#_generate_sections_metabox {
+	opacity: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+#_generate_use_sections_metabox {
+	display: block !important;
+}
+
+.generate_sections_control {
+	padding-top: 8px;
+}
+
+.generate-sections-enabled #postdivrich {
+	opacity: 0;
+	height: 0;
+	overflow: hidden;
+}
+.generate-sections-enabled #_generate_sections_metabox {
+	opacity: 1;
+	height: auto;
+}
+
+.generate_sections_control .warning {
+	color: red;
+}
+.generate_sections_control .dodelete-repeating_textareas {
+	float: right;
+}
+.generate_sections_control .section {
+	border: 1px solid #DFDFDF;
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+	margin: 6px 0px 8px;
+	overflow: hidden;
+	position: relative;
+	background: white;
+}
+.generate_sections_control .section .section-title {
+	font-size: 14px;
+	padding: 0 0 0 15px;
+	margin: 0;
+	max-height: 50px;
+}
+.generate_sections_control .section .section-title > span {
+	cursor: pointer;
+	overflow:hidden;
+	display:block;
+	max-height:50px;
+	line-height:50px;
+	width:100%;
+}
+.generate_sections_control .section .section-controls {
+	position: absolute;
+	top:0;
+	right:0;
+	text-align: right;
+}
+.rtl .generate_sections_control .section .section-controls {
+	right:auto;left:0;
+}
+.generate_sections_control .section .section-controls a {
+	color: #aaa;
+	display:block;
+	float:left;
+	border-left: 1px solid #efefef;
+}
+.generate_sections_control .section .section-controls a:hover {
+	color: #777;
+}
+.generate_sections_control .section textarea {
+	display: none;
+}
+.generate_sections_control .section h3 {
+	color: #999;
+	font-size: 1em;
+	margin: 15px 6px;
+	text-transform: uppercase;
+}
+.generate_sections_control .section .ui-sortable-placeholder {
+	line-height: 1.4em;
+	border: 3px dashed #DDD;
+}
+.generate-sections-modal .media-menu-item {
+	cursor: pointer;
+}
+.custom-classes input {
+	width:100%;
+}
+.js .generate_sections_control .move-section {
+	cursor: move;
+}
+.generate-sections-modal p {
+	margin-top:5px;
+}
+#_generate_sections_metabox {
+	box-shadow: 0 0 0 transparent;
+}
+.section-controls a {
+	line-height:50px;
+	padding: 0 15px;
+	width:initial;
+	height:initial;
+}
+
+.generate_sections_control .section .section-controls a.delete-section:hover {
+	color: red;
+}
+
+.generate_sections_control p {
+    margin: 5px;
+}
+
+textarea#generate-sections-editor {
+	border:0;
+}
+
+#generate-sections-editor_ifr {
+	min-height: 400px;
+}
+
+a#generate-add-section, a#generate-delete-sections {
+    height: auto;
+    line-height: inherit;
+    padding: 10px 20px;
+}
+
+#wp-generate-sections-editor-wrap.old-sections-js .wp-media-buttons > * {
+	display:none;
+}
+
+#wp-generate-sections-editor-wrap.old-sections-js .wp-media-buttons > .generate-sections-add-media,
+#wp-generate-sections-editor-wrap.old-sections-js .wp-media-buttons > .su-generator-button,
+#wp-generate-sections-editor-wrap.old-sections-js .wp-media-buttons > .envira-gallery-choose-gallery,
+#wp-generate-sections-editor-wrap.old-sections-js .wp-media-buttons > .gridable-insert-row-button {
+	display: inline-block;
+}
+
+#custom-media-buttons > * {
+	display: none;
+}
+
+#custom-media-buttons > .insert-media,
+#custom-media-buttons > .su-generator-button,
+#custom-media-buttons > .envira-gallery-choose-gallery,
+#custom-media-buttons > .gridable-insert-row-button,
+#custom-media-buttons > .bfa-iconpicker {
+	display: inline-block;
+}
+
+#_generate_sections_metabox {
+	background: transparent;
+	border: 0;
+}
+#_generate_sections_metabox > .handlediv, #_generate_sections_metabox > .hndle {
+	display: none;
+}
+#_generate_sections_metabox > .inside {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+body.wp-admin .grid-container {
+	max-width: 100%;
+}
+
+.generate-sections-modal h3 {
+	margin-top: 0;
+}
+
+input#custom_classes,
+input#custom_id {
+    width: 100%;
+    max-width: 300px;
+}
+
+.box-type select,
+.inner-box-type select,
+.parallax-effect select,
+.top-padding input,
+.bottom-padding input {
+	width: 100%;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.send-to-editor {
+	display: inline-block;
+	margin-top: 15px !important;
+}
+
+.gs-grid-container {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.gs-grid-parent {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.gs-grid-container:before,
+.gs-grid-container:after {
+	content: ".";
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	font-size: 0;
+	line-height: 0;
+	width: 0;
+	height: 0;
+	clear: both;
+}
+
+@media screen and (min-width: 769px) {
+	.gs-grid-50:before,
+	.gs-grid-50:after,
+	.gs-grid-33:before,
+	.gs-grid-33:after,
+	.gs-grid-25:before,
+	.gs-grid-25:after
+	.gs-grid-20:before,
+	.gs-grid-20:after
+	.gs-grid-12:before,
+	.gs-grid-12:after {
+		content: ".";
+		display: block;
+		overflow: hidden;
+		visibility: hidden;
+		font-size: 0;
+		line-height: 0;
+		width: 0;
+		height: 0;
+		clear: both;
+	}
+	.gs-grid-50,
+	.gs-grid-33,
+	.gs-grid-25,
+	.gs-grid-20,
+	.gs-grid-12 {
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.gs-grid-50 {
+		width: 50% !important;
+		float: left;
+	}
+	.gs-grid-33 {
+		width: 33.333% !important;
+		float: left;
+	}
+	.gs-grid-25 {
+		width: 25% !important;
+		float: left;
+	}
+	.gs-grid-20 {
+		width: 20% !important;
+		float: left;
+	}
+	.gs-grid-12 {
+		width: 12.5% !important;
+		float: left;
+	}
+	.top-border {
+		border-top: 1px solid #EFEFEF;
+	}
+	.bottom-border {
+		border-bottom: 1px solid #EFEFEF;
+	}
+	.border-right {
+		border-right: 1px solid #EFEFEF;
+	}
+	.border-left {
+		border-left: 1px solid #EFEFEF;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.gs-grid-50, .gs-grid-33, .gs-grid-25, .gs-grid-12 {
+		width: 100% !important;
+	}
+	.generate_sections_control .section .section-controls {
+		position: relative;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.generate_sections_control .section .section-controls a:first-child {
+		border-left: 0;
+	}
+}
+
+#generate-sections-modal-dialog .media-modal-close {
+    text-decoration: none;
+    text-align: center;
+}
+/*
+	The styles below were ripped from the Media Modal in WordPress 3.5
+	~~ Thanks for building a beautiful Modal UI ( that I could steal )
+*/
+body.generate-modal-open { overflow: hidden; }
+
+.generate-sections-modal .media-modal { z-index: 65535; }
+.generate-sections-modal .media-modal-backdrop { z-index: 65534; }
+.generate-sections-modal .media-frame-content .panel { display: none; padding: 2em; }
+.generate-sections-modal .media-frame-content .panel.active { display: block; }
+.generate-sections-modal .media-frame-content .panel .section-title input { width:100%;padding:10px; }
+.generate-sections-modal .media-frame-content .panel .html-active .mce-panel { display: none; }
+.generate-sections-modal .media-frame-content .panel .html-active .wp-editor-area { display: block !important; min-height: 300px; }
+.generate-sections-modal .media-frame-content .panel .mce-wp-dfw, .generate-sections-modal .media-frame-content .panel .qt-dfw { display: none; }
+.generate-sections-modal .media-frame-content .panel .generate-sections-remove-image { display: none; }
+
+textarea.no-rich-edit {
+	width: 100%;
+	min-height: 300px;
+}
+
+/*# sourceMappingURL=meta.css.map */
+
+.wp-picker-container .wp-color-result.button {
+    height: 24px;
+    margin: 0 6px 6px 0px;
+    padding: 0 0 0 30px;
+    font-size: 11px;
+}
+
+.wp-color-result:after {
+	display: none;
+}
+
+.wp-color-result-text {
+    background: #f7f7f7;
+    border-radius: 0 2px 2px 0;
+    border-left: 1px solid #ccc;
+    color: #555;
+    display: block;
+    line-height: 22px;
+    padding: 0 6px;
+    text-align: center;
+}

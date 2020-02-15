@@ -1,0 +1,835 @@
+.appearance_page_generatepress-site-library #wpcontent,
+.appearance_page_generatepress-site-library #wpbody-content .metabox-holder {
+    padding: 0;
+}
+
+.generate-site-library .site-library-header {
+    background-color: #fff;
+    box-shadow: 0 1px 0 rgba(200,215,225,0.5), 0 1px 2px #DDD;
+    margin-bottom: 40px;
+    padding: 20px;
+}
+
+.site-library-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.generate-site-library a {
+	text-decoration: none;
+}
+
+.site-library-header .site-library-container {
+	display: flex;
+}
+
+.library-links {
+	margin-left: auto;
+}
+
+.library-links a {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.library-title {
+    font-size: 20px;
+    color: #000;
+    font-weight: 500;
+}
+
+.generatepress-admin-block {
+	transition: opacity 300ms ease-in-out;
+}
+
+.generatepress-sites {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	grid-gap: 40px;
+	margin-bottom: 40px;
+}
+
+.generatepress-sites.site-open {
+	grid-template-columns: 1fr;
+}
+
+.generatepress-sites.site-open .site-box {
+	height: auto;
+}
+
+.generatepress-sites:not(.site-open) .site-box h3 {
+	margin: 0 0 20px;
+	line-height: 1em;
+}
+
+.generatepress-sites .site-screenshot img {
+    height: auto;
+    width: 100%;
+}
+
+.step-information {
+	padding: 0 0 0 20px;
+	grid-area: left;
+}
+
+.step-information,
+.step-information p {
+	font-size: 16px;
+    line-height: 1.5;
+	text-align: left;
+}
+
+.step-information p:first-child {
+	margin-top: 0;
+}
+
+.step-information h3 {
+	margin-top: 0;
+	font-size: 17px;
+}
+
+.loading {
+	line-height: 0;
+}
+
+.loading svg path,
+.loading svg rect {
+  fill: #0073aa;
+}
+
+.step-information li {
+	list-style-type: disc;
+	list-style-position: inside;
+	margin-bottom: 2px;
+    font-size: 12px;
+}
+
+.site-open .steps {
+	display: grid;
+    grid-template-rows: initial;
+    grid-template-columns: 2fr 1fr;
+    grid-template-areas: "left right";
+}
+
+.site-open .site-overview-information {
+    grid-area: left;
+}
+
+.site-box {
+    position: relative;
+}
+
+.generatepress-sites:not(.site-open) .site-box .controls {
+	display: none;
+}
+
+.site-box .controls {
+	display: flex;
+    margin-bottom: 10px;
+}
+
+.site-box .controls button,
+.site-demo .demo-panel button:not(.get-started) {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+	padding: 2px;
+}
+
+.site-demo .demo-panel button:not(.get-started) {
+	height: 48px;
+	line-height: 48px;
+	padding: 0 10px;
+}
+
+.site-box .controls button:hover,
+.site-demo .demo-panel button:not(.get-started):hover {
+	color: #0073aa;
+}
+
+.site-box .steps:not(.step-overview) .controls .next,
+.site-box .steps:not(.step-overview) .controls .prev {
+	display: none;
+}
+
+.site-box .close:before,
+.site-demo .close-demo:before {
+    content: "\f335";
+    font-family: dashicons;
+}
+
+.site-box .prev:before,
+.site-demo .previous-demo:before {
+    content: "\f341";
+    font-family: dashicons;
+}
+
+.site-box .next:before,
+.site-demo .next-demo:before {
+    content: "\f345";
+    font-family: dashicons;
+}
+
+.step-note {
+    font-size: 10px;
+    padding: 5px 10px;
+    text-transform: uppercase;
+    background: #eee;
+    margin-left: 10px;
+    position: relative;
+    top: -2px;
+}
+
+.site-demo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+	z-index: 99999;
+	padding-top: 68px;
+}
+
+.site-demo iframe {
+	background: #fff;
+	width: 100%;
+	height: 100%;
+	height: calc(100% - 68px);
+}
+
+.demo-loading {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -25px;
+	margin-left: -25px;
+	z-index: 3;
+}
+
+.demo-loading.loading svg {
+    height: 50px;
+    width: 50px;
+}
+
+.site-demo .demo-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background: #fff;
+    box-shadow: 0px 0px 20px 0px rgba(38,50,56,0.25);
+    text-align: center;
+    z-index: 3;
+}
+
+.demo-panel .left {
+	float: left;
+}
+
+.demo-panel button.get-started {
+    line-height: 40px;
+    height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 15px;
+	margin-top: 4px;
+}
+
+.automatic-plugins .installing-plugins:first-child:after,
+.automatic-plugins .installing-plugins.show-loading:after {
+    content: "";
+    opacity: 1;
+    display: inline-block;
+    height: 17px;
+    width: 17px;
+    background-image: url(loading.svg);
+    background-size: 17px 17px;
+    margin: 0;
+    position: relative;
+    line-height: 17px;
+    vertical-align: top;
+    margin-left: 5px;
+}
+
+.automatic-plugins .plugin-installed:after {
+    font-family: dashicons;
+    content: "\f147";
+    color: green;
+    line-height: 1;
+    font-size: 13px;
+    position: relative;
+    top: 2px;
+}
+
+
+/*
+ * Start the CSS for the list of site boxes we initially see.
+ */
+.site-screenshot {
+	overflow: hidden;
+	background: #fff;
+}
+
+.site-screenshot img {
+	max-width: 100%;
+	transition: all 300ms ease-in-out;
+	vertical-align: middle;
+}
+
+.lazyload{
+    -webkit-transition: opacity 500ms ease-in-out;
+       -moz-transition: opacity 500ms ease-in-out;
+         -o-transition: opacity 500ms ease-in-out;
+            transition: opacity 500ms ease-in-out;
+             max-width: 100%;
+               opacity: 0;
+}
+
+.lazyload.b-loaded {
+               opacity: 1;
+}
+
+.step-one {
+	position: relative;
+}
+
+.generatepress-sites:not(.site-open) .site-box:not(:hover) .site-screenshot {
+	box-shadow: 0 0 10px rgba( 0,0,0,0.1 );
+}
+
+.site-box:hover .step-one {
+	box-shadow: 0 0 10px rgba( 0,0,0,0.1 );
+}
+
+.step-one .site-info {
+    background: #fff;
+	border-top: 1px solid #ddd;
+    color: #222;
+    display: block;
+    opacity: 0;
+    padding: 20px 40px;
+    position: absolute;
+	left: 0;
+	right: 0;
+    bottom: 0;
+    text-align: center;
+    z-index: 15;
+    transition: all 0.3s ease-in-out;
+}
+
+.site-box:hover .step-one .site-info {
+	opacity: 1;
+}
+
+.steps .site-title {
+	text-align: center;
+	padding-top: 15px;
+	transition: all 0.3s ease-in-out;
+}
+
+.site-box:hover .step-one .site-title {
+	opacity: 0;
+}
+
+.step-one .author-name {
+	opacity: 0.7;
+}
+
+.site-description button {
+    margin: 0 5px !important;
+}
+
+.step-one .site-info a,
+.step-one .site-description a {
+	color: initial;
+}
+
+.plugin-error {
+	padding-left: 10px;
+	color: red;
+}
+
+.plugin-error:before {
+	font-family: dashicons;
+	content: "\f335";
+	padding-right: 3px;
+	line-height: 1;
+    font-size: 13px;
+    position: relative;
+    top: 2px;
+}
+
+.generate-sites .notice {
+    display: none;
+}
+
+.refresh-sites {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.generatepress-sites.site-open + .refresh-sites {
+	display: none;
+}
+
+.site-library-tabs-wrapper {
+    display: flex;
+    margin-bottom: 40px;
+    align-items: center;
+}
+
+.site-library-tabs-wrapper .generatepress-dashboard-tabs {
+    margin-bottom: 0;
+    margin-right: auto;
+}
+
+.filter-select {
+    overflow: hidden;
+    position: relative;
+	cursor: pointer;
+}
+
+.filter-select:after {
+    font-family: dashicons;
+    content: "\f347";
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    pointer-events: none;
+}
+
+.filter-select select {
+	background: #fff;
+	border: 1px solid #ccc;
+    padding: 0 30px 0 10px;
+    box-shadow: none;
+    background-image: none;
+    -webkit-appearance: none;
+	cursor: pointer;
+	height: 35px;
+	line-height: 35px;
+}
+
+.filter-select select:focus {
+    outline: 0;
+	border: 1px solid #bbb;
+}
+
+.page-builder-filter {
+    align-items: center;
+    display: flex;
+}
+
+.page-builder-filter span {
+    font-size: 13px;
+    padding-right: 5px;
+}
+
+.page-builder-label {
+    padding-right: 5px;
+}
+
+.site-demo iframe {
+	position: relative;
+	z-index: 2;
+	display: block;
+	margin: 0 auto;
+}
+
+.site-demo.mobile iframe {
+	width: 500px;
+}
+
+.site-demo.tablet iframe {
+	width: 768px;
+}
+
+.site-demo.open:after {
+    content: "";
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.8);
+    position: fixed;
+    z-index: 1;
+}
+
+.site-demo .show-desktop:before {
+    content: "\f472";
+    font-family: dashicons;
+}
+
+.site-demo .show-tablet:before {
+    content: "\f471";
+    font-family: dashicons;
+}
+
+.site-demo .show-mobile:before {
+    content: "\f470";
+    font-family: dashicons;
+}
+
+.site-demo .demo-panel button.close-demo {
+    border-right: 1px solid #ddd;
+    margin-right: 10px;
+    padding-right: 20px;
+}
+
+.site-demo .demo-panel button.show-desktop {
+    border-left: 1px solid #ddd;
+    margin-left: 10px;
+    padding-left: 20px;
+}
+
+.site-demo .demo-panel button.show-mobile {
+    border-right: 1px solid #ddd;
+    margin-right: 20px;
+    padding-right: 20px;
+}
+
+.site-demo .demo-panel button.active {
+	color: #0073aa;
+}
+
+.version-required-message {
+	font-weight: bold;
+}
+
+.disabled-site {
+	opacity: 0.5;
+}
+
+.disabled-site > * {
+	pointer-events :none;
+}
+
+.site-step-details > div {
+    border-bottom: 1px solid #ddd;
+    margin: 0 0 30px;
+    padding: 0 0 30px 60px;
+    position: relative;
+}
+
+.site-step-details > div:last-child {
+    border: 0;
+	margin: 0;
+    padding-bottom: 0;
+}
+
+.site-step-details > div p:last-child {
+    margin-bottom: 0;
+}
+
+.number,
+.big-loader {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border-radius: 50%;
+    line-height: 40px;
+    text-align: center;
+	top: 5px;
+    left: 0;
+    border: 2px solid #555;
+    font-size: 20px;
+    font-weight: 600;
+	transition: opacity 250ms ease-in-out;
+}
+
+.site-step-details > div:nth-child(1) .number:before {
+	content: "1";
+}
+
+.site-step-details > div:nth-child(2) .number:before {
+	content: "2";
+}
+
+.site-step-details > div:nth-child(3) .number:before {
+	content: "3";
+}
+
+.site-step-details > div:nth-child(4) .number:before {
+	content: "4";
+}
+
+.big-loader {
+	border-color: transparent;
+}
+
+.big-loader svg {
+    height: 50px;
+    width: 50px;
+    position: relative;
+    top: -5px;
+    left: -5px;
+}
+
+.site-step-details > div .number.step-complete:before {
+	content: "\f147";
+	font-family: dashicons;
+	color: #4BB543;
+	font-size: 20px;
+}
+
+.number.step-complete {
+	border-color: #4BB543;
+	font-size: 0;
+}
+
+.site-step-details h3 {
+    margin-bottom: 0;
+}
+
+.site-step-details p {
+    margin: 0;
+}
+
+.replace-elementor-urls,
+.site-step-details .replace-elementor-urls p:not(:first-child) {
+	margin-top: 1em;
+}
+
+.action-area {
+	margin: 40px 0;
+	display: flex;
+	align-items: center;
+}
+
+.action-buttons input[type="submit"] {
+    border-radius: 0;
+    font-size: 17px;
+    line-height: 50px;
+    height: auto;
+    padding: 0 20px;
+}
+
+.big-loader {
+	opacity: 0;
+}
+
+.loading,
+.error-message {
+    font-size: 15px;
+    line-height: 52px;
+}
+
+.loading svg {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    top: 5px;
+}
+
+.checking-for-plugins {
+    line-height: normal;
+}
+
+.action-area {
+    display: flex;
+    align-items: center;
+}
+
+.important-note {
+	padding-left: 20px;
+	width: 75%;
+	margin-left: auto;
+}
+
+.important-note label {
+    display: flex;
+    align-items: baseline;
+}
+
+.important-note input {
+    position: relative;
+    top: 3px;
+    margin-right: 10px;
+}
+
+.site-open .site-box .step-information {
+	background: #fff;
+	box-shadow: 0 0 0 1px rgba(200, 215, 225, 0.5), 0 1px 2px #DDD;
+	padding: 40px;
+	position: relative;
+}
+
+.step-information h1 {
+	margin-top: 0;
+}
+
+.site-open .site-overview-details {
+    grid-area: right;
+	margin-left: 20px;
+}
+
+.site-open .site-description h3 {
+    margin-bottom: 0;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.site-open .site-screenshot {
+    margin-bottom: 40px;
+    padding: 5px;
+	box-shadow: 0 0 0 1px rgba(200, 215, 225, 0.5), 0 1px 2px #DDD;
+}
+
+.site-description > div:not(:last-child) {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.site-description > div > *:last-child {
+    margin-bottom: 0;
+}
+
+.site-step-details ul li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 2px 5px;
+    background: #f5f5f5;
+    margin: 2px;
+}
+
+.elementor-urls input {
+    display: block;
+    width: 100%;
+    padding: 8px;
+}
+
+.elementor-urls label {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.elementor-urls {
+    margin-top: 10px;
+}
+
+.site-open .site-box .controls button {
+    background: #fff;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 10px;
+    line-height: 1;
+    box-shadow: 0 0 0 1px rgba(200, 215, 225, 0.5), 0 1px 2px #DDD;
+	margin-right: 5px;
+}
+
+.site-open .site-box .controls button:before {
+	line-height: 0;
+	position: relative;
+    top: 2px;
+}
+
+.site-open .site-box .controls .preview-site {
+    font-size: inherit;
+    color: #000;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: auto;
+    margin-right: 0;
+    font-weight: 600;
+}
+
+.site-open .site-box .controls .preview-site:hover {
+    color: #0073aa;
+}
+
+.site-box:not(.no-page-builder) {
+	display: none;
+}
+
+.site-card-buttons {
+	display: flex;
+	margin-top: 20px;
+}
+
+.site-card-buttons button.button,
+.site-card-buttons button.button-primary {
+    width: 50%;
+    height: 40px;
+    line-height: 40px;
+	border-radius: 0;
+}
+
+.site-details p {
+    margin: 0;
+}
+
+.plugin-area {
+	display: none;
+	margin-top: 1em;
+}
+
+.site-plugins {
+	margin-top: 1em;
+}
+
+.skip-content-import {
+	font-size: 11px;
+	font-weight: normal;
+	padding: 2px 5px;
+	margin-left: 5px;
+	position: relative;
+	top: -1px;
+}
+
+.no-site-library-results {
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+.remove-site {
+    background: #fff;
+    padding: 40px;
+    box-shadow: 0 0 10px 10px rgba(0,0,0,0.01);
+    border: 1px solid #ddd;
+    margin-bottom: 40px;
+}
+
+.remove-site h2 {
+    margin-top: 0;
+	font-size: 25px;
+	margin-bottom: 30px;
+}
+
+.remove-site button.button-primary {
+    font-size: 17px;
+    line-height: 50px;
+    height: 50px;
+    padding: 0 20px;
+    border-radius: 0;
+}
+
+.remove-site .loading {
+    height: 50px;
+}
+
+.close-remove-site,
+.skip-remove-site {
+    display: inline-block;
+    margin-left: 15px;
+	font-size: 15px;
+}
+
+.remove-site p {
+    font-size: 16px;
+}
+
+.remove-site-actions {
+	margin-top: 30px;
+}
+
+.generatepress-sites.remove-site-needed {
+	pointer-events: none;
+	opacity: 0.2;
+}

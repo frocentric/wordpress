@@ -1,0 +1,9 @@
+body: //[@class='article-content']/div[@class="su-row"]
+
+strip: //div[@id='comments']
+
+tidy: no
+autodetect_on_failure: yes
+prune: no
+
+test_url: http://www.netmdp.com/2015/08/mailpress-users-to-default-newsletters/

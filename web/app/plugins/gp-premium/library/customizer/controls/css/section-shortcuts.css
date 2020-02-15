@@ -1,0 +1,38 @@
+.generatepress-shortcuts {
+    background: #fff;
+    padding: 10px 15px;
+    border-width: 0 1px 1px 0;
+    border-color: #ddd;
+    border-style: solid;
+}
+
+.generatepress-shortcuts .more-controls {
+    font-weight: 600;
+    margin-right: 5px;
+    display: block;
+	font-size: 12px;
+	margin-bottom: 3px;
+}
+
+.generatepress-shortcuts .shortcuts .shortcut:not(:last-child):after {
+    content: "\2022";
+    padding: 0 1px;
+}
+
+.generatepress-shortcuts .shortcut a {
+    text-decoration: none;
+}
+
+.generatepress-shortcuts .shortcut {
+    font-size: 12px;
+}
+
+.return-shortcut .dashicons {
+    float: right;
+    cursor: pointer;
+}
+
+.return-shortcut a {
+    font-size: 12px;
+    text-decoration: none;
+}

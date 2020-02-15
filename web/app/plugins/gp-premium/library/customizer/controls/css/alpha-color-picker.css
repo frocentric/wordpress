@@ -1,0 +1,33 @@
+/**
+ * Alpha Color Picker CSS
+ */
+.customize-control-gp-alpha-color .iris-picker .iris-square {
+	margin-right:10px;
+}
+
+.customize-control-gp-alpha-color .alpha-slider.ui-widget-content,
+.customize-control-gp-alpha-color .ui-widget-header{
+	background: none;
+	border: 0;
+	box-shadow: 0 0 0 transparent;
+}
+
+.alpha-color-picker-wrap a.iris-square-value:focus {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.gp-alpha-color-picker-container {
+	position: relative;
+	margin-left: 10px;
+	background-image: url(transparency-grid.png);
+}
+
+.gp-alpha-color-picker-container .iris-picker .iris-strip .ui-slider-handle {
+	z-index: 100;
+}
+
+.customize-control-gp-alpha-color .wp-picker-input-wrap .button.wp-picker-clear {
+    margin-left: 6px;
+    padding: 2px 8px;
+}

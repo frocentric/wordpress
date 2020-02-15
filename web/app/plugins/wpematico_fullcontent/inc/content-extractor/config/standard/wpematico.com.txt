@@ -1,0 +1,9 @@
+body: //*[@class='content_img']
+
+strip: //div[@id='comments']
+
+tidy: no
+autodetect_on_failure: yes
+prune: no
+
+test_url: http://www.wpematico.com/video-class-wpematico/
