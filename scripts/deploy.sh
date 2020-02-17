@@ -19,14 +19,13 @@ fi
 
 echo "Deploying $branch_name"
 cd public/
-git config --global user.email "ENTER EMAIL"
-git config --global user.name "ENTER NAME"
+git config --global user.email "genyus@gmail.com"
+git config --global user.name "Gary McPherson"
 git fetch --all
 git reset --hard origin/"$branch_name"
 git pull origin "$branch_name"
 git checkout "$branch_name"
-
 echo "TASK: git pull finished"
-composer install --no-dev --optimize-autoloader
 
+composer install --no-dev --optimize-autoloader
 echo "TASK: composer install finished"
