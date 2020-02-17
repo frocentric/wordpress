@@ -1,4 +1,5 @@
 #! /bin/bash
+# Adapted from https://gist.github.com/Prophe1/bf02adbe62e3922093ca23a70c2d35a0
 
 if [ -z "$1" ]
     then

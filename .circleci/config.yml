@@ -1,0 +1,74 @@
+# PHP CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-php/ for more details
+#
+version: 2
+
+references:
+  working_directory: &working_directory
+    ~/bedrock
+ 
+  # Default container configuration
+  #
+  container_config: &container_config
+    docker:
+      # Specify the version you desire here
+      - image: circleci/php:7.3 #-node-browsers
+    working_directory: *working_directory
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # Using the RAM variation mitigates I/O contention
+      # for database intensive operations.
+      # - image: circleci/mysql:5.7-ram
+      #
+      # - image: redis:2.8.19
+ 
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *working_directory
+
+jobs:
+  build:
+    <<: *container_config
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install dependencies
+          command: composer install -n -o
+      - persist_to_workspace:
+          root: .
+          paths:
+            - '*'
+ 
+  test:
+    <<: *container_config
+    steps:
+      - *attach_workspace
+      - run:
+          name: Run tests
+          command: composer test
+ 
+  deploy:
+    <<: *container_config
+    steps:
+      - *attach_workspace
+      - run:
+          name: Install deploy script
+          command: rsync -avz scripts/deploy.sh $CIRCLE_REMOTE_USER@$CIRCLE_REMOTE_SERVER:/public/tmp/deploy.sh
+          command: ssh $CIRCLE_REMOTE_USER@$CIRCLE_REMOTE_SERVER bash 'public/tmp/deploy.sh' $CIRCLE_BRANCH $WP_HOME
+ 
+workflows:
+  version: 2
+  build_test_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test
