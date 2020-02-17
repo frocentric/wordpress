@@ -41,7 +41,9 @@ jobs:
           command: composer install -n -o
       - run:
           name: Install rsync
-          command: sudo apt install rsync
+          command: >-
+            sudo apt-get update &&
+            sudo apt-get install rsync
       - persist_to_workspace:
           root: .
           paths:
