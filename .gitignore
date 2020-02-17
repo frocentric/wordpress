@@ -4,6 +4,11 @@ web/app/plugins
 !web/app/plugins/elementor-pro
 !web/app/plugins/froware
 !web/app/plugins/gp-premium
+!web/app/plugins/ninja-forms-conditionals
+!web/app/plugins/ninja-forms-mail-chimp
+!web/app/plugins/ninja-forms-post-creation
+!web/app/plugins/ninja-forms-style
+!web/app/plugins/wp-rocket
 !web/app/plugins/wp-show-posts-pro
 !web/app/plugins/wpematico_fullcontent
 !web/app/plugins/wpematico_professional

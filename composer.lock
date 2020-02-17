@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4b0421dc09304fec26c4b381d0270b32",
+    "content-hash": "a21b9025fe99e62788f04ed16209f3a3",
     "packages": [
         {
             "name": "composer/installers",
@@ -975,6 +975,26 @@
             "homepage": "https://wordpress.org/plugins/elementor/"
         },
         {
+            "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
+            "version": "3.8.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
+                "reference": "tags/3.8.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.3.8.0.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/essential-addons-for-elementor-lite/"
+        },
+        {
             "name": "wpackagist-plugin/events-manager",
             "version": "5.9.7.3",
             "source": {
@@ -1075,6 +1095,66 @@
             "homepage": "https://wordpress.org/plugins/meta-box/"
         },
         {
+            "name": "wpackagist-plugin/ninja-forms",
+            "version": "3.4.23",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/ninja-forms/",
+                "reference": "tags/3.4.23"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.4.23.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/ninja-forms/"
+        },
+        {
+            "name": "wpackagist-plugin/ninja-forms-addon-manager",
+            "version": "3.0.13",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/ninja-forms-addon-manager/",
+                "reference": "tags/3.0.13"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/ninja-forms-addon-manager.3.0.13.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/ninja-forms-addon-manager/"
+        },
+        {
+            "name": "wpackagist-plugin/publishpress",
+            "version": "2.0.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/publishpress/",
+                "reference": "tags/2.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/publishpress.2.0.1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/publishpress/"
+        },
+        {
             "name": "wpackagist-plugin/really-simple-ssl",
             "version": "3.2.9",
             "source": {
@@ -1113,6 +1193,26 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/search-filter/"
+        },
+        {
+            "name": "wpackagist-plugin/wp-analytify",
+            "version": "2.2.13",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-analytify/",
+                "reference": "tags/2.2.13"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-analytify.2.2.13.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-analytify/"
         },
         {
             "name": "wpackagist-plugin/wp-cerber",
