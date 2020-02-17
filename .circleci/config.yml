@@ -39,6 +39,9 @@ jobs:
       - run:
           name: Install dependencies
           command: composer install -n -o
+      - run:
+          name: Install rsync
+          command: sudo apt install rsync
       - persist_to_workspace:
           root: .
           paths:
@@ -60,7 +63,6 @@ jobs:
           name: Install deploy script
             # command uses folded block scalar syntax
           command: >-
-            sudo apt install rsync &&
             rsync -avz scripts/deploy.sh $SSH_REMOTE_USER@$SSH_REMOTE_SERVER:/public/tmp/deploy.sh &&
             ssh $SSH_REMOTE_USER@$SSH_REMOTE_SERVER bash 'public/tmp/deploy.sh' $CIRCLE_BRANCH $WP_HOME
  
