@@ -14,7 +14,7 @@ fi
 
 branch_name=$1
 url=$2
-env_file="public/.env"
+env_file="public/current/.env"
 
 if [ -f "$env_file" ]
     then
@@ -25,7 +25,7 @@ if [ -f "$env_file" ]
 fi
 
 echo "Deploying $branch_name"
-cd public/
+cd public/current/
 git config --global user.email "genyus@gmail.com"
 git config --global user.name "Gary McPherson"
 git fetch --all
