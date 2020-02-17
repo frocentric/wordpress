@@ -39,11 +39,6 @@ jobs:
       - run:
           name: Install dependencies
           command: composer install -n -o
-      - run:
-          name: Install rsync
-          command: >-
-            sudo apt-get update &&
-            sudo apt-get install rsync
       - persist_to_workspace:
           root: .
           paths:
@@ -61,6 +56,11 @@ jobs:
     <<: *container_config
     steps:
       - *attach_workspace
+      - run:
+          name: Install rsync
+          command: >-
+            sudo apt-get update &&
+            sudo apt-get install rsync
       - run:
           name: Install deploy script
             # command uses folded block scalar syntax
