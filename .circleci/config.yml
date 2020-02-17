@@ -65,6 +65,7 @@ jobs:
           name: Install deploy script
             # command uses folded block scalar syntax
           command: >-
+            ssh-keygen -F $IP >/dev/null || ssh-keyscan -H $IP >> ~/.ssh/known_hosts &&
             rsync -avz scripts/deploy.sh $SSH_REMOTE_USER@$SSH_REMOTE_SERVER:/public/tmp/deploy.sh &&
             ssh $SSH_REMOTE_USER@$SSH_REMOTE_SERVER bash 'public/tmp/deploy.sh' $CIRCLE_BRANCH $WP_HOME
  
