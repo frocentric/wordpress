@@ -6,7 +6,14 @@ if [ -z "$1" ]
         exit 1
 fi
 
+if [ -z "$2" ]
+    then
+        echo "No URL supplied"
+        exit 1
+fi
+
 branch_name=$1
+url=$2
 env_file="public/.env"
 
 if [ -f "$env_file" ]
@@ -29,3 +36,5 @@ echo "TASK: git pull finished"
 
 composer install --no-dev --optimize-autoloader
 echo "TASK: composer install finished"
+
+curl -L "$2/kinsta-clear-cache-all/"
