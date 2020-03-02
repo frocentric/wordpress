@@ -59,7 +59,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - "d5:df:72:cc:3c:f2:30:b8:86:18:a3:52:76:c5:32:63"
+            - "97:c9:de:a6:00:9b:12:88:43:d0:d3:af:fc:fc:c1:ac"
       - run:
           name: Install rsync
           command: >-
