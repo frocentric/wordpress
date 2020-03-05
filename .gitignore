@@ -7,6 +7,7 @@ web/app/plugins
 !web/app/plugins/ninja-forms-conditionals
 !web/app/plugins/ninja-forms-mail-chimp
 !web/app/plugins/ninja-forms-post-creation
+!web/app/plugins/twig-anything
 !web/app/plugins/ninja-forms-style
 !web/app/plugins/wp-rocket
 !web/app/plugins/wp-show-posts-pro
@@ -17,7 +18,7 @@ web/app/upgrade
 web/app/uploads
 !web/app/uploads/.gitkeep
 web/app/themes
-!web/app/themes/froware/*
+!web/app/themes/froware
 web/app/cache
 
 # WordPress

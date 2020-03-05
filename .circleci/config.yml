@@ -56,19 +56,32 @@ jobs:
     <<: *container_config
     steps:
       - *attach_workspace
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "97:c9:de:a6:00:9b:12:88:43:d0:d3:af:fc:fc:c1:ac"
+      - run:
+          name: Install rsync
+          command: >-
+            sudo apt-get update &&
+            sudo apt-get install rsync
+      - run:
+          name: Update environment variables
+          command: |
+            echo 'if [ $CIRCLE_BRANCH -eq "master" ]; then export SSH_PORT="$PRODUCTION_SSH_PORT"; else export SSH_PORT="$STAGING_SSH_PORT"; fi;' >> $BASH_ENV
+            echo 'if [ $CIRCLE_BRANCH -eq "master" ]; then export WP_HOME="$PRODUCTION_WP_HOME"; else export WP_HOME="$STAGING_WP_HOME"; fi;' >> $BASH_ENV
+            source $BASH_ENV
       - run:
           name: Install deploy script
-          command: rsync -avz scripts/deploy.sh $CIRCLE_REMOTE_USER@$CIRCLE_REMOTE_SERVER:/public/tmp/deploy.sh
-          command: ssh $CIRCLE_REMOTE_USER@$CIRCLE_REMOTE_SERVER bash 'public/tmp/deploy.sh' $CIRCLE_BRANCH $WP_HOME
+            # command uses folded block scalar syntax
+          command: >-
+            ssh-keygen -F $SSH_HOST >/dev/null || ssh-keyscan -p $SSH_PORT -H $SSH_HOST >> ~/.ssh/known_hosts &&
+            ssh $SSH_USER@$SSH_HOST -p $SSH_PORT "mkdir -p public/tmp" &&
+            rsync -avz -e "ssh -p $SSH_PORT" scripts/deploy.sh $SSH_USER@$SSH_HOST:public/tmp/deploy.sh &&
+            ssh $SSH_USER@$SSH_HOST -p $SSH_PORT bash 'public/tmp/deploy.sh' $CIRCLE_BRANCH $WP_HOME
  
 workflows:
   version: 2
   build_test_deploy:
     jobs:
-      - build
-      - test:
-          requires:
-            - build
-      - deploy:
-          requires:
-            - test
+      - deploy

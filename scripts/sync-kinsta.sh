@@ -5,16 +5,16 @@
 # Copyright (c) Ben Word
 
 DEVDIR="web/app/uploads/"
-DEVSITE="https://example.test"
+DEVSITE="https://froware.local"
 DEVPORT="22"
 
-REMOTEDIR="example@1.2.3.4:/www/example_123/public/shared/uploads/"
+REMOTEDIR="frowarecom@35.246.15.218:/www/frowarecom_769/public/current/web/app/uploads/"
 
-PRODPORT="12345"
-PRODSITE="https://example.com"
+PRODPORT="24583"
+PRODSITE="https://froware.com"
 
-STAGPORT="54321"
-STAGSITE="https://staging-example.kinsta.cloud"
+STAGPORT="18528"
+STAGSITE="https://staging.froware.com"
 
 FROM=$1
 TO=$2
