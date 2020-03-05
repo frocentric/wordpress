@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a21b9025fe99e62788f04ed16209f3a3",
+    "content-hash": "71846d02e36ca288669c4a9b65ab729d",
     "packages": [
         {
             "name": "composer/installers",
@@ -776,15 +776,15 @@
         },
         {
             "name": "wpackagist-plugin/autodescription",
-            "version": "4.0.4",
+            "version": "4.0.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/autodescription/",
-                "reference": "tags/4.0.4"
+                "reference": "tags/4.0.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/autodescription.4.0.4.zip",
+                "url": "https://downloads.wordpress.org/plugin/autodescription.4.0.5.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -956,15 +956,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "2.9.1",
+            "version": "2.9.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/2.9.1"
+                "reference": "tags/2.9.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.2.9.1.zip",
+                "url": "https://downloads.wordpress.org/plugin/elementor.2.9.3.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -976,15 +976,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "3.8.0",
+            "version": "3.8.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/3.8.0"
+                "reference": "tags/3.8.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.3.8.0.zip",
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.3.8.3.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -1036,15 +1036,15 @@
         },
         {
             "name": "wpackagist-plugin/jetpack",
-            "version": "8.2.0.1",
+            "version": "8.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/jetpack/",
-                "reference": "tags/8.2.0.1"
+                "reference": "tags/8.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jetpack.8.2.0.1.zip",
+                "url": "https://downloads.wordpress.org/plugin/jetpack.8.3.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -1096,15 +1096,15 @@
         },
         {
             "name": "wpackagist-plugin/ninja-forms",
-            "version": "3.4.23",
+            "version": "3.4.24",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/ninja-forms/",
-                "reference": "tags/3.4.23"
+                "reference": "tags/3.4.24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.4.23.zip",
+                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.4.24.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -1136,15 +1136,15 @@
         },
         {
             "name": "wpackagist-plugin/publishpress",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/publishpress/",
-                "reference": "tags/2.0.1"
+                "reference": "tags/2.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/publishpress.2.0.1.zip",
+                "url": "https://downloads.wordpress.org/plugin/publishpress.2.0.2.zip",
                 "reference": null,
                 "shasum": null
             },
