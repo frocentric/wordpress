@@ -66,17 +66,6 @@ h1 a, h1 a:visited, h2 a, h2 a:visited, h3 a, h3 a:visited, h4 a, h4 a:visited, 
 .menu-toggle .mobile-menu {
     display: none;
 }
-#content .wpsp-read-more a.wp-show-posts-read-more, a.wp-show-posts-read-more:visited {
-    background-color: #e0594b;
-    border: none;
-    border-radius: 24px;
-    color: #ffffff;
-    padding: 5px 24px;
-}
-#content .wpsp-read-more a.wp-show-posts-read-more:hover {
-    background-color: #ccd04d;
-    color: #151040;
-}
 
 .elementor-posts--skin-cards .grid-50, .elementor-posts--skin-cards .grid-100 {
     float: none;
