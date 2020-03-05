@@ -8,7 +8,7 @@ DEVDIR="web/app/uploads/"
 DEVSITE="https://froware.local"
 DEVPORT="22"
 
-REMOTEDIR="frowarecom@35.246.15.248:/www/frowarecom_769/public/shared/uploads/"
+REMOTEDIR="frowarecom@35.246.15.218:/www/frowarecom_769/public/current/web/app/uploads/"
 
 PRODPORT="24583"
 PRODSITE="https://froware.com"
