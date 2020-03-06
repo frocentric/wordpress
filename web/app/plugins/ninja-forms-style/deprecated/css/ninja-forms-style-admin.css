@@ -1,0 +1,184 @@
+.style-handle {
+	cursor: move;
+}
+.hidden {
+	display: none;
+}
+.style-layout {
+	width: 450px;
+	float: left;
+}
+
+#ninja-forms-style-viewport {
+	max-width: 425px;
+	min-height: 250px;
+	position: relative;
+	overflow: hidden;
+}
+#ninja-forms-style-mp-pagination {
+	clear: both;
+	float: none;
+	list-style: none;
+	margin: 20px 0 0;
+	width: 100%;
+	overflow: hidden;
+}
+#ninja-forms-style-mp-pagination li{
+	background: #f1f1f1;
+	border: 1px solid #999;
+	border-radius: 3px;
+	cursor: pointer;
+	float: left;
+	margin-right: 3px;
+	padding: 3px 8px;
+}
+#ninja-forms-style-mp-pagination li.active{
+	background-color: #278AB7;
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#2E9FD2),to(#21759B));
+	background-image: -webkit-linear-gradient(top,#2E9FD2,#21759B);
+	background-image: -moz-linear-gradient(top,#2E9FD2,#21759B);
+	background-image: -ms-linear-gradient(top,#2E9FD2,#21759B);
+	background-image: -o-linear-gradient(top,#2E9FD2,#21759B);
+	background-image: linear-gradient(to bottom,#2E9FD2,#21759B);
+	border-color: #1B607F;
+	-webkit-box-shadow: inset 0 1px 0 rgba(120, 200, 230, 0.6);
+	box-shadow: inset 0 1px 0 rgba(120, 200, 230, 0.6);
+	color: white;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+#ninja-forms-style-mp-pagination li.drop-hover{
+	background-color: #278AB7;
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#2E9FD2),to(#21759B));
+	background-image: -webkit-linear-gradient(top,#2E9FD2,#21759B);
+	background-image: -moz-linear-gradient(top,#2E9FD2,#21759B);
+	background-image: -ms-linear-gradient(top,#2E9FD2,#21759B);
+	background-image: -o-linear-gradient(top,#2E9FD2,#21759B);
+	background-image: linear-gradient(to bottom,#2E9FD2,#21759B);
+	border-color: #1B607F;
+	-webkit-box-shadow: inset 0 1px 0 rgba(120, 200, 230, 0.6);
+	box-shadow: inset 0 1px 0 rgba(120, 200, 230, 0.6);
+	color: white;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+#ninja-forms-style-slide {
+	margin-left: 0;
+	width: 9999px;
+	position: relative;
+}
+#ninja-forms-style-slide:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+.ninja-forms-style-placeholder {
+	background: red;
+}
+.sortable.cols-1 {
+	width: 150px;
+}
+
+.sortable.cols-2 {
+	width: 250px;
+}
+
+.sortable.cols-3 {
+	width: 350px;
+}
+
+.sortable.cols-4 {
+	width: 450px;
+}
+
+.sortable li {
+	margin: 1px 1px 1px 0;
+	padding: 1px;
+	float: left;
+	font-size: 2em;
+	text-align: center;
+}
+
+.sortable li.span-1 {
+	width: 100px;
+}
+.sortable li.span-2 {
+	width: 205px;
+}
+
+.sortable li.span-3 {
+	width: 309px;
+}
+
+.sortable li.span-4 {
+	width: 415px;
+}
+
+.sortable li a {
+	font-size: 0.5em;
+	cursor: pointer;
+}
+/*
+.form-table th {
+	width: auto;
+}
+*/
+.ninja-forms-style-sortable li {
+	background: #f1f1f1;
+	border-radius: 3px;
+}
+.ninja-forms-style-sortable li span {
+	background: #999;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	color: #fff;
+	display: block;
+	margin: -2px -2px 2px;
+	font-size: 12px;
+	padding: 2px;
+}
+.ninja-forms-style-button {
+	background: #f3f3f3;
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#fefefe),to(#f4f4f4));
+	background-image: -webkit-linear-gradient(top,#fefefe,#f4f4f4);
+	background-image: -moz-linear-gradient(top,#fefefe,#f4f4f4);
+	background-image: -o-linear-gradient(top,#fefefe,#f4f4f4);
+	background-image: linear-gradient(to bottom,#fefefe,#f4f4f4);
+	border-color: #bbb;
+	color: #333;
+	text-shadow: 0 1px 0 #fff;
+	display: inline-block;
+	text-decoration: none;
+	font-size: 12px;
+	line-height: 22px;
+	height: 24px;
+	margin: 2px 0;
+	padding: 0 10px;
+	cursor: pointer;
+	border-width: 1px;
+	border-style: solid;
+	-webkit-border-radius: 3px;
+	-webkit-appearance: none;
+	border-radius: 3px;
+	white-space: nowrap;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.ninja-forms-style-button:hover {
+	border-color: #999;
+}
+.ninja-custom-css {
+	width: 100%;
+	height: 150px;
+}
+
+.layout-error {
+	background: #dd3d36 !important;
+	border: 1px solid #dd3d36 !important;
+	height: 96px;
+	position: relative;
+}
+.layout-error-msg {
+	color: #fff;
+	font-size: 14px;
+	padding: 10px;
+}

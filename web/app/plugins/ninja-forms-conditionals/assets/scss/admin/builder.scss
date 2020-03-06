@@ -1,0 +1,157 @@
+.nf-condition {
+    border: 1px solid #aaa;
+    margin-top: 20px;
+}
+.nf-condition-label {
+    margin-bottom: 10px;
+}
+.nf-first-when-container {
+    background: #D3D3D3;
+    padding: 10px;
+    &::after {
+        clear: both;
+        content: "";
+        display: block;
+    }
+    .nf-select,
+    .nf-input {
+        input {
+        }
+    }
+}
+.nf-when-controls {
+    float: right;
+    .fa {
+        color: #2BAAE7;
+        cursor: pointer;
+        font-size: 22px;
+        &.nf-remove-condition {
+            color: red;
+        }
+    }
+}
+.nf-when-container,
+.nf-then-container,
+.nf-else-container {
+    &::after {
+        clear: both;
+        content: "";
+        display: block;
+    }
+    .nf-one-fourth {
+        .fa {
+            font-size: 22px;
+            padding-top: 15px;
+        }
+        &:first-child {
+            width: 7.5%;
+        }
+    }
+}
+.nf-when-container {
+    background: #D3D3D3;
+    padding: 0 10px 10px;
+    .nf-one-fourth {
+        width: 23%;
+    }
+    .nf-when {
+        &::after {
+            clear: both;
+            content: "";
+            display: block;
+        }
+    }
+}
+.nf-then-container {
+    background: #fefefe;
+    padding: 10px;
+    .nf-one-fourth {
+        width: 30.5%;
+        &:first-child {
+            padding-left: 12px;
+        }
+    }
+    .nf-then {
+        &::after {
+            clear: both;
+            content: "";
+            display: block;
+        }
+    }
+}
+.nf-else-container {
+    background: #ddd;
+    padding: 10px;
+    .nf-one-fourth {
+        width: 30.5%;
+        &:first-child {
+            padding-left: 12px;
+        }
+    }
+    .nf-else {
+        &::after {
+            clear: both;
+            content: "";
+            display: block;
+        }
+    }
+}
+.nf-add-when,
+.nf-add-then,
+.nf-add-else {
+    color: #2BAAE7;
+    cursor: pointer;
+    font-size: 22px;
+    margin-bottom: 5px;
+    padding-left: 12px;
+}
+.nf-remove-then,
+.nf-remove-else,
+.nf-remove-when {
+    color: red;
+    cursor: pointer;
+}
+
+
+.nf-one-fourth {
+    float: left;
+    margin-bottom: 15px;
+    padding: 0 2%;
+    width: 25%;
+    &::after {
+        clear: both;
+        content: "";
+        display: block;
+    }
+}
+
+.nf-condition.actions {
+    .nf-when-container {
+        padding: 20px;
+    }
+    .nf-one-third {
+        width: 40%;
+        &:nth-child(2) {
+            width: 20%;
+        }
+        &.action-when-label {
+            padding-top: 16px;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    }
+    .nf-one-fourth {
+        width: 30.8%;
+        &:first-child {
+            width: 7.5%;
+        }
+    }
+    .nf-when {
+        &::after {
+            clear: both;
+            content: "";
+            display: block;
+        }
+    }
+}

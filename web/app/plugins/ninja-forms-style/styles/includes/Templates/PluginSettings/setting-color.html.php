@@ -1,0 +1,1 @@
+<input name="<?php echo $view->get_field_name( $data ); ?>" type="text" value="<?php echo $view->get_field_value( $data ); ?>" class="js-ninja-forms-styles-color-field" data-default-color="#F9F9F9" />
