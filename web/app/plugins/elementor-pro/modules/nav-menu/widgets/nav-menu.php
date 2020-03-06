@@ -669,9 +669,6 @@ class Nav_Menu extends Widget_Base {
 			[
 				'label' => __( 'Dropdown', 'elementor-pro' ),
 				'tab' => Controls_Manager::TAB_STYLE,
-				'condition' => [
-					'dropdown!' => 'none',
-				],
 			]
 		);
 
@@ -801,7 +798,7 @@ class Nav_Menu extends Widget_Base {
 				'name' => 'dropdown_typography',
 				'scheme' => Schemes\Typography::TYPOGRAPHY_4,
 				'exclude' => [ 'line_height' ],
-				'selector' => '{{WRAPPER}} .elementor-nav-menu--dropdown',
+				'selector' => '{{WRAPPER}} .elementor-nav-menu--dropdown .elementor-item, {{WRAPPER}} .elementor-nav-menu--dropdown  .elementor-sub-item',
 				'separator' => 'before',
 			]
 		);

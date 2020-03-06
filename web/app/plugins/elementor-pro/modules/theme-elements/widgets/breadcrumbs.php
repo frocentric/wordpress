@@ -34,7 +34,12 @@ class Breadcrumbs extends Base {
 	private function is_breadcrumbs_enabled() {
 		$breadcrumbs_enabled = current_theme_supports( 'yoast-seo-breadcrumbs' );
 		if ( ! $breadcrumbs_enabled ) {
+			// The check for option 'wpseo_internallinks' is a BC fix for old versions of Yoast (<7.0.0).
+			// In this version Yoast changed the DB key for the breadcrumbs options to 'wpseo_titles'.
 			$options = get_option( 'wpseo_internallinks' );
+			if ( empty( $options ) ) {
+				$options = get_option( 'wpseo_titles' );
+			}
 			$breadcrumbs_enabled = true === $options['breadcrumbs-enable'];
 		}
 

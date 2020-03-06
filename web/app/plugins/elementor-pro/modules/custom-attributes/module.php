@@ -4,10 +4,8 @@ namespace ElementorPro\Modules\CustomAttributes;
 use Elementor\Controls_Stack;
 use Elementor\Controls_Manager;
 use Elementor\Element_Base;
-use Elementor\Element_Column;
-use Elementor\Element_Section;
-use Elementor\Widget_Base;
 use ElementorPro\Base\Module_Base;
+use ElementorPro\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -15,8 +13,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Module extends Module_Base {
 
+	// TODO: Remove this flag on version 2.9.0
+	private $controls_already_registered;
+
 	public function __construct() {
 		parent::__construct();
+
+		// TODO: Remove this flag on version 2.9.0
+		$this->controls_already_registered = [
+			'section' => false,
+			'column' => false,
+			'common' => false,
+		];
 
 		$this->add_actions();
 	}
@@ -50,19 +58,19 @@ class Module extends Module_Base {
 	}
 
 	/**
-	 * @param $element    Controls_Stack
-	 * @param $section_id string
+	 * @param Element_Base $element
 	 */
-	public function register_controls( Controls_Stack $element, $section_id ) {
-		$required_section_id = '';
+	public function replace_go_pro_custom_attributes_controls( Element_Base $element ) {
+		Plugin::elementor()->controls_manager->remove_control_from_stack( $element->get_unique_name(), [ 'section_custom_attributes_pro', 'custom_attributes_pro' ] );
 
-		if ( $element instanceof Element_Section || $element instanceof Widget_Base ) {
-			$required_section_id = '_section_responsive';
-		} elseif ( $element instanceof Element_Column ) {
-			$required_section_id = 'section_advanced';
-		}
+		$this->register_custom_attributes_controls( $element );
+	}
 
-		if ( $required_section_id !== $section_id ) {
+	public function register_custom_attributes_controls( Element_Base $element ) {
+		$element_name = $element->get_name();
+
+		// TODO: Remove this check when on version 2.9.0
+		if ( $this->controls_already_registered[ $element_name ] ) {
 			return;
 		}
 
@@ -90,6 +98,28 @@ class Module extends Module_Base {
 
 		$element->end_controls_section();
 
+		// TODO: Remove this flag on version 2.9.0
+		$this->controls_already_registered[ $element_name ] = true;
+	}
+
+	/**
+	 * @param $element    Controls_Stack
+	 * @param $section_id string
+	 */
+	public function register_controls( Controls_Stack $element, $section_id ) {
+		if ( ! $element instanceof Element_Base ) {
+			return;
+		}
+
+		// Remove Custom CSS Banner (From free version)
+		if ( 'section_custom_attributes_pro' === $section_id ) {
+			$this->replace_go_pro_custom_attributes_controls( $element );
+		}
+
+		// TODO: Remove this when on version 2.9.0
+		if ( '_section_responsive' === $section_id ) {
+			$this->register_custom_attributes_controls( $element );
+		}
 	}
 
 	/**
