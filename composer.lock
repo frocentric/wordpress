@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d904213c262751d62c92293ae425783a",
+    "content-hash": "d27f97a5ec5b36a79850c6f56e71d589",
     "packages": [
         {
             "name": "composer/installers",
@@ -289,17 +289,6 @@
                 "wordpress"
             ],
             "time": "2018-11-09T20:10:38+00:00"
-        },
-        {
-            "name": "kinsta/kinsta-mu-plugins",
-            "version": "2.0.15",
-            "dist": {
-                "type": "zip",
-                "url": "https://kinsta.com/kinsta-tools/kinsta-mu-plugins.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "type": "wordpress-muplugin"
         },
         {
             "name": "koodimonni-language/en_gb",
