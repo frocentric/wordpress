@@ -68,8 +68,8 @@ jobs:
       - run:
           name: Update environment variables
           command: |
-            echo 'if [ "$CIRCLE_BRANCH" -eq "master" ]; then export SSH_PORT="$PRODUCTION_SSH_PORT"; else export SSH_PORT="$STAGING_SSH_PORT"; fi;' >> $BASH_ENV
-            echo 'if [ "$CIRCLE_BRANCH" -eq "master" ]; then export WP_HOME="$PRODUCTION_WP_HOME"; else export WP_HOME="$STAGING_WP_HOME"; fi;' >> $BASH_ENV
+            echo 'if [ "$CIRCLE_BRANCH" == "master" ]; then export SSH_PORT="$PRODUCTION_SSH_PORT"; else export SSH_PORT="$STAGING_SSH_PORT"; fi;' >> $BASH_ENV
+            echo 'if [ "$CIRCLE_BRANCH" == "master" ]; then export WP_HOME="$PRODUCTION_WP_HOME"; else export WP_HOME="$STAGING_WP_HOME"; fi;' >> $BASH_ENV
             source $BASH_ENV
       - run:
           name: Install deploy script
