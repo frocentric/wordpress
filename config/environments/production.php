@@ -7,3 +7,4 @@ define('SCRIPT_DEBUG', false);
 define('DISALLOW_FILE_MODS', true);
 define('WP_ROCKET_EMAIL', env('WP_ROCKET_EMAIL') ?: '');
 define('WP_ROCKET_KEY', env('WP_ROCKET_KEY') ?: '');
+define('KINSTA_CDN_USERDIRS', 'app');
