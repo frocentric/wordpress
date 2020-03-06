@@ -86,6 +86,7 @@
     "wpackagist-plugin/wp-scss": "~1.2",
     "wpackagist-plugin/wp-show-posts": "~1.0",
     "wpackagist-theme/generatepress": "~2.0",
+    "wp-media/wp-rocket": "~3.0",
     "kinsta/kinsta-mu-plugins": "2.0.15"
   },
   "require-dev": {
