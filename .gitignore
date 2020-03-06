@@ -9,7 +9,6 @@ web/app/plugins/*
 !web/app/plugins/ninja-forms-post-creation
 !web/app/plugins/twig-anything
 !web/app/plugins/ninja-forms-style
-!web/app/plugins/wp-rocket
 !web/app/plugins/wp-show-posts-pro
 !web/app/plugins/wpematico_fullcontent
 !web/app/plugins/wpematico_professional
