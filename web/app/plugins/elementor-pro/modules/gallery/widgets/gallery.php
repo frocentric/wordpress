@@ -1404,10 +1404,13 @@ class Gallery extends Base_Widget {
 				$attachment = get_post( $id );
 				$image_data = [
 					'alt' => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
-					'media' => wp_get_attachment_image_src( $id, 'large' )['0'],
+					'media' => wp_get_attachment_image_src( $id, 'full' )['0'],
 					'src' => $image_src['0'],
 					'width' => $image_src['1'],
 					'height' => $image_src['2'],
+					'caption' => $attachment->post_excerpt,
+					'description' => $attachment->post_content,
+					'title' => $attachment->post_title,
 				];
 
 				$this->add_render_attribute( 'gallery_item_' . $unique_index, [
@@ -1433,6 +1436,14 @@ class Gallery extends Base_Widget {
 							'href' => $href,
 							'data-elementor-lightbox-slideshow' => 'all-' . $this->get_id(),
 						] );
+
+						if ( $has_title ) {
+							$this->add_render_attribute( 'gallery_item_' . $unique_index, 'data-elementor-lightbox-title', $image_data[ $settings['overlay_title'] ] );
+						}
+
+						if ( $has_description ) {
+							$this->add_render_attribute( 'gallery_item_' . $unique_index, 'data-elementor-lightbox-description', $image_data[ $settings['overlay_description'] ] );
+						}
 					}
 
 					if ( 'custom' === $settings['link_to'] ) {
@@ -1457,14 +1468,7 @@ class Gallery extends Base_Widget {
 					<?php if ( ! empty( $settings['overlay_background'] ) ) : ?>
 					<div <?php echo $this->get_render_attribute_string( 'gallery_item_background_overlay' ); ?>></div>
 					<?php endif; ?>
-					<?php if ( $has_title || $has_description ) :
-						$image_data = [
-							'caption' => $attachment->post_excerpt,
-							'description' => $attachment->post_content,
-							'title' => $attachment->post_title,
-							'alt' => $image_data['alt'],
-						];
-						?>
+					<?php if ( $has_title || $has_description ) : ?>
 					<div <?php echo $this->get_render_attribute_string( 'gallery_item_content' ); ?>>
 						<?php if ( $has_title ) :
 							$title = $image_data[ $settings['overlay_title'] ];

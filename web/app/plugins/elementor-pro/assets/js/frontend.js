@@ -1,4 +1,4 @@
-/*! elementor-pro - v2.8.3 - 01-01-2020 */
+/*! elementor-pro - v2.8.4 - 16-02-2020 */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -3734,7 +3734,7 @@ var _class = function (_elementorModules$Mod) {
 			    level = actionData.level / 10,
 			    opacity = 1 - level + this.getEffectValueFromMovePoint(level, movePoint);
 
-			this.$element.css('opacity', opacity);
+			this.$element.css({ opacity: opacity, 'will-change': 'opacity' });
 		}
 	}, {
 		key: 'blur',
@@ -3799,7 +3799,8 @@ var _class = function (_elementorModules$Mod) {
 			this.$element.css({
 				transform: '',
 				filter: '',
-				opacity: ''
+				opacity: '',
+				'will-change': ''
 			});
 		}
 	}, {
@@ -4717,6 +4718,8 @@ var AnimatedHeadlineHandler = elementorModules.frontend.handlers.Base.extend({
 		$oldWord.removeClass('elementor-headline-text-active').addClass('elementor-headline-text-inactive');
 
 		$newWord.removeClass('elementor-headline-text-inactive').addClass('elementor-headline-text-active');
+
+		this.setDynamicWrapperWidth($newWord);
 	},
 
 	singleLetters: function singleLetters() {
@@ -4820,6 +4823,8 @@ var AnimatedHeadlineHandler = elementorModules.frontend.handlers.Base.extend({
 			self.hideLetter($word.find(letterSelector).eq(0), $word, bool, settings.lettersDelay);
 
 			self.showLetter(nextWord.find(letterSelector).eq(0), nextWord, bool, settings.lettersDelay);
+
+			self.setDynamicWrapperWidth(nextWord);
 		} else if ('clip' === animationType) {
 			self.elements.$dynamicWrapper.animate({ width: '2px' }, settings.revealDuration, function () {
 				self.switchWord($word, nextWord);
@@ -4831,6 +4836,14 @@ var AnimatedHeadlineHandler = elementorModules.frontend.handlers.Base.extend({
 			setTimeout(function () {
 				self.hideWord(nextWord);
 			}, settings.animationDelay);
+		}
+	},
+
+	setDynamicWrapperWidth: function setDynamicWrapperWidth($newWord) {
+		var animationType = this.getElementSettings('animation_type');
+
+		if ('clip' !== animationType && 'typing' !== animationType) {
+			this.elements.$dynamicWrapper.css('width', $newWord.width());
 		}
 	},
 
@@ -6241,6 +6254,7 @@ var SlidesHandler = elementorModules.frontend.handlers.Base.extend({
 			speed: elementSettings.transition_speed,
 			effect: elementSettings.transition,
 			observeParents: true,
+			observer: true,
 			on: {
 				slideChange: function slideChange() {
 					_this.handleKenBurns();

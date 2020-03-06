@@ -1,0 +1,18 @@
+# OS Stuff
+.DS_Store
+
+# Node Stuff
+node_modules
+
+# IDE Stuff
+
+## phpStorm
+.idea
+
+## SublimeText
+*.sublime-workspace
+*.sublime-project
+
+# Project Stuff
+.wakatime-project
+deploy.sh

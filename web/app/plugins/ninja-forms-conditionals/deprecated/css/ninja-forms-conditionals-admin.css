@@ -1,0 +1,74 @@
+.description label,
+#ninja-forms-conditionals .label {
+	border-radius: 4px;
+	padding: 5px;
+	overflow: hidden;
+}
+
+#ninja-forms-conditionals {
+	/*border: 1px solid #ccc;*/
+	border-radius: 5px;
+	clear: both;
+	float: none;
+	overflow: hidden;
+}
+
+#ninja-forms-conditionals .label {
+/*	background: #ccc;*/
+	display: block;
+}
+
+.ninja-forms-condition {
+	border: 1px solid #ddd;
+	margin: 10px;
+}
+
+.ninja-forms-condition-title {
+	background: #ddd;
+	padding: 10px;
+}
+
+.ninja-forms-criteria {
+	background: #fff;
+	overflow: hidden;
+}
+
+.single-criteria {
+	border-bottom: 1px solid #ddd;
+	padding: 5px 0 5px 20px;
+}
+
+.nf-cl-criteria {
+	background: #fff;
+	overflow: hidden;
+}
+
+.nf-cl-condition-title {
+	background: #ddd;
+	padding: 10px;
+}
+
+.nf-cl-condition {
+	border: 1px solid #ddd;
+}
+
+.nf-cl-add div {
+	margin-top: 3px;
+}
+
+.nf-cl-delete {
+	text-decoration: none;
+	color: #333;
+}
+
+.nf-cl-delete div {
+	margin-top: 5px;
+}
+
+.nf-cl-delete:hover {
+	color: red;
+}
+
+.delete-condition {
+	float: right;
+}

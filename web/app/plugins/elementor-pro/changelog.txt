@@ -1,5 +1,20 @@
 # Elementor Pro - by Elementor.com
 
+#### 2.8.4 - 2020-02-16
+* Tweak: Added Lightbox Title & Description support to Gallery widget
+* Tweak: Added RTL support for Slides widget
+* Tweak: Display Lightbox images in Full size in Gallery widget
+* Fix: Template with Slides widget not working properly when placed inside Tabs, Accordion and Toggle widget
+* Fix: Dropdown menu lost styling after Elementor Pro v2.8 upgrade in Nav Menu widget
+* Fix: Indent doesn't work on RTL websites in Table of Contents widget
+* Fix: Query Control throws `Undefined index: q` error
+* Fix: Typography control not affecting dropdown menu in Nav Menu widget
+* Fix: Discord forms integration fails to send submissions in some server configurations
+* Fix: Rotating headlines don't align center in Animated Headline widget
+* Fix: Custom secondary color displayed when not needed in Share buttons widget
+* Fix: Motion Effects of certain objects are not functioning properly on Safari browser
+* Fix: Missing eye icon in Single template footer preview button
+
 #### 2.8.3 - 2020-01-01
 * Tweak: Updated Table of Contents widget panel location
 * Fix: ACF URL Dynamic field throws `undefined index` PHP notice ([#9929](https://github.com/elementor/elementor/issues/9929))

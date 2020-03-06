@@ -1,0 +1,54 @@
+
+// .nf-row {
+//     &::after {
+//         clear: both;
+//         content: "";
+//         display: block;
+//     }
+// }
+// .nf-cell {
+//     float: left;
+//     padding: 0 5px;
+// }
+.nf-multi-cell {
+    .nf-row {
+        &::after {
+            clear: both;
+            content: "";
+            display: block;
+        }
+    }
+    .nf-cell {
+        float: left;
+        padding: 0 5px;
+    }
+    .five-sixths,
+    .four-sixths,
+    .one-fourth,
+    .one-half,
+    .one-sixth,
+    .one-third,
+    .three-fourths,
+    .three-sixths,
+    .two-fourths,
+    .two-sixths,
+    .two-thirds {
+        float: none;
+        margin-left: 0;
+        width: 100%;
+        .inside {
+            padding: 20px;
+        }
+        &::after {
+            clear: both;
+            content: "";
+            display: block;
+        }
+    }
+}
+
+@media  only screen and (max-width: 600px) {
+    .nf-cell {
+        width: 100% !important;
+    }
+}

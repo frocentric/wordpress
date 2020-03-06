@@ -1245,7 +1245,16 @@ class Slides extends Base_Widget {
 			$slide_count++;
 		}
 
-		$direction = is_rtl() ? 'rtl' : 'ltr';
+		$prev = 'left';
+		$next = 'right';
+		$direction = 'ltr';
+
+		if ( is_rtl() ) {
+			$prev = 'right';
+			$next = 'left';
+			$direction = 'rtl';
+		}
+
 		$show_dots = ( in_array( $settings['navigation'], [ 'dots', 'both' ] ) );
 		$show_arrows = ( in_array( $settings['navigation'], [ 'arrows', 'both' ] ) );
 
@@ -1262,11 +1271,11 @@ class Slides extends Base_Widget {
 					<?php endif; ?>
 					<?php if ( $show_arrows ) : ?>
 						<div class="elementor-swiper-button elementor-swiper-button-prev">
-							<i class="eicon-chevron-left" aria-hidden="true"></i>
+							<i class="eicon-chevron-<?php echo $prev; ?>" aria-hidden="true"></i>
 							<span class="elementor-screen-only"><?php _e( 'Previous', 'elementor-pro' ); ?></span>
 						</div>
 						<div class="elementor-swiper-button elementor-swiper-button-next">
-							<i class="eicon-chevron-right" aria-hidden="true"></i>
+							<i class="eicon-chevron-<?php echo $next; ?>" aria-hidden="true"></i>
 							<span class="elementor-screen-only"><?php _e( 'Next', 'elementor-pro' ); ?></span>
 						</div>
 					<?php endif; ?>
@@ -1279,7 +1288,9 @@ class Slides extends Base_Widget {
 	protected function _content_template() {
 		?>
 		<#
-			var direction        = elementorCommon.config.isRTL ? 'rtl' : 'ltr',
+			var direction        = elementorFrontend.config.is_rtl ? 'rtl' : 'ltr',
+				next            = elementorFrontend.config.is_rtl ? 'right' : 'left',
+				prev              = elementorFrontend.config.is_rtl ? 'left' : 'right',
 				navi             = settings.navigation,
 				showDots         = ( 'dots' === navi || 'both' === navi ),
 				showArrows       = ( 'arrows' === navi || 'both' === navi ),
@@ -1323,11 +1334,11 @@ class Slides extends Base_Widget {
 					<# } #>
 					<# if ( showArrows ) { #>
 						<div class="elementor-swiper-button elementor-swiper-button-prev">
-							<i class="eicon-chevron-left" aria-hidden="true"></i>
+							<i class="eicon-chevron-{{ prev }}" aria-hidden="true"></i>
 							<span class="elementor-screen-only"><?php _e( 'Previous', 'elementor-pro' ); ?></span>
 						</div>
 						<div class="elementor-swiper-button elementor-swiper-button-next">
-							<i class="eicon-chevron-right" aria-hidden="true"></i>
+							<i class="eicon-chevron-{{ next }}" aria-hidden="true"></i>
 							<span class="elementor-screen-only"><?php _e( 'Next', 'elementor-pro' ); ?></span>
 						</div>
 					<# } #>

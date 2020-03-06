@@ -1,0 +1,539 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ninja-forms-style\n"
+"POT-Creation-Date: 2014-11-16 16:02-0500\n"
+"PO-Revision-Date: 2014-11-16 16:02-0500\n"
+"Last-Translator: \n"
+"Language-Team: WP Ninjas <info@wpninjas.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_x;_n\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/functions.php:21
+msgid "- Field Type"
+msgstr ""
+
+#: includes/admin/admin.php:10
+msgid "Ninja Forms - Layout & Styles"
+msgstr ""
+
+#: includes/admin/admin.php:10
+msgid "Styling"
+msgstr ""
+
+#: includes/admin/register.php:70
+msgid "Background Color"
+msgstr ""
+
+#: includes/admin/register.php:79
+msgid "Border Width"
+msgstr ""
+
+#: includes/admin/register.php:87
+msgid "- None"
+msgstr ""
+
+#: includes/admin/register.php:88
+msgid "Solid"
+msgstr ""
+
+#: includes/admin/register.php:89
+msgid "Dashed"
+msgstr ""
+
+#: includes/admin/register.php:90
+msgid "Dotted"
+msgstr ""
+
+#: includes/admin/register.php:92
+msgid "Border Style"
+msgstr ""
+
+#: includes/admin/register.php:100
+msgid "Border Color"
+msgstr ""
+
+#: includes/admin/register.php:109
+msgid "Text Color"
+msgstr ""
+
+#: includes/admin/register.php:117
+msgid "Height"
+msgstr ""
+
+#: includes/admin/register.php:124
+msgid "Width"
+msgstr ""
+
+#: includes/admin/register.php:132
+msgid "- Default"
+msgstr ""
+
+#: includes/admin/register.php:133
+msgid "Block"
+msgstr ""
+
+#: includes/admin/register.php:134
+msgid "Inline"
+msgstr ""
+
+#: includes/admin/register.php:135
+msgid "Inline Block"
+msgstr ""
+
+#: includes/admin/register.php:137
+msgid "Display"
+msgstr ""
+
+#: includes/admin/register.php:145
+msgid "Float"
+msgstr ""
+
+#: includes/admin/register.php:152
+msgid "Font Size"
+msgstr ""
+
+#: includes/admin/register.php:159
+msgid "Margin"
+msgstr ""
+
+#: includes/admin/register.php:166
+msgid "Padding"
+msgstr ""
+
+#: includes/admin/register.php:173
+msgid "Advanced CSS"
+msgstr ""
+
+#: includes/admin/scripts.php:19
+msgid ""
+"There is an error with your layout. Please ensure that all columns are fully "
+"spanned. See the error(s) below."
+msgstr ""
+
+#: includes/admin/style-metabox-output.php:220
+msgid "Select All"
+msgstr ""
+
+#: includes/admin/style-metabox-output.php:353
+msgid "Show Advanced CSS Properties"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/default-field-metaboxes.php:9
+#: includes/admin/pages/ninja-forms-style/tabs/field-settings/field-settings.php:23
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:31
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:395
+msgid "Wrap Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/default-field-metaboxes.php:22
+#: includes/admin/pages/ninja-forms-style/tabs/field-settings/field-settings.php:38
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:46
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:410
+msgid "Label Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/default-field-metaboxes.php:35
+#: includes/admin/pages/ninja-forms-style/tabs/field-settings/field-settings.php:53
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:63
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:425
+msgid "Element Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/default-field-metaboxes.php:73
+msgid "Element Hover"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout-div.php:28
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout-mp-div.php:94
+msgid "Columns"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout-output-ul.php:53
+msgid "Field ID"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout-output-ul.php:54
+msgid "resize"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout-output-ul.php:54
+msgid "styling"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout.php:5
+msgid "Layout & Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout.php:28
+msgid "Save Layout"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout.php:29
+msgid "Modify Form Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout.php:44
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout.php:56
+msgid "Save"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout.php:45
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout.php:57
+msgid "Cancel"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout.php:69
+#: includes/admin/pages/ninja-forms-style/tabs/form-settings/form-settings.php:22
+msgid "Container Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout.php:85
+#: includes/admin/pages/ninja-forms-style/tabs/form-settings/form-settings.php:38
+msgid "Title Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout.php:101
+#: includes/admin/pages/ninja-forms-style/tabs/form-settings/form-settings.php:70
+msgid "Row Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout.php:117
+#: includes/admin/pages/ninja-forms-style/tabs/form-settings/form-settings.php:86
+msgid "Odd Row Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout.php:133
+#: includes/admin/pages/ninja-forms-style/tabs/form-settings/form-settings.php:102
+msgid "Success Response Message Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout.php:148
+msgid "Error Response Message Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/form-layout.php:282
+msgid "Form Layout Saved"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/list-field-metaboxes.php:32
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:335
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:440
+msgid "List Item Row"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/list-field-metaboxes.php:47
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:349
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:454
+msgid "List Item Label"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/list-field-metaboxes.php:62
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:363
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:468
+msgid "List Item Element"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/rating-field-metaboxes.php:29
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:98
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:510
+msgid "Rating Item"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/rating-field-metaboxes.php:44
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:111
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:523
+msgid "Rating Item Hover"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/rating-field-metaboxes.php:59
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:124
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:536
+msgid "Rating Item Selected"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/rating-field-metaboxes.php:74
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:137
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:549
+msgid "Cancel Ratings"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms/tabs/form-layout/rating-field-metaboxes.php:89
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:150
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:562
+msgid "Cancel Ratings Hover"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-impexp/tabs/style/impexp-style.php:6
+msgid "Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-impexp/tabs/style/impexp-style.php:23
+msgid "Import Default Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-impexp/tabs/style/impexp-style.php:28
+msgid "Select a file"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-impexp/tabs/style/impexp-style.php:36
+#: includes/admin/pages/ninja-forms-impexp/tabs/style/impexp-style.php:71
+msgid "Import Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-impexp/tabs/style/impexp-style.php:53
+#: includes/admin/pages/ninja-forms-impexp/tabs/style/impexp-style.php:58
+#: includes/admin/pages/ninja-forms-impexp/tabs/style/impexp-style.php:82
+msgid "Export Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-impexp/tabs/style/impexp-style.php:78
+msgid "Styles Imported"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-impexp/tabs/style/impexp-style.php:84
+msgid "Styles Exported Successfully"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-impexp/tabs/style/impexp-style.php:86
+msgid "No Styles Found"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/datepicker-settings/datepicker-settings.php:6
+msgid "DatePicker Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/datepicker-settings/datepicker-settings.php:22
+msgid "DatePicker Container"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/datepicker-settings/datepicker-settings.php:38
+msgid "DatePicker Header"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/datepicker-settings/datepicker-settings.php:54
+msgid "DatePicker Week Days"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/datepicker-settings/datepicker-settings.php:70
+msgid "DatePicker Days"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/datepicker-settings/datepicker-settings.php:86
+msgid "DatePicker Prev Link"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/datepicker-settings/datepicker-settings.php:102
+msgid "DatePicker Next Link"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/error-settings/error-settings.php:6
+msgid "Error Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/error-settings/error-settings.php:22
+msgid "Error Message Main Wrap Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/error-settings/error-settings.php:38
+msgid "Error Field Wrap Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/error-settings/error-settings.php:54
+msgid "Error Label Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/error-settings/error-settings.php:70
+msgid "Error Element Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/error-settings/error-settings.php:86
+msgid "Error Message Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-settings/field-settings.php:6
+msgid "Default Field Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:6
+msgid "Field Type Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:82
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:496
+msgid "HR Element"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:166
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:575
+msgid "Password Wrap"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:180
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:589
+msgid "Password Label"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:194
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:603
+msgid "Password Field"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:207
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:616
+msgid "Confirm Password Wrap"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:221
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:630
+msgid "Confirm Password Label"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:235
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:644
+msgid "Confirm Password Field"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:249
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:658
+msgid "Strength Indicator"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:263
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:672
+msgid "Strength Indicator - Very Weak"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:277
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:686
+msgid "Strength Indicator - Weak"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:291
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:700
+msgid "Strength Indicator - Medium"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:305
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:714
+msgid "Strength Indicator - Strong"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:319
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:728
+msgid "Strength Indicator - Hint"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:379
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/field-type-settings.php:482
+msgid "Element Hover Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/sidebars/select-field.php:6
+msgid "Select A Field Type"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/sidebars/select-field.php:38
+msgid "List"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/sidebars/select-field.php:45
+msgid "Dropdown (Select)"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/sidebars/select-field.php:52
+msgid "Radio"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/sidebars/select-field.php:59
+msgid "Checkboxes"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/field-type-settings/sidebars/select-field.php:66
+msgid "Multi-Select"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/form-settings/form-settings.php:6
+msgid "Form Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/form-settings/form-settings.php:54
+msgid "Required Message Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/multipart-settings/multipart-settings.php:6
+msgid "Multi-Part Styles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/multipart-settings/multipart-settings.php:23
+msgid "Form Page"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/multipart-settings/multipart-settings.php:39
+msgid "Breadcrumb Container"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/multipart-settings/multipart-settings.php:55
+msgid "Breadcrumb Buttons"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/multipart-settings/multipart-settings.php:71
+msgid "Breadcrumb Button Hover"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/multipart-settings/multipart-settings.php:87
+msgid "Breadcrumb Active Button"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/multipart-settings/multipart-settings.php:103
+msgid "Progress Bar Container"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/multipart-settings/multipart-settings.php:119
+msgid "Progress Bar Fill"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/multipart-settings/multipart-settings.php:135
+msgid "Page Titles"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/multipart-settings/multipart-settings.php:151
+msgid "Prev/Next Container"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/multipart-settings/multipart-settings.php:167
+msgid "Previous Button"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/multipart-settings/multipart-settings.php:183
+msgid "Next Button"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/multipart-settings/multipart-settings.php:199
+msgid "Prev / Next Button Hover"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/theme-settings/theme-settings.php:36
+#: includes/admin/pages/ninja-forms-style/tabs/theme-settings/theme-settings.php:43
+msgid "Default Theme"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/theme-settings/theme-settings.php:56
+msgid "Edit Themes"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/theme-settings/theme-settings.php:63
+msgid "Select a Theme"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/theme-settings/theme-settings.php:69
+msgid "Theme Name (Save Theme As)"
+msgstr ""
+
+#: includes/admin/pages/ninja-forms-style/tabs/theme-settings/theme-settings.php:75
+msgid "Theme CSS"
+msgstr ""
