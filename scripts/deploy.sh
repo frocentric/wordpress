@@ -25,7 +25,7 @@ if [ -f "$env_file" ]
         exit 1
 fi
 
-echo "Deploying $branch_name"
+echo "Deploying $branch_name to $url"
 cd public/current/
 git config --global user.email "genyus@gmail.com"
 git config --global user.name "Gary McPherson"
