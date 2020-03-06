@@ -1111,6 +1111,14 @@ body.elementor-editor-active .elementor-posts--show-thumbnail .elementor-post__t
 .elementor--h-position-center .swiper-slide-inner {
   justify-content: center; }
 
+body.rtl .elementor-widget-slides .elementor-swiper-button-next {
+  left: 10px;
+  right: auto; }
+
+body.rtl .elementor-widget-slides .elementor-swiper-button-prev {
+  right: 10px;
+  left: auto; }
+
 .elementor-slides-wrapper div:not(.swiper-slide) > .swiper-slide-inner {
   display: none; }
 
@@ -2745,9 +2753,14 @@ body.rtl.woocommerce-page div.product .elementor-widget-woocommerce-product-imag
 .elementor-headline {
   font-size: 43px;
   line-height: 1.2;
-  display: block; }
+  display: flex; }
+  .elementor-headline .elementor-headline-plain-text:first-of-type:after, .elementor-headline .elementor-headline-plain-text:last-of-type:before {
+    content: ' ';
+    display: inline-block;
+    white-space: pre; }
   .elementor-headline--style-rotate .elementor-headline-dynamic-wrapper {
-    text-align: right; }
+    text-align: right;
+    overflow: hidden; }
   .elementor-headline--style-highlight .elementor-headline-dynamic-wrapper {
     overflow: visible;
     text-align: inherit; }
@@ -2888,6 +2901,7 @@ body.rtl.woocommerce-page div.product .elementor-widget-woocommerce-product-imag
   backface-visibility: hidden; }
 
 .elementor-headline-animation-type-swirl .elementor-headline-dynamic-text {
+  transform: scaleX(1.0005);
   opacity: 0; }
 
 .elementor-headline-animation-type-swirl .elementor-headline-dynamic-letter {
@@ -3104,6 +3118,9 @@ body.rtl.woocommerce-page div.product .elementor-widget-woocommerce-product-imag
   100% {
     opacity: 0;
     transform: translateX(100%); } }
+
+.elementor-headline-animation-type-swirl .elementor-headline-dynamic-wrapper, .elementor-headline-animation-type-blinds .elementor-headline-dynamic-wrapper, .elementor-headline-animation-type-wave .elementor-headline-dynamic-wrapper, .elementor-headline-animation-type-slide .elementor-headline-dynamic-wrapper, .elementor-headline-animation-type-drop-in .elementor-headline-dynamic-wrapper, .elementor-headline-animation-type-slide-down .elementor-headline-dynamic-wrapper, .elementor-headline-animation-type-flip .elementor-headline-dynamic-wrapper {
+  transition: width 0.5s; }
 
 .elementor-headline-animation-type-swirl .elementor-headline-dynamic-text, .elementor-headline-animation-type-blinds .elementor-headline-dynamic-text, .elementor-headline-animation-type-wave .elementor-headline-dynamic-text {
   white-space: nowrap; }
@@ -4185,7 +4202,7 @@ ul.elementor-nav-menu--dropdown a, ul.elementor-nav-menu--dropdown a:hover, ul.e
     font-weight: bold; }
   .elementor-toc__list-item .elementor-toc__list-wrapper {
     margin-top: 0.5em;
-    margin-left: var(--nested-list-indent, 1em); }
+    margin-right: var(--nested-list-indent, 1em); }
   .elementor-toc__list-item-text {
     color: var(--item-text-color); }
     .elementor-toc__list-item-text:hover {

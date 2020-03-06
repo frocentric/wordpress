@@ -1,0 +1,69 @@
+[class*='ninja-col-'] {
+    float: left;
+    padding: 0 5px;
+}
+
+/*[class*='ninja-col-']:last-of-type {
+    padding-right: 0;
+}*/
+
+.ninja-col-1-2 { width: 50%; }
+.ninja-col-2-2 { width: 100%; }
+
+.ninja-col-1-3 { width: 33.33%; }
+.ninja-col-2-3 { width: 66.66%; }
+.ninja-col-3-3 { width: 100%; }
+
+.ninja-col-1-4 { width: 25%; }
+.ninja-col-2-4 { width: 50%; }
+.ninja-col-3-4 { width: 75%; }
+.ninja-col-4-4 { width: 100%; }
+
+.ninja-row { width: auto; margin: 0 auto; padding: 0; }
+
+.ninja-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.nf-2col-list-checkbox-wrap li,
+.nf-2col-list-radio-wrap li {
+    float: left;
+    padding: 0 5px;
+    width: 50%;
+}
+
+.nf-3col-list-checkbox-wrap li,
+.nf-3col-list-radio-wrap li {
+    float: left;
+    padding: 0 5px;
+    width: 33.33%;
+}
+
+.nf-4col-list-checkbox-wrap li,
+.nf-4col-list-radio-wrap li {
+    float: left;
+    padding: 0 5px;
+    width: 25%;
+}
+
+/*.ninja-row  > [class*='ninja-col-']:last-of-type {
+    padding-right: 5px;
+}*/
+
+/* =Responsive Structure
+----------------------------------------------- */
+
+@media  only screen and (max-width: 600px) {
+    .ninja-row [class*='ninja-col-'],
+    .nf-2col-list-checkbox-wrap li,
+    .nf-2col-list-radio-wrap li,
+    .nf-3col-list-checkbox-wrap li,
+    .nf-3col-list-radio-wrap li,
+    .nf-4col-list-checkbox-wrap li,
+    .nf-4col-list-radio-wrap li {
+        width: 100%;
+        margin-right: 0;
+    }
+}

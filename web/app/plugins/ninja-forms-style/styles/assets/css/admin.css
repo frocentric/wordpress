@@ -1,0 +1,23 @@
+.ninja-forms-app .ninja_forms_styles_settings_field_type.postbox {
+    display: none;
+}
+
+.postbox {
+    margin-bottom: 10px;
+}
+.postbox .hndle {
+    cursor: pointer !important;
+}
+.postbox .nf-postbox-controls {
+    font-family: "dashicons";
+    font-size: 2em;
+    position: absolute;
+    right: 20px;
+    top: -1px;
+}
+.postbox .nf-postbox-controls:before {
+    content: "\f142";
+}
+.postbox.closed .nf-postbox-controls:before {
+    content: "\f140";
+}

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "71846d02e36ca288669c4a9b65ab729d",
+    "content-hash": "58981b870359df0284473f0d98c43839",
     "packages": [
         {
             "name": "composer/installers",
@@ -257,6 +257,17 @@
                 "wordpress"
             ],
             "time": "2018-11-09T20:10:38+00:00"
+        },
+        {
+            "name": "kinsta/kinsta-mu-plugins",
+            "version": "2.0.15",
+            "dist": {
+                "type": "zip",
+                "url": "https://kinsta.com/kinsta-tools/kinsta-mu-plugins.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "wordpress-muplugin"
         },
         {
             "name": "koodimonni-language/en_gb",
@@ -956,15 +967,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "2.9.3",
+            "version": "2.9.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/2.9.3"
+                "reference": "tags/2.9.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.2.9.3.zip",
+                "url": "https://downloads.wordpress.org/plugin/elementor.2.9.4.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -1096,15 +1107,15 @@
         },
         {
             "name": "wpackagist-plugin/ninja-forms",
-            "version": "3.4.24",
+            "version": "3.4.24.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/ninja-forms/",
-                "reference": "tags/3.4.24"
+                "reference": "tags/3.4.24.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.4.24.zip",
+                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.4.24.1.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -1196,15 +1207,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-analytify",
-            "version": "2.2.13",
+            "version": "3.0.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-analytify/",
-                "reference": "tags/2.2.13"
+                "reference": "tags/3.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-analytify.2.2.13.zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-analytify.3.0.0.zip",
                 "reference": null,
                 "shasum": null
             },

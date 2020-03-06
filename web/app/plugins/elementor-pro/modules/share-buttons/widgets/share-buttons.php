@@ -494,6 +494,9 @@ class Share_Buttons extends Base_Widget {
 					 {{WRAPPER}}.elementor-share-buttons--skin-minimal .elementor-share-btn__icon' => 'color: {{VALUE}}',
 				],
 				'separator' => 'after',
+				'condition' => [
+					'skin!' => 'framed',
+				],
 			]
 		);
 

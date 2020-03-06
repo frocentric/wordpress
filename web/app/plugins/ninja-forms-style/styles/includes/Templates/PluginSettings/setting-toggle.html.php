@@ -1,0 +1,1 @@
+<?php $view->get_part( 'setting-checkbox', $data );

@@ -183,6 +183,10 @@ class Animated_Headline extends Widget_Base {
 			]
 		);
 
+		// For backwards compatibility with RTL cases
+		$left = is_rtl() ? 'flex-end' : 'flex-start';
+		$right = is_rtl() ? 'flex-start' : 'flex-end';
+
 		$this->add_responsive_control(
 			'alignment',
 			[
@@ -204,8 +208,12 @@ class Animated_Headline extends Widget_Base {
 					],
 				],
 				'default' => 'center',
+				'selectors_dictionary' => [
+					'left' => $left,
+					'right' => $right,
+				],
 				'selectors' => [
-					'{{WRAPPER}} .elementor-headline' => 'text-align: {{VALUE}}',
+					'{{WRAPPER}} .elementor-headline' => 'justify-content: {{VALUE}}',
 				],
 			]
 		);

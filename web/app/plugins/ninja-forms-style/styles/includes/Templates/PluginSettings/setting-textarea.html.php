@@ -1,0 +1,1 @@
+<textarea class='widefat setting-<?php echo $data[ 'name' ]; ?>' name='<?php echo $view->get_field_name( $data ); ?>' id='<?php echo $view->get_field_id( $data ); ?>' rows='8'><?php echo $view->get_field_value( $data ); ?></textarea>

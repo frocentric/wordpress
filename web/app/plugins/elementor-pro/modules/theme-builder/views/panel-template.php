@@ -63,7 +63,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 </script>
 
 <script type="text/template" id="tmpl-elementor-theme-builder-button-preview">
-	<i class="eicon-eye tooltip-target" aria-hidden="true"  data-tooltip="<?php esc_attr_e( 'Preview Changes', 'elementor-pro' ); ?>"></i>
+	<i class="eicon-preview-medium tooltip-target" aria-hidden="true"  data-tooltip="<?php esc_attr_e( 'Preview Changes', 'elementor-pro' ); ?>"></i>
 	<span class="elementor-screen-only">
 		<?php esc_attr_e( 'Preview Changes', 'elementor-pro' ); ?>
 	</span>
