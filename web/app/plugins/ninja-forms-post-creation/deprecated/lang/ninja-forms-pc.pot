@@ -1,0 +1,248 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ninja-forms-post-creation\n"
+"POT-Creation-Date: 2014-11-16 15:28-0500\n"
+"PO-Revision-Date: 2014-11-16 15:29-0500\n"
+"Last-Translator: \n"
+"Language-Team: WP Ninjas <info@wpninjas.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_x;_n\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/field-type-group.php:5
+msgid "Post Creation"
+msgstr ""
+
+#: includes/meta-values.php:48
+msgid "Attach this value to custom post meta"
+msgstr ""
+
+#: includes/meta-values.php:63
+msgid "None"
+msgstr ""
+
+#: includes/meta-values.php:64
+msgid "Custom"
+msgstr ""
+
+#: includes/admin/field-settings-sidebar.php:29
+msgid "Post Creation Fields"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:30
+msgid "Post creation settings"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:38
+msgid "Create Post From Input?"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:40
+msgid "If this box is checked, Ninja Forms will create a post from user input."
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:47
+msgid "Users must be logged in to create post?"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:55
+#: includes/fields/post-status.php:45
+msgid "Draft"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:56
+msgid "Pending"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:57
+msgid "Publish"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:60
+msgid "Select a post status"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:69
+msgid "Select a post type"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:78
+msgid "Default post terms"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:85
+msgid "Default post tags"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:88
+msgid "Comma separated list"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:93
+msgid "Default post title"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:98
+msgid "Default Post Content"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:104
+msgid "Where should the default content be placed?"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:109
+msgid ""
+"If you do not have a \"Post Content\" field in your form, the default "
+"content will be used instead of the main content."
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:114
+msgid "Default Post Excerpt"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:135
+msgid "Users post as"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:138
+msgid "- Themselves"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:169
+msgid "Default Terms"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:272
+msgid "View Advanced Post Content Options"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:277
+msgid "Advanced Post Content"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:284
+msgid ""
+"This feature can be used to create post content from other Ninja Forms "
+"fields. In the textarea above, enter the labels of the fields you wish to "
+"include in the content, surrounded by braces."
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:285
+msgid ""
+"For example, if you wanted to add the values submitted by the user for the "
+"First Name and Last Name fields, you would enter:"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:288
+msgid "First Name: [First Name] Last Name: [Last Name]."
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:291
+msgid "This would add those values to the post content before it was inserted."
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:294
+msgid ""
+"If you do not add a \"Post Content\" field, this value will be used as the "
+"sole Post Content"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:297
+msgid "Prepend to Post Content"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:300
+msgid "Append to Post Content"
+msgstr ""
+
+#: includes/admin/list-terms.php:33
+msgid "Populate this with the term: "
+msgstr ""
+
+#: includes/admin/list-terms.php:35
+msgid "- None"
+msgstr ""
+
+#: includes/fields/post-content.php:5
+msgid "Content"
+msgstr ""
+
+#: includes/fields/post-content.php:10 includes/fields/post-excerpt.php:10
+msgid "Show Rich Text Editor?"
+msgstr ""
+
+#: includes/fields/post-content.php:17 includes/fields/post-excerpt.php:17
+msgid "Default Value"
+msgstr ""
+
+#: includes/fields/post-excerpt.php:5
+msgid "Excerpt"
+msgstr ""
+
+#: includes/fields/post-status.php:5
+msgid "Status"
+msgstr ""
+
+#: includes/fields/post-tags.php:5 includes/fields/post-tags.php:140
+msgid "Tags"
+msgstr ""
+
+#: includes/fields/post-tags.php:11
+msgid "Show Advanced Tag Selector"
+msgstr ""
+
+#: includes/fields/post-tags.php:141
+msgid "Add New Tag"
+msgstr ""
+
+#: includes/fields/post-tags.php:143
+msgid "Add"
+msgstr ""
+
+#: includes/fields/post-tags.php:145
+msgid "Separate tags with commas"
+msgstr ""
+
+#: includes/fields/post-terms.php:29
+msgid "Show advanced term selector"
+msgstr ""
+
+#: includes/fields/post-terms.php:35
+msgid "Allow users to create terms?"
+msgstr ""
+
+#: includes/fields/post-terms.php:36
+msgid "Requires advanced term selector"
+msgstr ""
+
+#: includes/fields/post-terms.php:120
+msgid "All"
+msgstr ""
+
+#: includes/fields/post-terms.php:121
+msgid "Most Used"
+msgstr ""
+
+#: includes/fields/post-terms.php:194
+msgid "Add New"
+msgstr ""
+
+#: includes/fields/post-terms.php:201
+msgid "Parent"
+msgstr ""
+
+#: includes/fields/post-terms.php:213
+msgid "Add New Term"
+msgstr ""
+
+#: includes/fields/post-title.php:5
+msgid "Title"
+msgstr ""
+
+#: includes/fields/post-type.php:5
+msgid "Type"
+msgstr ""

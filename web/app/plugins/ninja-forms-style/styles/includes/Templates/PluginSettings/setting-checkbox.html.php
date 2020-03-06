@@ -1,0 +1,2 @@
+<input type='hidden' name='<?php echo $view->get_field_name( $data ); ?>' value='0'>
+<input type='checkbox' name='<?php echo $view->get_field_name( $data ); ?>' value='1' id='<?php echo $view->get_field_id( $data ); ?>' class='widefat' <?php echo ( $view->get_field_value( $data ) ) ? 'checked' : ''; ?>>

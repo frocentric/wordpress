@@ -1,6 +1,6 @@
 # Application
 web/app/languages
-web/app/plugins
+web/app/plugins/*
 !web/app/plugins/elementor-pro
 !web/app/plugins/froware
 !web/app/plugins/gp-premium
