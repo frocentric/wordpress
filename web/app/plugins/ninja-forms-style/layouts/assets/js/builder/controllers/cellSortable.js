@@ -210,33 +210,6 @@ define( [], function() {
 				nfRadio.channel( 'app' ).request( 'update:setting', 'clean', false );
 				// Update our preview
 				nfRadio.channel( 'app' ).request( 'update:db' );
-
-				// Add our field addition to our change log.
-				var label = {
-					object: 'Field',
-					label: fieldModel.get( 'label' ),
-					change: 'Re-ordered',
-					dashicon: 'sort'
-				};
-
-				var data = {
-					layouts: true,
-					oldOrder: oldOrder,
-					fieldCollection: cellView.collection
-				};
-
-				/*
-				 * Disable the next Layouts change
-				 */
-				var changeCollection = nfRadio.channel( 'changes' ).request( 'get:collection' );
-				_.each( changeCollection.models, function( changeModel ) {
-					var data = changeModel.get( 'data' );
-					if ( 'undefined' != typeof data.layouts && data.layouts ) {
-						changeModel.set( 'disabled', true );
-					}
-				}, this );
-
-				var newChange = nfRadio.channel( 'changes' ).request( 'register:change', 'cellSorting', fieldModel, null, label, data );
 			}
 			this.received = false;
 		},
@@ -321,37 +294,6 @@ define( [], function() {
 			if ( null === ui.helper ) {
 				jQuery( ui.item ).remove();
 			}
-
-			/**
-			 * TODO: Add in support for undoing adding a new field.
-			 */
-			
-			// // Add our field addition to our change log.
-			// var label = {
-			// 	object: 'Field',
-			// 	label: newModel.get( 'label' ),
-			// 	change: 'Field Added',
-			// 	dashicon: 'plus-alt'
-			// };
-
-			// var data = {
-			// 	layouts: true,
-			// 	fieldCollection: cellView.collection
-			// };
-			
-			// /*
-			//  * Disable Layouts changes
-			//  */
-			// var changeCollection = nfRadio.channel( 'changes' ).request( 'get:collection' );
-			// _.each( changeCollection.models, function( changeModel ) {
-			// 	var data = changeModel.get( 'data' );
-			// 	if ( 'undefined' != typeof data.layouts && data.layouts ) {
-			// 		changeModel.set( 'disabled', true );
-			// 	}
-			// }, this );
-
-			// var newChange = nfRadio.channel( 'changes' ).request( 'register:change', 'cellNewField', newModel, null, label, data );
-
 		},
 
 		/**
@@ -449,35 +391,6 @@ define( [], function() {
 			this.sortFields( order, cellView.collection );
 
 			ui.item.fieldCollection.remove( fieldModel );
-
-			// Add our field addition to our change log.
-			var label = {
-				object: 'Field',
-				label: fieldModel.get( 'label' ),
-				change: 'Moved Between Cells',
-				dashicon: 'randomize'
-			};
-
-			var data = {
-				layouts: true,
-				originalCollection: ui.item.fieldCollection,
-				newCollection: cellView.collection,
-				senderOldOrder: senderOldOrder,
-				receiverOldOrder: receiverOldOrder
-			};
-			
-			/*
-			 * Disable Layouts changes
-			 */
-			var changeCollection = nfRadio.channel( 'changes' ).request( 'get:collection' );
-			_.each( changeCollection.models, function( changeModel ) {
-				var data = changeModel.get( 'data' );
-				if ( 'undefined' != typeof data.layouts && data.layouts ) {
-					changeModel.set( 'disabled', true );
-				}
-			}, this );
-
-			var newChange = nfRadio.channel( 'changes' ).request( 'register:change', 'movedBetweenCells', fieldModel, null, label, data );
 		},
 
 		/**
@@ -555,31 +468,6 @@ define( [], function() {
 			var tmpID = nfRadio.channel( 'fields' ).request( 'get:tmpID' );
 			// Add our field
 			var newModel = nfRadio.channel( 'fields' ).request( 'add',  { id: tmpID, label: fieldType.get( 'nicename' ), type: type, cellcid: cellcid }, silent, false );
-			// Add our field addition to our change log.
-			var label = {
-				object: 'Field',
-				label: newModel.get( 'label' ),
-				change: 'Added',
-				dashicon: 'plus-alt'
-			};
-
-			var data = {
-				layouts: true,
-				collection: nfRadio.channel( 'fields' ).request( 'get:collection' )
-			}
-
-			/*
-			 * Disable Layouts changes
-			 */
-			var changeCollection = nfRadio.channel( 'changes' ).request( 'get:collection' );
-			_.each( changeCollection.models, function( changeModel ) {
-				var data = changeModel.get( 'data' );
-				if ( 'undefined' != typeof data.layouts && data.layouts ) {
-					changeModel.set( 'disabled', true );
-				}
-			}, this );
-
-			nfRadio.channel( 'changes' ).request( 'register:change', 'cellNewField', newModel, null, label, data );
 
 			return newModel;
 		},
@@ -630,17 +518,6 @@ define( [], function() {
 			cellCollection.remove( cellModel );
 
 			/*
-			 * Setup the values to add this to our undo manager
-			 */
-			var undoData = {
-				layouts: true,
-				rowCollection: rowCollection,
-				cellCollection: cellCollection,
-				cellModel: cellModel,
-				rowModel: rowModel
-			};
-
-			/*
 			 * If we have more than one cell, recalculate our widths
 			 */
 			if ( 1 == cellCollection.models.length ) { // We have one cell.
@@ -662,40 +539,12 @@ define( [], function() {
 				 * After we insert our new rows, we remove our old row.
 				 */
 				rowCollection.remove( rowModel );
-
-				/*
-				 * Add our new rows to the undo data object
-				 */
-				undoData.newRows = newRows;
 			}
-
-			// Add our action deletion to our change log.
-			var label = {
-				object: 'Cell',
-				label: '',
-				change: 'Removed',
-				dashicon: 'dismiss'
-			};
-
-			/*
-			 * Disable Layouts changes
-			 */
-			var changeCollection = nfRadio.channel( 'changes' ).request( 'get:collection' );
-			_.each( changeCollection.models, function( changeModel ) {
-				var data = changeModel.get( 'data' );
-				if ( 'undefined' != typeof data.layouts && data.layouts ) {
-					changeModel.set( 'disabled', true );
-				}
-			}, this );
-			
-			nfRadio.channel( 'changes' ).request( 'register:change', 'removedCell', cellModel, null, label, undoData );
 			
 			// Set our 'clean' status to false so that we get a notice to publish changes
 			nfRadio.channel( 'app' ).request( 'update:setting', 'clean', false );
 			// Update our preview
 			nfRadio.channel( 'app' ).request( 'update:db' );
-
-
 		}
 	});
 

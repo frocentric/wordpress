@@ -112,33 +112,6 @@ define( [], function() {
 				var rowcid = jQuery( ui.item ).data( 'id' );
 				var droppedRow = rowsView.collection.get( { cid: rowcid } );
 
-				// Add our field addition to our change log.
-				var label = {
-					object: 'Row',
-					label: '',
-					change: 'Re-ordered',
-					dashicon: 'sort'
-				};
-
-				var data = {
-					layouts: true,
-					oldOrder: oldOrder,
-					rowCollection: rowsView.collection
-				};
-
-				/*
-				 * Disable the next Layouts change
-				 */
-				var changeCollection = nfRadio.channel( 'changes' ).request( 'get:collection' );
-				_.each( changeCollection.models, function( changeModel ) {
-					var data = changeModel.get( 'data' );
-					if ( 'undefined' != typeof data.layouts && data.layouts ) {
-						changeModel.set( 'disabled', true );
-					}
-				}, this );
-
-				var newChange = nfRadio.channel( 'changes' ).request( 'register:change', 'rowSorting', droppedRow, null, label, data );
-
 				// Set our 'clean' status to false so that we get a notice to publish changes
 				nfRadio.channel( 'app' ).request( 'update:setting', 'clean', false );
 				// Update our preview
@@ -196,32 +169,6 @@ define( [], function() {
 			this.addRow( order, rowsView.collection, [ fieldModel.get( 'key' ) ], true );
 			// Remove our helper
 			jQuery( ui.helper ).remove();
-
-			// Add our field addition to our change log.
-			var label = {
-				object: 'Field',
-				label: fieldModel.get( 'label' ),
-				change: 'Added',
-				dashicon: 'plus-alt'
-			};
-
-			var data = {
-				layouts: true,
-				collection: nfRadio.channel( 'fields' ).request( 'get:collection' )
-			}
-
-			/*
-			 * Disable Layouts changes
-			 */
-			var changeCollection = nfRadio.channel( 'changes' ).request( 'get:collection' );
-			_.each( changeCollection.models, function( changeModel ) {
-				var data = changeModel.get( 'data' );
-				if ( 'undefined' != typeof data.layouts && data.layouts ) {
-					changeModel.set( 'disabled', true );
-				}
-			}, this );
-
-			var changeModel = nfRadio.channel( 'changes' ).request( 'register:change', 'rowNewField', fieldModel, null, label, data );
 		},
 
 		receiveFieldStaging: function( e, ui, rowsView, sortable ) {
@@ -272,58 +219,6 @@ define( [], function() {
 			var rowModel = this.addRow( droppedOrder, rowsView.collection, [ fieldID ] );
 
 			oldOrder[ oldOrder.indexOf( oldCID ) ] = rowModel.cid;
-
-			/*
-			 * Register an undo action for moving a current field into the row sortable.
-			 */
-			var undoLabel = {
-				object: 'Field',
-				undoLabel: fieldModel.get( 'label' )
-			};
-
-			var undoData = {
-				layouts: true
-			}			
-
-			/*
-			 * If we have more than one cell model in our collection, then we've dragged from a cell into a row.
-			 *
-			 * If we have just one cell model in our collection, then we've dragged a row.
-			 * In this case, we are technically sorting, not just adding a new row.
-			 */
-			if ( 2 <= ui.item.fieldCollection.options.cellModel.collection.length ) {
-				var changeAction = 'movedToNewRow';
-				var actionModel = fieldModel;
-				undoData.originalCollection = ui.item.fieldCollection;
-				undoData.rowModel = rowModel;
-				undoLabel.dashicon = 'randomize';
-				undoLabel.change = 'Moved';
-			} else {
-				var changeAction = 'rowSorting';
-				var actionModel = rowModel;
-				undoData.oldOrder = oldOrder;
-				undoData.rowCollection = rowsView.collection;
-				undoLabel.dashicon = 'sort';
-				undoLabel.change = 'Re-ordered';
-			}
-
-			/*
-			 * Disable Layouts changes
-			 */
-			var changeCollection = nfRadio.channel( 'changes' ).request( 'get:collection' );
-			_.each( changeCollection.models, function( changeModel ) {
-				var data = changeModel.get( 'data' );
-				if ( 'undefined' != typeof data.layouts && data.layouts ) {
-					changeModel.set( 'disabled', true );
-
-					if ( 'undefined' != typeof data.oldOrder ) {
-						data.oldOrder[ data.oldOrder.indexOf( oldCID ) ] = rowModel.cid;
-						changeModel.set( 'data', data );
-					}
-				}
-			}, this );
-
-			var changeModel = nfRadio.channel( 'changes' ).request( 'register:change', changeAction, actionModel, null, undoLabel, undoData );
 		},
 
 		/**

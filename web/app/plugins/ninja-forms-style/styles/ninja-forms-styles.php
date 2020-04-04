@@ -7,7 +7,7 @@ if( class_exists( 'NF_Styles', false ) ) return;
  */
 final class NF_Styles
 {
-    const VERSION = '3.0.26';
+    const VERSION = '3.0.28';
     const SLUG    = 'styles';
     const NAME    = 'Styles';
     const AUTHOR  = 'WP Ninjas';
@@ -169,6 +169,8 @@ final class NF_Styles
                 unset( $style_settings[ 'label_styles' ] );
             }
         }
+
+	    $style_settings = apply_filters( 'ninja_forms_styles_field_settings', $style_settings, $field_type, $field_parent_type );
 
         foreach( $style_settings as $name => $style_setting ){
 
@@ -509,6 +511,9 @@ final class NF_Styles
 
     public function localize_field_styles( $form_id, $settings, $fields )
     {
+        $form_instance_id = 0;
+        if(strpos($form_id, '_')) list($real_form_id, $form_instance_id) = explode('_', $form_id);
+
         $cache = get_transient( 'ninja_forms_styles_form_' . $form_id . '_field_styles' );
         if( $cache ){
             echo $cache;
@@ -523,6 +528,7 @@ final class NF_Styles
         
         $field_settings_groups = array_merge( $field_settings_groups, self::config( 'RatingFieldSettings' ) );
 
+	    $field_settings_groups = apply_filters( 'ninja_forms_styles_field_settings_groups', $field_settings_groups );
 
         $common_settings = self::config( 'CommonSettings' );
 
@@ -540,10 +546,16 @@ final class NF_Styles
                 if( ! isset( $field_settings_group[ 'selector' ] ) ) continue;
 
                 if( is_object( $field ) ){
-                    $selector = str_replace( '{ID}', $field->get_id(), $field_settings_group[ 'selector' ] );
+                    $field_id = $field->get_id();
                 } elseif( isset( $field[ 'id' ] ) ){
-                    $selector = str_replace( '{ID}', $field[ 'id' ], $field_settings_group[ 'selector' ] );
+                    $field_id = $field['id'];
                 }
+
+                if($form_instance_id) {
+                    $field_id .= '_' . $form_instance_id;
+                }
+
+                $selector = str_replace( '{ID}', $field_id, $field_settings_group[ 'selector' ] );
 
                 foreach( $common_settings as $common_setting ){
 
@@ -683,11 +695,19 @@ final class NF_Styles
     public function bust_form_styles_cache( $form_id )
     {
         delete_transient( 'ninja_forms_styles_form_' . $form_id . '_styles' );
+
+        // Fallback for form instance IDs. @NOTE Does not support memcache (or similar), where transients are not stored in the database
+        global $wpdb;
+        $result = $wpdb->query( "DELETE FROM `$wpdb->options` WHERE `option_name` LIKE ('_transient_ninja_forms_styles_form_" . $form_id . "_%_styles')" );
     }
 
     public function bust_field_styles_cache( $form_id )
     {
         delete_transient( 'ninja_forms_styles_form_' . $form_id . '_field_styles' );
+
+        // Fallback for form instance IDs. @NOTE Does not support memcache (or similar), where transients are not stored in the database
+        global $wpdb;
+        $wpdb->query( "DELETE FROM `$wpdb->options` WHERE `option_name` LIKE ('_transient_ninja_forms_styles_form_" . $form_id . "_%_field_styles')" );        
     }
 
     public function bust_plugin_styles_cache( $style_settings )

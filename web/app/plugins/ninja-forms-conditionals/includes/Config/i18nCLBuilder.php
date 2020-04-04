@@ -28,6 +28,8 @@ return apply_filters( 'ninja_forms_i18n_cl_builder', array(
     'templateHelperGreaterThanOrEqual'      => __( 'Greater Than or Equal', 'ninja-forms-conditional-logic' ),
     'templateHelperShowField'               => __( 'Show Field', 'ninja-forms-conditional-logic' ),
     'templateHelperHideField'               => __( 'Hide Field', 'ninja-forms-conditional-logic' ),
+    'templateHelperSetRequired'             => __( 'Is Required', 'ninja-forms-conditional-logic' ),
+    'templateHelperUnsetRequired'           => __( 'Not Required', 'ninja-forms-conditional-logic' ),
     'templateHelperChangeValue'             => __( 'Change Value', 'ninja-forms-conditional-logic'),
     'updateSettingsCondition'               => __( 'Condition', 'ninja-forms-conditional-logic' ),
     'updateSettingsTitleAddNewCondition'    => __( 'Add New Condition', 'ninja-forms-conditional-logic' ),

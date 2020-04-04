@@ -114,8 +114,8 @@ function wpematico_pro_help_campaign($helpsettings) {
 					);
 			}
 
-			if (empty($helpsettings['Post Template']['campaign_delfphrase'])) {
-				$helpsettings['Post Template']['campaign_delfphrase'] = array( 
+			if (empty($helpsettings['Custom Parsers']['campaign_delfphrase'])) {
+				$helpsettings['Custom Parsers']['campaign_delfphrase'] = array( 
 						'title' => __('Delete all in the content AFTER a word or phrase till the end.', 'wpematico' ),
 						'tip' => __('<span class="srchbdr0 hide" id="hlpphra" style="display: inline;">
 				<b>Basics:</b>	 
@@ -127,20 +127,33 @@ function wpematico_pro_help_campaign($helpsettings) {
 			</span>', 'wpematico' ),
 					);
 			}
-			if (empty($helpsettings['Post Template']['campaign_delfphrase_keep'])) {
-				$helpsettings['Post Template']['campaign_delfphrase_keep'] = array( 
+			if (empty($helpsettings['Custom Parsers']['campaign_delfphrase_keep'])) {
+				$helpsettings['Custom Parsers']['campaign_delfphrase_keep'] = array( 
 						'title' => __('Keep phrase', 'wpematico' ),
 						'tip' => __('This option allows you to preserve the phrase found in the post content.', 'wpematico' ),
 					);
 			}
-			if (empty($helpsettings['Post Template']['campaign_delfphrase_end_line'])) {
-				$helpsettings['Post Template']['campaign_delfphrase_end_line'] = array( 
+			if (empty($helpsettings['Custom Parsers']['campaign_delfphrase_end_line'])) {
+				$helpsettings['Custom Parsers']['campaign_delfphrase_end_line'] = array( 
 						'title' => __('Till the end of the line', 'wpematico' ),
 						'tip' => __('Delete the phrase till the end of the line instead the end of the content.', 'wpematico' ),
 					);
 			}
-			if (empty($helpsettings['Post Template']['campaign_lastag_tag'])) {
-				$helpsettings['Post Template']['campaign_lastag_tag'] = array( 
+			if (empty($helpsettings['Custom Parsers']['flip_paragraphs_title'])) {
+				$helpsettings['Custom Parsers']['flip_paragraphs_title'] = array( 
+						'title' => __('Flip Paragraphs', 'wpematico' ),
+						'tip' => __('Allow flip all paragraphs of the content (&lt;p&gt; tags), each one is replaced by the following and so on until the end of the content.', 'wpematico' ) ."<br />"
+						. __('It runs after the above strips, so first deletes what doesn\'t suit and then inverts the paragraphs.', 'wpematico' ),
+					);
+			}
+			if (empty($helpsettings['Custom Parsers']['campaign_flip_paragraphs'])) {
+				$helpsettings['Custom Parsers']['campaign_flip_paragraphs'] = array( 
+						'title' => __('Activate Flip Paragraphs', 'wpematico' ),
+						'tip' => __('All new posts fetched by the campaign will flip the first and second paragraph of the content (&lt;p&gt; tags), each one is replaced by the other. And if the third one with the fourth one is presented as well, and so on until the end of the content.', 'wpematico' ),
+					);
+			}
+			if (empty($helpsettings['Custom Parsers']['campaign_lastag_tag'])) {
+				$helpsettings['Custom Parsers']['campaign_lastag_tag'] = array( 
 						'title' => __('Last HTML tag to remove', 'wpematico' ),
 						'tip' => __('Finds the tag from right to end of the content and strip it.  Works after Phrase feature above. Keep empty to ignore.', 'wpematico' ),
 					);

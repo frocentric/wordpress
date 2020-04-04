@@ -1,6 +1,6 @@
 var nfRadio = Backbone.Radio;
 
-require( [ 'controllers/initCollection', 'controllers/showHide', 'controllers/showHideOption', 'controllers/changeValue', 'controllers/selectDeselect', 'controllers/actions' ], function( InitCollection, ShowHide, ShowHideOption, ChangeValue, SelectDeselect, Actions ) {
+require( [ 'controllers/initCollection', 'controllers/showHide', 'controllers/changeRequired', 'controllers/showHideOption', 'controllers/changeValue', 'controllers/selectDeselect', 'controllers/actions' ], function( InitCollection, ShowHide, ChangeRequired, ShowHideOption, ChangeValue, SelectDeselect, Actions ) {
 
 	var NFConditionalLogic = Marionette.Application.extend( {
 
@@ -10,6 +10,7 @@ require( [ 'controllers/initCollection', 'controllers/showHide', 'controllers/sh
 
 		loadControllers: function( formModel ) {
 			new ShowHide();
+			new ChangeRequired();
 			new ShowHideOption();
 			new ChangeValue();
 			new SelectDeselect();

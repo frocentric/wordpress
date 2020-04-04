@@ -11,7 +11,6 @@ return apply_filters( 'ninja_forms_styles_field_type_section', array(
             'html',
             'password',
             'passwordconfirm',
-            'file_upload'
         )
     ),
     
@@ -24,7 +23,6 @@ return apply_filters( 'ninja_forms_styles_field_type_section', array(
             'html',
             'password',
             'passwordconfirm',
-            'file_upload'
         )
     ),
     
@@ -44,7 +42,6 @@ return apply_filters( 'ninja_forms_styles_field_type_section', array(
             'terms',
             'mailchimp-optin',
             'recaptcha',
-            'file_upload'
         )
     ),
 
@@ -314,65 +311,5 @@ return apply_filters( 'ninja_forms_styles_field_type_section', array(
             'html'
         )
     ),
-    
-    /*
-    |--------------------------------------------------------------------------
-    | File Uploads Sections
-    |--------------------------------------------------------------------------
-     */
-    
-    'upload_wrap' => array(
-        'name' => 'upload_wrap',
-        'label' => __( 'Wrap', 'ninja-forms-layout-styles' ),
-        'selector' => '.file_upload-wrap',
-        'only' => array(
-            'file_upload'
-        )
-    ),
-    
-    'upload_label' => array(
-        'name' => 'upload_label',
-        'label' => __( 'Label', 'ninja-forms-layout-styles' ),
-        'selector' => '.file_upload-wrap .nf-field-label label',
-        'only' => array(
-            'file_upload'
-        )
-    )
-    
-    /*'upload_element' => array(
-        'name' => 'upload_element',
-        'label' => __( 'Element', 'ninja-forms-layout-styles' ),
-        'selector' => '.file_upload-wrap .nf-field-element button.fileinput-button',
-        'only' => array(
-            'file_upload'
-        )
-    ),
-    
-    'upload_hover' => array(
-        'name' => 'upload_hover',
-        'label' => __( 'Element Hover', 'ninja-forms-layout-styles' ),
-        'selector' => '.file_upload-wrap .nf-field-element .btn:hover',
-        'only' => array(
-            'file_upload'
-        )
-    ),
-    
-    'upload_progress' => array(
-        'name' => 'upload_progress',
-        'label' => __( 'Progress Bar', 'ninja-forms-layout-styles' ),
-        'selector' => '.file_upload-wrap .nf-field-element .progress .progress-bar',
-        'only' => array(
-            'file_upload'
-        )
-    ),
-    
-    'upload_files' => array(
-        'name' => 'upload_files',
-        'label' => __( 'File List', 'ninja-forms-layout-styles' ),
-        'selector' => '.file_upload-wrap .nf-field-element .files_uploaded',
-        'only' => array(
-            'file_upload'
-        )
-    )*/
 
 ));

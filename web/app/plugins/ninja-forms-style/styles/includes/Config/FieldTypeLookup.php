@@ -15,5 +15,4 @@ return array(
     'listcountry' => '_country',
     'number' => '_number',
     'hr' => '_hr',
-    'file_upload' => '_upload'
 );

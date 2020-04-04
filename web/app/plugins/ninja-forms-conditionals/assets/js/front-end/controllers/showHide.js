@@ -32,8 +32,30 @@ define( [], function() {
             if ( ! targetFieldModel.get( 'clean' ) ) {
                 targetFieldModel.trigger( 'change:value', targetFieldModel );
 			}
+			if ( 'recaptcha' === targetFieldModel.get( 'type' ) ) {
+				this.renderRecaptcha();
+			}
 			var viewEl = { el: nfRadio.channel( 'form-' + conditionModel.collection.formModel.get( 'id' ) ).request( 'get:el' ) };
             nfRadio.channel( 'form' ).request( 'init:help', viewEl );
+		},
+
+		renderRecaptcha: function() {
+			jQuery( '.g-recaptcha' ).each( function() {
+                var callback = jQuery( this ).data( 'callback' );
+                var fieldID = jQuery( this ).data( 'fieldid' );
+                if ( typeof window[ callback ] !== 'function' ){
+                    window[ callback ] = function( response ) {
+                        nfRadio.channel( 'recaptcha' ).request( 'update:response', response, fieldID );
+                    };
+                }
+				var opts = {
+					theme: jQuery( this ).data( 'theme' ),
+					sitekey: jQuery( this ).data( 'sitekey' ),
+					callback: callback
+				};
+				
+				grecaptcha.render( jQuery( this )[0], opts );
+			} );
 		}
 	});
 

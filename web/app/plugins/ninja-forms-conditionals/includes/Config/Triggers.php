@@ -38,4 +38,22 @@ return apply_filters( 'ninja_forms_conditional_logic_triggers', array(
         'instance' => ''
     ),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Required Field
+    |--------------------------------------------------------------------------
+    */
+
+    'set_required' => array(
+        'key'      => 'set_required',
+        'label'    => __( 'Is Required', 'ninja-forms-conditional-logic' ),
+        'instance' => ''
+    ),
+
+    'unset_required' => array(
+        'key'      => 'unset_required',
+        'label'    => __( 'Not Required', 'ninja-forms-conditional-logic' ),
+        'instance' => ''
+    ),
+
 ));

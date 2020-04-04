@@ -13,6 +13,9 @@ define( [], function() {
 		initialize: function() {
 			nfRadio.channel( 'conditions-list' ).reply( 'get:triggers', this.getListTriggers );
 			nfRadio.channel( 'conditions-submit' ).reply( 'get:triggers', this.getSubmitTriggers );
+			nfRadio.channel( 'conditions-html' ).reply( 'get:triggers', this.getHTMLTriggers );
+			nfRadio.channel( 'conditions-hr' ).reply( 'get:triggers', this.getDividerTriggers );
+			nfRadio.channel( 'conditions-hidden' ).reply( 'get:triggers', this.getHiddenTriggers );
 		},
 
 		getListTriggers: function( defaultTriggers ) {
@@ -44,7 +47,19 @@ define( [], function() {
 		},
 
 		getSubmitTriggers: function( defaultTriggers ) {
-			return _.omit( defaultTriggers, 'change_value' );
+			return _.omit( defaultTriggers, ['change_value', 'set_required', 'unset_required'] );
+		},
+
+		getHTMLTriggers: function( defaultTriggers ) {
+			return _.omit( defaultTriggers, ['set_required', 'unset_required'] );
+		},
+
+		getDividerTriggers: function( defaultTriggers ) {
+			return _.omit( defaultTriggers, ['change_value', 'set_required', 'unset_required'] );
+		},
+
+		getHiddenTriggers: function( defaultTriggers ) {
+			return _.omit( defaultTriggers, ['set_required', 'unset_required'] );
 		}
 
 	});

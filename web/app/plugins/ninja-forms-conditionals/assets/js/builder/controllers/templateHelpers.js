@@ -187,6 +187,16 @@ define( [], function() {
 				change_value: {
 					label: nfcli18n.templateHelperChangeValue,
 					value: 'change_value'
+				},
+
+				set_required: {
+					label: nfcli18n.templateHelperSetRequired,
+					value: 'set_required'
+				},
+
+				unset_required: {
+					label: nfcli18n.templateHelperUnsetRequired,
+					value: 'unset_required'
 				}
 			};
 
