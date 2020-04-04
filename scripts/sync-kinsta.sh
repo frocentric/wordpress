@@ -38,8 +38,23 @@ read -r -p "
 
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
   # Change to site directory
-  cd ../ &&
+  pwd=$(pwd)
   echo
+
+  # Check we're running under a Bedrock site: https://unix.stackexchange.com/a/22215
+  findenv () {
+    path=$(pwd)
+    while [[ "$path" != "" && ! -e "$path/.env" ]]; do
+      path=${path%/*}
+    done
+    if [[ $path != "" ]]; then
+      cd "$path"
+    else
+      echo "❌  Unable to find a Bedrock site root"
+      exit 1
+    fi
+  }
+  findenv
 
   # Make sure both environments are available before we continue
   availfrom() {
@@ -94,4 +109,5 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
   #   curl -X POST -H "Content-type: application/json" --data "{\"attachments\":[{\"fallback\": \"\",\"color\":\"#36a64f\",\"text\":\"🔄 Sync from ${FROMSITE} to ${TOSITE} by ${USER} complete \"}],\"channel\":\"#site\"}" https://hooks.slack.com/services/xx/xx/xx
   # fi
   echo -e "\n\n🔄  Sync from $FROM to $TO complete.\n\n    ${bold}$TOSITE${normal}\n"
+  cd "$pwd"
 fi
