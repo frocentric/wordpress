@@ -2,9 +2,9 @@
 Contributors: kstover, jameslaws, kbjohnson90
 Donate link: http://ninjaforms.com
 Tags: form, forms, CSS
-Requires at least: 4.9
-Tested up to: 5.1
-Stable tag: 3.0.26
+Requires at least: 5.0
+Tested up to: 5.2
+Stable tag: 3.0.28
 
 License: GPLv2 or later
 
@@ -23,6 +23,22 @@ This section describes how to install the plugin and get it working.
 For help and video tutorials, please visit our website: [NinjaForms.com](http://ninjaforms.com)
 
 == Changelog ==
+
+= 3.0.28 (9 October 2019) =
+
+*Bugs:*
+
+* Styles should now be honored on all forms when there are multiple copies of the same form on a page.
+
+*Changes:*
+
+* Added support for styling file upload fields.
+
+= 3.0.27 (12 June 2019) =
+
+*Changes:*
+
+* Cleaned up a few older scripts that were slowing things down in the form builder. Drag and drop should now be more performant.
 
 = 3.0.26 (4 April 2019) =
 

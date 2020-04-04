@@ -2,9 +2,9 @@
 Contributors: kstover, jameslaws, kbjohnson, klhall1987, Much2tall, deckerweb
 Donate link: http://ninjaforms.com
 Tags: form, forms
-Requires at least: 4.8
-Tested up to: 5.0
-Stable tag: 3.0.24
+Requires at least: 5.0
+Tested up to: 5.2
+Stable tag: 3.0.26
 
 License: GPLv2 or later
 
@@ -29,6 +29,24 @@ This section describes how to install the plugin and get it working.
 For help and video tutorials, please visit our website: [Ninja Forms Documentation](http://ninjaforms.com/documentation/intro/)
 
 == Changelog ==
+
+= 3.0.26 (25 September 2019) =
+
+*Bugs:*
+
+* Resolved an issue that sometimes prevented actions from firing, even when they had no attached conditions.
+* Forms with a Stripe or PayPal action should now properly complete once returning from the payment screen.
+
+= 3.0.25 (16 September 2019) =
+
+*Bugs:*
+
+* Hidden fields should now properly evaluate against empty.
+* Recaptcha fields that are hidden will now properly render once shown.
+
+*Changes:*
+
+* Fields can now be conditionally set as required.
 
 = 3.0.24 (23 January 2019) =
 

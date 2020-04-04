@@ -63,11 +63,11 @@ final class NF_CreatePost_Actions_CreatePost extends NF_Abstracts_Action
     {
         $post = array(
             'post_type'     => $action_settings[ 'post_type' ],
-            'post_status'   => $action_settings[ 'post_status' ],
+            'post_status'   => isset( $action_settings[ 'post_status' ] ) ? $action_settings['post_status'] : '',
         );
 
         // If we don't have a post author...
-        if( 0 == $action_settings[ 'post_author' ] ){
+        if( ! isset( $action_settings[ 'post_author' ] ) || 0 == $action_settings[ 'post_author' ] ){
             // Get our current user and set them as the author.
             $post[ 'post_author' ] = get_current_user_id();
         } // Otherwise...
@@ -109,7 +109,8 @@ final class NF_CreatePost_Actions_CreatePost extends NF_Abstracts_Action
         do_action( 'ninja_forms_create_post', $post_id, $action_settings, $form_id, $data );
 
         if( 'post' == $action_settings[ 'post_type' ] ) {
-            set_post_format($post_id, $action_settings['post_format']);
+            $format = isset( $action_settings['post_format'] ) ? $action_settings['post_format'] : '';
+            set_post_format($post_id, $format);
         }
 
         /*
@@ -214,7 +215,7 @@ final class NF_CreatePost_Actions_CreatePost extends NF_Abstracts_Action
 //            }
         }
 
-        $users = get_users();
+        $users = get_users( array( 'fields' => array( 'display_name', 'ID' ) ) );
         foreach( $users as $user ){
             $settings[ 'post_author' ][ 'options' ][] = array(
                 'label' => $user->display_name,

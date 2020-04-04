@@ -2,9 +2,9 @@
 Contributors: kbjohnson90, kstover, jameslaws
 Donate link: http://ninjaforms.com
 Tags: form, forms
-Requires at least: 4.0
-Tested up to: 4.6
-Stable tag: 3.0.7
+Requires at least: 5.0
+Tested up to: 5.2
+Stable tag: 3.0.9
 
 License: GPLv2 or later
 
@@ -25,6 +25,22 @@ This section describes how to install the plugin and get it working.
 For help and video tutorials, please visit our website: [NinjaForms.com](http://ninjaforms.com)
 
 == Changelog ==
+
+= 3.0.9 (15 August 2019) =
+
+*Bugs:*
+
+* Cleaned up a few things in form submission that were causing notices in the php error log.
+
+*Changes:*
+
+* Optimized a portion of our post creation process, which could have been slowing down submissions no sites with a lot of WordPress users.
+
+= 3.0.8 (15 May 2019) =
+
+*Bugs:*
+
+* Continue 2 notices should no longer be generated on servers running php 7.3 or higher.
 
 = 3.0.7 (26 April 2018) =
 

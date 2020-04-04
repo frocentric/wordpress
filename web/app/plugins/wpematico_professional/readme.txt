@@ -2,8 +2,8 @@
 Contributors: etruel
 Tags: RSS, Post, Posts, Feed, Feeds, RSS to Post, Feed to Post, admin, aggregation, atom, autoblogging, bot, content, syndication, writing
 Requires at least: 4.1
-Tested up to: 5.3
-Stable tag: 2.4
+Tested up to: 5.4
+Stable tag: 2.5
 
 WPeMatico is for autoblogging, automatically creating posts from the RSS/Atom feeds you choose. PRO Version extends WPeMatico free plugin.
 
@@ -77,6 +77,11 @@ This feature allow you to export and download a file from a single campaign, the
 * You will be notify when there is a new version then you can automatically upgrade from wordpress plugins page.
 
 == Changelog ==
+= 2.5 Mar 31, 2020 =
+* Added a new feature to parse and flip the paragraphs of each post content.
+* Improves a new Meta-Box to Custom Content Parsers with striping phrases features.
+* Fixes an error in Remove last HTML tag feature.
+
 = 2.4 Oct 28, 2019 =
 * Fixes an error in ramdon rewrite feature.
 

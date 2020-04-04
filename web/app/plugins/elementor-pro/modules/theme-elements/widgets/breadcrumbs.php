@@ -60,7 +60,7 @@ class Breadcrumbs extends Base {
 				[
 					'raw' => __( 'Breadcrumbs are disabled in the Yoast SEO', 'elementor-pro' ) . ' ' . sprintf( '<a href="%s" target="_blank">%s</a>', admin_url( 'admin.php?page=wpseo_titles#top#breadcrumbs' ), __( 'Breadcrumbs Panel', 'elementor-pro' ) ),
 					'type' => Controls_Manager::RAW_HTML,
-					'content_classes' => 'elementor-panel-alert elementor-panel-alert-danger',
+					'content_classes' => 'elementor-panel-alert elementor-panel-alert-info',
 				]
 			);
 		}

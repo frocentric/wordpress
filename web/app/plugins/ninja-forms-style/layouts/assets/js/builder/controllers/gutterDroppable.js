@@ -140,33 +140,6 @@ define( [], function() {
 			var newModel = this.addField( type, newCell, false );
 			// Remove our dragged element.
 			jQuery( ui.helper ).remove();
-
-			// // Add our field addition to our change log.
-			// var label = {
-			// 	object: 'Field / Cell',
-			// 	label: newModel.get( 'label' ),
-			// 	change: 'Added',
-			// 	dashicon: 'plus-alt'
-			// };
-
-			// var data = {
-			// 	layouts: true,
-			// 	fieldCollection: nfRadio.channel( 'fields' ).request( 'get:collection' ),
-			// 	newCell: newCell,
-			// };
-
-			// /*
-			//  * Disable Layouts changes
-			//  */
-			// var changeCollection = nfRadio.channel( 'changes' ).request( 'get:collection' );
-			// _.each( changeCollection.models, function( changeModel ) {
-			// 	var data = changeModel.get( 'data' );
-			// 	if ( 'undefined' != typeof data.layouts && data.layouts ) {
-			// 		changeModel.set( 'disabled', true );
-			// 	}
-			// }, this );
-
-			// nfRadio.channel( 'changes' ).request( 'register:change', 'gutterDropNewField', newModel, null, label, data );
 		},
 
 		/**
@@ -223,34 +196,6 @@ define( [], function() {
 			ui.draggable.fieldCollection.remove( fieldModel );
 			// Remove the element that was originally dragged. Keep the helper.
 			jQuery( ui.draggable ).remove();
-
-			// Add our field addition to our change log.
-			var label = {
-				object: 'Field',
-				label: fieldModel.get( 'label' ),
-				change: 'New Cell',
-				dashicon: 'image-flip-horizontal'
-			};
-
-			var data = {
-				layouts: true,
-				oldCollection: oldCollection,
-				newCell: newCell,
-				cellCollection: rowView.collection,
-			};
-
-			/*
-			 * Disable Layouts changes
-			 */
-			var changeCollection = nfRadio.channel( 'changes' ).request( 'get:collection' );
-			_.each( changeCollection.models, function( changeModel ) {
-				var data = changeModel.get( 'data' );
-				if ( 'undefined' != typeof data.layouts && data.layouts ) {
-					changeModel.set( 'disabled', true );
-				}
-			}, this );
-
-			var changeModel = nfRadio.channel( 'changes' ).request( 'register:change', 'gutterSplitCell', fieldModel, null, label, data );
 		},
 
 		dragStart: function( data, cellCollection ) {
@@ -300,40 +245,6 @@ define( [], function() {
 			modelA.set( 'width', awidth );
 			modelB.set( 'width', bwidth );
 
-			/*
-			 * Add our field addition to our change log.
-			 */
-
-			var label = {
-				object: 'Cells',
-				label: '',
-				change: 'Resized',
-				dashicon: 'editor-code'
-			};
-
-			var data = {
-				layouts: true,
-				gutter: data.gutter,
-				cellCollection: cellCollection,
-				modelA: modelA,
-				oldModelAWidth: oldModelAWidth,
-				modelB: modelB,
-				oldModelBWidth: oldModelBWidth
-			};
-
-			/*
-			 * Disable Layouts changes
-			 */
-			var changeCollection = nfRadio.channel( 'changes' ).request( 'get:collection' );
-			_.each( changeCollection.models, function( changeModel ) {
-				var data = changeModel.get( 'data' );
-				if ( 'undefined' != typeof data.layouts && data.layouts ) {
-					changeModel.set( 'disabled', true );
-				}
-			}, this );
-
-			nfRadio.channel( 'changes' ).request( 'register:change', 'gutterResize', modelA, null, label, data );
-
 			// Set our 'clean' status to false so that we get a notice to publish changes
 			nfRadio.channel( 'app' ).request( 'update:setting', 'clean', false );
 			// Update our preview
@@ -361,33 +272,6 @@ define( [], function() {
 			var tmpID = nfRadio.channel( 'fields' ).request( 'get:tmpID' );
 			// Add our field
 			var newModel = nfRadio.channel( 'fields' ).request( 'add',  { id: tmpID, label: fieldType.get( 'nicename' ), type: type, cellcid: newCell.cid }, silent, renderField );
-
-			// Add our field addition to our change log.
-			var label = {
-				object: 'Field / Cell',
-				label: newModel.get( 'label' ),
-				change: 'Added',
-				dashicon: 'plus-alt'
-			};
-
-			var data = {
-				layouts: true,
-				fieldCollection: nfRadio.channel( 'fields' ).request( 'get:collection' ),
-				newCell: newCell
-			};
-
-			/*
-			 * Disable Layouts changes
-			 */
-			var changeCollection = nfRadio.channel( 'changes' ).request( 'get:collection' );
-			_.each( changeCollection.models, function( changeModel ) {
-				var data = changeModel.get( 'data' );
-				if ( 'undefined' != typeof data.layouts && data.layouts ) {
-					changeModel.set( 'disabled', true );
-				}
-			}, this );
-
-			nfRadio.channel( 'changes' ).request( 'register:change', 'gutterDropNewField', newModel, null, label, data );
 			
 			return newModel;
 		},

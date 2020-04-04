@@ -1,5 +1,5 @@
 <?php
-namespace ElementorPro\Classes;
+namespace ElementorPro\Core;
 
 use ElementorPro\Plugin;
 

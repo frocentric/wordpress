@@ -15,7 +15,7 @@ var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
 
-gulp.task('js', function () {
+gulp.task('js:builder', function() {
     gulp.src('assets/js/builder/main.js')
         .pipe(sourcemaps.init())
         .pipe(requirejsOptimize(function(file) {
@@ -31,7 +31,9 @@ gulp.task('js', function () {
         .pipe(rename('builder.js'))
         .pipe(sourcemaps.write('/'))
         .pipe(gulp.dest('assets/js/min/'));
+});
 
+gulp.task('js:display', function() {
     gulp.src('assets/js/front-end/main.js')
         .pipe(sourcemaps.init())
         .pipe(requirejsOptimize(function(file) {
@@ -48,15 +50,22 @@ gulp.task('js', function () {
         .pipe(sourcemaps.write('/'))
         .pipe(gulp.dest('assets/js/min/'));
 });
+gulp.task('js:frontend', ['js:front-end']);
+gulp.task('js:front-end', ['js:front-end']);
 
-gulp.task('sass', function () {
+gulp.task('js', ['js:builder', 'js:display']);
+
+gulp.task('css:builder', function(){
     gulp.src('assets/scss/admin/builder.scss')
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer())
         .pipe(sourcemaps.write('/'))
         .pipe(gulp.dest('assets/css'));
+});
+gulp.task('sass:builder', ['css:builder'] );
 
+gulp.task('css:display', function(){
     gulp.src('assets/scss/front-end/display-structure.scss')
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
@@ -85,6 +94,13 @@ gulp.task('sass', function () {
         .pipe(sourcemaps.write('/'))
         .pipe(gulp.dest('assets/css'));
 });
+
+gulp.task('sass:display', ['css:display'] );
+gulp.task('css:frontend', ['css:display'] );
+gulp.task('css:front-end', ['css:display'] );
+
+gulp.task('css', ['css:builder', 'css:display'] );
+gulp.task('sass', ['css'] );
 
 // Watch Files For Changes
 gulp.task('watch', function() {

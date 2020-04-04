@@ -13,18 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Module extends Module_Base {
 
-	// TODO: Remove this flag on version 2.9.0
-	private $controls_already_registered;
-
 	public function __construct() {
 		parent::__construct();
-
-		// TODO: Remove this flag on version 2.9.0
-		$this->controls_already_registered = [
-			'section' => false,
-			'column' => false,
-			'common' => false,
-		];
 
 		$this->add_actions();
 	}
@@ -44,7 +34,7 @@ class Module extends Module_Base {
 			 *
 			 * Filters the attributes that won't be rendered in the wrapper element.
 			 *
-			 * By default Elementor don't render some attributes to prevent things
+			 * By default Elementor doesn't render some attributes to prevent things
 			 * from breaking down. But this list of attributes can be changed.
 			 *
 			 * @since 2.2.0
@@ -69,11 +59,6 @@ class Module extends Module_Base {
 	public function register_custom_attributes_controls( Element_Base $element ) {
 		$element_name = $element->get_name();
 
-		// TODO: Remove this check when on version 2.9.0
-		if ( $this->controls_already_registered[ $element_name ] ) {
-			return;
-		}
-
 		$element->start_controls_section(
 			'_section_attributes',
 			[
@@ -97,9 +82,6 @@ class Module extends Module_Base {
 		);
 
 		$element->end_controls_section();
-
-		// TODO: Remove this flag on version 2.9.0
-		$this->controls_already_registered[ $element_name ] = true;
 	}
 
 	/**
@@ -114,11 +96,6 @@ class Module extends Module_Base {
 		// Remove Custom CSS Banner (From free version)
 		if ( 'section_custom_attributes_pro' === $section_id ) {
 			$this->replace_go_pro_custom_attributes_controls( $element );
-		}
-
-		// TODO: Remove this when on version 2.9.0
-		if ( '_section_responsive' === $section_id ) {
-			$this->register_custom_attributes_controls( $element );
 		}
 	}
 

@@ -43,7 +43,10 @@ final class NF_ConditionalLogic_Submission
 
     public function parse_actions( $actions, $form_data )
     {
-        array_walk( $actions, array( $this, 'parse_action' ), $this->fieldsCollection );
+        // If we don't have a fieldsCollection (such as if this is a resume) skip this filter.
+        if ( ! empty( $this->fieldsCollection ) ) {
+            array_walk( $actions, array( $this, 'parse_action' ), $this->fieldsCollection );
+        }
 
         return $actions;
     }
@@ -52,9 +55,10 @@ final class NF_ConditionalLogic_Submission
     {
         if( ! isset( $action[ 'settings' ][ 'active' ] ) || ! $action[ 'settings' ][ 'active' ] ) return;
         
-        // Checks to see if conditional setting is in the default positiona and returns early if it is. 
+        // Checks to see if conditional setting is in the default position and returns early if it is. 
         if( 0 !== intval( $action[ 'settings' ][ 'conditions' ][ 'process' ] )
             && 1 !== intval( $action[ 'settings' ][ 'conditions' ][ 'process' ] ) ) return;
+        if( empty( $action[ 'settings' ][ 'conditions' ][ 'when' ] ) ) return;
 
         $action_condition = ( is_object( $action ) ) ? $action->get_setting( 'conditions' ) : $action[ 'settings' ][ 'conditions' ];
 
@@ -78,7 +82,8 @@ final class NF_ConditionalLogic_Submission
             'passwordconfirm',
             'phone', 
             'textbox',
-            'textarea'
+            'textarea',
+            'hidden',
         );
 
         $field_collection_array = $this->fieldsCollection->to_array();

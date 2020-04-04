@@ -4,7 +4,7 @@
  * Plugin Name: Ninja Forms - Post Creation
  * Plugin URI: https://ninjaforms.com/extensions/
  * Description: Create posts, pages, or any custom post type from the front-end.
- * Version: 3.0.7
+ * Version: 3.0.9
  * Author: The WP Ninjas
  * Author URI: http://ninjaforms.com
  * Text Domain: ninja-forms-create-post
@@ -26,7 +26,7 @@ if( version_compare( get_option( 'ninja_forms_version', '0.0.0' ), '3', '<' ) ||
 
     define("NINJA_FORMS_POST_DIR", WP_PLUGIN_DIR."/".basename( dirname( __FILE__ ) )."/deprecated" );
     define("NINJA_FORMS_POST_URL", plugins_url()."/".basename( dirname( __FILE__ ) )."/deprecated" );
-    define("NINJA_FORMS_POST_VERSION", "3.0.7");
+    define("NINJA_FORMS_POST_VERSION", "3.0.9");
 
     include 'deprecated/post-creation.php';
 
@@ -37,7 +37,7 @@ if( version_compare( get_option( 'ninja_forms_version', '0.0.0' ), '3', '<' ) ||
      */
     final class NF_CreatePost
     {
-        const VERSION = '3.0.7';
+        const VERSION = '3.0.9';
         const SLUG = 'create-post';
         const NAME = 'Create Post';
         const AUTHOR = 'The WP Ninjas';
@@ -341,7 +341,7 @@ function NF_CreatePost_Upgrade( $data ){
                     $field[ 'add_new_terms' ] = ( isset( $field[ 'data' ][ 'add_category' ] ) && $field[ 'data' ][ 'add_category' ] ) ? 1 : 0;
                     break;
                 default:
-                    if( '_post_' != substr( $field[ 'type' ], 0, 6 ) ) continue;
+                    if( '_post_' != substr( $field[ 'type' ], 0, 6 ) ) continue 2;
                     $taxonomy = substr( $field[ 'type' ], 6 );
                     $field[ 'type' ] = 'terms';
                     $field[ 'taxonomy' ] = $taxonomy;

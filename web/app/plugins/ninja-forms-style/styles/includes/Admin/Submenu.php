@@ -150,26 +150,11 @@ final class NF_Styles_Admin_Submenu extends NF_Abstracts_Submenu
         if( 'field_type' != $tab ) return $value;
 
         $plugin_settings = Ninja_Forms()->get_setting( 'style' );
-        
-        if( false !== strpos( $section, 'file_upload' ) ) {
-            $stack = explode( '_', $section );
-            $section = '_' . $stack[1];
-            $subsection = $stack[3];
-        } else {
-            list( $section, $subsection ) = explode( '_', $section );
-        }
 
-        $section = apply_filters( 'ninja_forms_style_field_type', $section );
+	    $setting = $this->get_setting( $section );
 
-        // TODO: What is this block of code for?
-        // Seems unnecessary.
-        /*if( 'html' == $section ) {
-            $section = '_desc';
-            $subsection = 'desc_field';
-        }*/
-
-        if( isset( $plugin_settings[ $tab ][ $section ][ $subsection ][ $name ] ) ){
-            $value = $plugin_settings[ $tab ][ $section ][ $subsection ][ $name ];
+        if( isset( $plugin_settings[ $tab ][ $setting->section ][ $setting->subsection ][ $name ] ) ){
+            $value = $plugin_settings[ $tab ][ $setting->section ][ $setting->subsection ][ $name ];
         }
 
         return $value;
@@ -178,20 +163,37 @@ final class NF_Styles_Admin_Submenu extends NF_Abstracts_Submenu
     public function filter_get_plugin_setting_name( $name, $tab, $section, $name_raw )
     {
         if( 'field_type' != $tab ) return $name;
-        if( false !== strpos( $section, 'file_upload' ) ) {
-            $stack = explode( '_', $section );
-            $section = '_' . $stack[1];
-            $subsection = $stack[3];
-        } else {
-            list( $section, $subsection ) = explode( '_', $section );
-        }
 
-        $section = apply_filters( 'ninja_forms_style_field_type', $section );
+        $setting = $this->get_setting( $section );
 
-        if( 'desc' == $subsection ) $subsection = 'desc_field';
-
-        return 'style[' . $tab . '][' . $section . '][' . $subsection . '][' . $name_raw . ']';
+        return 'style[' . $tab . '][' . $setting->section . '][' . $setting->subsection . '][' . $name_raw . ']';
     }
+
+	/**
+	 * Get the style setting object with section and subsection
+	 *
+	 * @param string $section
+	 *
+	 * @return stdClass
+	 */
+	protected function get_setting( $section ) {
+		$original_section = $section;
+		$stack            = explode( '_', $section );
+		$subsection       = array_pop( $stack );
+		$section          = implode( '_', $stack );
+
+		$section = apply_filters( 'ninja_forms_style_field_type', $section, $original_section );
+
+		if ( 'desc' == $subsection ) {
+			$subsection = 'desc_field';
+		}
+
+		$setting             = new stdClass();
+		$setting->section    = $section;
+		$setting->subsection = $subsection;
+
+		return $setting;
+	}
 
     public function filter_field_type_name( $name, $flip = FALSE )
     {
