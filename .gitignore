@@ -21,6 +21,10 @@ web/app/themes
 !web/app/themes/froware
 web/app/cache
 
+# WP Rocket
+web/app/advanced-cache.php
+web/app/wp-rocket-config
+
 # WordPress
 web/wp
 web/.htaccess
