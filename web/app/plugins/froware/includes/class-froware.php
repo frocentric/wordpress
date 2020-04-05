@@ -175,6 +175,7 @@ class Froware {
 		$plugin_public = new Froware_Public( $this->get_plugin_name(), $this->get_version() );
 
 		// Actions
+		$this->loader->add_action( 'login_enqueue_scripts', $plugin_public, 'enqueue_login_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action( 'after_setup_theme', $plugin_public, 'extend_theme_support', 100 );
