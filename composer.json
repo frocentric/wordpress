@@ -56,6 +56,7 @@
     "koodimonni-language/en_gb": "*",
     "oscarotero/env": "^1.1.0",
     "roots/wp-password-bcrypt": "1.0.0",
+    "humanmade/s3-uploads": "~2.0",
     "wpackagist-plugin/autodescription": "~4.0",
     "wpackagist-plugin/classic-editor": "~1.0",
     "wpackagist-plugin/easy-theme-and-plugin-upgrades": "~2.0",

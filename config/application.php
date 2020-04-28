@@ -74,6 +74,16 @@ define('LOGGED_IN_SALT', env('LOGGED_IN_SALT'));
 define('NONCE_SALT', env('NONCE_SALT'));
 
 /**
+ * S3 configuration
+ */
+define( 'S3_UPLOADS_BUCKET', env('S3_UPLOADS_BUCKET') );
+define( 'S3_UPLOADS_REGION', env('S3_UPLOADS_REGION') ?: 'fr-par' ); // the s3 bucket region (excluding the rest of the URL)
+define( 'S3_UPLOADS_KEY', env('S3_UPLOADS_KEY') );
+define( 'S3_UPLOADS_SECRET', env('S3_UPLOADS_SECRET') );
+define( 'S3_UPLOADS_ENDPOINT', env('S3_UPLOADS_ENDPOINT') );
+define( 'S3_UPLOADS_DEBUG', env('S3_UPLOADS_DEBUG') ?: false );
+
+/**
  * Custom Settings
  */
 define('AUTOMATIC_UPDATER_DISABLED', true);
