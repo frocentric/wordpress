@@ -1,9 +1,27 @@
 <?php
+/**
+ * Your base production configuration goes in this file. Environment-specific
+ * overrides go in their respective config/environments/{{WP_ENV}}.php file.
+ *
+ * A good default policy is to deviate from the production config as little as
+ * possible. Try to define as much of your configuration in this file as you
+ * can.
+ */
 
-/** @var string Directory containing all of the site's files */
+use Roots\WPConfig\Config;
+
+/**
+ * Directory containing all of the site's files
+ *
+ * @var string
+ */
 $root_dir = dirname(__DIR__);
 
-/** @var string Document Root */
+/**
+ * Document Root
+ *
+ * @var string
+ */
 $webroot_dir = $root_dir . '/web';
 
 /**
@@ -14,10 +32,13 @@ Env::init();
 /**
  * Use Dotenv to set required environment variables and load .env file in root
  */
-$dotenv = new Dotenv\Dotenv($root_dir);
+$dotenv = Dotenv\Dotenv::createImmutable($root_dir);
 if (file_exists($root_dir . '/.env')) {
     $dotenv->load();
-    $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD', 'WP_HOME', 'WP_SITEURL']);
+    $dotenv->required(['WP_HOME', 'WP_SITEURL']);
+    if (!env('DATABASE_URL')) {
+        $dotenv->required(['DB_NAME', 'DB_USER', 'DB_PASSWORD']);
+    }
 }
 
 /**
@@ -35,60 +56,106 @@ if (file_exists($env_config)) {
 /**
  * URLs
  */
-define('WP_HOME', env('WP_HOME'));
-define('WP_SITEURL', env('WP_SITEURL'));
+Config::define('WP_HOME', env('WP_HOME'));
+Config::define('WP_SITEURL', env('WP_SITEURL'));
 
 /**
  * Custom Content Directory
  */
-define('CONTENT_DIR', '/app');
-define('WP_CONTENT_DIR', $webroot_dir . CONTENT_DIR);
-define('WP_CONTENT_URL', WP_HOME . CONTENT_DIR);
+Config::define('CONTENT_DIR', '/app');
+Config::define('WP_CONTENT_DIR', $webroot_dir . Config::get('CONTENT_DIR'));
+Config::define('WP_CONTENT_URL', Config::get('WP_HOME') . Config::get('CONTENT_DIR'));
 
 /**
  * DB settings
  */
-define('DB_NAME', env('DB_NAME'));
-define('DB_USER', env('DB_USER'));
-define('DB_PASSWORD', env('DB_PASSWORD'));
-if (WP_ENV == 'development' && defined('WP_CLI') && WP_CLI) {
-    define('DB_HOST', env('DB_HOST_LOCAL'));
-}
-else {
-    define('DB_HOST', env('DB_HOST') ?: 'localhost');
-}
-define('DB_CHARSET', 'utf8mb4');
-define('DB_COLLATE', '');
+Config::define('DB_NAME', env('DB_NAME'));
+Config::define('DB_USER', env('DB_USER'));
+Config::define('DB_PASSWORD', env('DB_PASSWORD'));
+Config::define('DB_HOST', env('DB_HOST') ?: 'localhost');
+Config::define('DB_CHARSET', 'utf8mb4');
+Config::define('DB_COLLATE', '');
 $table_prefix = env('DB_PREFIX') ?: 'wp_';
+
+if (env('DATABASE_URL')) {
+    $dsn = (object) parse_url(env('DATABASE_URL'));
+
+    Config::define('DB_NAME', substr($dsn->path, 1));
+    Config::define('DB_USER', $dsn->user);
+    Config::define('DB_PASSWORD', isset($dsn->pass) ? $dsn->pass : null);
+    Config::define('DB_HOST', isset($dsn->port) ? "{$dsn->host}:{$dsn->port}" : $dsn->host);
+}
+
+if (WP_ENV == 'development' && defined('WP_CLI') && WP_CLI) {
+    Config::define('DB_HOST', env('DB_HOST_LOCAL'));
+}
 
 /**
  * Authentication Unique Keys and Salts
  */
-define('AUTH_KEY', env('AUTH_KEY'));
-define('SECURE_AUTH_KEY', env('SECURE_AUTH_KEY'));
-define('LOGGED_IN_KEY', env('LOGGED_IN_KEY'));
-define('NONCE_KEY', env('NONCE_KEY'));
-define('AUTH_SALT', env('AUTH_SALT'));
-define('SECURE_AUTH_SALT', env('SECURE_AUTH_SALT'));
-define('LOGGED_IN_SALT', env('LOGGED_IN_SALT'));
-define('NONCE_SALT', env('NONCE_SALT'));
-
-/**
- * S3 configuration
- */
-define( 'S3_UPLOADS_BUCKET', env('S3_UPLOADS_BUCKET') );
-define( 'S3_UPLOADS_REGION', env('S3_UPLOADS_REGION') ?: 'fr-par' ); // the s3 bucket region (excluding the rest of the URL)
-define( 'S3_UPLOADS_KEY', env('S3_UPLOADS_KEY') );
-define( 'S3_UPLOADS_SECRET', env('S3_UPLOADS_SECRET') );
-define( 'S3_UPLOADS_ENDPOINT', env('S3_UPLOADS_ENDPOINT') );
-define( 'S3_UPLOADS_DEBUG', env('S3_UPLOADS_DEBUG') ?: false );
+Config::define('AUTH_KEY', env('AUTH_KEY'));
+Config::define('SECURE_AUTH_KEY', env('SECURE_AUTH_KEY'));
+Config::define('LOGGED_IN_KEY', env('LOGGED_IN_KEY'));
+Config::define('NONCE_KEY', env('NONCE_KEY'));
+Config::define('AUTH_SALT', env('AUTH_SALT'));
+Config::define('SECURE_AUTH_SALT', env('SECURE_AUTH_SALT'));
+Config::define('LOGGED_IN_SALT', env('LOGGED_IN_SALT'));
+Config::define('NONCE_SALT', env('NONCE_SALT'));
 
 /**
  * Custom Settings
  */
-define('AUTOMATIC_UPDATER_DISABLED', true);
-define('DISABLE_WP_CRON', env('DISABLE_WP_CRON') ?: false);
-define('DISALLOW_FILE_EDIT', true);
+Config::define('AUTOMATIC_UPDATER_DISABLED', true);
+Config::define('DISABLE_WP_CRON', env('DISABLE_WP_CRON') ?: false);
+// Disable the plugin and theme file editor in the admin
+Config::define('DISALLOW_FILE_EDIT', true);
+// Disable plugin and theme updates and installation from the admin
+Config::define('DISALLOW_FILE_MODS', true);
+
+/**
+ * Debugging Settings
+ */
+Config::define('WP_DEBUG_DISPLAY', false);
+Config::define('WP_DEBUG_LOG', env('WP_DEBUG_LOG') ?? false);
+Config::define('SCRIPT_DEBUG', false);
+ini_set('display_errors', '0');
+
+/**
+ * WP Rocket Settings
+ */
+Config::define('WP_ROCKET_EMAIL', env('WP_ROCKET_EMAIL') ?: '');
+Config::define('WP_ROCKET_KEY', env('WP_ROCKET_KEY') ?: '');
+
+/**
+ * Kinsta Settings
+ */
+Config::define('KINSTA_CDN_USERDIRS', 'app');
+
+/**
+ * S3 configuration
+ */
+Config::define( 'S3_UPLOADS_BUCKET', env('S3_UPLOADS_BUCKET') );
+Config::define( 'S3_UPLOADS_REGION', env('S3_UPLOADS_REGION') ?: 'fr-par' ); // the s3 bucket region (excluding the rest of the URL)
+Config::define( 'S3_UPLOADS_KEY', env('S3_UPLOADS_KEY') );
+Config::define( 'S3_UPLOADS_SECRET', env('S3_UPLOADS_SECRET') );
+Config::define( 'S3_UPLOADS_ENDPOINT', env('S3_UPLOADS_ENDPOINT') );
+Config::define( 'S3_UPLOADS_DEBUG', env('S3_UPLOADS_DEBUG') ?: false );
+
+/**
+ * Allow WordPress to detect HTTPS when used behind a reverse proxy or a load balancer
+ * See https://codex.wordpress.org/Function_Reference/is_ssl#Notes
+ */
+if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') {
+    $_SERVER['HTTPS'] = 'on';
+}
+
+$env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
+
+if (file_exists($env_config)) {
+    require_once $env_config;
+}
+
+Config::apply();
 
 /**
  * Bootstrap WordPress
