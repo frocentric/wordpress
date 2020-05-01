@@ -605,10 +605,10 @@
         },
         {
             "name": "koodimonni-language/en_gb",
-            "version": "5.4",
+            "version": "5.4.1",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/5.4/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/5.4.1/en_GB.zip"
             },
             "require": {
                 "koodimonni-plugin-language/akismet-en_gb": "*",
@@ -636,10 +636,10 @@
         },
         {
             "name": "koodimonni-plugin-language/akismet-en_gb",
-            "version": "4.1.4",
+            "version": "4.1.5",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/akismet/4.1.4/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/akismet/4.1.5/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
