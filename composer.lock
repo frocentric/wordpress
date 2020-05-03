@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2fd70d36261f833f2d88fb3ec0249614",
+    "content-hash": "b1c95df65303d8a6c83a7cd53e5cabc0",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.135.6",
+            "version": "3.137.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "ba5a7fe1f4f7c4c38b5804c4779dad23399fccab"
+                "reference": "935060ae3d64f2bfeab7a6ba46bebe525047446c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ba5a7fe1f4f7c4c38b5804c4779dad23399fccab",
-                "reference": "ba5a7fe1f4f7c4c38b5804c4779dad23399fccab",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/935060ae3d64f2bfeab7a6ba46bebe525047446c",
+                "reference": "935060ae3d64f2bfeab7a6ba46bebe525047446c",
                 "shasum": ""
             },
             "require": {
@@ -88,7 +88,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-04-28T18:15:08+00:00"
+            "time": "2020-05-01T18:13:22+00:00"
         },
         {
             "name": "composer/installers",
@@ -476,21 +476,57 @@
             "time": "2019-11-18T16:44:45+00:00"
         },
         {
-            "name": "johnpbloch/wordpress",
-            "version": "5.4.0",
+            "name": "ingenyus/configure-environment-plugins",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "6cec3b5d82e24c3fa565d725925afb63f116c584"
+                "url": "https://github.com/Genyus/Configure-Environment-Plugins.git",
+                "reference": "91f944414ccd9e0a7ef53a7f99acc6fee6bff59f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/6cec3b5d82e24c3fa565d725925afb63f116c584",
-                "reference": "6cec3b5d82e24c3fa565d725925afb63f116c584",
+                "url": "https://api.github.com/repos/Genyus/Configure-Environment-Plugins/zipball/91f944414ccd9e0a7ef53a7f99acc6fee6bff59f",
+                "reference": "91f944414ccd9e0a7ef53a7f99acc6fee6bff59f",
                 "shasum": ""
             },
             "require": {
-                "johnpbloch/wordpress-core": "5.4.0",
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-muplugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Ingenyus Consulting Ltd",
+                    "email": "mail@ingenyus.com",
+                    "homepage": "https://ingenyus.com/"
+                }
+            ],
+            "description": "WordPress MU plugin to enable or disable plugins in specific environments",
+            "homepage": "https://github.com/Genyus/Configure-Environment-Plugins",
+            "keywords": [
+                "wordpress"
+            ],
+            "time": "2020-05-03T01:06:28+00:00"
+        },
+        {
+            "name": "johnpbloch/wordpress",
+            "version": "5.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/johnpbloch/wordpress.git",
+                "reference": "2cdacd2a14c9960bcd86d8b4d7b1f211b3e77684"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/2cdacd2a14c9960bcd86d8b4d7b1f211b3e77684",
+                "reference": "2cdacd2a14c9960bcd86d8b4d7b1f211b3e77684",
+                "shasum": ""
+            },
+            "require": {
+                "johnpbloch/wordpress-core": "5.4.1",
                 "johnpbloch/wordpress-core-installer": "^1.0",
                 "php": ">=5.6.20"
             },
@@ -512,27 +548,27 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2020-03-31T20:17:18+00:00"
+            "time": "2020-04-29T19:02:59+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "5.4.0",
+            "version": "5.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "9a9941fcad81015507e6d03801aebc51296baf37"
+                "reference": "4639993365dbb3c935d420df22f84c136d9ef4d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/9a9941fcad81015507e6d03801aebc51296baf37",
-                "reference": "9a9941fcad81015507e6d03801aebc51296baf37",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/4639993365dbb3c935d420df22f84c136d9ef4d1",
+                "reference": "4639993365dbb3c935d420df22f84c136d9ef4d1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.6.20"
             },
             "provide": {
-                "wordpress/core-implementation": "5.4.0"
+                "wordpress/core-implementation": "5.4.1"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
@@ -552,7 +588,7 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2020-03-31T20:17:13+00:00"
+            "time": "2020-04-29T19:02:53+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -605,10 +641,10 @@
         },
         {
             "name": "koodimonni-language/en_gb",
-            "version": "5.4",
+            "version": "5.4.1",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/5.4/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/5.4.1/en_GB.zip"
             },
             "require": {
                 "koodimonni-plugin-language/akismet-en_gb": "*",
@@ -636,10 +672,10 @@
         },
         {
             "name": "koodimonni-plugin-language/akismet-en_gb",
-            "version": "4.1.4",
+            "version": "4.1.5",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/akismet/4.1.4/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/akismet/4.1.5/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1870,20 +1906,20 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v4.1.4",
+            "version": "v4.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "feb6dad5ae24b1380827aee1629b730080fde500"
+                "reference": "539bb6927c101a5605d31d11a2d17185a2ce2bf1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/feb6dad5ae24b1380827aee1629b730080fde500",
-                "reference": "feb6dad5ae24b1380827aee1629b730080fde500",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/539bb6927c101a5605d31d11a2d17185a2ce2bf1",
+                "reference": "539bb6927c101a5605d31d11a2d17185a2ce2bf1",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.5.9 || ^7.0",
+                "php": "^5.5.9 || ^7.0 || ^8.0",
                 "phpoption/phpoption": "^1.7.2",
                 "symfony/polyfill-ctype": "^1.9"
             },
@@ -1940,7 +1976,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-04-12T15:20:09+00:00"
+            "time": "2020-05-02T14:08:57+00:00"
         },
         {
             "name": "wp-media/background-processing",
@@ -1988,16 +2024,16 @@
         },
         {
             "name": "wp-media/rocket-lazyload-common",
-            "version": "v2.5.6",
+            "version": "v2.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/rocket-lazyload-common.git",
-                "reference": "1ea0cf2ae5d302a0214e05176c1dda321b1d6690"
+                "reference": "408590c87a3ad07a07ea263073a46146fc42ae7a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/rocket-lazyload-common/zipball/1ea0cf2ae5d302a0214e05176c1dda321b1d6690",
-                "reference": "1ea0cf2ae5d302a0214e05176c1dda321b1d6690",
+                "url": "https://api.github.com/repos/wp-media/rocket-lazyload-common/zipball/408590c87a3ad07a07ea263073a46146fc42ae7a",
+                "reference": "408590c87a3ad07a07ea263073a46146fc42ae7a",
                 "shasum": ""
             },
             "require": {
@@ -2032,7 +2068,7 @@
                 }
             ],
             "description": "Common Code between WP Rocket and Lazyload by WP Rocket",
-            "time": "2020-01-16T13:46:49+00:00"
+            "time": "2020-04-29T15:33:21+00:00"
         },
         {
             "name": "wp-media/wp-rocket",
@@ -2210,15 +2246,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "3.9.2",
+            "version": "3.9.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/3.9.2"
+                "reference": "tags/3.9.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.3.9.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.3.9.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
