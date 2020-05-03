@@ -135,11 +135,27 @@ Config::define('KINSTA_CDN_USERDIRS', 'app');
  * S3 configuration
  */
 Config::define( 'S3_UPLOADS_BUCKET', env('S3_UPLOADS_BUCKET') );
-Config::define( 'S3_UPLOADS_REGION', env('S3_UPLOADS_REGION') ?: 'fr-par' ); // the s3 bucket region (excluding the rest of the URL)
+Config::define( 'S3_UPLOADS_REGION', env('S3_UPLOADS_REGION') ); // the s3 bucket region (excluding the rest of the URL)
 Config::define( 'S3_UPLOADS_KEY', env('S3_UPLOADS_KEY') );
 Config::define( 'S3_UPLOADS_SECRET', env('S3_UPLOADS_SECRET') );
 Config::define( 'S3_UPLOADS_ENDPOINT', env('S3_UPLOADS_ENDPOINT') );
 Config::define( 'S3_UPLOADS_DEBUG', env('S3_UPLOADS_DEBUG') ?: false );
+Config::define( 'S3_UPLOADS_USE_INSTANCE_PROFILE', env('S3_UPLOADS_USE_INSTANCE_PROFILE') ?: false );
+Config::define( 'S3_UPLOADS_HTTP_CACHE_CONTROL', env('S3_UPLOADS_HTTP_CACHE_CONTROL') ?: null );
+Config::define( 'S3_UPLOADS_AUTOENABLE', env('S3_UPLOADS_AUTOENABLE') ?: true );
+Config::define( 'S3_UPLOADS_BUCKET_URL', env('S3_UPLOADS_BUCKET_URL') ?: null );
+Config::define( 'S3_UPLOADS_DISABLE_REPLACE_UPLOAD_URL', env('S3_UPLOADS_DISABLE_REPLACE_UPLOAD_URL') ?: false );
+Config::define( 'S3_UPLOADS_OBJECT_ACL', env('S3_UPLOADS_OBJECT_ACL') ?: null );
+
+/**
+ * Environment-specific plugin toggling
+ */
+if ( env('ENABLED_PLUGINS') ) {
+    Config::define( 'ENABLED_PLUGINS', explode(',', env('ENABLED_PLUGINS')) );
+}
+if ( env('DISABLED_PLUGINS') ) {
+    Config::define( 'DISABLED_PLUGINS', explode(',', env('DISABLED_PLUGINS')) );
+}
 
 /**
  * Allow WordPress to detect HTTPS when used behind a reverse proxy or a load balancer
