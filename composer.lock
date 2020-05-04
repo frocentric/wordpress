@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2fd70d36261f833f2d88fb3ec0249614",
+    "content-hash": "b1c95df65303d8a6c83a7cd53e5cabc0",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -474,6 +474,42 @@
                 "wordpress"
             ],
             "time": "2019-11-18T16:44:45+00:00"
+        },
+        {
+            "name": "ingenyus/configure-environment-plugins",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Genyus/Configure-Environment-Plugins.git",
+                "reference": "9fda6223628d743bcd7f241a54a7a822585d6798"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Genyus/Configure-Environment-Plugins/zipball/9fda6223628d743bcd7f241a54a7a822585d6798",
+                "reference": "9fda6223628d743bcd7f241a54a7a822585d6798",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-muplugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Ingenyus Consulting Ltd",
+                    "email": "mail@ingenyus.com",
+                    "homepage": "https://ingenyus.com/"
+                }
+            ],
+            "description": "WordPress MU plugin to enable or disable plugins in specific environments",
+            "homepage": "https://github.com/Genyus/Configure-Environment-Plugins",
+            "keywords": [
+                "wordpress"
+            ],
+            "time": "2020-05-03T03:20:56+00:00"
         },
         {
             "name": "johnpbloch/wordpress",
@@ -2144,15 +2180,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "3.9.3",
+            "version": "3.9.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/3.9.3"
+                "reference": "tags/3.9.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.3.9.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.3.9.4.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
