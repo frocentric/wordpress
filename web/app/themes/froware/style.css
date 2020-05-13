@@ -1,4 +1,4 @@
-/* 
+/*
 Theme Name:		 Froware
 Theme URI:		 https://ingenyus.com
 Description:	 Froware WP child theme
@@ -7,7 +7,7 @@ Author URI:		 http://childthemegenerator.com/
 Template:		 generatepress
 Version:		 1.0.0
 Text Domain:	 GeneratePress-child
--------------------------------------------------------------- */ 
+-------------------------------------------------------------- */
 
 /* =Theme customization starts here
 ------------------------------------------------------- */
@@ -20,76 +20,105 @@ Text Domain:	 GeneratePress-child
 		url('/app/uploads/2019/03/HelveticaNeueCondensedBold.ttf') format('truetype');
 }
 
-a, a:visited {
-    text-decoration: underline;
+a,
+a:visited {
+	text-decoration: underline;
 }
-h1 a, h1 a:visited, h2 a, h2 a:visited, h3 a, h3 a:visited, h4 a, h4 a:visited, h5 a, h5 a:visited, h6 a, h6 a:visited, a.generate-back-to-top, a.generate-back-to-top:visited {
-    text-decoration: none;
+
+h1 a,
+h1 a:visited,
+h2 a,
+h2 a:visited,
+h3 a,
+h3 a:visited,
+h4 a,
+h4 a:visited,
+h5 a,
+h5 a:visited,
+h6 a,
+h6 a:visited,
+a.generate-back-to-top,
+a.generate-back-to-top:visited {
+	text-decoration: none;
 }
+
 .main-navigation .navigation-logo.site-logo {
-    margin-left: 0;
+	margin-left: 0;
 }
+
 .section-highlight {
 	background-color: #EBF4F6;
 }
+
 .section-title {
-    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.25);
-    height: 3.3333em;
+	box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.25);
+	height: 3.3333em;
 }
+
 .section-title ul {
-    margin: 0;
+	margin: 0;
 }
+
 .elementor-sidebar {
-    margin-left: 20px;
+	margin-left: 20px;
 }
+
 .home h1.elementor-heading-title {
-    font-size: 50px;
+	font-size: 50px;
 }
 
 .link-list {
-    margin-left: 0;
-    border-top: 1px solid #cccccc;
+	margin-left: 0;
+	border-top: 1px solid #cccccc;
 }
+
 .link-list li {
-    border-bottom: 1px solid #cccccc;
-    line-height: 2.6em;
-    list-style: none;
+	border-bottom: 1px solid #cccccc;
+	line-height: 2.6em;
+	list-style: none;
 }
-.link-list li a{
-    display: block;
+
+.link-list li a {
+	display: block;
 }
-.link-list li a:after{
-    content: "\f345";
-    float: right;
-    font-family: dashicons;
+
+.link-list li a:after {
+	content: "\f345";
+	float: right;
+	font-family: dashicons;
 }
+
 .menu-toggle .mobile-menu {
-    display: none;
+	display: none;
 }
 
-.elementor-posts--skin-cards .grid-50, .elementor-posts--skin-cards .grid-100 {
-    float: none;
-    width: inherit;
+.elementor-posts--skin-cards .grid-50,
+.elementor-posts--skin-cards .grid-100 {
+	float: none;
+	width: inherit;
 }
 
-.elementor-posts--skin-cards .grid-50:before, .elementor-posts--skin-cards .grid-100:before {
-    content: '';
+.elementor-posts--skin-cards .grid-50:before,
+.elementor-posts--skin-cards .grid-100:before {
+	content: '';
 }
 
 .wpsp-card .wp-show-posts-entry-meta-below-post {
-    display: block;
+	display: block;
 }
 
 @media (max-width: 768px) {
-    #site-navigation #menu-main-menu .menu-item.current-menu-item {
-        background-color: #f57c0f;
-        background-image: none;
-    }
-    #site-navigation #menu-main-menu .menu-item.current-menu-item a {
-        background-image: none;
-    }
-    #site-navigation .menu-toggle:before {
-        font-size: 24px;
-        margin-top: 30px;
-    }
+	#site-navigation #menu-main-menu .menu-item.current-menu-item {
+		background-color: #f57c0f;
+		background-image: none;
+	}
+
+	#site-navigation #menu-main-menu .menu-item.current-menu-item a {
+		background-image: none;
+	}
+
+	#site-navigation .menu-toggle:before {
+		font-size: 24px;
+		margin-top: 30px;
+	}
 }
