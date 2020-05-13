@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -44,13 +43,13 @@ class Froware_Admin {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 * @param      string    $version    The version of this plugin.
+	 * @param      string $plugin_name       The name of this plugin.
+	 * @param      string $version    The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
-		$this->version = $version;
+		$this->version     = $version;
 
 	}
 
@@ -97,36 +96,26 @@ class Froware_Admin {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/froware-admin.js', array( 'jquery' ), $this->version, false );
-		//global $wp_filter;
-		//print_r($wp_filter);
 	}
 
 	/**
 	 * Set the canonical URL if the post is imported and has an external URL defined.
 	 *
+	 * @param    int     $post_id     The post ID.
+	 * @param    WP_Post $post        The post.
+	 * @param    bool    $update      Whether this is an existing post being updated.
 	 * @since    1.0.0
 	 */
 	public function set_canonical_url( $post_id, $post, $update ) {
 
-		/**
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Froware_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Froware_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-		// Test if The SEO Framework and WPeMatico plugins are installed
-		if ( \get_post_type( $post_id ) == 'post' && defined( 'THE_SEO_FRAMEWORK_DB_VERSION' ) && class_exists( 'WPeMatico' ) ) {
-			$source_field = 'wpe_sourcepermalink';
+		// Test if The SEO Framework and WPeMatico plugins are installed.
+		if ( \get_post_type( $post_id ) === 'post' && defined( 'THE_SEO_FRAMEWORK_DB_VERSION' ) && class_exists( 'WPeMatico' ) ) {
+			$source_field    = 'wpe_sourcepermalink';
 			$canonical_field = '_genesis_canonical_uri';
-			$source = \get_post_meta($post_id, $source_field, true);
-			$canonical = \get_post_meta( $post_id, $canonical_field, true );
-			// Test if the canonical URL is empty and there is a source permalink URL available
-			if ( $source && !$canonical ) {
+			$source          = \get_post_meta( $post_id, $source_field, true );
+			$canonical       = \get_post_meta( $post_id, $canonical_field, true );
+			// Test if the canonical URL is empty and there is a source permalink URL available.
+			if ( $source && ! $canonical ) {
 				\update_post_meta( $post_id, $canonical_field, \esc_url_raw( $source ) );
 			}
 		}

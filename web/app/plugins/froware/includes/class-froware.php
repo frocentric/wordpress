@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The file that defines the core plugin class
  *
@@ -138,7 +137,7 @@ class Froware {
 	 */
 	private function set_locale() {
 
-		$plugin_i18n = new Froware_i18n();
+		$plugin_i18n = new Froware_I18n();
 
 		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 
@@ -157,10 +156,7 @@ class Froware {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		//$this->loader->add_action( 'save_post', $plugin_admin, 'test', 10, 3 );
 		$this->loader->add_action( 'save_post', $plugin_admin, 'set_canonical_url', 10, 3 );
-		//add_action('wp', function(){ echo '<pre>';print_r($GLOBALS['wp_filter']); echo '</pre>';exit; } );
-
 	}
 
 	/**
@@ -174,13 +170,13 @@ class Froware {
 
 		$plugin_public = new Froware_Public( $this->get_plugin_name(), $this->get_version() );
 
-		// Actions
+		// Actions.
 		$this->loader->add_action( 'login_enqueue_scripts', $plugin_public, 'enqueue_login_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action( 'after_setup_theme', $plugin_public, 'extend_theme_support', 100 );
 
-		// Filters
+		// Filters.
 		$this->loader->add_filter( 'generate_typography_default_fonts', $plugin_public, 'add_generatepress_fonts' );
 		$this->loader->add_filter( 'nav_menu_css_class', $plugin_public, 'special_nav_class', 10, 3 );
 		$this->loader->add_filter( 'wpsp_defaults', $plugin_public, 'wpsp_defaults' );
@@ -198,32 +194,41 @@ class Froware {
 	 */
 	private function define_shortcodes() {
 
-		//$plugin_public = new Froware_Public( $this->get_plugin_name(), $this->get_version() );
-
-		// Shortcodes
-		add_shortcode( 'wpse_comments_template', function( $atts = array(), $content = '' )
-		{
-			if( is_singular() && post_type_supports( get_post_type(), 'comments' ) )
-			{
-				ob_start();
-				comments_template();
-				add_filter( 'comments_open',       'wpse_comments_open'   );
-				add_filter( 'get_comments_number', 'wpse_comments_number' );
-				return ob_get_clean();
-			}
-			return '';
-		}, 10, 2 );
+		// Shortcodes.
+		add_shortcode(
+			'wpse_comments_template',
+			function( $atts = array(), $content = '' ) {
+				if ( is_singular() && post_type_supports( get_post_type(), 'comments' ) ) {
+					ob_start();
+					comments_template();
+					add_filter( 'comments_open', 'wpse_comments_open' );
+					add_filter( 'get_comments_number', 'wpse_comments_number' );
+					return ob_get_clean();
+				}
+				return '';
+			},
+			10,
+			2
+		);
 
 	}
-	
-	function wpse_comments_open( $open )
-	{
+
+	/**
+	 * Disables comments.
+	 *
+	 * @param    bool $open          Whether comments are open for the current post.
+	 */
+	public function wpse_comments_open( $open ) {
 		remove_filter( current_filter(), __FUNCTION__ );
 		return false;
 	}
 
-	function wpse_comments_number( $open )
-	{
+	/**
+	 * Sets comment count to 0.
+	 *
+	 * @param    bool $number          The number of comments on the current post.
+	 */
+	public function wpse_comments_number( $number ) {
 		remove_filter( current_filter(), __FUNCTION__ );
 		return 0;
 	}

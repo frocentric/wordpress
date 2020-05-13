@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Define the internationalization functionality
  *
@@ -24,7 +23,7 @@
  * @subpackage Froware/includes
  * @author     Gary McPherson <gary@ingenyus.com>
  */
-class Froware_i18n {
+class Froware_I18n {
 
 
 	/**
