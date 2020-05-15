@@ -1958,16 +1958,16 @@
         },
         {
             "name": "wp-media/rocket-lazyload-common",
-            "version": "v2.5.7",
+            "version": "v2.5.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/rocket-lazyload-common.git",
-                "reference": "408590c87a3ad07a07ea263073a46146fc42ae7a"
+                "reference": "1ea0cf2ae5d302a0214e05176c1dda321b1d6690"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/rocket-lazyload-common/zipball/408590c87a3ad07a07ea263073a46146fc42ae7a",
-                "reference": "408590c87a3ad07a07ea263073a46146fc42ae7a",
+                "url": "https://api.github.com/repos/wp-media/rocket-lazyload-common/zipball/1ea0cf2ae5d302a0214e05176c1dda321b1d6690",
+                "reference": "1ea0cf2ae5d302a0214e05176c1dda321b1d6690",
                 "shasum": ""
             },
             "require": {
@@ -2002,20 +2002,20 @@
                 }
             ],
             "description": "Common Code between WP Rocket and Lazyload by WP Rocket",
-            "time": "2020-04-29T15:33:21+00:00"
+            "time": "2020-01-16T13:46:49+00:00"
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.5.4",
+            "version": "v3.5.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "adab7a846f85e1edbdeb7e6a63575789d0f0bf7b"
+                "reference": "c7a020448d6639ca3cb4cddf72195f9d9c18fbec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/adab7a846f85e1edbdeb7e6a63575789d0f0bf7b",
-                "reference": "adab7a846f85e1edbdeb7e6a63575789d0f0bf7b",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/c7a020448d6639ca3cb4cddf72195f9d9c18fbec",
+                "reference": "c7a020448d6639ca3cb4cddf72195f9d9c18fbec",
                 "shasum": ""
             },
             "require": {
@@ -2025,7 +2025,7 @@
                 "monolog/monolog": "^1.0",
                 "php": ">=5.6.0",
                 "wp-media/background-processing": "^1.3",
-                "wp-media/rocket-lazyload-common": "^2"
+                "wp-media/rocket-lazyload-common": "2.5.6"
             },
             "replace": {
                 "wp-media/cloudflare": "self.version"
@@ -2043,7 +2043,8 @@
                 "woocommerce/woocommerce": "^3.8",
                 "wp-coding-standards/wpcs": "^2",
                 "wp-media/phpunit": "^1.0",
-                "wpackagist-plugin/amp": "^1.1.4"
+                "wpackagist-plugin/amp": "^1.1.4",
+                "wpackagist-plugin/wp-smushit": "^3.0"
             },
             "type": "wordpress-plugin",
             "extra": {
@@ -2086,7 +2087,7 @@
                 "minification",
                 "wordpress"
             ],
-            "time": "2020-04-23T15:48:07+00:00"
+            "time": "2020-05-14T14:48:34+00:00"
         },
         {
             "name": "wpackagist-plugin/autodescription",
