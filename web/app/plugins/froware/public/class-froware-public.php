@@ -128,7 +128,7 @@ class Froware_Public {
 	 * Add custom fonts to GeneratePress font list.
 	 *
 	 * @param    string[] $fonts    Array of loaded fonts.
-	 * @return   Array
+	 * @return   array
 	 * @since    1.0.0
 	 */
 	public function add_generatepress_fonts( $fonts ) {
@@ -146,6 +146,7 @@ class Froware_Public {
 	 * @param    WP_Post  $item    The current menu item.
 	 * @param    stdClass $args    An object of wp_nav_menu() arguments.
 	 * @param    int      $depth   Depth of menu item. Used for padding.
+	 * @return   string[]
 	 * @since    1.0.0
 	 */
 	public function special_nav_class( $classes, $item, $args, $depth = 0 ) {
@@ -193,10 +194,12 @@ class Froware_Public {
 	 * @param    array  $campaign    Current campaign data.
 	 * @param    object $feed    Feed database object.
 	 * @param    object $item    SimplePie_Item object.
+	 * @return   array
 	 */
 	public function wpematico_item_parsers_callback( $current_item, $campaign, $feed, $item ) {
-		$found = false;
-		$tags  = array( 'pubDate', 'published' );
+		$found     = false;
+		$tags      = array( 'pubDate', 'published' );
+		$date_elem = null;
 
 		foreach ( $tags as $tag ) {
 			$elem = $item->get_item_tags( '', $tag );
@@ -239,6 +242,7 @@ class Froware_Public {
 	 *
 	 * @see https://codex.wordpress.org/Plugin_API/Filter_Reference/the_content_feed
 	 * @param    string $excerpt    Post excerpt.
+	 * @return   string
 	 */
 	public function filter_content_feed( $excerpt ) {
 		// Add featured image?

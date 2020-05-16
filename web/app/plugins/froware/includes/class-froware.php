@@ -206,9 +206,7 @@ class Froware {
 					return ob_get_clean();
 				}
 				return '';
-			},
-			10,
-			2
+			}
 		);
 
 	}
@@ -217,6 +215,7 @@ class Froware {
 	 * Disables comments.
 	 *
 	 * @param    bool $open          Whether comments are open for the current post.
+	 * @return   bool
 	 */
 	public function wpse_comments_open( $open ) {
 		remove_filter( current_filter(), __FUNCTION__ );
@@ -227,6 +226,7 @@ class Froware {
 	 * Sets comment count to 0.
 	 *
 	 * @param    bool $number          The number of comments on the current post.
+	 * @return   int
 	 */
 	public function wpse_comments_number( $number ) {
 		remove_filter( current_filter(), __FUNCTION__ );
