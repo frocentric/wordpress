@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars,no-undef */
 /**
  * All of the code for your public-facing JavaScript source
  * should reside in this file.
@@ -28,7 +29,7 @@
  * practising this, we should strive to set a better example in our own work.
  */
 
-(function( $ ) {
-	'use strict';
+(function ($) {
+  "use strict";
 
-})( jQuery );
+})(jQuery);

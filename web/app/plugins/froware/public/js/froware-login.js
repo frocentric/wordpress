@@ -4,12 +4,11 @@
  * @package           Froware
  */
 
-(function( $ ) {
-	'use strict';
+(function ($) {
+  "use strict";
 
-	$(
-		function() {
-			$( '.login h1 a' ).attr( 'href', '/' );
-		}
-	);
-})( jQuery );
+  $(function () {
+    $(".login h1 a").attr("href", "/");
+  });
+  // eslint-disable-next-line no-undef
+})(jQuery);
