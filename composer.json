@@ -75,6 +75,7 @@
     "wpackagist-plugin/ninja-forms-addon-manager": "~3.0",
     "wpackagist-plugin/publishpress": "~2.0",
     "wpackagist-plugin/search-filter": "~1.2",
+    "wpackagist-plugin/the-events-calendar": "~5.0",
     "wpackagist-plugin/wpematico": "~2.0",
     "wpackagist-plugin/wp-analytify": "~3.0",
     "wpackagist-plugin/wp-discourse": "~2.0",
