@@ -64,6 +64,7 @@ class WPeMaticoPro_Campaign_Edit {
 		add_action('wpematico_audio_box_setting_after', array(__CLASS__ ,'pro_audios_box' ), 10);
 		add_action('wpematico_video_box_setting_after', array(__CLASS__ ,'pro_videos_box' ), 10);
 
+		add_action('wpematico_feeddate_tools', array(__CLASS__ ,'pro_date_from_tag' ), 10, 2);
 
 		add_action('wp_ajax_wpepro_upload_default_image', array(__CLASS__, 'upload_default_image'));
 		add_action('wp_ajax_wpepro_statuses', array( __CLASS__, 'AllStatuses'));
@@ -98,6 +99,17 @@ class WPeMaticoPro_Campaign_Edit {
 			//$feed_name = parse_url($feed, PHP_URL_HOST);
 		}
 		echo '<input type="text" readonly class="feed_name_read_only" value="' . $feed_name . '">';
+	}
+
+	static function pro_date_from_tag( $campaign_data, $cfg ) { 
+		global $helptip;
+		$campaign_date_tag = $campaign_data['campaign_date_tag'];
+		$campaign_date_tag_name = $campaign_data['campaign_date_tag_name'];
+		?>
+		<input class="checkbox" type="checkbox"<?php checked($campaign_date_tag, true); ?> name="campaign_date_tag" value="1" id="campaign_date_tag"/> 
+		<label for="campaign_date_tag"><?php _e('Get Date from xml tag.', 'wpematico'); ?></label> <span class="dashicons dashicons-warning help_tip" title="<?php echo $helptip['campaign_date_tag']; ?>"></span>
+		<input type="text" id="campaign_date_tag_name" name="campaign_date_tag_name" value="<?php echo $campaign_date_tag_name; ?>">
+		<?php
 	}
 
 	

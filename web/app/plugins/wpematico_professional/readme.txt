@@ -2,8 +2,8 @@
 Contributors: etruel
 Tags: RSS, Post, Posts, Feed, Feeds, RSS to Post, Feed to Post, admin, aggregation, atom, autoblogging, bot, content, syndication, writing
 Requires at least: 4.1
-Tested up to: 5.4
-Stable tag: 2.5
+Tested up to: 5.4.1
+Stable tag: 2.6
 
 WPeMatico is for autoblogging, automatically creating posts from the RSS/Atom feeds you choose. PRO Version extends WPeMatico free plugin.
 
@@ -14,6 +14,9 @@ WPeMatico PRO adds following features to WPeMatico.
 Support Custom taxonomies for Custom Post Types.
 Just activate the Professional plugin and your campaign will show the metaboxes to select the custom taxonomies for the Custom Post Type selected.
 
+Use a custom feed tag to set the date in the published posts.
+You can set in each campaign which feed item tag should be used to set the date of each post. The value must be compatible with the strtotime function.
+		
 Fix and correct wrong HTML on content.
 You can enable this on txt config file when you get the content through Full content feature.
 		
@@ -77,6 +80,11 @@ This feature allow you to export and download a file from a single campaign, the
 * You will be notify when there is a new version then you can automatically upgrade from wordpress plugins page.
 
 == Changelog ==
+= 2.6 May 09, 2020 =
+* Added new feature to get the post Date from a custom tag in the feed items.
+* Removes hooks for extensions filters because now are in core settings.
+* Deleted images folder as are not used anymore.
+
 = 2.5 Mar 31, 2020 =
 * Added a new feature to parse and flip the paragraphs of each post content.
 * Improves a new Meta-Box to Custom Content Parsers with striping phrases features.
