@@ -288,18 +288,20 @@ function wpempro_closetags($html) {
 } 
 
 
-function wpematico_pro_allowext_audio($allowed_audio) {
-	$allowed_audio = 'mp3,m4a,ogg,wav';
-	return $allowed_audio;
-}
-add_filter('wpematico_allowext_audio', 'wpematico_pro_allowext_audio', 10, 1);
-
-
-function wpematico_pro_allowext_video($allowed_video) {
-	$allowed_video = 'mp4,m4v,mov,wmv,avi,mpg,ogv,3gp,3g2';
-	return $allowed_video;
-}
-add_filter('wpematico_allowext_video', 'wpematico_pro_allowext_video', 10, 1);
+// ToDo: deletes after check is working well
+// 
+//function wpematico_pro_allowext_audio($allowed_audio) {
+//	$allowed_audio = 'mp3,m4a,ogg,wav';
+//	return $allowed_audio;
+//}
+//add_filter('wpematico_allowext_audio', 'wpematico_pro_allowext_audio', 10, 1);
+//
+//
+//function wpematico_pro_allowext_video($allowed_video) {
+//	$allowed_video = 'mp4,m4v,mov,wmv,avi,mpg,ogv,3gp,3g2';
+//	return $allowed_video;
+//}
+//add_filter('wpematico_allowext_video', 'wpematico_pro_allowext_video', 10, 1);
 
 function wpepro_insert_file_asattach($filename,$postid) {
 	$wp_filetype = wp_check_filetype(basename($filename), null );

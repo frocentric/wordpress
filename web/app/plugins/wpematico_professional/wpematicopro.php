@@ -3,7 +3,7 @@
   Plugin Name: WPeMatico Professional
   Description: Professional features for WPeMatico (Requires WPeMatico FREE activated)
   Plugin URI: https://etruel.com/downloads/wpematico-professional/
-  Version: 2.5
+  Version: 2.6
   Author: etruel <esteban@netmdp.com>
   Author URI: https://etruel.com
  */
@@ -13,7 +13,7 @@ if(!function_exists('add_filter'))
 
 // Plugin version
 if(!defined('WPEMATICOPRO_VERSION')) {
-	define('WPEMATICOPRO_VERSION', '2.5');
+	define('WPEMATICOPRO_VERSION', '2.6');
 }
 
 if(!defined('WPEMATICOPRO_UPDATE_CAMPAIGNS')) {
@@ -2774,6 +2774,8 @@ if(!class_exists('NoNStatic')) {
 
 			$campaign_data['add_no_follow'] = (!isset($post_data['add_no_follow']) || empty($post_data['add_no_follow'])) ? false : ($post_data['add_no_follow'] == 1) ? true : false;
 
+			$campaign_data['campaign_date_tag'] = (!isset($post_data['campaign_date_tag']) || empty($post_data['campaign_date_tag'])) ? false : ($post_data['campaign_date_tag'] == 1) ? true : false;
+			$campaign_data['campaign_date_tag_name']	 = (isset($post_data['campaign_date_tag_name']) && !empty($post_data['campaign_date_tag_name']) ) ? $post_data['campaign_date_tag_name'] : '';
 
 			$campaign_data['campaign_striptagstitle']					 = (!isset($post_data['campaign_striptagstitle']) || empty($post_data['campaign_striptagstitle'])) ? false : ($post_data['campaign_striptagstitle'] == 1) ? true : false;
 			$campaign_data['campaign_enablecustomtitle']				 = (!isset($post_data['campaign_enablecustomtitle']) || empty($post_data['campaign_enablecustomtitle'])) ? false : ($post_data['campaign_enablecustomtitle'] == 1) ? true : false;

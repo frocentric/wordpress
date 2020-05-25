@@ -27,8 +27,8 @@ if(!class_exists('WPeMaticoPro_Campaign_Fetch')) :
 		public static $current_user_agent		 = null;
 		public static $current_input_encoding	 = null;
 		public static $fetching_campaign		 = array();
-		public static $assig_taxonomies = array();
-		public static $current_key_feed = -1;
+		public static $assig_taxonomies			 = array();
+		public static $current_key_feed			 = -1;
 
 		/**
 		 * Static function before_fetching
@@ -113,6 +113,10 @@ if(!class_exists('WPeMaticoPro_Campaign_Fetch')) :
 //				add_filter('wpematico_pre_insert_post', array(__CLASS__, 'campaignfetch_flip_paragraphs'), 19, 2);
 			}
 
+			if(isset($campaign['campaign_date_tag']) && $campaign['campaign_date_tag'] && !empty($campaign['campaign_date_tag_name'])) {
+				add_filter('wpematico_get_feeddate', [__CLASS__, 'wpematico_item_cdate_callback'], 10, 5);
+			}
+
 			if(isset(self::$options_audios['strip_all_audios']) && self::$options_audios['strip_all_audios']) {
 				add_filter('wpematico_item_filters_pre_audio', array(__CLASS__, 'strip_audio_tags_content'), 10, 2);
 			}
@@ -171,8 +175,41 @@ if(!class_exists('WPeMaticoPro_Campaign_Fetch')) :
 			add_filter('wpematico_item_pre_media', array(__CLASS__, 'exclude_filters'), 10, 4);
 		}
 
+		public static function wpematico_item_cdate_callback($itemdate, $current_item, $campaign, $feed, $item) {
+			//$campaign['campaign_date_tag_name']='pubDate';
+			$tag = $campaign['campaign_date_tag_name'];
+
+			// if has a namespace added in the tag
+			if(strpos($tag, ':') !== false) {
+				$input		 = explode(':', $tag);
+				$namespace	 = $input[0];
+				$tag		 = $input[1];
+			}
+			/** Allows change a namespace by filter	 */
+			$namespace = apply_filters('date_from_tag_namespace', $namespace, $current_item, $campaign, $feed, $item);
+
+			foreach($item->data['child'] as $ns => $adata) {
+				if($namespace != $ns) {
+					continue;
+				}
+				foreach($adata as $key => $value) {
+					if($key == $tag) {
+						$newdate = strtotime($value[0]['data']);
+						if($newdate !== false) {
+							//trigger_error('DATA:' . $ns . '<pre>' . $value[0]['data'] . '</pre>', E_USER_NOTICE);
+							$itemdate = $newdate;
+							trigger_error(__('Assigning date from feed item tag. ', 'wpematico') . $tag, E_USER_NOTICE);
+						}else {
+							trigger_error(__('Invalid Date format in feed item tag:', 'wpematico') . " $tag = ".$value[0]['data'], E_USER_WARNING);
+						}
+					}
+				}
+			}
+			return $itemdate;
+		}
+
 		public static function campaignfetch_flip_paragraphs($current_item, $campaign, $feed, $item) {
-			$content = $current_item['content'];
+			$content	 = $current_item['content'];
 			// opcion 1 = $paragraphs = preg_split( '|(?<=</p>)\s+(?=<p)|', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
 			// opcion 2 =
 			//	$dom		 = new DOMDocument();
@@ -184,7 +221,7 @@ if(!class_exists('WPeMaticoPro_Campaign_Fetch')) :
 			// opcion 3 =
 			//$paragraphs = preg_split('/<\/\s*p\s*>/', $content);
 			// opcion 4 = 
-			$paragraphs = preg_split('/<\/\s*p\s*>/', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
+			$paragraphs	 = preg_split('/<\/\s*p\s*>/', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
 
 			for($i = 0; $i < count($paragraphs); $i++) {
 				if($i % 2) {
@@ -198,44 +235,44 @@ if(!class_exists('WPeMaticoPro_Campaign_Fetch')) :
 			foreach($paragraphs as $key => $value) {
 				$InvertedContent .= $value;
 			}
-	//  die( $InvertedContent );
+			//  die( $InvertedContent );
 			$current_item['content'] = $InvertedContent;
 			return $current_item;
-		}	
-		
-/*		public static function campaignfetch_flip_paragraphs($args, $campaign) {
-			$content = $args['post_content'];
-			// opcion 1 = $paragraphs = preg_split( '|(?<=</p>)\s+(?=<p)|', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
-			// opcion 2 =
-			//	$dom		 = new DOMDocument();
-			//	$paragraphs	 = array();
-			//	$dom->loadHTML($content);
-			//	foreach($dom->getElementsByTagName('p') as $node) {
-			//		$paragraphs[] = $dom->saveHTML($node);
-			//	}
-			// opcion 3 =
-			//$paragraphs = preg_split('/<\/\s*p\s*>/', $content);
-			// opcion 4 = 
-			$paragraphs = preg_split('/<\/\s*p\s*>/', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
-
-			for($i = 0; $i < count($paragraphs); $i++) {
-				if($i % 2) {
-					$value					 = $paragraphs[$i];
-					$paragraphs[$i]			 = $paragraphs[($i - 1)];
-					$paragraphs[($i - 1)]	 = $value;
-					trigger_error(__('** Flipping content paragraphs **', 'wpematico'), E_USER_NOTICE);
-				}
-			}
-			$InvertedContent = "";
-			foreach($paragraphs as $key => $value) {
-				$InvertedContent .= $value;
-			}
-	//  die( $InvertedContent );
-			$args['post_content'] = $InvertedContent;
-			return $args;
 		}
-*/
-		
+
+		/* 		public static function campaignfetch_flip_paragraphs($args, $campaign) {
+		  $content = $args['post_content'];
+		  // opcion 1 = $paragraphs = preg_split( '|(?<=</p>)\s+(?=<p)|', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
+		  // opcion 2 =
+		  //	$dom		 = new DOMDocument();
+		  //	$paragraphs	 = array();
+		  //	$dom->loadHTML($content);
+		  //	foreach($dom->getElementsByTagName('p') as $node) {
+		  //		$paragraphs[] = $dom->saveHTML($node);
+		  //	}
+		  // opcion 3 =
+		  //$paragraphs = preg_split('/<\/\s*p\s*>/', $content);
+		  // opcion 4 =
+		  $paragraphs = preg_split('/<\/\s*p\s*>/', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
+
+		  for($i = 0; $i < count($paragraphs); $i++) {
+		  if($i % 2) {
+		  $value					 = $paragraphs[$i];
+		  $paragraphs[$i]			 = $paragraphs[($i - 1)];
+		  $paragraphs[($i - 1)]	 = $value;
+		  trigger_error(__('** Flipping content paragraphs **', 'wpematico'), E_USER_NOTICE);
+		  }
+		  }
+		  $InvertedContent = "";
+		  foreach($paragraphs as $key => $value) {
+		  $InvertedContent .= $value;
+		  }
+		  //  die( $InvertedContent );
+		  $args['post_content'] = $InvertedContent;
+		  return $args;
+		  }
+		 */
+
 		public static function get_author_from_feed($current_item, $campaign, $feed, $item) {
 			$fauthor = $item->get_author();
 			if(!empty($fauthor)) {
@@ -643,6 +680,7 @@ if(!class_exists('WPeMaticoPro_Campaign_Fetch')) :
 		/**
 		 * Static function assign_taxonomies
 		 * @access public
+		 * @param array $args The $current_item values
 		 * @return void
 		 * @since 1.9.3
 		 */
