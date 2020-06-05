@@ -150,18 +150,27 @@ class Froware_Public {
 	 * @since    1.0.0
 	 */
 	public function special_nav_class( $classes, $item, $args, $depth = 0 ) {
+		// Modifies primary navigation menu only
 		if ( 'primary' === $args->theme_location ) {
 			$parent_classes = array( 'current-menu-item', 'page_item', 'current_page_item', 'current_page_parent' );
-			$posts_page     = get_option( 'page_for_posts' );
+			$events_class   = 'events';
 
-			// Specify default page if posts page not enabled.
-			if ( 0 === $posts_page ) {
-				$posts_page = 13283;
-			}
-
-			// Highlight Content page link for any post or category page.
-			if ( ( ( is_single() && get_post_type() === 'post' ) || is_category() ) && $posts_page === $item->object_id ) {
+			// Highlight Events page link for any event-related page.
+			if ( substr( wp_make_link_relative( get_permalink() ), 0, strlen( $events_class ) + 1 ) === "/$events_class" &&
+					in_array( $events_class, $classes, true ) ) {
 				$classes = array_merge( $classes, $parent_classes );
+			} else {
+				$posts_page = get_option( 'page_for_posts' );
+
+				// Specify default page if posts page not enabled.
+				if ( 0 === $posts_page ) {
+					$posts_page = 13283; // TODO: refactor magic number
+				}
+
+				// Highlight Content page link for any post or category page.
+				if ( ( ( is_single() && get_post_type() === 'post' ) || is_category() ) && $posts_page === $item->object_id ) {
+					$classes = array_merge( $classes, $parent_classes );
+				}
 			}
 		}
 		// Filter out duplicate classes.
