@@ -158,7 +158,7 @@ if ( env('DISABLED_PLUGINS') ) {
 }
 
 /**
- * Discourse API credentials
+ * Discourse API configuration
  */
 if ( env('DISCOURSE_API_KEY') ) {
 	Config::define( 'DISCOURSE_API_KEY', env('DISCOURSE_API_KEY') );
