@@ -255,4 +255,22 @@ class Froware_Public {
 
 		return $excerpt;
 	}
+
+	/**
+	 * Filter the request args for Twig Anything requests to support Discourse API changes
+	 *
+	 * @param   array $args   Array of request arguments.
+	 * @param   array $config Array of configuration values.
+	 * @return array
+	 */
+	public function twig_anything_request_args( $args, $config ) {
+		if ( defined( 'DISCOURSE_API_KEY' ) && defined( 'DISCOURSE_API_USERNAME' ) ) {
+			$args['headers'] = array(
+				'Api-Key'      => DISCOURSE_API_KEY,
+				'Api-Username' => DISCOURSE_API_USERNAME,
+			);
+		}
+
+		return $args;
+	}
 }

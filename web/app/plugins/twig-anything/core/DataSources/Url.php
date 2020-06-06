@@ -74,17 +74,21 @@ class Url implements DataSourceInterface
             throw new DataSourceConfigurationException('Data URL Method not specified or empty.');
         }
 
-        # Fetch data from URL
-        switch ($method) {
-            case 'GET':
-                $response = wp_remote_get($url);
-                break;
-            case 'POST':
-                $response = wp_remote_post($url);
-                break;
-            default:
-                throw new DataSourceConfigurationException('Unknown Data URL Method, expected GET or POST.');
-        }
+	    # Modify request arguments
+	    $args = array();
+	    $args = apply_filters('twig_anything_request_args', $args, $config);
+
+	    # Fetch data from URL
+	    switch ($method) {
+		    case 'GET':
+			    $response = wp_remote_get($url, $args);
+			    break;
+		    case 'POST':
+			    $response = wp_remote_post($url, $args);
+			    break;
+		    default:
+			    throw new DataSourceConfigurationException('Unknown Data URL Method, expected GET or POST.');
+	    }
 
         if (is_wp_error($response)) {
             throw new DataRetrievalException($response->get_error_message());
