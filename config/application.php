@@ -158,6 +158,16 @@ if ( env('DISABLED_PLUGINS') ) {
 }
 
 /**
+ * Discourse API credentials
+ */
+if ( env('DISCOURSE_API_KEY') ) {
+	Config::define( 'DISCOURSE_API_KEY', env('DISCOURSE_API_KEY') );
+}
+if ( env('DISCOURSE_API_USERNAME') ) {
+	Config::define( 'DISCOURSE_API_USERNAME', env('DISCOURSE_API_USERNAME') );
+}
+
+/**
  * Allow WordPress to detect HTTPS when used behind a reverse proxy or a load balancer
  * See https://codex.wordpress.org/Function_Reference/is_ssl#Notes
  */
