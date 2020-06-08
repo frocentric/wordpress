@@ -121,6 +121,13 @@ class Froware_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/froware-public.js', array( 'jquery' ), $this->version, false );
+		wp_localize_script(
+			$this->plugin_name,
+			'settings',
+			array(
+				'ajaxurl' => admin_url( 'admin-ajax.php' ),
+			)
+		);
 
 	}
 
@@ -281,5 +288,30 @@ class Froware_Public {
 		}
 
 		return $args;
+	}
+
+	/**
+	 * Imports an event using the WP Event Aggregator API
+	 */
+	public function import_event() {
+		global $wpea_success_msg, $wpea_errors;
+
+		if ( check_admin_referer( 'wpea_import_form_nonce_action', 'wpea_import_form_nonce' ) === false ) {
+			wp_send_json_error();
+		}
+
+		// TODO: Validate fields (type, frequency, status, categories).
+
+		if ( class_exists( 'WP_Event_Aggregator_Pro_Manage_Import' ) ) {
+			$importer = new WP_Event_Aggregator_Pro_Manage_Import();
+
+			$importer->handle_import_form_submit();
+
+			if ( count( $wpea_success_msg ) > 0 ) {
+				wp_send_json_success( $wpea_success_msg[0] );
+			} elseif ( count( $wpea_errors ) > 0 ) {
+				wp_send_json_error( $wpea_errors[0] );
+			}
+		}
 	}
 }
