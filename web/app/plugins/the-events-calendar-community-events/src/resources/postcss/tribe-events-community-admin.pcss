@@ -1,0 +1,86 @@
+/* Shame and overrides */
+.tribe-community-options {
+	.tribe-settings-form {
+		fieldset {
+			display: block;
+		}
+	}
+
+	.tribe-settings-form .light-bordered:not(.indent) {
+		box-sizing: border-box;
+		width: 100%;
+
+		&.tribe-dependent.tribe-active {
+			display: block;
+		}
+
+		.tribe-field-wrap {
+			max-width: none;
+		}
+	}
+
+	.tribe-settings-form .tribe-settings-form-wrap fieldset,
+	.tribe-settings-form .tribe-settings-form-wrap .description,
+	.tribe-settings-form fieldset[id^='tribe-field-geoloc_'] {
+		padding: 0 12px 12px;
+	}
+
+	.tribe-settings-form .tribe-settings-form-wrap fieldset .description {
+		max-width: none;
+	}
+
+	.tribe-settings-form input[type="checkbox"].tribe-accordion {
+		position: absolute;
+		visibility: hidden;
+
+		+ label {
+			position: relative;
+
+			&:before {
+				content: "\25BC";
+				position: absolute;
+				right: -1.25em;
+			}
+		}
+
+		&:checked {
+			+ label {
+				&:before {
+					content: "\25B2";
+				}
+			}
+		}
+	}
+
+	.tribe-settings-form .tribe-settings-form-wrap fieldset.light-bordered.full-width {
+		padding-bottom: 0;
+		padding-top: 12px;
+
+		.tribe-settings-form legend,
+		.tribe-field-wrap {
+			display: block;
+			float: none;
+		}
+	}
+
+	#tribe-field-current_urls {
+		padding-bottom: 0;
+			padding-top: 12px;
+
+			.tribe-settings-form legend,
+			.tribe-field-wrap {
+				display: block;
+				float: none;
+				max-width: none;
+			}
+
+	}
+
+	@media ( max-width: 782px ) {
+		#tribe-field-current_urls {
+			code {
+				display: block;
+			}
+		}
+	}
+}
