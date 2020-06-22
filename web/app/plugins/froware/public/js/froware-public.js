@@ -37,29 +37,36 @@
       let $button = $(this);
       let $input = $("#import-event-url");
       let url = $input.val();
-      let regExp = /.*-(\d+)(?:\/|\?)?.*$/g;
-      let match = regExp.exec(url);
-      let eventId = match[1];
-      let title = $button.text();
-
-      $button.width($button.width()).text("...").prop("disabled", true);
+      let title = $button.prop("value");
       let data = {
-        action: "import_event",
-        wpea_action: "wpea_import_submit",
-        wpea_import_form_nonce: $("#wpea_import_form_nonce").val(),
-        event_plugin: "tec",
-        event_status: "pending",
-        import_frequency: "daily",
-        import_origin: "eventbrite",
-        import_type: "onetime",
-        eventbrite_import_by: "event_id",
-        wpea_eventbrite_id: eventId,
+        action: "validate_event_url",
+        event_url: url,
+        import_form_nonce: $("#import_form_nonce").val(),
       };
+
+      $button
+        .width($button.width())
+        .prop("value", "Importing...")
+        .prop("disabled", true);
       $.post(settings.ajaxurl, data, function (response) {
         console.log(response);
 
-        // enable button
-        $button.text(title).prop("disabled", false);
+        if ("object" === typeof response && "object" === typeof response.data) {
+          $.post(settings.ajaxurl, response.data, function (response) {
+            console.log(response);
+
+            if (response.success && response.data && response.data.ID) {
+              window.location =
+                "https://froware.local/events/community/edit/event/" +
+                response.data.ID;
+            } else {
+              $button.prop("value", title).prop("disabled", false);
+            }
+          });
+        } else {
+          console.log(response);
+          $button.prop("value", title).prop("disabled", false);
+        }
       });
     });
   });
