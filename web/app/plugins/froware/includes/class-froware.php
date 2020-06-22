@@ -177,6 +177,10 @@ class Froware {
 		$this->loader->add_action( 'after_setup_theme', $plugin_public, 'extend_theme_support', 100 );
 		$this->loader->add_action( 'wp_ajax_nopriv_import_event', $plugin_public, 'import_event' );
 		$this->loader->add_action( 'wp_ajax_import_event', $plugin_public, 'import_event' );
+		$this->loader->add_action( 'wp_ajax_nopriv_validate_event_url', $plugin_public, 'validate_event_url' );
+		$this->loader->add_action( 'wp_ajax_validate_event_url', $plugin_public, 'validate_event_url' );
+		$this->loader->add_action( 'wpea_after_create_tec_eventbrite_event', $plugin_public, 'track_new_event', 10, 3 );
+		$this->loader->add_action( 'tribe_events_community_form_before_template', $plugin_public, 'event_import_form' );
 
 		// Filters.
 		$this->loader->add_filter( 'generate_typography_default_fonts', $plugin_public, 'add_generatepress_fonts' );
@@ -215,10 +219,12 @@ class Froware {
 		add_shortcode(
 			'froware_import_event',
 			function( $atts = array() ) {
+				$plugin_public = new Froware_Public( $this->get_plugin_name(), $this->get_version() );
+
 				if ( ! empty( $_POST ) ) {
 					esc_attr_e( 'Form submitted' );
 				} else {
-					require_once plugin_dir_path( __FILE__ ) . '../public/partials/froware-event-form.php';
+					$plugin_public->event_import_form();
 				}
 			}
 		);
