@@ -253,7 +253,11 @@ HTML;
     public function onPrePostUpdate($postId) {
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
             return;
-        }
+		}
+		
+		if (!is_admin()) {
+			return;
+		}
 
         $screen = get_current_screen();
         if ($screen->post_type !== TwigAnything::POST_TYPE || $screen->base !== 'post') {
