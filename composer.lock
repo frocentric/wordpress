@@ -2573,15 +2573,15 @@
         },
         {
             "name": "wpackagist-plugin/wpematico",
-            "version": "2.6",
+            "version": "2.6.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wpematico/",
-                "reference": "tags/2.6"
+                "reference": "tags/2.6.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wpematico.2.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/wpematico.2.6.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
