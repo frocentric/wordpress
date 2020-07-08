@@ -2217,15 +2217,15 @@
         },
         {
             "name": "wpackagist-plugin/events-manager",
-            "version": "5.9.7.3",
+            "version": "5.9.8.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/events-manager/",
-                "reference": "tags/5.9.7.3"
+                "reference": "tags/5.9.8.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/events-manager.5.9.7.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/events-manager.5.9.8.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
