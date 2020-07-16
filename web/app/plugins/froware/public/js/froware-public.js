@@ -36,6 +36,7 @@
     $("#import-event").click(function (e) {
       let $button = $(this);
       let $input = $("#import-event-url");
+      let $message = $(".tribe-section .validation-message");
       let url = $input.val();
       let title = $button.prop("value");
       let data = {
@@ -53,7 +54,7 @@
 
         if ("object" === typeof response && "object" === typeof response.data) {
           $.post(settings.ajaxurl, response.data, function (response) {
-            console.log(response);
+            $message.text("");
 
             if (response.success && response.data && response.data.ID) {
               window.location =
@@ -61,11 +62,19 @@
                 response.data.ID;
             } else {
               $button.prop("value", title).prop("disabled", false);
+
+              if (response.data && typeof response.data === "string") {
+                $message.text(response.data);
+              }
             }
           });
         } else {
           console.log(response);
           $button.prop("value", title).prop("disabled", false);
+
+          if (response.data && typeof response.data === "string") {
+            $message.text(response.data);
+          }
         }
       });
     });

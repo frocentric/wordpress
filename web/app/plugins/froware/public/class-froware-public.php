@@ -349,15 +349,16 @@ class Froware_Public {
 
 							wp_send_json_success( $response );
 						} else {
-							wp_send_json_error( __( 'Valid URL not supplied', 'froware' ) );
+							wp_send_json_error( __( 'Valid URL not supplied, please try again', 'froware' ) );
 						}
 						break;
 				}
+				wp_send_json_error( __( 'Unsupported domain, please try again', 'froware' ) );
 			} else {
-				wp_send_json_error( __( 'Valid URL not supplied', 'froware' ) );
+				wp_send_json_error( __( 'Invalid URL, please try again', 'froware' ) );
 			}
 		} else {
-			wp_send_json_error( __( 'URL not supplied', 'froware' ) );
+			wp_send_json_error( __( 'URL not supplied, please try again', 'froware' ) );
 		}
 	}
 
@@ -402,6 +403,13 @@ class Froware_Public {
 
 				if ( ! empty( $imported_event ) && ! is_wp_error( $imported_event ) ) {
 					wp_send_json_success( $imported_event );
+				}
+				else {
+					// TODO: Pattern match against __( '%d Skipped (Already exists)', 'wp-event-aggregator' )
+					$message = strpos( $wpea_success_msg[0], 'Already exists' ) > 0 ?
+						__( 'This event has already been imported, please try again', 'froware' ) :
+						$wpea_success_msg[0];
+					wp_send_json_error( $message );
 				}
 			} elseif ( count( $wpea_errors ) > 0 ) {
 				wp_send_json_error( $wpea_errors[0] );
