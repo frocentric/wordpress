@@ -32,4 +32,52 @@
 (function ($) {
   "use strict";
 
+  $(function () {
+    $("#import-event").click(function (e) {
+      let $button = $(this);
+      let $input = $("#import-event-url");
+      let $message = $(".tribe-section .validation-message");
+      let url = $input.val();
+      let title = $button.prop("value");
+      let data = {
+        action: "validate_event_url",
+        event_url: url,
+        import_form_nonce: $("#import_form_nonce").val(),
+      };
+
+      $button
+        .width($button.width())
+        .prop("value", "Importing...")
+        .prop("disabled", true);
+      $.post(settings.ajaxurl, data, function (response) {
+        console.log(response);
+
+        if ("object" === typeof response && "object" === typeof response.data) {
+          $.post(settings.ajaxurl, response.data, function (response) {
+            $message.text("");
+
+            if (response.success && response.data && response.data.ID) {
+              window.location =
+                "https://froware.local/events/community/edit/event/" +
+                response.data.ID;
+            } else {
+              $button.prop("value", title).prop("disabled", false);
+
+              if (response.data && typeof response.data === "string") {
+                $message.text(response.data);
+              }
+            }
+          });
+        } else {
+          console.log(response);
+          $button.prop("value", title).prop("disabled", false);
+
+          if (response.data && typeof response.data === "string") {
+            $message.text(response.data);
+          }
+        }
+      });
+    });
+  });
+  function submit_event_url() {}
 })(jQuery);

@@ -40,6 +40,15 @@ class Froware_Public {
 	private $version;
 
 	/**
+	 * The ID of an imported event.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      int    $imported_event_id    The ID of an imported event.
+	 */
+	protected $imported_event_id;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -48,8 +57,9 @@ class Froware_Public {
 	 */
 	public function __construct( $plugin_name, $version ) {
 
-		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
+		$this->plugin_name       = $plugin_name;
+		$this->version           = $version;
+		$this->imported_event_id = -1;
 
 	}
 
@@ -121,6 +131,13 @@ class Froware_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/froware-public.js', array( 'jquery' ), $this->version, false );
+		wp_localize_script(
+			$this->plugin_name,
+			'settings',
+			array(
+				'ajaxurl' => admin_url( 'admin-ajax.php' ),
+			)
+		);
 
 	}
 
@@ -150,18 +167,27 @@ class Froware_Public {
 	 * @since    1.0.0
 	 */
 	public function special_nav_class( $classes, $item, $args, $depth = 0 ) {
+		// Modifies primary navigation menu only
 		if ( 'primary' === $args->theme_location ) {
 			$parent_classes = array( 'current-menu-item', 'page_item', 'current_page_item', 'current_page_parent' );
-			$posts_page     = get_option( 'page_for_posts' );
+			$events_class   = 'events';
 
-			// Specify default page if posts page not enabled.
-			if ( 0 === $posts_page ) {
-				$posts_page = 13283;
-			}
-
-			// Highlight Content page link for any post or category page.
-			if ( ( ( is_single() && get_post_type() === 'post' ) || is_category() ) && $posts_page === $item->object_id ) {
+			// Highlight Events page link for any event-related page.
+			if ( substr( wp_make_link_relative( get_permalink() ), 0, strlen( $events_class ) + 1 ) === "/$events_class" &&
+					in_array( $events_class, $classes, true ) ) {
 				$classes = array_merge( $classes, $parent_classes );
+			} else {
+				$posts_page = get_option( 'page_for_posts' );
+
+				// Specify default page if posts page not enabled.
+				if ( 0 === $posts_page ) {
+					$posts_page = 13283; // TODO: refactor magic number
+				}
+
+				// Highlight Content page link for any post or category page.
+				if ( ( ( is_single() && get_post_type() === 'post' ) || is_category() ) && $posts_page === $item->object_id ) {
+					$classes = array_merge( $classes, $parent_classes );
+				}
 			}
 		}
 		// Filter out duplicate classes.
@@ -272,5 +298,135 @@ class Froware_Public {
 		}
 
 		return $args;
+	}
+
+	/**
+	 * Validates an event URL for import
+	 */
+	public function validate_event_url() {
+		global $wpea_success_msg, $wpea_errors;
+
+		// Ensure callback handler only executes once per request.
+		if ( did_action( 'validate_event_url' ) > 1 ) {
+			return;
+		}
+
+		// if ( check_admin_referer( 'wpea_import_form_nonce_action', 'wpea_import_form_nonce' ) === false ) {.
+		if ( ! isset( $_POST ) || ! isset( $_POST['event_url'] ) || check_admin_referer( 'import_form_nonce_action', 'import_form_nonce' ) === false ) {
+			wp_send_json_error( __( 'Invalid form', 'froware' ) );
+		}
+
+		$url = filter_input( INPUT_POST, 'event_url' );
+
+		if ( ! empty( $url ) ) {
+			$regex = '/^https?:\/\/([^\/]+)*/';
+			// Capture domain from URL.
+			preg_match( $regex, $url, $matches );
+
+			if ( $matches && count( $matches ) > 1 ) {
+				switch ( $matches[1] ) {
+					case 'eventbrite.com':
+					case 'eventbrite.co.uk':
+					case 'www.eventbrite.com':
+					case 'www.eventbrite.co.uk':
+						$regex = '/.*-(\d+)(?:\/|\?)?.*$/';
+						// Capture event ID from URL.
+						preg_match( $regex, $url, $matches );
+
+						if ( $matches && count( $matches ) > 1 ) {
+							$event_id                         = $matches[1];
+							$response                         = new stdClass();
+							$response->action                 = 'import_event';
+							$response->eventbrite_import_by   = 'event_id';
+							$response->event_plugin           = 'tec';
+							$response->event_status           = 'draft';
+							$response->import_frequency       = 'daily';
+							$response->import_origin          = 'eventbrite';
+							$response->import_type            = 'onetime';
+							$response->wpea_action            = 'wpea_import_submit';
+							$response->wpea_eventbrite_id     = $event_id;
+							$response->wpea_import_form_nonce = wp_create_nonce( 'wpea_import_form_nonce_action' );
+
+							wp_send_json_success( $response );
+						} else {
+							wp_send_json_error( __( 'Valid URL not supplied, please try again', 'froware' ) );
+						}
+						break;
+				}
+				wp_send_json_error( __( 'Unsupported domain, please try again', 'froware' ) );
+			} else {
+				wp_send_json_error( __( 'Invalid URL, please try again', 'froware' ) );
+			}
+		} else {
+			wp_send_json_error( __( 'URL not supplied, please try again', 'froware' ) );
+		}
+	}
+
+	/**
+	 * Renders the event import form
+	 */
+	public function event_import_form() {
+		$action       = '';
+		$tribe_id     = '';
+		$tribe_events = new Tribe__Events__Community__Main();
+		$post_id      = get_the_ID();
+
+		if ( ! $post_id || ! tribe_is_event( $post_id ) ) {
+			require_once plugin_dir_path( __FILE__ ) . '../public/partials/froware-event-form.php';
+		}
+	}
+
+	/**
+	 * Imports an event using the WP Event Aggregator API
+	 */
+	public function import_event() {
+		global $wpea_success_msg, $wpea_errors;
+
+		// Ensure callback handler only executes once per request.
+		if ( did_action( 'import_event' ) > 1 ) {
+			return;
+		}
+
+		if ( check_admin_referer( 'wpea_import_form_nonce_action', 'wpea_import_form_nonce' ) === false ) {
+			wp_send_json_error();
+		}
+
+		// TODO: Validate fields (type, frequency, status, categories).
+
+		if ( class_exists( 'WP_Event_Aggregator_Pro_Manage_Import' ) ) {
+			$importer = new WP_Event_Aggregator_Pro_Manage_Import();
+
+			$importer->handle_import_form_submit();
+
+			if ( count( $wpea_success_msg ) > 0 ) {
+				$imported_event = tribe_get_event( $this->imported_event_id );
+
+				if ( ! empty( $imported_event ) && ! is_wp_error( $imported_event ) ) {
+					wp_send_json_success( $imported_event );
+				}
+				else {
+					// TODO: Pattern match against __( '%d Skipped (Already exists)', 'wp-event-aggregator' )
+					$message = strpos( $wpea_success_msg[0], 'Already exists' ) > 0 ?
+						__( 'This event has already been imported, please try again', 'froware' ) :
+						$wpea_success_msg[0];
+					wp_send_json_error( $message );
+				}
+			} elseif ( count( $wpea_errors ) > 0 ) {
+				wp_send_json_error( $wpea_errors[0] );
+			}
+		} else {
+			wp_send_json_error( __( 'Unrecognised event format.', 'froware' ) );
+		}
+	}
+
+	/**
+	 * Tracks a new event in order to be rendered in front-end event creation UI.
+	 *
+	 * @param int   $new_event_id ID of newly-saved event.
+	 * @param array $formatted_args Array of arguments used when creating the event.
+	 * @param array $centralize_array Centralize array form of event.
+	 */
+	public function track_new_event( $new_event_id, $formatted_args, $centralize_array ) {
+		$this->imported_event_id = $new_event_id;
 	}
 }

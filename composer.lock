@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.140.2",
+            "version": "3.141.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "7e37960c1103ee211932be51b2282b41c948a5f0"
+                "reference": "d57dbde176a7db7a6131bb5d325aff63515eabc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7e37960c1103ee211932be51b2282b41c948a5f0",
-                "reference": "7e37960c1103ee211932be51b2282b41c948a5f0",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d57dbde176a7db7a6131bb5d325aff63515eabc3",
+                "reference": "d57dbde176a7db7a6131bb5d325aff63515eabc3",
                 "shasum": ""
             },
             "require": {
@@ -88,7 +88,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-06-05T18:12:25+00:00"
+            "time": "2020-06-10T18:11:38+00:00"
         },
         {
             "name": "composer/installers",
@@ -214,16 +214,6 @@
                 "yawik",
                 "zend",
                 "zikula"
-            ],
-            "funding": [
-                {
-                    "url": "https://packagist.com",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
-                    "type": "tidelift"
-                }
             ],
             "time": "2020-04-07T06:57:05+00:00"
         },
@@ -658,10 +648,10 @@
         },
         {
             "name": "koodimonni-language/en_gb",
-            "version": "5.4.2",
+            "version": "5.4.1",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/5.4.2/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/5.4.1/en_GB.zip"
             },
             "require": {
                 "koodimonni-plugin-language/akismet-en_gb": "*",
@@ -727,10 +717,10 @@
         },
         {
             "name": "koodimonni-plugin-language/woocommerce-en_gb",
-            "version": "4.2.2",
+            "version": "4.2.0",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/4.2.2/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/4.2.0/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -2108,16 +2098,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.6.1",
+            "version": "v3.6.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "0455940481777146a4677dbf59ed928223351639"
+                "reference": "f2409313a6179a22da50fc46296df89ad7ee9c19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/0455940481777146a4677dbf59ed928223351639",
-                "reference": "0455940481777146a4677dbf59ed928223351639",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/f2409313a6179a22da50fc46296df89ad7ee9c19",
+                "reference": "f2409313a6179a22da50fc46296df89ad7ee9c19",
                 "shasum": ""
             },
             "require": {
@@ -2191,7 +2181,7 @@
                 "minification",
                 "wordpress"
             ],
-            "time": "2020-06-24T19:49:27+00:00"
+            "time": "2020-06-10T19:04:07+00:00"
         },
         {
             "name": "wpackagist-plugin/autodescription",
@@ -2199,11 +2189,11 @@
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/autodescription/",
-                "reference": "tags/4.0.7"
+                "reference": "trunk"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/autodescription.4.0.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/autodescription.zip?timestamp=1588113953"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2267,15 +2257,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "2.9.13",
+            "version": "2.9.11",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/2.9.13"
+                "reference": "tags/2.9.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.2.9.13.zip"
+                "url": "https://downloads.wordpress.org/plugin/elementor.2.9.11.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2285,15 +2275,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "4.0.4",
+            "version": "4.0.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/4.0.4"
+                "reference": "tags/4.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.4.0.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.4.0.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2303,15 +2293,15 @@
         },
         {
             "name": "wpackagist-plugin/events-manager",
-            "version": "5.9.8.1",
+            "version": "5.9.7.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/events-manager/",
-                "reference": "tags/5.9.8.1"
+                "reference": "tags/5.9.7.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/events-manager.5.9.8.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/events-manager.5.9.7.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2339,15 +2329,15 @@
         },
         {
             "name": "wpackagist-plugin/jetpack",
-            "version": "8.7",
+            "version": "8.6.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/jetpack/",
-                "reference": "tags/8.7"
+                "reference": "tags/8.6.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jetpack.8.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/jetpack.8.6.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2447,15 +2437,15 @@
         },
         {
             "name": "wpackagist-plugin/publishpress",
-            "version": "2.2.0",
+            "version": "2.1.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/publishpress/",
-                "reference": "tags/2.2.0"
+                "reference": "tags/2.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/publishpress.2.2.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/publishpress.2.1.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2483,15 +2473,15 @@
         },
         {
             "name": "wpackagist-plugin/the-events-calendar",
-            "version": "5.1.4",
+            "version": "5.1.2.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/the-events-calendar/",
-                "reference": "tags/5.1.4"
+                "reference": "tags/5.1.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.5.1.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.5.1.2.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2573,15 +2563,15 @@
         },
         {
             "name": "wpackagist-plugin/wpematico",
-            "version": "2.6.1",
+            "version": "2.6",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wpematico/",
-                "reference": "tags/2.6.1"
+                "reference": "tags/2.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wpematico.2.6.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/wpematico.2.6.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2611,22 +2601,22 @@
     "packages-dev": [
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
-            "version": "v0.7.0",
+            "version": "v0.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dealerdirect/phpcodesniffer-composer-installer.git",
-                "reference": "e8d808670b8f882188368faaf1144448c169c0b7"
+                "reference": "8001af8eb107fbfcedc31a8b51e20b07d85b457a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dealerdirect/phpcodesniffer-composer-installer/zipball/e8d808670b8f882188368faaf1144448c169c0b7",
-                "reference": "e8d808670b8f882188368faaf1144448c169c0b7",
+                "url": "https://api.github.com/repos/Dealerdirect/phpcodesniffer-composer-installer/zipball/8001af8eb107fbfcedc31a8b51e20b07d85b457a",
+                "reference": "8001af8eb107fbfcedc31a8b51e20b07d85b457a",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0 || ^2.0",
-                "php": ">=5.3",
-                "squizlabs/php_codesniffer": "^2 || ^3 || 4.0.x-dev"
+                "composer-plugin-api": "^1.0",
+                "php": "^5.3|^7",
+                "squizlabs/php_codesniffer": "^2|^3"
             },
             "require-dev": {
                 "composer/composer": "*",
@@ -2673,7 +2663,7 @@
                 "stylecheck",
                 "tests"
             ],
-            "time": "2020-06-25T14:57:39+00:00"
+            "time": "2020-01-29T20:22:20+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
