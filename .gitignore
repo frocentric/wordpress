@@ -2,11 +2,14 @@
 web/app/languages
 web/app/plugins/*
 !web/app/plugins/elementor-pro
+!web/app/plugins/events-calendar-pro
 !web/app/plugins/froware
 !web/app/plugins/gp-premium
 !web/app/plugins/ninja-forms-conditionals
 !web/app/plugins/ninja-forms-mail-chimp
 !web/app/plugins/ninja-forms-post-creation
+!web/app/plugins/the-events-calendar-community-events
+!web/app/plugins/the-events-calendar-filterbar
 !web/app/plugins/twig-anything
 !web/app/plugins/ninja-forms-style
 !web/app/plugins/wp-show-posts-pro
