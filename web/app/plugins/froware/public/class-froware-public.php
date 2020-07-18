@@ -371,7 +371,7 @@ class Froware_Public {
 		$tribe_events = new Tribe__Events__Community__Main();
 		$post_id      = get_the_ID();
 
-		if ( ! $post_id || ! tribe_is_event( $post_id ) ) {
+		if ( class_exists( 'WP_Event_Aggregator_Pro_Manage_Import' ) && ( ! $post_id || ! tribe_is_event( $post_id ) ) ) {
 			require_once plugin_dir_path( __FILE__ ) . '../public/partials/froware-event-form.php';
 		}
 	}
