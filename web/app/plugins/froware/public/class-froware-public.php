@@ -136,6 +136,7 @@ class Froware_Public {
 			'settings',
 			array(
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
+				'homeurl' => home_url(),
 			)
 		);
 
