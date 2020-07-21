@@ -215,6 +215,16 @@
                 "zend",
                 "zikula"
             ],
+            "funding": [
+                {
+                    "url": "https://packagist.com",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
+                    "type": "tidelift"
+                }
+            ],
             "time": "2020-04-07T06:57:05+00:00"
         },
         {
@@ -2050,16 +2060,16 @@
         },
         {
             "name": "wp-media/rocket-lazyload-common",
-            "version": "v2.5.10",
+            "version": "v2.5.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/rocket-lazyload-common.git",
-                "reference": "fde493535ca389882484327af32c99c839d2527f"
+                "reference": "09bdc9a550b8bd1197c155a98e17c45adcb190af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/rocket-lazyload-common/zipball/fde493535ca389882484327af32c99c839d2527f",
-                "reference": "fde493535ca389882484327af32c99c839d2527f",
+                "url": "https://api.github.com/repos/wp-media/rocket-lazyload-common/zipball/09bdc9a550b8bd1197c155a98e17c45adcb190af",
+                "reference": "09bdc9a550b8bd1197c155a98e17c45adcb190af",
                 "shasum": ""
             },
             "require": {
@@ -2094,20 +2104,20 @@
                 }
             ],
             "description": "Common Code between WP Rocket and Lazyload by WP Rocket",
-            "time": "2020-05-26T19:34:18+00:00"
+            "time": "2020-07-10T18:41:12+00:00"
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.6.0.1",
+            "version": "v3.6.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "f2409313a6179a22da50fc46296df89ad7ee9c19"
+                "reference": "b1fdd13fbe78c8fc54f26a586061fd79b9a1966b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/f2409313a6179a22da50fc46296df89ad7ee9c19",
-                "reference": "f2409313a6179a22da50fc46296df89ad7ee9c19",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/b1fdd13fbe78c8fc54f26a586061fd79b9a1966b",
+                "reference": "b1fdd13fbe78c8fc54f26a586061fd79b9a1966b",
                 "shasum": ""
             },
             "require": {
@@ -2137,7 +2147,9 @@
                 "wp-media/phpunit": "^1.0",
                 "wpackagist-plugin/amp": "^1.1.4",
                 "wpackagist-plugin/hummingbird-performance": "2.0.1",
+                "wpackagist-plugin/pdf-embedder": "^4.6",
                 "wpackagist-plugin/simple-custom-css": "^4.0.3",
+                "wpackagist-plugin/spinupwp": "^1.1",
                 "wpackagist-plugin/wp-smushit": "^3.0"
             },
             "type": "wordpress-plugin",
@@ -2181,7 +2193,7 @@
                 "minification",
                 "wordpress"
             ],
-            "time": "2020-06-10T19:04:07+00:00"
+            "time": "2020-07-20T13:43:01+00:00"
         },
         {
             "name": "wpackagist-plugin/autodescription",
@@ -2189,11 +2201,11 @@
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/autodescription/",
-                "reference": "trunk"
+                "reference": "tags/4.0.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/autodescription.zip?timestamp=1588113953"
+                "url": "https://downloads.wordpress.org/plugin/autodescription.4.0.7.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
