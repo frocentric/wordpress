@@ -58,7 +58,8 @@
 
             if (response.success && response.data && response.data.ID) {
               window.location =
-                settings.homeurl + "/events/community/edit/event/" +
+                settings.homeurl +
+                "/events/community/edit/event/" +
                 response.data.ID;
             } else {
               $button.prop("value", title).prop("disabled", false);
