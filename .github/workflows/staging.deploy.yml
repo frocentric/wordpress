@@ -37,6 +37,6 @@ jobs:
         # GitHub repo slug or full clone url
         destination_repo: "frowarecom@35.246.15.218:18528/www/frowarecom_769/private/frowarecom.git"
         # Branch name to sync to
-        destination_branch: "master"
+        destination_branch: "main"
         # SSH key used to authenticate with git clone urls provided (optional if public or https clone url with authentication)
         ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
