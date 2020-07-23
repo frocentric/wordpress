@@ -659,10 +659,10 @@
         },
         {
             "name": "koodimonni-language/en_gb",
-            "version": "5.4.1",
+            "version": "5.4.2",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/5.4.1/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/5.4.2/en_GB.zip"
             },
             "require": {
                 "koodimonni-plugin-language/akismet-en_gb": "*",
@@ -728,10 +728,10 @@
         },
         {
             "name": "koodimonni-plugin-language/woocommerce-en_gb",
-            "version": "4.2.0",
+            "version": "4.3.1",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/4.2.0/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/4.3.1/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
