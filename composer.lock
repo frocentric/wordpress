@@ -2498,15 +2498,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "2.9.11",
+            "version": "2.9.14",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/2.9.11"
+                "reference": "tags/2.9.14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.2.9.11.zip"
+                "url": "https://downloads.wordpress.org/plugin/elementor.2.9.14.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
