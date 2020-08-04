@@ -1116,16 +1116,16 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.25.4",
+            "version": "1.25.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "3022efff205e2448b560c833c6fbbf91c3139168"
+                "reference": "1817faadd1846cd08be9a49e905dc68823bc38c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/3022efff205e2448b560c833c6fbbf91c3139168",
-                "reference": "3022efff205e2448b560c833c6fbbf91c3139168",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/1817faadd1846cd08be9a49e905dc68823bc38c0",
+                "reference": "1817faadd1846cd08be9a49e905dc68823bc38c0",
                 "shasum": ""
             },
             "require": {
@@ -1199,7 +1199,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-05-22T07:31:27+00:00"
+            "time": "2020-07-23T08:35:51+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -2337,16 +2337,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.6.2.1",
+            "version": "v3.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "b1fdd13fbe78c8fc54f26a586061fd79b9a1966b"
+                "reference": "bdcfdca33b5040219bb3a9c5f8d6d3916290a8bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/b1fdd13fbe78c8fc54f26a586061fd79b9a1966b",
-                "reference": "b1fdd13fbe78c8fc54f26a586061fd79b9a1966b",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/bdcfdca33b5040219bb3a9c5f8d6d3916290a8bb",
+                "reference": "bdcfdca33b5040219bb3a9c5f8d6d3916290a8bb",
                 "shasum": ""
             },
             "require": {
@@ -2422,7 +2422,7 @@
                 "minification",
                 "wordpress"
             ],
-            "time": "2020-07-20T13:43:01+00:00"
+            "time": "2020-08-03T18:22:21+00:00"
         },
         {
             "name": "wpackagist-plugin/autodescription",
