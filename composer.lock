@@ -2768,15 +2768,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-event-aggregator",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-event-aggregator/",
-                "reference": "tags/1.6.0"
+                "reference": "tags/1.6.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-event-aggregator.1.6.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-event-aggregator.1.6.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
