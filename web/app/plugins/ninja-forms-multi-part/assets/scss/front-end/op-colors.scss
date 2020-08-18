@@ -1,0 +1,36 @@
+.nf-breadcrumbs {
+    li {
+        a {
+            background: $accent;
+            color: $field-background;
+            transition: all .5s;
+            &:hover {
+                background: $field-border;
+                color: $field-font;
+                transition: all .5s;
+            }
+        }
+        &.active {
+            a {
+                background: $field-border;
+                color: $field-font;
+                cursor: default;
+            }
+        }
+        &.errors {
+            a {
+                background: red;
+                color: #fff;
+                cursor: help;
+            }
+        }
+    }
+}
+
+.nf-progress-container {
+    background-color: $progress-background;
+}
+
+.nf-progress {
+    background-color: $progress-bar;
+}

@@ -1,0 +1,40 @@
+@import "display-structure";
+@import "display-opinions";
+
+/* ---------------------------------
+DEFAULT LIGHT COLORS
+----------------------------------*/
+$base: #f7f7f7;
+$accent: #333;
+@import "op-variables-light";
+@import "op-colors";
+
+/* ---------------------------------
+LIGHT COLORS - nf-brown
+----------------------------------*/
+$base: #F3EFDD;
+$accent: #736628;
+@import "op-variables-light";
+.nf-brown {
+    @import "op-colors";
+}
+
+/* ---------------------------------
+LIGHT COLORS - nf-red
+----------------------------------*/
+$base: #F0E3E3;
+$accent: #8A5252;
+@import "op-variables-light";
+.nf-red {
+    @import "op-colors";
+}
+
+/* ---------------------------------
+LIGHT COLORS - nf-blue
+----------------------------------*/
+$base: #DFEFF5;
+$accent: #4F9DBF;
+@import "op-variables-light";
+.nf-blue {
+    @import "op-colors";
+}
