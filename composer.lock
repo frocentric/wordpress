@@ -2426,15 +2426,15 @@
         },
         {
             "name": "wpackagist-plugin/autodescription",
-            "version": "4.0.7",
+            "version": "4.1.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/autodescription/",
-                "reference": "tags/4.0.7"
+                "reference": "trunk"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/autodescription.4.0.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/autodescription.zip?timestamp=1596958291"
             },
             "require": {
                 "composer/installers": "~1.0"
