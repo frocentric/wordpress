@@ -1,0 +1,31 @@
+$accent_color: #84CC1E;
+$cta_color: #1EA9EA;
+
+@import "drawer";
+
+.mp-circle-active {
+	color: #1EA9EA ! important;
+}
+.mp-circle-over {
+	color: #84CC1E ! important;
+}
+.ui-effects-transfer {
+	border: 2px solid #84CC1E;
+	/* background: #84CC1E; */
+	z-index: 99999999999999999999;
+}
+.mp-top-drag-active {
+	/* background: #1EA9EA ! important; */
+}
+
+.mp-top-drag-hover {
+	background: #84CC1E ! important;
+}
+.nf-remove-part,
+.nf-duplicate-part {
+    width: 100%;
+}
+.nf-remove-part {
+    border: 1px solid red !important;
+    color: red !important;
+}
