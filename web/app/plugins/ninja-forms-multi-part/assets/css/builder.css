@@ -1,0 +1,104 @@
+#nf-mp-drawer-viewport {
+  float: left;
+  overflow-x: hidden; }
+
+#nf-mp-drawer {
+  background: #EBEDEE;
+  height: 60px;
+  position: fixed;
+  bottom: -70px;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transition: all 0.5s ease; }
+  #nf-mp-drawer ul.ui-sortable {
+    float: left;
+    margin: 5px; }
+    #nf-mp-drawer ul.ui-sortable > li {
+      display: inline-block;
+      background: #fff;
+      border: 2px solid #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      float: left;
+      font-size: 16px;
+      line-height: 50px;
+      margin-left: 14px;
+      height: 50px;
+      padding: 0 16px;
+      text-align: center;
+      position: relative; }
+      #nf-mp-drawer ul.ui-sortable > li.active {
+        border: 2px solid #84CC1E;
+        color: #84CC1E; }
+      #nf-mp-drawer ul.ui-sortable > li.mp-drag-hover {
+        background: #1EA9EA !important;
+        border: 2px solid #1EA9EA;
+        color: #fff; }
+
+.nf-mp-drawer-scroll-previous,
+.nf-mp-drawer-scroll-next {
+  background: #fff;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  float: left;
+  font-size: 16px;
+  line-height: 50px;
+  margin-top: 5px;
+  margin-left: 14px;
+  height: 50px;
+  width: 50px;
+  padding: 0 16px;
+  text-align: center;
+  position: relative; }
+
+#nf-mp-drawer .ui-sortable-placeholder {
+  background: #84CC1E !important;
+  border: 2px solid #84CC1E !important;
+  border-radius: 0 !important;
+  width: 8px !important;
+  padding: 0 !important;
+  visibility: visible !important;
+  margin-right: -11px !important;
+  margin-left: 2px !important; }
+
+.nf-has-parts #nf-mp-drawer {
+  bottom: 0;
+  transition: all 0.5s ease; }
+
+.nf-has-parts .nf-master-control {
+  bottom: 80px; }
+
+.nf-has-parts .nf-fields-sortable {
+  padding-bottom: 60px; }
+
+.nf-drawer-opened #nf-mp-drawer {
+  right: 50%; }
+
+.mp-circle-active {
+  color: #1EA9EA !important; }
+
+.mp-circle-over {
+  color: #84CC1E !important; }
+
+.ui-effects-transfer {
+  border: 2px solid #84CC1E;
+  /* background: #84CC1E; */
+  z-index: 99999999999999999999; }
+
+.mp-top-drag-active {
+  /* background: #1EA9EA ! important; */ }
+
+.mp-top-drag-hover {
+  background: #84CC1E !important; }
+
+.nf-remove-part,
+.nf-duplicate-part {
+  width: 100%; }
+
+.nf-remove-part {
+  border: 1px solid red !important;
+  color: red !important; }
+
+/*# sourceMappingURL=builder.css.map */

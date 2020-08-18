@@ -1,0 +1,189 @@
+.nf-next-previous,
+.nf-breadcrumbs {
+  content: "";
+  list-style-type: none !important;
+  margin: 20px 0 !important;
+  padding: 0 !important; }
+  .nf-next-previous::after,
+  .nf-breadcrumbs::after {
+    clear: both;
+    content: "";
+    display: block; }
+  .nf-next-previous li,
+  .nf-breadcrumbs li {
+    content: "";
+    list-style-type: none !important;
+    margin: 0 !important;
+    padding: 0 !important; }
+
+.nf-next-previous li.nf-previous-item {
+  float: left; }
+
+.nf-next-previous li.nf-next-item {
+  float: right; }
+
+.nf-breadcrumbs li {
+  float: left; }
+  .nf-breadcrumbs li a {
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 16px;
+    margin-bottom: 10px;
+    text-decoration: none; }
+    .nf-breadcrumbs li a .nf-breadcrumb-error {
+      background: red;
+      border-radius: 4px;
+      color: #fff;
+      padding: 2px 5px; }
+  .nf-breadcrumbs li:last-child a {
+    margin-right: 0; }
+  .nf-breadcrumbs li.active a {
+    font-weight: bold; }
+
+.nf-progress-container {
+  margin-top: 20px;
+  width: 100%;
+  border: 1px solid #bbbbbb; }
+
+.nf-progress {
+  height: 20px;
+  background-color: #329ad1; }
+
+.nf-next-previous li input {
+  font-size: 16px;
+  padding: 12px 18px; }
+
+.nf-breadcrumbs {
+  margin: 40px 0 !important; }
+  .nf-breadcrumbs li a {
+    padding: 12px 18px; }
+  .nf-breadcrumbs li.active a {
+    font-weight: normal; }
+  .nf-breadcrumbs li.errors a {
+    position: relative;
+    padding-left: 36px; }
+    .nf-breadcrumbs li.errors a::after {
+      font-family: "FontAwesome";
+      position: absolute;
+      content: "\f06a";
+      left: 12px; }
+
+.nf-progress-container,
+.nf-progress {
+  border: 0;
+  height: 50px;
+  width: 100%; }
+
+/* ---------------------------------
+DEFAULT DARK COLORS
+----------------------------------*/
+.nf-breadcrumbs li a {
+  background: #fff;
+  color: #222;
+  transition: all .5s; }
+  .nf-breadcrumbs li a:hover {
+    background: #3c3c3c;
+    color: #888888;
+    transition: all .5s; }
+
+.nf-breadcrumbs li.active a {
+  background: #3c3c3c;
+  color: #888888;
+  cursor: default; }
+
+.nf-breadcrumbs li.errors a {
+  background: red;
+  color: #fff;
+  cursor: help; }
+
+.nf-progress-container {
+  background-color: #3c3c3c; }
+
+.nf-progress {
+  background-color: #222; }
+
+/* ---------------------------------
+DARK COLORS - nf-brown
+----------------------------------*/
+.nf-brown .nf-breadcrumbs li a {
+  background: #ea981b;
+  color: #3e2b13;
+  transition: all .5s; }
+  .nf-brown .nf-breadcrumbs li a:hover {
+    background: #65461f;
+    color: #ca9553;
+    transition: all .5s; }
+
+.nf-brown .nf-breadcrumbs li.active a {
+  background: #65461f;
+  color: #ca9553;
+  cursor: default; }
+
+.nf-brown .nf-breadcrumbs li.errors a {
+  background: red;
+  color: #fff;
+  cursor: help; }
+
+.nf-brown .nf-progress-container {
+  background-color: #65461f; }
+
+.nf-brown .nf-progress {
+  background-color: #3e2b13; }
+
+/* ---------------------------------
+DARK COLORS - nf-red
+----------------------------------*/
+.nf-red .nf-breadcrumbs li a {
+  background: red;
+  color: #350000;
+  transition: all .5s; }
+  .nf-red .nf-breadcrumbs li a:hover {
+    background: #680000;
+    color: #ff0202;
+    transition: all .5s; }
+
+.nf-red .nf-breadcrumbs li.active a {
+  background: #680000;
+  color: #ff0202;
+  cursor: default; }
+
+.nf-red .nf-breadcrumbs li.errors a {
+  background: red;
+  color: #fff;
+  cursor: help; }
+
+.nf-red .nf-progress-container {
+  background-color: #680000; }
+
+.nf-red .nf-progress {
+  background-color: #350000; }
+
+/* ---------------------------------
+DARK COLORS - nf-blue
+----------------------------------*/
+.nf-blue .nf-breadcrumbs li a {
+  background: #00AEFF;
+  color: #001C33;
+  transition: all .5s; }
+  .nf-blue .nf-breadcrumbs li a:hover {
+    background: #003866;
+    color: #008cff;
+    transition: all .5s; }
+
+.nf-blue .nf-breadcrumbs li.active a {
+  background: #003866;
+  color: #008cff;
+  cursor: default; }
+
+.nf-blue .nf-breadcrumbs li.errors a {
+  background: red;
+  color: #fff;
+  cursor: help; }
+
+.nf-blue .nf-progress-container {
+  background-color: #003866; }
+
+.nf-blue .nf-progress {
+  background-color: #001C33; }
+
+/*# sourceMappingURL=display-opinions-dark.css.map */
