@@ -7,7 +7,6 @@ web/app/plugins/*
 !web/app/plugins/gp-premium
 !web/app/plugins/ninja-forms-conditionals
 !web/app/plugins/ninja-forms-mail-chimp
-!web/app/plugins/ninja-forms-multi-part
 !web/app/plugins/ninja-forms-post-creation
 !web/app/plugins/the-events-calendar-community-events
 !web/app/plugins/the-events-calendar-filterbar
