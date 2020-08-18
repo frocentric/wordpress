@@ -1,0 +1,52 @@
+.nf-next-previous,
+.nf-breadcrumbs {
+  content: "";
+  list-style-type: none !important;
+  margin: 20px 0 !important;
+  padding: 0 !important; }
+  .nf-next-previous::after,
+  .nf-breadcrumbs::after {
+    clear: both;
+    content: "";
+    display: block; }
+  .nf-next-previous li,
+  .nf-breadcrumbs li {
+    content: "";
+    list-style-type: none !important;
+    margin: 0 !important;
+    padding: 0 !important; }
+
+.nf-next-previous li.nf-previous-item {
+  float: left; }
+
+.nf-next-previous li.nf-next-item {
+  float: right; }
+
+.nf-breadcrumbs li {
+  float: left; }
+  .nf-breadcrumbs li a {
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 16px;
+    margin-bottom: 10px;
+    text-decoration: none; }
+    .nf-breadcrumbs li a .nf-breadcrumb-error {
+      background: red;
+      border-radius: 4px;
+      color: #fff;
+      padding: 2px 5px; }
+  .nf-breadcrumbs li:last-child a {
+    margin-right: 0; }
+  .nf-breadcrumbs li.active a {
+    font-weight: bold; }
+
+.nf-progress-container {
+  margin-top: 20px;
+  width: 100%;
+  border: 1px solid #bbbbbb; }
+
+.nf-progress {
+  height: 20px;
+  background-color: #329ad1; }
+
+/*# sourceMappingURL=display-structure.css.map */

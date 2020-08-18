@@ -1,0 +1,90 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ninja-forms-multi-part-polish\n"
+"POT-Creation-Date: 2014-04-07 12:30-0000\n"
+"PO-Revision-Date: 2014-04-07 12:35-0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/admin/form-settings-metabox.php:27
+msgid "Multi-Part settings"
+msgstr "Ustawienia formularza wieloczęściowego"
+
+#: includes/admin/form-settings-metabox.php:35
+msgid "Enable Multi-Part Form?"
+msgstr "Właczyć formularze wieloczęściowe?"
+
+#: includes/admin/form-settings-metabox.php:37
+msgid ""
+"If this box is checked Ninja Forms will allow multi-part form pages to be "
+"created."
+msgstr "Włącz obsługę formularzy wieloczęściowych"
+
+#: includes/admin/form-settings-metabox.php:44
+msgid "Display Progress Bar?"
+msgstr "Wyświetlić pasek postępu?"
+
+#: includes/admin/form-settings-metabox.php:53
+msgid "Display Breadcrumb Navigation?"
+msgstr "Wyświetlić okruszki?"
+
+#: includes/admin/form-settings-metabox.php:62
+msgid "Display Page Titles?"
+msgstr "Wyświetlić tytuł strony?"
+
+#: includes/admin/form-settings-metabox.php:72
+msgid "Ajax Page Transition Effect"
+msgstr "Ajax'owe efekty zmiany stron"
+
+#: includes/admin/form-settings-metabox.php:81
+msgid "Ajax Page Transition Direction"
+msgstr "Kierunek zmian stron Ajax"
+
+#: includes/admin/form-settings-metabox.php:86
+msgid "Show Review Page"
+msgstr "Pokaż stronę potwierdzenia"
+
+#: includes/admin/form-settings-metabox.php:87
+msgid ""
+"This page will allow your users to review and modify their fields on one "
+"page before they submit the form."
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:92
+msgid "Review Page Message"
+msgstr "Wiadomość na stronie potwierdzenia"
+
+#: includes/admin/form-settings-metabox.php:93
+msgid "This message will be shown to users at the top of the review page."
+msgstr ""
+
+#: includes/admin/open-div.php:32
+msgid "Save Field Settings"
+msgstr "Zapisz ustawienia pola"
+
+#: includes/display/nav.php:101 includes/display/nav.php:107
+msgid "Previous"
+msgstr "Poprzednia"
+
+#: includes/display/nav.php:102 includes/display/nav.php:112
+msgid "Next"
+msgstr "Następna"
+
+#: includes/fields/page-divider.php:53
+msgid "Duplicate Page"
+msgstr "Powiel stronę"
+
+#: includes/fields/page-divider.php:57
+msgid "Page Settings"
+msgstr "Ustawienia strony"
+
+#: includes/fields/page-divider.php:60
+msgid "Edit Menu Item"
+msgstr "Edycja pozycji menu"

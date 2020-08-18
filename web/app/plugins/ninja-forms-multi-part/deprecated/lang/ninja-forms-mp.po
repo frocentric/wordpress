@@ -1,0 +1,122 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: ninja-forms-mp\n"
+"POT-Creation-Date: 2014-11-17 14:19-0500\n"
+"PO-Revision-Date: 2014-11-17 14:19-0500\n"
+"Last-Translator: \n"
+"Language-Team: WP Ninjas <info@wpninjas.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;_x;_n\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: includes/admin/form-settings-metabox.php:38
+msgid "Multi-Part settings"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:46
+msgid "Enable Multi-Part Form?"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:48
+msgid ""
+"If this box is checked Ninja Forms will allow multi-part form pages to be "
+"created."
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:55
+msgid "Display Progress Bar?"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:64
+msgid "Display Breadcrumb Navigation?"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:73
+msgid "Display Page Titles?"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:83
+msgid "Page Transition Effect"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:92
+msgid "Page Transition Direction"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:97
+msgid "Show Review Page"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:98
+msgid ""
+"This page will allow your users to review and modify their fields on one "
+"page before they submit the form."
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:103
+msgid "Review Page Message"
+msgstr ""
+
+#: includes/admin/form-settings-metabox.php:104
+msgid "This message will be shown to users at the top of the review page."
+msgstr ""
+
+#: includes/admin/labels.php:14
+msgid "Multi-Part Labels"
+msgstr ""
+
+#: includes/admin/labels.php:19
+msgid "Previous Button Label"
+msgstr ""
+
+#: includes/admin/labels.php:21 includes/admin/labels.php:46
+msgid "Previous"
+msgstr ""
+
+#: includes/admin/labels.php:26
+msgid "Next Button Label"
+msgstr ""
+
+#: includes/admin/labels.php:28 includes/admin/labels.php:47
+msgid "Next"
+msgstr ""
+
+#: includes/admin/open-div.php:34
+msgid "Save Field Settings"
+msgstr ""
+
+#: includes/fields/page-divider.php:8
+msgid "Page Divider"
+msgstr ""
+
+#: includes/fields/page-divider.php:27
+msgid "Show This"
+msgstr ""
+
+#: includes/fields/page-divider.php:32
+msgid "Hide This"
+msgstr ""
+
+#: includes/fields/page-divider.php:50
+msgid "Multi-Part Page"
+msgstr ""
+
+#: includes/fields/page-divider.php:53
+msgid "Duplicate Page"
+msgstr ""
+
+#: includes/fields/page-divider.php:57
+msgid "Page Settings"
+msgstr ""
+
+#: includes/fields/page-divider.php:60
+msgid "Edit Menu Item"
+msgstr ""
+
+#: includes/fields/page-divider.php:66
+msgid "Page Title"
+msgstr ""
