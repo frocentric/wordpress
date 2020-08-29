@@ -121,6 +121,18 @@ Config::define('SCRIPT_DEBUG', false);
 ini_set('display_errors', '0');
 
 /**
+ * Multisite Settings
+ */
+Config::define( 'WP_ALLOW_MULTISITE', true );
+Config::define( 'MULTISITE', true );
+Config::define( 'SUBDOMAIN_INSTALL', env('SUBDOMAIN_INSTALL') ?? true );
+Config::define( 'DOMAIN_CURRENT_SITE', env('DOMAIN_CURRENT_SITE') );
+Config::define( 'PATH_CURRENT_SITE', env('PATH_CURRENT_SITE') ?? '/' );
+Config::define( 'SITE_ID_CURRENT_SITE', env('SITE_ID_CURRENT_SITE') ?? 1 );
+Config::define( 'BLOG_ID_CURRENT_SITE', env('BLOG_ID_CURRENT_SITE') ?? 1 );
+$base = '/';
+
+/**
  * WP Rocket Settings
  */
 Config::define('WP_ROCKET_EMAIL', env('WP_ROCKET_EMAIL') ?: '');
