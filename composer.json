@@ -63,7 +63,7 @@
     "wpackagist-plugin/classic-editor": "~1.0",
     "wpackagist-plugin/disable-emails": "~1.0",
     "wpackagist-plugin/easy-theme-and-plugin-upgrades": "~2.0",
-    "wpackagist-plugin/elementor": "~2.0",
+    "wpackagist-plugin/elementor": "~3.0",
     "wpackagist-plugin/essential-addons-for-elementor-lite": "~4.0",
     "wpackagist-plugin/events-manager": "~5.0",
     "wpackagist-plugin/granular-controls-for-elementor": "~1.0",
