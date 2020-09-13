@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4bc8803d5dcd1fc4ef0fc66c0ae8a26f",
+    "content-hash": "6da1737e88765baef1369b8815d9997a",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.153.0",
+            "version": "3.154.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "3045bc6c8f7d2521b3e0d4a7b407194af8725c8f"
+                "reference": "5651d8a92164d98869b70a15e4c06ce4c14c7c28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3045bc6c8f7d2521b3e0d4a7b407194af8725c8f",
-                "reference": "3045bc6c8f7d2521b3e0d4a7b407194af8725c8f",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5651d8a92164d98869b70a15e4c06ce4c14c7c28",
+                "reference": "5651d8a92164d98869b70a15e4c06ce4c14c7c28",
                 "shasum": ""
             },
             "require": {
@@ -89,7 +89,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-09-09T18:12:35+00:00"
+            "time": "2020-09-11T18:12:41+00:00"
         },
         {
             "name": "composer/installers",
@@ -215,16 +215,6 @@
                 "yawik",
                 "zend",
                 "zikula"
-            ],
-            "funding": [
-                {
-                    "url": "https://packagist.com",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
-                    "type": "tidelift"
-                }
             ],
             "time": "2020-04-07T06:57:05+00:00"
         },
@@ -710,10 +700,10 @@
         },
         {
             "name": "koodimonni-plugin-language/woocommerce-en_gb",
-            "version": "4.5.0",
+            "version": "4.5.1",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/4.5.0/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/4.5.1/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1977,6 +1967,24 @@
             "homepage": "https://wordpress.org/plugins/classic-editor/"
         },
         {
+            "name": "wpackagist-plugin/customizer-export-import",
+            "version": "0.9.2",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/customizer-export-import/",
+                "reference": "tags/0.9.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/customizer-export-import.0.9.2.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/customizer-export-import/"
+        },
+        {
             "name": "wpackagist-plugin/debug-bar",
             "version": "1.0.1",
             "source": {
@@ -2317,6 +2325,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-event-aggregator/"
+        },
+        {
+            "name": "wpackagist-plugin/wp-multisite-user-sync",
+            "version": "1.2.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-multisite-user-sync/",
+                "reference": "tags/1.2.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-multisite-user-sync.1.2.0.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-multisite-user-sync/"
         },
         {
             "name": "wpackagist-plugin/wp-show-posts",

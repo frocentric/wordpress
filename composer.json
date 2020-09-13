@@ -63,6 +63,7 @@
     "ingenyus/configure-environment-plugins": "~1.0",
     "wpackagist-plugin/autodescription": "~4.0",
     "wpackagist-plugin/classic-editor": "~1.0",
+    "wpackagist-plugin/customizer-export-import": "~0.0",
     "wpackagist-plugin/debug-bar": "~1.0",
     "wpackagist-plugin/disable-emails": "~1.0",
     "wpackagist-plugin/easy-theme-and-plugin-upgrades": "~2.0",
@@ -83,6 +84,7 @@
     "wpackagist-plugin/wp-analytify": "~3.0",
     "wpackagist-plugin/wp-discourse": "~2.0",
     "wpackagist-plugin/wp-event-aggregator": "~1.0",
+    "wpackagist-plugin/wp-multisite-user-sync": "~1.0",
     "wpackagist-plugin/wp-show-posts": "~1.0",
     "wpackagist-theme/generatepress": "~2.0",
     "wp-media/wp-rocket": "~3.0"
