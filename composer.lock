@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "74b8e149aad2dd913475e030cdcad9b3",
+    "content-hash": "002180fcb9c18b45d2b73698743f1d4d",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -2067,15 +2067,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "2.9.14",
+            "version": "3.0.9",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/2.9.14"
+                "reference": "tags/3.0.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.2.9.14.zip"
+                "url": "https://downloads.wordpress.org/plugin/elementor.3.0.9.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
