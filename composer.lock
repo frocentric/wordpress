@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7519304485f8f4fde4e3c112dfab8ccf",
+    "content-hash": "c5555f00bcf717d78c001f252583a561",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -2361,24 +2361,6 @@
             "homepage": "https://wordpress.org/plugins/wp-event-aggregator/"
         },
         {
-            "name": "wpackagist-plugin/wp-multisite-user-sync",
-            "version": "1.2.0",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wp-multisite-user-sync/",
-                "reference": "tags/1.2.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-multisite-user-sync.1.2.0.zip"
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/wp-multisite-user-sync/"
-        },
-        {
             "name": "wpackagist-plugin/wp-show-posts",
             "version": "1.1.3",
             "source": {
@@ -2413,6 +2395,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wpematico/"
+        },
+        {
+            "name": "wpackagist-plugin/wpm-user-sync",
+            "version": "1.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wpm-user-sync/",
+                "reference": "tags/1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wpm-user-sync.1.1.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wpm-user-sync/"
         },
         {
             "name": "wpackagist-theme/generatepress",
