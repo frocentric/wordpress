@@ -51,7 +51,7 @@
   "require": {
     "php": ">=5.6",
     "composer/installers": "^1.8",
-    "vlucas/phpdotenv": "^5.2.0",
+    "vlucas/phpdotenv": "^4.1.8",
     "johnpbloch/wordpress": "~5.0",
     "koodimonni-language/en_gb": "*",
     "oscarotero/env": "^2.1.0",
