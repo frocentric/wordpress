@@ -4,6 +4,7 @@
  */
 
 use Roots\WPConfig\Config;
+use function Env\env;
 
 /**
  * You should try to keep staging as close to production as possible. However,
