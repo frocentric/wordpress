@@ -84,6 +84,8 @@ class Froware_Public {
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/froware-public.css', array(), $this->version, 'all' );
 		wp_enqueue_style( 'dashicons' );
+		// phpcs:ignore
+		wp_enqueue_style( 'google-fonts-nunito', 'https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,400;0,600;0,900;1,400;1,600;1,900&display=swap', false );
 
 	}
 
@@ -151,6 +153,7 @@ class Froware_Public {
 	 */
 	public function add_generatepress_fonts( $fonts ) {
 		$fonts[] = 'Helvetica Neue Condensed Bold';
+		$fonts[] = 'Nunito Sans';
 
 		sort( $fonts );
 
