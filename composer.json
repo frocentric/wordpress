@@ -86,7 +86,7 @@
     "wpackagist-plugin/wp-discourse": "~2.0",
     "wpackagist-plugin/wp-event-aggregator": "~1.0",
     "wpackagist-plugin/wp-show-posts": "~1.0",
-    "wpackagist-theme/generatepress": "~2.0",
+    "wpackagist-theme/generatepress": "~3.0",
     "wp-media/wp-rocket": "~3.0"
   },
   "require-dev": {

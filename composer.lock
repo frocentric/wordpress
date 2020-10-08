@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5555f00bcf717d78c001f252583a561",
+    "content-hash": "f986f4c4a2d11086af3c37fa316014c0",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -215,6 +215,16 @@
                 "yawik",
                 "zend",
                 "zikula"
+            ],
+            "funding": [
+                {
+                    "url": "https://packagist.com",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
+                    "type": "tidelift"
+                }
             ],
             "time": "2020-04-07T06:57:05+00:00"
         },
@@ -2416,15 +2426,15 @@
         },
         {
             "name": "wpackagist-theme/generatepress",
-            "version": "2.4.2",
+            "version": "3.0.0",
             "source": {
                 "type": "svn",
                 "url": "https://themes.svn.wordpress.org/generatepress/",
-                "reference": "2.4.2"
+                "reference": "3.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/theme/generatepress.2.4.2.zip"
+                "url": "https://downloads.wordpress.org/theme/generatepress.3.0.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
