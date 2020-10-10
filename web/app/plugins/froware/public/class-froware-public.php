@@ -161,6 +161,16 @@ class Froware_Public {
 	}
 
 	/**
+	 * Add categories and tags to pages
+	 *
+	 * @since    1.1.0
+	 */
+	public function add_taxonomy_to_pages() {
+		register_taxonomy_for_object_type( 'category', 'page' );
+		register_taxonomy_for_object_type( 'post_tag', 'page' );
+	}
+
+	/**
 	 * Modify navigation output to correctly highlight current section.
 	 *
 	 * @param    string[] $classes Array of the CSS classes that are applied to the menu item's <li> element.

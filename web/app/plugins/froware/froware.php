@@ -15,7 +15,7 @@
  * Plugin Name:       froware.com site-specific plugin
  * Plugin URI:        https://froware.com
  * Description:       This plugin defines custom functionality for froware.com.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Gary McPherson
  * Author URI:        https://ingenyus.com
  * License:           GPL-2.0+
