@@ -413,6 +413,10 @@ select {
 	grid-template-columns: 1fr 1fr 1fr;
 	column-gap: 1rem
 }
+.entry-header .entry-title {
+	font-size: 34px;
+	font-weight: 700;
+}
 .entry-meta .posted-on {
 	float: right;
 }
