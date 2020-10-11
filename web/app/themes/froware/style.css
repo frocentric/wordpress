@@ -419,6 +419,9 @@ select {
 	padding-top: 0;
 	margin: 30px 0;
 }
+.entry-meta .cat-links {
+	text-transform: uppercase;
+}
 .entry-header .entry-title {
 	font-size: 34px;
 	font-weight: 700;
