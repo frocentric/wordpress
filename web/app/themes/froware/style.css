@@ -20,25 +20,27 @@ Text Domain:	 GeneratePress-child
         url('/app/uploads/2019/03/HelveticaNeueCondensedBold.ttf') format('truetype');
 }
 
-a,
-a:visited {
+a {
+    text-decoration: none;
+}
+a:hover {
     text-decoration: underline;
 }
 
 h1 a,
-h1 a:visited,
+h1 a:hover,
 h2 a,
-h2 a:visited,
+h2 a:hover,
 h3 a,
-h3 a:visited,
+h3 a:hover,
 h4 a,
-h4 a:visited,
+h4 a:hover,
 h5 a,
-h5 a:visited,
+h5 a:hover,
 h6 a,
-h6 a:visited,
+h6 a:hover,
 a.generate-back-to-top,
-a.generate-back-to-top:visited {
+a.generate-back-to-top:hover {
     text-decoration: none;
 }
 
@@ -412,6 +414,10 @@ select {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	column-gap: 1rem
+}
+.separate-containers .generate-columns-container .inside-article {
+	padding-top: 0;
+	margin: 30px 0;
 }
 .entry-header .entry-title {
 	font-size: 34px;
