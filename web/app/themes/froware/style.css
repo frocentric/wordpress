@@ -408,7 +408,7 @@ select {
 	color: #cacaca;
 }
 
-.generate-columns-container:not(.masonry-container) {
+.site-main .generate-columns-container:not(.masonry-container) {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	column-gap: 1rem
