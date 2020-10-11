@@ -168,6 +168,23 @@ class Froware_Public {
 	 * @return   array
 	 * @since    1.0.0
 	 */
+	public function generate_inside_post_meta_item_output( $output, $item ) {
+		if ( 'author' === $item ) {
+			$user_id = get_the_author_meta( 'ID' );
+			$output  = sprintf( '<a href="%1$s" class="avatar-link">%2$s</a>', get_author_posts_url( $user_id, ), get_avatar( $user_id, 32 ) );
+		}
+
+		return $output;
+	}
+
+	/**
+	 * Filter post date markup.
+	 *
+	 * @param    string $output      Default output.
+	 * @param    string $time_string Post time string.
+	 * @return   array
+	 * @since    1.0.0
+	 */
 	public function generate_post_date_output( $output, $time_string ) {
 		return sprintf( // WPCS: XSS ok, sanitization ok.
 			'<span class="posted-on">%1$s%2$s</span> ',
