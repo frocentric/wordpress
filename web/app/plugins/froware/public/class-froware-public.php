@@ -161,6 +161,22 @@ class Froware_Public {
 	}
 
 	/**
+	 * Filter post date markup.
+	 *
+	 * @param    string $output      Default output.
+	 * @param    string $time_string Post time string.
+	 * @return   array
+	 * @since    1.0.0
+	 */
+	public function generate_post_date_output( $output, $time_string ) {
+		return sprintf( // WPCS: XSS ok, sanitization ok.
+			'<span class="posted-on">%1$s%2$s</span> ',
+			apply_filters( 'generate_inside_post_meta_item_output', '', 'date' ),
+			$time_string
+		);
+	}
+
+	/**
 	 * Add categories and tags to pages
 	 *
 	 * @since    1.1.0

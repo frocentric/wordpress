@@ -185,6 +185,7 @@ class Froware {
 
 		// Filters.
 		$this->loader->add_filter( 'generate_typography_default_fonts', $plugin_public, 'add_generatepress_fonts' );
+		$this->loader->add_filter( 'generate_post_date_output', $plugin_public, 'generate_post_date_output', 10, 2 );
 		$this->loader->add_filter( 'nav_menu_css_class', $plugin_public, 'special_nav_class', 10, 3 );
 		$this->loader->add_filter( 'wpsp_defaults', $plugin_public, 'wpsp_defaults' );
 		$this->loader->add_filter( 'wpematico_item_parsers', $plugin_public, 'wpematico_item_parsers_callback', 10, 4 );

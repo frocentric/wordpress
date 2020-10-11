@@ -413,6 +413,9 @@ select {
 	grid-template-columns: 1fr 1fr 1fr;
 	column-gap: 1rem
 }
+.entry-meta .posted-on {
+	float: right;
+}
 
 @media (min-width: 1025px){
 	.grid-33 {

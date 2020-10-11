@@ -20,11 +20,14 @@ function enqueue_parent_styles() {
  * @since 1.2.5
  */
 function generate_entry_meta() {
-	$items = apply_filters( 'generate_footer_entry_meta_items', array(
-		'author',
-		'tags',
-		'comments-link',
-	) );
+	$items = apply_filters(
+		'generate_footer_entry_meta_items',
+		array(
+			'author',
+			'tags',
+			'comments-link',
+		)
+	);
 
 	foreach ( $items as $item ) {
 		generate_do_post_meta_item( $item );
@@ -37,12 +40,37 @@ function generate_entry_meta() {
  * @since 0.1
  */
 function generate_posted_on() {
-	$items = apply_filters( 'generate_header_entry_meta_items', array(
-		'categories',
-		'date',
-	) );
+	$items = apply_filters(
+		'generate_header_entry_meta_items',
+		array(
+			'categories',
+			'date',
+		)
+	);
 
 	foreach ( $items as $item ) {
 		generate_do_post_meta_item( $item );
 	}
+}
+
+add_action( 'generate_before_entry_title', 'generate_post_meta' );
+/**
+ * Build the post meta.
+ *
+ * @since 1.3.29
+ */
+function generate_post_meta() {
+	$post_types = apply_filters(
+		'generate_entry_meta_post_types',
+		array(
+			'post',
+		)
+	);
+
+	if ( in_array( get_post_type(), $post_types, true ) ) : ?>
+		<div class="entry-meta">
+			<?php generate_posted_on(); ?>
+		</div><!-- .entry-meta -->
+		<?php
+	endif;
 }
