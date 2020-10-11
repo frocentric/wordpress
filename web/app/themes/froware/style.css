@@ -416,6 +416,21 @@ select {
 .entry-meta .posted-on {
 	float: right;
 }
+.entry-meta .byline .avatar {
+	vertical-align: middle;
+	display: inline-block;
+	margin-right: 1em;
+	border-radius: 50%;
+	border: 3px solid #1995a7;
+}
+.post-image-above-header .inside-article .post-image {
+	margin-bottom: 0.8em;
+}
+.inside-article .entry-header,
+.inside-article .entry-summary,
+.inside-article>.entry-meta {
+	padding: 0 1em;
+}
 
 @media (min-width: 1025px){
 	.grid-33 {
