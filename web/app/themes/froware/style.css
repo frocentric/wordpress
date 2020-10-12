@@ -523,7 +523,17 @@ select {
 
     .section-title .searchandfilter li:first-child {
         max-width: 70%;
-    }
+	}
+	.sticky-menu-logo .navigation-stick:not(.mobile-header-navigation) .inside-navigation .menu-toggle,
+	.menu-logo .main-navigation:not(.mobile-header-navigation) .inside-navigation .menu-toggle {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		height: 60px;
+	}
+	#site-navigation .inside-navigation .menu-toggle:before {
+		margin-top: 0;
+	}
 }
 
 @media (max-width: 500px) {
