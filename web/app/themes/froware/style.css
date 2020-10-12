@@ -463,9 +463,9 @@ select {
 
 @media (max-width: 1024px) and (min-width: 768px){
 	.generate-columns-container {
-	padding: 0 30px;
+		padding: 0 30px;
 	}
-	.generate-columns-container:not(.masonry-container) 	{
+	.site-main .generate-columns-container:not(.masonry-container) 	{
 		display: grid;
 		grid-template-columns: 1fr 1fr;
 	}
@@ -476,7 +476,7 @@ select {
 }
 
 @media (max-width: 767px){
-	.generate-columns-container:not(.masonry-container) 	{
+	.site-main .generate-columns-container:not(.masonry-container) 	{
 		grid-template-columns: 1fr;
 	}
 	.grid-33 {
