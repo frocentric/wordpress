@@ -425,7 +425,7 @@ select {
 .entry-meta .cat-links {
 	text-transform: uppercase;
 }
-.inside-article .entry-header .entry-title {
+.generate-columns-container .entry-header .entry-title {
 	font-size: 34px;
 	font-weight: 700;
 }
