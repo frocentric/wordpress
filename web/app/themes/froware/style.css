@@ -47,6 +47,9 @@ a.generate-back-to-top:hover {
 .main-navigation .navigation-logo.site-logo {
     margin-left: 0;
 }
+.main-navigation .main-nav a:hover {
+    text-decoration: none;
+}
 
 .section-highlight {
     background-color: #EBF4F6;
@@ -422,7 +425,7 @@ select {
 .entry-meta .cat-links {
 	text-transform: uppercase;
 }
-.entry-header .entry-title {
+.inside-article .entry-header .entry-title {
 	font-size: 34px;
 	font-weight: 700;
 }
