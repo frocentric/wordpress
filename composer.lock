@@ -1863,16 +1863,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.7.2",
+            "version": "v3.7.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "443f2e1b902c592bd517cbaa641571bb2ddce1a5"
+                "reference": "6c811c18c1739349a51753b07816b7260b1e2c07"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/443f2e1b902c592bd517cbaa641571bb2ddce1a5",
-                "reference": "443f2e1b902c592bd517cbaa641571bb2ddce1a5",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/6c811c18c1739349a51753b07816b7260b1e2c07",
+                "reference": "6c811c18c1739349a51753b07816b7260b1e2c07",
                 "shasum": ""
             },
             "require": {
@@ -1972,7 +1972,7 @@
                 "minification",
                 "wordpress"
             ],
-            "time": "2020-09-30T13:12:32+00:00"
+            "time": "2020-10-15T12:48:15+00:00"
         },
         {
             "name": "wpackagist-plugin/autodescription",
