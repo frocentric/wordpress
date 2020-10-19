@@ -166,27 +166,16 @@ div.site-logo.sticky-logo.navigation-logo img {
     margin-bottom: 10px;
 }
 
-#menu-main-menu .menu-item.current-menu-item {
-    background: transparent url('/app/themes/froware/images/nav-bubble-left.svg') left bottom no-repeat;
-    background-size: auto 40px;
-    padding-left: 18px;
-}
-
-#menu-main-menu .menu-item.current-menu-item a {
-    background: transparent url('/app/themes/froware/images/nav-bubble-right.svg') right bottom no-repeat;
-    background-size: auto 40px;
-    color: #fff;
-    font-weight: bold;
-    line-height: 45px;
-    padding-left: 0;
-    padding-right: 18px;
+#menu-main-menu .menu-item.current-menu-item a,
+#menu-main-menu .menu-item.current-menu-item a:hover {
+    color: #e76e67;
 }
 
 #content .wpsp-read-more a.wp-show-posts-read-more,
 a.wp-show-posts-read-more:visited,
 .elementor-posts .elementor-post__card .elementor-post__read-more {
     border-color: #dddddd;
-    color: #1995a7;
+    color: #e76e67;
 }
 
 #content .wpsp-read-more a.wp-show-posts-read-more,
@@ -201,8 +190,8 @@ input[type=submit] {
 
 html input[type=button],
 input[type=submit] {
-    background-color: #1995a7;
-    border-color: #1995a7;
+    background-color: #e76e67;
+    border-color: #e76e67;
 	color: #ffffff;
 	font-size: 15px;
 	font-weight: 600;
@@ -300,8 +289,8 @@ aside.cite {
 }
 
 .footer-widgets .menu-social-links-container li a {
-    background-color: #fff;
-    color: black;
+    background-color: #000;
+    color: #fff;
     padding: 0.25em;
     border-radius: 50%;
     font-family: dashicons;
@@ -324,8 +313,7 @@ aside.cite {
 }
 
 .footer-widgets .menu-social-links-container li a:hover {
-    background-color: #1995a7;
-    color: #fff;
+	background-color: #e76e67;
 }
 
 .footer-widgets .menu-social-links-container li.instagram a:before {
@@ -359,7 +347,7 @@ ul.menu {
 }
 
 .footer-widgets a:hover {
-    color: #1995a7;
+    color: #e76e67;
 }
 
 /* Forms */
@@ -437,7 +425,10 @@ select {
 	display: inline-block;
 	margin-right: 1em;
 	border-radius: 50%;
-	border: 3px solid #1995a7;
+	border: 2px solid #c5c5c5;
+}
+.entry-meta .byline .avatar-link:hover .avatar {
+	filter: brightness(90%);
 }
 .post-image-above-header .inside-article .post-image {
 	margin-bottom: 0.8em;
@@ -487,7 +478,7 @@ select {
 		width: auto;
 	}
     #site-navigation #menu-main-menu .menu-item.current-menu-item {
-        background-color: #1995a7;
+        background-color: #e76e67;
         background-image: none;
     }
 
