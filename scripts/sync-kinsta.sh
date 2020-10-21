@@ -4,17 +4,23 @@
 # Version 1.1.0
 # Copyright (c) Ben Word
 
+DEVBUCKET="s3://froware-local"
 DEVDIR="web/app/uploads/"
-DEVSITE="https://froware.local"
+DEVSUBSITE="https://froware.frocentric.local"
+DEVSITE="https://frocentric.local"
 DEVPORT="22"
 
 REMOTEDIR="frowarecom@35.246.15.218:/www/frowarecom_769/public/current/web/app/uploads/"
 
+PRODBUCKET="s3://froware"
 PRODPORT="24583"
-PRODSITE="https://froware.com"
+PRODSUBSITE="https://froware.com"
+PRODSITE="https://frocentric.org"
 
+STAGBUCKET="s3://froware-staging"
 STAGPORT="18528"
-STAGSITE="https://staging.froware.com"
+STAGSUBSITE="https://staging.froware.com"
+STAGSITE="https://staging.frocentric.org"
 
 FROM=$1
 TO=$2
@@ -23,12 +29,12 @@ bold=$(tput bold)
 normal=$(tput sgr0)
 
 case "$1-$2" in
-  production-development) DIR="down ⬇️ "           FROMSITE=$PRODSITE; FROMDIR=$REMOTEDIR; FROMPORT=$PRODPORT; TOPORT=$DEVPORT; TOSITE=$DEVSITE;  TODIR=$DEVDIR; ;;
-  staging-development)    DIR="down ⬇️ "           FROMSITE=$STAGSITE; FROMDIR=$REMOTEDIR; FROMPORT=$STAGPORT; TOPORT=$DEVPORT; TOSITE=$DEVSITE;  TODIR=$DEVDIR; ;;
-  development-production) DIR="up ⬆️ "             FROMSITE=$DEVSITE;  FROMDIR=$DEVDIR;  FROMPORT=$DEVPORT; TOPORT=$PRODPORT; TOSITE=$PRODSITE; TODIR=$REMOTEDIR; ;;
-  development-staging)    DIR="up ⬆️ "             FROMSITE=$DEVSITE;  FROMDIR=$DEVDIR;  FROMPORT=$DEVPORT; TOPORT=$STAGPORT; TOSITE=$STAGSITE; TODIR=$REMOTEDIR; ;;
-  production-staging)     DIR="horizontally ↔️ ";  FROMSITE=$PRODSITE; FROMDIR=$REMOTEDIR; FROMPORT=$PRODPORT; TOPORT=$STAGPORT; TOSITE=$STAGSITE; TODIR=$REMOTEDIR; ;;
-  staging-production)     DIR="horizontally ↔️ ";  FROMSITE=$STAGSITE; FROMDIR=$REMOTEDIR; FROMPORT=$STAGPORT; TOPORT=$PRODPORT; TOSITE=$PRODSITE; TODIR=$REMOTEDIR; ;;
+  production-development) DIR="down ⬇️ "           FROMSITE=$PRODSITE; FROMSUBSITE=$PRODSUBSITE; FROMDIR=$REMOTEDIR; FROMPORT=$PRODPORT; FROMBUCKET=$PRODBUCKET; TOPORT=$DEVPORT; TOSITE=$DEVSITE; TOSUBSITE=$DEVSUBSITE; TODIR=$DEVDIR; TOBUCKET=$DEVBUCKET; ;;
+  staging-development)    DIR="down ⬇️ "           FROMSITE=$STAGSITE; FROMSUBSITE=$STAGSUBSITE; FROMDIR=$REMOTEDIR; FROMPORT=$STAGPORT; FROMBUCKET=$STAGBUCKET; TOPORT=$DEVPORT; TOSITE=$DEVSITE; TOSUBSITE=$DEVSUBSITE;  TODIR=$DEVDIR; TOBUCKET=$DEVBUCKET; ;;
+  development-production) DIR="up ⬆️ "             FROMSITE=$DEVSITE; FROMSUBSITE=$DEVSUBSITE; FROMDIR=$DEVDIR;  FROMPORT=$DEVPORT; FROMBUCKET=$DEVBUCKET; TOPORT=$PRODPORT; TOSITE=$PRODSITE; TOSUBSITE=$PRODSUBSITE; TODIR=$REMOTEDIR; TOBUCKET=$PRODBUCKET; ;;
+  development-staging)    DIR="up ⬆️ "             FROMSITE=$DEVSITE; FROMSUBSITE=$DEVSUBSITE; FROMDIR=$DEVDIR;  FROMPORT=$DEVPORT; FROMBUCKET=$DEVBUCKET; TOPORT=$STAGPORT; TOSITE=$STAGSITE; TOSUBSITE=$STAGSUBSITE; TODIR=$REMOTEDIR; TOBUCKET=$STAGBUCKET; ;;
+  production-staging)     DIR="horizontally ↔️ ";  FROMSITE=$PRODSITE; FROMSUBSITE=$PRODSUBSITE; FROMDIR=$REMOTEDIR; FROMPORT=$PRODPORT; FROMBUCKET=$PRODBUCKET; TOPORT=$STAGPORT; TOSITE=$STAGSITE; TOSUBSITE=$STAGSUBSITE; TODIR=$REMOTEDIR; TOBUCKET=$STAGBUCKET; ;;
+  staging-production)     DIR="horizontally ↔️ ";  FROMSITE=$STAGSITE; FROMSUBSITE=$STAGSUBSITE; FROMDIR=$REMOTEDIR; FROMPORT=$STAGPORT; FROMBUCKET=$STAGBUCKET; TOPORT=$PRODPORT; TOSITE=$PRODSITE; TOSUBSITE=$PRODSUBSITE; TODIR=$REMOTEDIR; TOBUCKET=$PRODBUCKET; ;;
   *) echo "usage: $0 production development | staging development | development staging | development production | staging production | production staging" && exit 1 ;;
 esac
 
@@ -82,26 +88,21 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
   availto
   echo
 
-  # Export/import database, run search & replace
+  # Export/import database
   wp "@$TO" db export &&
   wp "@$TO" db reset --yes &&
-  wp "@$FROM" db export - | wp "@$TO" db import - &&
-  wp "@$TO" search-replace "$FROMSITE" "$TOSITE" &&
+  wp "@$FROM" db export - | wp "@$TO" db import -
 
-  # Sync uploads directory
-  chmod -R 755 web/app/uploads/ &&
-  if [[ $DIR == "horizontally"* ]]; then
-    [[ $FROMDIR =~ ^(.*): ]] && FROMHOST=${BASH_REMATCH[1]}
-    [[ $FROMDIR =~ ^(.*):(.*)$ ]] && FROMDIR=${BASH_REMATCH[2]}
-    [[ $TODIR =~ ^(.*): ]] && TOHOST=${BASH_REMATCH[1]}
-    [[ $TODIR =~ ^(.*):(.*)$ ]] && TODIR=${BASH_REMATCH[2]}
+  # Sync buckets
+  aws s3 sync $FROMBUCKET $TOBUCKET --profile frocentric
 
-    ssh -p $FROMPORT -o ForwardAgent=yes $FROMHOST "rsync -aze 'ssh -o StrictHostKeyChecking=no -p $TOPORT' --progress $FROMDIR $TOHOST:$TODIR"
-  elif [[ $DIR == "down"* ]]; then
-    rsync -chavzP -e "ssh -p $FROMPORT" --progress "$FROMDIR" "$TODIR"
-  else
-    rsync -az -e "ssh -p $TOPORT" --progress "$FROMDIR" "$TODIR"
-  fi
+  # Run search & replace
+  wp @development search-replace "staging.frocentric.org" "frocentric.local" --url=https://staging.frocentric.org &&
+  wp @development search-replace "staging.froware.com" "froware.frocentric.local" &&
+  wp @development search-replace "staging.froware.com" "froware.frocentric.local" --url=https://froware.frocentric.local
+  # wp @development site list --field=url | xargs -n1 -I % wp --url=% search-replace "staging.froware.com" "froware.frocentric.local"
+#  wp "@$TO" search-replace "$FROMSITE" "$TOSITE" &&
+#  wp "@$TO" search-replace "$FROMSUBSITE" "$TOSUBSITE"
 
   # Slack notification when sync direction is up or horizontal
   # if [[ $DIR != "down"* ]]; then
