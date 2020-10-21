@@ -417,11 +417,14 @@ select {
 .separate-containers .generate-columns-container .inside-article .entry-meta {
 	margin-bottom: 0.5em;
 }
+.separate-containers .generate-columns-container .inside-article .entry-summary {
+	margin-top: 0.5em;
+}
 .entry-meta .cat-links {
 	text-transform: uppercase;
 }
 .generate-columns-container .entry-header .entry-title {
-	font-size: 34px;
+	font-size: 24px;
 	font-weight: 700;
 }
 .entry-meta .posted-on {
