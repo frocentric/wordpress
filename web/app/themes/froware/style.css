@@ -428,8 +428,12 @@ select {
 	font-size: 24px;
 	font-weight: 700;
 }
-.entry-meta .posted-on {
-	float: right;
+.entry-header .entry-meta {
+	display: flex;
+	justify-content: space-between;
+}
+.entry-header .entry-meta .entry-date {
+	line-height: 1.8;
 }
 .entry-meta .byline .avatar {
 	vertical-align: middle;
