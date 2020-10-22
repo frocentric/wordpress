@@ -494,18 +494,18 @@ select {
 	}
     #site-navigation #menu-main-menu .menu-item.current-menu-item {
         background-color: #e76e67;
-        background-image: none;
     }
-
     #site-navigation #menu-main-menu .menu-item.current-menu-item a {
-        background-image: none;
+        color: #fff;
     }
-
     #site-navigation .menu-toggle:before {
         font-size: 24px;
         margin-top: 30px;
 	}
-	
+    #site-navigation .site-logo a {
+        margin-left: 10px;
+	}
+
     .section-title .elementor-column.elementor-col-50 {
         width: 50%;
     }
