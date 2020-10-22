@@ -421,6 +421,7 @@ select {
 	margin-top: 0.5em;
 }
 .entry-meta .cat-links {
+	font-weight: 700;
 	text-transform: uppercase;
 }
 .generate-columns-container .entry-header .entry-title {
@@ -537,6 +538,11 @@ select {
 	}
 	#site-navigation .inside-navigation .menu-toggle:before {
 		margin-top: 0;
+	}
+
+	.separate-containers .generate-columns-container .inside-article {
+		padding: 0;
+		margin: 30px 20px;
 	}
 }
 
