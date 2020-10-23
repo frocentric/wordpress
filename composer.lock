@@ -2373,15 +2373,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-discourse",
-            "version": "2.1.6",
+            "version": "2.1.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-discourse/",
-                "reference": "tags/2.1.6"
+                "reference": "tags/2.1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-discourse.2.1.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-discourse.2.1.7.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
