@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.158.9",
+            "version": "3.158.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "40bfb8c7bb2b105c32c7201b3c7fab681370d9ca"
+                "reference": "4d81b3f456435c30a4f9c71852164b6b46dc4d97"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/40bfb8c7bb2b105c32c7201b3c7fab681370d9ca",
-                "reference": "40bfb8c7bb2b105c32c7201b3c7fab681370d9ca",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4d81b3f456435c30a4f9c71852164b6b46dc4d97",
+                "reference": "4d81b3f456435c30a4f9c71852164b6b46dc4d97",
                 "shasum": ""
             },
             "require": {
@@ -89,7 +89,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-10-19T18:14:24+00:00"
+            "time": "2020-10-23T18:11:41+00:00"
         },
         {
             "name": "composer/installers",
@@ -215,16 +215,6 @@
                 "yawik",
                 "zend",
                 "zikula"
-            ],
-            "funding": [
-                {
-                    "url": "https://packagist.com",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
-                    "type": "tidelift"
-                }
             ],
             "time": "2020-04-07T06:57:05+00:00"
         },
@@ -689,10 +679,10 @@
         },
         {
             "name": "koodimonni-plugin-language/akismet-en_gb",
-            "version": "4.1.6",
+            "version": "4.1.7",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/akismet/4.1.6/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/akismet/4.1.7/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -727,10 +717,10 @@
         },
         {
             "name": "koodimonni-plugin-language/woocommerce-en_gb",
-            "version": "4.6.0",
+            "version": "4.6.1",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/4.6.0/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/4.6.1/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1637,20 +1627,20 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.18.1",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "1c302646f6efc070cd46856e600e5e0684d6b454"
+                "reference": "f4ba089a5b6366e453971d3aad5fe8e897b37f41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/1c302646f6efc070cd46856e600e5e0684d6b454",
-                "reference": "1c302646f6efc070cd46856e600e5e0684d6b454",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/f4ba089a5b6366e453971d3aad5fe8e897b37f41",
+                "reference": "f4ba089a5b6366e453971d3aad5fe8e897b37f41",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=7.1"
             },
             "suggest": {
                 "ext-ctype": "For best performance"
@@ -1658,7 +1648,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.18-dev"
+                    "dev-main": "1.20-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -1709,24 +1699,24 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-14T12:35:20+00:00"
+            "time": "2020-10-23T14:02:19+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.18.1",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "a6977d63bf9a0ad4c65cd352709e230876f9904a"
+                "reference": "39d483bdf39be819deabf04ec872eb0b2410b531"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/a6977d63bf9a0ad4c65cd352709e230876f9904a",
-                "reference": "a6977d63bf9a0ad4c65cd352709e230876f9904a",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/39d483bdf39be819deabf04ec872eb0b2410b531",
+                "reference": "39d483bdf39be819deabf04ec872eb0b2410b531",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": ">=7.1"
             },
             "suggest": {
                 "ext-mbstring": "For best performance"
@@ -1734,7 +1724,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.18-dev"
+                    "dev-main": "1.20-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -1786,7 +1776,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-14T12:35:20+00:00"
+            "time": "2020-10-23T14:02:19+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -2157,15 +2147,15 @@
         },
         {
             "name": "wpackagist-plugin/feedzy-rss-feeds",
-            "version": "3.4.3",
+            "version": "3.5.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/feedzy-rss-feeds/",
-                "reference": "tags/3.4.3"
+                "reference": "tags/3.5.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.3.4.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.3.5.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2301,15 +2291,15 @@
         },
         {
             "name": "wpackagist-plugin/publishpress",
-            "version": "2.2.1",
+            "version": "2.4.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/publishpress/",
-                "reference": "tags/2.2.1"
+                "reference": "tags/2.4.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/publishpress.2.2.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/publishpress.2.4.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
