@@ -1864,16 +1864,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.7.3",
+            "version": "v3.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "6c811c18c1739349a51753b07816b7260b1e2c07"
+                "reference": "e49355167e75f1d3cf51ee65c429b75f3e28682e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/6c811c18c1739349a51753b07816b7260b1e2c07",
-                "reference": "6c811c18c1739349a51753b07816b7260b1e2c07",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/e49355167e75f1d3cf51ee65c429b75f3e28682e",
+                "reference": "e49355167e75f1d3cf51ee65c429b75f3e28682e",
                 "shasum": ""
             },
             "require": {
@@ -1973,7 +1973,7 @@
                 "minification",
                 "wordpress"
             ],
-            "time": "2020-10-15T12:48:15+00:00"
+            "time": "2020-10-22T13:10:18+00:00"
         },
         {
             "name": "wpackagist-plugin/autodescription",
@@ -2337,15 +2337,15 @@
         },
         {
             "name": "wpackagist-plugin/the-events-calendar",
-            "version": "5.2.0",
+            "version": "5.2.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/the-events-calendar/",
-                "reference": "tags/5.2.0"
+                "reference": "tags/5.2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.5.2.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.5.2.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2373,15 +2373,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-discourse",
-            "version": "2.1.6",
+            "version": "2.1.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-discourse/",
-                "reference": "tags/2.1.6"
+                "reference": "tags/2.1.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-discourse.2.1.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-discourse.2.1.7.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2549,16 +2549,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.5.6",
+            "version": "3.5.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "e97627871a7eab2f70e59166072a6b767d5834e0"
+                "reference": "9d583721a7157ee997f235f327de038e7ea6dac4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/e97627871a7eab2f70e59166072a6b767d5834e0",
-                "reference": "e97627871a7eab2f70e59166072a6b767d5834e0",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/9d583721a7157ee997f235f327de038e7ea6dac4",
+                "reference": "9d583721a7157ee997f235f327de038e7ea6dac4",
                 "shasum": ""
             },
             "require": {
@@ -2596,7 +2596,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2020-08-10T04:50:15+00:00"
+            "time": "2020-10-23T02:01:07+00:00"
         },
         {
             "name": "wp-coding-standards/wpcs",
