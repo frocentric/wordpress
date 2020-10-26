@@ -13,7 +13,7 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 	 *
 	 * @var $enable_columns
 	 */
-	protected static bool $enable_columns = false;
+	protected static $enable_columns = false;
 
 	/**
 	 * Get widget name.
