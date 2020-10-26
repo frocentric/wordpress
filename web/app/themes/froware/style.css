@@ -406,6 +406,9 @@ select {
 	grid-template-columns: 1fr 1fr 1fr;
 	column-gap: 1rem
 }
+.separate-containers .generate-columns-container .generate-columns .inside-article {
+	padding-bottom: 30px;
+}
 .separate-containers .generate-columns-container .inside-article {
 	background-color: #fff;
 	padding-top: 0;
@@ -413,6 +416,7 @@ select {
 }
 .separate-containers .generate-columns-container .inside-article .post-image {
 	margin-bottom: 0;
+	margin-top: 0;
 }
 .separate-containers .generate-columns-container .inside-article .entry-meta {
 	margin-bottom: 0.5em;
