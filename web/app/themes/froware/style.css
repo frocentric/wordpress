@@ -452,9 +452,35 @@ select {
 .post-image-above-header .inside-article .post-image {
 	margin-bottom: 0.8em;
 }
-.inside-article .entry-header,
-.inside-article .entry-summary,
-.inside-article>.entry-meta {
+.site-main > article .inside-article {
+	padding-top: 0;
+}
+.site-main > article .inside-article .entry-header {
+	background-color: #000;
+	width: 100vw;
+	position: relative;
+	left: 50%;
+	right: 50%;
+	margin-left: -50vw;
+	margin-right: -50vw;
+	padding: 1em 0;
+}
+.site-main > article .inside-article .entry-header h1 {
+	color: #fff;
+	font-size: 40px;
+	font-weight: 700;
+	letter-spacing: 0.01em;
+	line-height: 1.4;
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0 20px;
+	text-transform: uppercase;
+}
+
+.generate-columns-container .inside-article .entry-header,
+.generate-columns-container .inside-article .entry-summary,
+.generate-columns-container .inside-article>.entry-meta {
 	padding: 0 1em;
 }
 
@@ -568,5 +594,9 @@ select {
 
     .copyright-bar span {
         display: block;
-    }
+	}
+	.site-main > article .inside-article .entry-header h1 {
+		font-size: 33px;
+		line-height: 45px;
+	}
 }
