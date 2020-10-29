@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.158.13",
+            "version": "3.158.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "4d81b3f456435c30a4f9c71852164b6b46dc4d97"
+                "reference": "6e8fc20ff7bc21b28e80815a9818b6ca7928ae3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4d81b3f456435c30a4f9c71852164b6b46dc4d97",
-                "reference": "4d81b3f456435c30a4f9c71852164b6b46dc4d97",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6e8fc20ff7bc21b28e80815a9818b6ca7928ae3a",
+                "reference": "6e8fc20ff7bc21b28e80815a9818b6ca7928ae3a",
                 "shasum": ""
             },
             "require": {
@@ -89,7 +89,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-10-23T18:11:41+00:00"
+            "time": "2020-10-28T20:19:05+00:00"
         },
         {
             "name": "composer/installers",
@@ -2021,15 +2021,15 @@
         },
         {
             "name": "wpackagist-plugin/debug-bar",
-            "version": "1.0.1",
+            "version": "1.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/debug-bar/",
-                "reference": "tags/1.0.1"
+                "reference": "tags/1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/debug-bar.1.0.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/debug-bar.1.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2111,15 +2111,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "4.3.2",
+            "version": "4.3.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/4.3.2"
+                "reference": "tags/4.3.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.4.3.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.4.3.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0"

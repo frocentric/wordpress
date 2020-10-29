@@ -23,7 +23,8 @@ Text Domain:	 GeneratePress-child
 a {
     text-decoration: none;
 }
-a:hover {
+a:hover,
+.elementor a:hover {
     text-decoration: underline;
 }
 
