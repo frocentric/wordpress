@@ -466,6 +466,11 @@ select {
 	margin-right: -50vw;
 	padding: 1em 0;
 }
+@media(hover: hover) and (pointer: fine) {
+	.site-main > article .inside-article .entry-header {
+	  width: calc(100vw - 8px);
+	}
+  }
 .site-main > article .inside-article .entry-header h1 {
 	color: #fff;
 	font-size: 40px;
