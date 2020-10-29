@@ -575,14 +575,30 @@ select {
 		flex-direction: column;
 		justify-content: center;
 		height: 60px;
+		z-index: 999;
 	}
 	#site-navigation .inside-navigation .menu-toggle:before {
 		margin-top: 0;
+		z-index: 999;
 	}
 
 	.separate-containers .generate-columns-container .inside-article {
 		padding: 0;
 		margin: 30px 20px;
+	}
+	.mobile-menu-open .main-navigation .main-nav {
+		background-color: #fff;
+		position: fixed;
+		height: 100vh;
+		width: 100%;
+		z-index: 1;
+	}
+	.mobile-menu-open .main-navigation .main-nav ul {
+		margin-top: 50px;
+	}
+	.mobile-menu-open .main-navigation .main-nav ul li a, .menu-toggle {
+		line-height: 1.5;
+		font-size: 9vh;
 	}
 }
 
