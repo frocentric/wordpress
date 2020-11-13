@@ -658,14 +658,15 @@
         },
         {
             "name": "koodimonni-language/en_gb",
-            "version": "5.5.1",
+            "version": "5.5.3",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/5.5.1/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/5.5.3/en_GB.zip"
             },
             "require": {
                 "koodimonni-plugin-language/akismet-en_gb": "*",
                 "koodimonni-plugin-language/bbpress-en_gb": "*",
+                "koodimonni-plugin-language/buddypress-en_gb": "*",
                 "koodimonni-plugin-language/woocommerce-en_gb": "*",
                 "koodimonni-plugin-language/wordpress-importer-en_gb": "*",
                 "koodimonni-theme-language/twentyeleven-en_gb": "*",
@@ -708,10 +709,10 @@
         },
         {
             "name": "koodimonni-plugin-language/bbpress-en_gb",
-            "version": "2.6.5",
+            "version": "2.6.6",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/bbpress/2.6.5/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/bbpress/2.6.6/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -726,11 +727,30 @@
             ]
         },
         {
-            "name": "koodimonni-plugin-language/woocommerce-en_gb",
-            "version": "4.6.1",
+            "name": "koodimonni-plugin-language/buddypress-en_gb",
+            "version": "6.3.0",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/4.6.1/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/buddypress/6.3.0/en_GB.zip"
+            },
+            "require": {
+                "koodimonni/composer-dropin-installer": ">=0.2.3"
+            },
+            "type": "wordpress-language",
+            "description": "Wordpress buddypress translation for English (UK) - en_gb",
+            "keywords": [
+                "Translation",
+                "Wordpress",
+                "buddypress",
+                "en_gb"
+            ]
+        },
+        {
+            "name": "koodimonni-plugin-language/woocommerce-en_gb",
+            "version": "4.7.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/4.7.0/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -2031,15 +2051,15 @@
         },
         {
             "name": "wpackagist-plugin/debug-bar",
-            "version": "1.1",
+            "version": "1.1.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/debug-bar/",
-                "reference": "tags/1.1"
+                "reference": "tags/1.1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/debug-bar.1.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/debug-bar.1.1.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2121,15 +2141,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "4.3.5",
+            "version": "4.3.6",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/4.3.5"
+                "reference": "tags/4.3.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.4.3.5.zip"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.4.3.6.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2265,15 +2285,15 @@
         },
         {
             "name": "wpackagist-plugin/ninja-forms",
-            "version": "3.4.30",
+            "version": "3.4.31",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/ninja-forms/",
-                "reference": "tags/3.4.30"
+                "reference": "tags/3.4.31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.4.30.zip"
+                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.4.31.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2301,15 +2321,15 @@
         },
         {
             "name": "wpackagist-plugin/publishpress",
-            "version": "2.4.1",
+            "version": "2.4.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/publishpress/",
-                "reference": "tags/2.4.1"
+                "reference": "tags/2.4.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/publishpress.2.4.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/publishpress.2.4.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
