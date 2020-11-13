@@ -28,6 +28,10 @@ a:hover,
     text-decoration: underline;
 }
 
+body.single {
+	background-color: #fff;
+}
+
 h1 a,
 h1 a:hover,
 h2 a,
@@ -438,6 +442,8 @@ select {
 	justify-content: space-between;
 }
 .entry-header .entry-meta .entry-date {
+  color: #7f7f7f;
+  font-weight: 700;
 	line-height: 1.8;
 }
 .entry-meta .byline .avatar {
@@ -470,9 +476,9 @@ select {
 	.site-main > article .inside-article .entry-header {
 	  width: calc(100vw - 8px);
 	}
-  }
+}
 .site-main > article .inside-article .entry-header h1 {
-	color: #fff;
+  color: #fff;
 	font-size: 40px;
 	font-weight: 700;
 	letter-spacing: 0.01em;
@@ -482,6 +488,36 @@ select {
 	margin-right: auto;
 	padding: 0 20px;
 	text-transform: uppercase;
+}
+.site-main > article .inside-article .entry-meta {
+	max-width: 1200px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0 20px;
+}
+.single .site-main > article .inside-article .entry-header {
+  background-color: transparent;
+}
+.single .site-main > article .inside-article .entry-header h1 {
+  color: #151040;
+	font-size: 44px;
+	font-weight: 900;
+	line-height: 1.364;
+	text-transform: none;
+}
+.single .site-main > article .inside-article .entry-meta {
+  flex-direction: row-reverse;
+  font-size: 18px;
+  justify-content: flex-end;
+}
+.single .site-main > article .inside-article .entry-meta > * {
+  margin-right: 3em;
+}
+.single .site-main > article .inside-article .entry-meta .cat-links {
+  display: inline-block;
+}
+.single .site-main > article .inside-article .entry-meta .cat-links a {
+  line-height: 1.8;
 }
 
 .generate-columns-container .inside-article .entry-header,
