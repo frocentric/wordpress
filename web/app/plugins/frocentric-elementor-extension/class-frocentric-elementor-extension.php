@@ -215,6 +215,7 @@ final class Frocentric_Elementor_Extension {
 		add_filter( 'generate_blog_columns', array( $post_grid_widget, 'set_columns' ) );
 		add_filter( 'generate_post_author', array( $post_grid_widget, 'enable_author' ) );
 		add_filter( 'post_class', array( $post_grid_widget, 'generate_blog_post_classes' ) );
+    add_action( 'generate_after_entry_content', 'generate_footer_meta' );
 
 	}
 
@@ -318,3 +319,22 @@ final class Frocentric_Elementor_Extension {
 }
 
 Frocentric_Elementor_Extension::instance();
+
+/**
+ * Build the footer post meta.
+ *
+ * @since 1.3.30
+ */
+function generate_footer_meta() {
+  $post_types = apply_filters( 'generate_footer_meta_post_types', array(
+    'post',
+  ) );
+
+  if ( in_array( get_post_type(), $post_types ) ) : ?>
+    <footer class="entry-meta">
+      <?php
+      generate_entry_meta();
+      ?>
+    </footer><!-- .entry-meta -->
+  <?php endif;
+}

@@ -120,7 +120,7 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 		}
 
 		return $classes;
-	}
+  }
 
 	/**
 	 * Prints the Post Image to post excerpts
@@ -130,7 +130,7 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 		if ( ! has_post_thumbnail() ) {
 			return;
 		}
-	
+
 		echo apply_filters( 'generate_featured_image_output', sprintf( // WPCS: XSS ok.
 			'<div class="post-image">
 				%3$s
@@ -259,7 +259,7 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 						do_action( 'generate_after_main_content' );
 						self::$enable_columns = false;
 					}
-			
+
 					$post_count++;
 
 				endwhile;
