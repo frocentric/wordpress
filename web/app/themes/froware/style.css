@@ -579,6 +579,10 @@ select {
 .shaded .generate-columns-container .inside-article .entry-meta {
   padding: 0;
 }
+.shaded .generate-columns-container .inside-article,
+.shaded .generate-columns-container .post {
+  margin-bottom: 0;
+}
 
 @media (min-width: 1025px) {
   .grid-33 {
