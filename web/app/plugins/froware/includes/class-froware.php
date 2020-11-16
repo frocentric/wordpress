@@ -224,6 +224,7 @@ class Froware {
 			function( $atts = array() ) {
 				$plugin_public = new Froware_Public( $this->get_plugin_name(), $this->get_version() );
 
+        // phpcs:ignore
 				if ( ! empty( $_POST ) ) {
 					esc_attr_e( 'Form submitted' );
 				} else {

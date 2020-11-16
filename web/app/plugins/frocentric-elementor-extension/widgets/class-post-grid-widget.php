@@ -1,5 +1,15 @@
 <?php
 /**
+ * The file that defines the Post Grid widget class
+ *
+ * @link       https://github.com/frocentric
+ * @since      1.0.0
+ *
+ * @package    Frocentric
+ * @subpackage Frocentric/includes
+ */
+
+/**
  * Elementor Post Grid Widget.
  *
  * Elementor widget that inserts a grid of posts into the page.
@@ -68,11 +78,13 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 	 * @return array Widget categories.
 	 */
 	public function get_categories() {
-		return [ 'general' ];
+		return array( 'general' );
 	}
 
 	/**
 	 * Set column-based layout
+	 *
+	 * @param bool $columns Flags whether setting columns or not.
 	 */
 	public function set_columns( $columns ) {
 		return self::$enable_columns ? true : $columns;
@@ -80,6 +92,8 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 
 	/**
 	 * Enable author output
+	 *
+	 * @param bool $author  Flags author output.
 	 */
 	public function enable_author( $author ) {
 		return self::$enable_columns ? true : $author;
@@ -87,30 +101,42 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 
 	/**
 	 * Generates blog post classes
+	 *
+	 * @param string[] $classes  Array of CSS classes.
 	 */
 	public function generate_blog_post_classes( $classes ) {
-		// Set our column classes
+		global $wp_query;
+		$paged = get_query_var( 'paged' );
+		$paged = $paged ? $paged : 1;
+
+		// Get our options.
+		$settings = wp_parse_args(
+			get_option( 'generate_blog_settings', array() ),
+			generate_blog_get_defaults()
+		);
+
+		// Set our column classes.
 		if ( self::$enable_columns ) {
 			$classes[] = 'generate-columns';
 			$classes[] = 'tablet-grid-50';
 			$classes[] = 'mobile-grid-100';
 			$classes[] = 'grid-parent';
 
-			// Set our featured column class
-			if ( $wp_query->current_post == 0 && $paged == 1 && $settings['featured_column'] ) {
-				if ( 50 == generate_blog_get_column_count() ) {
+			// Set our featured column class.
+			if ( 0 === $wp_query->current_post && 1 === $paged && $settings['featured_column'] ) {
+				if ( 50 === generate_blog_get_column_count() ) {
 					$classes[] = 'grid-100';
 				}
 
-				if ( 33 == generate_blog_get_column_count() ) {
+				if ( 33 === generate_blog_get_column_count() ) {
 					$classes[] = 'grid-66';
 				}
 
-				if ( 25 == generate_blog_get_column_count() ) {
+				if ( 25 === generate_blog_get_column_count() ) {
 					$classes[] = 'grid-50';
 				}
 
-				if ( 20 == generate_blog_get_column_count() ) {
+				if ( 20 === generate_blog_get_column_count() ) {
 					$classes[] = 'grid-60';
 				}
 				$classes[] = 'featured-column';
@@ -120,7 +146,7 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 		}
 
 		return $classes;
-  }
+	}
 
 	/**
 	 * Prints the Post Image to post excerpts
@@ -131,23 +157,27 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 			return;
 		}
 
-		echo apply_filters( 'generate_featured_image_output', sprintf( // WPCS: XSS ok.
-			'<div class="post-image">
+    // phpcs:ignore
+		echo apply_filters(
+			'generate_featured_image_output',
+			sprintf( // WPCS: XSS ok.
+				'<div class="post-image">
 				%3$s
 				<a href="%1$s">
 					%2$s
 				</a>
 			</div>',
-			esc_url( get_permalink() ),
-			get_the_post_thumbnail(
-				get_the_ID(),
-				apply_filters( 'generate_page_header_default_size', 'full' ),
-				array(
-					'itemprop' => 'image',
-				)
-			),
-			apply_filters( 'generate_inside_featured_image_output', '' )
-		) );
+				esc_url( get_permalink() ),
+				get_the_post_thumbnail(
+					get_the_ID(),
+					apply_filters( 'generate_page_header_default_size', 'full' ),
+					array(
+						'itemprop' => 'image',
+					)
+				),
+				apply_filters( 'generate_inside_featured_image_output', '' )
+			)
+		);
 	}
 
 	/**
@@ -159,25 +189,27 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 			return;
 		}
 
+    // phpcs:ignore
 		echo apply_filters(
 			'generate_featured_image_output',
 			sprintf( // WPCS: XSS ok.
-			'<div class="post-image">
+				'<div class="post-image">
 				%3$s
 				<a href="%1$s">
 					%2$s
 				</a>
 			</div>',
-			esc_url( get_permalink() ),
-			get_the_post_thumbnail(
-				get_the_ID(),
-				apply_filters( 'generate_page_header_default_size', 'full' ),
-				array(
-					'itemprop' => 'image',
-				)
+				esc_url( get_permalink() ),
+				get_the_post_thumbnail(
+					get_the_ID(),
+					apply_filters( 'generate_page_header_default_size', 'full' ),
+					array(
+						'itemprop' => 'image',
+					)
+				),
+				apply_filters( 'generate_inside_featured_image_output', '' )
 			)
-			,apply_filters( 'generate_inside_featured_image_output', '' )
-		) );
+		);
 	}
 
 	/**
@@ -188,24 +220,44 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 	 * @since 1.0.0
 	 * @access protected
 	 */
+  // phpcs:ignore
 	protected function _register_controls() {
 
 		$this->start_controls_section(
 			'content_section',
-			[
-				'label' => __( 'Content', 'plugin-name' ),
-				'tab' => \Elementor\Controls_Manager::TAB_CONTENT,
-			]
+			array(
+				'label' => __( 'Content', 'frocentric-elementor-extension' ),
+				'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
+			)
 		);
 
 		$this->add_control(
-			'url',
-			[
-				'label' => __( 'URL to embed', 'plugin-name' ),
-				'type' => \Elementor\Controls_Manager::TEXT,
-				'input_type' => 'url',
-				'placeholder' => __( 'https://your-link.com', 'plugin-name' ),
-			]
+			'query_type',
+			array(
+				'label'   => __( 'Query Type', 'frocentric-elementor-extension' ),
+				'type'    => \Elementor\Controls_Manager::CHOOSE,
+				'options' => array(
+					'latest'  => array(
+						'title' => __( 'Latest', 'frocentric-elementor-extension' ),
+						'icon'  => 'fa fa-calendar-alt',
+					),
+					'related' => array(
+						'title' => __( 'Related', 'frocentric-elementor-extension' ),
+						'icon'  => 'fa fa-link',
+					),
+				),
+				'default' => 'latest',
+				'toggle'  => true,
+			)
+		);
+
+		$this->add_control(
+			'page_size',
+			array(
+				'label'   => __( 'Post Count', 'frocentric-elementor-extension' ),
+				'type'    => \Elementor\Controls_Manager::NUMBER,
+				'default' => 3,
+			)
 		);
 
 		$this->end_controls_section();
@@ -222,16 +274,18 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 	 */
 	protected function render() {
 
-		$settings = $this->get_settings_for_display();
+		$settings   = $this->get_settings_for_display();
+		$page_size  = $settings['page_size'];
+		$query_type = $settings['query_type'];
 
-		$the_query = new WP_Query(
+		$the_query = 'related' === $query_type && is_singular( 'post' ) ? $this->get_related_posts( get_the_ID(), $page_size ) : new WP_Query(
 			array(
 				'ignore_sticky_posts' => true,
 				'post_type'           => 'post',
-				'posts_per_page'      => 3,
+				'posts_per_page'      => $page_size,
 			)
 		);
-?>
+		?>
 <div id="primary" <?php generate_do_element_classes( 'content' ); ?>>
 	<main id="main" <?php generate_do_element_classes( 'main' ); ?>>
 			<?php
@@ -239,7 +293,8 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 				$post_count = 0;
 				$total      = $the_query->post_count;
 
-				while ( $the_query->have_posts() ) : $the_query->the_post();
+				while ( $the_query->have_posts() ) :
+					$the_query->the_post();
 
 					if ( 0 === $post_count && $post_count !== $total ) {
 						self::$enable_columns = true;
@@ -275,7 +330,64 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 		</main><!-- #main -->
 	</div><!-- #primary -->
 
-<?php
+		<?php
+	}
+
+	/**
+	 * Get related posts query or query arguments.
+	 *
+	 * Written in PHP and used to generate the final HTML.
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 *
+	 * @param int      $post_id  Post identifier.
+	 * @param int      $related_count  Count of related posts.
+	 * @param object[] $args  Array of arguments.
+	 */
+	protected function get_related_posts( $post_id, $related_count, $args = array() ) {
+		$args = wp_parse_args(
+			(array) $args,
+			array(
+				'orderby' => 'rand',
+				'return'  => 'query', // Valid values are: 'query' (WP_Query object), 'array' (the arguments array).
+			)
+		);
+
+		$related_args = array(
+			'post_type'      => get_post_type( $post_id ),
+			'posts_per_page' => $related_count,
+			'post_status'    => 'publish',
+			'post__not_in'   => array( $post_id ),
+			'orderby'        => $args['orderby'],
+			'tax_query'      => array(), //phpcs:ignore
+		);
+
+		$post       = get_post( $post_id );
+		$taxonomies = get_object_taxonomies( $post, 'names' );
+
+		foreach ( $taxonomies as $taxonomy ) {
+			$terms = get_the_terms( $post_id, $taxonomy );
+			if ( empty( $terms ) ) {
+				continue;
+			}
+			$term_list                   = wp_list_pluck( $terms, 'slug' );
+			$related_args['tax_query'][] = array(
+				'taxonomy' => $taxonomy,
+				'field'    => 'slug',
+				'terms'    => $term_list,
+			);
+		}
+
+		if ( count( $related_args['tax_query'] ) > 1 ) {
+			$related_args['tax_query']['relation'] = 'OR';
+		}
+
+		if ( 'query' === $args['return'] ) {
+			return new WP_Query( $related_args );
+		} else {
+			return $related_args;
+		}
 	}
 
 }
