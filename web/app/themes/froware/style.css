@@ -189,7 +189,7 @@ a.wp-show-posts-read-more:visited,
 #content .wpsp-read-more a.wp-show-posts-read-more,
 a.wp-show-posts-read-more:visited,
 .elementor-posts .elementor-post__card .elementor-post__read-more,
-.elementor-button.elementor-button-link,
+.elementor-button-wrapper .elementor-button.elementor-button-link,
 html input[type="button"],
 input[type="submit"] {
   border: 1px solid;
@@ -197,7 +197,7 @@ input[type="submit"] {
   padding: 1em 4em;
 }
 
-.elementor-button.elementor-button-link,
+.elementor-button-wrapper .elementor-button.elementor-button-link,
 html input[type="button"],
 input[type="submit"] {
   background-color: #e76e67;
@@ -212,7 +212,7 @@ input[type="submit"] {
 html input[type="button"]:hover,
 input[type="submit"]:hover,
 .elementor-posts .elementor-post__card .elementor-post__read-more:hover,
-.elementor-button.elementor-button-link:hover {
+.elementor-button-wrapper .elementor-button.elementor-button-link:hover {
   background-color: #000000;
   border-color: #000000;
   text-decoration: none;
