@@ -420,10 +420,12 @@ select {
   /* Firefox 18- */
   color: #cacaca;
 }
-
 .site-main .generate-columns-container:not(.masonry-container) {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 1.5rem;
+}
+.site-main .shaded .generate-columns-container:not(.masonry-container) {
   column-gap: 1rem;
 }
 .separate-containers
@@ -551,9 +553,9 @@ select {
   line-height: 1.8;
 }
 
-.generate-columns-container .inside-article .entry-header,
-.generate-columns-container .inside-article .entry-summary,
-.generate-columns-container .inside-article > .entry-meta {
+.shaded .generate-columns-container .inside-article .entry-header,
+.shaded .generate-columns-container .inside-article .entry-summary,
+.shaded .generate-columns-container .inside-article > .entry-meta {
   padding: 0 1em;
 }
 
