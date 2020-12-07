@@ -34,18 +34,18 @@ body.single {
   background-color: #fff;
 }
 
-h1 a,
-h1 a:hover,
-h2 a,
-h2 a:hover,
-h3 a,
-h3 a:hover,
-h4 a,
-h4 a:hover,
-h5 a,
-h5 a:hover,
-h6 a,
-h6 a:hover,
+h1 > a,
+h1 > a:hover,
+h2 > a,
+h2 > a:hover,
+h3 > a,
+h3 > a:hover,
+h4 > a,
+h4 > a:hover,
+h5 > a,
+h5 > a:hover,
+h6 > a,
+h6 > a:hover,
 a.generate-back-to-top,
 a.generate-back-to-top:hover {
   text-decoration: none;
@@ -93,7 +93,26 @@ a.generate-back-to-top:hover {
 }
 
 .home h1.elementor-heading-title {
-  font-size: 50px;
+  font-size: 48px;
+  line-height: 110%;
+}
+.home h2.elementor-heading-title {
+  font-size: 38px;
+  font-weight: 900;
+  line-height: 110%;
+}
+.home h4.elementor-heading-title {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 110%;
+}
+@media (max-width: 600px) {
+  .home h1.elementor-heading-title {
+    font-size: 42px;
+  }
+  .home h2.elementor-heading-title {
+    font-size: 28px;
+  }
 }
 
 .link-list {
