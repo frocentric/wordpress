@@ -1,0 +1,458 @@
+# Copyright (C) 2018 WP Event Aggregator Pro
+# This file is distributed under the same license as the WP Event Aggregator Pro package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Event Aggregator Pro 1.5.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-event-"
+"aggregator-pro\n"
+"POT-Creation-Date: 2018-01-27 11:44:38+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2018-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/class-wp-event-aggregator-common.php:41
+msgid "Don't Update these data."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-common.php:46
+msgid "Status ( Publish, Pending, Draft etc.. )"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-common.php:51
+msgid "Event category"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-common.php:54
+msgid ""
+"Select data which you don't want to update during existing events update. "
+"(This is applicable only if you have checked 'update existing events')"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-common.php:70
+msgid "License"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-common.php:83
+msgid "WP Event Aggregator Pro License"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-cron.php:162
+msgid "Once Weekly"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-cron.php:167
+msgid "Once a Month"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-eventum.php:57
+msgid "Eventum (Tevolution-Events)"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-facebook.php:133
+msgid "Please insert valid Group URL or Group ID"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-fb-authorize.php:50
+#: includes/class-wp-event-aggregator-fb-authorize.php:119
+#: includes/class-wp-event-aggregator-manage-import.php:578
+msgid "Please insert Facebook App ID and Secret."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-fb-authorize.php:54
+#: includes/class-wp-event-aggregator-fb-authorize.php:123
+msgid "You have not access to doing this operations."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:41
+msgid "Please provide import origin."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:47
+msgid "Please provide Import into plugin for Event import."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:98
+msgid "Import settings has been saved successfully."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:164
+msgid "Something went wrong! please try again."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:260
+msgid "Please insert Eventbrite \"Personal OAuth token\" in settings."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:282
+msgid "Please provide valid Eventbrite organizer ID."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:301
+msgid "Something went wrong when insert url."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:308
+#: includes/class-wp-event-aggregator-manage-import.php:365
+#: includes/class-wp-event-aggregator-manage-import.php:438
+#: includes/class-wp-event-aggregator-manage-import.php:519
+msgid "Import scheduled successfully."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:320
+#: includes/class-wp-event-aggregator-manage-import.php:488
+#: includes/class-wp-event-aggregator-manage-import.php:528
+msgid "Nothing to import."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:335
+msgid "Please insert \"Meetup API key\" in settings."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:343
+msgid "Please provide valid Meetup group URL."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:358
+msgid "Something went wrong when add scheduled import."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:390
+msgid "Please insert Facebook app ID and app Secret."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:418
+#: includes/class-wp-event-aggregator-manage-import.php:431
+msgid "Something went wrong when saving scheduled import."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:447
+msgid "Nothing to Import"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:475
+msgid "Please upload .ics file"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:495
+msgid "Please provide iCal URL."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:511
+msgid "Something went wrong when scheduling event."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:546
+msgid "Scheduled import deleted successfully."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:550
+#: includes/class-wp-event-aggregator-manage-import.php:570
+msgid "Scheduled imports are deleted successfully."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:554
+msgid "Scheduled import has been run successfully."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:558
+msgid "Import history deleted successfully."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:562
+msgid "Import histories are deleted successfully."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:566
+msgid "Scheduled import has been updated successfully."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:576
+msgid "Authorized Successfully."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-manage-import.php:580
+msgid "Something went wrong during authorization. Please try again."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-widgets.php:48
+msgid "Display Upcoming WP Events."
+msgstr ""
+
+#: includes/class-wp-event-aggregator-widgets.php:51
+msgid "Upcoming WP Events"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-widgets.php:68
+msgid "Style 1"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-widgets.php:69
+msgid "Style 2 (coming soon)"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-widgets.php:86
+msgid "Upcoming Events"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-widgets.php:138
+msgid "Title:"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-widgets.php:139
+msgid "Max. Events:"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-widgets.php:141
+msgid "Select Event Category"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-widgets.php:143
+msgid "Start Date (Optional):"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-widgets.php:145
+msgid "End Date (Optional):"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-widgets.php:146
+msgid "Select Event listing style"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-widgets.php:147
+msgid "Display Event Image"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-widgets.php:148
+msgid "Display Event Location"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-widgets.php:149
+msgid "Display Event Enddate"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-widgets.php:150
+msgid "Display Event Description"
+msgstr ""
+
+#: includes/class-wp-event-aggregator-widgets.php:151
+msgid "Open Events in new window"
+msgstr ""
+
+#: includes/lib/EDD_SL_Plugin_Updater.php:201
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgstr ""
+
+#: includes/lib/EDD_SL_Plugin_Updater.php:209
+msgid ""
+"There is a new version of %1$s available. %2$sView version %3$s details%4$s "
+"or %5$supdate now%6$s."
+msgstr ""
+
+#: includes/lib/EDD_SL_Plugin_Updater.php:396
+msgid "You do not have permission to install plugin updates"
+msgstr ""
+
+#: includes/lib/EDD_SL_Plugin_Updater.php:396
+msgid "Error"
+msgstr ""
+
+#: includes/lib/wp-event-aggregator-license.php:37
+msgid " License Options"
+msgstr ""
+
+#: includes/lib/wp-event-aggregator-license.php:46
+msgid "License Key"
+msgstr ""
+
+#: includes/lib/wp-event-aggregator-license.php:49
+msgid "Enter your license key"
+msgstr ""
+
+#: includes/lib/wp-event-aggregator-license.php:55
+#: includes/lib/wp-event-aggregator-license.php:64
+msgid "Activate License"
+msgstr ""
+
+#: includes/lib/wp-event-aggregator-license.php:59
+msgid "active"
+msgstr ""
+
+#: includes/lib/wp-event-aggregator-license.php:61
+msgid "Deactivate License"
+msgstr ""
+
+#: includes/lib/wp-event-aggregator-license.php:125
+#: includes/lib/wp-event-aggregator-license.php:172
+#: includes/lib/wp-event-aggregator-license.php:229
+msgid "An error occurred, please try again."
+msgstr ""
+
+#: includes/lib/wp-event-aggregator-license.php:139
+msgid "Your license key expired on %s."
+msgstr ""
+
+#: includes/lib/wp-event-aggregator-license.php:146
+msgid "Your license key has been disabled."
+msgstr ""
+
+#: includes/lib/wp-event-aggregator-license.php:151
+msgid "Invalid license."
+msgstr ""
+
+#: includes/lib/wp-event-aggregator-license.php:157
+msgid "Your license is not active for this URL."
+msgstr ""
+
+#: includes/lib/wp-event-aggregator-license.php:162
+msgid "This appears to be an invalid license key for %s."
+msgstr ""
+
+#: includes/lib/wp-event-aggregator-license.php:167
+msgid "Your license key has reached its activation limit."
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:31
+msgid "All Categories"
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:41
+msgid "WP Event Aggregator Events"
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:43
+msgid "WP Event Aggregator"
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:50
+msgid "Event Category"
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:53
+msgid "Select Event Category from which you want to show Events."
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:61
+msgid "Columns"
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:64
+msgid "1 Column"
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:65
+msgid "2 Columns"
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:66
+msgid "3 Columns"
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:67
+msgid "4 Columns"
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:70
+msgid "How many columns you want to set in Events grid."
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:78
+msgid "Show Past Events"
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:81
+msgid "No"
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:82
+msgid "Yes"
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:85
+msgid "Want to show past events?"
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:94
+msgid "Start Date"
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:96
+msgid "Show events from this date."
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:108
+msgid "End Date"
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:110
+msgid "Show events till this date."
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:122
+msgid "Order By"
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:124
+msgid ""
+"Enter Events Orderby examples: start_date, end_date. default: start_date."
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:133
+msgid "Order"
+msgstr ""
+
+#: includes/page-builder/class-wpea-vc-wp-events.php:140
+msgid "Order of Events, Depends on orderby"
+msgstr ""
+
+#: templates/admin/scheduled-import-events.php:15
+msgid "Edit scheduled import"
+msgstr ""
+
+#: templates/admin/scheduled-import-events.php:22
+msgid "Import name"
+msgstr ""
+
+#: templates/admin/scheduled-import-events.php:30
+msgid "Import frequency"
+msgstr ""
+
+#: templates/admin/scheduled-import-events.php:55
+msgid "Save scheduled import"
+msgstr ""
+
+#: wp-event-aggregator-pro.php:85 wp-event-aggregator-pro.php:92
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: wp-event-aggregator-pro.php:128
+msgid ""
+"<strong>WP Event Aggregator Pro</strong> requires free version of <a href="
+"\"%s\" target=\"_blank\">WP Event Aggregator</a>. Please <a href=\"%s\" "
+"class=\"thickbox open-plugin-details-modal\">Install</a> & Activate it."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WP Event Aggregator Pro"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://xylusthemes.com/plugins/wp-event-aggregator/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"Import Events from anywhere - Facebook, Eventbrite, Meetup, iCalendar and "
+"ICS into your WordPress site."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Xylus Themes"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://xylusthemes.com"
+msgstr ""

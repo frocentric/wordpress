@@ -1,0 +1,1289 @@
+:root {
+	--alabaster: #FAFAFA;
+	--alto: #d9d9d9;
+	--aluminum: #979797;
+	--button-light-color: #009FF1;
+	--button-dark-color: #0080DB;
+	--button-secondary-light-color: #b7b7b7;
+	--button-secondary-dark-color: #626262;
+	--charcoal: #464646;
+	--dim-gray: #6a6a6a;
+	--gray: #919191;
+	--light-gray: #d1d1d1;
+	--seashell: #f1f1f1;
+	--star-dust: #9E9E9E;
+	--strong-red: #cc2a2c;
+	--silver: #c0c0c0;
+	--shuttle-gray: #64686c;
+	--white-smoke: #F8F8F8;
+
+	--button-primary: #008DD5;
+	--button-primary-hover: #0076B2;
+	--button-primary-active: #006395;
+
+	--button-secondary: #616161;
+	--button-secondary-hover: #444444;
+	--button-secondary-active: #313131;
+
+	--button-tertiary: #FBFBFB;
+	--button-tertiary-hover: #ECECEC;
+	--button-tertiary-active: #D7D7D7;
+
+	--section-border-color: #e0e0e0;
+	--section-spacing: 32px;
+}
+
+/**
+ * Community Events Stylesheet
+ * The stylesheet for Community Events.
+ *
+ * Override this stylesheet in your own theme by creating a file at
+ * [your-theme]/tribe-events/community/tribe-events-community.css
+ *
+ * @package Tribe__Events__Community__Community_Events
+ * @since  1.0
+ * @TODO refactor single media query to nested contextual queries
+ * @author Modern Tribe Inc.
+ *
+ */
+
+/**
+ * TABLE OF CONTENTS
+ *
+ *  Global
+		Buttons
+ *  Event Title
+ *  Event Description
+ *  Event Categories
+ *  Event Tags
+ *  Event Image
+ *  Event Time & Date
+ *  Event Venue
+ *  Event Organizer
+ *  Event Website
+ *  Event Cost
+ *  Events List
+ *  Additional Fields
+ *  Utilities & Theme Specific Hacks
+		Twenty Fourteen
+		Twenty Fifteen
+		Twenty Sixteen
+		Twenty Seventeen
+		Avada
+ *  Mobile Styles
+ */
+
+.tribe_community_edit,
+.tribe_community_list {
+	/*------------------------------------*\
+		Select2 Global Drop/Mask
+	\*------------------------------------*/
+	.select2-drop {
+		.select2-results {
+			font-size: 13px;
+		}
+
+		input[type="text"]{
+			font-size: 13px;
+			padding: 0 3px;
+		}
+	}
+
+	/*------------------------------------*\
+		jQuery UI Dialog
+	\*------------------------------------*/
+	.ui-dialog {
+		background-color: #fff;
+		box-shadow: 0 0 7px rgba( 0, 0, 0, 0.2 );
+		font-size: 13px;
+
+		.button {
+			font-size: 13px;
+		}
+
+
+	}
+
+	/*------------------------------------*\
+		jQuery UI Datepicker
+	\*------------------------------------*/
+	.ui-datepicker {
+	  	a {
+		  text-decoration: none;
+		}
+
+		input, select, textarea {
+			padding: .125em;
+		}
+	}
+
+	/*--------------------*\
+		#BUTTONS
+	\*--------------------*/
+	.button,
+	#tribe-add-exclusion,
+	.tribe-add-recurrence.tribe-button,
+	.tribe-button,
+	.button-secondary,
+	.button-primary {
+		-webkit-font-smoothing: subpixel-antialiased;
+		background: var(--button-secondary);
+		border-radius: 3px;
+		color: #fff;
+		cursor: pointer;
+		display: inline-block;
+		font-family: sans-serif;
+		font-size: 12px;
+		font-weight: 400;
+		height: auto;
+		letter-spacing: 1px;
+		line-height: 1;
+		padding: 10px;
+		text-align: center;
+		text-transform: uppercase;
+		text-decoration: none;
+
+		&:hover,
+		&:focus {
+			background: var(--button-secondary-hover);
+			box-shadow: none;
+			color: #fff;
+			text-decoration: none;
+		}
+
+		&:active {
+			background: var(--button-secondary-active);
+		}
+
+		span {
+			font-size: inherit;
+			line-height: inherit;
+		}
+
+	}
+
+	.button-primary.tribe-delete-this.tribe-confirm-delete-this {
+		display: none;
+	}
+
+	.tribe-button.tribe-button-primary,
+	.button-primary {
+		background: var(--button-primary);
+
+		&:hover,
+		&:focus {
+			background: var(--button-primary-hover);
+		}
+
+		&:active {
+			background: var(--button-primary-active);
+		}
+	}
+
+	.tribe-button.submit {
+		background: var(--button-primary);
+		margin: 30px auto;
+		min-width: 200px;
+		padding: 1.5em;
+		text-transform: uppercase;
+		width: 30%;
+
+		&:hover,
+		&:focus {
+			background: var(--button-primary-hover);
+		}
+
+		&:active {
+			background: var(--button-primary-active);
+		}
+	}
+
+	.tribe-button-secondary {
+		margin: 0;
+	}
+
+	.tribe-button-tertiary {
+		background: var(--button-tertiary);
+		border: 1px solid var(--light-gray);
+		color: var(--shuttle-gray);
+		font-weight: bold;
+
+		&:hover,
+		&:focus {
+			background: var(--button-tertiary-hover);
+			border: 1px solid var(--silver);
+			color: var(--button-dark-color);
+		}
+
+		&:active {
+			background: var(--button-tertiary-active);
+			border: 1px solid var(--silver);
+			color: var(--button-dark-color);
+		}
+	}
+
+	.tribe-button-large {
+		padding: 15px 20px;
+	}
+
+	.tribe-button-activate {
+		padding: 10px 30px 10px 15px;
+		position: relative;
+
+		&:after {
+			color: var(--shuttle-gray);
+			content: '\25BC';
+			font-size: 8px;
+			position: absolute;
+			right: 15px;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+
+		&.menu-open:after {
+			content: '\25B2';
+		}
+	}
+}
+
+/*------------------------------------*\
+	Page Contents
+\*------------------------------------*/
+
+.tribe-community-events {
+	background: var(--seashell);
+	border: 1px solid var(--alto);
+	box-sizing: border-box;
+	color: var(--shuttle-gray);
+	font-size: 100%;
+	padding: 40px 10px;
+
+	@media (min-width: 782px) {
+		padding: 60px;
+	}
+
+	* {
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		font-size: 14px;
+	}
+
+	table,
+	tbody,
+	th,
+	tr,
+	td {
+		border-collapse: collapse;
+		border: none;
+		font-size: 100%;
+		/* fixes some themes' insistance on break-all */
+		word-break: unset;
+
+		@media (max-width: 500px) {
+			display: block;
+		}
+	}
+
+	.tribe-recurrence-exclusion-row,
+	.tribe-recurrence-description {
+		display: none;
+	}
+
+	.tribe-has-recurrence-rule  {
+		.tribe-recurrence-exclusion-row,
+		.tribe-recurrence-description {
+			display: table-row;
+			transition: opacity 0.35s ease-in;
+		}
+	}
+
+	form {
+		&:before,
+		&:after {
+			clear: both;
+			content: '';
+			display: table;
+		}
+	}
+
+	/* Include margin and padding in the width calculation of input and textarea. */
+	input,
+	select {
+		margin: 1px;
+		padding: 3px 5px;
+		line-height: 20px;
+	}
+
+	select {
+		min-width: 200px;
+	}
+
+	input[type="text"],
+	input[type="password"],
+	input[type="color"],
+	input[type="date"],
+	input[type="datetime"],
+	input[type="datetime-local"],
+	input[type="email"],
+	input[type="month"],
+	input[type="number"],
+	input[type="search"],
+	input[type="tel"],
+	input[type="text"],
+	input[type="time"],
+	input[type="url"],
+	input[type="week"],
+	textarea {
+		-webkit-box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.07 );
+		-webkit-transition: 0.05s border-color ease-in-out;
+		background-color: #fff;
+		border: 1px solid #ddd;
+		box-shadow: inset 0 1px 2px rgba( 0, 0, 0, 0.07 );
+		color: #32373c;
+		outline: none;
+		transition: 0.05s border-color ease-in-out;
+		width: auto;
+
+		@media (max-width: 500px) {
+			display: block;
+		}
+
+		@media (max-width: 782px) {
+			font-size: 16px;
+			height: auto;
+			line-height: 1.5;
+			max-width: none;
+			padding: 7px 10px;
+			width: 100%;
+		}
+	}
+
+	.tribe-event-recurrence {
+		input[type="text"],
+		input[type="password"],
+		input[type="color"],
+		input[type="date"],
+		input[type="datetime"],
+		input[type="datetime-local"],
+		input[type="email"],
+		input[type="month"],
+		input[type="number"],
+		input[type="search"],
+		input[type="tel"],
+		input[type="text"],
+		input[type="time"],
+		input[type="url"],
+		input[type="week"],
+		textarea {
+			@media (max-width: 782px) {
+				display: inline-block;
+				font-size: inherit;
+				line-height: 20px;
+				max-width: none;
+				padding: 3px 5px;
+				width: auto;
+			}
+		}
+	}
+
+	.current {
+		background-color: var(--aluminum);
+		color: #fff;
+		padding: 6em 9em 5em;
+	}
+
+
+.tribe-ticket-control-wrap {
+	@media (max-width: 400px) {
+		> * {
+			width: 100%;
+		}
+	}
+
+	@media (max-width: 560px) {
+		display: flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+
+		> * {
+			margin-bottom: 1em;
+				margin-right: .5em;
+		}
+
+		#settings_form_toggle {
+			margin-top: 0;
+		}
+	}
+}
+
+	.tribe-community-notice {
+		background: #fff;
+		border-left: 4px solid #fff;
+		-webkit-box-shadow: 0 1px 1px 0 rgba( 0, 0, 0, 0.1 );
+		box-shadow: 0 1px 1px 0 rgba( 0, 0, 0, 0.1 );
+		margin: 5px 0 25px;
+		padding: 10px 12px;
+
+		&.tribe-community-notice-error {
+			border-left-color: #dc3232;
+		}
+
+		p {
+			margin-bottom: 10px;
+
+			&:last-child {
+				margin: 0;
+			}
+		}
+	}
+
+	.req {
+		color: var(--dim-gray);
+		font-size: 12px;
+		font-style: italic;
+		font-weight: lighter;
+		text-transform: none;
+	}
+
+	.login .message {
+		background-color: #ffffe0;
+		border-color: #ffffe0;
+	}
+
+	#loginform p {
+		margin: auto;
+		width: 40%;
+	}
+
+	.dashicons {
+		margin-top: 2px;
+	}
+
+	.dashicons-trash {
+		margin-top: 0px;
+		height: 28px;
+		width: 28px;
+		font-size: 26px;
+	}
+
+	/*------------------------------------*\
+		#Event-Title
+		#Event-Description
+	\*------------------------------------*/
+
+	.events-community-post-title,
+	.events-community-post-content {
+		position: relative;
+
+		label {
+			color: var(--charcoal);
+			font-size: 16px;
+			font-weight: bold;
+			text-transform: uppercase;
+
+			&.error {
+			    padding-bottom: 2px;
+				border-bottom: 1px solid #dc3232;
+			}
+		}
+
+		> input {
+			font-size: 1.7em;
+			height: 1.7em;
+			line-height: 100%;
+			margin: 10px 0 20px;
+			padding: 3px 8px;
+		}
+
+		> input,
+		> textarea {
+			border: 1px solid #d9d9d9;
+			width: 100%;
+		}
+
+		> textarea {
+			height: 200px;
+			margin: 15px 0;
+		}
+	}
+
+	/*------------------------------------*\
+		Content Editor
+	\*------------------------------------*/
+
+	.wp-editor-wrap {
+		margin-top: -20px;
+	}
+
+	.wp-editor-container {
+		border: 1px solid var( --section-border-color );
+	}
+
+	/*------------------------------------*\
+		Sections of Edit pages
+	\*------------------------------------*/
+	.tribe-section {
+		background: #fff;
+		border-radius: 3px;
+		border: 1px solid var( --section-border-color );
+		font-size: 13px;
+		margin: 24px 0;
+		padding-bottom: var( --section-spacing );
+
+		.tribe-section-header {
+			border-bottom: 1px solid var(--silver);
+			margin-bottom: var( --section-spacing );
+			padding: 16px;
+
+			h3 {
+				color: var(--charcoal);
+				font-size: 16px;
+				line-height: 1;
+				margin: 0;
+				text-transform: uppercase;
+				font-weight: bold;
+
+				label {
+					font-size: inherit;
+				}
+			}
+		}
+
+		p {
+			display: block;
+			padding: 4px 0;
+
+			.description {
+				font-style: italic;
+			}
+		}
+
+		table.tribe-section-content {
+			margin: 0;
+			table-layout: auto;
+			width: 100%;
+
+			.tribe-section-content-row {
+				line-height: 28px;
+			}
+
+			col.tribe-colgroup-label {
+				width: 20%;
+			}
+
+			col.tribe-colgroup-field {
+				width: 80%;
+			}
+			@media (max-width: 500px) {
+				col.tribe-colgroup-label,
+				col.tribe-colgroup-field {
+					width: 100%;
+				}
+			}
+
+			td {
+				padding: 0;
+
+				@media (max-width: 782px) {
+					padding: 0 var( --section-spacing );
+					vertical-align: middle;
+					width: auto;
+				}
+			}
+
+			.tribe-section-content-row,
+			tr {
+				border-top: 6px solid transparent;
+				border-bottom: 6px solid transparent;
+			}
+
+			.tribe-section-content-label,
+			td:first-child {
+				padding-left: var( --section-spacing );
+				vertical-align: top;
+
+				@media (max-width: 782px) {
+					padding-bottom: 10px;
+				}
+			}
+
+			.tribe-section-content-field,
+			td:last-child  {
+				padding-right: var( --section-spacing );
+			}
+		}
+
+		div.tribe-section-content {
+			margin-left: var( --section-spacing );
+			margin-right: var( --section-spacing );
+		}
+
+		/*------------------------------------*\
+			Event Taxonomies
+		\*------------------------------------*/
+		&.tribe-section-taxonomy {
+			.tribe-dropdown {
+				width: 100%;
+
+				.select2-choices,
+				.select2-selection--multiple {
+					.select2-selection__rendered {
+						border: 0;
+					}
+
+					.select2-search-field,
+					.select2-search--inline {
+						line-height: 1.5;
+						padding-bottom: 14px;
+						padding-top: 13px;
+					}
+
+					.select2-input,
+					.select2-search__field {
+						padding-left: 10px;
+						padding-right: 10px;
+					}
+
+					.select2-search-choice,
+					.select2-selection__choice {
+						letter-spacing: 1px;
+						line-height: 1.5;
+						margin-bottom: 5px;
+						margin-top: 5px;
+						padding: 8px 15px 8px 30px;
+					}
+
+					.select2-search-choice-close,
+					.select2-selection__choice__remove {
+						left: 10px;
+						margin-top: -6px;
+						top: 50%;
+					}
+				}
+			}
+		}
+
+		/*------------------------------------*\
+			Image Uploader
+		\*------------------------------------*/
+		&.tribe-section-image-uploader {
+			.tribe-image-upload-area {
+				background: #ffffff url(../images/image-icon.png) no-repeat center 5px;
+				text-align: center;
+
+				.tribe-community-events-preview-image {
+					display: none;
+				}
+
+				.note {
+					padding-top: 75px;
+					text-align: center;
+
+					p {
+						color: var(--star-dust);
+						margin-bottom: 0;
+					}
+				}
+
+				.form-controls {
+					margin: 0 auto;
+					position: relative;
+					width: 100%;
+					max-width: 250px;
+				}
+
+				.button[disabled],
+				input[disabled] {
+					display: block;
+					margin: 0 auto;
+					text-align: center;
+					width: 100%;
+				}
+
+				.tribe-remove-upload,
+				.current-image,
+				.selected-msg,
+				.uploaded-msg {
+					display: none;
+				}
+
+				.current-image,
+				input[disabled].uploadFile {
+					border: 0;
+					display: none;
+					margin: 0;
+					padding: 0;
+				}
+
+				.choose-file {
+					margin: 25px auto 0;
+					padding: 1.5em;
+					text-transform: uppercase;
+					width: 100%;
+				}
+
+				.EventImage {
+					height: 48px;
+					left: 0;
+					margin: 25px 0 0 0;
+					position: absolute;
+					top: 0;
+					width: 100%;
+				}
+
+				input#EventImage {
+					cursor: pointer;
+					width: 100%;
+					filter: alpha(opacity=0);
+					opacity: 0;
+				}
+
+				.submitdelete {
+					display: block;
+				}
+
+				&.uploaded {
+					.note {
+						margin-top: 55px;
+					}
+
+					.note p,
+					.form-controls .choose-file,
+					.form-controls .EventImage {
+						display: none;
+					}
+
+					.tribe-remove-upload {
+						display: block;
+
+						a {
+							font-size: 12px;
+						}
+					}
+					input[disabled].uploadFile,
+					.selected-msg {
+						display: inline-block;
+						font-size: 14px;
+						width: auto;
+					}
+
+					.selected-msg {
+						font-weight: 700;
+					}
+
+				}
+
+				&.has-image {
+					background-image: none;
+					background-color: #ffffff;
+
+					.tribe-community-events-preview-image {
+						display: block;
+
+						img {
+							margin-bottom: 5px;
+						}
+
+						a {
+							font-size: 12px;
+						}
+					}
+
+					.note,
+					.form-controls {
+						display: none;
+					}
+
+					.uploaded-msg,
+					.current-image {
+						display: inline-block;
+						font-size: 14px;
+						width: auto;
+					}
+
+					.uploaded-msg {
+						font-weight: 700;
+					}
+				}
+			}
+		}
+
+		/*------------------------------------*\
+			Linked Post Types
+		\*------------------------------------*/
+
+		&.tribe-section-venue {
+			.move-linked-post-group {
+				display: none;
+			}
+		}
+
+		&.tribe-section-venue,
+		&.tribe-section-organizer {
+			.tribe-dropdown {
+				margin-top: -2px;
+			}
+
+		@media screen and ( min-width: 500px ) {
+				input[type="text"] {
+					width: 50%;
+				}
+		}
+		}
+
+		&.tribe-single-geo-mode {
+			.tribe-linked-type-venue-country,
+			.tribe-linked-type-venue-state-province {
+				/* We need this to avoid having problems with inline css that is added */
+				display: none !important;
+			}
+		}
+
+		.linked-post-dropdown {
+			margin-bottom: 10px;
+		}
+
+		.edit-venue-link {
+			display: inline-block;
+			float: right;
+			padding-top: 16px;
+		}
+
+		.tribe-delete-this:hover,
+		.tribe-delete-this.hover-state {
+			&:hover {
+				color: var(--button-dark-color);
+			}
+		}
+
+		/*------------------------------------*\
+			Event Website Section
+		\*------------------------------------*/
+		&.tribe-section-website {
+			input {
+				width: 80%;
+
+				@media screen and ( max-width: 782px ) {
+					width: 100%;
+				}
+			}
+		}
+
+		/*------------------------------------*\
+			#Event-Cost
+		\*------------------------------------*/
+		&.tribe-section-cost {
+			.event-currency-symbol {
+				margin-right: 5px;
+				width: 60px;
+			}
+
+			.cost-input-field {
+				display: block;
+				width: 175px;
+
+				@media screen and ( max-width: 782px ) {
+					width: 100%;
+				}
+			}
+		}
+
+		/*---------------------------------------*\
+			#Additional-Fields
+		\*---------------------------------------*/
+		.tribe-field-type-checkbox,
+		.tribe-field-type-radio {
+			label {
+				display: block;
+
+				input[type="checkbox"] {
+					width: auto;
+				}
+			}
+		}
+	}
+}
+
+
+/*------------------------------------*\
+	#Header
+\*------------------------------------*/
+
+.my-events-header {
+	align-items: center;
+	border-bottom: 1px solid var(--gray);
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 30px;
+	padding-bottom: 30px;
+
+	h2.my-events {
+		color: var(--charcoal);
+		font-size: 1.5em;
+		font-weight: normal;
+		line-height: 1;
+		margin: 0;
+	}
+}
+
+/*------------------------------------*\
+	#Event-Time-Date
+\*------------------------------------*/
+.ui-timepicker-wrapper {
+	background: #fff;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+	border: 1px solid #d9d9d9;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+	font-size: 13px;
+	margin: 0;
+	outline: none;
+	overflow-y: auto;
+	width: 80px;
+	z-index: 10001;
+	.ui-timepicker-list {
+
+		li {
+			color: #72777c;
+			cursor: pointer;
+			font-size: 85%;
+			list-style: none;
+			margin: 0;
+			padding: .25em;
+			white-space: nowrap;
+
+			&:hover {
+				color: #fff;
+			}
+		}
+
+		.ui-timepicker-selected {
+			background: #0782d8;
+			color: #fff;
+			font-weight: normal;
+		}
+	}
+}
+
+a.tribe-change-timezone {
+	/* Some styles repurposed from WP Core's dashicons styles. */
+	&:after {
+		color: var(--gray);
+		content: '\f464'; /* The dashicons "Edit" icon. */
+		display: inline-block;
+		font-family: dashicons;
+		font-style: normal;
+		font-weight: normal;
+		margin-left: 4px;
+		-moz-osx-font-smoothing: grayscale;
+		text-align: center;
+		text-decoration: inherit;
+		transition: color .1s ease-in 0;
+		vertical-align: top;
+		-webkit-font-smoothing: antialiased;
+	}
+}
+
+/*------------------------------------*\
+	#Login Form
+\*------------------------------------*/
+.tribe-ce-register {
+	display: inline;
+	width: auto;
+}
+
+/*------------------------------------*\
+	jQuery UI Elements
+\*------------------------------------*/
+
+.tribe_community_edit .ui-datepicker .ui-datepicker-title {
+	margin: 0 1.5em;
+}
+
+.tribe_community_edit .ui-datepicker select.ui-datepicker-month {
+	width: 55%;
+}
+
+.tribe_community_edit .ui-datepicker select.ui-datepicker-year {
+	width: 34%;
+}
+
+.custom-recurrence-years {
+	td {
+		padding: 0;
+	}
+}
+
+.tribe-community-events {
+
+	.tribe-event-recurrence-description {
+		color: #6a6a6a;
+	}
+
+	.tribe-event-recurrence .tribe-handle,
+	.tribe-event-exclusion .tribe-handle {
+		color: #62696e;
+	}
+
+	.tribe-field-inline-text {
+		color: #64686c;
+		font-size: 13px;
+	}
+
+	/* The reason we're using a `.class #id` type selector here is because the
+	 * ID is sufficiently generic that there's a pretty strong chance a duplicate
+	 * ID generated by the theme or some other component will be present. */
+	#message {
+		clear: both;
+	}
+}
+
+.month-label.first-label-in-line {
+	color: #64686c;
+}
+
+/* Preserve layout of date- and time-pickers in smaller screens. */
+@media only screen and (max-width: 568px) {
+	#tribe-event-datepickers td ~ td,
+	#tribe-event-datepickers ~ tr td ~ td {
+		padding-bottom: 10px;
+	}
+
+	#tribe-event-datepickers #EventStartDate,
+	#tribe-event-datepickers ~ tr #EventEndDate {
+		margin-bottom: 6px;
+		width: 100%;
+	}
+
+	.timeofdayoptions {
+		clear: both;
+		display: block;
+		padding-bottom: 10px;
+		white-space: nowrap;
+		width: 100%;
+	}
+
+	td.datetime-label {
+		vertical-align: top;
+	}
+
+	.eventForm .tribe-datetime-block .tribe-field-start_date,
+	.eventForm .tribe-datetime-block .tribe-field-start_time,
+	.eventForm .tribe-datetime-block .tribe-field-end_date,
+	.eventForm .tribe-datetime-block .tribe-field-end_time {
+		margin-bottom: 5px;
+		width: 100%;
+	}
+}
+
+/*---------------------------------------*\
+	#Footer
+\*---------------------------------------*/
+
+.tribe-events-community-footer {
+	margin-top: 32px;
+	text-align: center;
+}
+
+/*---------------------------------------*\
+	#Additional-Fields
+\*---------------------------------------*/
+
+.tribe-field-type-checkbox {
+
+	label {
+		display: block;
+
+		input[type="checkbox"] {
+			width: auto;
+		}
+
+	}
+
+}
+
+/*------------------------------------*\
+	#Utilities
+\*------------------------------------*/
+
+#tribe-community-events .aes,
+#tribe-community-events .aes * {
+	height: 1px;
+	margin: 0;
+	overflow: hidden;
+	padding: 0;
+	visibility: hidden;
+}
+
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+	height: 1px;
+	overflow: hidden;
+	position: absolute !important;
+	width: 1px;
+	word-wrap: normal !important;}
+
+.hidden {
+	display: none;
+}
+
+.tribe-dropdown {
+	&.select2-container {
+		.select2-results {
+			ul {
+				margin: 0;
+				padding: 0;
+				.select2-results__option {
+					margin: 0;
+					padding: 6px;
+					font-size: 14px;
+				}
+			}
+		}
+	}
+}
+
+/* Twenty Fourteen Styles */
+.tribe-2014.tribe_community_edit .ui-widget.ui-datepicker {
+	font-size: .8rem;
+}
+
+.tribe-theme-twentyfourteen {
+	.events-community-post-title {
+		label {
+			display: block;
+		}
+		input {
+			width: 100%;
+		}
+	}
+}
+
+/* Twenty Fifteen Styles */
+.tribe-theme-twentyfifteen,
+.tribe-theme-child-twentyfifteen {
+	#tribe-events-pg-template #tribe-community-events {
+		margin: 8.3333%;
+	}
+}
+
+.tribe-theme-twentyfifteen #tribe-community-events {
+	.pagination {
+		margin: 0 0 1.68em;
+	}
+
+	input.tribe-datepicker {
+		width: auto;
+	}
+
+	thead th {
+		background-color: #fff;
+		font-size: 13px;
+		line-height: 1;
+		padding: 10px 5px;
+		text-align: center;
+	}
+
+	#the-list td {
+		font-size: 13px;
+		line-height: 1.2;
+		text-align: center;
+	}
+
+	p label {
+		display: block;
+		font-size: 90%;
+	}
+
+	#loginform p.remember label {
+		display: inline;
+	}
+
+	#loginform p input[type=text],
+	p input[type=password] {
+		margin-bottom: 1em;
+		width: 100%;
+	}
+
+	.register {
+		font-size: 90%;
+		text-align: center;
+	}
+}
+
+/* Recaptcha for 2015 */
+.recaptchatable {
+	table-layout: auto;
+}
+
+/* Twenty Sixteen Styles  */
+.tribe-theme-twentysixteen,
+.tribe-theme-child-twentysixteen {
+	.pagination {
+		border-top: none;
+		margin: 0;
+		&:before,
+		&:after {
+			background-color: white;
+			height: auto;
+			width: auto;
+		}
+	}
+}
+
+@media screen and (min-width: 61.5625em) {
+	body.tribe-theme-twentysixteen.tribe_community_edit,
+	body.tribe-theme-twentysixteen.tribe_community_list {
+		&:not(.search-results) {
+			article:not(.type-page) {
+				.entry-content {
+					margin-left: 0;
+					margin-right: 0;
+					width: 100%;
+				}
+			}
+		}
+	}
+}
+
+/* Twenty Seventeen Styles  */
+.tribe-theme-twentyseventeen,
+.tribe-theme-child-twentyseventeen {
+	input[type="text"],
+	input[type="email"],
+	input[type="url"],
+	input[type="password"],
+	input[type="search"],
+	input[type="number"],
+	input[type="tel"],
+	input[type="range"],
+	input[type="date"],
+	input[type="month"],
+	input[type="week"],
+	input[type="time"],
+	input[type="datetime"],
+	input[type="datetime-local"],
+	input[type="color"],
+	textarea,
+	label {
+		display: inline-block;
+	}
+}
+
+/* -------------------------------------------------------------------------
+* Theme Overrides - Twenty twenty
+* ------------------------------------------------------------------------- */
+.tribe-theme-twentytwenty {
+
+	.tribe-community-events {
+
+		section {
+			padding: 0;
+		}
+
+		input[type="text"] {
+			display: initial;
+		}
+	}
+}

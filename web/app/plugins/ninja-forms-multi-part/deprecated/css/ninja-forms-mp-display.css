@@ -1,0 +1,35 @@
+.meter {
+	height: 20px;  /* Can be anything */
+	position: relative;
+	background: #ccc;
+	border-radius: 25px;
+}
+.meter > span {
+	display: block;
+	height: 100%;
+	border-radius: 20px;
+	border-radius: 20px;
+	background-color: #333;
+	position: relative;
+	overflow: hidden;
+}
+.nostripes > span > span, .nostripes > span:after {
+	-webkit-animation: none;
+	-moz-animation: none;
+	background-image: none;
+}
+
+.ninja-forms-form .ninja-forms-mp-breadcrumbs {
+	list-style: none;
+	margin: 0 0 10px 0;
+}
+.ninja-forms-form .ninja-forms-mp-breadcrumbs:after {
+	clear: both;
+	content: "";
+	display: block;
+}
+.ninja-forms-form .ninja-forms-mp-breadcrumbs li {
+	float: left;
+	list-style: none;
+	margin: 0 5px;
+}

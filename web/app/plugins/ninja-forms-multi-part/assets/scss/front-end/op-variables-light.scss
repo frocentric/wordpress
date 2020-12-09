@@ -1,0 +1,14 @@
+$field-background: $base;
+$field-border: darken( $base, 20% );
+$field-font: darken( $base, 50% );
+
+$focus-background: lighten( $base, 10% );
+$focus-border: darken( $field-border, 20% );
+$focus-font: lighten( $field-font, 10% );
+
+$selected-background: lighten( $base, 10% );
+$selected-border: darken( $field-border, 5% );
+$selected-font: $accent;
+
+$progress-background: $base;
+$progress-bar: darken( $base, 10% );

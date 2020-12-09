@@ -1,0 +1,90 @@
+#nf-mp-drawer-viewport {
+    float: left;
+    overflow-x: hidden;
+}
+#nf-mp-drawer {
+    background: #EBEDEE;
+    height: 60px;
+    position: fixed;
+    bottom: -70px;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    transition: all 0.5s ease;
+    ul.ui-sortable {
+        // width: 2500px;
+        float: left;
+        margin: 5px;
+        > li {
+            display: inline-block;
+            background: #fff;
+            border: 2px solid #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            float: left;
+            font-size: 16px;
+            line-height: 50px;
+            margin-left: 14px;
+            height: 50px;
+            //width: 50px;
+            padding: 0 16px;
+            text-align: center;
+            position: relative;
+            &.active {
+                border: 2px solid $accent_color;
+                color: $accent_color;
+            }
+            &.mp-drag-hover {
+                background: $cta_color !important;
+                border: 2px solid $cta_color;
+                color: #fff;
+            }
+        }
+    }
+}
+.nf-mp-drawer-scroll-previous,
+.nf-mp-drawer-scroll-next {
+    background: #fff;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    float: left;
+    font-size: 16px;
+    line-height: 50px;
+    margin-top: 5px;
+    margin-left: 14px;
+    height: 50px;
+    width: 50px;
+    padding: 0 16px;
+    text-align: center;
+    position: relative;
+}
+#nf-mp-drawer {
+    .ui-sortable-placeholder {
+        background: $accent_color !important;
+        border: 2px solid $accent_color !important;
+        border-radius: 0 !important;
+        width: 8px !important;
+        padding: 0 !important;
+        visibility: visible !important;
+        margin-right: -11px !important;
+        margin-left: 2px !important;
+    }
+}
+.nf-has-parts {
+    #nf-mp-drawer {
+        bottom: 0;
+        transition: all 0.5s ease;
+    }
+    .nf-master-control {
+        bottom: 80px;
+    }
+    .nf-fields-sortable {
+        padding-bottom: 60px;
+    }
+}
+.nf-drawer-opened {
+    #nf-mp-drawer {
+        right: 50%;
+    }
+}
