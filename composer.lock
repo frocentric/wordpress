@@ -1456,20 +1456,24 @@
         },
         {
             "name": "roots/bedrock-autoloader",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/roots/bedrock-autoloader.git",
-                "reference": "885f2a5c425d82dfd811ef4f13ab8f5bcc89cd70"
+                "reference": "f508348a3365ab5ce7e045f5fd4ee9f0a30dd70f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/roots/bedrock-autoloader/zipball/885f2a5c425d82dfd811ef4f13ab8f5bcc89cd70",
-                "reference": "885f2a5c425d82dfd811ef4f13ab8f5bcc89cd70",
+                "url": "https://api.github.com/repos/roots/bedrock-autoloader/zipball/f508348a3365ab5ce7e045f5fd4ee9f0a30dd70f",
+                "reference": "f508348a3365ab5ce7e045f5fd4ee9f0a30dd70f",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1"
+            },
+            "require-dev": {
+                "10up/wp_mock": "^0.4.2",
+                "phpunit/phpunit": "^7.0 || ^8.0 || ^9.0"
             },
             "type": "library",
             "autoload": {
@@ -1517,7 +1521,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2020-05-18T04:43:20+00:00"
+            "time": "2020-12-04T15:59:12+00:00"
         },
         {
             "name": "roots/multisite-url-fixer",
@@ -2503,22 +2507,22 @@
     "packages-dev": [
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
-            "version": "v0.7.0",
+            "version": "v0.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dealerdirect/phpcodesniffer-composer-installer.git",
-                "reference": "e8d808670b8f882188368faaf1144448c169c0b7"
+                "reference": "fe390591e0241955f22eb9ba327d137e501c771c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dealerdirect/phpcodesniffer-composer-installer/zipball/e8d808670b8f882188368faaf1144448c169c0b7",
-                "reference": "e8d808670b8f882188368faaf1144448c169c0b7",
+                "url": "https://api.github.com/repos/Dealerdirect/phpcodesniffer-composer-installer/zipball/fe390591e0241955f22eb9ba327d137e501c771c",
+                "reference": "fe390591e0241955f22eb9ba327d137e501c771c",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^1.0 || ^2.0",
                 "php": ">=5.3",
-                "squizlabs/php_codesniffer": "^2 || ^3 || 4.0.x-dev"
+                "squizlabs/php_codesniffer": "^2.0 || ^3.0 || ^4.0"
             },
             "require-dev": {
                 "composer/composer": "*",
@@ -2565,7 +2569,7 @@
                 "stylecheck",
                 "tests"
             ],
-            "time": "2020-06-25T14:57:39+00:00"
+            "time": "2020-12-07T18:04:37+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
