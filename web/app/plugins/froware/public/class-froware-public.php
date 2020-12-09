@@ -214,7 +214,9 @@ class Froware_Public {
 	 * @since    1.0.0
 	 */
 	public function special_nav_class( $classes, $item, $args, $depth = 0 ) {
-		// Modifies primary navigation menu only
+		global $post;
+
+		// Modifies primary navigation menu only.
 		if ( 'primary' === $args->theme_location ) {
 			$parent_classes = array( 'current-menu-item', 'page_item', 'current_page_item', 'current_page_parent' );
 			$events_class   = 'events';
@@ -228,11 +230,13 @@ class Froware_Public {
 
 				// Specify default page if posts page not enabled.
 				if ( 0 === $posts_page ) {
-					$posts_page = 13283; // TODO: refactor magic number
+					$posts_page = 13283; // TODO: refactor magic number.
 				}
 
 				// Highlight Content page link for any post or category page.
-				if ( ( ( is_single() && get_post_type() === 'post' ) || is_category() ) && $posts_page === $item->object_id ) {
+				if ( ( ( is_single() && get_post_type() === 'post' ) || is_category() ) && $posts_page === (int) $item->object_id ) {
+					$classes = array_merge( $classes, $parent_classes );
+				} elseif ( is_page() && $post->post_parent === (int) $item->object_id ) {
 					$classes = array_merge( $classes, $parent_classes );
 				}
 			}
@@ -450,8 +454,7 @@ class Froware_Public {
 
 				if ( ! empty( $imported_event ) && ! is_wp_error( $imported_event ) ) {
 					wp_send_json_success( $imported_event );
-				}
-				else {
+				} else {
 					// TODO: Pattern match against __( '%d Skipped (Already exists)', 'wp-event-aggregator' )
 					$message = strpos( $wpea_success_msg[0], 'Already exists' ) > 0 ?
 						__( 'This event has already been imported, please try again', 'froware' ) :
