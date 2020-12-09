@@ -4,6 +4,7 @@
  */
 
 use Roots\WPConfig\Config;
+use function Env\env;
 
 /**
  * You should try to keep staging as close to production as possible. However,
@@ -13,6 +14,9 @@ use Roots\WPConfig\Config;
  * Example: `Config::define('WP_DEBUG', true);`
  * Example: `Config::define('DISALLOW_FILE_MODS', false);`
  */
+Config::define('SAVEQUERIES', env('SAVEQUERIES') ?? false);
+Config::define('WP_DEBUG', env('WP_DEBUG') ?? false);
+Config::define('WP_DEBUG_DISPLAY', env('WP_DEBUG_DISPLAY') ?? false);
 
 /**
  * WP Rocket Settings

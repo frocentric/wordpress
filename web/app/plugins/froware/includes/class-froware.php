@@ -175,9 +175,18 @@ class Froware {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action( 'after_setup_theme', $plugin_public, 'extend_theme_support', 100 );
+		$this->loader->add_action( 'wp_ajax_nopriv_import_event', $plugin_public, 'import_event' );
+		$this->loader->add_action( 'wp_ajax_import_event', $plugin_public, 'import_event' );
+		$this->loader->add_action( 'wp_ajax_nopriv_validate_event_url', $plugin_public, 'validate_event_url' );
+		$this->loader->add_action( 'wp_ajax_validate_event_url', $plugin_public, 'validate_event_url' );
+		$this->loader->add_action( 'wpea_after_create_tec_eventbrite_event', $plugin_public, 'track_new_event', 10, 3 );
+		$this->loader->add_action( 'tribe_events_community_form_before_template', $plugin_public, 'event_import_form' );
+		$this->loader->add_action( 'init', $plugin_public, 'add_taxonomy_to_pages' );
 
 		// Filters.
 		$this->loader->add_filter( 'generate_typography_default_fonts', $plugin_public, 'add_generatepress_fonts' );
+		$this->loader->add_filter( 'generate_inside_post_meta_item_output', $plugin_public, 'generate_inside_post_meta_item_output', 20, 2 );
+		$this->loader->add_filter( 'generate_post_date_output', $plugin_public, 'generate_post_date_output', 10, 2 );
 		$this->loader->add_filter( 'nav_menu_css_class', $plugin_public, 'special_nav_class', 10, 3 );
 		$this->loader->add_filter( 'wpsp_defaults', $plugin_public, 'wpsp_defaults' );
 		$this->loader->add_filter( 'wpematico_item_parsers', $plugin_public, 'wpematico_item_parsers_callback', 10, 4 );
@@ -207,6 +216,20 @@ class Froware {
 					return ob_get_clean();
 				}
 				return '';
+			}
+		);
+
+		add_shortcode(
+			'froware_import_event',
+			function( $atts = array() ) {
+				$plugin_public = new Froware_Public( $this->get_plugin_name(), $this->get_version() );
+
+        // phpcs:ignore
+				if ( ! empty( $_POST ) ) {
+					esc_attr_e( 'Form submitted' );
+				} else {
+					$plugin_public->event_import_form();
+				}
 			}
 		);
 

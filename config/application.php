@@ -9,6 +9,7 @@
  */
 
 use Roots\WPConfig\Config;
+use function Env\env;
 
 /**
  * Directory containing all of the site's files
@@ -23,11 +24,6 @@ $root_dir = dirname(__DIR__);
  * @var string
  */
 $webroot_dir = $root_dir . '/web';
-
-/**
- * Expose global env() function from oscarotero/env
- */
-Env::init();
 
 /**
  * Use Dotenv to set required environment variables and load .env file in root
@@ -119,6 +115,21 @@ Config::define('WP_DEBUG_DISPLAY', false);
 Config::define('WP_DEBUG_LOG', env('WP_DEBUG_LOG') ?? false);
 Config::define('SCRIPT_DEBUG', false);
 ini_set('display_errors', '0');
+
+/**
+ * Multisite Settings
+ */
+Config::define( 'WP_ALLOW_MULTISITE', true );
+Config::define( 'MULTISITE', true );
+Config::define( 'SUBDOMAIN_INSTALL', env('SUBDOMAIN_INSTALL') ?? true );
+Config::define( 'DOMAIN_CURRENT_SITE', env('DOMAIN_CURRENT_SITE') );
+Config::define( 'PATH_CURRENT_SITE', env('PATH_CURRENT_SITE') ?? '/' );
+Config::define( 'SITE_ID_CURRENT_SITE', env('SITE_ID_CURRENT_SITE') ?? 1 );
+Config::define( 'BLOG_ID_CURRENT_SITE', env('BLOG_ID_CURRENT_SITE') ?? 1 );
+if ( ! defined( 'WP_CLI' ) ) {
+	Config::define( 'COOKIE_DOMAIN', $_SERVER['HTTP_HOST'] );
+}
+$base = '/';
 
 /**
  * WP Rocket Settings
