@@ -572,9 +572,9 @@ select {
   line-height: 1.8;
 }
 
-.shaded .generate-columns-container .inside-article .entry-header,
-.shaded .generate-columns-container .inside-article .entry-summary,
-.shaded .generate-columns-container .inside-article > .entry-meta {
+.blog .generate-columns-container .inside-article .entry-header,
+.blog .generate-columns-container .inside-article .entry-summary,
+.blog .generate-columns-container .inside-article > .entry-meta {
   padding: 0 1em;
 }
 
