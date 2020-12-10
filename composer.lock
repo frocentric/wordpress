@@ -1888,22 +1888,22 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.7.6.1",
+            "version": "v3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "b0fe07b2335a5aa39a0f9a51e811ff3f41c99ea4"
+                "reference": "968e48def617c89190720018235fd50f4707be21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/b0fe07b2335a5aa39a0f9a51e811ff3f41c99ea4",
-                "reference": "b0fe07b2335a5aa39a0f9a51e811ff3f41c99ea4",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/968e48def617c89190720018235fd50f4707be21",
+                "reference": "968e48def617c89190720018235fd50f4707be21",
                 "shasum": ""
             },
             "require": {
                 "composer/installers": "~1.0",
                 "monolog/monolog": "^1.0",
-                "php": ">=5.6.0",
+                "php": ">=7.0",
                 "psr/container": "^1.0"
             },
             "require-dev": {
@@ -1913,10 +1913,10 @@
                 "mikey179/vfsstream": "^1.6",
                 "mnsami/composer-custom-directory-installer": "^2.0",
                 "mobiledetect/mobiledetectlib": "^2.8",
-                "php": "^5.6 || ^7",
+                "php": "^7",
                 "phpcompatibility/phpcompatibility-wp": "^2.0",
                 "phpstan/phpstan": "^0.12.3",
-                "phpunit/phpunit": "^5.7 || ^7",
+                "phpunit/phpunit": "^7",
                 "roave/security-advisories": "dev-master",
                 "szepeviktor/phpstan-wordpress": "^0.5.0",
                 "woocommerce/woocommerce": "^3.9",
@@ -1967,7 +1967,8 @@
             "autoload": {
                 "classmap": [
                     "inc/classes",
-                    "inc/vendors/classes"
+                    "inc/vendors/classes",
+                    "inc/deprecated"
                 ],
                 "exclude-from-classmap": [
                     "inc/vendors/classes/class-rocket-mobile-detect.php",
@@ -1997,7 +1998,7 @@
                 "minification",
                 "wordpress"
             ],
-            "time": "2020-12-07T22:14:05+00:00"
+            "time": "2020-12-09T15:25:45+00:00"
         },
         {
             "name": "wpackagist-plugin/autodescription",
