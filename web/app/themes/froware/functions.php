@@ -74,3 +74,7 @@ function generate_post_meta() {
 		<?php
 	endif;
 }
+
+
+// Add custom image size used on homepage.
+add_image_size( 'froware-halfwidth', 580, 0 );

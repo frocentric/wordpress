@@ -2289,15 +2289,15 @@
         },
         {
             "name": "wpackagist-plugin/ninja-forms",
-            "version": "3.4.32",
+            "version": "3.4.33",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/ninja-forms/",
-                "reference": "tags/3.4.32"
+                "reference": "tags/3.4.33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.4.32.zip"
+                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.4.33.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
