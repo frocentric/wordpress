@@ -19,9 +19,9 @@ env_file="public/current/.env"
 
 if [ -f "$env_file" ]
     then
-        echo ".env file found"
+        echo "$env_file found"
     else
-        echo ".env file not found"
+        echo "$env_file not found"
         exit 1
 fi
 
@@ -38,4 +38,11 @@ echo "TASK: git pull finished"
 composer install --no-dev --optimize-autoloader
 echo "TASK: composer install finished"
 
-curl -L "$2/kinsta-clear-cache-all/"
+# Load HTTP auth from .env file
+HTTP_USERNAME=$(grep HTTP_USERNAME "./$env_file" | cut -d '=' -f2)
+
+if [ -n "$HTTP_USERNAME" ]; then
+    curl -L "$2/kinsta-clear-cache-all/" -u HTTP_USERNAME
+else
+    curl -L "$2/kinsta-clear-cache-all/"
+fi
