@@ -2005,11 +2005,11 @@
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/autodescription/",
-                "reference": "trunk"
+                "reference": "tags/4.1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/autodescription.zip?timestamp=1606880304"
+                "url": "https://downloads.wordpress.org/plugin/autodescription.4.1.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2451,15 +2451,15 @@
         },
         {
             "name": "wpackagist-plugin/wpematico",
-            "version": "2.6.5",
+            "version": "2.6.6",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wpematico/",
-                "reference": "tags/2.6.5"
+                "reference": "tags/2.6.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wpematico.2.6.5.zip"
+                "url": "https://downloads.wordpress.org/plugin/wpematico.2.6.6.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
