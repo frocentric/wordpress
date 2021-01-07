@@ -2109,15 +2109,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "3.0.15",
+            "version": "3.0.16",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/3.0.15"
+                "reference": "tags/3.0.16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.3.0.15.zip"
+                "url": "https://downloads.wordpress.org/plugin/elementor.3.0.16.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
