@@ -740,7 +740,7 @@ select {
   .mobile-menu-open .main-navigation .main-nav ul li a,
   .menu-toggle {
     line-height: 1.5;
-    font-size: 9vh;
+    font-size: 4vh;
   }
 }
 
