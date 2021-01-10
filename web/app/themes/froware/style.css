@@ -718,6 +718,13 @@ select {
     height: 60px;
     z-index: 999;
   }
+  .menu-logo
+    .main-navigation:not(.mobile-header-navigation)
+    .inside-navigation
+    .menu-toggle[aria-expanded="true"] {
+      position: fixed;
+      right: 0;
+    }
   #site-navigation .inside-navigation .menu-toggle:before {
     margin-top: 0;
     z-index: 999;
