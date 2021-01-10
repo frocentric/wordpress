@@ -7,7 +7,7 @@ version: 2
 references:
   working_directory: &working_directory
     ~/bedrock
- 
+
   # Default container configuration
   #
   container_config: &container_config
@@ -24,7 +24,7 @@ references:
       # - image: circleci/mysql:5.7-ram
       #
       # - image: redis:2.8.19
- 
+
   attach_workspace: &attach_workspace
     attach_workspace:
       at: *working_directory
@@ -43,7 +43,7 @@ jobs:
           root: .
           paths:
             - '*'
- 
+
   test:
     <<: *container_config
     steps:
@@ -51,7 +51,7 @@ jobs:
       - run:
           name: Run tests
           command: composer test
- 
+
   deploy:
     <<: *container_config
     steps:
@@ -68,8 +68,8 @@ jobs:
       - run:
           name: Update environment variables
           command: |
-            echo 'if [ "$CIRCLE_BRANCH" == "master" ]; then export SSH_PORT="$PRODUCTION_SSH_PORT"; else export SSH_PORT="$STAGING_SSH_PORT"; fi;' >> $BASH_ENV
-            echo 'if [ "$CIRCLE_BRANCH" == "master" ]; then export WP_HOME="$PRODUCTION_WP_HOME"; else export WP_HOME="$STAGING_WP_HOME"; fi;' >> $BASH_ENV
+            echo 'if [ "$CIRCLE_BRANCH" == "production" ]; then export SSH_PORT="$PRODUCTION_SSH_PORT"; else export SSH_PORT="$STAGING_SSH_PORT"; fi;' >> $BASH_ENV
+            echo 'if [ "$CIRCLE_BRANCH" == "production" ]; then export WP_HOME="$PRODUCTION_WP_HOME"; else export WP_HOME="$STAGING_WP_HOME"; fi;' >> $BASH_ENV
             source $BASH_ENV
       - run:
           name: Install deploy script
@@ -79,7 +79,7 @@ jobs:
             ssh $SSH_USER@$SSH_HOST -p $SSH_PORT "mkdir -p public/tmp" &&
             rsync -avz -e "ssh -p $SSH_PORT" scripts/deploy.sh $SSH_USER@$SSH_HOST:public/tmp/deploy.sh &&
             ssh $SSH_USER@$SSH_HOST -p $SSH_PORT bash 'public/tmp/deploy.sh' $CIRCLE_BRANCH $WP_HOME
- 
+
 workflows:
   version: 2
   build_test_deploy:
