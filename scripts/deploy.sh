@@ -15,7 +15,7 @@ fi
 
 branch_name=$1
 url=$2
-current = "public/current"
+current="public/current"
 env_file=".env"
 
 cd $current
@@ -41,7 +41,7 @@ composer install --no-dev --optimize-autoloader
 echo "TASK: composer install finished"
 
 # Load HTTP auth from .env file
-echo "Looking for $(pwd)/$env_file"
+echo "Looking for $env_file"
 HTTP_USERNAME=$(grep HTTP_USERNAME "$env_file" | cut -d '=' -f2)
 
 if [ -n "$HTTP_USERNAME" ]; then
