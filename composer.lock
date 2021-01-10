@@ -2001,15 +2001,15 @@
         },
         {
             "name": "wpackagist-plugin/autodescription",
-            "version": "4.1.2",
+            "version": "4.1.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/autodescription/",
-                "reference": "trunk"
+                "reference": "tags/4.1.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/autodescription.zip?timestamp=1606880304"
+                "url": "https://downloads.wordpress.org/plugin/autodescription.4.1.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2109,15 +2109,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "3.0.14",
+            "version": "3.0.16",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/3.0.14"
+                "reference": "tags/3.0.16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.3.0.14.zip"
+                "url": "https://downloads.wordpress.org/plugin/elementor.3.0.16.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2145,15 +2145,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "4.3.7",
+            "version": "4.3.10",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/4.3.7"
+                "reference": "trunk"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.4.3.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.zip?timestamp=1610010549"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2163,15 +2163,15 @@
         },
         {
             "name": "wpackagist-plugin/events-manager",
-            "version": "5.9.8.1",
+            "version": "5.9.9",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/events-manager/",
-                "reference": "tags/5.9.8.1"
+                "reference": "trunk"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/events-manager.5.9.8.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/events-manager.zip?timestamp=1609866614"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2181,15 +2181,15 @@
         },
         {
             "name": "wpackagist-plugin/feedzy-rss-feeds",
-            "version": "3.5.1",
+            "version": "3.5.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/feedzy-rss-feeds/",
-                "reference": "tags/3.5.1"
+                "reference": "tags/3.5.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.3.5.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.3.5.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2271,15 +2271,15 @@
         },
         {
             "name": "wpackagist-plugin/meta-box",
-            "version": "5.3.5",
+            "version": "5.3.6",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/meta-box/",
-                "reference": "tags/5.3.5"
+                "reference": "tags/5.3.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/meta-box.5.3.5.zip"
+                "url": "https://downloads.wordpress.org/plugin/meta-box.5.3.6.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2361,15 +2361,15 @@
         },
         {
             "name": "wpackagist-plugin/the-events-calendar",
-            "version": "5.3.0",
+            "version": "5.3.1.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/the-events-calendar/",
-                "reference": "tags/5.3.0"
+                "reference": "tags/5.3.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.5.3.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.5.3.1.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2451,15 +2451,15 @@
         },
         {
             "name": "wpackagist-plugin/wpematico",
-            "version": "2.6.5",
+            "version": "2.6.6",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wpematico/",
-                "reference": "tags/2.6.5"
+                "reference": "tags/2.6.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wpematico.2.6.5.zip"
+                "url": "https://downloads.wordpress.org/plugin/wpematico.2.6.6.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
