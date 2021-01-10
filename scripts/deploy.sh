@@ -41,8 +41,6 @@ composer install --no-dev --optimize-autoloader
 echo "TASK: composer install finished"
 
 # Load HTTP auth from .env file
-echo "Contents of $env_file:"
-echo "$(cat $env_file)"
 HTTP_USERNAME=$(grep HTTP_USERNAME "$env_file" | cut -d '=' -f2)
 
 if [ -n "$HTTP_USERNAME" ]; then
