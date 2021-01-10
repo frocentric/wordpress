@@ -39,7 +39,8 @@ composer install --no-dev --optimize-autoloader
 echo "TASK: composer install finished"
 
 # Load HTTP auth from .env file
-HTTP_USERNAME=$(grep HTTP_USERNAME "./$env_file" | cut -d '=' -f2)
+echo "Looking for $(pwd)/$env_file"
+HTTP_USERNAME=$(grep HTTP_USERNAME "$(pwd)/$env_file" | cut -d '=' -f2)
 
 if [ -n "$HTTP_USERNAME" ]; then
     curl -L "$2/kinsta-clear-cache-all/" -u HTTP_USERNAME
