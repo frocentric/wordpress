@@ -15,7 +15,10 @@ fi
 
 branch_name=$1
 url=$2
-env_file="public/current/.env"
+current = "public/current"
+env_file=".env"
+
+cd $current
 
 if [ -f "$env_file" ]
     then
@@ -26,7 +29,6 @@ if [ -f "$env_file" ]
 fi
 
 echo "Deploying $branch_name to $url"
-cd public/current/
 git config --global user.email "genyus@gmail.com"
 git config --global user.name "Gary McPherson"
 git fetch --all
@@ -40,7 +42,7 @@ echo "TASK: composer install finished"
 
 # Load HTTP auth from .env file
 echo "Looking for $(pwd)/$env_file"
-HTTP_USERNAME=$(grep HTTP_USERNAME "$(pwd)/$env_file" | cut -d '=' -f2)
+HTTP_USERNAME=$(grep HTTP_USERNAME "$env_file" | cut -d '=' -f2)
 
 if [ -n "$HTTP_USERNAME" ]; then
     curl -L "$2/kinsta-clear-cache-all/" -u HTTP_USERNAME
