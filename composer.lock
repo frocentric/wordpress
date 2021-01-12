@@ -2271,15 +2271,15 @@
         },
         {
             "name": "wpackagist-plugin/meta-box",
-            "version": "5.3.6",
+            "version": "5.3.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/meta-box/",
-                "reference": "tags/5.3.6"
+                "reference": "tags/5.3.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/meta-box.5.3.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/meta-box.5.3.7.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
