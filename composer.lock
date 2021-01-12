@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "51497494e00e3ab4c5fefb001c40c544",
+    "content-hash": "5f7e2bf21a06745c848f4c092fe82f85",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -2167,11 +2167,11 @@
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/events-manager/",
-                "reference": "trunk"
+                "reference": "tags/5.9.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/events-manager.zip?timestamp=1609866614"
+                "url": "https://downloads.wordpress.org/plugin/events-manager.5.9.9.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2325,15 +2325,15 @@
         },
         {
             "name": "wpackagist-plugin/publishpress",
-            "version": "2.4.2",
+            "version": "3.0.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/publishpress/",
-                "reference": "tags/2.4.2"
+                "reference": "tags/3.0.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/publishpress.2.4.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/publishpress.3.0.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
