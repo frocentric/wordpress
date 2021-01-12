@@ -2167,11 +2167,11 @@
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/events-manager/",
-                "reference": "trunk"
+                "reference": "tags/5.9.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/events-manager.zip?timestamp=1609866614"
+                "url": "https://downloads.wordpress.org/plugin/events-manager.5.9.9.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2343,15 +2343,15 @@
         },
         {
             "name": "wpackagist-plugin/search-filter",
-            "version": "1.2.12",
+            "version": "1.2.13",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/search-filter/",
-                "reference": "tags/1.2.12"
+                "reference": "tags/1.2.13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/search-filter.1.2.12.zip"
+                "url": "https://downloads.wordpress.org/plugin/search-filter.1.2.13.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
