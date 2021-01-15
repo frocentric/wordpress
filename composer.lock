@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "51497494e00e3ab4c5fefb001c40c544",
+    "content-hash": "92a0d61b9a1f4550bafa81495f04e805",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -2217,15 +2217,15 @@
         },
         {
             "name": "wpackagist-plugin/jetpack",
-            "version": "8.9.1",
+            "version": "9.3.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/jetpack/",
-                "reference": "tags/8.9.1"
+                "reference": "tags/9.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jetpack.8.9.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/jetpack.9.3.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
