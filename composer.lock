@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "51497494e00e3ab4c5fefb001c40c544",
+    "content-hash": "4226c1801f1ddecb7179f0ffc055c938",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -2153,7 +2153,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.zip?timestamp=1610010549"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.zip?timestamp=1610880586"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2325,15 +2325,15 @@
         },
         {
             "name": "wpackagist-plugin/publishpress",
-            "version": "2.4.2",
+            "version": "3.1.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/publishpress/",
-                "reference": "tags/2.4.2"
+                "reference": "tags/3.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/publishpress.2.4.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/publishpress.3.1.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
