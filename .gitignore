@@ -48,6 +48,7 @@ vendor
 # Local install
 clean-backup
 sql
+*.sql
 
 **/.DS_Store
 .AppleDouble
