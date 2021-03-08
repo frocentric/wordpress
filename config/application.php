@@ -130,6 +130,9 @@ Config::define( 'BLOG_ID_CURRENT_SITE', env( 'BLOG_ID_CURRENT_SITE' ) ?? 1 );
 if ( ! defined( 'WP_CLI' ) && isset( $_SERVER['HTTP_HOST'] ) ) {
 	Config::define( 'COOKIE_DOMAIN', $_SERVER['HTTP_HOST'] ); // phpcs:ignore
 }
+if ( env( 'HEADLESS_MODE_CLIENT_URL' ) ) {
+	Config::define( 'HEADLESS_MODE_CLIENT_URL', env( 'HEADLESS_MODE_CLIENT_URL' ) );
+}
 $base = '/';
 
 /**
