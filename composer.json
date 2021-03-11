@@ -63,6 +63,7 @@
     "ingenyus/configure-environment-plugins": "~1.0",
     "wpackagist-plugin/autodescription": "~4.0",
     "wpackagist-plugin/classic-editor": "~1.0",
+    "wpackagist-plugin/cloudflare": "~4.0",
     "wpackagist-plugin/customizer-export-import": "~0.0",
     "wpackagist-plugin/debug-bar": "~1.0",
     "wpackagist-plugin/disable-emails": "~1.0",
