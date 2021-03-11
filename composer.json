@@ -75,7 +75,7 @@
     "wpackagist-plugin/feedzy-rss-feeds": "~3.0",
     "wpackagist-plugin/granular-controls-for-elementor": "~1.0",
     "wpackagist-plugin/headless-mode": "0.*",
-    "wpackagist-plugin/jetpack": "~8.0",
+    "wpackagist-plugin/jetpack": "~9.5",
     "wpackagist-plugin/lightweight-grid-columns": "~1.0",
     "wpackagist-plugin/log-emails": "~1.0",
     "wpackagist-plugin/meta-box": "~5.0",
