@@ -1260,22 +1260,27 @@
         },
         {
             "name": "psr/container",
-            "version": "1.1.1",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/container.git",
-                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf"
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/container/zipball/8622567409010282b7aeebe4bb841fe98b58dcaf",
-                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2.0"
+                "php": ">=5.3.0"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Psr\\Container\\": "src/"
@@ -1288,7 +1293,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "https://www.php-fig.org/"
+                    "homepage": "http://www.php-fig.org/"
                 }
             ],
             "description": "Common Container Interface (PHP FIG PSR-11)",
@@ -1302,9 +1307,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-fig/container/issues",
-                "source": "https://github.com/php-fig/container/tree/1.1.1"
+                "source": "https://github.com/php-fig/container/tree/master"
             },
-            "time": "2021-03-05T17:36:06+00:00"
+            "time": "2017-02-14T16:28:37+00:00"
         },
         {
             "name": "psr/http-message",
@@ -2163,23 +2168,23 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.8.6",
+            "version": "v3.8.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "d499181041377dda1cd6d2600a6f5f8d1c0e0a0b"
+                "reference": "ee2b056939cd08a6a2bc26f229aeef84d890e513"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/d499181041377dda1cd6d2600a6f5f8d1c0e0a0b",
-                "reference": "d499181041377dda1cd6d2600a6f5f8d1c0e0a0b",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/ee2b056939cd08a6a2bc26f229aeef84d890e513",
+                "reference": "ee2b056939cd08a6a2bc26f229aeef84d890e513",
                 "shasum": ""
             },
             "require": {
                 "composer/installers": "~1.0",
                 "monolog/monolog": "^1.0",
                 "php": ">=7.0",
-                "psr/container": "^1.0"
+                "psr/container": "1.0.0"
             },
             "require-dev": {
                 "brain/monkey": "^2.0",
@@ -2200,7 +2205,7 @@
                 "wp-media/cloudflare": "^1.0",
                 "wp-media/module-rocketcdn": "^1.0",
                 "wp-media/module-varnish": "^1.0",
-                "wp-media/phpunit": "^1.0",
+                "wp-media/phpunit": "1.1.6",
                 "wp-media/rocket-lazyload-common": "^2",
                 "wp-media/wp-imagify-partner": "^1.0",
                 "wpackagist-plugin/amp": "^1.1.4",
@@ -2277,7 +2282,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2021-03-04T19:59:43+00:00"
+            "time": "2021-03-17T17:37:34+00:00"
         },
         {
             "name": "wpackagist-plugin/autodescription",
