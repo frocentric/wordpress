@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9c25ba92a93423692182395eb6088482",
+    "content-hash": "cc0c95ce4a2f5ccd194a90d848af8c53",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.173.26",
+            "version": "3.174.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "cba5301aabe7f8bfac60a1ac2710b3fb25512d6c"
+                "reference": "80cc136f47fa808032f411fff70e26f461852510"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/cba5301aabe7f8bfac60a1ac2710b3fb25512d6c",
-                "reference": "cba5301aabe7f8bfac60a1ac2710b3fb25512d6c",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/80cc136f47fa808032f411fff70e26f461852510",
+                "reference": "80cc136f47fa808032f411fff70e26f461852510",
                 "shasum": ""
             },
             "require": {
@@ -92,9 +92,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.173.26"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.174.2"
             },
-            "time": "2021-03-10T19:18:24+00:00"
+            "time": "2021-03-17T18:13:11+00:00"
         },
         {
             "name": "composer/installers",
@@ -478,16 +478,16 @@
         },
         {
             "name": "humanmade/s3-uploads",
-            "version": "2.2.2",
+            "version": "2.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/humanmade/S3-Uploads.git",
-                "reference": "577886b941438793a5721bbbb6eddc6872ee73cb"
+                "reference": "2064c46d11d8ab02db83bfb01c29908cf3256fc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/humanmade/S3-Uploads/zipball/577886b941438793a5721bbbb6eddc6872ee73cb",
-                "reference": "577886b941438793a5721bbbb6eddc6872ee73cb",
+                "url": "https://api.github.com/repos/humanmade/S3-Uploads/zipball/2064c46d11d8ab02db83bfb01c29908cf3256fc1",
+                "reference": "2064c46d11d8ab02db83bfb01c29908cf3256fc1",
                 "shasum": ""
             },
             "require": {
@@ -515,7 +515,7 @@
                 "issues": "https://github.com/humanmade/s3-uploads/issues",
                 "source": "https://github.com/humanmade/s3-uploads"
             },
-            "time": "2020-07-08T12:09:08+00:00"
+            "time": "2021-03-16T14:27:10+00:00"
         },
         {
             "name": "ingenyus/configure-environment-plugins",
@@ -782,10 +782,10 @@
         },
         {
             "name": "koodimonni-plugin-language/buddypress-en_gb",
-            "version": "7.2.0",
+            "version": "7.2.1",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/buddypress/7.2.0/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/buddypress/7.2.1/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1291,22 +1291,27 @@
         },
         {
             "name": "psr/container",
-            "version": "1.1.1",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/container.git",
-                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf"
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/container/zipball/8622567409010282b7aeebe4bb841fe98b58dcaf",
-                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2.0"
+                "php": ">=5.3.0"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Psr\\Container\\": "src/"
@@ -1319,7 +1324,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "https://www.php-fig.org/"
+                    "homepage": "http://www.php-fig.org/"
                 }
             ],
             "description": "Common Container Interface (PHP FIG PSR-11)",
@@ -1333,9 +1338,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-fig/container/issues",
-                "source": "https://github.com/php-fig/container/tree/1.1.1"
+                "source": "https://github.com/php-fig/container/tree/master"
             },
-            "time": "2021-03-05T17:36:06+00:00"
+            "time": "2017-02-14T16:28:37+00:00"
         },
         {
             "name": "psr/http-client",
@@ -1999,23 +2004,23 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.8.6",
+            "version": "v3.8.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "d499181041377dda1cd6d2600a6f5f8d1c0e0a0b"
+                "reference": "ee2b056939cd08a6a2bc26f229aeef84d890e513"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/d499181041377dda1cd6d2600a6f5f8d1c0e0a0b",
-                "reference": "d499181041377dda1cd6d2600a6f5f8d1c0e0a0b",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/ee2b056939cd08a6a2bc26f229aeef84d890e513",
+                "reference": "ee2b056939cd08a6a2bc26f229aeef84d890e513",
                 "shasum": ""
             },
             "require": {
                 "composer/installers": "~1.0",
                 "monolog/monolog": "^1.0",
                 "php": ">=7.0",
-                "psr/container": "^1.0"
+                "psr/container": "1.0.0"
             },
             "require-dev": {
                 "brain/monkey": "^2.0",
@@ -2036,7 +2041,7 @@
                 "wp-media/cloudflare": "^1.0",
                 "wp-media/module-rocketcdn": "^1.0",
                 "wp-media/module-varnish": "^1.0",
-                "wp-media/phpunit": "^1.0",
+                "wp-media/phpunit": "1.1.6",
                 "wp-media/rocket-lazyload-common": "^2",
                 "wp-media/wp-imagify-partner": "^1.0",
                 "wpackagist-plugin/amp": "^1.1.4",
@@ -2113,7 +2118,25 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2021-03-04T19:59:43+00:00"
+            "time": "2021-03-17T17:37:34+00:00"
+        },
+        {
+            "name": "wpackagist-plugin/authors-list",
+            "version": "1.2.4",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/authors-list/",
+                "reference": "tags/1.2.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/authors-list.1.2.4.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/authors-list/"
         },
         {
             "name": "wpackagist-plugin/autodescription",
