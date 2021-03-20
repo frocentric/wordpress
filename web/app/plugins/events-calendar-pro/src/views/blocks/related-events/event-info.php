@@ -3,11 +3,11 @@
  * Block: Related Events
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/pro/blocks/related-events/event-info.php
+ * [your-theme]/tribe/events-pro/blocks/related-events/event-info.php
  *
  * See more documentation about our Blocks Editor templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link https://evnt.is/1ajx
  *
  * @version 4.6.1
  *

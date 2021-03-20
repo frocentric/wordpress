@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: The Events Calendar: Community Events
-Plugin URI:  http://m.tri.be/1acd
+Plugin URI:  https://evnt.is/1acd
 Description: Community Events is an add-on providing additional functionality to the open source plugin The Events Calendar. Empower users to submit and manage their events on your website. <a href="http://tri.be/shop/wordpress-community-events/?utm_campaign=in-app&utm_source=docblock&utm_medium=plugin-community">Check out the full feature list</a>. Need more features? Peruse our selection of <a href="http://tri.be/products/?utm_campaign=in-app&utm_source=docblock&utm_medium=plugin-community" target="_blank">plugins</a>.
-Version:     4.7.1.1
+Version:     4.8.5
 Author:      Modern Tribe, Inc.
-Author URI:  http://m.tri.be/21
+Author URI:  https://evnt.is/21
 Text Domain: tribe-events-community
 Domain Path: /lang/
 License:     GPLv2 or later
@@ -149,6 +149,7 @@ function tribe_community_events_autoloading() {
 	$autoloader = Tribe__Autoloader::instance();
 
 	$autoloader->register_prefix( 'Tribe__Events__Community__', EVENTS_COMMUNITY_DIR . '/src/Tribe', 'events-community' );
+	$autoloader->register_prefix( 'Tribe\\Events\\Community\\', EVENTS_COMMUNITY_DIR . '/src/Tribe' );
 
 	// deprecated classes are registered in a class to path fashion
 	foreach ( glob( EVENTS_COMMUNITY_DIR . '/src/deprecated/*.php' ) as $file ) {

@@ -125,7 +125,7 @@
 
 <script type="text/javascript">
 
-	jQuery( document ).ready( function ( $ ) {
+	jQuery( function ( $ ) {
 		var fields_tbl  = $( '#additional-field-table' );
 		var tbl_body    = fields_tbl.find( 'tbody' );
 		var add_new_tpl = '';
@@ -156,7 +156,7 @@
 		/**
 		 * Add toggling for each field
 		 */
-		$( '#tribe-additional-fields' ).delegate( '.tribe-field-heading', 'click', function () {
+		$( '#tribe-additional-fields' ).on( 'click', '.tribe-field-heading', function () {
 			$( this ).toggleClass( 'closed' );
 			$( this ).next().slideToggle();
 		} );
@@ -164,9 +164,9 @@
 		// Set up the add/remove links as soon as the page is ready
 		refresh_add_remove_links();
 
-		if ( fields_tbl.size() > 0 ) {
+		if ( fields_tbl.length > 0 ) {
 
-			fields_tbl.delegate( '.remove-field', 'click', function () {
+			fields_tbl.on( 'click', '.remove-field', function () {
 				var row = $( this ).closest( 'tr' ), firstInput = row.find( 'td:first input' ), data = {
 					action: 'remove_option',
 					field : firstInput.data( 'count' )
@@ -186,7 +186,7 @@
 				}
 			});
 
-			$( '#tribe-additional-fields' ).delegate( '.add-another-field', 'click', function () {
+			$( '#tribe-additional-fields' ).on( 'click', '.add-another-field', function () {
 				var lastRow = tbl_body.find( 'tr:last' ),
 					newRow = lastRow.clone();
 
@@ -218,7 +218,7 @@
 			/**
 			 * Update the field label on the heading while they change the text
 			 */
-			$( '#additional-field-table' ).delegate( 'input', 'keyup', function () {
+			$( '#additional-field-table' ).on( 'keyup', 'input', function () {
 
 				$( this ).closest( 'tr' ).find( '.tribe-field-heading .tribe-field-label' ).html( ' &mdash; ' + $( this ).val() );
 
@@ -228,7 +228,7 @@
 			 * Hide/show the textarea options for radio, dropdown and checkboxes
 			 * Also, update the field label according to the type of field the user selected
 			 */
-			$( '#additional-field-table' ).delegate( 'select', 'change', function () {
+			$( '#additional-field-table' ).on( 'change', 'select', function () {
 				var fieldType  = $( this ).find( 'option:selected' ).val();
 				var fieldLabel = eval( fieldType + 'FieldLabel' );
 

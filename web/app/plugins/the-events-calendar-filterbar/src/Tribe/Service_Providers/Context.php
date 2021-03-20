@@ -49,11 +49,20 @@ class Context extends \tad_DI52_ServiceProvider {
 			}
 
 			// As we filter, we also sanitize and update the value.
-			$values = array_filter( $data_source, static function ( &$value, $key ) {
+			$is_ecp_custom_field = static function ( &$value, $key ) {
 				return 0 === strpos( $key, 'tribe__ecp_custom_' )
 					? (bool) tribe_sanitize_deep( $value )
 					: false;
-			}, ARRAY_FILTER_USE_BOTH );
+			};
+
+			$values = array_filter( $data_source, $is_ecp_custom_field, ARRAY_FILTER_USE_BOTH );
+
+			// Add a fallback and look into the URL.
+			if ( ! empty( $data_source['url'] ) && empty( $values ) ) {
+				$query_string = parse_url( $data_source['url'], PHP_URL_QUERY );
+				parse_str( (string) $query_string, $query_args );
+				$values = array_filter( (array) $query_args, $is_ecp_custom_field, ARRAY_FILTER_USE_BOTH );
+			}
 
 			return empty( $values ) ? \Tribe__Context::NOT_FOUND : $values;
 		};

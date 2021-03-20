@@ -54,7 +54,7 @@ abstract class Shortcode_Abstract extends \Tribe\Shortcode\Shortcode_Abstract {
 		$validate_arguments_map = apply_filters_deprecated(
 			'tribe_events_pro_shortcode_validate_arguments_map',
 			[ $validate_arguments_map, $this ],
-			'TBD',
+			'5.1.4',
 			'tribe_shortcode_validate_arguments_map'
 		);
 
@@ -72,7 +72,7 @@ abstract class Shortcode_Abstract extends \Tribe\Shortcode\Shortcode_Abstract {
 		$validate_arguments_map = apply_filters_deprecated(
 			"tribe_events_pro_shortcode_{$registration_slug}_validate_arguments_map",
 			[ $validate_arguments_map, $this ],
-			'TBD',
+			'5.1.4',
 			"tribe_shortcode_{$registration_slug}_validate_arguments_map"
 		);
 
@@ -98,7 +98,7 @@ abstract class Shortcode_Abstract extends \Tribe\Shortcode\Shortcode_Abstract {
 		$arguments = apply_filters_deprecated(
 			'tribe_events_pro_shortcode_arguments',
 			[ $arguments, $this ],
-			'TBD',
+			'5.1.4',
 			"tribe_shortcode_arguments"
 		);
 
@@ -117,7 +117,7 @@ abstract class Shortcode_Abstract extends \Tribe\Shortcode\Shortcode_Abstract {
 		$arguments = apply_filters_deprecated(
 			"tribe_events_pro_shortcode_{$registration_slug}_arguments",
 			[ $arguments, $this ],
-			'TBD',
+			'5.1.4',
 			"tribe_shortcode_{$registration_slug}_arguments"
 		);
 
@@ -154,7 +154,7 @@ abstract class Shortcode_Abstract extends \Tribe\Shortcode\Shortcode_Abstract {
 		$argument = apply_filters_deprecated(
 			'tribe_events_pro_shortcode_argument',
 			[ $parent_value, $index, $default, $this ],
-			'TBD',
+			'5.1.4',
 			"tribe_shortcode_argument"
 		);
 
@@ -173,7 +173,7 @@ abstract class Shortcode_Abstract extends \Tribe\Shortcode\Shortcode_Abstract {
 		$argument = apply_filters_deprecated(
 			"tribe_events_pro_shortcode_{$registration_slug}_argument",
 			[$argument, $index, $default, $this ],
-			'TBD',
+			'5.1.4',
 			"tribe_shortcode_{$registration_slug}_argument"
 		);
 
@@ -197,7 +197,7 @@ abstract class Shortcode_Abstract extends \Tribe\Shortcode\Shortcode_Abstract {
 		$default_arguments = apply_filters_deprecated(
 			'tribe_events_pro_shortcode_default_arguments',
 			[ $default_arguments, $this ],
-			'TBD',
+			'5.1.4',
 			'tribe_shortcode_default_arguments'
 		);
 
@@ -214,11 +214,27 @@ abstract class Shortcode_Abstract extends \Tribe\Shortcode\Shortcode_Abstract {
 		$default_arguments = apply_filters_deprecated(
 			"tribe_events_pro_shortcode_{$registration_slug}_default_arguments",
 			[ $default_arguments, $this ],
-			'TBD',
+			'5.1.4',
 			"tribe_shortcode_{$registration_slug}_default_arguments"
 		);
 
 		return $default_arguments;
 	}
 
+	/**
+	 * Validation of Null or Truthy values for Shortcode Attributes.
+	 *
+	 * @since 5.1.4
+	 *
+	 * @param mixed $value Which value will be validated.
+	 *
+	 * @return bool|null   Allows Both Null and truthy values.
+	 */
+	public static function validate_null_or_truthy( $value = null ) {
+		if ( null === $value || 'null' === $value ) {
+			return null;
+		}
+
+		return tribe_is_truthy( $value );
+	}
 }

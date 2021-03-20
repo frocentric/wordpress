@@ -1,4 +1,4 @@
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 
 	var $widget_wrapper = $( '.tribe-mini-calendar-wrapper' ).parent();
 
@@ -103,7 +103,7 @@ jQuery( document ).ready( function( $ ) {
 				function( response ) {
 					if ( response.success ) {
 						var $the_content = '';
-						if ( $.isFunction( $.fn.parseHTML ) ) {
+						if ( 'function' === typeof $.fn.parseHTML ) {
 							$the_content = $.parseHTML( response.html );
 						}
 						else {

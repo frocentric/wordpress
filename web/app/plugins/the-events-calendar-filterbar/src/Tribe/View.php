@@ -5,18 +5,22 @@
 
 // Don't load directly
 if ( ! defined( 'ABSPATH' ) ) { die( '-1' ); }
+use Tribe\Utils\Body_Classes as Body_Classes_Object;
 
 if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 	class Tribe__Events__Filterbar__View {
 
 		/**
-		 * @static
 		 * @var The instance of the class.
+		 *
+		 * @static
 		 */
 		protected static $instance;
 
 		/**
 		 * @var string The absolute path to the main plugin file
+		 *
+		 * @static
 		 */
 		protected static $plugin_file = '';
 
@@ -37,10 +41,12 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 
 		/**
 		 * @var The default filters for a MU site.
+		 *
+		 * @static
 		 */
 		protected static $defaultMuFilters;
 
-		const VERSION = '4.10.0';
+		const VERSION = '5.0.5';
 
 		/**
 		 * The Events Calendar Required Version
@@ -49,7 +55,7 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 		 * @deprecated 4.6
 		 *
 		 */
-		const REQUIRED_TEC_VERSION = '5.0.1-dev';
+		const REQUIRED_TEC_VERSION = '5.3.1';
 
 		/**
 		 * Where in the themes we will look for templates
@@ -61,10 +67,27 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 		public $template_namespace = 'events-filterbar';
 
 		/**
+		 * Holds the allowed body classes for this object.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @var array<string>
+		 */
+		protected $body_classes = [
+			'tribe-events-filter-view',
+			'tribe-filters-closed',
+			'tribe-filters-open',
+			'tribe-filters-vertical',
+			'tribe-filters-horizontal',
+		];
+
+		/**
 		 * Create the plugin instance and include the other class.
 		 *
-		 * @param string $plugin_file_path Deprecated in 4.3, path set by TRIBE_EVENTS_FILTERBAR_FILE instead.
 		 * @since 3.4
+		 *
+		 * @param string $plugin_file_path Deprecated in 4.3, path set by TRIBE_EVENTS_FILTERBAR_FILE instead.
+		 *
 		 * @return void
 		 */
 		public static function init( $plugin_file_path = null ) {
@@ -73,17 +96,27 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 				$plugin_file_path = TRIBE_EVENTS_FILTERBAR_FILE;
 			}
 
+			require_once self::instance()->pluginPath . 'src/functions/views/provider.php';
 			self::$plugin_file = $plugin_file_path;
 			self::$instance = self::instance();
 
+			// Load Filter Bar V1.
+			if ( tribe_events_filterbar_views_v1_is_enabled() ) {
+				tribe_register_provider( Tribe\Events\Filterbar\Service_Providers\Context::class );
+				tribe_register_provider( Tribe\Events\Filterbar\Views\V2\Service_Provider::class );
+
+				return;
+			}
+
 			tribe_register_provider( Tribe\Events\Filterbar\Service_Providers\Context::class );
-			tribe_register_provider( Tribe\Events\Filterbar\Views\V2\Service_Provider::class );
+			tribe_register_provider( Tribe\Events\Filterbar\Views\V2_1\Service_Provider::class );
 		}
 
 		/**
 		 * The singleton function.
 		 *
 		 * @since 3.4
+		 *
 		 * @return Tribe__Events__Filterbar__View The instance.
 		 */
 		public static function instance() {
@@ -96,15 +129,15 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 		/**
 		 * The class constructor.
 		 *
-		 * @author PaulHughes01
 		 * @since 3.4
+		 *
 		 * @return void
 		 */
 		public function __construct() {
 
-			$this->pluginPath = trailingslashit( TRIBE_EVENTS_FILTERBAR_DIR );
-			$this->pluginDir  = trailingslashit( basename( $this->pluginPath ) );
-			$this->pluginUrl = trailingslashit( plugins_url() . '/' . $this->pluginDir );
+			$this->pluginPath       = trailingslashit( TRIBE_EVENTS_FILTERBAR_DIR );
+			$this->pluginDir        = trailingslashit( basename( $this->pluginPath ) );
+			$this->pluginUrl        = trailingslashit( plugins_url() . '/' . $this->pluginDir );
 			$this->sidebarDisplayed = false;
 			$this->register_active_plugin();
 
@@ -113,8 +146,14 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 			add_action( 'parse_query', array( $this, 'maybe_initialize_filters_for_query' ), 10, 1 );
 			add_action( 'tribe_repository_events_query', array( $this, 'maybe_initialize_filters_for_query' ), 1, 1 );
 			add_action( 'current_screen', array( $this, 'maybe_initialize_filters_for_screen' ), 10, 0 );
-			add_filter( 'body_class', array( $this, 'addBodyClass' ) );
-
+			/**
+			 * Run on 'wp' to be sure all functions we may rely on are available.
+			 * Priority ensures we run after TEC & ECP.
+			 */
+			add_filter( 'wp', [ $this, 'add_body_classes' ], 100 );
+			// Priority ensures we run after TEC & ECP.
+			add_filter( 'tribe_body_class_should_add_to_queue', [ $this, 'should_add_body_class_to_queue' ], 20, 3 );
+			add_filter( 'tribe_body_classes_should_add', [ $this, 'filter_body_classes_should_add' ], 20, 4 );
 			add_filter( 'tribe_events_template_paths', array( $this, 'template_paths' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueueStylesAndScripts' ), 11 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueueAdminScripts' ) );
@@ -188,8 +227,8 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 		/**
 		 * Enqueue the plugin stylesheet(s).
 		 *
-		 * @author PaulHughes01
 		 * @since 3.4
+		 *
 		 * @return void
 		 */
 		public function enqueueStylesAndScripts() {
@@ -236,8 +275,8 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 		/**
 		 * Enqueue the admin scripts.
 		 *
-		 * @author PaulHughes01
 		 * @since 3.4
+		 *
 		 * @return void
 		 */
 		public function enqueueAdminScripts() {
@@ -245,10 +284,16 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 			if ( $current_screen->id == 'tribe_events_page_' . Tribe__Settings::$parent_slug && isset( $_GET['tab'] ) && $_GET['tab'] == 'filter-view' ) {
 				wp_enqueue_script( 'jquery-ui-sortable' );
 			}
-
 		}
 
-		public function setSidebarDisplayed( $unused_query ) {
+		/**
+		 * Sets whether the sidebar should be displayed.
+		 *
+		 * @since 3.0
+		 *
+		 * @return void
+		 */
+		public function setSidebarDisplayed() {
 			if ( tribe_is_event_query() && ( ! is_single() || tribe_is_showing_all() ) && ! is_admin() ) {
 				$active_filters = $this->get_active_filters();
 				if ( ! empty( $active_filters ) ) {
@@ -263,7 +308,7 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 		 *
 		 * @since 4.5.3
 		 *
-		 * @return boolean
+		 * @return boolean Should Filter Bar assets be loaded?
 		 */
 		public function should_enqueue_assets() {
 			return tribe_is_event_query() ||  tribe_is_event_organizer() || tribe_is_event_venue();
@@ -272,9 +317,11 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 		/**
 		 * Add the filters body class.
 		 *
-		 * @author PaulHughes01
+		 *
 		 * @since 3.4
-		 * @return array The new set of body classes.
+		 * @deprecated 5.0.0
+		 *
+		 * @return array<string> The new set of body classes.
 		 */
 		public function addBodyClass( $classes ) {
 			$classes[] = 'tribe-events-filter-view';
@@ -285,11 +332,121 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 		}
 
 		/**
+		 * Hook in and add FE body classes.
+		 * This function does not handle logic -
+		 * just adds them to the queue of Tribe classes to potentially add.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @return void
+		 */
+		public function add_body_classes() {
+			/** @var Body_Classes_Object $body_classes */
+			$body_classes = tribe( Body_Classes_Object::class );
+
+			$body_classes->add_classes( $this->body_classes );
+		}
+
+		/**
+		 * Handles all the logic for adding Filter Bar classes to the Tribe body class queue.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param boolean $add   Whether to add the class to the queue or not.
+		 * @param array   $class The body class name to add.
+		 * @param string  $queue The queue we want to get (default) 'display', 'admin', 'all'.
+		 *
+		 * @return boolean       Whether to add the class to the queue or not.
+		 */
+		public function should_add_body_class_to_queue( $add, $class, $queue = 'display' ) {
+			// Bail if it's not a class we care about.
+			// This comes first so we don't affect other classes inadvertently.
+			if ( ! in_array( $class, $this->body_classes ) ) {
+				return $add;
+			}
+
+			// Bail on non-FE queues.
+			if ( 'display' !== $queue ) {
+				return false;
+			}
+
+			// No FBAR on singles (may require a tweak if we ever enable FBAR for shortcodes).
+			if ( is_singular() ) {
+				return false;
+			}
+
+			// Bail if we're doing v2.
+			if ( tribe_events_views_v2_is_enabled() ) {
+				return false;
+			}
+
+			// We should not add classes to pages where we don't enqueue assets.
+			if( ! $this->should_enqueue_assets() ) {
+				return false;
+			}
+
+			// Per-class logic:
+			$closed_option = tribe_get_option( 'events_filters_default_state', 'closed' );
+			$layout_option = tribe_get_option( 'events_filters_layout', 'vertical' );
+
+			if ( 'tribe-filters-horizontal' === $class ) {
+				return 'horizontal' === $layout_option;
+			}
+
+			if ( 'tribe-filters-vertical' === $class ) {
+				return 'vertical' === $layout_option;
+			}
+
+			if ( 'tribe-filters-open' === $class ) {
+				return 'open' === $closed_option || 'vertical' === $layout_option;
+			}
+
+			if ( 'tribe-filters-closed' === $class ) {
+				return 'closed' === $closed_option && 'horizontal' === $layout_option;
+			}
+
+			// Failsafe.
+			return true;
+		}
+
+		/**
+		 * Handles the logic for if we should be adding the queue to the body class list.
+		 * Individual class logic is handled in should_add_body_class_to_queue() above.
+		 *
+		 * @since 5.0.0
+		 *
+		 * @param boolean $add                     Whether to add classes or not.
+		 * @param string  $queue                   The queue we want to get 'admin', 'display', 'all'.
+		 * @param array   $add_classes             The array of body class names to add.
+		 * @param array   $unused_existing_classes An array of existing body class names from WP.
+		 *
+		 * @return boolean Whether to add our queue of classes to the body or not.
+		 */
+		public function filter_body_classes_should_add( $add, $queue, $add_classes, $unused_existing_classes) {
+			// Bail on non-FE queues.
+			if ( 'display' !== $queue ) {
+				return $add;
+			}
+
+			/**
+			 * We want to be sure to add our classes,
+			 * they've already been checked for appropriateness when added to the queue.
+			 */
+			if ( ! empty( array_intersect( $this->body_classes, $add_classes ) ) ) {
+				return true;
+			}
+
+			return $add;
+		}
+
+		/**
 		 * Add premium plugin paths for each file in the templates array
 		 *
-		 * @param $template_paths array
-		 * @return array
 		 * @since 3.4
+		 *
+		 * @param $template_paths array
+		 *
+		 * @return array
 		 */
 		public function template_paths( $template_paths = array() ) {
 			// To prevent problems with Backwards compatibility
@@ -303,8 +460,8 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 		/**
 		 * Display the filters sidebar.
 		 *
-		 * @author PaulHughes01
 		 * @since 3.4
+		 *
 		 * @return void
 		 */
 		public function displaySidebar( $html ) {
@@ -323,7 +480,7 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 		 *
 		 * @param WP_Query $query Query object
 		 *
-		 * @return boolean
+		 * @return boolean Are there are tribe specific query vars in the query object?
 		 */
 		public function is_tribe_query( $query ) {
 			// if the post type is the event post type, we're in a tribe query
@@ -377,12 +534,26 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 			}
 		}
 
+		/**
+		 * Initialize filters if we're on the settings page.
+		 *
+		 * @since 3.5
+		 *
+		 * @return void
+		 */
 		public function maybe_initialize_filters_for_screen() {
 			if ( $this->on_settings_page() ) {
 				$this->initialize_filters();
 			}
 		}
 
+		/**
+		 * Detect the settings page.
+		 *
+		 * @since 3.5
+		 *
+		 * @return boolean Are we on the settings page?
+		 */
 		private function on_settings_page() {
 			global $current_screen;
 			if (
@@ -396,6 +567,13 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 			return false;
 		}
 
+		/**
+		 * Initialize the filters.
+		 *
+		 * @since 3.5
+		 *
+		 * @return void
+		 */
 		public function initialize_filters() {
 			static $initialized = false;
 			if ( $initialized ) {
@@ -408,7 +586,6 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 				new Tribe__Events__Filterbar__Filters__Category( sprintf( esc_html__( '%s Category', 'tribe-events-filter-view' ), tribe_get_event_label_singular() ), 'eventcategory' )
 			);
 
-
 			tribe_singleton(
 				'filterbar.filters.cost',
 				new Tribe__Events__Filterbar__Filters__Cost(
@@ -416,14 +593,17 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 					'cost'
 				)
 			);
+
 			tribe_singleton(
 				'filterbar.filters.tag',
 				new Tribe__Events__Filterbar__Filters__Tag( __( 'Tags', 'tribe-events-filter-view' ), 'tags' )
 			);
+
 			tribe_singleton(
 				'filterbar.filters.venue',
 				new Tribe__Events__Filterbar__Filters__Venue( tribe_get_venue_label_plural(), 'venues' )
 			);
+
 			tribe_singleton(
 				'filterbar.filters.organizer',
 				new Tribe__Events__Filterbar__Filters__Organizer( tribe_get_organizer_label_plural(), 'organizers' )
@@ -436,18 +616,22 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 				'filterbar.filters.time-of-day',
 				new Tribe__Events__Filterbar__Filters__Time_Of_Day( __( 'Time', 'tribe-events-filter-view' ), 'timeofday' )
 			);
+
 			tribe_singleton(
 				'filterbar.filters.country',
 				new Tribe__Events__Filterbar__Filters__Country( __( 'Country', 'tribe-events-filter-view' ), 'country' )
 			);
+
 			tribe_singleton(
 				'filterbar.filters.city',
 				new Tribe__Events__Filterbar__Filters__City( __( 'City', 'tribe-events-filter-view' ), 'city' )
 			);
+
 			tribe_singleton(
 				'filterbar.filters.state',
 				new Tribe__Events__Filterbar__Filters__State( __( 'State/Province', 'tribe-events-filter-view' ), 'state' )
 			);
+
 			tribe_singleton(
 				'filterbar.filters.featured-events',
 				new Tribe__Events__Filterbar__Filters__Featured_Events(
@@ -462,16 +646,29 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 		}
 
 		/**
-		 * @return array|bool
+		 * Get settings for the filters.
+		 *
+		 * @since 3.5
+		 *
+		 * @return array|boolean An array of Filter Bar settings. False if none found.
 		 */
 		public function get_filter_settings() {
 			$settings = get_option( Tribe__Events__Filterbar__Settings::OPTION_ACTIVE_FILTERS, false );
+
 			if ( false === $settings ) {
 				$settings = $this->get_multisite_default_settings();
 			}
+
 			return $settings;
 		}
 
+		/**
+		 * Get multisite filter settings.
+		 *
+		 * @since 3.5
+		 *
+		 * @return array|boolean An array of multisite settings. False if site is not a multisite or no settings found.
+		 */
 		protected function get_multisite_default_settings() {
 			if ( ! is_multisite() ) {
 				return false;
@@ -483,6 +680,13 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 			return self::$defaultMuFilters;
 		}
 
+		/**
+		 * Get active filters.
+		 *
+		 * @since 3.5
+		 *
+		 * @return array<string> Array of filter slugs.
+		 */
 		public function get_active_filters() {
 			$current_filters = $this->get_filter_settings();
 			if ( ! is_array( $current_filters ) ) { // everything is active
@@ -491,6 +695,13 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 			return apply_filters( 'tribe_events_active_filters', array_keys( $current_filters ) );
 		}
 
+		/**
+		 * Get the registered filters.
+		 *
+		 * @since 3.5
+		 *
+		 * @return array<array> An array of registered filters.
+		 */
 		public function get_registered_filters() {
 			$filters = apply_filters( 'tribe_events_all_filters_array', array() );
 			return $filters;
@@ -514,7 +725,6 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 				Tribe__Main::instance()->load_text_domain( $domain, $mopath );
 			}
 		}
-
 
 		/**
 		 * Get the absolute system path to the plugin directory, or a file therein
@@ -541,7 +751,6 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 			return plugins_url( $path, self::$plugin_file );
 		}
 
-
 		/**
 		 * Make necessary database updates on admin_init
 		 *
@@ -559,6 +768,13 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 			}
 		}
 
+		/**
+		 * Display a11y notice for live filter updates.
+		 *
+		 * @since 4.7
+		 *
+		 * @return void
+		 */
 		public function display_dynamic_a11y_notice() {
 			if ( 'automatic' === tribe_get_option( 'liveFiltersUpdate', 'automatic' ) ) {
 				echo '<div class="a11y-hidden" aria-label="' . __( 'Accessibility Form Notice', 'tribe-events-filter-view' ) . '">';
@@ -574,7 +790,6 @@ if ( ! class_exists( 'Tribe__Events__Filterbar__View' ) ) {
 		 *
 		 * @deprecated 4.6
 		 *
-		 * @author PaulHughes01
 		 * @since 0.1
 		 * @param array $plugins The array of registered plugins.
 		 * @return array The array of registered plugins.

@@ -18,6 +18,7 @@ use Tribe__Events__Filterbar__View as Plugin;
  * @since   4.9.0
  */
 class Template extends Base_Template {
+	use With_Shortcode_Support;
 
 	/**
 	 * Template constructor.

@@ -1,0 +1,94 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Filter Button
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events {
+
+	.tribe-events-header--has-event-search .tribe-events-c-events-bar__filter-button-container {
+
+		.tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal& {
+			border-right: 1px solid var(--color-border-secondary);
+		}
+	}
+
+	.tribe-events-c-events-bar__filter-button {
+
+		&:hover,
+		&:focus {
+			opacity: var(--opacity-icon-hover);
+		}
+
+		&:active {
+			opacity: var(--opacity-icon-active);
+		}
+
+		&:before {
+			background-color: var(--color-accent-primary);
+			content: '';
+			display: none;
+			height: 2px;
+			pointer-events: none;
+			position: absolute;
+			top: 100%;
+			transform: translateY(var(--spacer-0));
+			width: calc(100% - (2 * var(--spacer-0)));
+		}
+
+		.tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal& {
+
+			&:before {
+				transform: none;
+				width: calc(100% - (2 * var(--spacer-1)));
+			}
+		}
+	}
+
+	.tribe-events-header--has-event-search .tribe-events-c-events-bar__filter-button {
+
+		.tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal& {
+
+			&:before {
+				content: none;
+			}
+		}
+	}
+
+	.tribe-events-c-events-bar__filter-button--active {
+
+		&:before {
+			display: block;
+		}
+	}
+
+	.tribe-events-c-events-bar__filter-button-icon path {
+		fill: var(--color-icon-active);
+	}
+
+	.tribe-events-c-events-bar__filter-button-text {
+		text-transform: capitalize;
+	}
+
+	/* -------------------------------------------------------------------------
+	 *
+	 * Filter Button: Theme Overrides
+	 *
+	 * ------------------------------------------------------------------------- */
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-theme-twentyseventeen.colors-dark & {
+
+		.tribe-events-c-events-bar__filter-button {
+
+			&,
+			&:hover,
+			&:focus {
+				background-color: transparent;
+			}
+		}
+	}
+}

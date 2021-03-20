@@ -24,7 +24,7 @@
 	}
 	// @endif
 
-	$( document ).ready( function() {
+	$( function() {
 
 		var tribe_is_paged = tf.get_url_param( 'tribe_paged' ),
 			tribe_display = tf.get_url_param( 'tribe_event_display' ),

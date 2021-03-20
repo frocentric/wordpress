@@ -43,7 +43,6 @@ class Tribe__Events__Pro__Assets {
 			$pro,
 			[
 				[ 'tribe-events-pro-handlebars', 'vendor/handlebars/handlebars.min.js' ],
-				[ 'tribe-events-pro-moment', 'vendor/momentjs/moment.min.js' ],
 			],
 			'admin_enqueue_scripts',
 			[
@@ -458,7 +457,5 @@ class Tribe__Events__Pro__Assets {
 		$data = apply_filters( 'tribe_events_pro_geoloc_localize_script', $data, 'tribe-events-pro-geoloc' );
 
 		return $data;
-
 	}
-
 }

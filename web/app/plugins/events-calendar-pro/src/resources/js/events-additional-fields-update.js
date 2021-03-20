@@ -1,7 +1,7 @@
 /**
  * @var object tribe_additional_fields
  */
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 	var $notice = $( "#tribe-additional-field-update" );
 	var $status = $notice.find( "span.update-text" );
 	var $link   = $status.find( "a" );

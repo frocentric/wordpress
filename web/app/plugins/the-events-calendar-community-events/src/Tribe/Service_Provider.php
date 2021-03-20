@@ -19,7 +19,11 @@ class Tribe__Events__Community__Service_Provider extends tad_DI52_ServiceProvide
 	public function register() {
 		$this->container->singleton( 'community.integrations', 'Tribe__Events__Community__Integrations__Manager' );
 		$this->container->singleton( 'community.integrations.divi', 'Tribe__Events__Community__Integrations__Divi', [ 'hooks' ] );
+		$this->container->singleton( 'community.integrations.virtual-events', 'Tribe__Events__Community__Integrations__Virtual_Events', [ 'hooks' ] );
 		$this->container->singleton( 'community.shortcodes', 'Tribe__Events__Community__Shortcodes' );
+
+		// Register the Views v2 service provider.
+		$this->container->register( Tribe\Events\Community\Views\V2\Service_Provider::class );
 
 		$this->hook();
 	}

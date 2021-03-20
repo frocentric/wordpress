@@ -124,7 +124,7 @@ class Tribe__Events__Pro__Advanced_List_Widget extends Tribe__Events__List_Widge
 
 		$filters = array_filter( (array) $filters );
 
-		return empty( $filters ) ? '' : (string) json_encode( $filters );
+		return empty( $filters ) ? '' : (string) wp_json_encode( $filters );
 	}
 
 	public function form( $instance ) {

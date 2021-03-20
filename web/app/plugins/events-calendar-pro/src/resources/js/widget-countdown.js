@@ -46,7 +46,7 @@
 		$( "#" + t.id ).html( output );
 	}
 
-	$( document ).ready( function() {
+	$( function() {
 		// Find all countdown timer divs, create a timer object for each
 		// one and kick off the timers.
 		var countdown_timers = $( '.tribe-countdown-timer' );

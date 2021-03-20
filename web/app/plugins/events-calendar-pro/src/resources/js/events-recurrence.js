@@ -57,7 +57,7 @@ tribe_events_pro_admin.recurrence = {
 					$el.find( 'option:selected' ).attr( 'selected', false );
 				}
 
-				if ( ! $.isArray( value ) ) {
+				if ( ! Array.isArray( value ) ) {
 					value = [ value ];
 				}
 

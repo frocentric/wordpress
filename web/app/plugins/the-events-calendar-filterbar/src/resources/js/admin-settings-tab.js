@@ -29,7 +29,6 @@ tribe.events.admin.filterBarSettings = {};
  */
 ( function( $, obj ) {
 	'use strict';
-	var $document = $( document );
 	var $body = null;
 
 	/**
@@ -101,5 +100,5 @@ tribe.events.admin.filterBarSettings = {};
 	};
 
 	// Configure on document ready.
-	$document.ready( obj.ready );
+	$( obj.ready );
 } )( jQuery, tribe.events.admin.filterBarSettings );

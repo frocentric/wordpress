@@ -1,0 +1,1236 @@
+/**
+ * This CSS file was auto-generated via PostCSS
+ *
+ * Contributors should avoid editing this file, but instead edit the associated
+ * src/resources/postcss/ file. For more information, check out our engineering
+ * docs on how we handle CSS in our engineering docs.
+ *
+ * @see: http://moderntribe.github.io/products-engineering/css/
+ */
+
+/**
+ * Filter Bar Tribe V2 Skeleton Stylesheet
+ *
+ * @package TribeFilterBar
+ *
+ */
+
+/* Utilities */
+
+/* -----------------------------------------------------------------------------
+ *
+ * Utilities
+ *
+ * This file is just a clearing-house.
+ * Make partials (start with an underscore) for any actual css code.
+ *
+ * ----------------------------------------------------------------------------- */
+
+/* Variables */
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Borders - Radius
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Borders - Width
+	 * ----------------------------------------------------------------------------- */
+}
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Box Shadows
+	 * ----------------------------------------------------------------------------- */
+}
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Layers of z-index
+	 * ----------------------------------------------------------------------------- */
+}
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Colors - Typography
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Colors - Iconography
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Colors - UI
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Colors - Borders & Misc
+	 * ----------------------------------------------------------------------------- */
+}
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Forms - Colors
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Forms - Box Shadows
+	 * ----------------------------------------------------------------------------- */
+}
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Gutter - Default
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Gutter - Page
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Grid Width - Default
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Grid Width - Relative
+	 * ----------------------------------------------------------------------------- */
+}
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Opacities
+	 * ----------------------------------------------------------------------------- */
+}
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Spacers
+	 * ----------------------------------------------------------------------------- */
+}
+
+/* -----------------------------------------------------------------------------
+ * SVG - Arrow Right
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Arrow (light, left)
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Caret Down
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Caret Left
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Caret Right
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Caret Up
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Check
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Close
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Day
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Dropdown
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Error
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Featured
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Filters
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Link
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Guest
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - List
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Location
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Mail
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Map
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Map pin
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Messages
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Month
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - No Map
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Paper Plane
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Phone
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Photo
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Plus
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Recurring
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Remove
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Reset
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Search
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Search Filter
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Week
+ * ----------------------------------------------------------------------------- */
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Transitions
+	 * ----------------------------------------------------------------------------- */
+}
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Font Stacks
+	 * ----------------------------------------------------------------------------- */ /* stylelint-disable-line value-keyword-case */
+
+	/* -----------------------------------------------------------------------------
+	 * Font Weights
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Font Sizing
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Line Height
+	 * ----------------------------------------------------------------------------- */
+}
+
+/* Mixins */
+
+/* -----------------------------------------------------------------------------
+ * Body
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Desktop Body 1
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Desktop Body 2
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Desktop Body 3
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Mobile Body 1
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Mobile Body 2
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Mobile Body 3
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Heading
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Heading 1
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Heading 2
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Heading 3
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Heading 4
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Heading 5
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Heading 6
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Heading 7
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Heading 8
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Anchor - Default
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Anchor - Alt
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Anchor - Thin
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Anchor - Thin
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Button - Global
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Button - Solid
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Button - Link
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Button - Border
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Button - Border Small
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Button - Icon Border
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Sliders & Toggles
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Sliders
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Hidden: Hide from both screenreaders and browsers
+ * @author: h5bp.com/u
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Visually Hide: Hide only visually, but have it available for screenreaders
+ * @author: h5bp.com/v
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Visually Show: Show element after has been hidden with %visually-hide
+ * ----------------------------------------------------------------------------- */
+
+/* Components */
+
+/* -----------------------------------------------------------------------------
+ *
+ * Components
+ *
+ * This file is just a clearing-house.
+ * Make partials (start with an underscore) for any actual css code.
+ *
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ *
+ * Checkbox
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar .tribe-filter-bar-c-checkbox {
+		margin: 12px 0;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-checkbox:first-child {
+			margin-top: 0;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-checkbox:last-child {
+			margin-bottom: 0;
+		}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Clear Button
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar .tribe-filter-bar-c-clear-button {
+		align-items: baseline;
+		display: flex;
+		justify-content: center;
+	}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-clear-button {
+			padding: 0;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-clear-button__reset-icon {
+		margin-right: 4px;
+		position: relative;
+		top: 3px;
+		width: 14px;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-clear-button__reset-icon path {
+			stroke: currentColor;
+		}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Dropdown
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .selection {
+			display: none;
+			visibility: hidden;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown.tribe-filter-bar-c-dropdown--has-selection .selection {
+			display: block;
+			visibility: visible;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-dropdown {
+			position: static;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-search {
+			margin: 8px 0 12px;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-search__field {
+			height: 40px;
+			margin: 0;
+			min-width: 100%;
+			padding: 0 20px 0 34px;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-selection--single {
+			height: auto;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-selection__clear {
+			line-height: 8px;
+			margin: 0 0 2px 4px;
+			order: 1;
+			padding: 3px;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-results__option {
+			padding: 6px 0;
+		}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Filter
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar .tribe-filter-bar-c-filter__toggle {
+		align-items: center;
+		display: flex;
+		padding: 16px 0 20px;
+		text-align: left;
+		width: 100%;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-filter__toggle-text {
+		padding-right: 8px;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-filter__toggle-label-colon {
+		display: none;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-filter__toggle-selections {
+		display: none;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-filter__toggle-icon {
+		margin-left: auto;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-filter__toggle-icon--minus,
+	.tribe-filter-bar .tribe-filter-bar-c-filter--open .tribe-filter-bar-c-filter__toggle-icon--plus {
+		display: none;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-filter--open .tribe-filter-bar-c-filter__toggle-icon--minus {
+		display: block;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-filter__toggle-minus-icon,
+	.tribe-filter-bar .tribe-filter-bar-c-filter__toggle-plus-icon {
+		width: 10px;
+		vertical-align: middle;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-filter__toggle-minus-icon path, .tribe-filter-bar .tribe-filter-bar-c-filter__toggle-plus-icon path {
+			stroke: currentColor;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-filter__filters-close,
+	.tribe-filter-bar .tribe-filter-bar-c-filter__remove-button {
+		display: none;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-filter__container {
+		display: none;
+		margin-top: -4px;
+		padding-bottom: 20px;
+		visibility: hidden;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-filter--dropdown .tribe-filter-bar-c-filter__container,
+	.tribe-filter-bar .tribe-filter-bar-c-filter--multiselect .tribe-filter-bar-c-filter__container,
+	.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--dropdown .tribe-filter-bar-c-filter__filter-fields,
+	.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--multiselect .tribe-filter-bar-c-filter__filter-fields {
+		margin-top: -8px;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-filter--checkbox .tribe-filter-bar-c-filter__container,
+	.tribe-filter-bar .tribe-filter-bar-c-filter--radio .tribe-filter-bar-c-filter__container,
+	.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--checkbox .tribe-filter-bar-c-filter__filter-fields,
+	.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--radio .tribe-filter-bar-c-filter__filter-fields {
+		margin-top: -2px;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-checkbox .tribe-common-form-control-checkbox__input,
+	.tribe-filter-bar .tribe-filter-bar-c-radio .tribe-common-form-control-radio__input {
+		margin-right: 0;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-checkbox .tribe-common-form-control-checkbox__label,
+	.tribe-filter-bar .tribe-filter-bar-c-radio .tribe-common-form-control-radio__label {
+		margin-left: 8px;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-filter--open .tribe-filter-bar-c-filter__container {
+		display: block;
+		visibility: visible;
+	}
+
+/* These styles mirror the styles in `_pill.pcss` and override the mobile styles. */
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill {
+		position: relative;
+	}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__toggle-wrapper {
+			position: relative;
+			visibility: hidden;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__toggle {
+			padding: 8px 12px;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__toggle-text {
+			display: flex;
+			padding-right: 0;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__toggle-selections-count {
+			display: none !important;
+			visibility: hidden;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__toggle-icon {
+			display: none !important;
+			visibility: hidden;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__remove-button {
+			display: none;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__remove-button-icon {
+			width: 8px;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__remove-button-icon path {
+				stroke: currentColor;
+			}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__container {
+			background-color: #fff;
+			bottom: -12px;
+			left: 0;
+			padding: 16px 20px 24px;
+			position: absolute;
+			transform: translateY(100%);
+			width: 248px;
+			z-index: 9;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__filters-legend {
+			clip: auto;
+			height: auto;
+			margin: 0;
+			position: static;
+			width: auto;
+
+			margin-bottom: 16px;
+			padding-right: 20px;
+			width: 100%;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__filters-close {
+			display: block;
+			height: 20px;
+			position: absolute;
+			right: 16px;
+			top: 18px;
+			width: 20px;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__filters-close-icon {
+			display: block;
+			height: 10px;
+			margin: auto;
+			width: 10px;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__filters-close-icon path {
+				stroke: currentColor;
+			}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--has-selections .tribe-filter-bar-c-filter__toggle {
+				padding-right: 32px;
+			}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--has-selections .tribe-filter-bar-c-filter__toggle-label-colon {
+				display: inline;
+			}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--has-selections .tribe-filter-bar-c-filter__toggle-selections {
+				display: inline;
+				margin-left: 4px;
+			}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--has-selections .tribe-filter-bar-c-filter__remove-button {
+				display: block;
+				line-height: 0;
+				padding: 4px;
+				position: absolute;
+				right: 12px;
+				top: 50%;
+				transform: translateY(-50%);
+			}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Multiselect
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-selection {
+			position: relative;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-selection__rendered {
+			display: flex;
+			flex-wrap: wrap;
+			margin: 0 -4px;
+			padding: 0;
+			width: auto;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-search {
+			flex: none;
+			margin: 8px 0 12px;
+			padding: 0 4px;
+			width: 100%;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-search__field {
+			height: 40px;
+			margin: 0;
+			min-width: 100%;
+			padding: 0 20px 0 34px;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-selection__clear {
+			display: none !important;
+			visibility: hidden;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-selection__choice {
+			align-items: center;
+			display: flex;
+			flex-wrap: nowrap;
+			float: none;
+			margin: 0 4px 8px;
+			max-width: calc(100% - 8px);
+			padding: 6px 11px 6px 12px;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-selection__choice__text {
+			white-space: normal;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-selection__choice__remove {
+			line-height: 8px;
+			margin: 0 0 2px 4px;
+			order: 1;
+			padding: 3px;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-dropdown {
+			position: static;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-results__option {
+			padding: 6px 0;
+		}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Pill
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar .tribe-filter-bar-c-pill {
+		display: inline-block;
+		position: relative;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill__pill {
+		padding: 8px 12px;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill--has-selections .tribe-filter-bar-c-pill__pill {
+		padding-right: 32px;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill__pill-label-colon {
+		display: none;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill--has-selections .tribe-filter-bar-c-pill__pill-label-colon {
+		display: inline;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill__remove-button {
+		display: none;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill--has-selections .tribe-filter-bar-c-pill__remove-button {
+		display: block;
+		line-height: 0;
+		padding: 4px;
+		position: absolute;
+		right: 12px;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill__remove-button-icon {
+		width: 8px;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill__remove-button-icon path {
+			stroke: currentColor;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill {
+			display: flex;
+			text-align: left;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill-selections {
+			display: none;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill--button.tribe-filter-bar-c-pill--has-selections .tribe-filter-bar-c-pill__pill-selections {
+				display: inline;
+				margin-left: 4px;
+			}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill--button.tribe-filter-bar-c-pill--has-selections .tribe-filter-bar-c-pill__pill {
+				padding: 6px 32px 6px 12px;
+			}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Radio
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar .tribe-filter-bar-c-range__label {
+		margin: 0 0 12px;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-range__slider .ui-slider-handle {
+			cursor: -webkit-grab;
+			cursor: grab;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-range__slider .ui-slider-handle.ui-state-active {
+				cursor: -webkit-grabbing;
+				cursor: grabbing;
+			}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Radio
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar .tribe-filter-bar-c-radio {
+		margin: 12px 0;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-radio:first-child {
+			margin-top: 0;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-radio:last-child {
+			margin-bottom: 0;
+		}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Filter Button
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events .tribe-events-c-events-bar__filter-button-container {
+		margin-right: 8px;
+	}
+
+.tribe-common--breakpoint-medium.tribe-events--filter-bar-vertical.tribe-events .tribe-events-c-events-bar__filter-button-container {
+			display: none !important;
+			visibility: hidden;
+		}
+
+.tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal.tribe-events .tribe-events-header--has-event-search .tribe-events-c-events-bar__filter-button-container {
+			flex: none;
+			margin: 12px 0;
+		}
+
+.tribe-events .tribe-events-c-events-bar__filter-button {
+		display: block;
+		padding: 4px;
+		position: relative;
+	}
+
+.tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal.tribe-events .tribe-events-c-events-bar__filter-button {
+			padding: 8px;
+		}
+
+.tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal.tribe-events .tribe-events-header--has-event-search .tribe-events-c-events-bar__filter-button {
+			align-items: center;
+			display: flex;
+			margin: -12px 0;
+			padding: 20px 24px;
+		}
+
+.tribe-events .tribe-events-c-events-bar__filter-button-icon {
+		display: block;
+		height: 21px;
+		width: 21px;
+	}
+
+.tribe-events .tribe-events-c-events-bar__filter-button-icon path {
+			fill: currentColor;
+		}
+
+.tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal.tribe-events .tribe-events-c-events-bar__filter-button-icon {
+			flex: none;
+			height: 23px;
+			padding: 1px;
+			width: 23px;
+		}
+
+.tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal.tribe-events .tribe-events-header--has-event-search .tribe-events-c-events-bar__filter-button-icon {
+			flex: none;
+			height: 14px;
+			width: 14px;
+		}
+
+.tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal.tribe-events .tribe-events-header--has-event-search .tribe-events-c-events-bar__filter-button-text {
+			clip: auto;
+			height: auto;
+			margin: 0;
+			position: static;
+			width: auto;
+
+			flex: none;
+			margin-left: 8px;
+		}
+
+/* Views */
+
+/* -----------------------------------------------------------------------------
+ *
+ * Views
+ *
+ * This file is just a clearing-house.
+ * Make partials (start with an underscore) for any actual css code.
+ *
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ *
+ * Filter Bar
+ *
+ * This file is just a clearing-house.
+ * Make partials (start with an underscore) for any actual css code.
+ *
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ *
+ * Actions
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar .tribe-filter-bar__actions {
+		align-items: center;
+		display: none;
+		padding-bottom: 20px;
+	}
+
+.tribe-filter-bar--has-selected-filters.tribe-filter-bar .tribe-filter-bar__actions {
+			display: flex;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar .tribe-filter-bar__actions {
+			display: none;
+			visibility: hidden;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar--has-selected-filters.tribe-filter-bar .tribe-filter-bar__actions {
+			display: flex;
+			flex: none;
+			order: 1;
+			padding: 0 0 0 12px;
+			position: relative;
+			visibility: visible;
+			z-index: 10;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar--vertical.tribe-filter-bar .tribe-filter-bar__actions {
+			display: none !important;
+			visibility: hidden;
+		}
+
+.tribe-filter-bar .tribe-filter-bar__action-done {
+		margin-right: 6px;
+	}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar__action-done {
+			display: none !important;
+			visibility: hidden;
+		}
+
+.tribe-filter-bar .tribe-filter-bar__action-clear {
+		margin-left: 6px;
+	}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar__action-clear {
+			margin: 0;
+		}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Filter Bar
+ *
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Events: Desktop Vertical Layout
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events--filter-bar-vertical.tribe-common--breakpoint-medium .tribe-events-l-container {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+.tribe-events--filter-bar-vertical.tribe-common--breakpoint-medium .tribe-events-l-container > * {
+			flex: none;
+			width: 100%;
+		}
+
+.tribe-events--filter-bar-vertical.tribe-common--breakpoint-medium .tribe-events-l-container .tribe-filter-bar--open ~ .tribe-events-calendar-day,
+			.tribe-events--filter-bar-vertical.tribe-common--breakpoint-medium .tribe-events-l-container .tribe-filter-bar--open ~ .tribe-events-calendar-list,
+			.tribe-events--filter-bar-vertical.tribe-common--breakpoint-medium .tribe-events-l-container .tribe-filter-bar--open ~ .tribe-events-calendar-month,
+			.tribe-events--filter-bar-vertical.tribe-common--breakpoint-medium .tribe-events-l-container .tribe-filter-bar--open ~ .tribe-events-calendar-latest-past,
+			.tribe-events--filter-bar-vertical.tribe-common--breakpoint-medium .tribe-events-l-container .tribe-filter-bar--open ~ .tribe-events-pro-photo,
+			.tribe-events--filter-bar-vertical.tribe-common--breakpoint-medium .tribe-events-l-container .tribe-filter-bar--open ~ .tribe-events-pro-week-grid,
+			.tribe-events--filter-bar-vertical.tribe-common--breakpoint-medium .tribe-events-l-container .tribe-filter-bar--open ~ .tribe-events-pro-map {
+				width: calc(100% - 266px);
+			}
+
+/* -----------------------------------------------------------------------------
+ * Events: Desktop Horizontal Layout
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events--filter-bar-horizontal.tribe-common--breakpoint-medium {
+		overflow: hidden; /* This prevents the page from overflowing when desktop horizontal slider is active */
+	}
+
+/* -----------------------------------------------------------------------------
+ * Filter Bar
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar {
+	display: none;
+}
+
+.tribe-filter-bar.tribe-filter-bar--open {
+		display: block;
+	}
+
+.tribe-common:not(.tribe-common--breakpoint-medium) .tribe-filter-bar.tribe-filter-bar--mobile-closed {
+			display: none;
+		}
+
+.tribe-filter-bar.tribe-filter-bar--horizontal,
+	.tribe-filter-bar.tribe-filter-bar--vertical {
+		background-color: #fff;
+		left: 0;
+		padding: 0 19.5px 24px;
+		position: absolute;
+		width: 100%;
+		z-index: 9;
+	}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar.tribe-filter-bar--horizontal, .tribe-common--breakpoint-medium .tribe-filter-bar.tribe-filter-bar--vertical {
+			background-color: transparent;
+			padding: 0;
+			position: static;
+		}
+
+.tribe-events-header--has-event-search .tribe-filter-bar.tribe-filter-bar--horizontal {
+		top: 100%;
+	}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar {
+		background-color: transparent;
+		margin: -16px 0 40px;
+	}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar--vertical.tribe-filter-bar {
+		margin-right: 42px;
+		width: 224px;
+	}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar .tribe-filter-bar__form {
+			display: flex;
+			position: relative;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar--vertical.tribe-filter-bar .tribe-filter-bar__form-heading {
+			clip: auto;
+			height: auto;
+			margin: 0;
+			position: static;
+			width: auto;
+
+			padding: 8px 0 12px;
+		}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Filters
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar .tribe-filter-bar__filters-container {
+			position: absolute;
+			z-index: 9;
+		}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Filters Slider
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar .tribe-filter-bar__filters-slider-container {
+		display: none;
+		visibility: hidden;
+	}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar .tribe-filter-bar__filters-slider-container {
+			display: block;
+			flex: 0 1 auto;
+			overflow: hidden;
+			position: relative;
+			visibility: visible;
+			z-index: 9;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar .tribe-filter-bar__filters-slider-wrapper, .tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar .tribe-filter-bar__filters {
+			display: flex;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar .tribe-filter-bar__filters-slide, .tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar .tribe-filter-bar-c-filter {
+			flex: none;
+			margin-right: 8px;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar .tribe-filter-bar__filters-slide:last-child, .tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar .tribe-filter-bar-c-filter:last-child {
+				margin-right: 0;
+			}
+
+.tribe-filter-bar .tribe-filter-bar__filters-slider-nav {
+		height: 100%;
+		left: 0;
+		pointer-events: none;
+		position: absolute;
+		top: 0;
+		width: 100%;
+	}
+
+.tribe-filter-bar .tribe-filter-bar__filters-slider-nav--overflow-start .tribe-filter-bar__filters-slider-nav-button--prev,
+	.tribe-filter-bar .tribe-filter-bar__filters-slider-nav--overflow-end .tribe-filter-bar__filters-slider-nav-button--next {
+		background-color: transparent;
+		display: block;
+	}
+
+.tribe-filter-bar .tribe-filter-bar__filters-slider-nav-button {
+		display: none;
+		line-height: 0;
+		padding: 4px 0;
+		pointer-events: all;
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		z-index: 1;
+	}
+
+.tribe-filter-bar .tribe-filter-bar__filters-slider-nav-button--prev {
+		left: 0;
+	}
+
+.tribe-filter-bar .tribe-filter-bar__filters-slider-nav-button--next {
+		right: 0;
+	}
+
+.tribe-filter-bar .tribe-filter-bar__filters-slider-nav-button-icon {
+		height: 16px;
+		width: 10px;
+	}
+
+.tribe-filter-bar .tribe-filter-bar__filters-slider-nav-button-icon path {
+			fill: currentColor;
+		}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Selections
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-common--breakpoint-medium .tribe-filter-bar.tribe-filter-bar--horizontal .tribe-filter-bar__selected-filters {
+		display: none !important;
+		visibility: hidden;
+	}
+
+.tribe-filter-bar .tribe-filter-bar__selected-filters-header {
+		align-items: center;
+		display: flex;
+		justify-content: space-between;
+		padding: 16px 0;
+	}
+
+.tribe-filter-bar .tribe-filter-bar__selected-filters-clear-button {
+		display: none;
+		visibility: hidden;
+	}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar__selected-filters-clear-button {
+			display: flex;
+			visibility: visible;
+		}
+
+.tribe-filter-bar .tribe-filter-bar__selected-filters-list-container {
+		padding-bottom: 20px;
+	}
+
+.tribe-filter-bar .tribe-filter-bar__selected-filters-list {
+		display: flex;
+		flex-wrap: wrap;
+		margin: 0 -4px -8px;
+	}
+
+.tribe-filter-bar .tribe-filter-bar__selected-filters-list-item {
+		padding: 0 4px 8px;
+	}

@@ -10,9 +10,13 @@ defined( 'WPINC' ) or die;
  * Override this template in your own theme by creating a file at
  * [your-theme]/tribe-events/community/modules/custom.php
  *
+ * @link https://evnt.is/1ao4 Help article for Community Events & Tickets template files.
+ *
  * @since  2.1
  * @since  4.6.3 Broke apart views into more customizable pieces and implemented late escaping.
- * @version 4.6.3
+ * @since 4.8.2 Updated template link.
+ *
+ * @version 4.8.2
  */
 
 // Makes sure we dont even try when Pro is inactive

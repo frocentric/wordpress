@@ -50,7 +50,7 @@ class Tribe__Events__Pro__Service_Providers__Templates extends tad_DI52_ServiceP
 	 *
 	 * @return array The filtered list of folders that will be searched for the templates.
 	 */
-	public function filter_template_path_list( array $folders = [], Tribe__Template $template ) {
+	public function filter_template_path_list( array $folders = [], Tribe__Template $template = null ) {
 		$main = tribe( 'events-pro.main' );
 
 		$path = (array) rtrim( $main->pluginPath, '/' );

@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link https://evnt.is/1aiy
  *
  * @version 5.0.0
  *
@@ -22,7 +22,7 @@
 		href="<?php echo esc_url( $event->permalink ); ?>"
 		title="<?php echo esc_attr( get_the_title( $event->ID ) ); ?>"
 		rel="bookmark"
-		class="tribe-events-pro-week-grid__event-tooltip-title-link"
+		class="tribe-events-pro-week-grid__event-tooltip-title-link tribe-common-anchor-thin"
 	>
 		<?php echo wp_kses_post( get_the_title( $event->ID ) ); ?>
 	</a>

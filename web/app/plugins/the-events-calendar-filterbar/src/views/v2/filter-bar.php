@@ -7,18 +7,13 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://evnt.is/1aiy
  *
  * @version 4.9.0
  */
 
 use Tribe\Events\Filterbar\Views\V2\Filters;
 
-/**
- * Todo to append to template vars
- *
- * @todo @gbordoni needs to be appended to the template vars.
- */
 $layout  = tribe( Filters::class )->get_layout_setting();
 $classes = [ 'tribe-events-filters-' . $layout, 'tribe-clearfix' ];
 ?>
@@ -42,12 +37,6 @@ $classes = [ 'tribe-events-filters-' . $layout, 'tribe-clearfix' ];
 			<form id="tribe_events_filters_form" method="post" action="">
 
 				<?php
-				/**
-				 * Todo to revisit filter bar codebase
-				 *
-				 * @todo @gbordoni when revisiting filterbar codebase for a more complete refresh, we need
-				 *       to remove this usage, it's the oposite of what we intend with the templating system.
-				 */
 				do_action( 'tribe_events_filter_view_do_display_filters', $this->get( 'view' )->get_context() );
 				?>
 

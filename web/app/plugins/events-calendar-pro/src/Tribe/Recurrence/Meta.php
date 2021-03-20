@@ -186,7 +186,7 @@ class Tribe__Events__Pro__Recurrence__Meta {
 		$count           = count( $start_dates );
 		$last            = end( $start_dates );
 		$pending_message = __( '%d instances of this event have been created through %s. <a href="%s" target="_blank">Learn more.</a>', 'tribe-events-calendar-pro' );
-		$pending_message = '<p>' . sprintf( $pending_message, $count, date_i18n( tribe_get_date_format( true ), strtotime( $last ) ), 'http://m.tri.be/lq' ) . '</p>';
+		$pending_message = '<p>' . sprintf( $pending_message, $count, date_i18n( tribe_get_date_format( true ), strtotime( $last ) ), 'https://evnt.is/lq' ) . '</p>';
 
 		return Tribe__Admin__Notices::instance()->render( 'created-recurrences', $pending_message );
 	}
@@ -227,7 +227,7 @@ class Tribe__Events__Pro__Recurrence__Meta {
 				// set the end too to stick with new format
 				$exclusion['end'] = $formatted;
 			} else {
-				if ( isset( $exlcusion['end'] ) ) {
+				if ( isset( $exclusion['end'] ) ) {
 					$exclusion['end'] = date( $datepicker_format, strtotime( $exclusion['end'] ) );
 				}
 			}

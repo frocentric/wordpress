@@ -1,3 +1,4 @@
+/* globals jQuery; */
 /**
  * Community Events JavaScript
  * Linked Posts toggle
@@ -49,7 +50,7 @@ var tribe_community_events = tribe_community_events || {};
 	 *
 	 * @since  4.5
 	 *
-	 * @param  {Date}   date  Date to be formated
+	 * @param  {Date}   date  Date to be formatted
 	 * @return {string}
 	 */
 	obj.date_to_ymd = function ( date ) {
@@ -58,7 +59,7 @@ var tribe_community_events = tribe_community_events || {};
 		var y = date.getFullYear();
 
 		return y + '-' + ( m <= 9 ? '0' + m : m ) + '-' + ( d <= 9 ? '0' + d : d );
-	}
+	};
 
 	/**
 	 * Hides the Linked Posts toggle until there is more than one post visible
@@ -77,7 +78,7 @@ var tribe_community_events = tribe_community_events || {};
 		trigger.on( 'change', function () {
 			$( trigger ).closest( handle ).removeClass( 'hidden' );
 			$( this ).find( handle ).removeClass( 'hidden' );
-		} )
+		} );
 	};
 
 	/**
@@ -274,7 +275,7 @@ var tribe_community_events = tribe_community_events || {};
 	obj.init_list_columns_menu = function () {
 		var $display_options = $( '.table-menu' );
 
-		$( '.table-menu-btn' ).click( function () {
+		$( '.table-menu-btn' ).on( 'click', function () {
 			var clickedItem = $( this );
 			clickedItem
 				.toggleClass( 'menu-open' )
@@ -285,9 +286,9 @@ var tribe_community_events = tribe_community_events || {};
 		} );
 
 		// assign click-away-to-close event
-		$( document ).click( function ( e ) {
-			if ( !$( e.target ).is( $display_options ) ) {
-				if ( !$( e.target ).is( $( $display_options ).find( '*' ) ) ) {
+		$( document ).on( 'click', function ( e ) {
+			if ( ! $( e.target ).is( $display_options ) ) {
+				if ( ! $( e.target ).is( $( $display_options ).find( '*' ) ) ) {
 					$( $display_options ).addClass( 'table-menu-hidden' );
 				}
 			}
@@ -375,7 +376,7 @@ var tribe_community_events = tribe_community_events || {};
 			var noticeText = tribe_submit_form_i18n.errors[ fields[i] ];
 			$( '<p />', { text: noticeText } ).appendTo( $notice );
 		}
-	}
+	};
 
 	/**
 	 * If a linked post is being created, but Event Title or Event Description are empty, prevent submission.
@@ -400,7 +401,18 @@ var tribe_community_events = tribe_community_events || {};
 					}
 				}
 
-				if ( '' === $( this ).val() ) {
+				let val_is_empty = '' === $( this ).val();
+
+				if ( $( this ).is( '.wp-editor-area' ) && tinyMCE && tinyMCE.activeEditor ) {
+					if (
+						// Checks tinyMCE.
+						! tinyMCE.activeEditor.getContent()
+						// Checks the HTML simple tag textarea.
+						&& val_is_empty
+					) {
+						error_fields.push( $( this ).attr( 'name' ) );
+					}
+				} else if ( val_is_empty ) {
 					error_fields.push( $( this ).attr( 'name' ) );
 				}
 			});
@@ -417,7 +429,7 @@ var tribe_community_events = tribe_community_events || {};
 
 			return true;
 		} );
-	}
+	};
 
 	obj.delete_post = function() {
 		$( '.delete.wp-admin.events-cal .submitdelete' ).on( 'click', function(e) {
@@ -463,17 +475,16 @@ var tribe_community_events = tribe_community_events || {};
 	}
 
 	// Configure all function to run when Doc Ready
-	$( document )
-		.ready( obj.init_mobile_datetime_input )
-		.ready( obj.init_image_input )
-		.ready( obj.init_list_columns_menu )
-		.ready( obj.init_local_storage )
-		.ready( obj.init_linked_posts_handle )
-		.ready( obj.remove_no_js_class )
-		.ready( obj.remove_no_js_class )
-		.ready( obj.setup_dropdowns )
-		.ready( obj.datetime_selectors )
-		.ready( obj.disallow_submission_while_creating_linked_posts )
-		.ready( obj.delete_post );
+	$( function() {
+		obj.init_mobile_datetime_input();
+		obj.init_image_input();
+		obj.init_list_columns_menu();
+		obj.init_local_storage();
+		obj.init_linked_posts_handle();
+		obj.remove_no_js_class();
+		obj.datetime_selectors();
+		obj.disallow_submission_while_creating_linked_posts();
+		obj.delete_post();
+	} );
 
 })( window, jQuery, tribe_community_events );

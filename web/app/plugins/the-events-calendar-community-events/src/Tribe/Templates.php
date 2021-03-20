@@ -47,6 +47,12 @@ if ( ! class_exists( 'Tribe__Events__Community__Templates' ) ) {
 			$plugins[ __( 'Community Events', 'tribe-events-community' ) ] = [
 				Tribe__Events__Community__Main::VERSION,
 				tribe( 'community.main' )->pluginPath . 'src/views/community',
+				trailingslashit( get_stylesheet_directory() ) . 'tribe/community',
+			];
+
+			$plugins[ __( 'Community Events - Legacy', 'tribe-events-community' ) ] = [
+				Tribe__Events__Community__Main::VERSION,
+				tribe( 'community.main' )->pluginPath . 'src/views/community',
 				trailingslashit( get_stylesheet_directory() ) . 'tribe-events/community',
 			];
 

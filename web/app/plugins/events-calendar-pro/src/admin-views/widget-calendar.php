@@ -44,7 +44,7 @@ if ( empty( $instance['filters'] ) ) {
 					}
 					$term_obj = get_term( $term, $tax );
 
-					// Add to the disabled ones
+					// Add to the disabled ones.
 					$disabled[] = $term_obj->term_id;
 					echo sprintf(
 						"<li><p>%s: %s&nbsp;&nbsp;<span><a href='#' class='calendar-widget-remove-filter' data-tax='%s' data-term='%s'>(" . esc_html__( 'remove', 'tribe-events-calendar-pro' ) . ')</a></span></p></li>',

@@ -51,16 +51,40 @@ class Tribe__Events__Pro__Shortcodes__Event_Countdown {
 			return;
 		}
 
-		Tribe__Events__Pro__Widgets::enqueue_calendar_widget_styles();
+		/**
+		 * Allows hot-swapping the countdown widget class for different versions of the widget.
+		 *
+		 * @since 5.3.0
+		 *
+		 * @param string              $widget_class The widget class name we want to implement.
+		 * @param array<string,mixed> $arguments    The widget arguments.
+		 */
+		$widget_class = apply_filters( 'tribe_events_pro_shortcodes_countdown_widget_class', Tribe__Events__Pro__Countdown_Widget::class, $this->arguments );
+
+		$using_legacy_widget = Tribe__Events__Pro__Countdown_Widget::class === $widget_class;
+		if ( $using_legacy_widget ) {
+			Tribe__Events__Pro__Widgets::enqueue_calendar_widget_styles();
+		}
 
 		ob_start();
-		the_widget( 'Tribe__Events__Pro__Countdown_Widget', $this->arguments, $this->arguments );
+
+		if ( ! $using_legacy_widget ) {
+			the_widget( $widget_class, $this->arguments, $this->arguments );
+		} else { ?>
+			<div class="widget-content">
+				<?php the_widget( $widget_class, $this->arguments, $this->arguments ); ?>
+			</div>
+		<?php }
+
 		$this->output = ob_get_clean();
 	}
 
 	protected function parse_args() {
 		if ( ! empty( $this->arguments['id'] ) ) {
 			$this->arguments['event_ID'] = (int) $this->arguments['id'];
+
+			// New widget uses `event` key.
+			$this->arguments['event'] = (int) $this->arguments['id'];
 		} elseif ( ! empty( $this->arguments['slug'] ) ) {
 			$this->set_by_slug();
 		}
@@ -82,6 +106,9 @@ class Tribe__Events__Pro__Shortcodes__Event_Countdown {
 
 		$event = array_shift( $events );
 		$this->arguments['event_ID'] = (int) $event->ID;
+
+		// New widget uses `event` key.
+		$this->arguments['event'] = (int) $event->ID;
 	}
 
 	/**

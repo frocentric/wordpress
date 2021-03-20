@@ -25,7 +25,7 @@ class Maps {
 	 *
 	 * @since  5.0.0
 	 *
-	 * @param  array $template_vars Previous tempalte variables in which the providers will be added to.
+	 * @param  array $template_vars Previous template variables in which the providers will be added to.
 	 *
 	 * @return array
 	 */
