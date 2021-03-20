@@ -139,12 +139,14 @@ class Rewrite {
 	 * Filters the geocode based rewrite rules to add rules to paginate the Map View..
 	 *
 	 * @since 4.7.9
+	 * @since 5.1.4 Update the method to add the support for the completely localized version of the rules.
 	 *
-	 * @param array $rules The geocode based rewrite rules.
+	 * @param array<string,string> $rules The geocode based rewrite rules.
+	 * @param array<string,string> $bases The geocode rewrite bases.
 	 *
 	 * @return array The filtered geocode based rewrite rules.
 	 */
-	public function add_map_pagination_rules( array $rules ) {
+	public function add_map_pagination_rules( array $rules, array $bases ) {
 		/*
 		 * We use this "hidden" dependency here and now because that's when we're sure the object was correctly built
 		 * and ready to provide the information we need.
@@ -152,15 +154,57 @@ class Rewrite {
 		$tec_bases = TEC_Rewrite::instance()->bases;
 		$page_base = isset( $tec_bases->page ) ? $tec_bases->page : false;
 
+		// Create the fully localized version of the rules.
+		$updated_rules = [];
+		foreach ( $rules as $rule => $query_string ) {
+			// Remove the leading `(.*)`.
+			$updated_rule = str_replace( '(.*)', '', $rule );
+			// Replace `events/` with the regular expression that will capture all its translations, incl. English.
+			$updated_rule = str_replace( $bases['base'], $tec_bases->archive . '/', $updated_rule );
+
+			/*
+			 * In the 2 following lines of code we use the bases, themselves regular expression, to match the fragment
+			 * we need to replace in the regular expression that is part of the rewrite rule.
+			 * We can do this as the rule, as built from the `Geo_Loc` class, will use the slugs as literal matches, not
+			 * regular expression, hence we can find and replace them using the base regular expressions.
+			 */
+
+			// Replace the `category` part with the regular expression that will capture all its translations, incl. En.
+			$tax          = $tec_bases->tax;
+			$updated_rule = preg_replace( '~' . $tax . '~', $tax, $updated_rule, 1, $is_tax_rule );
+
+			if ( $is_tax_rule ) {
+				/*
+				 * Map view category match would be the 2nd one, we need to make it become the first one as we've
+				 * removed the leading `(.*)`.
+				 */
+				$query_string = str_replace( TEC::TAXONOMY . '=$matches[2]', TEC::TAXONOMY . '=$matches[1]', $query_string );
+			}
+
+			// Replace the `tag` part with the regular expression that will capture all its translations, incl. En.
+			$tag          = $tec_bases->tag;
+			$updated_rule = preg_replace( '~' . $tag . '~', $tag, $updated_rule, 1, $is_tag_rule );
+
+			if ( $is_tag_rule ) {
+				/*
+				 * Map view tag match would be the 2nd one, we need to make it become the first one as we've
+				 * removed the leading `(.*)`.
+				 */
+				$query_string = str_replace( 'tag=$matches[2]', 'tag=$matches[1]', $query_string );
+			}
+
+			$updated_rules[ $updated_rule ] = $query_string;
+		}
+
 		if ( false === $page_base ) {
 			return $rules;
 		}
 
 		$pagination_rules = [];
-		foreach ( $rules as $regex => $rewrite ) {
+		foreach ( $updated_rules as $regex => $rewrite ) {
 			$key            = rtrim( $regex, '/?$' ) . '/' . $page_base . '/(\\d+)/?$';
 			$is_tax_rule    = preg_match( '/(' . TEC::TAXONOMY . '|tag)=\$matches/', $rewrite );
-			$page_match_pos = $is_tax_rule ? 3 : 1;
+			$page_match_pos = $is_tax_rule ? 2 : 1;
 			$value          = false !== strpos( $rewrite, '?' ) ?
 				$rewrite . '&paged=$matches[' . $page_match_pos . ']'
 				: '?paged=$matches[' . $page_match_pos . ']';
@@ -169,7 +213,7 @@ class Rewrite {
 		}
 
 		// It's important these rules are prepended to the pagination ones, not appended.
-		return $pagination_rules + $rules;
+		return $pagination_rules + $updated_rules + $rules;
 	}
 
 	/**

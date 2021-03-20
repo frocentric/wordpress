@@ -199,7 +199,8 @@ if ( ! class_exists( 'Tribe__Events__Pro__Templates__Week' ) ) {
 			list( $search_term, $tax_term, $geographic_term ) = $this->get_search_terms();
 
 			if ( ! empty( $search_term ) ) {
-				Tribe__Notices::set_notice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html( $search_term ) ) );
+				/* translators: %s: Search Term */
+				Tribe__Notices::set_notice( 'event-search-no-results', sprintf( __( 'There were no results found for <strong>"%s"</strong> this week.', 'tribe-events-calendar-pro' ), esc_html( $search_term ) ) );
 			} elseif ( ! empty( $geographic_term ) ) {
 				Tribe__Notices::set_notice( 'event-search-no-results', sprintf( __( 'No results were found for events in or near <strong>"%s"</strong> this week. Try searching another week.', 'tribe-events-calendar-pro' ), esc_html( $geographic_term ) ) );
 			} // if attempting to view a category archive.

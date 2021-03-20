@@ -16,7 +16,7 @@
 	 * dbug = tribe_debug
 	 */
 
-	$( document ).ready( function() {
+	$( function() {
 
 		var $body            = $( 'body' ),
 			$tribedate       = $( '#tribe-bar-date' ),

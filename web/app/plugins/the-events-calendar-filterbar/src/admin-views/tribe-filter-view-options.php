@@ -1,5 +1,5 @@
 <script>
-	jQuery( document ).ready( function ( $ ) {
+	jQuery( function ( $ ) {
 		var checkboxes = $( '#all_filters' ).find( 'li > label > input:checkbox' );
 		checkboxes.not( ':checked' ).each( function () {
 			var slug = $( this ).attr( 'id' );

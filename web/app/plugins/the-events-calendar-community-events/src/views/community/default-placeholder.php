@@ -6,9 +6,12 @@
  * Override this template in your own theme by creating a file at
  * [your-theme]/tribe-events/community/default-placeholder.php
  *
- * @package Tribe__Events__Community__Main
+ * @link https://evnt.is/1ao4 Help article for Community Events & Tickets template files.
+ *
  * @since  3.2
- * @author Modern Tribe Inc.
+ * @since 4.8.2 Updated template link.
+ *
+ * @version 4.8.2
  *
  */
 

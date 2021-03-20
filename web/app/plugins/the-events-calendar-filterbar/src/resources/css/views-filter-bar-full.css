@@ -1,0 +1,1117 @@
+/**
+ * This CSS file was auto-generated via PostCSS
+ *
+ * Contributors should avoid editing this file, but instead edit the associated
+ * src/resources/postcss/ file. For more information, check out our engineering
+ * docs on how we handle CSS in our engineering docs.
+ *
+ * @see: http://moderntribe.github.io/products-engineering/css/
+ */
+
+/**
+ * Filter Bar Tribe V2 Full Stylesheet
+ *
+ * @package TribeFilterBar
+ *
+ */
+
+/* Utilities */
+
+/* -----------------------------------------------------------------------------
+ *
+ * Utilities
+ *
+ * This file is just a clearing-house.
+ * Make partials (start with an underscore) for any actual css code.
+ *
+ * ----------------------------------------------------------------------------- */
+
+/* Variables */
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Borders - Radius
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Borders - Width
+	 * ----------------------------------------------------------------------------- */
+}
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Box Shadows
+	 * ----------------------------------------------------------------------------- */
+}
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Layers of z-index
+	 * ----------------------------------------------------------------------------- */
+}
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Colors - Typography
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Colors - Iconography
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Colors - UI
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Colors - Borders & Misc
+	 * ----------------------------------------------------------------------------- */
+}
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Forms - Colors
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Forms - Box Shadows
+	 * ----------------------------------------------------------------------------- */
+}
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Gutter - Default
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Gutter - Page
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Grid Width - Default
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Grid Width - Relative
+	 * ----------------------------------------------------------------------------- */
+}
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Opacities
+	 * ----------------------------------------------------------------------------- */
+}
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Spacers
+	 * ----------------------------------------------------------------------------- */
+}
+
+/* -----------------------------------------------------------------------------
+ * SVG - Arrow Right
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Arrow (light, left)
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Caret Down
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Caret Left
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Caret Right
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Caret Up
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Check
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Close
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Day
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Dropdown
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Error
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Featured
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Filters
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Link
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Guest
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - List
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Location
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Mail
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Map
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Map pin
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Messages
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Month
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - No Map
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Paper Plane
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Phone
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Photo
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Plus
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Recurring
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Remove
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Reset
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Search
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Search Filter
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * SVG - Week
+ * ----------------------------------------------------------------------------- */
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Transitions
+	 * ----------------------------------------------------------------------------- */
+}
+
+:root {
+	/* -----------------------------------------------------------------------------
+	 * Font Stacks
+	 * ----------------------------------------------------------------------------- */ /* stylelint-disable-line value-keyword-case */
+
+	/* -----------------------------------------------------------------------------
+	 * Font Weights
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Font Sizing
+	 * ----------------------------------------------------------------------------- */
+
+	/* -----------------------------------------------------------------------------
+	 * Line Height
+	 * ----------------------------------------------------------------------------- */
+}
+
+/* Mixins */
+
+/* -----------------------------------------------------------------------------
+ * Body
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Desktop Body 1
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Desktop Body 2
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Desktop Body 3
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Mobile Body 1
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Mobile Body 2
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Mobile Body 3
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Heading
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Heading 1
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Heading 2
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Heading 3
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Heading 4
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Heading 5
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Heading 6
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Heading 7
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Heading 8
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Anchor - Default
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Anchor - Alt
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Anchor - Thin
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Anchor - Thin
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Button - Global
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Button - Solid
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Button - Link
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Button - Border
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Button - Border Small
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Button - Icon Border
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Sliders & Toggles
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Sliders
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Hidden: Hide from both screenreaders and browsers
+ * @author: h5bp.com/u
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Visually Hide: Hide only visually, but have it available for screenreaders
+ * @author: h5bp.com/v
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Visually Show: Show element after has been hidden with %visually-hide
+ * ----------------------------------------------------------------------------- */
+
+/* Components */
+
+/* -----------------------------------------------------------------------------
+ *
+ * Components
+ *
+ * This file is just a clearing-house.
+ * Make partials (start with an underscore) for any actual css code.
+ *
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ *
+ * Checkbox
+ *
+ * ----------------------------------------------------------------------------- */
+
+/* .tribe-filter-bar {
+
+} */
+
+/* -----------------------------------------------------------------------------
+ *
+ * Clear Button
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar .tribe-filter-bar-c-clear-button {
+		transition: none;
+	}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-clear-button {
+			background-color: transparent;
+			border: none;
+			border-radius: 0;
+			padding: 0;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar--vertical.tribe-filter-bar .tribe-filter-bar-c-clear-button {
+			font-size: 12px;
+			line-height: 1.38;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-clear-button:focus .tribe-filter-bar-c-clear-button__reset-icon path, .tribe-filter-bar .tribe-filter-bar-c-clear-button:hover .tribe-filter-bar-c-clear-button__reset-icon path {
+				stroke: #141827;
+			}
+
+.tribe-filter-bar .tribe-filter-bar-c-clear-button__reset-icon path {
+		stroke: #5d5d5d;
+	}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Dropdown
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar {
+
+	/* -------------------------------------------------------------------------
+	 *
+	 * Dropdown: Theme Overrides
+	 *
+	 * ------------------------------------------------------------------------- */
+}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-selection {
+			background-color: #141827;
+			border: none;
+			border-radius: 14px;
+			color: #fff;
+			display: inline-block;
+			margin-bottom: 8px;
+			transition: background-color 0.2s ease;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-selection:hover {
+				background-color: rgba(20,24,39, 0.8);
+			}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-container--open .select2-selection {
+			border-radius: 14px;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-selection__rendered {
+			color: #141827;
+			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+			font-size: 12px;
+			line-height: 1.38;
+			font-weight: 400;
+			font-weight: 700;
+
+			align-items: center;
+			display: flex;
+			flex-wrap: nowrap;
+			padding: 5px 11px 7px 12px;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-search__field {
+			color: #141827;
+			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+			font-size: 16px;
+			line-height: 1.62;
+			font-weight: 400;
+
+			background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 18.711l-6.044-6.044a7.782 7.782 0 0 0 1.688-4.845c0-2.089-.822-4.044-2.288-5.533C11.866.822 9.91 0 7.822 0S3.778.822 2.29 2.289A7.801 7.801 0 0 0 0 7.822c0 2.09.822 4.045 2.289 5.534a7.801 7.801 0 0 0 5.533 2.288c1.778 0 3.467-.6 4.845-1.688L18.71 20 20 18.711zM3.578 12.067c-2.334-2.334-2.334-6.156 0-8.49a5.968 5.968 0 0 1 4.244-1.755c1.6 0 3.111.622 4.245 1.756 2.333 2.333 2.333 6.155 0 8.489a5.968 5.968 0 0 1-4.245 1.755c-1.6 0-3.11-.622-4.244-1.755z' fill='%235d5d5d'/%3E%3C/svg%3E") #fff 12px center / 14px no-repeat;
+			border: 1px solid #d5d5d5;
+			border-radius: 4px;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-search__field::-moz-placeholder {
+				color: #5d5d5d;
+			}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-search__field:-ms-input-placeholder {
+				color: #5d5d5d;
+			}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-search__field::placeholder {
+				color: #5d5d5d;
+			}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-selection__clear {
+			color: #fff;
+			font-size: 16px;
+			font-weight: 600;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-selection__clear:hover {
+				opacity: 0.8;
+			}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-selection__choice__text {
+			color: #fff;
+			white-space: normal;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-selection__arrow {
+			display: none !important;
+			visibility: hidden;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-results__option {
+			color: #141827;
+			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+			font-size: 14px;
+			line-height: 1.62;
+			font-weight: 400;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-results__option:focus {
+				outline: none;
+			}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-results__option--highlighted {
+			background-color: transparent;
+			opacity: 0.8;
+			transition: opacity 0.2s ease;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-dropdown {
+			background-color: transparent;
+		}
+
+/* -------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ------------------------------------------------------------------------- */
+
+.tribe-theme-twentyseventeen .tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-search__field {
+				border-radius: 4px;
+			}
+
+/* -------------------------------------------------------------------------
+	 * Theme Overrides - Avada
+	 * ------------------------------------------------------------------------- */
+
+.fusion-body .tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-selection {
+			height: auto;
+		}
+
+.fusion-body .tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-selection__rendered {
+			font-size: 12px;
+			line-height: 1.38;
+
+			padding: 5px 11px 7px 12px;
+		}
+
+/* -------------------------------------------------------------------------
+	 * Theme Overrides - Enfold
+	 * ------------------------------------------------------------------------- */
+
+#top.tribe-theme-enfold .tribe-filter-bar .tribe-filter-bar-c-dropdown .select2-search__field {
+				background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 18.711l-6.044-6.044a7.782 7.782 0 0 0 1.688-4.845c0-2.089-.822-4.044-2.288-5.533C11.866.822 9.91 0 7.822 0S3.778.822 2.29 2.289A7.801 7.801 0 0 0 0 7.822c0 2.09.822 4.045 2.289 5.534a7.801 7.801 0 0 0 5.533 2.288c1.778 0 3.467-.6 4.845-1.688L18.71 20 20 18.711zM3.578 12.067c-2.334-2.334-2.334-6.156 0-8.49a5.968 5.968 0 0 1 4.244-1.755c1.6 0 3.111.622 4.245 1.756 2.333 2.333 2.333 6.155 0 8.489a5.968 5.968 0 0 1-4.245 1.755c-1.6 0-3.11-.622-4.244-1.755z' fill='%235d5d5d'/%3E%3C/svg%3E") #fff 12px center / 14px no-repeat;
+				padding: 0 20px 0 34px;
+			}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Filter
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar {
+
+	/* -------------------------------------------------------------------------
+	 *
+	 * Filter: Theme Overrides
+	 *
+	 * ------------------------------------------------------------------------- */
+}
+
+.tribe-filter-bar .tribe-filter-bar-c-filter {
+		border-top: 1px solid #e4e4e4;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-filter__toggle,
+	.tribe-filter-bar .tribe-filter-bar-c-filter--accordion .tribe-filter-bar-c-filter__toggle {
+		font-weight: 700;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-filter__toggle-minus-icon path, .tribe-filter-bar .tribe-filter-bar-c-filter__toggle-plus-icon path {
+			stroke: #5d5d5d;
+		}
+
+/* These styles mirror the styles in `_pill.pcss` and override the mobile styles. */
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill {
+		border-top: none;
+	}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__toggle {
+			font-size: 12px;
+			line-height: 1.38;
+
+			background-color: #fff;
+			border: 1px solid #d5d5d5;
+			border-radius: 18px;
+			font-weight: 400;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__toggle:hover,
+			.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__toggle:focus {
+				background-color: #f7f6f6;
+				border-color: #5d5d5d;
+			}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__toggle:active {
+				background-color: #fff;
+				border-color: #7d7d7d;
+			}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--has-selections .tribe-filter-bar-c-filter__toggle {
+			background-color: #f7f6f6;
+			border: 1px solid #5d5d5d;
+			font-weight: 700;
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--has-selections .tribe-filter-bar-c-filter__toggle:hover,
+			.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--has-selections .tribe-filter-bar-c-filter__toggle:focus {
+				background-color: #f0eeee;
+			}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill.tribe-filter-bar-c-filter--has-selections .tribe-filter-bar-c-filter__toggle:active {
+				background-color: #fff;
+				border-color: #7d7d7d;
+			}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__remove-button path {
+				transition: opacity 0.2s ease;
+			}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__remove-button:hover path, .tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__remove-button:focus path {
+					opacity: 0.8;
+				}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__remove-button-icon path {
+				stroke: #141827;
+			}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__container {
+			border: 1px solid #e4e4e4;
+			border-radius: 4px;
+			box-shadow: 0 2px 12px 0 rgba(0,0,0, 0.14);
+		}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__filters-close:hover .tribe-filter-bar-c-filter__filters-close-icon path, .tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__filters-close:focus .tribe-filter-bar-c-filter__filters-close-icon path {
+					stroke: #141827;
+				}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar .tribe-filter-bar-c-filter--pill .tribe-filter-bar-c-filter__filters-close-icon path {
+			stroke: #5d5d5d;
+		}
+
+/* -------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ------------------------------------------------------------------------- */
+
+.tribe-theme-twentyseventeen .tribe-filter-bar .tribe-filter-bar-c-filter__toggle,
+			.tribe-theme-twentyseventeen .tribe-filter-bar .tribe-filter-bar-c-filter__toggle:hover,
+			.tribe-theme-twentyseventeen .tribe-filter-bar .tribe-filter-bar-c-filter__toggle:focus {
+				background-color: transparent;
+			}
+
+.tribe-theme-twentyseventeen .tribe-filter-bar .tribe-filter-bar-c-filter__filters-fieldset {
+			background-color: transparent;
+		}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Multiselect
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar {
+
+	/* -------------------------------------------------------------------------
+	 *
+	 * Multiselect: Theme Overrides
+	 *
+	 * ------------------------------------------------------------------------- */
+}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-selection {
+			background-color: transparent;
+			border: none;
+			cursor: default;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-selection__rendered {
+			border: none;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-dropdown {
+			background-color: transparent;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-search__field {
+			color: #141827;
+			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+			font-size: 16px;
+			line-height: 1.62;
+			font-weight: 400;
+
+			background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 18.711l-6.044-6.044a7.782 7.782 0 0 0 1.688-4.845c0-2.089-.822-4.044-2.288-5.533C11.866.822 9.91 0 7.822 0S3.778.822 2.29 2.289A7.801 7.801 0 0 0 0 7.822c0 2.09.822 4.045 2.289 5.534a7.801 7.801 0 0 0 5.533 2.288c1.778 0 3.467-.6 4.845-1.688L18.71 20 20 18.711zM3.578 12.067c-2.334-2.334-2.334-6.156 0-8.49a5.968 5.968 0 0 1 4.244-1.755c1.6 0 3.111.622 4.245 1.756 2.333 2.333 2.333 6.155 0 8.489a5.968 5.968 0 0 1-4.245 1.755c-1.6 0-3.11-.622-4.244-1.755z' fill='%235d5d5d'/%3E%3C/svg%3E") #fff 12px center / 14px no-repeat;
+			border: 1px solid #d5d5d5;
+			border-radius: 4px;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-search__field::-moz-placeholder {
+				color: #5d5d5d;
+			}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-search__field:-ms-input-placeholder {
+				color: #5d5d5d;
+			}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-search__field::placeholder {
+				color: #5d5d5d;
+			}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-selection__choice {
+			color: #141827;
+			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+			font-size: 12px;
+			line-height: 1.38;
+			font-weight: 400;
+			font-weight: 700;
+
+			background-color: #141827;
+			border: 1px solid #141827;
+			border-radius: 14px;
+			color: #fff;
+			transition: background-color 0.2s ease;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-selection__choice:hover {
+				background-color: rgba(20,24,39, 0.8);
+			}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-selection__choice__remove {
+			color: #fff;
+			font-size: 16px;
+			font-weight: 600;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-selection__choice__remove:hover {
+				color: #fff;
+				opacity: 0.8;
+			}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-results__option {
+			color: #141827;
+			font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+			font-size: 14px;
+			line-height: 1.62;
+			font-weight: 400;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-results__option:focus {
+				outline: none;
+			}
+
+.tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-results__option--highlighted {
+			background-color: transparent;
+			opacity: 0.3;
+			transition: opacity 0.2s ease;
+		}
+
+/* -------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ------------------------------------------------------------------------- */
+
+.tribe-theme-twentyseventeen .tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-search__field {
+				border-radius: 4px;
+				color: #141827;
+			}
+
+/* -------------------------------------------------------------------------
+	 * Theme Overrides - Enfold
+	 * ------------------------------------------------------------------------- */
+
+#top.tribe-theme-enfold .tribe-filter-bar .tribe-filter-bar-c-multiselect .select2-search__field {
+				background: url("data:image/svg+xml;charset=utf-8,%3Csvg width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 18.711l-6.044-6.044a7.782 7.782 0 0 0 1.688-4.845c0-2.089-.822-4.044-2.288-5.533C11.866.822 9.91 0 7.822 0S3.778.822 2.29 2.289A7.801 7.801 0 0 0 0 7.822c0 2.09.822 4.045 2.289 5.534a7.801 7.801 0 0 0 5.533 2.288c1.778 0 3.467-.6 4.845-1.688L18.71 20 20 18.711zM3.578 12.067c-2.334-2.334-2.334-6.156 0-8.49a5.968 5.968 0 0 1 4.244-1.755c1.6 0 3.111.622 4.245 1.756 2.333 2.333 2.333 6.155 0 8.489a5.968 5.968 0 0 1-4.245 1.755c-1.6 0-3.11-.622-4.244-1.755z' fill='%235d5d5d'/%3E%3C/svg%3E") #fff 12px center / 14px no-repeat;
+				padding: 0 20px 0 34px;
+			}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Pill
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar .tribe-filter-bar-c-pill__pill {
+		background-color: #fff;
+		border: 1px solid #d5d5d5;
+		border-radius: 18px;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill {
+		background-color: #fff;
+		transition: all 0.2s ease;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:hover,
+		.tribe-filter-bar .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:focus {
+			border-color: #5d5d5d;
+			background-color: #f7f6f6;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:active {
+			border-color: #7d7d7d;
+			background-color: #fff;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill--has-selections .tribe-filter-bar-c-pill__pill {
+		background-color: #f7f6f6;
+		border: 1px solid #5d5d5d;
+		border-radius: 14px;
+		font-weight: 700;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill--has-selections.tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:hover,
+		.tribe-filter-bar .tribe-filter-bar-c-pill--has-selections.tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:focus {
+			background-color: #f0eeee;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill--has-selections.tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill:active {
+			border-color: #7d7d7d;
+			background-color: #fff;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill__remove-button path {
+			transition: opacity 0.2s ease;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill__remove-button:hover path, .tribe-filter-bar .tribe-filter-bar-c-pill__remove-button:focus path {
+				opacity: 0.8;
+			}
+
+.tribe-filter-bar .tribe-filter-bar-c-pill__remove-button-icon path {
+		stroke: #141827;
+	}
+
+/* -------------------------------------------------------------------------
+	 * Theme Overrides - Avada
+	 * ------------------------------------------------------------------------- */
+
+.fusion-body .tribe-filter-bar .tribe-filter-bar-c-pill .tribe-filter-bar-c-pill__pill {
+			font-size: 12px;
+			line-height: 1.38;
+		}
+
+.fusion-body .tribe-filter-bar .tribe-filter-bar-c-pill--has-selections .tribe-filter-bar-c-pill__pill {
+			font-weight: 700;
+		}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Radio
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar .tribe-filter-bar-c-range__label {
+		color: #141827;
+		font-family: "Helvetica Neue", Helvetica, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+		font-size: 14px;
+		line-height: 1.62;
+		font-weight: 400;
+
+		color: #5d5d5d;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-range__slider {
+		background: #d5d5d5;
+		border-radius: 2px;
+		height: 4px;
+		margin: 8px 10px;
+	}
+
+.tribe-filter-bar .tribe-filter-bar-c-range__slider .ui-slider-range {
+			background: #141827;
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-range__slider .ui-slider-handle {
+			background-color: #fff;
+			border: 1px solid #7d7d7d;
+			border-radius: 50%;
+			box-shadow: 0 2px 5px 0 rgba(0,0,0, 0.14);
+			height: 20px;
+			width: 20px;
+			margin-top: -5px;
+
+			background: #fff;
+			margin: 0 0 0 -10px;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+
+.tribe-filter-bar .tribe-filter-bar-c-range__slider .ui-slider-handle.ui-state-active {
+				background-color: #f7f6f6;
+			}
+
+/* -------------------------------------------------------------------------
+	 * Theme Overrides - Avada
+	 * ------------------------------------------------------------------------- */
+
+.tribe-filter-bar .tribe-filter-bar-c-range__slider .ui-slider-handle:before,
+			.tribe-filter-bar .tribe-filter-bar-c-range__slider .ui-slider-handle:after {
+				content: none;
+			}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Filter Button
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events {
+
+	/* -------------------------------------------------------------------------
+	 *
+	 * Filter Button: Theme Overrides
+	 *
+	 * ------------------------------------------------------------------------- */
+}
+
+.tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal.tribe-events .tribe-events-header--has-event-search .tribe-events-c-events-bar__filter-button-container {
+			border-right: 1px solid #e4e4e4;
+		}
+
+.tribe-events .tribe-events-c-events-bar__filter-button:hover,
+		.tribe-events .tribe-events-c-events-bar__filter-button:focus {
+			opacity: 0.8;
+		}
+
+.tribe-events .tribe-events-c-events-bar__filter-button:active {
+			opacity: 0.9;
+		}
+
+.tribe-events .tribe-events-c-events-bar__filter-button:before {
+			background-color: #334aff;
+			content: '';
+			display: none;
+			height: 2px;
+			pointer-events: none;
+			position: absolute;
+			top: 100%;
+			transform: translateY(4px);
+			width: calc(100% - 8px);
+		}
+
+.tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal.tribe-events .tribe-events-c-events-bar__filter-button:before {
+				transform: none;
+				width: calc(100% - 16px);
+			}
+
+.tribe-common--breakpoint-medium.tribe-events--filter-bar-horizontal.tribe-events .tribe-events-header--has-event-search .tribe-events-c-events-bar__filter-button:before {
+				content: none;
+			}
+
+.tribe-events .tribe-events-c-events-bar__filter-button--active:before {
+			display: block;
+		}
+
+.tribe-events .tribe-events-c-events-bar__filter-button-icon path {
+		fill: #141827;
+	}
+
+.tribe-events .tribe-events-c-events-bar__filter-button-text {
+		text-transform: capitalize;
+	}
+
+/* -------------------------------------------------------------------------
+	 * Theme Overrides - Twenty Seventeen
+	 * ------------------------------------------------------------------------- */
+
+.tribe-theme-twentyseventeen.colors-dark .tribe-events .tribe-events-c-events-bar__filter-button,
+			.tribe-theme-twentyseventeen.colors-dark .tribe-events .tribe-events-c-events-bar__filter-button:hover,
+			.tribe-theme-twentyseventeen.colors-dark .tribe-events .tribe-events-c-events-bar__filter-button:focus {
+				background-color: transparent;
+			}
+
+/* Views */
+
+/* -----------------------------------------------------------------------------
+ *
+ * Views
+ *
+ * This file is just a clearing-house.
+ * Make partials (start with an underscore) for any actual css code.
+ *
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ *
+ * Filter Bar
+ *
+ * This file is just a clearing-house.
+ * Make partials (start with an underscore) for any actual css code.
+ *
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ *
+ * Actions
+ *
+ * ----------------------------------------------------------------------------- */
+
+/* .tribe-filter-bar {
+
+} */
+
+/* -----------------------------------------------------------------------------
+ *
+ * Filter Bar
+ *
+ * ----------------------------------------------------------------------------- */
+
+/* .tribe-filter-bar {
+
+} */
+
+/* -----------------------------------------------------------------------------
+ *
+ * Filters
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar .tribe-filter-bar__filters {
+		border-bottom: 1px solid #e4e4e4;
+	}
+
+.tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar .tribe-filter-bar__filters {
+			border-bottom: none;
+		}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Filters Slider
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar .tribe-filter-bar__filters-slider-nav:before,
+		.tribe-filter-bar .tribe-filter-bar__filters-slider-nav:after {
+			height: 100%;
+			position: absolute;
+			top: 0;
+			width: 60px;
+		}
+
+.tribe-filter-bar .tribe-filter-bar__filters-slider-nav--overflow-start:before {
+			background: linear-gradient(-90deg, rgba(255,255,255, 0) 15%, #fff 70%);
+			content: '';
+			left: -1px;
+		}
+
+.tribe-filter-bar .tribe-filter-bar__filters-slider-nav--overflow-end:after {
+			background: linear-gradient(90deg, rgba(255,255,255, 0) 15%, #fff 70%);
+			content: '';
+			right: 0;
+		}
+
+.tribe-filter-bar .tribe-filter-bar__filters-slider-nav-button:hover .tribe-filter-bar__filters-slider-nav-button-icon path, .tribe-filter-bar .tribe-filter-bar__filters-slider-nav-button:focus .tribe-filter-bar__filters-slider-nav-button-icon path {
+				fill: rgba(20,24,39, 0.8);
+			}
+
+.tribe-filter-bar .tribe-filter-bar__filters-slider-nav-button:active .tribe-filter-bar__filters-slider-nav-button-icon path {
+				fill: rgba(20,24,39, 0.9);
+			}
+
+.tribe-filter-bar .tribe-filter-bar__filters-slider-nav-button-icon path {
+		fill: #7d7d7d;
+	}
+
+/* -----------------------------------------------------------------------------
+ *
+ * Selections
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-common--breakpoint-medium .tribe-filter-bar.tribe-filter-bar--vertical .tribe-filter-bar__selected-filters {
+		border-top: 1px solid #e4e4e4;
+	}

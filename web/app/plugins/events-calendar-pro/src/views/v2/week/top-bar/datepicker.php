@@ -7,10 +7,9 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link https://evnt.is/1aiy
  *
- * @version 5.0.1
- *
+ * @version 5.2.0
  *
  * @var string $week_start_date           The week start date, in `Y-m-d` format.
  * @var string $formatted_week_start_date The week start date, formatted to the user-selected format.
@@ -18,6 +17,7 @@
  * @var string $formatted_week_end_date   The week end date, formatted to the user-selected format.
  * @var obj    $date_formats              Object containing the date formats.
  */
+
 use Tribe__Date_Utils as Dates;
 
 $default_start_date        = $now;
@@ -55,7 +55,7 @@ $datepicker_date = Dates::build_date_object( $selected_start_date_value )->forma
 				<?php echo esc_html( $formatted_week_end_date ); ?>
 			</span>
 		</time>
-
+		<?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tribe-events-c-top-bar__datepicker-button-icon-svg' ] ] ); ?>
 	</button>
 	<label
 		class="tribe-events-c-top-bar__datepicker-label tribe-common-a11y-visual-hide"
@@ -75,4 +75,10 @@ $datepicker_date = Dates::build_date_object( $selected_start_date_value )->forma
 		readonly="readonly"
 	/>
 	<div class="tribe-events-c-top-bar__datepicker-container" data-js="tribe-events-top-bar-datepicker-container"></div>
+	<template class="tribe-events-c-top-bar__datepicker-template-prev-icon">
+		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-events-c-top-bar__datepicker-nav-icon-svg' ] ] ); ?>
+	</template>
+	<template class="tribe-events-c-top-bar__datepicker-template-next-icon">
+		<?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-events-c-top-bar__datepicker-nav-icon-svg' ] ] ); ?>
+	</template>
 </div>

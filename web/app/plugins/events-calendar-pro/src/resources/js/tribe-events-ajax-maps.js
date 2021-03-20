@@ -89,7 +89,7 @@
 		tg.bounds = new google.maps.LatLngBounds();
 	} catch( e ) {};
 
-	$( document ).ready( function() {
+	$( function() {
 
 		/**
 		 * @function tribe_test_location

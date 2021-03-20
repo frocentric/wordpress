@@ -1,0 +1,112 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Filter Bar
+ *
+ * ----------------------------------------------------------------------------- */
+
+/* -----------------------------------------------------------------------------
+ * Events: Desktop Vertical Layout
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events--filter-bar-vertical {
+
+	&.tribe-common--breakpoint-medium .tribe-events-l-container {
+		display: flex;
+		flex-wrap: wrap;
+
+		> * {
+			flex: none;
+			width: 100%;
+		}
+
+		.tribe-filter-bar--open {
+
+			& ~ .tribe-events-calendar-day,
+			& ~ .tribe-events-calendar-list,
+			& ~ .tribe-events-calendar-month,
+			& ~ .tribe-events-calendar-latest-past,
+			& ~ .tribe-events-pro-photo,
+			& ~ .tribe-events-pro-week-grid,
+			& ~ .tribe-events-pro-map {
+				width: calc(100% - 266px);
+			}
+		}
+	}
+}
+
+/* -----------------------------------------------------------------------------
+ * Events: Desktop Horizontal Layout
+ * ----------------------------------------------------------------------------- */
+
+.tribe-events--filter-bar-horizontal {
+
+	&.tribe-common--breakpoint-medium {
+		overflow: hidden; /* This prevents the page from overflowing when desktop horizontal slider is active */
+	}
+}
+
+/* -----------------------------------------------------------------------------
+ * Filter Bar
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar {
+	display: none;
+
+	&.tribe-filter-bar--open {
+		display: block;
+	}
+
+	&.tribe-filter-bar--mobile-closed {
+
+		.tribe-common:not(.tribe-common--breakpoint-medium) & {
+			display: none;
+		}
+	}
+
+	&.tribe-filter-bar--horizontal,
+	&.tribe-filter-bar--vertical {
+		background-color: var(--color-background);
+		left: 0;
+		padding: 0 var(--grid-gutter-page-small) var(--spacer-5);
+		position: absolute;
+		width: 100%;
+		z-index: var(--z-index-filters);
+
+		.tribe-common--breakpoint-medium & {
+			background-color: transparent;
+			padding: 0;
+			position: static;
+		}
+	}
+
+	.tribe-events-header--has-event-search &.tribe-filter-bar--horizontal {
+		top: 100%;
+	}
+
+	.tribe-common--breakpoint-medium .tribe-filter-bar--horizontal& {
+		background-color: transparent;
+		margin: calc(var(--spacer-3) * -1) 0 var(--spacer-8);
+	}
+
+	.tribe-common--breakpoint-medium .tribe-filter-bar--vertical& {
+		margin-right: var(--grid-gutter-small);
+		width: 224px;
+	}
+
+	.tribe-filter-bar__form {
+
+		.tribe-common--breakpoint-medium .tribe-filter-bar--horizontal& {
+			display: flex;
+			position: relative;
+		}
+	}
+
+	.tribe-filter-bar__form-heading {
+
+		.tribe-common--breakpoint-medium .tribe-filter-bar--vertical& {
+			@mixin visually-show;
+
+			padding: var(--spacer-1) 0 var(--spacer-2);
+		}
+	}
+}

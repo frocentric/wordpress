@@ -46,7 +46,7 @@ class Messages {
 		);
 		// translators: the placeholder is the keyword(s), as the user entered it.
 		$map['week_no_results_found_w_keyword'] = __(
-			'There were no results found for <strong>"%s"</strong> this week. Try searching another week.',
+			'There were no results found for <strong>"%s"</strong> this week.',
 			'tribe-events-calendar-pro'
 		);
 		// translators: %1$s: Events (plural), %2$s: the location search string, as the user entered it.

@@ -7,9 +7,9 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link https://evnt.is/1aiy
  *
- * @version 5.0.0
+ * @version 5.2.0
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -24,6 +24,7 @@
 				class="tribe-events-pro-map__event-tooltip-navigation-button tribe-events-pro-map__event-tooltip-navigation-button--prev tribe-common-b2 tribe-common-b3--min-medium"
 				data-js="tribe-events-pro-map-event-tooltip-prev-button"
 			>
+				<?php $this->template( 'components/icons/arrow-right', [ 'classes' => [ 'tribe-events-pro-map__event-tooltip-navigation-button-icon-svg' ] ] ); ?>
 				<?php esc_html_e( 'Prev', 'tribe-events-calendar-pro' ); ?>
 			</button>
 		</li>
@@ -33,6 +34,7 @@
 				data-js="tribe-events-pro-map-event-tooltip-next-button"
 			>
 				<?php esc_html_e( 'Next', 'tribe-events-calendar-pro' ); ?>
+				<?php $this->template( 'components/icons/arrow-right', [ 'classes' => [ 'tribe-events-pro-map__event-tooltip-navigation-button-icon-svg' ] ] ); ?>
 			</button>
 		</li>
 	</ul>

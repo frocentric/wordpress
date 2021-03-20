@@ -12,6 +12,7 @@ use Tribe\Events\Pro\Views\V2\Maps;
 use Tribe\Events\Views\V2\Messages;
 use Tribe\Events\Views\V2\Utils;
 use Tribe\Events\Views\V2\View;
+use Tribe\Events\Views\V2\View_Interface;
 use Tribe\Events\Views\V2\Views\Traits\List_Behavior;
 use Tribe__Events__Main as TEC;
 use Tribe__Utils__Array as Arr;
@@ -306,14 +307,18 @@ class Map_View extends View {
 			foreach ( $event->venues as $venue ) {
 				if ( empty( $template_vars['events_by_venue'][ $venue->ID ] ) ) {
 					$geolocation = $venue->geolocation;
-
 					if (
-						! isset( $geolocation->latitude, $geolocation->longitude )
-						|| ( '' === $geolocation->latitude || '' === $geolocation->longitude )
+						! empty( $template_vars['map_provider']->is_premium )
+						&& (
+							! isset( $geolocation->latitude, $geolocation->longitude )
+							|| ( '' === $geolocation->latitude || '' === $geolocation->longitude )
+						)
 					) {
-						// If the venue is missing the geolocation information, then it's not mappable.
+						// If we're using a custom api key and the venue is missing the geolocation information,
+						// then it's not mappable.
 						continue;
 					}
+
 
 					// WP_Post instances will be suppressed by the data filter, so we convert it to an object.
 					$template_vars['events_by_venue'][ $venue->ID ]            = (object) [
@@ -454,5 +459,33 @@ class Map_View extends View {
 		}
 
 		return $localized_geoloc_unit;
+	}
+
+	/**
+	 * Filters the location pin on the map view.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @param array<string,mixed> $template_vars The View template variables.
+	 * @param View_Interface      $view          The current View instance.
+	 */
+	public function filter_map_view_pin( array $template_vars, View_Interface $view ) {
+
+		if ( tribe_is_using_basic_gmaps_api() ) {
+			return $template_vars;
+		}
+
+		if ( ! isset( $template_vars['map_provider']->map_pin_url ) ) {
+			return $template_vars;
+		}
+
+		$map_pin = \Tribe__Customizer::instance()->get_option( [ 'global_elements', 'map_pin' ], false );
+		if ( empty( $map_pin ) ) {
+			return $template_vars;
+		}
+
+		$template_vars['map_provider']->map_pin_url = $map_pin;
+
+		return $template_vars;
 	}
 }

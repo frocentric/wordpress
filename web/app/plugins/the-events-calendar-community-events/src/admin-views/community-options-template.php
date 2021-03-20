@@ -510,6 +510,7 @@ $access_control_fields = [
 		'default'         => [],
 		'options'         => $redirectRoles,
 		'validation_type' => 'options_multi',
+		'tooltip'         => __( 'Check any roles listed to block access to the dashboard.', 'tribe-events-community' ),
 		'can_be_empty'    => true,
 	],
 	'blockRolesRedirect'                    => [

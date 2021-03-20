@@ -1,4 +1,6 @@
 <?php
+
+use Tribe__Events__Pro__Main as Main;
 /**
  * Events Gutenberg Assets
  *
@@ -79,6 +81,10 @@ class Tribe__Events__Pro__Editor__Assets {
 				'localize'  => array(),
 				'priority'  => 201,
 				'conditionals' => tribe_callback(  'events.editor', 'is_events_post_type' ),
+				'translations' => [
+					'domain' => 'tribe-events-calendar-pro',
+					'path'   => Main::instance()->pluginPath . 'lang',
+				],
 			)
 		);
 

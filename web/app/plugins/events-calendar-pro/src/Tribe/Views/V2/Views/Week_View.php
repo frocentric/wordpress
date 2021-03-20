@@ -100,9 +100,19 @@ class Week_View extends By_Day_View {
 
 		// Set up the messages using the union of stack events and non-stack events: both apply.
 		$non_stack_events = $events;
-		$stack_events     = array_map( static function ( $day_events ) {
-			return wp_list_pluck( $day_events, 'ID' );
-		}, array_column( $list_ready_stack, 0 ) );
+		$stack_events     = array_map(
+			static function ( $day_events ) {
+				$valid_day_events = array_filter(
+					(array) $day_events,
+					static function ( $day_event ) {
+						return isset( $day_event->ID );
+					}
+				);
+
+				return wp_list_pluck( $valid_day_events, 'ID' );
+			},
+			array_column( $list_ready_stack, 0 )
+		);
 		$msg_events       = array_merge_recursive( $non_stack_events, $stack_events );
 		$this->setup_messages( $msg_events );
 
@@ -120,6 +130,7 @@ class Week_View extends By_Day_View {
 		$date_format                                = tribe_get_option( 'dateWithoutYearFormat', 'F Y' );
 		$template_vars['formatted_week_start_date'] = $week_start->format_i18n( $date_format );
 		$template_vars['formatted_week_end_date']   = $week_end->format_i18n( $date_format );
+		$template_vars['formatted_grid_times']      = static::get_formatted_grid_times();
 		$template_vars['mobile_days']               = $this->get_mobile_days( $user_date );
 		$template_vars['days']                      = $this->get_grid_days( $user_date );
 		$template_vars['multiday_events']           = $list_ready_stack;
@@ -137,6 +148,7 @@ class Week_View extends By_Day_View {
 			: '';
 		$template_vars['messages']                 = $this->get_messages( $events );
 		$template_vars['hide_weekends']            = $this->hide_weekends;
+		$template_vars['time_format']              = get_option( 'time_format', 'g:i a' );
 
 		return $template_vars;
 	}
@@ -238,10 +250,10 @@ class Week_View extends By_Day_View {
 				continue;
 			}
 
-			/** @var \DateTimeImmutable $start */
+			/** @var \Tribe\Utils\Date_I18n_Immutable $start */
 			$start = $use_site_timezone ? $event->dates->start->setTimezone( $site_timezone ) : $event->dates->start;
+			$time  = $start->setTime( (int) $start->format( 'G' ), 0, 0 )->format_i18n( $time_format );
 
-			$time = date_i18n( $time_format, $start->getTimestamp() );
 			// ISO 8601 format, e.g. `2019-01-01T00:00:00+00:00`.
 			$datetime = $start->format( 'c' );
 
@@ -280,7 +292,7 @@ class Week_View extends By_Day_View {
 
 			$grid_days[ $date_string ] = [
 				'datetime'     => $date_string,
-				'weekday'      => date_i18n( 'D', $day_date->getTimestamp() ),
+				'weekday'      => $day_date->format_i18n( 'D' ),
 				'daynum'       => $day_date->format( 'j' ),
 				'found_events' => count( $event_ids ),
 			];
@@ -450,7 +462,7 @@ class Week_View extends By_Day_View {
 			$grid[ $day_y_m_d ] = [
 				'full_date'    => $day->format( tribe_get_option( 'date_with_year', Dates::DATEONLYFORMAT ) ),
 				'datetime'     => $day_y_m_d,
-				'weekday'      => date_i18n( 'D', $day->getTimestamp() + $day->getOffset() ),
+				'weekday'      => $day->format_i18n( 'D' ),
 				'daynum'       => $day->format( 'j' ),
 				'day_url'      => $day_url,
 				'found_events' => count( $events[ $day_y_m_d ] ) + count( $stack[ $day_y_m_d ]['events'] ),
@@ -797,9 +809,10 @@ class Week_View extends By_Day_View {
 				return;
 			}
 
+			$message_key = $this->upcoming_events_count() ? 'week_no_results_found' : 'no_upcoming_events';
 			$this->messages->insert(
 				Messages::TYPE_NOTICE,
-				Messages::for_key( 'week_no_results_found' )
+				Messages::for_key( $message_key )
 			);
 		}
 	}
@@ -857,5 +870,33 @@ class Week_View extends By_Day_View {
 			// Sunday is `0`, Saturday is `6`.
 			return $day_num !== 0 && $day_num !== 6;
 		}, ARRAY_FILTER_USE_KEY );
+	}
+
+	/**
+	 * Builds and returns a map relating each time in the `H:i` format to its localized version.
+	 *
+	 * @since 5.2.0
+	 *
+	 * @param string|null $time_format The time format that should be used (see the `date` supported format) or `null` to
+	 *                                 use the one defined by the WordPress `time_format` option.
+	 *
+	 * @return array<string,string> A map relating times in their `H:i` format to their localized version, following the
+	 *                              WordPress "Time Format" setting.
+	 */
+	public static function get_formatted_grid_times( $time_format = null ) {
+		$h_i_times = array_map(
+			static function ( $n ) {
+				return sprintf( '%02d:00', $n );
+			},
+			range( 0, 24 )
+		);
+
+		$time_format          = $time_format ? $time_format : (string) get_option( 'time_format' );
+		$localize_time        = static function ( $h_i_time ) use ( $time_format ) {
+			return date_i18n( $time_format, strtotime( $h_i_time ) );
+		};
+		$formatted_grid_times = array_combine( $h_i_times, array_map( $localize_time, $h_i_times ) );
+
+		return $formatted_grid_times;
 	}
 }

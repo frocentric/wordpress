@@ -18,6 +18,7 @@
 namespace Tribe\Events\Pro\Views\V2;
 
 use Tribe\Events\Pro\Views\V2\Assets as Pro_Assets;
+use Tribe\Events\Pro\Views\V2\Template\Featured_Title;
 use Tribe\Events\Pro\Views\V2\Template\Title;
 use Tribe\Events\Pro\Views\V2\Views\All_View;
 use Tribe\Events\Pro\Views\V2\Views\Map_View;
@@ -36,6 +37,7 @@ use Tribe\Events\Views\V2\Messages as TEC_Messages;
 use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\View_Interface;
 use Tribe__Context as Context;
+use Tribe__Customizer__Section as Customizer_Section;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Organizer as Organizer;
 use Tribe__Events__Pro__Main as Plugin;
@@ -99,18 +101,21 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_events_views_v2_view_repository_args', [ $this, 'filter_events_views_v2_view_repository_args' ], 10, 2 );
 		add_filter( 'tribe_events_views_v2_view_template_vars', [ $this, 'filter_events_views_v2_view_template_vars' ], 10, 2 );
 		add_filter( 'tribe_events_v2_view_title', [ $this, 'filter_tribe_events_v2_view_title' ], 10, 4 );
+		add_filter( 'tribe_events_pro_filter_views_v2_wp_title_plural_events_label', [ $this, 'filter_views_v2_wp_title_plural_events_label' ], 10, 4 );
 		add_filter( 'tribe_events_views_v2_view_url', [ $this, 'filter_tribe_events_views_v2_view_url' ], 10, 3 );
 		add_filter( 'tribe_events_views_v2_messages_map', [ $this, 'filter_tribe_events_views_v2_messages_map' ] );
 		add_filter( 'tribe_events_views_v2_messages_need_events_label_keys', [ $this, 'filter_tribe_events_views_v2_messages_need_events_label_keys' ] );
 		add_filter( 'tribe_events_pro_geocode_rewrite_rules', [ $this, 'filter_geocode_rewrite_rules' ], 10, 3 );
 		add_filter( 'tribe_context_locations', [ $this, 'filter_context_locations' ] );
 		add_filter( 'tribe_events_views_v2_view_all_breadcrumbs', [ $this, 'filter_view_all_breadcrumbs' ], 10, 2 );
+		add_filter( 'tribe_events_views_v2_view_page_reset_ignored_params', [ $this, 'filter_page_reset_ignored_params' ], 10, 2 );
 		add_filter( 'tribe_events_views_v2_view_repository_args', [ $this, 'filter_view_repository_args' ], 10, 2 );
 		add_filter( 'tribe_events_views_v2_view_venue_breadcrumbs', [ $this, 'filter_view_venue_breadcrumbs' ], 10, 2 );
 		add_filter( 'tribe_events_views_v2_view_organizer_breadcrumbs', [ $this, 'filter_view_organizer_breadcrumbs' ], 10, 2 );
 		add_filter( 'redirect_canonical', [ $this, 'filter_prevent_canonical_redirect' ] );
 
 		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_rest_request_view_slug' ], 10, 2 );
+
 
 		add_filter( 'tribe_events_views_v2_view_url', [ $this, 'filter_shortcode_view_url' ], 10, 3 );
 		add_filter( 'tribe_events_views_v2_view_next_url', [ $this, 'filter_shortcode_view_url' ], 10, 3 );
@@ -137,10 +142,17 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_events_rewrite_matchers_to_query_vars_map', [ $this, 'filter_rewrite_query_vars_map' ] );
 		add_filter( 'tribe_events_rewrite_rules_custom', [ $this, 'filter_events_rewrite_rules_custom' ], 20 );
 
-		add_filter( 'tribe_events_filter_bar_views_v2_should_display_filters', [ $this, 'filter_hide_filter_bar_organizer_venue' ], 10, 2 );
+		add_filter( 'tribe_events_filter_bar_views_v2_should_display_filters', [ $this, 'filter_hide_filter_bar' ], 10, 2 );
+		add_filter( 'tribe_events_filter_bar_views_v2_1_should_display_filters', [ $this, 'filter_hide_filter_bar' ], 10, 2 );
 
 		add_filter( 'tribe_events_views_v2_manager_view_label_domain', [ $this, 'filter_view_label_domain'], 10, 3 );
-		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'customizer_inline_stylesheets' ], 12, 2 );
+		add_filter( 'tribe_customizer_inline_stylesheets', [ $this, 'customizer_inline_stylesheets' ], 12 );
+
+		// Customizer.
+		add_filter( 'tribe_customizer_pre_sections', [ $this, 'filter_customizer_sections' ], 30, 2 );
+		add_filter( 'tribe_customizer_global_elements_css_template', [ $this, 'filter_global_elements_css_template' ], 10, 3 );
+		add_filter( 'tribe_customizer_single_event_css_template', [ $this, 'filter_single_event_css_template' ], 10, 3 );
+		add_filter( 'tribe_events_views_v2_view_map_template_vars', [ $this, 'filter_map_view_pin' ], 10, 2 );
 	}
 
 	/**
@@ -378,6 +390,22 @@ class Hooks extends \tad_DI52_ServiceProvider {
 
 		return $view_filters->filter_repository_args( $repository_args, $context );
 	}
+	/**
+	 * Filters the ignored params to add the `hide_subsequent_recurrences` item.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @param array<string>      $arguments Which arguments we are ignoring.
+	 * @param View|null  $view      Current view that we are filtering.
+	 *
+	 * @return array Array of params with the hide_subsequent_recurrences added.
+	 */
+	public function filter_page_reset_ignored_params( array $arguments = [], View $view = null ) {
+		/** @var View_Filters $view_filters */
+		$view_filters = $this->container->make( View_Filters::class );
+
+		return $view_filters->add_recurrence_hide_to_page_reset_ignored_params( $arguments, $view );
+	}
 
 	/**
 	 * Filters the View template variables before the HTML is generated to add the ones related to this plugin filters.
@@ -414,6 +442,21 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		                             ->build_title( $title, $depth );
 
 		return $new_title ?: $title;
+	}
+
+	/**
+	 * Filter the plural events label for Featured V2 PRO Views.
+	 *
+	 * @since 5.1.4
+	 *
+	 * @param string  $label   The plural events label as it's been generated thus far.
+	 * @param Context $context The context used to build the title, it could be the global one, or one externally
+	 *                         set.
+	 *
+	 * @return string the original label or updated label for virtual archives.
+	 */
+	public function filter_views_v2_wp_title_plural_events_label( $label, Context $context ) {
+		return $this->container->make( Featured_Title::class )->filter_views_v2_wp_title_plural_events_label( $label, $context );
 	}
 
 	/**
@@ -522,7 +565,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @param mixed $redirect_url URL which we will redirect to.
 	 *
-	 * @return string             Orginial URL redirect or False to prevent canonical redirect.
+	 * @return string             Original URL redirect or False to prevent canonical redirect.
 	 */
 	public function filter_prevent_canonical_redirect( $redirect_url = null ) {
 		return $this->container->make( Rewrite::class )->filter_prevent_canonical_redirect( $redirect_url );
@@ -536,18 +579,20 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since 4.7.9
 	 *
-	 * @param array $rules The geocode based rewrite rules.
+	 * @param array<string,string> $rules         The geocode based rewrite rules.
+	 * @param array<string,string> $bases         The geocode rewrite bases.
+	 * @param array<string,string> $rewrite_slugs The geocode slugs.
 	 *
-	 * @return array The filtered geocode based rewrite rules.
+	 * @return array<string,string> The filtered geocode based rewrite rules.
 	 *
 	 * @see \Tribe__Events__Pro__Geo_Loc::add_routes() for where this code is applying.
 	 */
-	public function filter_geocode_rewrite_rules( $rules ) {
-		if ( empty( $rules ) ) {
+	public function filter_geocode_rewrite_rules( $rules, $bases, $rewrite_slugs ) {
+		if ( empty( $rules ) || empty( $bases ) || empty( $rewrite_slugs ) ) {
 			return $rules;
 		}
 
-		return $this->container->make( Rewrite::class )->add_map_pagination_rules( $rules );
+		return $this->container->make( Rewrite::class )->add_map_pagination_rules( $rules, $bases, $rewrite_slugs );
 	}
 
 	/**
@@ -847,10 +892,40 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		return $this->container->make( Rewrite::class )->filter_rewrite_query_vars_map( $query_vars_map );
 	}
 
+
+	/**
+	 * Filters the "should display filters" for ECP views.
+	 *
+	 * @since 5.1.1
+	 *
+	 * @param bool           $should_display_filters Boolean on whether to display filters or not.
+	 * @param View_Interface $view                   The View currently rendering.
+	 *
+	 * @return bool
+	 */
+	public function filter_hide_filter_bar( $should_display_filters, $view ) {
+		$slug     = $view->get_slug();
+		$wp_query = tribe_get_global_query_object();
+
+		// Don't show for organizers or venues.
+		if ( in_array( $slug, [ 'organizer', 'venue' ] ) ) {
+			return false;
+		}
+
+		// Don't show for a recurring event "all" page.
+		if ( 'all' === $slug || 'all' === $wp_query->get( 'eventDisplay' ) || $wp_query->tribe_is_recurrence_list ) {
+			return false;
+		}
+
+		return $should_display_filters;
+	}
+
 	/**
 	 * Filters the should display filters for organizer and venue views.
+	 * Superseded by filter_hide_filter_bar() above.
 	 *
 	 * @since 5.0.1
+	 * @deprecated 5.1.1
 	 *
 	 * @param bool           $should_display_filters Boolean on whether to display filters or not.
 	 * @param View_Interface $view                   The View currently rendering.
@@ -858,13 +933,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return bool
 	 */
 	public function filter_hide_filter_bar_organizer_venue( $should_display_filters, $view ) {
-		$slug = $view->get_slug();
+		_deprecated_function( __FUNCTION__, '5.1.1', 'filter_hide_filter_bar' );
 
-		if ( ! in_array( $slug, [ 'organizer', 'venue' ] ) ) {
-			return $should_display_filters;
-		}
-
-		return false;
+		return $this->filter_hide_filter_bar( $should_display_filters, $view );
 	}
 
 	/**
@@ -905,15 +976,11 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Remove unused legacy stylesheets.
 	 *
 	 * @param array<string> $sheets Array of sheets to search for.
-	 * @param string        $css_template String containing the inline css to add.
 	 *
 	 * @return array Modified array of sheets to search for.
 	 */
-	public function customizer_inline_stylesheets( $sheets, $css_template ) {
-		$v2_sheets = [
-			'tribe-events-pro-views-v2-skeleton',
-			'tribe-events-pro-views-v2-full'
-		];
+	public function customizer_inline_stylesheets( $sheets ) {
+		$v2_sheets = [ 'tribe-events-pro-views-v2-full' ];
 
 		// Unenqueue legacy sheets.
 		$keys = array_keys( $sheets, 'tribe-events-calendar-pro-style' );
@@ -924,5 +991,73 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		}
 
 		return array_merge( $sheets, $v2_sheets );
+	}
+
+	/**
+	 * Filters the currently registered Customizer sections to add or modify them.
+	 *
+	 * @since 5.1.1
+	 *
+	 * @param array<string,array<string,array<string,int|float|string>>> $sections   The registered Customizer sections.
+	 * @param \Tribe___Customizer                                        $customizer The Customizer object.
+	 *
+	 * @return array<string,array<string,array<string,int|float|string>>> The filtered sections.
+	 */
+	public function filter_customizer_sections( $sections, $customizer ) {
+		if ( ! ( is_array( $sections ) && $customizer instanceof \Tribe__Customizer ) ) {
+			return $sections;
+		}
+
+		return $this->container->make( Customizer::class )->filter_sections( $sections, $customizer );
+	}
+
+	/**
+	 * Filters the Global Elements section CSS template to add Views v2 related style templates to it.
+	 *
+	 * @since 5.1.1
+	 *
+	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
+	 * @param \Tribe__Customizer__Section $section      The Global Elements section.
+	 * @param \Tribe__Customizer          $customizer   The current Customizer instance.
+	 *
+	 * @return string The filtered CSS template.
+	 */
+	public function filter_global_elements_css_template( $css_template, $section, $customizer ) {
+		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section && $customizer instanceof \Tribe__Customizer ) ) {
+			return $css_template;
+		}
+
+		return $this->container->make( Customizer::class )->filter_global_elements_css_template( $css_template, $section, $customizer );
+	}
+
+	/**
+	 * Filters the Single Event section CSS template to add Views v2 related style templates to it.
+	 *
+	 * @since 5.1.1
+	 *
+	 * @param string                      $css_template The CSS template, as produced by the Global Elements.
+	 * @param \Tribe__Customizer__Section $section      The Single Event section.
+	 * @param \Tribe__Customizer          $customizer   The current Customizer instance.
+	 *
+	 * @return string The filtered CSS template.
+	 */
+	public function filter_single_event_css_template( $css_template, $section, $customizer ) {
+		if ( ! ( is_string( $css_template ) && $section instanceof Customizer_Section && $customizer instanceof \Tribe__Customizer ) ) {
+			return $css_template;
+		}
+
+		return $this->container->make( Customizer::class )->filter_single_event_css_template( $css_template, $section, $customizer );
+	}
+
+	/**
+	 * Filters the location pin on the map view.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @param array          $template_vars The View template variables.
+	 * @param View_Interface $view          The current View instance.
+	 */
+	public function filter_map_view_pin( array $template_vars, View_Interface $view ) {
+		return $this->container->make( Map_View::class )->filter_map_view_pin( $template_vars, $view );
 	}
 }

@@ -95,6 +95,15 @@ if ( ! class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
 				}
 			}
 
+			// In some instances, event_date_utc is populated, but event_date is not?
+			foreach( $events as $index => $event ) {
+				if ( ! empty( $event->event_date ) ) {
+					continue;
+				}
+
+				$events[ $index ]->event_date = tribe_get_start_date( $event->ID, false, Tribe__Date_Utils::DBDATETIMEFORMAT );
+			}
+
 			include( Tribe__Events__Pro__Main::instance()->pluginPath . 'src/admin-views/widget-admin-countdown.php' );
 		}
 
@@ -173,7 +182,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
 					->order_by( 'event_date', 'ASC' )
 					->first();
 			} else {
-				$event = get_post( $instance['event'] );
+				$event = tribe_get_event( $instance['event'] );
 			}
 
 			$ret = $instance['complete'];
@@ -181,32 +190,23 @@ if ( ! class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
 
 			ob_start();
 			include Tribe__Events__Templates::getTemplateHierarchy( 'pro/widgets/countdown-widget' );
-			$hourformat = ob_get_clean();
+			$hour_format = ob_get_clean();
 
 			if ( $event instanceof WP_Post ) {
-
-				// Get the event start date and time zone
-				$startdate = new DateTime( tribe_get_start_date( $event->ID, false, Tribe__Date_Utils::DBTZDATETIMEFORMAT, 'event' ) );
-				$use_tz = $startdate->getTimeZone();//Tribe__Events__Timezones::get_event_timezone_string( $event->ID );
-
-				// Get current time, make both times use the same timezone
-				try {
-					$now = new DateTime( 'now', new DateTimeZone( $use_tz->getName() ) );
-					$startdate->setTimezone( new DateTimeZone( $use_tz->getName() ) );
-				} catch ( Exception $e ) {
-					$now = new DateTime( 'now' );
-				}
+				// Force to UTC for math reasons. We don't care about time zones for this widget.
+				$use_tz     = new DateTimeZone( 'UTC' );
+				$now        = new DateTime( 'now', $use_tz );
+				$start_date = new DateTime( $event->start_date_utc, $use_tz );
 
 				// Get the number of seconds remaining until the date in question.
-				// Note: can't use $startdate->getTimestamp() as that negates all the TZ work we just did!
-				$seconds = strtotime( $startdate->format( Tribe__Date_Utils::DBTZDATETIMEFORMAT ) ) - strtotime( $now->format( Tribe__Date_Utils::DBTZDATETIMEFORMAT ) );
+				$seconds = $start_date->getTimestamp() - $now->getTimestamp();
 
 			} else {
 				$seconds = 0;
 			}
 
 			if ( $seconds > 0 ) {
-				$ret = $this->generate_countdown_output( $seconds, $instance['complete'], $hourformat, $event );
+				$ret = $this->generate_countdown_output( $seconds, $instance['complete'], $hour_format, $event );
 			}
 
 			$jsonld_enable = isset( $instance['jsonld_enable'] ) ? $instance['jsonld_enable'] : true;
@@ -236,27 +236,27 @@ if ( ! class_exists( 'Tribe__Events__Pro__Countdown_Widget' ) ) {
 		/**
 		 * Generate the hidden information to be passed to jQuery
 		 *
-		 * @param  int $seconds             The amount of seconds to show
-		 * @param  string $complete         HTML for when the countdown is over
-		 * @param  string $hourformat       HTML from View
-		 * @param  WP_Post|int|null $event  Event Instance of WP_Post
-		 * @param  null $deprecated         Deprecated Argument
+		 * @param int              $seconds     The amount of seconds to show.
+		 * @param string           $complete    HTML for when the countdown is over.
+		 * @param string           $hour_format HTML from View.
+		 * @param WP_Post|int|null $event       Event Instance of WP_Post.
+		 * @param null             $deprecated  Deprecated Argument.
 		 * @return string
 		 */
-		public function generate_countdown_output( $seconds, $complete, $hourformat, $event, $deprecated = null ) {
+		public function generate_countdown_output( $seconds, $complete, $hour_format, $event, $deprecated = null ) {
 			$event = get_post( $event );
 			$link = tribe_get_event_link( $event );
 
 			$output = '';
 
 			if ( $event ) {
-				$output .= '<div class="tribe-countdown-text"><a href="' . esc_url( $link ) . '">' . esc_attr( $event->post_title ) . '</a></div>';
+				$output .= '<div class="tribe-countdown-text tribe-common-h5"><a href="' . esc_url( $link ) . '">' . esc_attr( $event->post_title ) . '</a></div>';
 			}
 
 			return $output . '
 			<div class="tribe-countdown-timer">
 				<span class="tribe-countdown-seconds">' . $seconds . '</span>
-				<span class="tribe-countdown-format">' . $hourformat . '</span>
+				<span class="tribe-countdown-format">' . $hour_format . '</span>
 				' . $complete . '
 			</div>';
 		}

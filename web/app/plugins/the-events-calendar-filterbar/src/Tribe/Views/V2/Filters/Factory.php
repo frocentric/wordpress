@@ -9,6 +9,8 @@
 
 namespace Tribe\Events\Filterbar\Views\V2\Filters;
 
+use Tribe\Events\Views\V2\View;
+use Tribe\Events\Filterbar\Views\V2\Filters;
 use Tribe__Context as Context;
 use Tribe__Events__Filterbar__Filter as Filter;
 use Tribe__Utils__Array as Arr;
@@ -64,7 +66,7 @@ class Factory {
 			$tribe_key = 'tribe_' . $key;
 			$context_key = tribe_context()->get_read_key_for( $key, Context::QUERY_VAR );
 
-			// Prevent reseting when a link was clicked.
+			// Prevent resetting when a link was clicked.
 			if ( ! $is_form_submit ) {
 				if ( ! empty( $params[ $context_key ] ) ) {
 					$params[ $key ] = $params[ $context_key ];
@@ -81,7 +83,7 @@ class Factory {
 				$params[ $context_key ] = null;
 				continue;
 			} else {
-				// When not empty we repace that value on the other two places.
+				// When not empty we replace that value on the other two places.
 				$params[ $tribe_key ] = $params['view_data'][ $tribe_key ];
 				$params[ $context_key ] = $params['view_data'][ $tribe_key ];
 			}
@@ -207,7 +209,7 @@ class Factory {
 					$value = array_combine(
 						$active_additional_fields,
 						array_map( static function ( $key ) use ( $context ) {
-							return $context->get( $key, null );
+							return $context->get( $key, $context->get( 'tribe_' . $key, null ) );
 						}, $active_additional_fields )
 					);
 				}

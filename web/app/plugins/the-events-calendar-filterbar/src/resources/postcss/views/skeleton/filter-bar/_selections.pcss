@@ -1,0 +1,43 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Selections
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar {
+
+	.tribe-common--breakpoint-medium &.tribe-filter-bar--horizontal .tribe-filter-bar__selected-filters {
+		@mixin hidden;
+	}
+
+	.tribe-filter-bar__selected-filters-header {
+		align-items: center;
+		display: flex;
+		justify-content: space-between;
+		padding: var(--spacer-3) 0;
+	}
+
+	.tribe-filter-bar__selected-filters-clear-button {
+		display: none;
+		visibility: hidden;
+
+		.tribe-common--breakpoint-medium & {
+			display: flex;
+			visibility: visible;
+		}
+	}
+
+	.tribe-filter-bar__selected-filters-list-container {
+		padding-bottom: var(--spacer-4);
+	}
+
+	.tribe-filter-bar__selected-filters-list {
+		display: flex;
+		flex-wrap: wrap;
+		margin: 0 calc(var(--spacer-0) * -1) calc(var(--spacer-1) * -1);
+	}
+
+	.tribe-filter-bar__selected-filters-list-item {
+		padding: 0 var(--spacer-0) var(--spacer-1);
+	}
+}

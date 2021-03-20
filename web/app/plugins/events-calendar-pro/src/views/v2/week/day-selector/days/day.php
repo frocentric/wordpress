@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link https://evnt.is/1aiy
  *
  * @var array  $day             Array of data of the day
  * @var bool   $is_current_week boolean containing if the selected week is the current week.

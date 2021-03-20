@@ -1,0 +1,51 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Dropdown
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar {
+
+	.tribe-filter-bar-c-dropdown {
+
+		.selection {
+			display: none;
+			visibility: hidden;
+		}
+
+		&.tribe-filter-bar-c-dropdown--has-selection .selection {
+			display: block;
+			visibility: visible;
+		}
+
+		.select2-dropdown {
+			position: static;
+		}
+
+		.select2-search {
+			margin: var(--spacer-1) 0 var(--spacer-2);
+		}
+
+		.select2-search__field {
+			height: 40px;
+			margin: 0;
+			min-width: 100%;
+			padding: 0 20px 0 34px;
+		}
+
+		.select2-selection--single {
+			height: auto;
+		}
+
+		.select2-selection__clear {
+			line-height: 8px;
+			margin: 0 0 2px var(--spacer-0);
+			order: 1;
+			padding: 3px;
+		}
+
+		.select2-results__option {
+			padding: calc(var(--spacer-2) / 2) 0;
+		}
+	}
+}

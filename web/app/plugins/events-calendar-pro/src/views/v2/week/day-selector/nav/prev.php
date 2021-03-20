@@ -7,9 +7,9 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link https://evnt.is/1aiy
  *
- * @version 5.0.1
+ * @version 5.2.0
  *
  */
 ?>
@@ -22,6 +22,7 @@
 		aria-label="<?php esc_attr_e( 'Previous week', 'tribe-events-calendar-pro' ); ?>"
 		title="<?php esc_attr_e( 'Previous week', 'tribe-events-calendar-pro' ); ?>"
 	>
+		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-events-pro-week-day-selector__prev-icon-svg' ] ] ); ?>
 		<span class="tribe-common-a11y-visual-hide">
 			<?php esc_html_e( 'Previous week', 'tribe-events-calendar-pro' ); ?>
 		</span>

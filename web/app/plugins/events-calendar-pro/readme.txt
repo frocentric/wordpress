@@ -1,11 +1,11 @@
 === The Events Calendar PRO ===
 
-Contributors: ModernTribe, barry.hughes, bordoni, borkweb, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, thatdudebutch,  zbtirrell, juanfra
+Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, geoffgraham, jentheo, leahkoerper, lucatume, neillmcshea, patriciahillebrandt, paulskim, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro
-Donate link: http://m.tri.be/29
-Requires at least: 4.9
-Tested up to: 5.4.1
-Stable tag: 5.1.2
+Donate link: https://evnt.is/29
+Requires at least: 4.9.14
+Tested up to: 5.7.0
+Stable tag: 5.4.0.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@ A premium add-on to The Events Calendar plugin (required), enabling recurrence, 
 
 == Description ==
 
-<a href="http://m.tri.be/3r">Events Calendar PRO</a> is a awesomely dynamic add-on for The Events Calendar that adds more features and functionality to an already robust plugin.
+<a href="https://evnt.is/3r">Events Calendar PRO</a> is a awesomely dynamic add-on for The Events Calendar that adds more features and functionality to an already robust plugin.
 
 The Events Calendar allows you to create and manage events with ease from right within your WordPress dash; no shortcode is needed (nor is one available).  With Events Calendar PRO, you can go even further with recurring events, more calendar views (including Day and Week), Location Search, more widget options, and much more.
 
@@ -22,9 +22,9 @@ Plus, Events Calendar PRO users get access to our premium support forums. Need h
 
 = Features =
 
-The following lists the PRO-only features. For a list of The Events Calendar features, check out that plugin's readme.txt or check out <a href="http://m.tri.be/3s">the Product page</a>.
+The following lists the PRO-only features. For a list of The Events Calendar features, check out that plugin's readme.txt or check out <a href="https://evnt.is/3s">the Product page</a>.
 
-Just getting started? You'll want to watch and read through the <a href="http://m.tri.be/3t">New User Primer</a>.
+Just getting started? You'll want to watch and read through the <a href="https://evnt.is/3t">New User Primer</a>.
 
 * Advanced Views: Day, Week, Map, Photo
 * Venue and Organizer Pages
@@ -46,7 +46,7 @@ Remember, to use Events Calendar PRO you need to also be running The Events Cale
 3. When the popup appears select the the-events-calendar-x.x.zip file or events-calendar-pro-x.x.zip file from your desktop. (The 'x.x' will change depending on the current version number).
 4. Follow the on-screen instructions and wait as the upload completes.
 5. When it's finished, activate the plugin via the prompt. A message will show confirming activation was successful. A link to access the calendar directly on the frontend will be presented here as well.
-6. For access to new updates, make sure you have added your valid License Key under Events --> Settings --> Licenses. You can find your license key on your tri.be account at http://m.tri.be/3u.
+6. For access to new updates, make sure you have added your valid License Key under Events --> Settings --> Licenses. You can find your license key on your tri.be account at https://evnt.is/3u.
 
 That's it! Just configure your settings as you see fit, and you're on your way to creating events in style.
 
@@ -61,11 +61,11 @@ That's it! Just configure your settings as you see fit, and you're on your way t
 
 If this is your first time using The Events Calendar and Events Calendar PRO, you're in for a treat! Here are some basics we've found helpful for users jumping into it for the first time:
 
-* Our <a href="http://m.tri.be/3t">New User Primer</a> was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time.
-* <a href="http://m.tri.be/3v">Installation/Setup FAQs</a> from our Support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer.
-* <a href="http://m.tri.be/9u">Tutorials</a>, based on commonly-requested hacks and tweaks, which will provide you guidance towards accomplishing some highly sought-after tweaks.
+* Our <a href="https://evnt.is/3t">New User Primer</a> was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time.
+* <a href="https://evnt.is/3v">Installation/Setup FAQs</a> from our Support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer.
+* <a href="https://evnt.is/9u">Tutorials</a>, based on commonly-requested hacks and tweaks, which will provide you guidance towards accomplishing some highly sought-after tweaks.
 * Are you a developer looking to build a custom frontend view? We created an example plugin that demonstrates how to register a new view. You can download the plugin at GitHub here: https://github.com/moderntribe/tribe-events-agenda-view
-* Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. Need help finding your license key? Check out http://m.tri.be/3w
+* Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. Need help finding your license key? Check out https://evnt.is/3w
 
 Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event.
 
@@ -86,76 +86,79 @@ Note that we aren't going to say "tough luck" if you identify a plugin/theme con
 
 = I'm still stuck. Where do I go to file a bug or ask a question? =
 
-If you're already a PRO user, you're entitled access to our more actively-monitored <a href="http://m.tri.be/3x">PRO forums</a> at the theeventscalendar.com website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. No post should go more than 24-hours during that time without a response.
+If you're already a PRO user, you're entitled access to our more actively-monitored <a href="https://evnt.is/3x">PRO forums</a> at the theeventscalendar.com website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. No post should go more than 24-hours during that time without a response.
 
 = What add-ons are available for The Events Calendar and Events Calendar PRO, and where can I read more about them? =
 
 Currently, the following add-ons are available for The Events Calendar/Events Calendar PRO:
 
-* <a href="http://m.tri.be/18wi">Events Calendar PRO</a>, for adding premium calendar features like recurring events, advanced views, cool widgets, shortcodes, additional fields, and more!
-* <a href="http://m.tri.be/18wj">Event Tickets</a> (free), which allows you to collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds RSVP functionality to WordPress posts and pages.
-* <a href="http://m.tri.be/18wk">Event Tickets Plus</a>, which allows you to sell tickets for your events using your favorite e-commerce platform.
-* <a href="http://m.tri.be/2g">Community Events</a>, for allowing frontend event submission from your readers.
-* <a href="http://m.tri.be/18wl">Community Tickets</a>, which allows event organizers to sell tickets to the events they submit via Community Events.
-* <a href="http://m.tri.be/2h">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
-* <a href="http://m.tri.be/fa">Filter Bar</a>, for adding advanced frontend filtering capabilities to your events calendar.
-* <a href="http://m.tri.be/18h9">iCal Importer</a>, for importing events any iCal feed or ICS file.
-* <a href="http://m.tri.be/2e">Eventbrite Tickets</a>, for selling tickets to your event directly through Eventbrite.
+* <a href="https://evnt.is/18wi">Events Calendar PRO</a>, for adding premium calendar features like recurring events, advanced views, cool widgets, shortcodes, additional fields, and more!
+* <a href="https://evnt.is/18wj">Event Tickets</a> (free), which allows you to collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds RSVP functionality to WordPress posts and pages.
+* <a href="https://evnt.is/18wk">Event Tickets Plus</a>, which allows you to sell tickets for your events using your favorite e-commerce platform.
+* <a href="https://evnt.is/2g">Community Events</a>, for allowing frontend event submission from your readers.
+* <a href="https://evnt.is/18wl">Community Tickets</a>, which allows event organizers to sell tickets to the events they submit via Community Events.
+* <a href="https://evnt.is/2h">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
+* <a href="https://evnt.is/fa">Filter Bar</a>, for adding advanced frontend filtering capabilities to your events calendar.
+* <a href="https://evnt.is/18h9">iCal Importer</a>, for importing events any iCal feed or ICS file.
+* <a href="https://evnt.is/2e">Eventbrite Tickets</a>, for selling tickets to your event directly through Eventbrite.
 
 = I have a feature idea. What's the best way to tell you about it? =
 
-We've got a <a href="https://tribe.uservoice.com/forums/195723-feature-ideas">Modern Tribe UserVoice page</a> where we're actively watching for feature ideas from the community. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community's needs.
+We've got a <a href="https://tribe.uservoice.com/forums/195723-feature-ideas">The Events Calendar UserVoice page</a> where we're actively watching for feature ideas from the community. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community's needs.
 
 = I've still got questions. Do you have a bigger FAQ somewhere? =
 
-We do. If you check out our a href="http://m.tri.be/41">Frequently Asked Questions page</a> on the tri.be site, we've collected and addressed all of the common questions we see posed by users. In some cases we'll provide a Gist; in other cases we'll direct you to a tutorial; and in some situations we'll unfortunately say a certain capability is simply not possible. But the FAQ is a living, breathing document that we're actively updating based on commonly-seen requests.
+We do. If you check out our a href="https://evnt.is/41">Frequently Asked Questions page</a> on the tri.be site, we've collected and addressed all of the common questions we see posed by users. In some cases we'll provide a Gist; in other cases we'll direct you to a tutorial; and in some situations we'll unfortunately say a certain capability is simply not possible. But the FAQ is a living, breathing document that we're actively updating based on commonly-seen requests.
 
 == Documentation ==
 
-All of our documentation can be found at http://m.tri.be/42
+All of our documentation can be found at https://evnt.is/42
 
 Some docs you may find particularly useful are:
 
-* <a href="http://m.tri.be/3t">The Events Calendar New User Primer</a>
-* <a href="http://m.tri.be/43">The Themer's Guide to The Events Calendar</a>
-* <a href="http://m.tri.be/41">The Events Calendar FAQ</a>
+* <a href="https://evnt.is/3t">The Events Calendar New User Primer</a>
+* <a href="https://evnt.is/43">The Themer's Guide to The Events Calendar</a>
+* <a href="https://evnt.is/41">The Events Calendar FAQ</a>
 
-Tutorials are available at http://m.tri.be/44
+Tutorials are available at https://evnt.is/44
 
-For template tags, head over to our documentation page: http://m.tri.be/42
+For template tags, head over to our documentation page: https://evnt.is/42
 
 == Contributors ==
 
-The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
+The plugin is produced by <a href="https://evnt.is/45">The Events Calendar</a>.
 
 = Current Contributors =
 
-<a href="https://profiles.wordpress.org/barryhughes">Barry Hughes</a>
 <a href="https://profiles.wordpress.org/brianjessee">Brian Jessee</a>
-<a href="https://profiles.wordpress.org/brook-tribe">Brook Harding</a>
-<a href="https://profiles.wordpress.org/cliffpaulick">Clifford Paulick</a>
-<a href="https://profiles.wordpress.org/MZAWeb">Daniel Dvorkin</a>
+<a href="https://profiles.wordpress.org/mitogh">Crisoforo Gaspar</a>
 <a href="https://profiles.wordpress.org/geoffgraham">Geoff Graham</a>
-<a href="https://profiles.wordpress.org/ggwicz">George Gecewicz</a>
 <a href="https://profiles.wordpress.org/bordoni">Gustavo Bordoni</a>
-<a href="https://profiles.wordpress.org/jazbek">Jessica Yazbek</a>
-<a href="https://profiles.wordpress.org/joshlimecuda">Josh Mallard</a>
 <a href="https://profiles.wordpress.org/leahkoerper">Leah Koerper</a>
 <a href="https://profiles.wordpress.org/lucatume">Luca Tumedei</a>
 <a href="https://profiles.wordpress.org/borkweb">Matthew Batchelder</a>
 <a href="https://profiles.wordpress.org/neillmcshea">Neill McShea</a>
-<a href="https://profiles.wordpress.org/mastromktg">Nick Mastromattei</a>
-<a href="https://profiles.wordpress.org/nicosantos”>Nico Santo</a>
-<a href="https://profiles.wordpress.org/peterchester">Peter Chester</a>
-<a href="https://profiles.wordpress.org/roblagatta">Rob La Gatta</a>
-<a href="https://profiles.wordpress.org/reid.peifer">Reid Peifer</a>
-<a href="https://profiles.wordpress.org/shane.pearlman">Shane Pearlman</a>
-<a href="https://profiles.wordpress.org/camwyn">Stephen Page</a>
-<a href="https://profiles.wordpress.org/thatdudebutch">Wayne Stratton</a>
+<a href="https://profiles.wordpress.org/paulskim">Paul Kim</a>
+<a href="https://profiles.wordpress.org/camwynsp">Stephen Page</a>
+<a href="https://profiles.wordpress.org/vicskf">Victor Zarranz</a>
 <a href="https://profiles.wordpress.org/zbtirrell">Zachary Tirrell</a>
 
 = Past Contributors =
 
+<a href="https://profiles.wordpress.org/peterchester">Peter Chester</a>
+<a href="https://profiles.wordpress.org/roblagatta">Rob La Gatta</a>
+<a href="https://profiles.wordpress.org/reid.peifer">Reid Peifer</a>
+<a href="https://profiles.wordpress.org/shane.pearlman">Shane Pearlman</a>
+<a href="https://profiles.wordpress.org/barryhughes">Barry Hughes</a>
+<a href="https://profiles.wordpress.org/brook-tribe">Brook Harding</a>
+<a href="https://profiles.wordpress.org/cliffpaulick">Clifford Paulick</a>
+<a href="https://profiles.wordpress.org/MZAWeb">Daniel Dvorkin</a>
+<a href="https://profiles.wordpress.org/jazbek">Jessica Yazbek</a>
+<a href="https://profiles.wordpress.org/joshlimecuda">Josh Mallard</a>
+<a href="https://profiles.wordpress.org/mastromktg">Nick Mastromattei</a>
+<a href="https://profiles.wordpress.org/nicosantos”>Nico Santos</a>
+<a href="https://profiles.wordpress.org/thatdudebutch">Wayne Stratton</a>
+<a href="https://profiles.wordpress.org/ggwicz">George Gecewicz</a>
 <a href="https://profiles.wordpress.org/caseypatrickdriscoll">Casey Driscoll</a>
 <a href="https://profiles.wordpress.org/ckpicker">Casey Picker</a>
 <a href="https://profiles.wordpress.org/dancameron">Dan Cameron</a>
@@ -178,16 +181,16 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 
 = Translations =
 
-Modern Tribe’s premium plugins are translated by volunteers at <a href=“http://m.tri.be/194h”>translations.theeventscalendar.com</a>. There you can find a list of available languages, download translation files, or help update the translations. Thank you to everyone who helps to maintain our translations!
+The Events Calendar’s premium plugins are translated by volunteers at <a href=“https://evnt.is/194h”>translations.theeventscalendar.com</a>. There you can find a list of available languages, download translation files, or help update the translations. Thank you to everyone who helps to maintain our translations!
 
 == Add-Ons ==
 
-But wait: there's more! We've got a whole stable of plugins available to help you be awesome at what you do. Check out a full list of the products below, and over at the <a href="http://m.tri.be/46">Modern Tribe website.</a>
+But wait: there's more! We've got a whole stable of plugins available to help you be awesome at what you do. Check out a full list of the products below, and over at the <a href="https://evnt.is/46">The Events Calendar website.</a>
 
 Our Free Plugins:
 
 * <a href="https://wordpress.org/plugins/the-events-calendar/" target="_blank">The Events Calendar</a>
-* <a href="http://m.tri.be/18vx" target="_blank">Event Tickets</a>
+* <a href="https://evnt.is/18vx" target="_blank">Event Tickets</a>
 * <a href="http://wordpress.org/extend/plugins/advanced-post-manager/?ref=tec-readme" target="_blank">Advanced Post Manager</a>
 * <a href="http://wordpress.org/plugins/blog-copier/?ref=tec-readme" target="_blank">Blog Copier</a>
 * <a href="http://wordpress.org/plugins/image-rotation-repair/?ref=tec-readme" target="_blank">Image Rotation Widget</a>
@@ -195,15 +198,112 @@ Our Free Plugins:
 
 Our Premium Plugins:
 
-* <a href="http://m.tri.be/18vy" target="_blank">Event Tickets Plus</a>
-* <a href="http://m.tri.be/2e" target="_blank">The Events Calendar: Eventbrite Tickets</a>
-* <a href="http://m.tri.be/2g" target="_blank">The Events Calendar: Community Events</a>
-* <a href="http://m.tri.be/18vw" target="_blank">The Events Calendar: Community Tickets</a>
-* <a href="http://m.tri.be/2h" target="_blank">The Events Calendar: Facebook Events</a>
-* <a href="http://m.tri.be/18h9" target="_blank">The Events Calendar: iCal Importer</a>
-* <a href="http://m.tri.be/fa" target="_blank">The Events Calendar: Filter Bar</a>
+* <a href="https://evnt.is/18vy" target="_blank">Event Tickets Plus</a>
+* <a href="https://evnt.is/2e" target="_blank">The Events Calendar: Eventbrite Tickets</a>
+* <a href="https://evnt.is/2g" target="_blank">The Events Calendar: Community Events</a>
+* <a href="https://evnt.is/18vw" target="_blank">The Events Calendar: Community Tickets</a>
+* <a href="https://evnt.is/2h" target="_blank">The Events Calendar: Facebook Events</a>
+* <a href="https://evnt.is/18h9" target="_blank">The Events Calendar: iCal Importer</a>
+* <a href="https://evnt.is/fa" target="_blank">The Events Calendar: Filter Bar</a>
 
 == Changelog ==
+
+= [5.4.0.2] 2021-03-04 =
+
+* Fix - Prevent fatal error in Elementor integration caused by an extra comma. `src/Tribe/Integrations/Elementor/Widgets/Widget_Event_List.php@L94` [BTRIA-768]
+* Fix - Make sure we have not deprecated usage of `FILTER_SANITIZE_MAGIC_QUOTES` for PHP 7.4+.
+
+= [5.4.0.1] 2021-03-03 =
+
+* Fix - `[tribe_events_list]` Tags and Categories params are filtering results as originally intended. [ECP-726]
+
+= [5.4.0] 2021-03-02 =
+
+* Feature - Added Elementor integration via 4 new Elementor Widgets: Event Countdown, Event List, Event Single, and Event View!
+* Feature - Added support for changing the amount of events to display per page in within the `[tribe_events]` shortcode via the `events_per_page` argument.
+* Feature - Added support for changing the amount of events to display per day on the Month View when using the `[tribe_events]` shortcode via the `month_events_per_day` argument.
+* Feature - Added the ability to render display the `[tribe_events]` shortcode with a default search term pre-populated via the `keyword` argument.
+* Tweak - Added filters: `tribe_events_pro_elementor_registered_{$this->type}`, `tribe_events_pro_shortcodes_venue_widget_class`, `tribe_widget_hide_subsequent_recurring_events`, `tribe_events_widget_featured_venue_events_max_limit`, `tribe_events_views_v2_featured_venue_widget_args_to_context`, `tribe_events_widget_featured_venue_default_venue_id`
+* Tweak - Changed views: `v2/map/event-cards/event-card/event/distance`, `v2/widgets/widget-countdown`, `v2/widgets/widget-countdown/complete`, `v2/widgets/widget-countdown/event-title`, `v2/widgets/widget-countdown/timer`, `v2/widgets/widget-countdown/widget-title`, `v2/widgets/widget-events-list/event/venue`, `v2/widgets/widget-featured-venue`, `v2/widgets/widget-featured-venue/events-list`, `v2/widgets/widget-featured-venue/events-list/event`, `v2/widgets/widget-featured-venue/events-list/event/date-tag`, `v2/widgets/widget-featured-venue/events-list/event/date`, `v2/widgets/widget-featured-venue/events-list/event/date/featured`, `v2/widgets/widget-featured-venue/events-list/event/date/recurring`, `v2/widgets/widget-featured-venue/events-list/event/title`, `v2/widgets/widget-featured-venue/venue`, `v2/widgets/widget-featured-venue/venue/address`, `v2/widgets/widget-featured-venue/venue/name`, `v2/widgets/widget-featured-venue/venue/phone`, `v2/widgets/widget-featured-venue/venue/website`, `v2/widgets/widget-featured-venue/view-more`, `v2/widgets/widget-featured-venue/widget-title`
+* Language - 89 new strings added, 24 updated, 1 fuzzied, and 0 obsoleted
+
+= [5.3.0] 2021-02-24 =
+
+* Version - Events Calendar PRO 5.3.0 is only compatible with The Events Calendar 5.4.0 and higher
+* Feature - Update the Featured Venue widget with a new template and styles. [ECP-530]
+* Fix - Compatibility with WordPress 5.7 and jQuery 3.5.X
+* Fix - Correct countdown widget event title being off to left when using Twenty Twenty theme. [ECP-487]
+* Fix - Recurring event instances setting was impacting all views when it should only limit instances in List, Day, Photo, and Map Views. [ECP-604]
+* Fix - Front-end recurring event instances toggle option was adding a toggle to Week View, but the toggle should only show on List, Day, Photo, and Map Views. [ECP-604]
+* Fix - Filter reset pagination params to include `hide_subsequent_recurrences` to prevent pagination from failing the first time [FBAR-222]
+* Fix - Countdown and Advanced List Widgets properly respect the Match All option for the updated Widgets. [ECP-486]
+* Fix - Prevent duplicated Taxonomy filters and field from showing up on Widgets Admin forms. [ECP-486]
+* Fix - PHP fixes around usage of `round()` on Distances to the Venue based on Search [FBAR-224]
+* Tweak - Add compatibility container to widgets to allow for a non-body target for compatibility classes.
+* Tweak - Move Administration views for Widget form fields, from `/src/admin-views/widgets/components` to `/src/admin-views/widgets/components/fields`. [ECP-486]
+* Tweak - Simplify `Views\V2\Widgets\Taxonomy_Filters` class to prevent complexity around the Taxonomy data and templates.
+* Language - 10 new strings added, 15 updated, 0 fuzzied, and 1 obsoleted
+
+= [5.2.2] 2021-01-28 =
+
+* Feature - Update the Countdown widget with a new template and styles. [ECP-530]
+* Feature - Add customizer support for custom location pins on map view when Views V2 is active. [TEC-3276]
+* Tweak - Change Hide Location Search helper text for v2 only. [ECP-488]
+* Fix - Correct override folder location in some week view template files
+* Tweak - Added filters: `tribe_events_pro_shortcodes_countdown_widget_class`, `tribe_events_views_v2_countdown_widget_args_to_context`
+* Language - 19 new strings added, 32 updated, 1 fuzzied, and 2 obsoleted
+
+= [5.2.1.1] 2020-12-21 =
+
+* Fix - Update The Events Calendar minimum required version to avoid activation issues.
+* Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted
+
+= [5.2.1] 2020-12-15 =
+
+* Feature - V2 Customizer - Add background color css overrides. [TEC-3651]
+* Feature - V2 Customizer - Add Event Title color css overrides. [TEC-3334]
+* Feature - V2 Customizer - Add Event Date & Time color css overrides. [TEC-3675]
+* Language - 0 new strings added, 14 updated, 0 fuzzied, and 0 obsoleted
+
+= [5.2.0] 2020-12-02 =
+
+* Fix - Ensure we don't have pieces of Filter Bar present when using shortcodes. [ECP-527]
+* Fix - Ensure we don't have pieces of Filter Bar present when on the recurring event "all events" page. [FBAR-210]
+* Fix - Allow shortcode list widget to be redefined dynamically via a filter. [ECP-541]
+* Fix - Use the Time Format defined in WordPress General Settings for Week View grid headers. [ECP-357]
+* Tweak - Remove unused and the outdated `momentjs` library that was bundled with the plugin to use, in its place, the one bundled in The Events Calendar. [ECP-576]
+* Language - 18 new strings added, 34 updated, 0 fuzzied, and 2 obsoleted
+
+= [5.1.6] 2020-10-22 =
+
+* Fix - Correct countdown widget so it show absolute time until event, irrespective of timezones. [ECP-146]
+* Language - 0 new strings added, 1 updated, 0 fuzzied, and 0 obsoleted
+
+= [5.1.5] 2020-09-28 =
+
+* Fix - Translation domain for the recurrence realtime queue processor so translators can change the text. [ECP-458]
+* Tweak - Fix spacing on week view to properly fit in horizontal filter bar. [FBAR-132]
+* Tweak - Add filters to properly remove filter bar on v2 views when on shortcode. [FBAR-187]
+* Language - 0 new strings added, 0 updated, 0 fuzzied, and 0 obsoleted
+
+= [5.1.4] 2020-07-27 =
+
+* Fix - Mobile week view from displaying the wrong time in the time separator when on leading UTC timezone. [ECP-426]
+* Fix - Mobile week view from displaying wrong start of the week when on leading UTC timezone. [ECP-440]
+* Fix - Fix category URLs issues in non English sites to avoid 404 errors. [ECP-422]
+* Fix - Fix Week and Photo View URLs issues in non English sites to avoid 404 errors. [ECP-427]
+* Fix - Properly enqueue the customizer styles to allow overriding of theme styles. [TEC-3531]
+* Fix - Fix Week, Photo and Map View URLs issues in non English sites to avoid 404 errors. [ECP-427]
+* Fix - Don't test addresses for mappability if using the default API key. [ECP-424]
+* Tweak - Enhanced the compatibility between the `[tribe_events]` shortcode, particularly the Month View, and Elementor to ensure the shortcode correctly renders in the Editor [ECP-374, ECP-376]
+* Language - 0 new strings added, 7 updated, 0 fuzzied, and 0 obsoleted
+
+= [5.1.3] 2020-06-24 =
+
+* Tweak - Add new filter `tribe_events_pro_filter_views_v2_plural_events_label` to customize the label in V2 views. [VE-9]
+* Fix - Correct variable name typo in recurrence meta.
+* Fix - Featured for `[tribe_events]` defaults to `null` which will show both Featured and normal events. [ECP-350]
+* Language - 1 new strings added, 53 updated, 2 fuzzied, and 0 obsoleted
 
 = [5.1.2] 2020-05-27 =
 
@@ -282,30 +382,30 @@ Our Premium Plugins:
 * Feature - Compatibility with the new 5.0 views from The Events Calendar.
 * Feature - Created new Week, Photo, and Map views with all new HTML, CSS, and JavaScript.
 * Feature - Add upgrade path for new Week, Photo, and Map views making it opt-in for any existing users.
-* Feature - New templating engine to power the new Views. [See More](http://m.tri.be/1aid)
+* Feature - New templating engine to power the new Views. [See More](https://evnt.is/1aid)
 * Feature - Views initialization and instance includes more filters and actions to allow improved extensibility and customization. (See all filters below)
-* Feature - Views manager and bootstraping classes were created to allow more control over where and when views will be initialized. (See filters related to those below)
+* Feature - Views manager and bootstrapping classes were created to allow more control over where and when views will be initialized. (See filters related to those below)
 * Feature - Reduced maintenance burden of customizations by leveraging atomic templates for the new views. (See list of files now available below)
-* Feature - CSS uses a Block Element Modifier (BEM) methodology to improve reusablility of components. [See More](http://m.tri.be/1aib)
+* Feature - CSS uses a Block Element Modifier (BEM) methodology to improve reusability of components. [See More](https://evnt.is/1aib)
 * Feature - New Views share one JavaScript Manager, which contains multiple jQuery actions and customization points.
 * Feature - View navigation relies on the WP Rest API, improving reliability and caching opportunities.
 * Feature - Event permalinks are now more consistent across navigation using `WP_Rewrite` to map params to their matching URL, which improves SEO.
 * Feature - Event data filtering used across all new views: `tribe_get_event_before`, `tribe_get_event`, `tribe_get_event_after`, `tribe_events_organizers_fetch_callback`, `tribe_events_venues_fetch_callback`
 * Feature - Venue data filtering used across all new views: `tribe_get_venue_object_before`, `tribe_get_venue_object`
 * Tweak - Custom Before and After HTML on the Events > Settings page will now prefer event view styling over the Theme's CSS.
-* Tweak - Lowered the reliance on the global `$wp_query` to create more consistent output and faster maintenance. [See More](http://m.tri.be/1aic)
-* Tweak - View overrides for the new views will look within a new folder in your theme to avoid conflicting with old The Events Calendar theme customizations [See More](http://m.tri.be/1aia)
+* Tweak - Lowered the reliance on the global `$wp_query` to create more consistent output and faster maintenance. [See More](https://evnt.is/1aic)
+* Tweak - View overrides for the new views will look within a new folder in your theme to avoid conflicting with old The Events Calendar theme customizations [See More](https://evnt.is/1aia)
 * Tweak - Flushing the rewrite rules on plugin activation so we can have the URLs working once the plugin is activated/reactivated [137112]
 * Tweak - Switch to a compact date while on week view in mobile [136789]
 * Fix - Ensure that the List Widget displays the month instead of the day for events in the current month of the following year [107605]
-* Fix - Make sure all depedency notices on WordPress admin show when Appropriate circunstances are met with Event Tickets and The Events Calendar [131723]
+* Fix - Make sure all dependency notices on WordPress admin show when Appropriate circumstances are met with Event Tickets and The Events Calendar [131723]
 * Hooks - View template include and render filters and actions: `tribe_template_before_include`, `tribe_template_before_include:{$template_path}`, `tribe_template_after_include`, `tribe_template_after_include:{$template_path}`, `tribe_template_html`, `tribe_template_html:{$template_path}`
 * Hooks - View instance filters and actions: `tribe_events_views_v2_view_template`, `tribe_events_views_v2_{$view_slug}_view_template`, `tribe_events_views_v2_view_context`, `tribe_events_views_v2_{$view_slug}_view_context`, `tribe_events_views_v2_view_repository`, `tribe_events_views_v2_{$view_slug}_view_repository`, `tribe_events_views_v2_view_url_query_args`, `tribe_events_views_v2_{$view_slug}_view_url_query_args`, `tribe_events_views_v2_view_html_classes`, `tribe_events_views_v2_{$view_slug}_view_html_classes`, `tribe_events_views_v2_url_query_args`, `tribe_events_views_v2_view_template_vars`, `tribe_events_views_v2_view_{$view_slug}_template_vars`, `tribe_events_views_v2_view_url`, `tribe_events_views_v2_view_{$view_slug}_url`, `tribe_events_views_v2_view_prev_url`, `tribe_events_views_v2_view_{$view_slug}_prev_url`, `tribe_events_views_v2_view_next_url`, `tribe_events_views_v2_view_{$view_slug}_next_url`, `tribe_events_views_v2_view_repository_args`, `tribe_events_views_v2_view_link_label_format`, `tribe_events_views_v2_view_{$view_slug}_link_label_format`, `tribe_events_views_v2_view_title`, `tribe_events_views_v2_view_{$view_slug}_title`, `tribe_events_views_v2_view_messages`, `tribe_events_views_v2_view_{$view_slug}_messages`, `tribe_events_views_v2_view_breadcrumbs`, `tribe_events_views_v2_view_{$view_slug}_breadcrumbs`, `tribe_events_views_v2_view_display_events_bar`, `tribe_events_views_v2_view_{$view_slug}_display_events_bar`, `tribe_events_views_v2_view_ical_data`, `tribe_events_views_v2_view_{$view_slug}_ical_data`, `tribe_events_views_v2_view_show_datepicker_submit`, `tribe_events_views_v2_view_{$view_slug}_show_datepicker_submit`, `tribe_events_views_v2_view_public_views`, `tribe_events_views_v2_view_{$view_slug}_public_views`, `tribe_events_views_v2_view_data`, `tribe_events_views_v2_{$view_slug}_view_data`, `tribe_events_views_v2_{$view_slug}_events_per_day`, `tribe_events_views_v2_month_events_per_day`, `tribe_events_views_v2_month_nav_skip_empty`, `tribe_events_views_v2_view_breakpoints`, `tribe_events_views_v2_view_{$view_slug}_breakpoints`, `tribe_events_views_v2_before_make_view`, `tribe_events_views_v2_after_make_view`, `tribe_events_views_v2_messages_map`, `tribe_events_views_v2_view_messages_before_render`
 * Hooks - View REST API HTML request actions and filters: `tribe_events_views_v2_request_arguments`, `tribe_events_views_v2_rest_endpoint_available`, `tribe_events_views_v2_rest_params`, `tribe_events_views_v2_{$view_slug}_rest_params`
 * Hooks - Views Bootstrap filters and actions: `tribe_events_views_v2_bootstrap_pre_get_view_html`, `tribe_events_views_v2_bootstrap_should_display_single`, `tribe_events_views_v2_bootstrap_view_slug`, `tribe_events_views_v2_bootstrap_pre_should_load`, `tribe_events_views_v2_should_hijack_page_template`
 * Hooks - Views Manager filters and actions: `tribe_events_views`, `tribe_events_views_v2_manager_default_view`, `tribe_events_views_v2_manager_view_label_domain`, `tribe_events_views_v2_manager_{$view_slug}_view_label_domain`, `tribe_events_views_v2_manager_view_label`, `tribe_events_views_v2_manager_{$view_slug}_view_label`
 * Hooks - Other views filters and actions: `tribe_events_views_v2_is_enabled`, `tribe_events_views_v2_assets_should_enqueue_frontend`, `tribe_events_views_v2_assets_should_enqueue_full_styles`, `tribe_events_v2_view_title`, `tribe_events_views_v2_should_replace_excerpt_more_link`, `tribe_events_views_v2_view_before_events_html`, `tribe_events_views_v2_view_after_events_html`, `tribe_events_views_v2_month_title`, `tribe_events_views_v2_day_title`, `tribe_events_views_v2_category_title`, `tribe_events_views_v2_theme_compatibility_registered`, `tribe_events_views_v2_stack_spacer`, `tribe_events_views_v2_stack_recycle_spaces`, `tribe_events_views_v2_stack_events`, `tribe_events_views_v2_stack_filter_event`, `tribe_events_views_v2_stack_normalize`
-* Hooks - Shortocdes for new views filters and actions: `tribe_events_pro_geocode_rewrite_rules`, `tribe_events_pro_views_v2_assets_should_enqueue_frontend`, `tribe_events_pro_views_v2_geo_location_service`, `tribe_events_pro_views_v2_geo_location_handler`, `tribe_events_pro_shortcodes`, `tribe_events_pro_shortcode_validate_arguments_map`, `tribe_events_pro_shortcode_{$registration_slug}_validate_arguments_map`, `tribe_events_pro_shortcode_arguments`, `tribe_events_pro_shortcode_{$registration_slug}_arguments`, `tribe_events_pro_shortcode_argument`, `tribe_events_pro_shortcode_{$registration_slug}_argument`, `tribe_events_pro_shortcode_default_arguments`, `tribe_events_pro_shortcode_{$registration_slug}_default_arguments`, `tribe_events_pro_shortcode_tribe_events_manage_url_disallowed_locations`, `tribe_events_pro_shortcode_tribe_events_should_manage_url`
+* Hooks - Shortcodes for new views filters and actions: `tribe_events_pro_geocode_rewrite_rules`, `tribe_events_pro_views_v2_assets_should_enqueue_frontend`, `tribe_events_pro_views_v2_geo_location_service`, `tribe_events_pro_views_v2_geo_location_handler`, `tribe_events_pro_shortcodes`, `tribe_events_pro_shortcode_validate_arguments_map`, `tribe_events_pro_shortcode_{$registration_slug}_validate_arguments_map`, `tribe_events_pro_shortcode_arguments`, `tribe_events_pro_shortcode_{$registration_slug}_arguments`, `tribe_events_pro_shortcode_argument`, `tribe_events_pro_shortcode_{$registration_slug}_argument`, `tribe_events_pro_shortcode_default_arguments`, `tribe_events_pro_shortcode_{$registration_slug}_default_arguments`, `tribe_events_pro_shortcode_tribe_events_manage_url_disallowed_locations`, `tribe_events_pro_shortcode_tribe_events_should_manage_url`
 * Templates - Views refactored template files: `v2/day/event/recurring`, `v2/list/event/recurring`, `v2/location/form-field`, `v2/map`, `v2/map/event-cards`, `v2/map/event-cards/event-card`, `v2/map/event-cards/event-card/actions`, `v2/map/event-cards/event-card/actions/cost-spacer`, `v2/map/event-cards/event-card/actions/cost`, `v2/map/event-cards/event-card/actions/details-spacer`, `v2/map/event-cards/event-card/actions/details`, `v2/map/event-cards/event-card/actions/directions-spacer`, `v2/map/event-cards/event-card/actions/directions`, `v2/map/event-cards/event-card/date-tag`, `v2/map/event-cards/event-card/event`, `v2/map/event-cards/event-card/event/date-time`, `v2/map/event-cards/event-card/event/distance`, `v2/map/event-cards/event-card/event/featured-image`, `v2/map/event-cards/event-card/event/title`, `v2/map/event-cards/event-card/event/venue`, `v2/map/event-cards/event-card/tooltip`, `v2/map/event-cards/event-card/tooltip/date-time`, `v2/map/event-cards/event-card/tooltip/navigation`, `v2/map/event-cards/event-card/tooltip/title`, `v2/map/event-cards/event-card/tooltip/venue`, `v2/map/event-cards/nav`, `v2/map/event-cards/nav/next-disabled`, `v2/map/event-cards/nav/next`, `v2/map/event-cards/nav/prev-disabled`, `v2/map/event-cards/nav/prev`, `v2/map/event-cards/nav/today`, `v2/map/map`, `v2/map/map/google-maps`, `v2/map/map/google-maps/default`, `v2/map/map/google-maps/premium`, `v2/map/map/no-venue-modal`, `v2/map/top-bar`, `v2/map/top-bar/datepicker`, `v2/month/calendar-event/recurring`, `v2/month/calendar-event/tooltip/recurring`, `v2/month/mobile-event/recurring`, `v2/organizer/meta`, `v2/organizer/meta/content`, `v2/organizer/meta/details`, `v2/organizer/meta/details/email`, `v2/organizer/meta/details/phone`, `v2/organizer/meta/details/website`, `v2/organizer/meta/title`, `v2/photo`, `v2/photo/event`, `v2/photo/event/cost`, `v2/photo/event/date-tag`, `v2/photo/event/date-time`, `v2/photo/event/featured-image`, `v2/photo/event/title`, `v2/photo/nav`, `v2/photo/nav/next-disabled`, `v2/photo/nav/next`, `v2/photo/nav/prev-disabled`, `v2/photo/nav/prev`, `v2/photo/nav/today`, `v2/photo/top-bar`, `v2/photo/top-bar/datepicker`, `v2/recurrence/hide-recurring`, `v2/venue/meta`, `v2/venue/meta/content`, `v2/venue/meta/details`, `v2/venue/meta/details/address`, `v2/venue/meta/details/phone`, `v2/venue/meta/details/website`, `v2/venue/meta/map`, `v2/venue/meta/title`, `v2/week`, `v2/week/day-selector`, `v2/week/day-selector/days`, `v2/week/day-selector/days/day`, `v2/week/day-selector/nav`, `v2/week/day-selector/nav/next`, `v2/week/day-selector/nav/prev`, `v2/week/grid-body`, `v2/week/grid-body/events-day`, `v2/week/grid-body/events-day/event`, `v2/week/grid-body/events-day/event/date`, `v2/week/grid-body/events-day/event/featured-image`, `v2/week/grid-body/events-day/event/title`, `v2/week/grid-body/events-day/event/tooltip`, `v2/week/grid-body/events-day/event/tooltip/cost`, `v2/week/grid-body/events-day/event/tooltip/date`, `v2/week/grid-body/events-day/event/tooltip/description`, `v2/week/grid-body/events-day/event/tooltip/featured-image`, `v2/week/grid-body/events-day/event/tooltip/title`, `v2/week/grid-body/events-row-header`, `v2/week/grid-body/multiday-events-day`, `v2/week/grid-body/multiday-events-day/more-events`, `v2/week/grid-body/multiday-events-day/multiday-event-spacer`, `v2/week/grid-body/multiday-events-day/multiday-event`, `v2/week/grid-body/multiday-events-row-header`, `v2/week/grid-body/multiday-events-row-header/multiday-events-row-header-toggle`, `v2/week/grid-header`, `v2/week/grid-header/header-column`, `v2/week/mobile-events`, `v2/week/mobile-events/day`, `v2/week/mobile-events/day/event`, `v2/week/mobile-events/day/event/cost`, `v2/week/mobile-events/day/event/date`, `v2/week/mobile-events/day/event/featured-image`, `v2/week/mobile-events/day/event/title`, `v2/week/mobile-events/day/event/venue`, `v2/week/mobile-events/day/time-separator`, `v2/week/mobile-events/day/type-separator`, `v2/week/mobile-events/nav`, `v2/week/mobile-events/nav/next-disabled`, `v2/week/mobile-events/nav/next`, `v2/week/mobile-events/nav/prev-disabled`, `v2/week/mobile-events/nav/prev`, `v2/week/mobile-events/nav/today`, `v2/week/top-bar`, `v2/week/top-bar/datepicker`
 * Language - 4 new strings added, 107 updated, 0 fuzzied, and 0 obsoleted
 
@@ -324,7 +424,7 @@ Our Premium Plugins:
 = [4.7.8.1] 2019-09-26 =
 
 * Fix - Geolocalization venue fixer no longer 5xx on Hosts with Join SQL limitations [134742]
-* Fix - SQL queries sped up to prevent 5xx when too many venues are present on Geolocatization venue fixer [134742]
+* Fix - SQL queries sped up to prevent 5xx when too many venues are present on Geolocalization venue fixer [134742]
 
 = [4.7.8] 2019-09-25 =
 
@@ -417,7 +517,7 @@ Our Premium Plugins:
 = [4.5.3] 2019-01-21 =
 
 * Fix - Recurrence meta box will show again on Classic Editor [120137]
-* Fix - Update textdomain for strings coming from the Gutenberg extension merge [118656]
+* Fix - Update text domain for strings coming from the Gutenberg extension merge [118656]
 * Fix - Fixed a number of small layout bugs with the new Twenty Nineteen core theme [119689]
 * Tweak - Ensure that block editor admin notices report the accurate number of recurring events created [118608]
 * Language - 2 new strings added, 58 updated, 0 fuzzied, and 1 obsoleted
@@ -497,7 +597,7 @@ Our Premium Plugins:
 * Fix - Fix the view shortcodes to display the view titles, thanks to templodoser for the first report [109931]
 * Fix - Modified the REST API root url for `/all` to query for all events belonging to a series [94326]
 * Fix - Fix the Mini Calendar and Events Lists widgets styles in the customizer when previewed for the first time [111479]
-* Fix - Not being able to disable Generate JSON-LD data for the Advanded Event List Widget, thanks Craig for the report of this  [105174]
+* Fix - Not being able to disable Generate JSON-LD data for the Advanced Event List Widget, thanks Craig for the report of this  [105174]
 * Fix - Yearly exclusions description along with the different date option, thanks for the report Thomas [77501]
 * Tweak - Utilize future event display on the Countdown Widget to go to the next event once the current event starts  [70769]
 * Tweak - Namespace javascript debug function to prevent conflicts causing a function found, thanks to Tom-Mulvey for the fix [110462]
@@ -582,7 +682,7 @@ Our Premium Plugins:
 * Fix - Prevent unbalanced HTML tags from being output by the `[tribe_event_inline]` shortcode [77943]
 * Fix - Resolved some problems with translations in tooltips on recurring events [67870]
 * Fix - Prevent PHP errors when saving an event with the UTC + 9.5 time zone (thanks to Ross in the Help Desk for flagging this problem!) [101973]
-* Fix - Prevent PHP errors when saving a recurring event with mulitple recurrences in the same day [101973]
+* Fix - Prevent PHP errors when saving a recurring event with multiple recurrences in the same day [101973]
 * Fix - Prevent 404 errors on recurrence feed pages (thanks to Ranjan and others in the Help Desk for reporting this problem!) [72077]
 * Fix - Fixed the default value for the front-end recurring event instances toggle [36559]
 * Fix - Make sure that hidden events are not displayed on the Mini Calendar Widget [65688]
@@ -728,7 +828,7 @@ Our Premium Plugins:
 
 = [4.4.14] 2017-07-13 =
 
-* Fix - Do not generate exclusions for recurring events simply because the child instances have falled outside of the configured cleanup range [80582]
+* Fix - Do not generate exclusions for recurring events simply because the child instances have failed outside of the configured cleanup range [80582]
 * Fix - Consolidate generation of /all/ and single recurring event permalink logic within Events Calendar PRO [74153]
 * Fix - Improve compatibility with WP SEO Premium and stop redirect rules from being generated inappropriately when recurring events are updated [74938]
 * Fix - Default to showing upcoming event instances in the /all/ view (but fallback on showing expired events if no upcoming events remain in the series) [74852]
@@ -802,14 +902,14 @@ Our Premium Plugins:
 
 * Fix - Ensure that the region and zip/postal code display as expected within the advanced events list widget (thank to @Nick for the original report) [72134]
 * Fix - The /all/ view should now consistently list events in ascending order by start date (thank you @Jim for your forum report) [72605]
-* Fix - Allow editing of recurring event slugs (this one was initialy reported by @brian) [68385]
+* Fix - Allow editing of recurring event slugs (this one was initially reported by @brian) [68385]
 * Fix - Improve localization by using WordPress as the source of translated weekday abbreviations [70068]
 
 = [4.4.2] 2017-02-09 =
 
 * Polish - Photo View - Update Isotope for photo view (thanks for @WPExplorer on Twitter) [65542]
 * Fix - Photo View - Fix issue where page doesn't scroll to top after initial load (Thank you @jazzinconcert in our forums) [65341]
-* Fix - Photo View -  Fix Layout Issue in Safari for iOS (Cheersto user: @Pau) [64376]
+* Fix - Photo View -  Fix Layout Issue in Safari for iOS (Cheers to user: @Pau) [64376]
 * Fix - Prevent PHP 5.2 Strict mode from throwing notices due to usage of `is_a` [72812]
 
 = [4.4.1] 2017-01-26 =
@@ -889,7 +989,7 @@ Fix - PHP notice when importing events from iCal importer [64747]
 = [4.2.3] 2016-07-20 =
 
 * Fix - Change myremove to jQuery Grep to improve compatibility with Black Studio TinyMCE Widget (Thank you @digisavvy for reporting this in the support Forums)
-* Fix - Add check for past events in the mini calendar and event list widget date icon box so it shows the correct information (Initialy reported by @yuryvasilchenko in the support forums. Thanks!)
+* Fix - Add check for past events in the mini calendar and event list widget date icon box so it shows the correct information (Initially reported by @yuryvasilchenko in the support forums. Thanks!)
 
 = [4.2.2.1] 2016-07-11 =
 
@@ -1037,7 +1137,7 @@ Fix - PHP notice when importing events from iCal importer [64747]
 * Fix - Fixed issue where a recurring event's "all" view would not display past instances
 * Fix - Fixed bug with APM where sorting some columns caused post filtering to clear
 * Fix - Fixed various notices
-* Fix - Fixed issue where some strings were trying to use the wrong textdomain for translations (Props to Valu for the help!)
+* Fix - Fixed issue where some strings were trying to use the wrong text domain for translations (Props to Valu for the help!)
 * Fix - Fixed date issue with the List Widget where the fancy date box was always displaying today's date
 * Fix - Resolved a problem preventing some category views from working as expected when a non-default language was in use (Thank you Cristina for highlighting this issue!)
 * Fix - Resolved a problem whereby mini calendars could incorrectly render some days as populated when set to display events in a specific category (Our thanks to oniregoc for highlighting this!)
@@ -1118,7 +1218,7 @@ Fix - PHP notice when importing events from iCal importer [64747]
 * Feature - Added a pair of filters so that the recurring event cleanup query can be manipulated by plugin/theme authors: tribe_events_pro_clean_up_old_recurring_events_sql and tribe_events_pro_clean_up_old_recurring_events_sql_args (props to fortgordonmwr for the idea!)
 * Performance - Paginated recurring event "See All" pages to avoid timeouts when there are many recurring events to display (Props to Jen R. for raising this issue!)
 * Performance - Queries were modified to eliminate a join clause, potentially reducing the work needed to build the result set (Thank you MauiTime for inspiring this!)
-* Tweak - Improve Dockblock for a few Templates (Thanks to vendaragroup for the help!)
+* Tweak - Improve Docblock for a few Templates (Thanks to vendaragroup for the help!)
 * Tweak - Conformed code to updated coding standards
 * Tweak - Made Minical widget template use single letter day headings
 * Tweak - When rendering recurring event markers on an event map, only place one marker per event/location combination (Thank you risedigitalsolutions for the inspiration!)
@@ -1173,7 +1273,7 @@ Fix - PHP notice when importing events from iCal importer [64747]
 * Tweak - Tweaked flexible handling of default values to work with The Events Calendar 3.10
 * Tweak - Ensured that old recurring events are cleaned up on schedule
 * Tweak - Suped up usability for events with short durations in Week View
-* Feature - Totally refactored WEEK VIEW! For more, see http://m.tri.be/18du (thanks to Lars - aka mending - for being the wind beneath our wings here!)
+* Feature - Totally refactored WEEK VIEW! For more, see https://evnt.is/18du (thanks to Lars - aka mending - for being the wind beneath our wings here!)
 * Feature - Added a new additional field type (textareas) to compliment the existing text field
 * Feature - Replaced scrolling library on week view for better performance and extensibility
 * Feature - Introduced batch processing of recurring events to further improve performance and scalability (thanks to Jen at Mauitime for starting us down this path!)
@@ -1320,7 +1420,7 @@ Fix - PHP notice when importing events from iCal importer [64747]
 
 = 3.5 =
 
-* Incorporated fully responsive styles and functionality for all Events views! For an overview of the changes, see <a href="http://m.tri.be/hv">this blog post</a>
+* Incorporated fully responsive styles and functionality for all Events views! For an overview of the changes, see <a href="https://evnt.is/hv">this blog post</a>
 * Changed how recurring events are stored, to give a unique post ID to each recurrence
 * Fixed an issue where the Category class wasn't properly being added to events when paging in Week View (thanks to Andy Fragen on the forums for reporting this!)
 * Fixed issue with popstate and bug in webkit when coming back from single venue view
@@ -1450,20 +1550,20 @@ Fix - PHP notice when importing events from iCal importer [64747]
 
 == Help ==
 
-Welcome to The Events Calendar and Events Calendar PRO, a full-featured events management system for WordPress. Thank you so much for using the labor of our love. We are Modern Tribe and we are here to help you be awesome.
+Welcome to The Events Calendar and Events Calendar PRO, a full-featured events management system for WordPress. Thank you so much for using the labor of our love. We are The Events Calendar and we are here to help you be awesome.
 
-If you aren't familiar with The Events Calendar and Events Calendar PRO, check out our <a href="http://m.tri.be/3t">new user primer.</a> It'll introduce you to the basics of what the plugin has to offer and will have you creating events in no time. From there, the resources below -- extensive template tag documentation, FAQs, video walkthroughs and more -- will give you a leg up as you dig deeper.
+If you aren't familiar with The Events Calendar and Events Calendar PRO, check out our <a href="https://evnt.is/3t">new user primer.</a> It'll introduce you to the basics of what the plugin has to offer and will have you creating events in no time. From there, the resources below -- extensive template tag documentation, FAQs, video walkthroughs and more -- will give you a leg up as you dig deeper.
 
 Additional resources available include:
 
-* <a href="http://m.tri.be/42">Documentation</a>
-* <a href="http://m.tri.be/3v">FAQ</a>
-* <a href="http://m.tri.be/4c">Help Videos</a>
-* <a href="http://m.tri.be/44">Tutorials</a>
-* <a href="http://m.tri.be/4b">Release Notes</a>
-* <a href="http://m.tri.be/3x">Forums</a>
+* <a href="https://evnt.is/42">Documentation</a>
+* <a href="https://evnt.is/3v">FAQ</a>
+* <a href="https://evnt.is/4c">Help Videos</a>
+* <a href="https://evnt.is/44">Tutorials</a>
+* <a href="https://evnt.is/4b">Release Notes</a>
+* <a href="https://evnt.is/3x">Forums</a>
 
-We hit the <a href="http://m.tri.be/3x">premium forums</a> daily during the week to help paid users with site integration, minor customization, troubleshooting, and more.
+We hit the <a href="https://evnt.is/3x">premium forums</a> daily during the week to help paid users with site integration, minor customization, troubleshooting, and more.
 
 Some things to consider before posting on the forum:
 

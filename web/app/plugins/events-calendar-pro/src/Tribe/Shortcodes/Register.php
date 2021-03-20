@@ -25,6 +25,23 @@ class Tribe__Events__Pro__Shortcodes__Register {
 	 */
 	private $main_calendar_option = 'tribe-shortcode-main-calendar-id';
 
+	/**
+	 * Variable that holds the name of the shortcodes being created
+	 *
+	 * @since 5.1.4
+	 *
+	 * @var array
+	 */
+	private $shortcodes = [
+		'tribe_mini_calendar',
+		'tribe_events_list',
+		'tribe_featured_venue',
+		'tribe_event_countdown',
+		'tribe_this_week',
+		'tribe_events',
+		'tribe_event_inline',
+	];
+
 	public function __construct() {
 		add_shortcode( 'tribe_mini_calendar', array( $this, 'mini_calendar' ) );
 		add_shortcode( 'tribe_events_list', array( $this, 'events_list' ) );
@@ -49,6 +66,7 @@ class Tribe__Events__Pro__Shortcodes__Register {
 		add_action( 'save_post', array( $this, 'update_shortcode_main_calendar' ) );
 		add_action( 'trashed_post', array( $this, 'maybe_reset_main_calendar' ) );
 		add_action( 'deleted_post', array( $this, 'maybe_reset_main_calendar' ) );
+		add_filter( 'tribe_body_classes_should_add', [ $this, 'body_classes_should_add' ], 10, 4 );
 	}
 
 	public function mini_calendar( $atts ) {
@@ -352,5 +370,35 @@ class Tribe__Events__Pro__Shortcodes__Register {
 		}
 
 		return $link;
+	}
+
+	/**
+	 * Hook into filter and add our logic for adding body classes.
+	 *
+	 * @since 5.1.4
+	 *
+	 * @param boolean $add              Whether to add classes or not.
+	 * @param array   $add_classes      The array of body class names to add.
+	 * @param array   $existing_classes An array of existing body class names from WP.
+	 * @param string  $queue            The queue we want to get 'admin', 'display', 'all'.
+	 *
+	 * @return boolean Whether body classes should be added or not.
+	 */
+	public function body_classes_should_add( $add, $add_classes, $existing_classes, $queue ) {
+		global $post;
+
+		// If we're doing the tribe_events shortcode, add classes.
+		if (
+			is_singular()
+			&& $post instanceof \WP_Post
+		) {
+			foreach ( $this->shortcodes as $shortcode ) {
+				if ( has_shortcode( $post->post_content, $shortcode ) ) {
+					return true;
+				}
+			}
+		}
+
+		return $add;
 	}
 }

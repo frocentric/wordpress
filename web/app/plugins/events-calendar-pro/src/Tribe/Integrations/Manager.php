@@ -1,5 +1,6 @@
 <?php
 
+use Tribe\Events\Pro\Integrations\Elementor\Service_Provider as Elementor_Integration;
 
 /**
  * Class Tribe__Events__Pro__Integrations__Manager
@@ -89,5 +90,19 @@ class Tribe__Events__Pro__Integrations__Manager {
 		$this->load_wpml_integration();
 		$this->load_wpseo_integration();
 		$this->load_site_origin_integration();
+		$this->load_elementor_integration();
+	}
+
+	/**
+	 * Loads the Elementor integration if Elementor is currently active.
+	 *
+	 * @since 5.1.4
+	 */
+	public function load_elementor_integration() {
+		if ( ! defined( 'ELEMENTOR_PATH' ) || empty( ELEMENTOR_PATH ) ) {
+			return;
+		}
+
+		tribe_register_provider( Elementor_Integration::class );
 	}
 }

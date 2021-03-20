@@ -1,0 +1,53 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Actions
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar {
+
+	.tribe-filter-bar__actions {
+		align-items: center;
+		display: none;
+		padding-bottom: var(--spacer-4);
+
+		.tribe-filter-bar--has-selected-filters& {
+			display: flex;
+		}
+
+		.tribe-common--breakpoint-medium .tribe-filter-bar--horizontal& {
+			display: none;
+			visibility: hidden;
+		}
+
+		.tribe-common--breakpoint-medium .tribe-filter-bar--horizontal.tribe-filter-bar--has-selected-filters& {
+			display: flex;
+			flex: none;
+			order: 1;
+			padding: 0 0 0 var(--spacer-2);
+			position: relative;
+			visibility: visible;
+			z-index: var(--z-index-search);
+		}
+
+		.tribe-common--breakpoint-medium .tribe-filter-bar--vertical& {
+			@mixin hidden;
+		}
+	}
+
+	.tribe-filter-bar__action-done {
+		margin-right: calc(var(--spacer-2) / 2);
+
+		.tribe-common--breakpoint-medium & {
+			@mixin hidden;
+		}
+	}
+
+	.tribe-filter-bar__action-clear {
+		margin-left: calc(var(--spacer-2) / 2);
+
+		.tribe-common--breakpoint-medium & {
+			margin: 0;
+		}
+	}
+}

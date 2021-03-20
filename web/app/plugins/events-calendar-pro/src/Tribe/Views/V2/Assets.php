@@ -69,7 +69,10 @@ class Assets extends \tad_DI52_ServiceProvider {
 			$plugin,
 			'tribe-events-pro-views-v2-full',
 			'views-full.css',
-			[ 'tribe-events-views-v2-full' ],
+			[
+				'tribe-events-pro-views-v2-skeleton',
+				'tribe-events-views-v2-full',
+			],
 			'wp_enqueue_scripts',
 			[
 				'priority'     => 10,
@@ -79,6 +82,101 @@ class Assets extends \tad_DI52_ServiceProvider {
 					[ tribe( TEC_Assets::class ), 'should_enqueue_full_styles' ],
 				],
 				'groups'       => [ static::$group_key ],
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-pro-widgets-v2-events-list-skeleton',
+			'widget-events-list-skeleton.css',
+			[
+				'tribe-events-widgets-v2-events-list-skeleton',
+			],
+			null,
+			[
+				'priority' => 15,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-pro-widgets-v2-events-list-full',
+			'widget-events-list-full.css',
+			[
+				'tribe-events-widgets-v2-events-list-full',
+				'tribe-events-pro-widgets-v2-events-list-skeleton',
+			],
+			null,
+			[
+				'priority' => 15,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-pro-widgets-v2-countdown-skeleton',
+			'widget-countdown-skeleton.css',
+			[
+				'tribe-common-skeleton-style',
+			],
+			null,
+			[
+				'priority' => 15,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-pro-widgets-v2-countdown-full',
+			'widget-countdown-full.css',
+			[
+				'tribe-events-pro-widgets-v2-countdown-skeleton',
+				'tribe-common-full-style',
+			],
+			null,
+			[
+				'priority' => 15,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-pro-widgets-v2-countdown',
+			'views/widget-countdown.js',
+			[
+				'jquery',
+				'tribe-common',
+			],
+			null,
+			[
+				'priority' => 15,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-pro-widgets-v2-featured-venue-skeleton',
+			'widget-featured-venue-skeleton.css',
+			[
+				'tribe-common-skeleton-style',
+			],
+			null,
+			[
+				'priority' => 15,
+			]
+		);
+
+		tribe_asset(
+			$plugin,
+			'tribe-events-pro-widgets-v2-featured-venue-full',
+			'widget-featured-venue-full.css',
+			[
+				'tribe-events-pro-widgets-v2-featured-venue-skeleton',
+				'tribe-common-full-style',
+			],
+			null,
+			[
+				'priority' => 15,
 			]
 		);
 

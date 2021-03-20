@@ -3,11 +3,11 @@
  * View: Week View - Event Tooltip Cost
  *
  * Override this template in your own theme by creating a file at:
- * [your-theme]/tribe/events/v2/week/grid-body/events-day/event/tooltip/cost.php
+ * [your-theme]/tribe/events-pro/v2/week/grid-body/events-day/event/tooltip/cost.php
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link https://evnt.is/1aiy
  *
  * @version 5.0.0
  *
@@ -25,4 +25,3 @@ if ( empty( $event->cost ) ) {
 		<?php echo esc_html( $event->cost ); ?>
 	</span>
 </div>
-

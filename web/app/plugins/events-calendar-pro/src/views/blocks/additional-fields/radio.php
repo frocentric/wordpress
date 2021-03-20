@@ -2,9 +2,12 @@
 /**
  * Block: Additional Fields - Radio
  *
+ * Override this template in your own theme by creating a file at:
+ * [your-theme]/tribe/events-pro/blocks/additional-fields/radio.php
+ *
  * See more documentation about our Blocks Editor templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link https://evnt.is/1ajx
  *
  * @version5.1.2
  *

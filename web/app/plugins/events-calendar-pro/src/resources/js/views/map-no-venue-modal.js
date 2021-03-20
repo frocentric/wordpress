@@ -181,5 +181,5 @@ tribe.events.views.mapNoVenueModal = {};
 	};
 
 	// Configure on document ready
-	$document.ready( obj.ready );
+	$( obj.ready );
 } )( jQuery, tribe.events.views.mapNoVenueModal );

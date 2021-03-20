@@ -214,5 +214,5 @@ tribe.events.views.datepickerPro = {};
 	};
 
 	// Configure on document ready
-	$document.ready( obj.ready );
+	$( obj.ready );
 } )( jQuery, tribe.events.views.datepickerPro );

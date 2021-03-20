@@ -1,0 +1,75 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Pill
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar {
+
+	.tribe-filter-bar-c-pill {
+		display: inline-block;
+		position: relative;
+	}
+
+	.tribe-filter-bar-c-pill__pill {
+		padding: var(--spacer-1) var(--spacer-2);
+	}
+
+	.tribe-filter-bar-c-pill--has-selections .tribe-filter-bar-c-pill__pill {
+		padding-right: var(--spacer-7);
+	}
+
+	.tribe-filter-bar-c-pill__pill-label-colon {
+		display: none;
+	}
+
+	.tribe-filter-bar-c-pill--has-selections .tribe-filter-bar-c-pill__pill-label-colon {
+		display: inline;
+	}
+
+	.tribe-filter-bar-c-pill__remove-button {
+		display: none;
+	}
+
+	.tribe-filter-bar-c-pill--has-selections .tribe-filter-bar-c-pill__remove-button {
+		display: block;
+		line-height: 0;
+		padding: 4px;
+		position: absolute;
+		right: 12px;
+		top: 50%;
+		transform: translateY(-50%);
+	}
+
+	.tribe-filter-bar-c-pill__remove-button-icon {
+		width: 8px;
+
+		path {
+			stroke: currentColor;
+		}
+	}
+
+	.tribe-filter-bar-c-pill--button {
+
+		.tribe-filter-bar-c-pill__pill {
+			display: flex;
+			text-align: left;
+		}
+
+		.tribe-filter-bar-c-pill__pill-selections {
+			display: none;
+		}
+
+		&.tribe-filter-bar-c-pill--has-selections {
+
+			.tribe-filter-bar-c-pill__pill-selections {
+				display: inline;
+				margin-left: var(--spacer-0);
+			}
+
+			.tribe-filter-bar-c-pill__pill {
+				padding: 6px var(--spacer-7) 6px var(--spacer-2);
+			}
+		}
+	}
+}

@@ -374,7 +374,11 @@
 
 	} );
 
-	$( document ).ready( function() {
+	$( function() {
+		// We should not run on singles. Unless we enable it for shortcodes in the future.
+		if ( $( 'body' ).hasClass( 'single' ) ) {
+			return;
+		}
 
 		$( '.tribe_events_filter_item' ).filter( ':last' ).addClass( 'tribe_last_child' );
 
@@ -521,7 +525,7 @@
 					$( '.tribe_events_filter_item' ).addClass( 'closed' );
 				}
 			} )
-			.on( 'click', '.tribe-events-filter-group', function( e ) {
+			.on( 'click', '.tribe-events-filter-group, .select2-search__field', function( e ) {
 				if ( $horizontal.length && !hover_filters ) {
 					e.stopPropagation();
 				}

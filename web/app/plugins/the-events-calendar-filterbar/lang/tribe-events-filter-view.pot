@@ -1,47 +1,47 @@
-# Copyright (C) 2020 Modern Tribe
+# Copyright (C) 2021 Modern Tribe
 # This file is distributed under the same license as the The Events Calendar: Filter Bar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: The Events Calendar: Filter Bar 4.10.0\n"
+"Project-Id-Version: The Events Calendar: Filter Bar 5.0.4\n"
 "Report-Msgid-Bugs-To: http://m.tri.be/191x\n"
-"POT-Creation-Date: 2020-04-21 02:59:07+00:00\n"
+"POT-Creation-Date: 2021-01-27 07:03:45+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-04-21 02:59\n"
+"PO-Revision-Date: 2021-01-27 07:03\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 
-#: src/Tribe/Filter.php:333
+#: src/Tribe/Filter.php:348 src/views/v2_1/components/dropdown.php:38
 msgid "Select"
 msgstr ""
 
-#: src/Tribe/Filter.php:369
+#: src/Tribe/Filter.php:383
 msgid "Select an Item"
 msgstr ""
 
-#: src/Tribe/Filter.php:391 src/Tribe/View.php:232
+#: src/Tribe/Filter.php:405 src/Tribe/View.php:271
 msgctxt "Featured Events active filter display label"
 msgid "Active"
 msgstr ""
 
-#: src/Tribe/Filter.php:640
+#: src/Tribe/Filter.php:669
 msgid "Title: %s"
 msgstr ""
 
-#: src/Tribe/Filter.php:658
+#: src/Tribe/Filter.php:687
 msgid "Type: %s %s %s"
 msgstr ""
 
-#: src/Tribe/Filter.php:662
+#: src/Tribe/Filter.php:691
 msgid "Dropdown"
 msgstr ""
 
-#: src/Tribe/Filter.php:667 src/Tribe/Filters/Cost.php:64
+#: src/Tribe/Filter.php:696 src/Tribe/Filters/Cost.php:71
 msgid "Checkboxes"
 msgstr ""
 
-#: src/Tribe/Filter.php:672
+#: src/Tribe/Filter.php:701
 msgid "Multi-Select"
 msgstr ""
 
@@ -60,40 +60,40 @@ msgctxt "additional fields filter logic setting"
 msgid "Logic:"
 msgstr ""
 
-#: src/Tribe/Filters/Cost.php:55
+#: src/Tribe/Filters/Cost.php:62
 msgid "Type: %s %s"
 msgstr ""
 
-#: src/Tribe/Filters/Cost.php:59
+#: src/Tribe/Filters/Cost.php:66
 msgid "Range Slider"
 msgstr ""
 
-#: src/Tribe/Filters/Cost.php:71
+#: src/Tribe/Filters/Cost.php:78
 msgid "Used as the identifier for free %s"
 msgstr ""
 
-#: src/Tribe/Filters/Cost.php:76
+#: src/Tribe/Filters/Cost.php:83
 msgid "\"%s\" or empty or set to zero"
 msgstr ""
 
-#: src/Tribe/Filters/Cost.php:91
+#: src/Tribe/Filters/Cost.php:98
 msgid "Only when set to zero"
 msgstr ""
 
-#: src/Tribe/Filters/Cost.php:95
+#: src/Tribe/Filters/Cost.php:102
 msgid "%s are considered free when cost field is: %s %s"
 msgstr ""
 
-#: src/Tribe/Filters/Cost.php:105
+#: src/Tribe/Filters/Cost.php:112
 msgctxt "Used as the identifier for free Events"
 msgid "Free"
 msgstr ""
 
-#: src/Tribe/Filters/Cost.php:117
+#: src/Tribe/Filters/Cost.php:124
 msgid "Other"
 msgstr ""
 
-#: src/Tribe/Filters/Cost.php:121
+#: src/Tribe/Filters/Cost.php:128
 msgid "Free"
 msgstr ""
 
@@ -149,110 +149,135 @@ msgstr ""
 msgid "Night"
 msgstr ""
 
-#: src/Tribe/Settings.php:43 src/Tribe/Settings.php:100
+#: src/Tribe/Settings.php:46 src/Tribe/Settings.php:103
+#: src/views/v2_1/filter-bar.php:58
 msgid "Filters"
 msgstr ""
 
-#: src/Tribe/Settings.php:105
+#: src/Tribe/Settings.php:108
 msgid ""
 "The settings below allow you to enable or disable front-end %s filters. "
 "Uncheck the box to hide the filter. Drag and drop active filters to re-"
 "arrange them."
 msgstr ""
 
-#: src/Tribe/Settings.php:108
+#: src/Tribe/Settings.php:111
 msgid ""
 "Expand an active filter to edit the label and choose from a subset of input "
 "types (dropdown, select, range slider, checkbox and radio)."
 msgstr ""
 
-#: src/Tribe/Settings.php:120
+#: src/Tribe/Settings.php:123
 msgid "Filters Layout"
 msgstr ""
 
-#: src/Tribe/Settings.php:123
+#: src/Tribe/Settings.php:126
 msgid "Vertical"
 msgstr ""
 
-#: src/Tribe/Settings.php:124
+#: src/Tribe/Settings.php:127
 msgid "Horizontal"
 msgstr ""
 
-#: src/Tribe/Settings.php:130
+#: src/Tribe/Settings.php:133
 msgid "Filter Bar default state"
 msgstr ""
 
-#: src/Tribe/Settings.php:133
+#: src/Tribe/Settings.php:136
 msgid "Stay collapsed until visitors open it"
 msgstr ""
 
-#: src/Tribe/Settings.php:134
+#: src/Tribe/Settings.php:137
 msgid "Show on initial page load"
 msgstr ""
 
-#: src/Tribe/Settings.php:157
+#: src/Tribe/Settings.php:160
 msgid "Filter Bar"
 msgstr ""
 
-#: src/Tribe/Settings.php:171
+#: src/Tribe/Settings.php:174
 msgid ""
 "Enabled: datepicker and filter selections automatically update calendar views"
 msgstr ""
 
-#: src/Tribe/Settings.php:184
+#: src/Tribe/Settings.php:187
 msgid "Disabled: users must manually submit date search and Filter Bar"
 msgstr ""
 
-#: src/Tribe/View.php:408 src/Tribe/Views/V2/Filters/Context_Filter.php:217
+#: src/Tribe/Settings.php:203
+msgid "Settings"
+msgstr ""
+
+#: src/Tribe/View.php:586 src/Tribe/Views/V2/Filters/Context_Filter.php:234
 msgid "%s Category"
 msgstr ""
 
-#: src/Tribe/View.php:415
+#: src/Tribe/View.php:592
 msgid "Cost (%s)"
 msgstr ""
 
-#: src/Tribe/View.php:421 src/Tribe/Views/V2/Filters/Context_Filter.php:226
+#: src/Tribe/View.php:599 src/Tribe/Views/V2/Filters/Context_Filter.php:246
 msgid "Tags"
 msgstr ""
 
-#: src/Tribe/View.php:433 src/Tribe/Views/V2/Filters/Context_Filter.php:221
+#: src/Tribe/View.php:613 src/Tribe/Views/V2/Filters/Context_Filter.php:239
 msgid "Day"
 msgstr ""
 
-#: src/Tribe/View.php:437 src/Tribe/Views/V2/Filters/Context_Filter.php:227
+#: src/Tribe/View.php:617 src/Tribe/Views/V2/Filters/Context_Filter.php:247
 msgid "Time"
 msgstr ""
 
-#: src/Tribe/View.php:441 src/Tribe/Views/V2/Filters/Context_Filter.php:220
+#: src/Tribe/View.php:622 src/Tribe/Views/V2/Filters/Context_Filter.php:238
 msgid "Country"
 msgstr ""
 
-#: src/Tribe/View.php:445 src/Tribe/Views/V2/Filters/Context_Filter.php:218
+#: src/Tribe/View.php:627 src/Tribe/Views/V2/Filters/Context_Filter.php:236
 msgid "City"
 msgstr ""
 
-#: src/Tribe/View.php:449 src/Tribe/Views/V2/Filters/Context_Filter.php:225
+#: src/Tribe/View.php:632 src/Tribe/Views/V2/Filters/Context_Filter.php:244
 msgid "State/Province"
 msgstr ""
 
-#: src/Tribe/View.php:454 src/Tribe/Views/V2/Filters/Context_Filter.php:223
+#: src/Tribe/View.php:638 src/Tribe/Views/V2/Filters/Context_Filter.php:241
 msgid "Featured %s"
 msgstr ""
 
-#: src/Tribe/View.php:564
+#: src/Tribe/View.php:780
 msgid "Accessibility Form Notice"
 msgstr ""
 
-#: src/Tribe/View.php:565
+#: src/Tribe/View.php:781
 msgid "Notice: Utilizing the form controls will dynamically update the content"
 msgstr ""
 
-#: src/Tribe/Views/V2/Filters/Context_Filter.php:219
+#: src/Tribe/Views/V2/Filters/Context_Filter.php:237
 msgid "Cost ($)"
 msgstr ""
 
-#: src/Tribe/Views/V2/Filters/Context_Filter.php:222
+#: src/Tribe/Views/V2/Filters/Context_Filter.php:240
 msgid "Distance"
+msgstr ""
+
+#: src/Tribe/Views/V2_1/Configuration.php:32
+#: src/views/v2_1/components/events-bar/filter-button.php:22
+msgid "Show filters"
+msgstr ""
+
+#: src/Tribe/Views/V2_1/Configuration.php:33
+#: src/views/v2_1/components/events-bar/filter-button.php:26
+msgid "Hide filters"
+msgstr ""
+
+#: src/Tribe/Views/V2_1/Configuration.php:35
+msgctxt "Cost range for when currency symbol comes before cost."
+msgid "%1$s%2$s - %1$s%3$s"
+msgstr ""
+
+#: src/Tribe/Views/V2_1/Configuration.php:45
+msgctxt "Cost range for when currency symbol comes after cost."
+msgid "%1$s%2$s - %3$s%2$s"
 msgstr ""
 
 #: src/admin-views/settings-field-active-filters.php:8
@@ -293,14 +318,14 @@ msgstr ""
 
 #: src/views/filter-bar/filter-view-horizontal.php:25
 #: src/views/filter-bar/filter-view-vertical.php:29
-#: src/views/v2/filter-bar.php:30
+#: src/views/v2/filter-bar.php:25
 msgid "Narrow Your Results"
 msgstr ""
 
 #: src/views/filter-bar/filter-view-horizontal.php:27
 #: src/views/filter-bar/filter-view-horizontal.php:42
 #: src/views/filter-bar/filter-view-vertical.php:25
-#: src/views/v2/filter-bar.php:35 src/views/v2/filter-bar.php:61
+#: src/views/v2/filter-bar.php:30 src/views/v2/filter-bar.php:50
 msgid "Show Advanced Filters"
 msgstr ""
 
@@ -308,14 +333,14 @@ msgstr ""
 #: src/views/filter-bar/filter-view-horizontal.php:42
 #: src/views/filter-bar/filter-view-vertical.php:25
 #: src/views/filter-bar/filter-view-vertical.php:42
-#: src/views/v2/filter-bar.php:35 src/views/v2/filter-bar.php:61
+#: src/views/v2/filter-bar.php:30 src/views/v2/filter-bar.php:50
 msgid "Collapse Filters"
 msgstr ""
 
 #: src/views/filter-bar/filter-view-horizontal.php:28
 #: src/views/filter-bar/filter-view-horizontal.php:43
 #: src/views/filter-bar/filter-view-vertical.php:26
-#: src/views/v2/filter-bar.php:33 src/views/v2/filter-bar.php:63
+#: src/views/v2/filter-bar.php:28 src/views/v2/filter-bar.php:52
 msgid "Show Filters"
 msgstr ""
 
@@ -323,27 +348,48 @@ msgstr ""
 #: src/views/filter-bar/filter-view-horizontal.php:44
 #: src/views/filter-bar/filter-view-vertical.php:39
 #: src/views/filter-bar/filter-view-vertical.php:43
-#: src/views/v2/filter-bar.php:36 src/views/v2/filter-bar.php:57
-#: src/views/v2/filter-bar.php:65
+#: src/views/v2/filter-bar.php:31 src/views/v2/filter-bar.php:46
+#: src/views/v2/filter-bar.php:54
 msgid "Reset Filters"
 msgstr ""
 
 #: src/views/filter-bar/filter-view-horizontal.php:38
 #: src/views/filter-bar/filter-view-vertical.php:37
-#: src/views/v2/filter-bar.php:54
+#: src/views/v2/filter-bar.php:43
 msgid "Submit"
 msgstr ""
 
-#: src/views/v2/filters/button.php:20 src/views/v2/tabs.php:38
-msgid "Filter"
+#: src/views/v2_1/components/clear-button.php:30
+msgid "Clear"
 msgstr ""
 
-#: src/views/v2/filters.php:18
-msgid "%s Filters"
+#: src/views/v2_1/components/filter.php:80
+msgid "Open filter"
 msgstr ""
 
-#: src/views/v2/tabs.php:26
-msgid "Search"
+#: src/views/v2_1/components/filter.php:87
+#: src/views/v2_1/components/filter.php:121
+msgid "Close filter"
+msgstr ""
+
+#: src/views/v2_1/components/filter.php:96
+#: src/views/v2_1/components/pill-button.php:52
+#: src/views/v2_1/components/pill.php:40
+msgid "Remove filters"
+msgstr ""
+
+#: src/views/v2_1/filter-bar/actions.php:28
+msgid "Done"
+msgstr ""
+
+#: src/views/v2_1/filter-bar/selections.php:27
+msgid "Your selections"
+msgstr ""
+
+#: src/views/v2_1/filter-bar.php:65
+msgid ""
+"Changing any of the form inputs will cause the list of events to refresh "
+"with the filtered results."
 msgstr ""
 
 #: the-events-calendar-filter-view.php:55
@@ -375,5 +421,5 @@ msgid "Modern Tribe, Inc."
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://m.tri.be/25"
+msgid "http://evnt.is/25"
 msgstr ""

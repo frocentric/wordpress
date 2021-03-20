@@ -141,10 +141,18 @@ class Rewrite extends \Tribe__Events__Rewrite {
 				 * "(?:category|categorie)/(?:[^/]+/)*([^/]+)" - the current and localized version we get from TEC.
 				 * "category/(?:[^/]+/)*([^/]+)" - the version we get from Geoloc.
 				 */
-				$en_slug        = $localized_matchers[ $tax_key ]['en_slug'];
-				$geoloc_tax_key = str_replace( $bases['tax'], $en_slug, $tax_dynamic_matcher );
+				$en_slug = $localized_matchers[ $tax_key ]['en_slug'];
+				// Add the English version of the dynamic matcher.
+				$en_geoloc_tax_key                      = str_replace( $bases['tax'], $en_slug, $tax_dynamic_matcher );
+				$dynamic_matchers[ $en_geoloc_tax_key ] = $tax_dynamic_match;
 
-				$dynamic_matchers[ $geoloc_tax_key ] = $tax_dynamic_match;
+				$localized_slug = $localized_matchers[ $tax_key ]['localized_slug'];
+				if ( $localized_slug !== $en_slug ) {
+					// Add the localized version of the dynamic matcher.
+					$localized_geoloc_tax_key = str_replace( $bases['tax'], $localized_slug, $tax_dynamic_matcher );
+
+					$dynamic_matchers[ $localized_geoloc_tax_key ] = $tax_dynamic_match;
+				}
 			}
 		}
 
