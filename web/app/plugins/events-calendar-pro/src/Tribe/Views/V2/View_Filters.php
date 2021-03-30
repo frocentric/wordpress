@@ -9,6 +9,7 @@
 namespace Tribe\Events\Pro\Views\V2;
 
 use Tribe\Events\Pro\Views\V2\Geo_Loc\Handler_Interface as Geo_Loc_Handler;
+use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\View_Interface;
 use Tribe\Events\Views\V2\Manager;
 use Tribe__Context as Context;
@@ -62,7 +63,7 @@ class View_Filters {
 
 		// If in Recurring "All" Page or the Day View then always show all the recurring events.
 		$view = $context->get( 'view' );
-		if ( 'all' === $view || 'day' === $view ) {
+		if ( in_array( $view, [ 'all', 'month', 'week' ] ) ) {
 			$repository_args['hide_subsequent_recurrences'] = false;
 		} elseif ( $hide_subsequent_recurrences_default || $hide_subsequent_recurrences ) {
 			$repository_args['hide_subsequent_recurrences'] = true;
@@ -74,6 +75,21 @@ class View_Filters {
 		}
 
 		return $repository_args;
+	}
+
+	/**
+	 * Adds the recurrence param to the ignored params on the page reset.
+	 *
+	 * @since 5.3.0
+	 *
+	 * @param array      $arguments Which arguments we are ignoring.
+	 * @param View|null  $view      Current view that we are filtering.
+	 *
+	 * @return array Array of params with the hide_subsequent_recurrences added.
+	 */
+	public function add_recurrence_hide_to_page_reset_ignored_params( array $arguments = [], View $view = null ) {
+		$arguments[] = 'hide_subsequent_recurrences';
+		return $arguments;
 	}
 
 	/**

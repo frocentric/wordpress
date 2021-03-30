@@ -327,7 +327,7 @@ if ( Object.prototype.hasOwnProperty.call( window, 'tribe_ev' ) ) {
 		}
 	} );
 
-	$( document ).ready( function() {
+	$( function() {
 
 		if ( $( '.tribe-bar-geoloc-filter' ).length ) {
 			$( ".tribe-bar-geoloc-filter" ).append( '<div id="tribe-geo-options"><div id="tribe-geo-links"></div></div>' );

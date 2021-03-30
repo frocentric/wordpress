@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link https://evnt.is/1aiy
  *
  * @since 5.0.0
  *
@@ -15,7 +15,7 @@
  *
  * @see tribe_get_event() For the format of the event object.
  *
- * @version 5.0.0
+ * @version 5.2.0
  */
 
 if ( empty( $event->recurring ) ) {
@@ -27,9 +27,10 @@ if ( empty( $event->recurring ) ) {
 	class="tribe-events-calendar-day__event-datetime-recurring-link"
 >
 	<em
-		class="tribe-events-calendar-day__event-datetime-recurring-icon tribe-common-svgicon tribe-common-svgicon--recurring"
+		class="tribe-events-calendar-day__event-datetime-recurring-icon"
 		aria-label="<?php esc_attr_e( 'Recurring', 'tribe-events-calendar-pro' ) ?>"
 		title="<?php esc_attr_e( 'Recurring', 'tribe-events-calendar-pro' ) ?>"
 	>
+		<?php $this->template( 'components/icons/recurring', [ 'classes' => [ 'tribe-events-calendar-day__event-datetime-recurring-icon-svg' ] ] ); ?>
 	</em>
 </a>

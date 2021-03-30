@@ -7,9 +7,9 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link https://evnt.is/1aiy
  *
- * @since 5.1.1
+ * @since 5.2.0
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  *
@@ -21,8 +21,9 @@ if ( empty( $event->recurring ) ) {
 }
 ?>
 <em
-	class="tribe-events-pro-map__event-datetime-recurring-icon tribe-common-svgicon tribe-common-svgicon--recurring"
+	class="tribe-events-pro-map__event-datetime-recurring-icon"
 	aria-label="<?php esc_attr_e( 'Recurring', 'tribe-events-calendar-pro' ) ?>"
 	title="<?php esc_attr_e( 'Recurring', 'tribe-events-calendar-pro' ) ?>"
 >
+	<?php $this->template( 'components/icons/recurring', [ 'classes' => [ 'tribe-events-pro-map__event-datetime-recurring-icon-svg' ] ] ); ?>
 </em>

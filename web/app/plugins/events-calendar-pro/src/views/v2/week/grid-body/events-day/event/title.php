@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link https://evnt.is/1aiy
  *
  * @since 5.0.0
  * @since 5.1.1 Moved icons out to separate templates.

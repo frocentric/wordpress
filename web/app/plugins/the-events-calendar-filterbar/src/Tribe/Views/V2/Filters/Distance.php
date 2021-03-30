@@ -10,6 +10,7 @@
 namespace Tribe\Events\Filterbar\Views\V2\Filters;
 
 use Tribe__Context as Context;
+use Tribe__Utils__Array as Arr;
 
 /**
  * Class Distance
@@ -28,10 +29,10 @@ class Distance extends \Tribe__Events__Pro__Geo_Loc_Filter {
 	 *
 	 * @param mixed $raw_value The raw filter value.
 	 *
-	 * @return int The distance value.
+	 * @return array<string,integer> The distance value.
 	 */
 	protected function parse_value( $raw_value ) {
-		return absint( $raw_value );
+		return array_filter( (array) $raw_value );
 	}
 
 	/**
@@ -55,6 +56,6 @@ class Distance extends \Tribe__Events__Pro__Geo_Loc_Filter {
 	 * @return string A comma-separated list of Venue IDs, e.g. `23` or `23,89`.
 	 */
 	public static function build_query_arg_value( $value, $context_key, Context $context ) {
-		return null !== $value ? absint( $value ) : null;
+		return Arr::to_list( $value, ',' );
 	}
 }

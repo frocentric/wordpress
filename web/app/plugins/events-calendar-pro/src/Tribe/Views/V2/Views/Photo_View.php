@@ -8,12 +8,12 @@
 
 namespace Tribe\Events\Pro\Views\V2\Views;
 
+use Tribe\Events\Views\V2\Utils;
 use Tribe\Events\Views\V2\View;
 use Tribe\Events\Views\V2\Views\Traits\List_Behavior;
 use Tribe__Events__Main as TEC;
 use Tribe__Events__Rewrite as Rewrite;
 use Tribe__Utils__Array as Arr;
-use Tribe\Events\Views\V2\Utils;
 
 class Photo_View extends View {
 	use List_Behavior;
@@ -228,6 +228,12 @@ class Photo_View extends View {
 
 		$date = Arr::get( $context_arr, 'event_date', 'now' );
 		$event_display = Arr::get( $context_arr, 'event_display_mode', Arr::get( $context_arr, 'event_display' ), 'current' );
+
+		// Normalize the `orderby` argument.
+		$orderby         = Arr::get_first_set( $args, [ 'orderby', 'order_by' ], [] );
+		$orderby         = tribe_normalize_orderby( $orderby );
+		$date_key        = isset( $orderby['event_date_utc'] ) ? 'event_date_utc' : 'event_date';
+		$args['orderby'] = array_merge( $orderby, [ $date_key, 'event_duration' ] );
 
 		if ( 'past' !== $event_display ) {
 			$args['order']       = 'ASC';

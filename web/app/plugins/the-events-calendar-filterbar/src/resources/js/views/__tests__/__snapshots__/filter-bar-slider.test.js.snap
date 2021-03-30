@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter Bar Slider Deinitialize slider Should deinitialize filter slider 1`] = `""`;
+
+exports[`Filter Bar Slider Handle slider translate Should update filters container styles 1`] = `""`;
+
+exports[`Filter Bar Slider Handle slider translate Should update filters container styles 2`] = `"translateX(80px)"`;
+
+exports[`Filter Bar Slider Selectors Should match snapshot 1`] = `"{\\"filterBarHorizontal\\":\\".tribe-events--filter-bar-horizontal\\",\\"filterBar\\":\\".tribe-filter-bar\\",\\"filtersSliderContainer\\":\\"[data-js=\\\\\\"tribe-filter-bar-filters-slider-container\\\\\\"]\\",\\"filtersSliderNav\\":\\".tribe-filter-bar__filters-slider-nav\\",\\"filtersSliderNavOverflowStart\\":\\".tribe-filter-bar__filters-slider-nav--overflow-start\\",\\"filtersSliderNavOverflowEnd\\":\\".tribe-filter-bar__filters-slider-nav--overflow-end\\",\\"filtersSliderNavButtonPrev\\":\\"[data-js~=\\\\\\"tribe-filter-bar-filters-slider-nav-button-prev\\\\\\"]\\",\\"filtersSliderNavButtonNext\\":\\"[data-js~=\\\\\\"tribe-filter-bar-filters-slider-nav-button-next\\\\\\"]\\",\\"filtersContainer\\":\\"[data-js=\\\\\\"tribe-filter-bar-filters-container\\\\\\"]\\"}"`;

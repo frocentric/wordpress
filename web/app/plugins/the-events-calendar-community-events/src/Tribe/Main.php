@@ -18,7 +18,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 		/**
 		 * The current version of Community Events
 		 */
-		const VERSION = '4.7.1.1';
+		const VERSION = '4.8.5';
 
 		/**
 		 * Singleton instance variable
@@ -508,15 +508,6 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 				return;
 			}
 
-			// Remove front-end scripts in case they're enqueued
-			tribe( 'assets' )->remove( 'tribe-events-pro' );
-			tribe( 'assets' )->remove( 'tribe-events-pro-geoloc' );
-
-			tribe_asset_enqueue_group( 'events-admin' );
-
-			tribe_asset_enqueue( 'tribe-events-dynamic' );
-			tribe_asset_enqueue( 'tribe-jquery-timepicker-css' );
-
 			// Disable comments on this page.
 			add_filter( 'comments_template', [ $this, 'disable_comments_on_page' ] );
 
@@ -529,7 +520,7 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 		}
 
 		/**
-		 * registers scripts and styles
+		 * Registers scripts and styles.
 		 */
 		public function register_resources() {
 			tribe_asset( $this, 'tribe-events-community-select2', 'tribe-events-community-select2.css' );
@@ -604,6 +595,18 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 		 * @return void
 		 */
 		public function enqueue_assets() {
+			/** @var Tribe__Assets $assets */
+			$assets = tribe( 'assets' );
+
+			// Remove front-end scripts in case they're enqueued.
+			$assets->remove( 'tribe-events-pro' );
+			$assets->remove( 'tribe-events-pro-geoloc' );
+
+			tribe_asset_enqueue_group( 'events-admin' );
+
+			tribe_asset_enqueue( 'tribe-events-dynamic' );
+			tribe_asset_enqueue( 'tribe-jquery-timepicker-css' );
+
 			tribe_asset_enqueue( Tribe__Events__Main::POSTTYPE . '-community-styles' );
 			tribe_asset_enqueue( Tribe__Events__Main::POSTTYPE . '-community' );
 
@@ -2963,6 +2966,11 @@ if ( ! class_exists( 'Tribe__Events__Community__Main' ) ) {
 		 */
 		public function pagination( $query, $pages = 0, $range = 3, $shortcode = false ) {
 			$output    = '';
+
+			// Cast as Int for PHP 8 compatibility.
+			$range = (int) $range;
+			$pages = (int) $pages;
+
 			$showitems = ( $range * 2 ) + 1;
 
 			global $paged;

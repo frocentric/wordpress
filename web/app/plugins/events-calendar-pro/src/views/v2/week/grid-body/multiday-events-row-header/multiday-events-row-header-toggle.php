@@ -7,9 +7,9 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link https://evnt.is/1aiy
  *
- * @version 5.0.3
+ * @version 5.2.0
  *
  * @var string $multiday_toggle_controls A space-separated list of entries for the `aria-controls` attribute.
  */
@@ -33,4 +33,5 @@
 		);
 		?>
 	</span>
+	<?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tribe-events-pro-week-grid__multiday-toggle-button-icon-svg' ] ] ); ?>
 </button>

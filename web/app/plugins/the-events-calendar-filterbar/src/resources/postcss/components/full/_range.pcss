@@ -1,0 +1,54 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Radio
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar {
+
+	.tribe-filter-bar-c-range__label {
+		@mixin desktop-body-2;
+
+		color: var(--color-text-secondary);
+	}
+
+	.tribe-filter-bar-c-range__slider {
+		background: var(--color-border-default);
+		border-radius: 2px;
+		height: 4px;
+		margin: var(--spacer-1) 10px;
+
+		.ui-slider-range {
+			background: var(--color-accent-secondary);
+		}
+
+		.ui-slider-handle {
+			@mixin form-control-slider-thumb;
+
+			background: var(--form-color-background);
+			margin: 0 0 0 -10px;
+			top: 50%;
+			transform: translateY(-50%);
+
+			&.ui-state-active {
+				background-color: var(--color-background-secondary);
+			}
+		}
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Avada
+	 * ------------------------------------------------------------------------- */
+
+	.tribe-filter-bar-c-range__slider {
+
+		.ui-slider-handle {
+
+			&:before,
+			&:after {
+				content: none;
+			}
+		}
+	}
+}
+

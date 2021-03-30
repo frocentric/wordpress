@@ -7,9 +7,9 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTICLE_LINK_HERE}
+ * @link https://evnt.is/1aiy
  *
- * @version 5.0.1
+ * @version 5.2.0
  *
  */
 ?>
@@ -21,5 +21,6 @@
 		disabled
 	>
 		<?php esc_html_e( 'Next', 'tribe-events-calendar-pro' ); ?>
+		<?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-events-c-nav__next-icon-svg' ] ] ); ?>
 	</button>
 </li>

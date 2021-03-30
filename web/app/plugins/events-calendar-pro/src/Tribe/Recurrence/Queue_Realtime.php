@@ -78,9 +78,9 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 		$data     = array(
 			'eventID'      => $this->event_id,
 			'check'        => $this->get_ajax_nonce(),
-			'completeMsg'  => __( 'Completed!', 'tribe-events-pro' ),
+			'completeMsg'  => __( 'Completed!', 'tribe-events-calendar-pro' ),
 			'progress'     => $progress,
-			'progressText' => sprintf( __( '%d%% complete', 'tribe-events-pro' ), $progress ),
+			'progressText' => sprintf( __( '%d%% complete', 'tribe-events-calendar-pro' ), $progress ),
 		);
 
 		wp_localize_script( Tribe__Events__Main::POSTTYPE . '-premium-admin', 'TribeEventsProRecurrenceUpdate', $data );
@@ -100,10 +100,10 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 		if ( ! tribe_is_event( $this->event_id ) ) {
 			return;
 		}
-		$notice    = __( 'Recurring event data is still being generated for this event. Don&#146;t worry, you can safely navigate away &ndash; the process will resume in a bit in the background.', 'tribe-events-pro' );
+		$notice    = __( 'Recurring event data is still being generated for this event. Don&#146;t worry, you can safely navigate away &ndash; the process will resume in a bit in the background.', 'tribe-events-calendar-pro' );
 		$percent   = $this->sanitize_progress( $this->queue->progress_percentage() );
 		$spinner   = '<img src="' . get_admin_url( null, '/images/spinner.gif' ) . '">';
-		$indicator = '<div> <div class="progress" title="' . sprintf( __( '%d%% complete', 'tribe-events-pro' ), $percent ) . '"> <div class="bar"></div> </div>' . $spinner . '</div>';
+		$indicator = '<div> <div class="progress" title="' . sprintf( __( '%d%% complete', 'tribe-events-calendar-pro' ), $percent ) . '"> <div class="bar"></div> </div>' . $spinner . '</div>';
 
 		return "<p> $notice </p> $indicator";
 	}
@@ -165,7 +165,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 	 */
 	public function get_unable_to_continue_processing_data() {
 		return json_encode( array(
-			'html'     => __( 'Unable to continue processing recurring event data. Please reload this page to continue/try again.', 'tribe-events-pro' ),
+			'html'     => __( 'Unable to continue processing recurring event data. Please reload this page to continue/try again.', 'tribe-events-calendar-pro' ),
 			'progress' => false,
 			'continue' => false,
 			'complete' => false,
@@ -182,7 +182,7 @@ class Tribe__Events__Pro__Recurrence__Queue_Realtime {
 		return json_encode( array(
 			'html'         => false,
 			'progress'     => $percentage,
-			'progressText' => sprintf( __( '%d%% complete', 'tribe-events-pro' ), $percentage ),
+			'progressText' => sprintf( __( '%d%% complete', 'tribe-events-calendar-pro' ), $percentage ),
 			'continue'     => ! $done,
 			'complete'     => $done,
 		) );

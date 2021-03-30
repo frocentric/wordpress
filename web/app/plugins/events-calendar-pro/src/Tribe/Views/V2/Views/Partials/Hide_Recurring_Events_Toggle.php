@@ -11,6 +11,7 @@ namespace Tribe\Events\Pro\Views\V2\Views\Partials;
 use Tribe\Events\Views\V2\Interfaces\View_Partial_Interface;
 use Tribe\Events\Views\V2\Views\Month_View;
 use Tribe\Events\Pro\Views\V2\Views\All_View;
+use Tribe\Events\Pro\Views\V2\Views\Week_View;
 
 /**
  * Class Hide_Recurring_Events_Toggle
@@ -33,6 +34,9 @@ class Hide_Recurring_Events_Toggle implements View_Partial_Interface {
 			return '';
 		}
 
+		if ( Week_View::class === $template->get( 'view_class' ) ) {
+			return '';
+		}
 		if ( All_View::class === $template->get( 'view_class' ) ) {
 			return '';
 		}

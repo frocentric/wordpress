@@ -1,0 +1,35 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Clear Button
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar {
+
+	.tribe-filter-bar-c-clear-button {
+		transition: none;
+
+		.tribe-common--breakpoint-medium & {
+			background-color: transparent;
+			border: none;
+			border-radius: 0;
+			padding: 0;
+		}
+
+		.tribe-common--breakpoint-medium .tribe-filter-bar--vertical& {
+			@mixin desktop-body-3-sup;
+		}
+
+		&:focus,
+		&:hover {
+
+			.tribe-filter-bar-c-clear-button__reset-icon path {
+				stroke: var(--color-icon-active);
+			}
+		}
+	}
+
+	.tribe-filter-bar-c-clear-button__reset-icon path {
+		stroke: var(--color-icon-primary);
+	}
+}

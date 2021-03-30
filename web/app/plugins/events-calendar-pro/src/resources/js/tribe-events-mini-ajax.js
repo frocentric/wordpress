@@ -1,4 +1,4 @@
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 
 	// handler for tribe events calendar widget ajax call. jquery 1.4 minimum
 

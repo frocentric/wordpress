@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter Checkboxes Handle range slide Should update range label with currency symbol before value 1`] = `"$10 - $75"`;
+
+exports[`Filter Checkboxes Handle range slide Should update range label with currency symbol before value 2`] = `"10$ - 75$"`;
+
+exports[`Filter Checkboxes Selectors Should match snapshot 1`] = `"{\\"rangeInput\\":\\".tribe-filter-bar-c-range__input\\",\\"rangeLabel\\":\\".tribe-filter-bar-c-range__label\\",\\"rangeSlider\\":\\"[data-js=\\\\\\"tribe-filter-bar-c-range-slider\\\\\\"]\\"}"`;

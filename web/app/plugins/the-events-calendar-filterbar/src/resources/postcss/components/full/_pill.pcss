@@ -1,0 +1,84 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Pill
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar {
+
+	.tribe-filter-bar-c-pill__pill {
+		background-color: var(--color-background);
+		border: 1px solid var(--color-icon-disabled);
+		border-radius: 18px;
+	}
+
+	.tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill {
+		background-color: var(--color-background);
+		transition: var(--transition);
+
+		&:hover,
+		&:focus {
+			border-color: var(--color-icon-primary);
+			background-color: var(--color-background-secondary);
+		}
+
+		&:active {
+			border-color: var(--color-border-tertiary);
+			background-color: var(--color-background);
+		}
+	}
+
+	.tribe-filter-bar-c-pill--has-selections .tribe-filter-bar-c-pill__pill {
+		background-color: var(--color-background-secondary);
+		border: 1px solid var(--color-icon-primary);
+		border-radius: 14px;
+		font-weight: var(--font-weight-bold);
+	}
+
+	.tribe-filter-bar-c-pill--has-selections.tribe-filter-bar-c-pill--button .tribe-filter-bar-c-pill__pill {
+
+		&:hover,
+		&:focus {
+			background-color: var(--color-background-secondary-hover);
+		}
+
+		&:active {
+			border-color: var(--color-border-tertiary);
+			background-color: var(--color-background);
+		}
+	}
+
+	.tribe-filter-bar-c-pill__remove-button {
+
+		path {
+			transition: var(--transition-opacity);
+		}
+
+		&:hover,
+		&:focus {
+
+			path {
+				opacity: var(--opacity-icon-hover);
+			}
+		}
+	}
+
+	.tribe-filter-bar-c-pill__remove-button-icon path {
+		stroke: var(--color-icon-active);
+	}
+
+	/* -------------------------------------------------------------------------
+	 * Theme Overrides - Avada
+	 * ------------------------------------------------------------------------- */
+
+	.fusion-body & {
+
+		.tribe-filter-bar-c-pill .tribe-filter-bar-c-pill__pill {
+			@mixin desktop-body-3-sup;
+		}
+
+		.tribe-filter-bar-c-pill--has-selections .tribe-filter-bar-c-pill__pill {
+			font-weight: var(--font-weight-bold);
+		}
+	}
+}

@@ -7,11 +7,11 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link https://evnt.is/1aiy
  *
  * @var string $next_url The URL to the next page, if any, or an empty string.
  *
- * @version 5.0.1
+ * @version 5.2.0
  *
  */
 ?>
@@ -23,5 +23,6 @@
 		title="<?php esc_attr_e( 'Next week', 'tribe-events-calendar-pro' ); ?>"
 		data-js="tribe-events-view-link"
 	>
+		<?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-common-c-btn-icon__icon-svg', 'tribe-events-c-top-bar__nav-link-icon-svg' ] ] ); ?>
 	</a>
 </li>

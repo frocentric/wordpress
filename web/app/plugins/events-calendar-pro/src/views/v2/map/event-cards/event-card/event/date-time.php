@@ -10,7 +10,7 @@
  * @since 5.0.1
  * @since 5.1.1 Moved icons out to separate templates.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link https://evnt.is/1aiy
  *
  * @var WP_Post $event The event post object with properties added by the `tribe_get_event` function.
  * @var obj     $date_formats Object containing the date formats.

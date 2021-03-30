@@ -47,9 +47,9 @@ class Venue extends \Tribe__Events__Filterbar__Filters__Venue {
 	 * @param string       $context_key The key used to fetch the `$value` from the Context.
 	 * @param Context      $context     The context instance.
 	 *
-	 * @return string A comma-separated list of Venue IDs, e.g. `23` or `23,89`.
+	 * @return array<string> An array of Venue IDs, e.g. `23` or `23-89`.
 	 */
 	public static function build_query_arg_value( $value, $context_key, Context $context ) {
-		return Arr::to_list( $value, ',' );
+		return Arr::list_to_array( $value, ',' );
 	}
 }

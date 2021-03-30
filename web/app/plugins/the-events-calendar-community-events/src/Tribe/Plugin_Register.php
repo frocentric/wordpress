@@ -9,7 +9,7 @@ class  Tribe__Events__Community__Plugin_Register extends Tribe__Abstract_Plugin_
 	protected $main_class   = 'Tribe__Events__Community__Main';
 	protected $dependencies = [
 		'parent-dependencies' => [
-			'Tribe__Events__Main' => '5.1.0-dev',
+			'Tribe__Events__Main' => '5.4.0-dev',
 		],
 	];
 

@@ -52,6 +52,16 @@ class Tribe__Events__Pro__Repositories__Event extends Tribe__Events__Repositorie
 	protected $update_postarrs;
 
 	/**
+	 * A flag property to keep track of whether the repository is currently in the context of a query
+	 * to set up to collapse recurring event instances, or not.
+	 *
+	 * @since 5.2.0
+	 *
+	 * @var bool
+	 */
+	protected $collapsing_recurring_event_instances = false;
+
+	/**
 	 * Tribe__Events__Pro__Repositories__Event constructor.
 	 *
 	 * @since 4.7
@@ -188,10 +198,10 @@ class Tribe__Events__Pro__Repositories__Event extends Tribe__Events__Repositorie
 			}
 			$this->filter_query->join( "JOIN {$wpdb->postmeta} in_series_meta ON {$wpdb->posts}.ID = in_series_meta.post_id " );
 			$this->filter_query->where( "{$children_clause}
-				OR ( 
-					{$parent_clause} 
-					AND in_series_meta.meta_key = '_EventRecurrence' 
-					AND in_series_meta.meta_value IS NOT NULL 
+				OR (
+					{$parent_clause}
+					AND in_series_meta.meta_key = '_EventRecurrence'
+					AND in_series_meta.meta_value IS NOT NULL
 				)"
 			);
 
@@ -624,7 +634,7 @@ class Tribe__Events__Pro__Repositories__Event extends Tribe__Events__Repositorie
 		// Let's make sure we're iterating on arrays with an equal number of elements and same order.
 		ksort( $this->update_recurrence_payloads );
 		ksort( $this->update_postarrs );
-		// Each payload should have a post array and viceversa.
+		// Each payload should have a post array and vice versa.
 		$valid_payloads = array_intersect_key( $this->update_recurrence_payloads, $this->update_postarrs );
 		$valid_postarrs = array_intersect_key( $this->update_postarrs, $valid_payloads );
 
@@ -773,111 +783,32 @@ class Tribe__Events__Pro__Repositories__Event extends Tribe__Events__Repositorie
 	}
 
 	/**
-	 * Overrides the base method to take display and render context into account.
+	 * Overrides the base repository method to add, if required, query arguments to the query that will
+	 * collapse recurring event instances.
 	 *
-	 * @since 4.7
+	 * @since 5.2.0
 	 *
-	 * @return WP_Query A built query object, `get_posts` has not been called yet.
-	 *
-	 * @throws Tribe__Repository__Void_Query_Exception If the query would yield no results anyway.
+	 * @return WP_Query The built query object, modified by means of its query vars, if required.
 	 */
-	public function get_query() {
+	protected function build_query_internally() {
 		// Handle the case where we're fetching by post name and want all event instances.
-		$this->maybe_expand_post_name( );
+		$this->maybe_expand_post_name();
 
 		if ( ! $this->should_collapse_recurring_event_instances() ) {
 			// Nothing to do here!
-			return parent::get_query();
+			return parent::build_query_internally();
 		}
 
-		global $wpdb;
-
-		if ( ! $this->has_date_filters() ) {
-
-			/*
-			 * Let's not add costly queries if not really needed.
-			 * If no date filters are being applied we just want the first event of a series.
-			 */
-			$this->filter_query->where( "{$wpdb->posts}.post_parent = 0" );
-		} else {
-
-			/*
-			 * To make the cut an event must fit the date(s) criteria and either:
-			 * - have no children and no parent (a single event)
-			 * - have children and have no children fitting the criteria (a series first event)
-			 * - have a parent not fitting the criteria (a series instance)
-			 *
-			 * Here we clone the query, run it, and get all the events fitting the date criteria.
-			 */
-			$secondary_query = clone parent::get_query();
-			// Lighten the query fetching IDs only.
-			$secondary_query->set( 'fields', 'ids' );
-			// Fetch ALL matching event IDs to override what limits the pagination would apply.
-			$secondary_query->set( 'posts_per_page', -1 );
-			// prevent paging so we avoid invalid SQL: LIMIT 0, -1 errors out
-			$secondary_query->set( 'nopaging', true );
-			// Order events, whatever the criteria applying to the main query, by start date.
-			$secondary_query->set( 'orderby', 'meta_value' );
-			$secondary_query->set( 'meta_key', '_EventStartDateUTC' );
-
-			/*
-			 * Since we use the `post__in` query argument for our logic
-			 * let's remove what `post__in` IDs we might have added to make sure we fetch the correct results.
-			 */
-			$this->clean_post__in( $secondary_query );
-
-			/*
-			 * We need the SQL to get the `post_parent` and `meta_value` fields included in the results.
-			 * There is no way to do that other than filtering the WordPress query  generated in the context
-			 * of a `get_posts` request.
-			 */
-			$filter = new Tribe__Repository__Query_Filters();
-			$filter->set_query( $secondary_query );
-			$filter->fields( 'post_parent' );
-			$filter->fields( $wpdb->postmeta . '.meta_value' );
-			$request = $filter->get_request();
-
-			$all_ids = $wpdb->get_results( $request, ARRAY_N );
-
-			if ( ! empty( $all_ids ) ) {
-				/*
-				 * Let's put events in races:
-				 * 1. group them by post parent, or own if parent, ID
-				 * 2. order them by start date in order
-				 */
-				$order = $secondary_query->get( 'order', 'ASC' );
-				$winners = array_reduce( $all_ids, static function ( array $acc, array $result ) use ( $order ) {
-					list( $post_id, $post_parent, $start_date ) = $result;
-					$post_id     = (int) $post_id;
-					$post_parent = (int) $post_parent;
-					$post_parent = 0 === $post_parent ? $post_id : $post_parent;
-					$current = isset( $acc[ $post_parent ]['start_date'] ) ? $acc[ $post_parent ]['start_date'] : false;
-
-					if ( ! $current ) {
-						$acc[ $post_parent ]['start_date'] = $start_date;
-					} else {
-						$acc[ $post_parent ]['start_date'] = $order === 'DESC' ? max( $start_date,
-							$current ) : min( $start_date, $current );
-					}
-
-					if ( $acc[ $post_parent ]['start_date'] !== $current ) {
-						$acc[ $post_parent ]['ID'] = $post_id;
-					}
-
-					return $acc;
-				}, [] );
-
-				// Let's add a query argument to keep track of what post IDs we've added in the `post__in` clause.
-				$this->query_args['tribe_post__in'] = array_column( $winners, 'ID' );
-				$this->where( 'post__in', array_column( $winners, 'ID' ) );
-			}
+		// Avoid infinite loops.
+		if ( ! $this->collapsing_recurring_event_instances ) {
+			$this->collapse_recurring_event_instances();
 		}
 
-		return parent::get_query();
+		return parent::build_query_internally();
 	}
 
 	/**
-	 * Returns a filtered list of display contexts that reauire recurring event
+	 * Returns a filtered list of display contexts that require recurring event
 	 * instance collapsing if the "Show only the first instance of each recurring event"
 	 * setting is truthy.
 	 *
@@ -1080,5 +1011,105 @@ class Tribe__Events__Pro__Repositories__Event extends Tribe__Events__Repositorie
 			}
 		}
 		unset( $secondary_query->query_vars['tribe__post_in'] );
+	}
+
+	/**
+	 * Alters the current query arguments to add the ones that will allow to collapse recurring event instances.
+	 *
+	 * @since 5.2.0
+	 */
+	protected function collapse_recurring_event_instances() {
+		global $wpdb;
+
+		if ( ! $this->has_date_filters() ) {
+			/*
+			 * Let's not add costly queries if not really needed.
+			 * If no date filters are being applied we just want the first event of a series.
+			 */
+			$this->filter_query->where( "{$wpdb->posts}.post_parent = 0" );
+
+			return;
+		}
+
+		// Flag the current operation state and avoid infinite loops.
+		$this->collapsing_recurring_event_instances = true;
+
+		/*
+		 * To make the cut an event must fit the date(s) criteria and either:
+		 * - have no children and no parent (a single event)
+		 * - have children and have no children fitting the criteria (a series first event)
+		 * - have a parent not fitting the criteria (a series instance)
+		 *
+		 * Here we clone the query, run it, and get all the events fitting the date criteria.
+		 */
+		$secondary_query = clone parent::get_query();
+		// Lighten the query fetching IDs only.
+		$secondary_query->set( 'fields', 'ids' );
+		// Fetch ALL matching event IDs to override what limits the pagination would apply.
+		$secondary_query->set( 'posts_per_page', - 1 );
+		// Prevent paging so we avoid invalid SQL: LIMIT 0, -1 errors out.
+		$secondary_query->set( 'nopaging', true );
+		// Order events, whatever the criteria applying to the main query, by start date.
+		$secondary_query->set( 'orderby', 'meta_value' );
+		$secondary_query->set( 'meta_key', '_EventStartDateUTC' );
+
+		/*
+		 * Since we use the `post__in` query argument for our logic
+		 * let's remove what `post__in` IDs we might have added to make sure we fetch the correct results.
+		 */
+		$this->clean_post__in( $secondary_query );
+
+		/*
+		 * We need the SQL to get the `post_parent` and `meta_value` fields included in the results.
+		 * There is no way to do that other than filtering the WordPress query  generated in the context
+		 * of a `get_posts` request.
+		 */
+		$filter = new Tribe__Repository__Query_Filters();
+		$filter->set_query( $secondary_query );
+		$filter->fields( 'post_parent' );
+		$filter->fields( $wpdb->postmeta . '.meta_value' );
+		$request = $filter->get_request();
+
+		$all_ids = $wpdb->get_results( $request, ARRAY_N );
+
+		if ( empty( $all_ids ) ) {
+			return;
+		}
+
+		/*
+		 * Let's put events in races:
+		 * 1. group them by post parent, or own if parent, ID
+		 * 2. order them by start date in order
+		 */
+		$order   = $secondary_query->get( 'order', 'ASC' );
+		$winners = array_reduce(
+			$all_ids,
+			static function ( array $acc, array $result ) use ( $order ) {
+				list( $post_id, $post_parent, $start_date ) = $result;
+
+				$post_id     = (int) $post_id;
+				$post_parent = (int) $post_parent;
+				$post_parent = 0 === $post_parent ? $post_id : $post_parent;
+				$current     = isset( $acc[ $post_parent ]['start_date'] ) ? $acc[ $post_parent ]['start_date'] : false;
+
+				if ( ! $current ) {
+					$acc[ $post_parent ]['start_date'] = $start_date;
+				} else {
+					$acc[ $post_parent ]['start_date'] = 'DESC' === $order ? max( $start_date, $current ) : min( $start_date, $current );
+				}
+
+				if ( $acc[ $post_parent ]['start_date'] !== $current ) {
+					$acc[ $post_parent ]['ID'] = $post_id;
+				}
+
+				return $acc;
+			},
+			[]
+		);
+
+		// Let's add a query argument to keep track of what post IDs we've added in the `post__in` clause.
+		$this->query_args['tribe_post__in'] = array_column( $winners, 'ID' );
+		$this->where( 'post__in', array_column( $winners, 'ID' ) );
+		$this->collapsing_recurring_event_instances = false;
 	}
 }

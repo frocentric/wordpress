@@ -70,7 +70,32 @@ class Tribe__Events__Community__Submission_Handler {
 	}
 
 	/**
-	 * Sanitizes the linked post Data submitted from the community forms.
+	 * Sanitizes the data to prevent potential XSS.
+	 *
+	 * @since 4.7.3
+	 *
+	 * @param mixed $data The data to be sanitized.
+	 *
+	 * @return mixed Sanitized data.
+	 */
+	protected function sanitize_data( $data ) {
+		if ( empty( $data ) ) {
+			return $data;
+		}
+
+		$is_array = is_array( $data );
+
+		$data = array_map( 'htmlentities', array_map( 'wp_kses_post', array_map( 'html_entity_decode', (array) $data ) ) );
+
+		if ( ! $is_array ) {
+			$data = reset( $data );
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Sanitizes the linked post data submitted from the community forms.
 	 *
 	 * @since 4.5.2.1
 	 *
@@ -91,19 +116,21 @@ class Tribe__Events__Community__Submission_Handler {
 
 		if ( ! $is_empty_lowercase ) {
 			if ( ! empty( $submission[ $lowercase_key ][ $lowercase_key ] ) ) {
-				$submission[ $lowercase_key ][ $lowercase_key ] = array_map( 'htmlentities', array_map( 'wp_kses_post', array_map( 'html_entity_decode', $submission[ $lowercase_key ][ $lowercase_key ] ) ) );
+				$submission[ $lowercase_key ][ $lowercase_key ] = $this->sanitize_data( $submission[ $lowercase_key ][ $lowercase_key ] );
 			}
+
 			if ( ! empty( $submission[ $lowercase_key ][ $uppercase_key ] ) ) {
-				$submission[ $lowercase_key ][ $uppercase_key ] = array_map( 'htmlentities', array_map( 'wp_kses_post', array_map( 'html_entity_decode', $submission[ $lowercase_key ][ $uppercase_key ] ) ) );
+				$submission[ $lowercase_key ][ $uppercase_key ] = $this->sanitize_data( $submission[ $lowercase_key ][ $uppercase_key ] );
 			}
 		}
 
 		if ( ! $is_empty_uppercase ) {
 			if ( ! empty( $submission[ $uppercase_key ][ $lowercase_key ] ) ) {
-				$submission[ $uppercase_key ][ $lowercase_key ] = array_map( 'htmlentities', array_map( 'wp_kses_post', array_map( 'html_entity_decode', $submission[ $uppercase_key ][ $lowercase_key ] ) ) );
+				$submission[ $uppercase_key ][ $lowercase_key ] = $this->sanitize_data( $submission[ $uppercase_key ][ $lowercase_key ] );
 			}
+
 			if ( ! empty( $submission[ $uppercase_key ][ $uppercase_key ] ) ) {
-				$submission[ $uppercase_key ][ $uppercase_key ] = array_map( 'htmlentities', array_map( 'wp_kses_post', array_map( 'html_entity_decode', $submission[ $uppercase_key ][ $uppercase_key ] ) ) );
+				$submission[ $uppercase_key ][ $uppercase_key ] = $this->sanitize_data( $submission[ $uppercase_key ][ $uppercase_key ] );
 			}
 		}
 
@@ -377,16 +404,17 @@ class Tribe__Events__Community__Submission_Handler {
 
 				$valid_organizer      = $invalid_fields = false;
 				$organizer_add_checks = [];
+				$organizer_ids        = Tribe__Utils__Array::get( $submission, [ 'Organizer', 'OrganizerID' ], [] );
 
-				//Check For Organizer ID
-				foreach ( $submission['Organizer']['OrganizerID'] as $key => $organizer_id ) {
-					//We have an ID for an existing Organizer
+				// Check For Organizer ID.
+				foreach ( $organizer_ids as $key => $organizer_id ) {
+					$organizer_id = (int) $organizer_id;
+
+					// We have an ID for an existing Organizer.
 					if ( 0 < $organizer_id ) {
 						$valid_organizer = true;
-
-						//If 0 we need to do more checks
-					} elseif ( 0 == $organizer_id ) {
-						//Save Key For Additional Checks
+					} elseif ( -1 === $organizer_id || 0 === $organizer_id ) {
+						// Save Key For Additional Checks.
 						$organizer_add_checks[] = $key;
 					}
 				}
@@ -400,12 +428,9 @@ class Tribe__Events__Community__Submission_Handler {
 					/**
 					 * Filter Community Events Required Organizer Fields
 					 *
-					 * @parm array of fields to validate - Organizer, Phone, Website, Email
+					 * @param array of fields to validate - Organizer, Phone, Website, Email
 					 */
-					$required_fields = apply_filters(
-						'tribe_events_community_required_organizer_fields',
-					[ 'Organizer' ]
-					);
+					$required_fields = apply_filters( 'tribe_events_community_required_organizer_fields', [ 'Organizer' ] );
 
 					foreach ( $required_fields as $field ) {
 						if ( empty( $submission['Organizer'][ $field ][ $organizer ] ) ) {

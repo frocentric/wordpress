@@ -1,5 +1,7 @@
 <?php
 
+use Tribe\Events\Virtual\Plugin as Virtual_Events_Plugin;
+
 /**
  * Class Tribe__Events__Integrations__Manager
  *
@@ -38,6 +40,7 @@ class Tribe__Events__Community__Integrations__Manager {
 	public function load_integrations() {
 		$this->load_wp_edit_integration();
 		$this->load_divi_integration();
+		$this->load_virtual_events_integration();
 	}
 
 	/**
@@ -48,7 +51,6 @@ class Tribe__Events__Community__Integrations__Manager {
 	 * @return bool
 	 */
 	private function load_wp_edit_integration() {
-
 		if ( ! class_exists( 'JWL_Toggle_wpautop' ) ) {
 			return false;
 		}
@@ -71,6 +73,44 @@ class Tribe__Events__Community__Integrations__Manager {
 		}
 
 		tribe( 'community.integrations.divi' );
+
+		return true;
+	}
+
+	/**
+	 * Loads our Virtual Events compatibility layer when required.
+	 *
+	 * @since4.8.0
+	 *
+	 * @return bool
+	 */
+	protected function load_virtual_events_integration() {
+		// Check if Virtual Events is activated.
+		if ( ! class_exists( '\Tribe\Events\Virtual\Plugin' ) ) {
+			return false;
+		}
+
+		// Check if we are running the required version (that lets us disable Zoom integration for Event frontend forms).
+		if ( version_compare( Virtual_Events_Plugin::VERSION, '1.0.3-dev', '<' ) ) {
+			return false;
+		}
+
+		/**
+		 * Allow filtering whether to enable the Virtual Events integration.
+		 *
+		 * @since4.8.0
+		 *
+		 * @param boolean $integration_enabled Whether to enable the Virtual Events integration, default is true.
+		 */
+		$integration_enabled = apply_filters( 'tribe_community_events_virtual_events_integration_enabled', true );
+
+		// Only load the integration if enabled.
+		if ( false === $integration_enabled ) {
+			return false;
+		}
+
+		tribe( 'community.integrations.virtual-events' );
+
 		return true;
 	}
 }

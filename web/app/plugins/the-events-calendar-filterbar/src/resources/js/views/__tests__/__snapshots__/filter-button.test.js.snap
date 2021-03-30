@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter Button Handle resize Should close filter bar on resize from desktop to mobile 1`] = `
+Object {
+  "filterButtonDesktopInitialized": true,
+}
+`;
+
+exports[`Filter Button Handle resize Should close filter bar on resize from desktop to mobile 2`] = `
+Object {
+  "filterButtonDesktopInitialized": false,
+}
+`;
+
+exports[`Filter Button Handle resize Should not close filter bar on resize from mobile to mobile 1`] = `
+Object {
+  "filterButtonDesktopInitialized": false,
+}
+`;
+
+exports[`Filter Button Handle resize Should not close filter bar on resize from mobile to mobile 2`] = `
+Object {
+  "filterButtonDesktopInitialized": false,
+}
+`;
+
+exports[`Filter Button Handle resize Should not open filter bar on resize from desktop to desktop 1`] = `
+Object {
+  "filterButtonDesktopInitialized": true,
+}
+`;
+
+exports[`Filter Button Handle resize Should not open filter bar on resize from desktop to desktop 2`] = `
+Object {
+  "filterButtonDesktopInitialized": true,
+}
+`;
+
+exports[`Filter Button Handle resize Should not open filter bar on resize from mobile to desktop if layout is not vertical 1`] = `
+Object {
+  "filterButtonDesktopInitialized": false,
+}
+`;
+
+exports[`Filter Button Handle resize Should not open filter bar on resize from mobile to desktop if layout is not vertical 2`] = `
+Object {
+  "filterButtonDesktopInitialized": true,
+}
+`;
+
+exports[`Filter Button Handle resize Should open filter bar on resize from mobile to desktop if layout is vertical 1`] = `
+Object {
+  "filterButtonDesktopInitialized": false,
+}
+`;
+
+exports[`Filter Button Handle resize Should open filter bar on resize from mobile to desktop if layout is vertical 2`] = `
+Object {
+  "filterButtonDesktopInitialized": true,
+}
+`;
+
+exports[`Filter Button Initialize state Should initialize state if filter bar is vertical 1`] = `
+Object {
+  "filterButtonDesktopInitialized": false,
+}
+`;
+
+exports[`Filter Button Selectors Should match snapshot 1`] = `"{\\"actionDone\\":\\"[data-js=\\\\\\"tribe-filter-bar__action-done\\\\\\"]\\",\\"filterBarVertical\\":\\".tribe-events--filter-bar-vertical\\",\\"filterBar\\":\\"[data-js~=\\\\\\"tribe-filter-bar\\\\\\"]\\",\\"filterButton\\":\\"[data-js~=\\\\\\"tribe-events-filter-button\\\\\\"]\\",\\"filterButtonActive\\":\\".tribe-events-c-events-bar__filter-button--active\\",\\"filtersSliderContainer\\":\\"[data-js=\\\\\\"tribe-filter-bar-filters-slider-container\\\\\\"]\\",\\"select2ChoiceRemove\\":\\".select2-selection__choice__remove\\"}"`;

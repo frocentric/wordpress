@@ -7,9 +7,9 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link https://evnt.is/1aiy
  *
- * @version 5.0.3
+ * @version 5.2.0
  *
  * @var object $map_provider Object with data of map provider.
  * @var array  $events       The array containing the events.
@@ -43,12 +43,16 @@ if ( $is_premium || empty( $event ) || ( isset( $event->venues ) && $event->venu
 			<span class="tribe-events-pro-map__no-venue-modal-close-text tribe-common-a11y-visual-hide">
 				<?php esc_html_e( 'Close modal', 'tribe-events-calendar-pro' ); ?>
 			</span>
-			<span class="tribe-events-pro-map__no-venue-modal-close-icon tribe-common-svgicon tribe-common-svgicon--close-secondary"></span>
+			<span class="tribe-events-pro-map__no-venue-modal-close-icon">
+				<?php $this->template( 'components/icons/close', [ 'classes' => [ 'tribe-events-pro-map__no-venue-modal-close-icon-svg' ] ] ); ?>
+			</span>
 		</button>
 	<?php endif; ?>
 
 	<div class="tribe-events-pro-map__no-venue-modal-content">
-		<div class="tribe-events-pro-map__no-venue-modal-icon tribe-common-svgicon tribe-common-svgicon--no-map"></div>
+		<div class="tribe-events-pro-map__no-venue-modal-icon">
+			<?php $this->template( 'components/icons/no-map', [ 'classes' => [ 'tribe-events-pro-map__no-venue-modal-icon-svg' ] ] ); ?>
+		</div>
 
 		<p class="tribe-events-pro-map__no-venue-modal-text tribe-common-h5 tribe-common-h--alt">
 			<?php

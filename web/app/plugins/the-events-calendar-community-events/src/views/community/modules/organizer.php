@@ -10,8 +10,12 @@ defined( 'WPINC' ) or die;
  * Override this template in your own theme by creating a file at
  * [your-theme]/tribe-events/community/modules/organizer.php
  *
+ * @link https://evnt.is/1ao4 Help article for Community Events & Tickets template files.
+ *
  * @since  2.1
- * @version 4.5.2
+ * @since 4.8.2 Updated template link.
+ *
+ * @version 4.8.2
  */
 
 // If the user cannot create new organizers *and* if there are no organizers

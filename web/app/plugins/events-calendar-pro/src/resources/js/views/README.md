@@ -60,6 +60,12 @@ The Week Grid Scroller JavaScript allows scrolling of events in week view.
 
 The Week Multiday Toggle JavaScript powers the multiday toggle button on week view.
 
+## Widgets
+
+### Countdown Widget
+
+The Countdown Widget JavaScript powers the countdown widget
+
 ## Others
 
 ### Toggle Recurrence

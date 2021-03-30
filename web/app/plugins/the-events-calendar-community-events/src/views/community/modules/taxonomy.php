@@ -9,8 +9,12 @@ defined( 'WPINC' ) or die;
  * Override this template in your own theme by creating a file at
  * [your-theme]/tribe-events/community/modules/taxonomy.php
  *
+ * @link https://evnt.is/1ao4 Help article for Community Events & Tickets template files.
+ *
  * @since  3.1
- * @version 4.6.3
+ * @since 4.8.2 Updated template link.
+ *
+ * @version 4.8.2
  */
 
 $uses_select_woo = false;
@@ -19,6 +23,8 @@ if ( defined( 'Tribe__Events__Main::VERSION' ) && version_compare( constant( 'Tr
 }
 
 $selected_terms = [];
+$selected_options = '';
+
 $taxonomy_obj   = get_taxonomy( $taxonomy );
 $ajax_args = [
 	'taxonomy' => $taxonomy,
@@ -41,7 +47,7 @@ $has_terms = count(
 			'fields' => 'ids',
 			]
 	)
-) < 1;
+) > 0;
 
 // Setup selected tags
 $value = ! empty( $_POST['tax_input'][ $taxonomy ] ) ? explode( ',', esc_attr( trim( $_POST['tax_input'][ $taxonomy ] ) ) ) : [];
@@ -58,13 +64,19 @@ foreach ( $value as $term_id ) {
 		'id'   => $term->term_id,
 		'text' => $term->name,
 	];
+
+	$selected_options .= sprintf(
+		'<option value="%d" selected >%s</option>',
+		absint( $term->term_id ),
+		esc_html( $term->name )
+	);
 }
 
 if ( is_array( $value ) ) {
 	$value = implode( ',', $value );
 }
 
-if ( $has_terms ) {
+if ( ! $has_terms ) {
 	return;
 }
 
@@ -104,7 +116,7 @@ if ( ! empty( $taxonomy_label ) ) {
 				data-options="<?php echo esc_attr( json_encode( $selected_terms ) ); ?>"
 				data-source="search_terms"
 				data-source-args="<?php echo esc_attr( json_encode( $ajax_args ) ); ?>"
-				name="tax_input[<?php echo esc_attr( $taxonomy ); ?>]"
+				name="tax_input[<?php echo esc_attr( $taxonomy ); ?>][]"
 				multiple
 				data-dropdown-css-width="false"
 				data-allow-html
@@ -113,6 +125,10 @@ if ( ! empty( $taxonomy_label ) ) {
 				value="<?php echo esc_attr( $value ); ?>"
 			<?php if ( $uses_select_woo ) : ?>
 				>
+				<?php
+					// Show existing saved options.
+					echo $selected_options; //phpcs:ignore
+				?>
 				</select>
 			<?php else : ?>
 				/>

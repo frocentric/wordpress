@@ -280,7 +280,7 @@ class Tribe__Events__Pro__Shortcodes__Tribe_Events {
 			'eventDisplay'      => $this->get_attribute( 'view' ),
 		];
 
-		$category_input = Arr::get_first_set( $this->atts, [ 'category', 'cat' ], false );
+		$category_input = Arr::get_first_set( array_filter( $this->atts ), [ 'category', 'cat' ], false );
 
 		if ( false !== $category_input ) {
 			$terms = Arr::list_to_array( $category_input );
@@ -693,7 +693,7 @@ class Tribe__Events__Pro__Shortcodes__Tribe_Events {
 			$view = 'view-' . esc_attr( $this->atts[ 'view' ] );
 		}
 
-		if ( isset( $this->atts[ 'category' ] ) ) {
+		if ( ! empty( $this->atts['category'] ) ) {
 			$category = 'category-' . $this->atts[ 'category' ];
 		}
 		$classes = array(

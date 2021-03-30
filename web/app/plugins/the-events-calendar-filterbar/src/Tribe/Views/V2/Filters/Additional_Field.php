@@ -74,7 +74,7 @@ class Additional_Field extends \Tribe__Events__Filterbar__Filters__Additional_Fi
 
 		$add = array_combine(
 			array_keys( $value ),
-			array_map( [ Arr::class, 'to_list' ], $value )
+			array_map( [ Arr::class, 'list_to_array' ], $value )
 		);
 
 		return array_merge( $query_args, $add );

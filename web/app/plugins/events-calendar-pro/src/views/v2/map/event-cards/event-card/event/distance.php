@@ -7,7 +7,7 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link https://evnt.is/1aiy
  *
  * @version 5.0.0
  *
@@ -25,5 +25,5 @@ if ( ! $show_distance ) {
 ?>
 
 <div class="tribe-events-pro-map__event-distance tribe-common-b3 tribe-common-a11y-hidden">
-	<?php echo esc_html( round( $event->distance, 2 ) ) . ' ' . esc_html( strtolower( $geoloc_unit ) ); ?>
+	<?php echo esc_html( round( (float) $event->distance, 2 ) ) . ' ' . esc_html( strtolower( $geoloc_unit ) ); ?>
 </div>

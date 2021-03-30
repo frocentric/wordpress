@@ -1,0 +1,70 @@
+/* -----------------------------------------------------------------------------
+ *
+ * Multiselect
+ *
+ * ----------------------------------------------------------------------------- */
+
+.tribe-filter-bar {
+
+	.tribe-filter-bar-c-multiselect {
+
+		.select2-selection {
+			position: relative;
+		}
+
+		.select2-selection__rendered {
+			display: flex;
+			flex-wrap: wrap;
+			margin: 0 calc(var(--spacer-0) * -1);
+			padding: 0;
+			width: auto;
+		}
+
+		.select2-search {
+			flex: none;
+			margin: var(--spacer-1) 0 var(--spacer-2);
+			padding: 0 var(--spacer-0);
+			width: 100%;
+		}
+
+		.select2-search__field {
+			height: 40px;
+			margin: 0;
+			min-width: 100%;
+			padding: 0 20px 0 34px;
+		}
+
+		.select2-selection__clear {
+			@mixin hidden;
+		}
+
+		.select2-selection__choice {
+			align-items: center;
+			display: flex;
+			flex-wrap: nowrap;
+			float: none;
+			margin: 0 var(--spacer-0) var(--spacer-1);
+			max-width: calc(100% - (2 * var(--spacer-0)));
+			padding: 6px 11px 6px 12px;
+		}
+
+		.select2-selection__choice__text {
+			white-space: normal;
+		}
+
+		.select2-selection__choice__remove {
+			line-height: 8px;
+			margin: 0 0 2px var(--spacer-0);
+			order: 1;
+			padding: 3px;
+		}
+
+		.select2-dropdown {
+			position: static;
+		}
+
+		.select2-results__option {
+			padding: calc(var(--spacer-2) / 2) 0;
+		}
+	}
+}

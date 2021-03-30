@@ -837,5 +837,5 @@ tribe.events.views.mapProviderGoogleMaps = {};
 	};
 
 	// Configure on document ready
-	$document.ready( obj.ready );
+	$( obj.ready );
 } )( jQuery, tribe.events.views.mapProviderGoogleMaps );

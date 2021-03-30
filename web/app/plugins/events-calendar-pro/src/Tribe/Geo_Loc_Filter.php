@@ -74,12 +74,19 @@ class Tribe__Events__Pro__Geo_Loc_Filter extends Tribe__Events__Filterbar__Filte
 	 * Any corrections to the unit of measure that may be required will take place
 	 * in Tribe__Events__Pro__Geo_Loc::get_geofence_size().
 	 *
-	 * @param $distance
+	 * @param int $distance The input geofence distance in the unit set in the options.
 	 *
-	 * @return mixed
+	 * @return int The altered distance after evaluation of the current input.
 	 */
 	public function setup_geofence_in_query( $distance ) {
-		return ! empty( $this->currentValue ) ? $this->currentValue : $distance;
+		$current_value = false;
+
+		if ( is_array( $this->currentValue ) ) {
+			// If current value is an array, get the first value.
+			$current_value = reset( $this->currentValue );
+		}
+
+		return ! empty( $current_value ) ? $current_value : $distance;
 	}
 }
 

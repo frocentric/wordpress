@@ -44,9 +44,9 @@ class Time_Of_Day extends \Tribe__Events__Filterbar__Filters__Time_Of_Day {
 	 * @param string       $context_key The key used to fetch the `$value` from the Context.
 	 * @param Context      $context     The context instance.
 	 *
-	 * @return string A comma-separated list of time of day ranges, e.g. `6-12` or `6-12,17-21`.
+	 * @return array<string> An array of of time of day ranges, e.g. [ '6-12' ] or [ '6-12', '17-21' ].
 	 */
 	public static function build_query_arg_value( $value, $context_key, Context $context ) {
-		return Arr::to_list( $value, ',' );
+		return Arr::list_to_array( $value, ',' );
 	}
 }

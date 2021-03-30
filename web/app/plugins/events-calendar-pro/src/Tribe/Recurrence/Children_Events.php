@@ -105,9 +105,11 @@ class Tribe__Events__Pro__Recurrence__Children_Events {
 	 */
 	public function untrash_all( $post_id ) {
 		$children = $this->get_ids( $post_id, array( 'post_status' => 'trash' ) );
+		add_filter( 'wp_untrash_post_status', 'wp_untrash_post_set_previous_status', 10, 3 );
 		foreach ( $children as $child_id ) {
 			wp_untrash_post( $child_id );
 		}
+		remove_filter( 'wp_untrash_post_status', 'wp_untrash_post_set_previous_status', 10 );
 	}
 
 	/**

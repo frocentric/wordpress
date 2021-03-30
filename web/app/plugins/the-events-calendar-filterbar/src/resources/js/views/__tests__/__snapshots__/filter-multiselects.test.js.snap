@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter Multiselects Handle template selection Should return selected option wrapped in span element 1`] = `
+jQuery {
+  "0": <span
+    class="select2-selection__choice__text"
+  >
+    Hello world
+  </span>,
+  "length": 1,
+}
+`;
+
+exports[`Filter Multiselects Selectors Should match snapshot 1`] = `"{\\"multiselectInput\\":\\"[data-js=\\\\\\"tribe-filter-bar-c-multiselect-input\\\\\\"]\\"}"`;

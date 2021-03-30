@@ -49,20 +49,24 @@ class Tribe_Events extends Shortcode_Abstract implements Shortcode_Interface {
 	 * {@inheritDoc}
 	 */
 	protected $default_arguments = [
-		'id'                => null,
-		'view'              => null,
+		'id'                   => null,
+		'view'                 => null,
+		'events_per_page'      => null,
+		'month_events_per_day' => null,
+		'keyword'              => null,
+
 		/**
 		 * @todo @bordoni @lucatume @be Update this when shortcode URL management is fixed.
 		 */
-		'should_manage_url' => false,
+		'should_manage_url'    => false,
 
 		// Legacy Params, registered for compatibility
-		'date'              => null,
-		'tribe-bar'         => true,
-		'category'          => null,
-		'cat'               => null,
-		'featured'          => false,
-		'main-calendar'     => false,
+		'date'                 => null,
+		'tribe-bar'            => true,
+		'category'             => null,
+		'cat'                  => null,
+		'featured'             => null,
+		'main-calendar'        => false,
 	];
 
 	/**
@@ -71,7 +75,7 @@ class Tribe_Events extends Shortcode_Abstract implements Shortcode_Interface {
 	protected $validate_arguments_map = [
 		'should_manage_url' => 'tribe_is_truthy',
 		'tribe-bar'         => 'tribe_is_truthy',
-		'featured'          => 'tribe_is_truthy',
+		'featured'          => [ self::class, 'validate_null_or_truthy' ],
 		'main-calendar'     => 'tribe_is_truthy',
 	];
 
@@ -88,10 +92,8 @@ class Tribe_Events extends Shortcode_Abstract implements Shortcode_Interface {
 	protected function toggle_view_hooks( $toggle ) {
 		if ( $toggle ) {
 			add_filter( 'tribe_events_views_v2_url_query_args', [ $this, 'filter_view_query_args' ], 15, 3 );
-			add_filter( 'tribe_events_filter_bar_views_v2_should_display_filters', '__return_false', 20 );
 		} else {
 			remove_filter( 'tribe_events_views_v2_url_query_args', [ $this, 'filter_view_query_args' ], 15 );
-			remove_filter( 'tribe_events_filter_bar_views_v2_should_display_filters', '__return_false', 20 );
 		}
 
 		/**
@@ -126,7 +128,7 @@ class Tribe_Events extends Shortcode_Abstract implements Shortcode_Interface {
 		 *
 		 * @since  4.7.5
 		 *
-		 * @param  mixed  $disallowed_locations Which filters we dont allow URL management.
+		 * @param  mixed  $disallowed_locations Which filters we don't allow URL management.
 		 * @param  static $instance             Which instance of shortcode we are dealing with.
 		 */
 		$disallowed_locations = apply_filters( 'tribe_events_pro_shortcode_tribe_events_manage_url_disallowed_locations', $disallowed_locations, $this );
@@ -324,19 +326,19 @@ class Tribe_Events extends Shortcode_Abstract implements Shortcode_Interface {
 		// Setup wether this view should manage url or not.
 		$view->get_template()->set( 'should_manage_url', $this->should_manage_url() );
 
-		$theme_compatiblity = tribe( Theme_Compatibility::class );
+		$theme_compatibility = tribe( Theme_Compatibility::class );
 
 		$html = '';
 
-		if ( $theme_compatiblity->is_compatibility_required() ) {
-			$classes = $theme_compatiblity->get_body_classes();
+		if ( $theme_compatibility->is_compatibility_required() ) {
+			$classes         = $theme_compatibility->get_body_classes();
 			$element_classes = new Element_Classes( $classes );
 			$html .= '<div ' . $element_classes->get_attribute() . '>';
 		}
 
 		$html .= $view->get_html();
 
-		if ( $theme_compatiblity->is_compatibility_required() ) {
+		if ( $theme_compatibility->is_compatibility_required() ) {
 			$html .= '</div>';
 		}
 
@@ -406,6 +408,18 @@ class Tribe_Events extends Shortcode_Abstract implements Shortcode_Interface {
 			$context_args['featured'] = tribe_is_truthy( $arguments['featured'] );
 		}
 
+		if ( ! empty( $arguments['events_per_page'] ) ) {
+			$context_args['events_per_page']      = (int) $arguments['events_per_page'];
+		}
+
+		if ( ! empty( $arguments['month_events_per_day'] ) ) {
+			$context_args['month_posts_per_page'] = (int) $arguments['month_events_per_day'];
+		}
+
+		if ( ! empty( $arguments['keyword'] ) ) {
+			$context_args['keyword'] = sanitize_text_field( $arguments['keyword'] );
+		}
+
 		if ( null === $context->get( 'eventDisplay' ) ) {
 			if ( empty( $arguments['view'] ) ) {
 				$default_view_class                 = tribe( Views_Manager::class )->get_default_view();
@@ -448,11 +462,14 @@ class Tribe_Events extends Shortcode_Abstract implements Shortcode_Interface {
 			);
 
 			if ( count( $date_keys ) === 1 ) {
-				if ( $date_keys[0] === $arguments['date'] ) {
+				$date_indices = array_keys( $date_keys );
+				$date_index   = reset( $date_indices );
+				$date_key     = $date_keys[ $date_index ];
+				if ( $date_key === $arguments['date'] ) {
 					// Let's only set it if we are sure.
-					$repository_args[ array_keys( $date_keys )[0] ] = $arguments['date'];
+					$repository_args[ $date_index ] = $arguments['date'];
 				} else {
-					$repository_args[ array_keys( $date_keys )[0] ] = reset( $date_keys );
+					$repository_args[ $date_index ] = $date_key;
 				}
 			}
 		}
@@ -558,6 +575,10 @@ class Tribe_Events extends Shortcode_Abstract implements Shortcode_Interface {
 	 * @return array<string,string> The filtered data attributes.
 	 */
 	public function filter_view_data( $data, $slug, $view ) {
+		if ( ! $view instanceof View_Interface ) {
+			return $data;
+		}
+
 		$context = $view->get_context();
 
 		if ( ! $context instanceof Context ) {
