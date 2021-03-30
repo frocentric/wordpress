@@ -19,6 +19,7 @@ namespace Tribe\Events\Filterbar\Views\V2;
 
 use Tribe\Events\Views\V2\View_Interface;
 use Tribe__Context as Context;
+use Tribe__Template;
 
 /**
  * Class Hooks.
@@ -28,6 +29,8 @@ use Tribe__Context as Context;
  * @package Tribe\Events\Filterbar\Views\V2
  */
 class Hooks extends \tad_DI52_ServiceProvider {
+	use Doing_Filterbar;
+
 	/**
 	 * Whether filters should render at all or not.
 	 *
@@ -36,11 +39,27 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	protected $should_display_filters = true;
 
 	/**
+	 * Holds the allowed body classes for this object.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @var array<string>
+	 */
+	protected $body_classes = [
+		'tribe-filters-closed',
+		'tribe-filters-live-update',
+		'tribe-filters-open',
+	];
+
+	/**
 	 * Binds and sets up implementations.
 	 *
 	 * @since 4.9.0
 	 */
 	public function register() {
+		$this->container->singleton( Body_Classes::class, Body_Classes::class );
+		tribe( Body_Classes::class )->register();
+
 		$this->add_actions();
 		$this->add_filters();
 	}
@@ -70,7 +89,6 @@ class Hooks extends \tad_DI52_ServiceProvider {
 		add_filter( 'tribe_events_views_v2_view_repository_args', [ $this, 'filter_view_repository_args' ], 5, 2 );
 		add_filter( 'tribe_events_views_v2_url_query_args', [ $this, 'filter_view_url_query_args' ], 10, 2 );
 		add_filter( 'tribe_events_views_v2_rest_params', [ $this, 'filter_view_rest_params' ], 10, 2 );
-		add_filter( 'body_class', [ $this, 'filter_body_class' ] );
 		add_filter( 'tribe_events_views_v2_cache_html_expiration', [ $this, 'filter_cache_html_expiration' ] );
 	}
 
@@ -79,9 +97,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since 4.9.0
 	 *
-	 * @param string $file     Complete path to include the PHP File.
-	 * @param array  $name     Template name.
-	 * @param self   $template Current instance of the Tribe__Template.
+	 * @param string          $file     Complete path to include the PHP File.
+	 * @param array           $name     Template name.
+	 * @param Tribe__Template $template Current instance of the Tribe__Template.
 	 *
 	 * @return string          HTML for template.
 	 */
@@ -94,9 +112,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since 4.9.0
 	 *
-	 * @param string $file     Complete path to include the PHP File.
-	 * @param array  $name     Template name.
-	 * @param self   $template Current instance of the Tribe__Template.
+	 * @param string          $file     Complete path to include the PHP File.
+	 * @param array           $name     Template name.
+	 * @param Tribe__Template $template Current instance of the Tribe__Template.
 	 *
 	 * @return string          HTML template.
 	 */
@@ -118,9 +136,9 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since 4.9.0
 	 *
-	 * @param string $file     Complete path to include the PHP File.
-	 * @param array  $name     Template name.
-	 * @param self   $template Current instance of the Tribe__Template.
+	 * @param string          $file     Complete path to include the PHP File.
+	 * @param array           $name     Template name.
+	 * @param Tribe__Template $template Current instance of the Tribe__Template.
 	 *
 	 * @return string          HTML template.
 	 */
@@ -140,18 +158,20 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * @return string|void
 	 */
 	public function action_include_filter_bar( $file, $name, $template ) {
-
-		// Prevent Including the Filter Bar if on a Shortcode
-		$context = $template->get_context();
-		if ( $context->get( 'shortcode'  ) ) {
-			return;
-		}
-
 		if ( ! $this->container->make( Filters::class )->should_display_filters( $template->get_view() ) ) {
 			return;
 		}
 
-		return $this->container->make( Template::class )->template( 'filter-bar', $template->get_values() );
+		if ( Template::is_using_shortcode( $template ) ) {
+			return;
+		}
+
+		$values = $template->get_values();
+
+		// Include Filter Bar HTML making sure Latest Past Events View will NOT filter it out.
+		return $this->doing_filterbar( function () use ( $values ) {
+			return $this->container->make( Template::class )->template( 'filter-bar', $values );
+		} );
 	}
 
 	/**
@@ -215,12 +235,14 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 * Filters the body classes to add theme compatibility ones.
 	 *
 	 * @since 4.9.0
+	 * @deprecated 5.0.0
 	 *
 	 * @param  array $classes Classes that are been passed to the body.
 	 *
 	 * @return array $classes
 	 */
 	public function filter_body_class( $classes ) {
+		_deprecated_function( __FUNCTION__, '5.0.0', 'Body_Classes::add_body_classes' );
 		$layout       = tribe( Filters::class )->get_layout_setting();
 		$live_refresh = tribe_get_option( 'liveFiltersUpdate', 'automatic' );
 
@@ -234,7 +256,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 			 *
 			 * @since 4.9.3
 			 *
-			 * @param bool $init_closed Boolean on whether to initially display vertical filters closed or not.
+			 * @param bool $init_closed Boolean on whether to initially display vertical filter block closed or not.
 			 */
 			$init_closed = apply_filters( 'tribe_events_filter_bar_views_v2_vertical_init_closed', true );
 

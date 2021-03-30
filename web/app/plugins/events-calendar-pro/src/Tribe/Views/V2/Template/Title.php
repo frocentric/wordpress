@@ -24,6 +24,7 @@ class Title extends \Tribe\Events\Views\V2\Template\Title {
 	 * Builds the PRO View title based on context.
 	 *
 	 * @since 4.7.9
+	 * @since 5.1.4 - Add filter for plural events label.
 	 *
 	 * @param bool $depth A flag to indicate how to build the taxonomy archive page title.
 	 *
@@ -34,6 +35,17 @@ class Title extends \Tribe\Events\Views\V2\Template\Title {
 		$posts   = $this->get_posts();
 
 		$title = '';
+
+		/**
+		 * Filter the plural Events label for PRO Views Title.
+		 *
+		 * @since 5.1.4
+		 *
+		 * @param string  $events_label_plural The plural events label as it's been generated thus far.
+		 * @param Context $context             The context used to build the title, it could be the global one, or one externally
+		 *                                     set.
+		 */
+		$this->events_label_plural = apply_filters( 'tribe_events_pro_filter_views_v2_wp_title_plural_events_label', $this->events_label_plural, $context );
 
 		if ( 'all' === $context->get( 'event_display_mode' ) ) {
 			$title = sprintf(

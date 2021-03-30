@@ -133,7 +133,7 @@ class Tribe__Events__Community__Submission_Scrubber {
 
 		foreach ( $this->submission['tax_input'] as $taxonomy => &$terms ) {
 			// Clean the value
-			$terms = explode( ',', esc_attr( trim( $terms ) ) );
+			$terms = is_array( $terms ) ? $terms : explode( ',', esc_attr( trim( $terms ) ) );
 
 			// Makes sure we are dealing with IDs
 			$terms = array_map( 'intval', $terms );

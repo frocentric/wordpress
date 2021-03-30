@@ -20,6 +20,7 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		}
 
 		$this->container->singleton( Filters::class, Filters::class );
+		$this->container->singleton( Filters_Stack::class, Filters_Stack::class );
 
 		$this->register_hooks();
 		$this->register_assets();
@@ -50,10 +51,9 @@ class Service_Provider extends \tad_DI52_ServiceProvider {
 		$hooks = new Hooks( $this->container );
 		$hooks->register();
 
-		// Allow Hooks to be removed, by having the them registred to the container
+		// Allow Hooks to be removed, by having the them registered to the container
 		$this->container->singleton( Hooks::class, $hooks );
 		$this->container->singleton( 'filterbar.views.v2.hooks', $hooks );
 	}
-
 
 }

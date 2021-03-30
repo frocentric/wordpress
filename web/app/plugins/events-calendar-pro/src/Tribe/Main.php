@@ -71,7 +71,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 		 */
 		public $template_namespace = 'events-pro';
 
-		const VERSION = '5.1.2';
+		const VERSION = '5.4.0.2';
 
 		/**
 		 * The Events Calendar Required Version
@@ -80,7 +80,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 		 * @deprecated 4.6
 		 *
 		 */
-		const REQUIRED_TEC_VERSION = '5.0.2';
+		const REQUIRED_TEC_VERSION = '5.3.1';
 
 		private function __construct() {
 			$this->pluginDir = trailingslashit( basename( EVENTS_CALENDAR_PRO_DIR ) );
@@ -163,7 +163,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 			add_filter( 'tribe_get_listview_link', array( $this, 'get_all_link' ) );
 			add_filter( 'tribe_get_listview_dir_link', array( $this, 'get_all_dir_link' ) );
 			add_filter( 'tribe_bar_datepicker_caption', array( $this, 'setup_datepicker_label' ), 10, 1 );
-			add_action( 'tribe_events_after_the_title', array( $this, 'add_recurring_occurance_setting_to_list' ) );
+			add_action( 'tribe_events_after_the_title', array( $this, 'add_recurring_occurrence_setting_to_list' ) );
 			add_action( 'tribe_events_list_before_the_content', array( 'Tribe__Events__Pro__Templates__Mods__List_View', 'print_all_events_link' ) );
 
 			add_filter( 'tribe_is_ajax_view_request', array( $this, 'is_pro_ajax_view_request' ), 10, 2 );
@@ -219,51 +219,51 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 		}
 
 		/**
-		 * AJAX handler for the Widget Term Select2
+		 * AJAX handler for the Widget Term Select2.
 		 *
-		 * @todo   We need to mode this to use Tribe__Ajax__Dropdown class
+		 * @todo   We need to move this to use Tribe__Ajax__Dropdown class
 		 *
 		 * @return void
 		 */
 		public function ajax_widget_get_terms() {
-			$disabled = isset( $_POST['disabled'] ) ? $_POST['disabled'] : array();
-			$search = tribe_get_request_var( [ 'search', 'term' ], false );
+			$disabled = (array) tribe_get_request_var( 'disabled', [] );
+			$search   = tribe_get_request_var( [ 'search', 'term' ], false );
 
 			$taxonomies = get_object_taxonomies( Tribe__Events__Main::POSTTYPE, 'objects' );
 			$taxonomies = array_reverse( $taxonomies );
 
-			$results = array();
+			$results = [];
 			foreach ( $taxonomies as $tax ) {
-				$group = array(
+				$group = [
 					'text' => esc_attr( $tax->labels->name ),
-					'children' => array(),
+					'children' => [],
 					'tax' => $tax,
-				);
+				];
 
 				// echo sprintf( "<optgroup id='%s' label='%s'>", esc_attr( $tax->name ), esc_attr( $tax->labels->name ) );
-				$terms = get_terms( $tax->name, array( 'hide_empty' => false ) );
+				$terms = get_terms( $tax->name, [ 'hide_empty' => false ] );
 				if ( empty( $terms ) ) {
 					continue;
 				}
 
 				foreach ( $terms as $term ) {
-					// This is a workout to make #93598 work
+					// This is a workaround to make #93598 work
 					if ( $search && false === strpos( $term->name, $search ) ) {
 						continue;
 					}
 
-					$group['children'][] = array(
+					$group['children'][] = [
 						'id' => esc_attr( $term->term_id ),
 						'text' => esc_html( $term->name ),
 						'taxonomy' => $tax,
 						'disabled' => in_array( $term->term_id, $disabled ),
-					);
+					];
 				}
 
 				$results[] = $group;
 			}
 
-			wp_send_json_success( array( 'results' => $results ) );
+			wp_send_json_success( [ 'results' => $results ] );
 		}
 
 		/**
@@ -537,7 +537,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 
 						// retrieve event object
 						$get_recurrence_event = new WP_Query( $recurrence_check );
-						// if a reccurence event actually exists then proceed with redirection
+						// If a recurrence event actually exists then proceed with redirection.
 						if (
 							! empty( $get_recurrence_event->posts )
 							&& tribe_is_recurring_event( $get_recurrence_event->posts[0]->ID )
@@ -608,10 +608,12 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 				$confirm_redirect = apply_filters( 'tribe_events_pro_detect_recurrence_redirect', true, $wp_query->query_vars['eventDisplay'] );
 				do_action( 'tribe_events_pro_detect_recurrence_redirect', $wp_query->query_vars['eventDisplay'] );
 				if ( $confirm_redirect ) {
-					tribe( 'logger' )->log_warning( sprintf(
-							_x( 'Invalid instance of a recurring event was requested ($1%s) redirecting to $2%s', 'debug recurrence', 'tribe-events-calendar-pro' ),
+					tribe( 'logger' )->log_warning(
+						sprintf(
+							/* Translators: 1: Error message, 2: URL */
+							_x( 'Invalid instance of a recurring event was requested (%1$s) redirecting to %2$s', 'debug recurrence', 'tribe-events-calendar-pro' ),
 							$problem,
-							$current_url
+							esc_url( $current_url )
 						),
 						__METHOD__
 					);
@@ -802,11 +804,11 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 			$intro_text[] = '<p>' . __( "If this is your first time using The Events Calendar Pro, you're in for a treat and are already well on your way to creating a first event. Here are some basics we've found helpful for users jumping into it for the first time:", 'tribe-events-calendar-pro' ) . '</p>';
 			$intro_text[] = '<ul>';
 			$intro_text[] = '<li>';
-			$intro_text[] = sprintf( __( '%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time.', 'tribe-events-calendar-pro' ), '<a href="http://m.tri.be/4t" target="blank">', '</a>' );
+			$intro_text[] = sprintf( __( '%sOur New User Primer%s was designed for folks in your exact position. Featuring both step-by-step videos and written walkthroughs that feature accompanying screenshots, the primer aims to take you from zero to hero in no time.', 'tribe-events-calendar-pro' ), '<a href="https://evnt.is/4t" target="blank">', '</a>' );
 			$intro_text[] = '</li><li>';
-			$intro_text[] = sprintf( __( '%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer.', 'tribe-events-calendar-pro' ), '<a href="http://m.tri.be/4u" target="blank">', '</a>' );
+			$intro_text[] = sprintf( __( '%sInstallation/Setup FAQs%s from our support page can help give an overview of what the plugin can and cannot do. This section of the FAQs may be helpful as it aims to address any basic install questions not addressed by the new user primer.', 'tribe-events-calendar-pro' ), '<a href="https://evnt.is/4u" target="blank">', '</a>' );
 			$intro_text[] = '</li><li>';
-			$intro_text[] = sprintf( __( "Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. %sHere's how to find your license key%s, if you don't have it handy.", 'tribe-events-calendar-pro' ), '<a href="http://m.tri.be/4v" target="blank">', '</a>' );
+			$intro_text[] = sprintf( __( "Take care of your license key. Though not required to create your first event, you'll want to get it in place as soon as possible to guarantee your access to support and upgrades. %sHere's how to find your license key%s, if you don't have it handy.", 'tribe-events-calendar-pro' ), '<a href="https://evnt.is/4v" target="blank">', '</a>' );
 			$intro_text[] = '</li></ul><p>';
 			$intro_text[] = __( "Otherwise, if you're feeling adventurous, you can get started by heading to the Events menu and adding your first event.", 'tribe-events-calendar-pro' );
 			$intro_text[] = '</p>';
@@ -821,8 +823,8 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 		 * @return string The content.
 		 */
 		public function add_help_tab_forumtext() {
-			$forum_text[] = '<p>' . sprintf( __( 'Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play.', 'tribe-events-calendar-pro' ), '<a href="http://m.tri.be/4w/" target="blank">', '</a>' ) . '</p>';
-			$forum_text[] = '<p>' . sprintf( __( "Users who have purchased an Events Calendar PRO license are granted total access to our %spremium support forums%s. Unlike at the %sWordPress.org support forum%s, where our involvement is limited to identifying and patching bugs, we have a dedicated support team for PRO users. We're on the PRO forums daily throughout the business week, and no thread should go more than 24-hours without a response.", 'tribe-events-calendar-pro' ), '<a href="http://m.tri.be/4w/" target="blank">', '</a>', '<a href="http://wordpress.org/support/plugin/the-events-calendar" target="blank">', '</a>' ) . '</p>';
+			$forum_text[] = '<p>' . sprintf( __( 'Written documentation can only take things so far...sometimes, you need help from a real person. This is where our %ssupport forums%s come into play.', 'tribe-events-calendar-pro' ), '<a href="https://evnt.is/4w/" target="blank">', '</a>' ) . '</p>';
+			$forum_text[] = '<p>' . sprintf( __( "Users who have purchased an Events Calendar PRO license are granted total access to our %spremium support forums%s. Unlike at the %sWordPress.org support forum%s, where our involvement is limited to identifying and patching bugs, we have a dedicated support team for PRO users. We're on the PRO forums daily throughout the business week, and no thread should go more than 24-hours without a response.", 'tribe-events-calendar-pro' ), '<a href="https://evnt.is/4w/" target="blank">', '</a>', '<a href="http://wordpress.org/support/plugin/the-events-calendar" target="blank">', '</a>' ) . '</p>';
 			$forum_text[] = '<p>' . __( "Our number one goal is helping you succeed, and to whatever extent possible, we'll help troubleshoot and guide your customizations or tweaks. While we won't build your site for you, and we can't guarantee we'll be able to get you 100% integrated with every theme or plugin out there, we'll do all we can to point you in the right direction and to make you -- and your client, as is often more importantly the case -- satisfied.", 'tribe-events-calendar-pro' ) . '</p>';
 			$forum_text[] = '<p>' . __( "Before posting a new thread, please do a search to make sure your issue hasn't already been addressed. When posting please make sure to provide as much detail about the problem as you can (with screenshots or screencasts if feasible), and make sure that you've identified whether a plugin / theme conflict could be at play in your initial message.", 'tribe-events-calendar-pro' ) . '</p>';
 			$forum_text = implode( $forum_text );
@@ -1259,7 +1261,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 			wp_enqueue_script(
 				Tribe__Events__Main::POSTTYPE . '-premium-recurrence',
 				tribe_events_pro_resource_url( 'events-recurrence.js' ),
-				[ Tribe__Events__Main::POSTTYPE.'-premium-admin', 'tribe-events-pro-handlebars', 'tribe-events-pro-moment', 'tribe-dropdowns', 'jquery-ui-dialog', 'tribe-buttonset' ],
+				[ Tribe__Events__Main::POSTTYPE . '-premium-admin', 'tribe-events-pro-handlebars', 'tribe-moment', 'tribe-dropdowns', 'jquery-ui-dialog', 'tribe-buttonset' ],
 				apply_filters( 'tribe_events_pro_js_version', self::VERSION ),
 				true
 			);
@@ -1302,7 +1304,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 		}
 
 		/**
-		 * Enqueue the proper styles depending on what is requred by a given page load.
+		 * Enqueue the proper styles depending on what is required by a given page load.
 		 *
 		 * @return void
 		 */
@@ -1446,9 +1448,9 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 		 */
 		public function helpTabForumsLink( $content ) {
 			if ( get_option( 'pue_install_key_events_calendar_pro ' ) ) {
-				return 'http://m.tri.be/4x';
+				return 'https://evnt.is/4x';
 			} else {
-				return 'http://m.tri.be/4w';
+				return 'https://evnt.is/4w';
 			}
 		}
 
@@ -1479,10 +1481,10 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 		}
 
 		/**
-		 * Enable "view post" links on metaposts
+		 * Enable "view post" links on metaposts.
 		 *
 		 * @param $messages array
-		 * return array
+		 * @return array
 		 */
 		public function updatePostMessages( $messages ) {
 			global $post, $post_ID;
@@ -1518,12 +1520,51 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 		 * @return void
 		 */
 		public function pro_widgets_init() {
-			unregister_widget( 'Tribe__Events__List_Widget' );
-			register_widget( 'Tribe__Events__Pro__Advanced_List_Widget' );
-			register_widget( 'Tribe__Events__Pro__Countdown_Widget' );
-			register_widget( 'Tribe__Events__Pro__Mini_Calendar_Widget' );
-			register_widget( 'Tribe__Events__Pro__Venue_Widget' );
-			register_widget( 'Tribe__Events__Pro__This_Week_Widget' );
+			// Widgets to register.
+			$registered_widget_classes = [
+				'Tribe__Events__Pro__Advanced_List_Widget',
+				'Tribe__Events__Pro__Countdown_Widget',
+				'Tribe__Events__Pro__Mini_Calendar_Widget',
+				'Tribe__Events__Pro__Venue_Widget',
+				'Tribe__Events__Pro__This_Week_Widget',
+			];
+
+			/**
+			 * Allows plugins and future updates to dis/enable widgets via filer.
+			 *
+			 * @since 5.2.0
+			 *
+			 * @param array<string> $registered_widget_classes An array of widget class names to register.
+			 */
+			$registered_widget_classes = apply_filters(
+				'tribe_events_pro_v1_registered_widget_classes',
+				$registered_widget_classes
+			);
+
+			foreach ( $registered_widget_classes as $widget ) {
+				register_widget( $widget );
+			}
+
+			// Widgets to unregister.
+			$unregistered_widget_classes = [
+				'Tribe__Events__List_Widget',
+			];
+
+			/**
+			 * Allows plugins and future updates to dis/enable widgets via filer.
+			 *
+			 * @since 5.2.0
+			 *
+			 * @param array<string> $unregistered_widget_classes An array of widget class names to unregister.
+			 */
+			$unregistered_widget_classes = apply_filters(
+				'tribe_events_pro_v1_unregistered_widget_classes',
+				$unregistered_widget_classes
+			);
+
+			foreach ( $unregistered_widget_classes as $widget ) {
+				unregister_widget( $widget );
+			}
 		}
 
 		/**
@@ -1567,9 +1608,9 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 		public function addMetaLinks( $links, $file ) {
 			if ( $file == $this->pluginDir . 'events-calendar-pro.php' ) {
 				$anchor = __( 'Support', 'tribe-events-calendar-pro' );
-				$links[] = '<a href="http://m.tri.be/4z">' . $anchor . '</a>';
+				$links[] = '<a href="https://evnt.is/4z">' . $anchor . '</a>';
 				$anchor = __( 'View All Add-Ons', 'tribe-events-calendar-pro' );
-				$links[] = '<a href="http://m.tri.be/50">' . $anchor . '</a>';
+				$links[] = '<a href="https://evnt.is/50">' . $anchor . '</a>';
 			}
 
 			return $links;
@@ -1840,10 +1881,23 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 
 		/**
 		 * Echo the setting for hiding subsequent occurrences of recurring events to frontend.
+		 * Old function name contained a typo ("occurance") - this fixes it
+		 * without breaking anything where users may be calling the old function.
+		 *
+		 * @TODO: perhaps deprecate the old one at some point?
 		 *
 		 * @return void
 		 */
 		public function add_recurring_occurance_setting_to_list () {
+			return $this->add_recurring_occurrence_setting_to_list();
+		}
+
+		/**
+		 * Echo the setting for hiding subsequent occurrences of recurring events to frontend.
+		 *
+		 * @return void
+		 */
+		public function add_recurring_occurrence_setting_to_list() {
 			if ( tribe_get_option( 'userToggleSubsequentRecurrences', false ) && ! tribe_is_showing_all() && ( tribe_is_upcoming() || tribe_is_past() || tribe_is_map() || tribe_is_photo() ) || apply_filters( 'tribe_events_display_user_toggle_subsequent_recurrences', false ) ) {
 				echo tribe_recurring_instances_toggle();
 			}
@@ -2029,6 +2083,7 @@ if ( ! class_exists( 'Tribe__Events__Pro__Main' ) ) {
 			tribe_register_provider( 'Tribe__Events__Pro__Service_Providers__ORM' );
 			tribe_register_provider( 'Tribe__Events__Pro__Service_Providers__RBE' );
 			tribe_register_provider( Tribe\Events\Pro\Views\V2\Service_Provider::class );
+			tribe_register_provider( Tribe\Events\Pro\Views\V2\Widgets\Service_Provider::class );
 			tribe_register_provider( Tribe\Events\Pro\Models\Service_Provider::class );
 			tribe_register_provider( Tribe__Events__Pro__Service_Providers__Templates::class );
 

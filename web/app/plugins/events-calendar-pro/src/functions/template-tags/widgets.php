@@ -188,7 +188,6 @@ function tribe_events_get_list_widget_view_all_link( $instance ) {
 	$link_to_all = '';
 
 	if ( empty( $instance['filters'] ) && empty( $instance['raw_filters'] ) ) {
-		$link_to_archive = false;
 		$link_to_all     = tribe_get_events_link();
 
 		if ( tribe_is_events_home() ) {
@@ -206,7 +205,6 @@ function tribe_events_get_list_widget_view_all_link( $instance ) {
 	}
 	// Is the filter restricted to a single taxonomy?
 	$single_taxonomy = ( is_array( $filters ) && 1 === count( $filters ) );
-	$single_term     = false;
 
 	$operand = isset( $instance['operand'] ) ? $instance['operand'] : '';
 	$condition_counter = 0;
@@ -231,13 +229,12 @@ function tribe_events_get_list_widget_view_all_link( $instance ) {
 		return apply_filters( 'tribe_events_get_list_widget_view_all_link', '' );
 	}
 
+	$terms = (array) $terms;
 	// If we have a single taxonomy and a single term, the View All link should point to the relevant archive page
 	if ( $single_taxonomy && 1 === count( $terms ) ) {
-		$link_to_archive = true;
 		$link_to_all     = get_term_link( absint( $terms[0] ), $taxonomy );
 	}// Otherwise link to the main events page
 	else {
-		$link_to_archive = false;
 		$link_to_all     = tribe_get_events_link();
 	}
 

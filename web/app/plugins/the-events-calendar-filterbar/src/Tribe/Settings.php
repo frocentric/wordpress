@@ -14,6 +14,9 @@ class Tribe__Events__Filterbar__Settings {
 		add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_item' ), 12 );
 		add_filter( 'tribe_events_liveupdate_automatic_label_text', [ $this, 'liveupdate_automatic_label_text' ] );
 		add_filter( 'tribe_events_liveupdate_manual_label_text', [ $this, 'liveupdate_manual_label_text' ] );
+
+		$setting_action = 'plugin_action_links_' . trailingslashit( basename( TRIBE_EVENTS_FILTERBAR_DIR ) ) . 'the-events-calendar-filter-view.php';
+		add_action( $setting_action, [ $this, 'add_links_to_plugin_actions' ] );
 	}
 
 	public function addAdminScriptsAndStyles() {
@@ -182,5 +185,23 @@ class Tribe__Events__Filterbar__Settings {
 	 */
 	public function liveupdate_manual_label_text( $text ) {
 		return __( 'Disabled: users must manually submit date search and Filter Bar', 'tribe-events-filter-view' );
+	}
+
+	/**
+	 * Add Filter Bar settings link the the plugin admin list.
+	 *
+	 * @since 5.0.0
+	 *
+	 * @param array $actions An array of links to add to the plugin admin list.
+	 *
+	 * @return array An array of links to add to the plugin admin list.
+	 */
+	public function add_links_to_plugin_actions( $actions ) {
+
+		$settings_url = Tribe__Settings::instance()->get_url( [ 'tab' => 'filter-view' ] );
+
+		$actions['settings'] = '<a href="' . esc_url( $settings_url ) . '">' . esc_html__( 'Settings', 'tribe-events-filter-view' ) . '</a>';
+
+		return $actions;
 	}
 }

@@ -7,9 +7,9 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link https://evnt.is/1aiy
  *
- * @version 5.0.0
+ * @version 5.2.0
  *
  * @var WP_Post $organizer The organizer post object.
  *
@@ -23,12 +23,6 @@ if ( empty( $phone ) ) {
 
 ?>
 <div class="tribe-events-pro-organizer__meta-phone tribe-common-b1 tribe-common-b2--min-medium">
-	<em
-		class="tribe-events-pro-organizer__meta-phone-icon tribe-common-svgicon"
-		aria-label="<?php esc_attr_e( 'Phone', 'tribe-events-calendar-pro' ); ?>"
-		title="<?php esc_attr_e( 'Phone', 'tribe-events-calendar-pro' ); ?>"
-	>
-	</em>
+	<?php $this->template( 'components/icons/phone', [ 'classes' => [ 'tribe-events-pro-organizer__meta-phone-icon-svg' ] ] ); ?>
 	<span class="tribe-events-pro-organizer__meta-phone-text"><?php echo esc_html( $phone ); ?></span>
 </div>
-

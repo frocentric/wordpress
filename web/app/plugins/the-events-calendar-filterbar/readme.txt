@@ -1,11 +1,11 @@
 === The Events Calendar: Filter Bar ===
 
-Contributors: ModernTribe, barry.hughes, bordoni, borkweb, brianjessee, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, shane.pearlman, thatdudebutch,  zbtirrell
+Contributors: theeventscalendar, borkweb, bordoni, brianjessee, aguseo, camwynsp, GeoffBel, geoffgraham, jentheo, leahkoerper, lucatume, neillmcshea, patriciahillebrandt, paulskim, vicskf, zbtirrell, juanfra
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget, pro, filters, categories, sort, tags, taxonomy, find, search
-Donate link: http://m.tri.be/29
-Requires at least: 4.9
-Tested up to: 5.4
-Stable tag: 4.10.0
+Donate link: http://evnt.is/29
+Requires at least: 4.9.14
+Tested up to: 5.7.0
+Stable tag: 5.0.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@ A premium add-on to The Events Calendar plugin (required), Filter Bar allows for
 
 == Description ==
 
-<a href="http://m.tri.be/f8">The Events Calendar: Filter Bar</a> is an add-on for The Events Calendar that adds more filtering capabilities to an already robust plugin.
+<a href="http://evnt.is/f8">The Events Calendar: Filter Bar</a> is an add-on for The Events Calendar that adds more filtering capabilities to an already robust plugin.
 
 The Events Calendar allows you to create and manage events with ease from right within your WordPress dashboard; no shortcode is needed (nor is one available). And with The Events Calendar: Filter Bar add-on, your calendar receives a ton of new filtering options that allow users to drill down to only see certain types of events.
 
@@ -24,9 +24,9 @@ Plus, Filter Bar users get access to our premium support forums. Need help or ha
 
 = Features =
 
-The following lists features specific to Filter bar. For a list of The Events Calendar features, check out that plugin's readme.txt or check out <a href="http://m.tri.be/3s">the product page</a>.
+The following lists features specific to Filter bar. For a list of The Events Calendar features, check out that plugin's readme.txt or check out <a href="http://evnt.is/3s">the product page</a>.
 
-Just getting started? You'll want to watch and read through the <a href="http://m.tri.be/f9">Filter Bar new user primer,</a>. And if you’re new to the calendar as a whole, you should probably also review <a href="http://m.tri.be/3t">The Events Calendar New User Primer</a>.
+Just getting started? You'll want to watch and read through the <a href="http://evnt.is/f9">Filter Bar new user primer,</a>. And if you’re new to the calendar as a whole, you should probably also review <a href="http://evnt.is/3t">The Events Calendar New User Primer</a>.
 
 * Filter events in any of the frontend views
 * Admins can enable, disable, relabel and re-order filters on a site-wide basis
@@ -48,7 +48,7 @@ Remember, to use Filter Bar you need to also be running The Events Calendar. You
 3. When the popup appears select the the-events-calendar-x.x.zip file or events-calendar-filter-bar.x.zip file from your desktop. (The 'x.x' will change depending on the current version number).
 4. Follow the on-screen instructions and wait as the upload completes.
 5. When it's finished, activate the plugin via the prompt. A message will show confirming activation was successful. A link to access the calendar directly on the frontend will be presented here as well.
-6. For access to new updates for Filter Bar, make sure you have added your valid License Key under Events --> Settings --> Licenses. You can find your license key on your tri.be account at http://m.tri.be/3u.
+6. For access to new updates for Filter Bar, make sure you have added your valid License Key under Events --> Settings --> Licenses. You can find your license key on your tri.be account at http://evnt.is/3u.
 
 That's it! Just configure your settings as you see fit, and you're on your way to filtering events in style.
 
@@ -63,9 +63,9 @@ That's it! Just configure your settings as you see fit, and you're on your way t
 
 If this is your first time using The Events Calendar and Filter Bar, you're in for a treat! Here are some basics we've found helpful for users jumping into it for the first time:
 
-* The first step is installing and activating The Events Calendar. Our <a href="http://m.tri.be/18w1">New User Primer</a> will walk you through the process!
-* Next, check out the Filter Bar <a href="http://m.tri.be/f9">New User Primer</a> which will take you through installing and using your new plugin.
-* Our <a href="http://m.tri.be/18w0">Knowledgebase</a> includes tips, tutorials, and cool tweaks for the plugin.
+* The first step is installing and activating The Events Calendar. Our <a href="http://evnt.is/18w1">New User Primer</a> will walk you through the process!
+* Next, check out the Filter Bar <a href="http://evnt.is/f9">New User Primer</a> which will take you through installing and using your new plugin.
+* Our <a href="http://evnt.is/18w0">Knowledgebase</a> includes tips, tutorials, and cool tweaks for the plugin.
 
 == Frequently Asked Questions ==
 
@@ -79,73 +79,73 @@ Note that we aren't going to say "tough luck" if you identify a plugin/theme con
 
 = I'm still stuck. Where do I go to file a bug or ask a question? =
 
-If you're already a premium license holder, you're entitled access to our more actively-monitored <a href="http://m.tri.be/3x">premium forums</a> at the tri.be website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. No post should go more than 24-48 hours during that time without a response.
+If you're already a premium license holder, you're entitled access to our more actively-monitored <a href="http://evnt.is/3x">premium forums</a> at the tri.be website. We can provide a deeper level of support here and hit these forums on a daily basis during the work week. No post should go more than 24-48 hours during that time without a response.
 
 = What add-ons are available for The Events Calendar, and where can I read more about them? =
 
 Currently, the following add-ons are available for The Events Calendar:
 
-* <a href="http://m.tri.be/18wi">Events Calendar PRO</a>, for adding premium calendar features like recurring events, advanced views, cool widgets, shortcodes, additional fields, and more!
-* <a href="http://m.tri.be/18wj">Event Tickets</a> (free), which allows you to collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds RSVP functionality to WordPress posts and pages.
-* <a href="http://m.tri.be/18wk">Event Tickets Plus</a>, which allows you to sell tickets for your events using your favorite e-commerce platform.
-* <a href="http://m.tri.be/2g">Community Events</a>, for allowing frontend event submission from your readers.
-* <a href="http://m.tri.be/18wl">Community Tickets</a>, which allows event organizers to sell tickets to the events they submit via Community Events.
-* <a href="http://m.tri.be/2h">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
-* <a href="http://m.tri.be/fa">Filter Bar</a>, for adding advanced frontend filtering capabilities to your events calendar.
-* <a href="http://m.tri.be/18h9">iCal Importer</a>, for importing events any iCal feed or ICS file.
-* <a href="http://m.tri.be/2e">Eventbrite Tickets</a>, for selling tickets to your event directly through Eventbrite.
+* <a href="http://evnt.is/18wi">Events Calendar PRO</a>, for adding premium calendar features like recurring events, advanced views, cool widgets, shortcodes, additional fields, and more!
+* <a href="http://evnt.is/18wj">Event Tickets</a> (free), which allows you to collect RSVPs to events. It can run alongside The Events Calendar or as a standalone plugin that adds RSVP functionality to WordPress posts and pages.
+* <a href="http://evnt.is/18wk">Event Tickets Plus</a>, which allows you to sell tickets for your events using your favorite e-commerce platform.
+* <a href="http://evnt.is/2g">Community Events</a>, for allowing frontend event submission from your readers.
+* <a href="http://evnt.is/18wl">Community Tickets</a>, which allows event organizers to sell tickets to the events they submit via Community Events.
+* <a href="http://evnt.is/2h">Facebook Events</a>, for importing events directly from an organization or page on Facebook.
+* <a href="http://evnt.is/fa">Filter Bar</a>, for adding advanced frontend filtering capabilities to your events calendar.
+* <a href="http://evnt.is/18h9">iCal Importer</a>, for importing events any iCal feed or ICS file.
+* <a href="http://evnt.is/2e">Eventbrite Tickets</a>, for selling tickets to your event directly through Eventbrite.
 
 = I have a feature idea. What's the best way to tell you about it? =
 
-We've got a <a href="https://tribe.uservoice.com/forums/195723-feature-ideas">Modern Tribe UserVoice page</a> where we're actively watching for feature ideas from the community. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community's needs.
+We've got a <a href="https://tribe.uservoice.com/forums/195723-feature-ideas">The Events Calendar UserVoice page</a> where we're actively watching for feature ideas from the community. Vote up existing feature requests or add your own, and help us shape the future of the products business in a way that best meets the community's needs.
 
 = I've still got questions. Do you have a bigger FAQ somewhere? =
 
-Many questions can be answered by searching our <a href="http://m.tri.be/18w0">knowledgebase</a>. You can also search the <a href="http://m.tri.be/18w2">premium forums</a> to see if someone else has asked a similar question. If you're still not finding an answer, you can post a new thread in the forums and a member of our support team will help out.
+Many questions can be answered by searching our <a href="http://evnt.is/18w0">knowledgebase</a>. You can also search the <a href="http://evnt.is/18w2">premium forums</a> to see if someone else has asked a similar question. If you're still not finding an answer, you can post a new thread in the forums and a member of our support team will help out.
 
 == Documentation ==
 
-All of our online documentation can be found at http://m.tri.be/42
+All of our online documentation can be found at http://evnt.is/42
 
 Some docs you may find particularly useful are:
 
-* <a href="http://m.tri.be/3t">The Events Calendar New User Primer</a>
-* <a href="http://m.tri.be/43">The Themer's Guide to The Events Calendar</a>
-* <a href="http://m.tri.be/f9">Filter Bar New User Primer</a>
+* <a href="http://evnt.is/3t">The Events Calendar New User Primer</a>
+* <a href="http://evnt.is/43">The Themer's Guide to The Events Calendar</a>
+* <a href="http://evnt.is/f9">Filter Bar New User Primer</a>
 
-More tutorials are available at http://m.tri.be/18w0
+More tutorials are available at http://evnt.is/18w0
 
 == Contributors ==
 
-The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
+The plugin is produced by <a href="http://evnt.is/45">The Events Calendar</a>.
 
 = Current Contributors =
 
-<a href="https://profiles.wordpress.org/barryhughes">Barry Hughes</a>
 <a href="https://profiles.wordpress.org/brianjessee">Brian Jessee</a>
-<a href="https://profiles.wordpress.org/brook-tribe">Brook Harding</a>
-<a href="https://profiles.wordpress.org/cliffpaulick">Clifford Paulick</a>
-<a href="https://profiles.wordpress.org/MZAWeb">Daniel Dvorkin</a>
+<a href="https://profiles.wordpress.org/mitogh">Crisoforo Gaspar</a>
 <a href="https://profiles.wordpress.org/geoffgraham">Geoff Graham</a>
-<a href="https://profiles.wordpress.org/ggwicz">George Gecewicz</a>
 <a href="https://profiles.wordpress.org/bordoni">Gustavo Bordoni</a>
-<a href="https://profiles.wordpress.org/jazbek">Jessica Yazbek</a>
-<a href="https://profiles.wordpress.org/joshlimecuda">Josh Mallard</a>
 <a href="https://profiles.wordpress.org/leahkoerper">Leah Koerper</a>
 <a href="https://profiles.wordpress.org/lucatume">Luca Tumedei</a>
 <a href="https://profiles.wordpress.org/borkweb">Matthew Batchelder</a>
 <a href="https://profiles.wordpress.org/neillmcshea">Neill McShea</a>
-<a href="https://profiles.wordpress.org/mastromktg">Nick Mastromattei</a>
-<a href="https://profiles.wordpress.org/nicosantos”>Nico Santo</a>
-<a href="https://profiles.wordpress.org/peterchester">Peter Chester</a>
-<a href="https://profiles.wordpress.org/roblagatta">Rob La Gatta</a>
-<a href="https://profiles.wordpress.org/reid.peifer">Reid Peifer</a>
-<a href="https://profiles.wordpress.org/shane.pearlman">Shane Pearlman</a>
-<a href="https://profiles.wordpress.org/thatdudebutch">Wayne Stratton</a>
+<a href="https://profiles.wordpress.org/paulskim">Paul Kim</a>
+<a href="https://profiles.wordpress.org/camwynsp">Stephen Page</a>
+<a href="https://profiles.wordpress.org/vicskf">Victor Zarranz</a>
 <a href="https://profiles.wordpress.org/zbtirrell">Zachary Tirrell</a>
 
 = Past Contributors =
 
+<a href="https://profiles.wordpress.org/peterchester">Peter Chester</a>
+<a href="https://profiles.wordpress.org/roblagatta">Rob La Gatta</a>
+<a href="https://profiles.wordpress.org/reid.peifer">Reid Peifer</a>
+<a href="https://profiles.wordpress.org/shane.pearlman">Shane Pearlman</a>
+<a href="https://profiles.wordpress.org/nicosantos”>Nico Santo</a>
+<a href="https://profiles.wordpress.org/thatdudebutch">Wayne Stratton</a>
+<a href="https://profiles.wordpress.org/mastromktg">Nick Mastromattei</a>
+<a href="https://profiles.wordpress.org/jazbek">Jessica Yazbek</a>
+<a href="https://profiles.wordpress.org/joshlimecuda">Josh Mallard</a>
+<a href="https://profiles.wordpress.org/thatdudebutch">Wayne Stratton</a>
 <a href="https://profiles.wordpress.org/caseypatrickdriscoll">Casey Driscoll</a>
 <a href="https://profiles.wordpress.org/ckpicker">Casey Picker</a>
 <a href="https://profiles.wordpress.org/dancameron">Dan Cameron</a>
@@ -168,16 +168,16 @@ The plugin is produced by <a href="http://m.tri.be/45">Modern Tribe Inc</a>.
 
 = Translations =
 
-Modern Tribe’s premium plugins are translated by volunteers at <a href=“http://m.tri.be/194h”>translations.theeventscalendar.com</a>. There you can find a list of available languages, download translation files, or help update the translations. Thank you to everyone who helps to maintain our translations!
+The Events Calendar’s premium plugins are translated by volunteers at <a href=“http://evnt.is/194h”>translations.theeventscalendar.com</a>. There you can find a list of available languages, download translation files, or help update the translations. Thank you to everyone who helps to maintain our translations!
 
 == Add-Ons ==
 
-But wait: there's more! We've got a whole stable of plugins available to help you be awesome at what you do. Check out a full list of the products below, and over at the <a href="http://m.tri.be/46">Modern Tribe website.</a>
+But wait: there's more! We've got a whole stable of plugins available to help you be awesome at what you do. Check out a full list of the products below, and over at the <a href="http://evnt.is/46">The Events Calendar website.</a>
 
 Our Free Plugins:
 
 * <a href="https://wordpress.org/plugins/the-events-calendar/" target="_blank">The Events Calendar</a>
-* <a href="http://m.tri.be/18vx" target="_blank">Event Tickets</a>
+* <a href="http://evnt.is/18vx" target="_blank">Event Tickets</a>
 * <a href="http://wordpress.org/extend/plugins/advanced-post-manager/?ref=tec-readme" target="_blank">Advanced Post Manager</a>
 * <a href="http://wordpress.org/plugins/blog-copier/?ref=tec-readme" target="_blank">Blog Copier</a>
 * <a href="http://wordpress.org/plugins/image-rotation-repair/?ref=tec-readme" target="_blank">Image Rotation Widget</a>
@@ -185,15 +185,79 @@ Our Free Plugins:
 
 Our Premium Plugins:
 
-* <a href="http://m.tri.be/2c" target="_blank">Events Calendar PRO</a>
-* <a href="http://m.tri.be/18vy" target="_blank">Event Tickets Plus</a>
-* <a href="http://m.tri.be/2e" target="_blank">The Events Calendar: Eventbrite Tickets</a>
-* <a href="http://m.tri.be/2g" target="_blank">The Events Calendar: Community Events</a>
-* <a href="http://m.tri.be/18vw" target="_blank">The Events Calendar: Community Tickets</a>
-* <a href="http://m.tri.be/2h" target="_blank">The Events Calendar: Facebook Events</a>
-* <a href="http://m.tri.be/18h9" target="_blank">The Events Calendar: iCal Importer</a>
+* <a href="http://evnt.is/2c" target="_blank">Events Calendar PRO</a>
+* <a href="http://evnt.is/18vy" target="_blank">Event Tickets Plus</a>
+* <a href="http://evnt.is/2e" target="_blank">The Events Calendar: Eventbrite Tickets</a>
+* <a href="http://evnt.is/2g" target="_blank">The Events Calendar: Community Events</a>
+* <a href="http://evnt.is/18vw" target="_blank">The Events Calendar: Community Tickets</a>
+* <a href="http://evnt.is/2h" target="_blank">The Events Calendar: Facebook Events</a>
+* <a href="http://evnt.is/18h9" target="_blank">The Events Calendar: iCal Importer</a>
 
 == Changelog ==
+
+= [5.0.5] 2021-02-24 =
+
+* Fix - Compatibility with WordPress 5.7 and jQuery 3.5.X
+
+= [5.0.4] 2021-01-28 =
+
+* Tweak - Adjust spacing between checkbox/radio controls and labels. [FBAR-209]
+* Tweak - Adjust opacity of selected options in multi-select/dropdown filters. [FBAR-209]
+* Tweak - Make selections pills consistent. [FBAR-209]
+* Tweak - Align "Your selections" label with "Clear" element text. [FBAR-209]
+* Tweak - Enfold Theme - Display search icon in multi-select/dropdown filters. [FBAR-209]
+* Fix - Correctly handle Additional Fields filters in Month and Week Views. [FBAR-204]
+* Language - 1 new strings added, 10 updated, 0 fuzzied, and 1 obsoleted
+
+= [5.0.3.1] 2020-12-21 =
+
+* Fix - Update The Events Calendar minimum required version to avoid activation issues.
+
+= [5.0.3] 2020-12-15 =
+
+* Feature - V2 Customizer - Add background color css overrides. [FBAR-206]
+* Fix - Correctly handle pagination requests on Views v2 when Filter Bar is active to paginate on first click of Previous or Next links. [FBAR-208]
+* Fix - Avoid errors when using Views v2 and setting the `TRIBE_EVENTS_FILTERBAR_V1_VIEWS` constant to `true`. [FBAR-212]
+
+
+= [5.0.2] 2020-12-02 =
+
+* Tweak - Add a filter to allow views to "turn off" Filter Bar classes on their container. [TBD]
+* Language - 0 new strings added, 3 updated, 0 fuzzied, and 0 obsoleted
+
+= [5.0.1] 2020-10-22 =
+
+* Fix - Prevent page from scrolling down to open dropdown/multiselect filters after ajax request. [FBAR-193]
+* Fix - Prevent tribe-events shortcode pagination from triggering a Notice on the filter-button due to a missing param. [ECP-492]
+* Language - 0 new strings added, 32 updated, 0 fuzzied, and 1 obsoleted
+
+= [5.0.0.1] 2020-10-05 =
+
+* Fix - Prevent filter bar from closing when swiping on mobile. [FBAR-192]
+* Fix - Prevent some timeouts and SQL errors when multiple filters were applied and views were switched. [FBAR-191]
+* Fix - Vertical filter titles now are displayed in bold as originally intended. [FBAR-194]
+* Fix - Vertical bar title has proper font size for better visibility. [FBAR-194]
+* Fix - Spacing for Select/Multiselect, Checkbox and Radio now match to the correct height. [FBAR-194]
+
+= [5.0.0] 2020-09-28 =
+
+* Fix - Prevent Filter bar from adding body classes where inappropriate. [FBAR-107]
+* Feature - Disable new Filter Bar design by defining this constant: `define( 'TRIBE_EVENTS_FILTERBAR_V1_VIEWS', TRUE );` in your site's wp-config.php. [FBAR-148]
+* Feature - Add customizer framework for Filter Bar styling. [FBAR-118]
+* Feature - Add filters to determine if filters individually and as a group should be open or closed. [FBAR-117]
+* Language - 8 new strings added, 32 updated, 0 fuzzied, and 2 obsoleted
+
+= [4.10.2] 2020-08-24 =
+
+* Tweak - Add a link to the Filter Bar settings on the plugin admin listing. [FBAR-114]
+* Tweak - Added the `tribe_events_filter_bar_option_key_map` and `tribe_events_filter_bar_default_filter_names_map` filters to allow adding, removing, or otherwise modifying, Filter Bar filters in the context of Views v2. [VE-147]
+* Fix - Add proper "applied" labelling for filters using radio buttons. [VE-147]
+* Fix - Prevent Horizontal Filters using select to jump when using the search field for V1 [BTRIA-452]
+* Language - 4 new strings added, 31 updated, 0 fuzzied, and 0 obsoleted
+
+= [4.10.1] 2020-07-27 =
+
+* Fix - Prevent Horizontal Filters using select to jump when using the search field for V2 [FBAR-112]
 
 = [4.10.0] 2020-04-23 =
 
@@ -201,7 +265,7 @@ Our Premium Plugins:
 * Tweak - Load plugin text domain on the new `tribe_load_text_domains` action hook, which fires on `init` instead of on the `plugins_loaded` hook. [FBAR-94]
 * Fix - Prevent PHP errors from happening during bulk activation or deactivation of the plugin [TCMN-53]
 * Fix - Update events, venues, and organizers to use dynamic labels. [FBAR-82]
-* Fix - Additional Fields filter so that it only shows the individual values and not a combination of values choosen. [FBAR-88]
+* Fix - Additional Fields filter so that it only shows the individual values and not a combination of values chosen. [FBAR-88]
 * Language - 2 new strings added, 34 updated, 3 fuzzied, and 6 obsoleted
 
 = [4.9.3] 2020-03-23 =
@@ -334,7 +398,7 @@ Our Premium Plugins:
 
 * Feature - added class to checkbox items to better show parent, child, and grandparent relationship [70060]
 * Feature - display active filters selected in the Filter Bar [38131,70061]
-* Feature - autocheck categories under parent when checked and in dropdown display all events under a parent category [70059]
+* Feature - automatically check categories under parent when checked and in dropdown display all events under a parent category [70059]
 * Feature - added an upgrade script to change from autocomplete to Multi-Select [82651]
 * Fix - issue where only the first event would show when using State/Province, City, or Country filters in checkbox mode [82927]
 * Tweak - Select2 to replace Chosen script for dropdowns and autocomplete [75546]
@@ -474,7 +538,7 @@ Our Premium Plugins:
 * Incorporated new Catalan translation files, courtesy of Oriol Carol
 * Incorporated updated Greek translation files, courtesy of Yannis Troullinos
 * Incorporated new Polish translation files, courtesy of Marcin Lacki
-* Incorporated new Russian transltion files, courtesy of Evgenii Rybak
+* Incorporated new Russian translation files, courtesy of Evgenii Rybak
 
 = 3.8 =
 

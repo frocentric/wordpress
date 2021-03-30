@@ -48,11 +48,25 @@ class Tribe__Events__Pro__Shortcodes__Featured_Venue {
 			return;
 		}
 
-		Tribe__Events__Pro__Widgets::enqueue_calendar_widget_styles();
+		/**
+		 * Allows hot-swapping the featured venue widget class for different versions of the widget.
+		 *
+		 * @since 5.3.0
+		 *
+		 * @param string              $widget_class The widget class name we want to implement.
+		 * @param array<string,mixed> $arguments    The widget arguments.
+		 */
+		$widget_class = apply_filters( 'tribe_events_pro_shortcodes_venue_widget_class', Tribe__Events__Pro__Venue_Widget::class, $this->arguments );
+
+		if ( Tribe__Events__Pro__Venue_Widget::class === $widget_class ) {
+			Tribe__Events__Pro__Widgets::enqueue_calendar_widget_styles();
+		}
 
 		ob_start();
+
 		// We use $this->arguments for both the args and the instance vars here
-		the_widget( 'Tribe__Events__Pro__Venue_Widget', $this->arguments, $this->arguments );
+		the_widget( $widget_class, $this->arguments, $this->arguments );
+
 		$this->output = ob_get_clean();
 	}
 

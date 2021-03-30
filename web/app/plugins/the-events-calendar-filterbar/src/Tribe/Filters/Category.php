@@ -32,7 +32,7 @@ class Tribe__Events__Filterbar__Filters__Category extends Tribe__Events__Filterb
 			$term->children                = array();
 		}
 
-		// Initally copy the source list of terms to our ordered list
+		// Initially copy the source list of terms to our ordered list
 		$ordered_terms = $terms;
 
 		// Re-order!
@@ -189,7 +189,7 @@ class Tribe__Events__Filterbar__Filters__Category extends Tribe__Events__Filterb
 		$new_rules[] = array(
 			'taxonomy' => Tribe__Events__Main::TAXONOMY,
 			'operator' => 'IN',
-			'terms'    => $values,
+			'terms'    => array_map( 'absint', $values ),
 		);
 
 		/**

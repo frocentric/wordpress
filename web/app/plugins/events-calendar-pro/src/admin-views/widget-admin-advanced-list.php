@@ -96,11 +96,12 @@ if ( empty( $instance['filters'] ) ) {
 						continue;
 					}
 					$term_obj = get_term( $term, $tax );
+
 					if ( empty( $term_obj ) || is_wp_error( $term_obj ) ) {
 						continue;
 					}
 
-					// Add to the disabled ones
+					// Add to the disabled ones.
 					$disabled[] = $term_obj->term_id;
 					echo sprintf( "<li><p>%s: %s&nbsp;&nbsp;<span><a href='#' class='calendar-widget-remove-filter' data-tax='%s' data-term='%s'>(" . __( 'remove', 'tribe-events-calendar-pro' ) . ')</a></span></p></li>', $tax_obj->labels->name, $term_obj->name, $tax, $term_obj->term_id );
 				}

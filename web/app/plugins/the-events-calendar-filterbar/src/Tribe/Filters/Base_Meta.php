@@ -65,7 +65,18 @@ class Tribe__Events__Filterbar__Filters__Base_Meta extends Tribe__Events__Filter
 			// Get The Searched Meta
 			$search_data = $wpdb->get_results( $wpdb->prepare( $search_sql, $this->get_searched_post_type() ) );
 
-			tribe( 'cache' )->set_transient( static::$cache_key_base_ids, $search_data, DAY_IN_SECONDS, Cache_Listener::TRIGGER_SAVE_POST );
+			/** @var Tribe__Feature_Detection $feature_detection */
+			$feature_detection = tribe( 'feature-detection' );
+			/** @var Tribe__Cache $cache */
+			$cache = tribe( 'cache' );
+			if (
+				wp_using_ext_object_cache()
+				|| strlen( serialize( $search_data ) ) < ( $feature_detection->get_mysql_max_packet_size() * .4 )
+			) {
+				// Only cache if the database will allow it.
+				$cache->set_transient( static::$cache_key_base_ids, $search_data, DAY_IN_SECONDS,
+					Cache_Listener::TRIGGER_SAVE_POST );
+			}
 		}
 
 		// Fetch the possible related ids

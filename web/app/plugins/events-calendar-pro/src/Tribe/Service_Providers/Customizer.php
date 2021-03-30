@@ -37,9 +37,13 @@ class Customizer extends \tad_DI52_ServiceProvider {
 	 * @return string $template The resulting CSS template.
 	 */
 	public function filter_accent_color_css( $template ) {
-		$customizer              = Tribe__Customizer::instance();
+		/* @var Tribe__Customizer $customizer */
+		$customizer = tribe( 'customizer' );
+
+		/* @var \Tribe__Events__Customizer__Global_Elements $global_elements_section */
 		$global_elements_section = tribe( 'tec.customizer.global-elements' );
-		$settings                = $customizer->get_option( [ $global_elements_section->ID ] );
+
+		$settings = $customizer->get_option( [ $global_elements_section->ID ] );
 
 		if  ( $customizer->has_option( $global_elements_section->ID, 'accent_color' ) ) {
 			$accent_color     = new Tribe__Utils__Color( $settings['accent_color'] );
@@ -224,7 +228,7 @@ class Customizer extends \tad_DI52_ServiceProvider {
 	 * @return string $template The resulting CSS template.
 	 */
 	public function filter_text_color_css( $template ) {
-		_deprecated_function( __METHOD__, 'TBD' );
+		_deprecated_function( __METHOD__, '5.1.4' );
 
 		$customizer   = Tribe__Customizer::instance();
 		$text_section = tribe( 'tec.customizer.text' );

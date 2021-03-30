@@ -46,7 +46,10 @@ if ( ! function_exists( 'tribe_is_community_edit_event_page' ) ) {
  * @deprecated since version 3.1
  */
 function tribe_community_events_user_can_edit( $post_id = null, $post_type = null ) {
-	return tribe( 'community.main' )->userCanEdit( $post_id, $post_type );
+	/** @var Tribe__Events__Community__Main $community */
+	$community = tribe( 'community.main' );
+
+	return $community->userCanEdit( $post_id, $post_type );
 }
 
 /**
@@ -56,7 +59,10 @@ function tribe_community_events_user_can_edit( $post_id = null, $post_type = nul
  * @since 3.1
  */
 function tribe_community_events_form_title() {
-	tribe( 'community.main' )->formTitle();
+	/** @var Tribe__Events__Community__Main $community */
+	$community = tribe( 'community.main' );
+
+	$community->formTitle();
 }
 
 /**
@@ -66,7 +72,10 @@ function tribe_community_events_form_title() {
  * @since 3.1
  */
 function tribe_community_events_form_content() {
-	tribe( 'community.main' )->formContentEditor();
+	/** @var Tribe__Events__Community__Main $community */
+	$community = tribe( 'community.main' );
+
+	$community->formContentEditor();
 }
 
 /**
@@ -76,7 +85,10 @@ function tribe_community_events_form_content() {
  * @since 3.1
  */
 function tribe_community_events_form_image_delete() {
-	echo tribe( 'community.main' )->getDeleteFeaturedImageButton();
+	/** @var Tribe__Events__Community__Main $community */
+	$community = tribe( 'community.main' );
+
+	echo $community->getDeleteFeaturedImageButton();
 }
 
 /**
@@ -86,7 +98,10 @@ function tribe_community_events_form_image_delete() {
  * @since 3.1
  */
 function tribe_community_events_form_image_preview() {
-	echo tribe( 'community.main' )->getDeleteFeaturedImageButton();
+	/** @var Tribe__Events__Community__Main $community */
+	$community = tribe( 'community.main' );
+
+	echo $community->getDeleteFeaturedImageButton();
 }
 
 /**
@@ -111,7 +126,11 @@ function tribe_community_events_form_currency_symbol() {
  * Return URL for adding a new event.
  */
 function tribe_community_events_add_event_link() {
-	$url = tribe( 'community.main' )->getUrl( 'add' );
+	/** @var Tribe__Events__Community__Main $community */
+	$community = tribe( 'community.main' );
+
+	$url = $community->getUrl( 'add' );
+
 	return apply_filters( 'tribe-community-events-add-event-link', $url );
 }
 
@@ -119,7 +138,11 @@ function tribe_community_events_add_event_link() {
  * Return URL for listing events.
  */
 function tribe_community_events_list_events_link() {
-	$url = tribe( 'community.main' )->getUrl( 'list' );
+	/** @var Tribe__Events__Community__Main $community */
+	$community = tribe( 'community.main' );
+
+	$url = $community->getUrl( 'list' );
+
 	return apply_filters( 'tribe-community-events-list-events-link', $url );
 }
 
@@ -127,7 +150,11 @@ function tribe_community_events_list_events_link() {
  * Return URL for editing an event.
  */
 function tribe_community_events_edit_event_link( $event_id = null ) {
-	$url = tribe( 'community.main' )->getUrl( 'edit', $event_id );
+	/** @var Tribe__Events__Community__Main $community */
+	$community = tribe( 'community.main' );
+
+	$url = $community->getUrl( 'edit', $event_id );
+
 	return apply_filters( 'tribe-community-events-edit-event-link', $url, $event_id );
 }
 
@@ -135,7 +162,11 @@ function tribe_community_events_edit_event_link( $event_id = null ) {
  * Return URL for deleting an event.
  */
 function tribe_community_events_delete_event_link( $event_id = null ) {
-	$url = tribe( 'community.main' )->getUrl( 'delete', $event_id );
+	/** @var Tribe__Events__Community__Main $community */
+	$community = tribe( 'community.main' );
+
+	$url = $community->getUrl( 'delete', $event_id );
+
 	return apply_filters( 'tribe-community-events-delete-event-link', $url, $event_id );
 }
 
@@ -642,7 +673,10 @@ function tribe_community_events_field_has_error( $field ) {
  * @return boolean
  */
 function tribe_community_events_single_geo_mode() {
-	return (bool) tribe( 'community.main' )->getOption( 'single_geography_mode' );
+	/** @var Tribe__Events__Community__Main $community */
+	$community = tribe( 'community.main' );
+
+	return (bool) $community->getOption( 'single_geography_mode' );
 }
 
 /**
@@ -709,8 +743,10 @@ function tribe_community_events_list_columns() {
  * @since 4.5
  */
 function tribe_community_events_prev_next_nav() {
+	/** @var Tribe__Events__Community__Main $community */
+	$community = tribe( 'community.main' );
 
-	add_filter( 'get_pagenum_link', [ tribe( 'community.main' ), 'fix_pagenum_link' ] );
+	add_filter( 'get_pagenum_link', [ $community, 'fix_pagenum_link' ] );
 
 	/**
 	 * Allows to modify the default link on My Events List nav

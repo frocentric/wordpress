@@ -7,10 +7,12 @@
  *
  *     [your-theme]/tribe-events/community/blank-comments-template.php
  *
- * @package Tribe__Events__Community__Main
+ * @link https://evnt.is/1ao4 Help article for Community Events & Tickets template files.
+ *
  * @since  1.0.3
- * @author Modern Tribe Inc.
- * @version 4.3.2
+ * @since 4.8.2 Updated template link.
+ *
+ * @version 4.8.2
  *
  */
 

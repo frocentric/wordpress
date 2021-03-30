@@ -7,9 +7,9 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link https://evnt.is/1aiy
  *
- * @version 5.0.1
+ * @version 5.2.0
  *
  */
 $label = sprintf( __( 'Next %1$s', 'tribe-events-calendar-pro' ), tribe_get_event_label_plural() );
@@ -21,5 +21,6 @@ $label = sprintf( __( 'Next %1$s', 'tribe-events-calendar-pro' ), tribe_get_even
 		title="<?php echo esc_attr( $label ); ?>"
 		disabled
 	>
+		<?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-common-c-btn-icon__icon-svg', 'tribe-events-c-top-bar__nav-link-icon-svg' ] ] ); ?>
 	</button>
 </li>

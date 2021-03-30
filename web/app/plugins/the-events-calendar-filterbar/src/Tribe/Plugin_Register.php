@@ -7,7 +7,7 @@ class Tribe__Events__Filterbar__Plugin_Register extends Tribe__Abstract_Plugin_R
 	protected $main_class   = 'Tribe__Events__Filterbar__View';
 	protected $dependencies = array(
 		'parent-dependencies' => array(
-			'Tribe__Events__Main'       => '5.1.0-dev',
+			'Tribe__Events__Main'       => '5.3.1-dev',
 		),
 	);
 

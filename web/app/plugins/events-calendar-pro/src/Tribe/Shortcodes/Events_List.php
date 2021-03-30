@@ -1,5 +1,7 @@
 <?php
 
+use \Tribe\Events\Views\V2\Widgets\Widget_List;
+
 /**
  * Implements a shortcode that wraps the existing advanced events list widget.
  *
@@ -26,6 +28,7 @@
  *     street, city, cost, country, organizer, phone, region, venue, zip
  *
  */
+
 class Tribe__Events__Pro__Shortcodes__Events_List extends Tribe__Events__Pro__Shortcodes__Filtered_Shortcode {
 	public $output = '';
 
@@ -84,10 +87,97 @@ class Tribe__Events__Pro__Shortcodes__Events_List extends Tribe__Events__Pro__Sh
 	public function __construct( $attributes ) {
 		$this->arguments = shortcode_atts( $this->default_args, $attributes );
 		$this->taxonomy_filters();
-		Tribe__Events__Pro__Widgets::enqueue_calendar_widget_styles();
+
+		/**
+		 * Allows hot-swapping the widget class for different versions of the widget.
+		 *
+		 * @since 5.2.0
+		 *
+		 * @param string              $widget_class The widget class name we want to implement.
+		 * @param array<string,mixed> $arguments    The widget arguments.
+		 */
+		$widget_class = apply_filters( 'tribe_events_pro_shortcodes_list_widget_class', Tribe__Events__Pro__Advanced_List_Widget::class, $this->arguments );
+
+		if ( Tribe__Events__Pro__Advanced_List_Widget::class === $widget_class ) {
+			Tribe__Events__Pro__Widgets::enqueue_calendar_widget_styles();
+		}
+
+		if ( ! empty( $this->arguments['category'] ) ) {
+			$this->arguments['tribe_events_cat'] = $this->arguments['category'];
+		}
+
+		$this->handle_shortcode_widget_taxonomy();
 
 		ob_start();
-		the_widget( 'Tribe__Events__Pro__Advanced_List_Widget', $this->arguments, $this->arguments );
+
+		the_widget( $widget_class, $this->arguments, $this->arguments );
+
 		$this->output = ob_get_clean();
+	}
+
+	/**
+	 * Handles adding the taxonomy info from shortcodes
+	 * which use different formats for taxonomy params.
+	 *
+	 * @since 5.2.0
+	 *
+	 * @return void
+	 */
+	public function handle_shortcode_widget_taxonomy() {
+		$filters    = [];
+		$tag        = ! empty( $this->arguments['tag'] ) ? (array) $this->arguments['tag'] : [];
+		$tags       = ! empty( $this->arguments['tags'] ) ? implode( ',', (array) $this->arguments['tags'] ) : [];
+		$tags       = array_filter( array_unique( array_merge( (array) $tag, (array) $tags ) ) );
+		$category   = ! empty( $this->arguments['category'] ) ? (array) $this->arguments['category'] : [];
+		$categories = ! empty( $this->arguments['categories'] ) ? implode( ',', $this->arguments['categories'] ) : [];
+		$categories = array_filter( array_unique( array_merge( $category, $categories ) ) );
+
+		if ( ! empty( $categories ) ) {
+			$cat_ids = array_map(
+				function( $param ) {
+					return $this->get_term_id( $param, $this->tax_relationships['categories'] );
+				},
+				$categories
+			);
+
+			$filters[ $this->tax_relationships['categories'] ] = array_filter( $cat_ids );
+		}
+
+		if ( ! empty( $tags ) ) {
+			$tag_ids = array_map(
+				function( $param ) {
+					return $this->get_term_id( $param, $this->tax_relationships['tags'] );
+				},
+				$tags
+			);
+
+			$filters[ $this->tax_relationships['tags'] ] = array_filter( $tag_ids );
+		}
+
+		$this->arguments['filters'] = wp_json_encode( $filters );
+	}
+
+	/**
+	 * Gets the term ID from a slug or ID in the formats
+	 * 'slug'
+	 * 123 || '123'|| '#123'
+	 *
+	 * @since 5.2.0
+	 *
+	 * @param string|int $param The slug or ID for the term.
+	 * @param string     $taxonomy The term taxonomy.
+	 *
+	 * @return int|false The ID or false if the term is not found.
+	 */
+	public function get_term_id( $param, $taxonomy ) {
+		$param    = preg_replace( '/^#/', '', $param );
+		$term_by  = is_numeric( $param ) ? 'ID' : 'slug';
+		$term_obj = get_term_by( $term_by, $param, $taxonomy );
+
+		if ( ! $term_obj instanceof \WP_Term ) {
+			return false;
+		}
+
+		return $term_obj->term_id;
 	}
 }

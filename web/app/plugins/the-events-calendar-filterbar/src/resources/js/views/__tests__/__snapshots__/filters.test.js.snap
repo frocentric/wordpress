@@ -1,0 +1,315 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filters Add Filter Bar Data Should set filter bar state to 0 if filter bar is not open, is mobile, and is filter bar request 1`] = `
+Object {
+  "tribe_filter_bar_request": 1,
+  "tribe_filter_bar_state": 0,
+}
+`;
+
+exports[`Filters Add Filter Bar Data Should set filter bar state to 0 if filter bar is not open, is mobile, and is not filter bar request 1`] = `
+Object {
+  "tribe_filter_bar_state": 0,
+}
+`;
+
+exports[`Filters Add Filter Bar Data Should set filter bar state to 0 if filter bar is not open, is not mobile, and is filter bar request 1`] = `
+Object {
+  "tribe_filter_bar_request": 1,
+  "tribe_filter_bar_state": 0,
+}
+`;
+
+exports[`Filters Add Filter Bar Data Should set filter bar state to 0 if filter bar is not open, is not mobile, and is not filter bar request 1`] = `
+Object {
+  "tribe_filter_bar_state": 0,
+}
+`;
+
+exports[`Filters Add Filter Bar Data Should set filter bar state to 0 if filter bar is open, is mobile, and is not filter bar request 1`] = `
+Object {
+  "tribe_filter_bar_state": 0,
+}
+`;
+
+exports[`Filters Add Filter Bar Data Should set filter bar state to 1 if filter bar is open, is mobile, and is filter bar request 1`] = `
+Object {
+  "tribe_filter_bar_request": 1,
+  "tribe_filter_bar_state": 1,
+}
+`;
+
+exports[`Filters Add Filter Bar Data Should set filter bar state to 1 if filter bar is open, is not mobile, and is filter bar request 1`] = `
+Object {
+  "tribe_filter_bar_request": 1,
+  "tribe_filter_bar_state": 1,
+}
+`;
+
+exports[`Filters Add Filter Bar Data Should set filter bar state to 1 if filter bar is open, is not mobile, and is not filter bar request 1`] = `
+Object {
+  "tribe_filter_bar_state": 1,
+}
+`;
+
+exports[`Filters Add key value from query Should add key value pair to blank query 1`] = `
+Object {
+  "hash": "",
+  "href": "https://test.tri.be/events/month/?foo=bar",
+  "origin": "https://test.tri.be",
+  "pathname": "/events/month/",
+  "search": "?foo=bar",
+}
+`;
+
+exports[`Filters Add key value from query Should add key value pair to query 1`] = `
+Object {
+  "hash": "",
+  "href": "https://test.tri.be/events/month/?hello=world&foo=bar",
+  "origin": "https://test.tri.be",
+  "pathname": "/events/month/",
+  "search": "?hello=world&foo=bar",
+}
+`;
+
+exports[`Filters Add key value from query Should return current url if key value pair exists in query 1`] = `
+Object {
+  "hash": "",
+  "href": "https://test.tri.be/events/month/?hello=world&foo=bar",
+  "origin": "https://test.tri.be",
+  "pathname": "/events/month/",
+  "search": "?hello=world&foo=bar",
+}
+`;
+
+exports[`Filters Get query to add Should get query to add to blank query 1`] = `"foo=bar"`;
+
+exports[`Filters Get query to add Should get query to add to existing query string 1`] = `"foo=bar"`;
+
+exports[`Filters Get query to add Should return blank string if array key value pair exists in query 1`] = `""`;
+
+exports[`Filters Get query to add Should return blank string if key value pair exists in query 1`] = `""`;
+
+exports[`Filters Get query to add Should return indexed array query to add if base key value pair exists in query 1`] = `"foo%5B1%5D=baz"`;
+
+exports[`Filters Has square brackets at end Should return false 1`] = `false`;
+
+exports[`Filters Has square brackets at end Should return false 2`] = `false`;
+
+exports[`Filters Has square brackets at end Should return false 3`] = `false`;
+
+exports[`Filters Has square brackets at end Should return false 4`] = `false`;
+
+exports[`Filters Has square brackets at end Should return false 5`] = `false`;
+
+exports[`Filters Has square brackets at end Should return false 6`] = `false`;
+
+exports[`Filters Has square brackets at end Should return false 7`] = `false`;
+
+exports[`Filters Has square brackets at end Should return false 8`] = `false`;
+
+exports[`Filters Has square brackets at end Should return true 1`] = `true`;
+
+exports[`Filters Has square brackets at end Should return true 2`] = `true`;
+
+exports[`Filters Has square brackets at end Should return true 3`] = `true`;
+
+exports[`Filters Has square brackets at end Should return true 4`] = `true`;
+
+exports[`Filters Has square brackets at end Should return true 5`] = `true`;
+
+exports[`Filters Has square brackets at end Should return true 6`] = `true`;
+
+exports[`Filters Remove key value from query Should not remove key value pair from query 1`] = `
+Object {
+  "hash": "",
+  "href": "https://test.tri.be/events/month/?hello=world&foo=bar",
+  "origin": "https://test.tri.be",
+  "pathname": "/events/month/",
+  "search": "?hello=world&foo=bar",
+}
+`;
+
+exports[`Filters Remove key value from query Should not remove key value pair from query 2`] = `
+Object {
+  "hash": "",
+  "href": "https://test.tri.be/events/month/?hello=world&foo=bar",
+  "origin": "https://test.tri.be",
+  "pathname": "/events/month/",
+  "search": "?hello=world&foo=bar",
+}
+`;
+
+exports[`Filters Remove key value from query Should remove all instances of key from query 1`] = `
+Object {
+  "hash": "",
+  "href": "https://test.tri.be/events/month/?foo[0]=bar&foo[1]=baz",
+  "origin": "https://test.tri.be",
+  "pathname": "/events/month/",
+  "search": "?foo[0]=bar&foo[1]=baz",
+}
+`;
+
+exports[`Filters Remove key value from query Should remove all instances of key from query 2`] = `
+Object {
+  "hash": "",
+  "href": "https://test.tri.be/events/month/?hello[0]=world&hello[1]=goodbye",
+  "origin": "https://test.tri.be",
+  "pathname": "/events/month/",
+  "search": "?hello[0]=world&hello[1]=goodbye",
+}
+`;
+
+exports[`Filters Remove key value from query Should remove key value pair from query 1`] = `
+Object {
+  "hash": "",
+  "href": "https://test.tri.be/events/month/?foo=bar",
+  "origin": "https://test.tri.be",
+  "pathname": "/events/month/",
+  "search": "?foo=bar",
+}
+`;
+
+exports[`Filters Remove key value from query Should remove key value pair from query 2`] = `
+Object {
+  "hash": "",
+  "href": "https://test.tri.be/events/month/?hello=world",
+  "origin": "https://test.tri.be",
+  "pathname": "/events/month/",
+  "search": "?hello=world",
+}
+`;
+
+exports[`Filters Remove key value from query Should remove key value pair from query and return blank query string 1`] = `
+Object {
+  "hash": "",
+  "href": "https://test.tri.be/events/month/",
+  "origin": "https://test.tri.be",
+  "pathname": "/events/month/",
+  "search": "",
+}
+`;
+
+exports[`Filters Remove key value from query Should return current url if no query string 1`] = `
+Object {
+  "hash": "",
+  "href": "https://test.tri.be/events/month/",
+  "origin": "https://test.tri.be",
+  "pathname": "/events/month/",
+  "search": "",
+}
+`;
+
+exports[`Filters Remove key value from query Should return current url if no query string 2`] = `
+Object {
+  "hash": "",
+  "href": "https://test.tri.be/events/month/",
+  "origin": "https://test.tri.be",
+  "pathname": "/events/month/",
+  "search": "",
+}
+`;
+
+exports[`Filters Remove key value from query string pieces Should not remove key value from query string pieces 1`] = `
+Array [
+  "hello=world",
+  "foo=bar",
+  "modern=tribe",
+]
+`;
+
+exports[`Filters Remove key value from query string pieces Should remove all array keys and values from query string pieces 1`] = `
+Array [
+  "hello=world",
+  "modern=tribe",
+]
+`;
+
+exports[`Filters Remove key value from query string pieces Should remove array key value from query string pieces 1`] = `
+Array [
+  "hello=world",
+  "modern=tribe",
+  "foo%5B0%5D=baz",
+]
+`;
+
+exports[`Filters Remove key value from query string pieces Should remove key value from query string pieces 1`] = `
+Array [
+  "hello=world",
+  "modern=tribe",
+]
+`;
+
+exports[`Filters Remove key value from query string pieces Should remove key value from query string pieces when value is true 1`] = `
+Array [
+  "hello=world",
+  "modern=tribe",
+]
+`;
+
+exports[`Filters Remove square brackets from end Should remove square brackets from string 1`] = `"hello"`;
+
+exports[`Filters Remove square brackets from end Should remove square brackets from string 2`] = `"hello"`;
+
+exports[`Filters Remove square brackets from end Should remove square brackets from string 3`] = `"hello[]"`;
+
+exports[`Filters Remove square brackets from end Should remove square brackets from string 4`] = `"hello[0]"`;
+
+exports[`Filters Remove square brackets from end Should remove square brackets from string 5`] = `"[]hello"`;
+
+exports[`Filters Remove square brackets from end Should remove square brackets from string 6`] = `"[0]hello"`;
+
+exports[`Filters Remove square brackets from end Should return string 1`] = `"[]hello"`;
+
+exports[`Filters Remove square brackets from end Should return string 2`] = `"[0]hello"`;
+
+exports[`Filters Remove square brackets from end Should return string 3`] = `"[hello]"`;
+
+exports[`Filters Remove square brackets from end Should return string 4`] = `"hello"`;
+
+exports[`Filters Remove square brackets from end Should return string 5`] = `"hello["`;
+
+exports[`Filters Remove square brackets from end Should return string 6`] = `"hello]"`;
+
+exports[`Filters Remove square brackets from end Should return string 7`] = `"[hello"`;
+
+exports[`Filters Remove square brackets from end Should return string 8`] = `"]hello"`;
+
+exports[`Filters Remove value from base key query string pieces Should reindex query keys in query string pieces array 1`] = `
+Array [
+  "hello%5B0%5D=world",
+  "hello%5B1%5D=bar",
+]
+`;
+
+exports[`Filters Remove value from base key query string pieces Should remove value from query string pieces array 1`] = `
+Array [
+  "hello%5B0%5D=world",
+  "hello%5B1%5D=foo",
+]
+`;
+
+exports[`Filters Remove value from base key query string pieces Should return original query string pieces array 1`] = `
+Array [
+  "hello%5B0%5D=world",
+  "hello%5B1%5D=foo",
+  "hello%5B2%5D=bar",
+]
+`;
+
+exports[`Filters Selectors Should match snapshot 1`] = `"{\\"filter\\":\\".tribe-filter-bar-c-filter\\",\\"filterOpen\\":\\".tribe-filter-bar-c-filter--open\\",\\"filterBar\\":\\"[data-js~=\\\\\\"tribe-filter-bar\\\\\\"]\\",\\"filterBarOpen\\":\\".tribe-filter-bar--open\\",\\"filterBarVertical\\":\\".tribe-events--filter-bar-vertical\\"}"`;
+
+exports[`Filters Set Tribe Filter Bar Request Should set tribe filter bar request flag 1`] = `
+Object {
+  "tribe_filter_bar_request": 1,
+}
+`;
+
+exports[`Filters Submit request Should submit request 1`] = `
+Object {
+  "_wpnonce": undefined,
+  "prev_url": "https://test.tri.be/events/month/?hello=world",
+  "should_manage_url": true,
+  "url": "https://test.tri.be/events/month/",
+}
+`;

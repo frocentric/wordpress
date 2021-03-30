@@ -1,11 +1,11 @@
 === The Events Calendar: Community Events ===
 
-Contributors: ModernTribe, brianjessee, camwynsp, paulkim, sc0ttkclark, aguseo, barry.hughes, bordoni, borkweb, brook-tribe, faction23, geoffgraham, ggwicz, jazbek, jbrinley, joshlimecuda, leahkoerper, lucatume, mastromktg, mat-lipe, mdbitz, neillmcshea, nicosantos, peterchester, reid.peifer, roblagatta, ryancurban, sc0ttkclark, shane.pearlman, thatdudebutch, trishasalas, zbtirrell
+Contributors: theeventscalendar, brianjessee, camwynsp, paulkim, sc0ttkclark, aguseo, barry.hughes, bordoni, borkweb, brianjessee, GeoffBel, geoffgraham,jentheo, leahkoerper, lucatume, neillmcshea, patriciahillebrandt, tribecari, vicskf, zbtirrell
 Tags: widget, events, simple, tooltips, grid, month, list, calendar, event, venue, community, registration, api, dates, date, plugin, posts, sidebar, template, theme, time, google maps, google, maps, conference, workshop, concert, meeting, seminar, summit, forum, shortcode, The Events Calendar, The Events Calendar PRO
-Donate link: http://m.tri.be/29
-Requires at least: 4.7
-Tested up to: 5.3.2
-Stable tag: 4.7.1.1
+Donate link: https://evnt.is/29
+Requires at least: 4.9.14
+Tested up to: 5.7.0
+Stable tag: 4.8.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -20,7 +20,7 @@ Community Events is an add-on for The Events Calendar that empowers users to sub
 * Decide whether submissions are published or saved to draft
 * Style submission form using custom templates
 
-Note: you'll need to have the latest version of <a href="http://m.tri.be/3j">The Events Calendar</a> installed for this plugin to function.
+Note: you'll need to have the latest version of <a href="https://evnt.is/3j">The Events Calendar</a> installed for this plugin to function.
 
 == Installation ==
 
@@ -42,7 +42,7 @@ Note: you'll need to have the latest version of <a href="http://m.tri.be/3j">The
 
 == Documentation ==
 
-Community Events extends the functionality of Modern Tribe's The Events Calendar (http://m.tri.be/3j) to allow for frontend event submission on your WordPress site. With pretty permalinks enabled, the frontend fields are accessible at the following URLs:
+Community Events extends the functionality of Modern Tribe's The Events Calendar (https://evnt.is/3j) to allow for frontend event submission on your WordPress site. With pretty permalinks enabled, the frontend fields are accessible at the following URLs:
 
 Events list: /events/community/list/
 Specific page in events list: /events/community/list/page/[num]
@@ -78,42 +78,42 @@ To modify the Add New button on the event list
 
 = Where do I go to file a bug or ask a question? =
 
-Please visit the forum for questions or comments: http://m.tri.be/3h
+Please visit the forum for questions or comments: https://evnt.is/3h
 
 == Contributors ==
 
-The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
+The plugin is produced by <a href="https://evnt.is/2s">Modern Tribe Inc</a>.
 
 = Current Contributors =
 
 <a href="https://profiles.wordpress.org/aguseo">Andras Guseo</a>
-<a href="https://profiles.wordpress.org/barryhughes">Barry Hughes</a>
 <a href="https://profiles.wordpress.org/brianjessee">Brian Jessee</a>
-<a href="https://profiles.wordpress.org/brook-tribe">Brook Harding</a>
-<a href="https://profiles.wordpress.org/cliffpaulick">Clifford Paulick</a>
-<a href="https://profiles.wordpress.org/MZAWeb">Daniel Dvorkin</a>
 <a href="https://profiles.wordpress.org/geoffgraham">Geoff Graham</a>
-<a href="https://profiles.wordpress.org/ggwicz">George Gecewicz</a>
 <a href="https://profiles.wordpress.org/bordoni">Gustavo Bordoni</a>
-<a href="https://profiles.wordpress.org/jazbek">Jessica Yazbek</a>
-<a href="https://profiles.wordpress.org/joshlimecuda">Josh Mallard</a>
 <a href="https://profiles.wordpress.org/leahkoerper">Leah Koerper</a>
 <a href="https://profiles.wordpress.org/lucatume">Luca Tumedei</a>
 <a href="https://profiles.wordpress.org/borkweb">Matthew Batchelder</a>
 <a href="https://profiles.wordpress.org/neillmcshea">Neill McShea</a>
-<a href="https://profiles.wordpress.org/mastromktg">Nick Mastromattei</a>
-<a href="https://profiles.wordpress.org/nicosantos”>Nico Santo</a>
 <a href="https://profiles.wordpress.org/peterchester">Peter Chester</a>
 <a href="https://profiles.wordpress.org/roblagatta">Rob La Gatta</a>
 <a href="https://profiles.wordpress.org/reid.peifer">Reid Peifer</a>
 <a href="https://profiles.wordpress.org/shane.pearlman">Shane Pearlman</a>
 <a href="https://profiles.wordpress.org/camwynsp">Stephen Page</a>
-<a href="https://profiles.wordpress.org/thatdudebutch">Wayne Stratton</a>
-<a href="https://profiles.wordpress.org/trishasalas">Trisha Salas</a>
 <a href="https://profiles.wordpress.org/zbtirrell">Zachary Tirrell</a>
 
 = Past Contributors =
 
+<a href="https://profiles.wordpress.org/MZAWeb">Daniel Dvorkin</a>
+<a href="https://profiles.wordpress.org/jazbek">Jessica Yazbek</a>
+<a href="https://profiles.wordpress.org/joshlimecuda">Josh Mallard</a>
+<a href="https://profiles.wordpress.org/barryhughes">Barry Hughes</a>
+<a href="https://profiles.wordpress.org/brook-tribe">Brook Harding</a>
+<a href="https://profiles.wordpress.org/cliffpaulick">Clifford Paulick</a>
+<a href="https://profiles.wordpress.org/mastromktg">Nick Mastromattei</a>
+<a href="https://profiles.wordpress.org/nicosantos”>Nico Santo</a>
+<a href="https://profiles.wordpress.org/ggwicz">George Gecewicz</a>
+<a href="https://profiles.wordpress.org/thatdudebutch">Wayne Stratton</a>
+<a href="https://profiles.wordpress.org/trishasalas">Trisha Salas</a>
 <a href="https://profiles.wordpress.org/caseypatrickdriscoll">Casey Driscoll</a>
 <a href="https://profiles.wordpress.org/ckpicker">Casey Picker</a>
 <a href="https://profiles.wordpress.org/dancameron">Dan Cameron</a>
@@ -136,16 +136,16 @@ The plugin is produced by <a href="http://m.tri.be/2s">Modern Tribe Inc</a>.
 
 = Translations =
 
-Modern Tribe’s premium plugins are translated by volunteers at <a href=“http://m.tri.be/194h”>translations.theeventscalendar.com</a>. There you can find a list of available languages, download translation files, or help update the translations. Thank you to everyone who helps to maintain our translations!
+Modern Tribe’s premium plugins are translated by volunteers at <a href=“https://evnt.is/194h”>translations.theeventscalendar.com</a>. There you can find a list of available languages, download translation files, or help update the translations. Thank you to everyone who helps to maintain our translations!
 
 == Add-Ons ==
 
-But wait: there's more! We've got a whole stable of plugins available to help you be awesome at what you do. Check out a full list of the products below, and over at the <a href="http://m.tri.be/3k">Modern Tribe website.</a>
+But wait: there's more! We've got a whole stable of plugins available to help you be awesome at what you do. Check out a full list of the products below, and over at the <a href="https://evnt.is/3k">Modern Tribe website.</a>
 
 Our Free Plugins:
 
 * <a href="https://wordpress.org/plugins/the-events-calendar/" target="_blank">The Events Calendar</a>
-* <a href="http://m.tri.be/18vx" target="_blank">Event Tickets</a>
+* <a href="https://evnt.is/18vx" target="_blank">Event Tickets</a>
 * <a href="http://wordpress.org/extend/plugins/advanced-post-manager/?ref=tec-readme" target="_blank">Advanced Post Manager</a>
 * <a href="http://wordpress.org/plugins/blog-copier/?ref=tec-readme" target="_blank">Blog Copier</a>
 * <a href="http://wordpress.org/plugins/image-rotation-repair/?ref=tec-readme" target="_blank">Image Rotation Widget</a>
@@ -153,19 +153,67 @@ Our Free Plugins:
 
 Our Premium Plugins:
 
-* <a href="http://m.tri.be/2c" target="_blank">Events Calendar PRO</a>
-* <a href="http://m.tri.be/18vy" target="_blank">Event Tickets Plus</a>
-* <a href="http://m.tri.be/2e" target="_blank">The Events Calendar: Eventbrite Tickets</a>
-* <a href="http://m.tri.be/18vw" target="_blank">The Events Calendar: Community Tickets</a>
-* <a href="http://m.tri.be/2h" target="_blank">The Events Calendar: Facebook Events</a>
-* <a href="http://m.tri.be/18h9" target="_blank">The Events Calendar: iCal Importer</a>
-* <a href="http://m.tri.be/fa" target="_blank">The Events Calendar: Filter Bar</a>
+* <a href="https://evnt.is/2c" target="_blank">Events Calendar PRO</a>
+* <a href="https://evnt.is/18vy" target="_blank">Event Tickets Plus</a>
+* <a href="https://evnt.is/2e" target="_blank">The Events Calendar: Eventbrite Tickets</a>
+* <a href="https://evnt.is/18vw" target="_blank">The Events Calendar: Community Tickets</a>
+* <a href="https://evnt.is/2h" target="_blank">The Events Calendar: Facebook Events</a>
+* <a href="https://evnt.is/18h9" target="_blank">The Events Calendar: iCal Importer</a>
+* <a href="https://evnt.is/fa" target="_blank">The Events Calendar: Filter Bar</a>
 
 == Changelog ==
 
-= [4.7.1.1] 2020-06-02 =
+= [4.8.5] 2021-03-04 =
 
-* Security - Better sanitizing of values on save (props to miha.jirov for reporting this).
+* Version - Community Events 4.8.5 is only compatible with The Events Calendar 5.4.0 and higher.
+* Fix - Compatibility with WordPress 5.7 and jQuery 3.5.X [CE-111]
+* Language - 0 new strings added, 7 updated, 0 fuzzied, and 0 obsoleted
+
+= [4.8.4] 2021-02-15 =
+
+* Tweak - Changed views: `community/blank-comments-template`, `community/columns/category`, `community/columns/end_date`, `community/columns/organizer`, `community/columns/recurring`, `community/columns/start_date`, `community/columns/status`, `community/columns/title`, `community/columns/venue`, `community/default-placeholder`, `community/edit-event`, `community/edit-organizer`, `community/edit-venue`, `community/email-template`, `community/event-list-shortcode`, `community/event-list`, `community/modules/captcha`, `community/modules/cost`, `community/modules/custom`, `community/modules/custom/fields/dropdown`, `community/modules/custom/fields/input-option`, `community/modules/custom/fields/text`, `community/modules/custom/fields/textarea`, `community/modules/custom/fields/url`, `community/modules/custom/table-row`, `community/modules/custom/table`, `community/modules/datepickers`, `community/modules/delete`, `community/modules/description`, `community/modules/header-links`, `community/modules/image`, `community/modules/organizer-fields`, `community/modules/organizer`, `community/modules/recurrence`, `community/modules/spam-control`, `community/modules/submit`, `community/modules/taxonomy`, `community/modules/terms`, `community/modules/title`, `community/modules/venue-fields`, `community/modules/venue`, `community/modules/virtual`, `community/modules/website`
+* Language - 2 new strings added, 2 updated, 0 fuzzied, and 2 obsoleted
+
+= [4.8.3] 2020-12-15 =
+
+* Feature - Add Customizer integration and CSS overrides for background color. [CE-105]
+* Fix - Enqueue Virtual Events' Admin CSS and Admin JS, if applicable, which resolves the issue of clicking to generate a Zoom link taking the event editor to a new URL in the browser with a large display of a video icon SVG. [CE-104]
+
+= [4.8.2] 2020-11-19 =
+
+* Tweak - Add helper text to roles to block settings clarifying the use case. [CE-100]
+* Tweak - Add helper section notices for updated template structure. [CE-103]
+* Language - 2 new strings added, 96 updated, 0 fuzzied, and 0 obsoleted
+* Tweak - Changed views: `community/blank-comments-template`, `community/columns/category`, `community/columns/end_date`, `community/columns/organizer`, `community/columns/recurring`, `community/columns/start_date`, `community/columns/status`, `community/columns/title`, `community/columns/venue`, `community/default-placeholder`, `community/edit-event`, `community/edit-organizer`, `community/edit-venue`, `community/email-template`, `community/event-list-shortcode`, `community/event-list`, `community/modules/captcha`, `community/modules/cost`, `community/modules/custom`, `community/modules/custom/fields/dropdown`, `community/modules/custom/fields/input-option`, `community/modules/custom/fields/text`, `community/modules/custom/fields/textarea`, `community/modules/custom/fields/url`, `community/modules/custom/table-row`, `community/modules/custom/table`, `community/modules/datepickers`, `community/modules/delete`, `community/modules/description`, `community/modules/header-links`, `community/modules/image`, `community/modules/organizer-fields`, `community/modules/organizer`, `community/modules/recurrence`, `community/modules/spam-control`, `community/modules/submit`, `community/modules/taxonomy`, `community/modules/terms`, `community/modules/title`, `community/modules/venue-fields`, `community/modules/venue`, `community/modules/virtual`, `community/modules/website`
+
+= [4.8.1] 2020-09-21 =
+
+* Fix - Show the saved category and tags while editing the event from frontend. [CE-73]
+* Fix - Ensure that submission for multiple category or tags is saved properly. [CE-70]
+* Tweak - Add more spacing between checkboxes for the Virtual Events integration. [CE-95]
+* Tweak - Changed views: `community/modules/taxonomy`
+* Language - 0 new strings added, 3 updated, 0 fuzzied, and 0 obsoleted
+
+= [4.8.0] 2020-08-26 =
+
+* Feature - New integration with the Virtual Events plugin will allow configuring Virtual Events from the front of your site. Zoom connection and link generation is disabled for all non-admins on the front, but you can generate links as an admin from the front or within the Event Editor itself. [CE-86]
+* Tweak - Removed unused HTML files in the plugin root folder that were there for your reference to our plugin's data collection transparency. This information is included within WordPress' Privacy Guide at /wp-admin/privacy-policy-guide.php [CE-74]
+* Language - 0 new strings added, 69 updated, 0 fuzzied, and 0 obsoleted
+
+= [4.7.3] 2020-07-28 =
+
+* Fix - Ensure required fields added via hooks suggested on our knowledge base articles are still fully functional. [CE-76]
+* Language - 0 new strings added, 22 updated, 0 fuzzied, and 0 obsoleted
+
+= [4.7.2] 2020-06-24 =
+
+* Fix - Validation of required Description field for Community submission works as expected with Visual Editor (tinyMCE). [CE-64]
+* Fix - Ensure that when requiring organizer via filter for event submissions that the -1 option is handled properly. [CE-63]
+* Fix - Linked Posts title sanitization for Organizer and Venue handles all data submission formats supported previously, resolving problem with String being converted to Array. [CE-69]
+* Tweak - Added filters: `tribe_community_events_virtual_events_integration_enabled`, `tribe_events_community_required_organizer_fields`
+* Tweak - Added actions: `tribe_events_community_section_before_virtual`, `tribe_events_community_section_after_virtual`
+* Tweak - Changed views: `community/modules/virtual`
+* Language - 0 new strings added, 31 updated, 0 fuzzied, and 0 obsoleted
 
 = [4.7.1] 2020-05-20 =
 

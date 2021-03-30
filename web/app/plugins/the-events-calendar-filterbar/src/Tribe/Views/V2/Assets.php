@@ -68,6 +68,7 @@ class Assets extends \tad_DI52_ServiceProvider {
 			'views/filter-bar.js',
 			[
 				'jquery',
+				'underscore',
 				'tribe-common',
 				'jquery-ui-slider',
 				'tribe-dropdowns',

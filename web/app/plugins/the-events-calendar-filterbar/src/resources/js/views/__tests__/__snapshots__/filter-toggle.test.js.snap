@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter Toggle Handle resize Should close all filters on resize from mobile to desktop 1`] = `
+Object {
+  "filterToggleDesktopInitialized": false,
+}
+`;
+
+exports[`Filter Toggle Handle resize Should close all filters on resize from mobile to desktop 2`] = `
+Object {
+  "filterToggleDesktopInitialized": true,
+}
+`;
+
+exports[`Filter Toggle Handle resize Should not close filters on resize from desktop to desktop 1`] = `
+Object {
+  "filterToggleDesktopInitialized": true,
+}
+`;
+
+exports[`Filter Toggle Handle resize Should not close filters on resize from desktop to desktop 2`] = `
+Object {
+  "filterToggleDesktopInitialized": true,
+}
+`;
+
+exports[`Filter Toggle Handle resize Should not close filters on resize from desktop to mobile 1`] = `
+Object {
+  "filterToggleDesktopInitialized": true,
+}
+`;
+
+exports[`Filter Toggle Handle resize Should not close filters on resize from desktop to mobile 2`] = `
+Object {
+  "filterToggleDesktopInitialized": false,
+}
+`;
+
+exports[`Filter Toggle Handle resize Should not close filters on resize from mobile to mobile 1`] = `
+Object {
+  "filterToggleDesktopInitialized": false,
+}
+`;
+
+exports[`Filter Toggle Handle resize Should not close filters on resize from mobile to mobile 2`] = `
+Object {
+  "filterToggleDesktopInitialized": false,
+}
+`;
+
+exports[`Filter Toggle Initialize state Should initialize state if filter bar is horizontal 1`] = `
+Object {
+  "filterToggleDesktopInitialized": false,
+}
+`;
+
+exports[`Filter Toggle Initialize state Should return early if filter bar is not horizontal 1`] = `undefined`;
+
+exports[`Filter Toggle Selectors Should match snapshot 1`] = `"{\\"filterBarHorizontal\\":\\".tribe-events--filter-bar-horizontal\\",\\"filterBar\\":\\".tribe-filter-bar\\",\\"filter\\":\\".tribe-filter-bar-c-filter\\",\\"filterOpen\\":\\".tribe-filter-bar-c-filter--open\\",\\"filterContainer\\":\\".tribe-filter-bar-c-filter__container\\",\\"filtersSliderContainer\\":\\".tribe-filter-bar__filters-slider-container\\",\\"filterToggle\\":\\"[data-js~=\\\\\\"tribe-filter-bar-c-filter-toggle\\\\\\"]\\",\\"filterClose\\":\\"[data-js~=\\\\\\"tribe-filter-bar-c-filter-close\\\\\\"]\\",\\"pillFilterToggle\\":\\"[data-js~=\\\\\\"tribe-filter-bar-filters-slide-pill\\\\\\"]\\"}"`;
