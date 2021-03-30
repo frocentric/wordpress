@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cc0c95ce4a2f5ccd194a90d848af8c53",
+    "content-hash": "3bcc99faf9a3787de32e1815e5d6c72c",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.174.2",
+            "version": "3.176.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "80cc136f47fa808032f411fff70e26f461852510"
+                "reference": "7cafb35d3ef9944f542a97dde4a6bb52ad0f45d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/80cc136f47fa808032f411fff70e26f461852510",
-                "reference": "80cc136f47fa808032f411fff70e26f461852510",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7cafb35d3ef9944f542a97dde4a6bb52ad0f45d1",
+                "reference": "7cafb35d3ef9944f542a97dde4a6bb52ad0f45d1",
                 "shasum": ""
             },
             "require": {
@@ -92,9 +92,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.174.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.176.4"
             },
-            "time": "2021-03-17T18:13:11+00:00"
+            "time": "2021-03-30T18:17:07+00:00"
         },
         {
             "name": "composer/installers",
@@ -246,22 +246,22 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.2.0",
+            "version": "7.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "0aa74dfb41ae110835923ef10a9d803a22d50e79"
+                "reference": "7008573787b430c1c1f650e3722d9bba59967628"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/0aa74dfb41ae110835923ef10a9d803a22d50e79",
-                "reference": "0aa74dfb41ae110835923ef10a9d803a22d50e79",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/7008573787b430c1c1f650e3722d9bba59967628",
+                "reference": "7008573787b430c1c1f650e3722d9bba59967628",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "guzzlehttp/promises": "^1.4",
-                "guzzlehttp/psr7": "^1.7",
+                "guzzlehttp/psr7": "^1.7 || ^2.0",
                 "php": "^7.2.5 || ^8.0",
                 "psr/http-client": "^1.0"
             },
@@ -269,6 +269,7 @@
                 "psr/http-client-implementation": "1.0"
             },
             "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.4.1",
                 "ext-curl": "*",
                 "php-http/client-integration-tests": "^3.0",
                 "phpunit/phpunit": "^8.5.5 || ^9.3.5",
@@ -282,7 +283,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "7.1-dev"
+                    "dev-master": "7.3-dev"
                 }
             },
             "autoload": {
@@ -324,7 +325,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.2.0"
+                "source": "https://github.com/guzzle/guzzle/tree/7.3.0"
             },
             "funding": [
                 {
@@ -344,7 +345,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-10-10T11:47:56+00:00"
+            "time": "2021-03-23T11:33:13+00:00"
         },
         {
             "name": "guzzlehttp/promises",
@@ -403,16 +404,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "1.7.0",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "53330f47520498c0ae1f61f7e2c90f55690c06a3"
+                "reference": "35ea11d335fd638b5882ff1725228b3d35496ab1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/53330f47520498c0ae1f61f7e2c90f55690c06a3",
-                "reference": "53330f47520498c0ae1f61f7e2c90f55690c06a3",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/35ea11d335fd638b5882ff1725228b3d35496ab1",
+                "reference": "35ea11d335fd638b5882ff1725228b3d35496ab1",
                 "shasum": ""
             },
             "require": {
@@ -472,22 +473,22 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/1.7.0"
+                "source": "https://github.com/guzzle/psr7/tree/1.8.1"
             },
-            "time": "2020-09-30T07:37:11+00:00"
+            "time": "2021-03-21T16:25:00+00:00"
         },
         {
             "name": "humanmade/s3-uploads",
-            "version": "2.2.3",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/humanmade/S3-Uploads.git",
-                "reference": "2064c46d11d8ab02db83bfb01c29908cf3256fc1"
+                "reference": "3b995ba6d1ccde4354efb9564c3e244f871bbcda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/humanmade/S3-Uploads/zipball/2064c46d11d8ab02db83bfb01c29908cf3256fc1",
-                "reference": "2064c46d11d8ab02db83bfb01c29908cf3256fc1",
+                "url": "https://api.github.com/repos/humanmade/S3-Uploads/zipball/3b995ba6d1ccde4354efb9564c3e244f871bbcda",
+                "reference": "3b995ba6d1ccde4354efb9564c3e244f871bbcda",
                 "shasum": ""
             },
             "require": {
@@ -515,7 +516,7 @@
                 "issues": "https://github.com/humanmade/s3-uploads/issues",
                 "source": "https://github.com/humanmade/s3-uploads"
             },
-            "time": "2021-03-16T14:27:10+00:00"
+            "time": "2021-03-18T10:55:13+00:00"
         },
         {
             "name": "ingenyus/configure-environment-plugins",
@@ -2176,15 +2177,15 @@
         },
         {
             "name": "wpackagist-plugin/cloudflare",
-            "version": "4.2.2",
+            "version": "4.4.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/cloudflare/",
-                "reference": "tags/4.2.2"
+                "reference": "tags/4.4.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/cloudflare.4.2.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/cloudflare.4.4.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2302,15 +2303,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "4.5.3",
+            "version": "4.5.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/4.5.3"
+                "reference": "tags/4.5.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.4.5.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.4.5.5.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2409,6 +2410,24 @@
             "homepage": "https://wordpress.org/plugins/jetpack/"
         },
         {
+            "name": "wpackagist-plugin/jwt-authentication-for-wp-rest-api",
+            "version": "1.2.6",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/jwt-authentication-for-wp-rest-api/",
+                "reference": "tags/1.2.6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/jwt-authentication-for-wp-rest-api.1.2.6.zip"
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/jwt-authentication-for-wp-rest-api/"
+        },
+        {
             "name": "wpackagist-plugin/lightweight-grid-columns",
             "version": "1.0",
             "source": {
@@ -2464,15 +2483,15 @@
         },
         {
             "name": "wpackagist-plugin/ninja-forms",
-            "version": "3.5.1",
+            "version": "3.5.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/ninja-forms/",
-                "reference": "tags/3.5.1"
+                "reference": "tags/3.5.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.5.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.5.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2554,15 +2573,15 @@
         },
         {
             "name": "wpackagist-plugin/the-events-calendar",
-            "version": "5.4.0.2",
+            "version": "5.5.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/the-events-calendar/",
-                "reference": "tags/5.4.0.2"
+                "reference": "tags/5.5.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.5.4.0.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.5.5.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
