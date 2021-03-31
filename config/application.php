@@ -183,6 +183,20 @@ if ( env( 'DISCOURSE_API_USERNAME' ) ) {
 }
 
 /**
+ * WP Mail SMTP Settings
+ */
+Config::define( 'WPMS_ON', env( 'WPMS_ON' ) ?? true );
+Config::define( 'WPMS_DO_NOT_SEND', env( 'WPMS_DO_NOT_SEND' ) ?? true );
+Config::define( 'WPMS_MAIL_FROM', env( 'WPMS_MAIL_FROM' ) ?? 'noreply@frocentric.io' );
+Config::define( 'WPMS_MAIL_FROM_FORCE', env( 'WPMS_MAIL_FROM_FORCE' ) ?? false );
+Config::define( 'WPMS_MAIL_FROM_NAME', env( 'WPMS_MAIL_FROM_NAME' ) ?? 'Frocentric' );
+Config::define( 'WPMS_MAIL_FROM_NAME_FORCE', env( 'WPMS_MAIL_FROM_NAME_FORCE' ) ?? false );
+Config::define( 'WPMS_MAILER', env( 'WPMS_MAILER' ) );
+Config::define( 'WPMS_SET_RETURN_PATH', env( 'WPMS_SET_RETURN_PATH' ) ?? true );
+Config::define( 'WPMS_GMAIL_CLIENT_ID', env( 'WPMS_GMAIL_CLIENT_ID' ) );
+Config::define( 'WPMS_GMAIL_CLIENT_SECRET', env( 'WPMS_GMAIL_CLIENT_SECRET' ) );
+
+/**
  * Allow WordPress to detect HTTPS when used behind a reverse proxy or a load balancer
  * See https://codex.wordpress.org/Function_Reference/is_ssl#Notes
  */
