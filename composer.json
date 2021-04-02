@@ -89,7 +89,7 @@
     "wpackagist-plugin/the-events-calendar": "~5.0",
     "wpackagist-plugin/wpematico": "~2.0",
     "wpackagist-plugin/wpm-user-sync": "~1.0",
-    "wpackagist-plugin/wp-analytify": "~3.0",
+    "wpackagist-plugin/wp-analytify": "~4.0",
     "wpackagist-plugin/wp-discourse": "~2.0",
     "wpackagist-plugin/wp-event-aggregator": "~1.0",
     "wpackagist-plugin/wp-mail-smtp": "~2.0",

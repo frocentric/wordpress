@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4397e7f3f6d1477c43f758d757dde959",
+    "content-hash": "e16375e770b92036ee60e0e818d466ea",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -2591,15 +2591,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-analytify",
-            "version": "3.1.6",
+            "version": "4.0.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-analytify/",
-                "reference": "tags/3.1.6"
+                "reference": "tags/4.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-analytify.3.1.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-analytify.4.0.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
