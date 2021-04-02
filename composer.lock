@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a2b38de313b2b44c46053124acbf626a",
+    "content-hash": "4397e7f3f6d1477c43f758d757dde959",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -2483,15 +2483,15 @@
         },
         {
             "name": "wpackagist-plugin/ninja-forms",
-            "version": "3.5.2",
+            "version": "3.5.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/ninja-forms/",
-                "reference": "tags/3.5.2"
+                "reference": "tags/3.5.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.5.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.5.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
