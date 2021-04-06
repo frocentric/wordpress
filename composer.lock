@@ -2609,15 +2609,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-discourse",
-            "version": "2.2.1",
+            "version": "2.2.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-discourse/",
-                "reference": "tags/2.2.1"
+                "reference": "tags/2.2.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-discourse.2.2.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-discourse.2.2.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
