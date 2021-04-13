@@ -25,10 +25,10 @@ jobs:
     # Backs up repo
     #- name: Backup Repo
     #  run: git clone --mirror git@github.com:frocentric/wordpress.git
-        
-    # Syncs the repository with Fortrabbit
+
+    # Syncs the repository with destination
     - name: Sync Repo
-      uses: wei/git-sync@v2.0.0
+      uses: wei/git-sync@v3
       with:
         # GitHub repo slug or full clone url
         source_repo: "frocentric/wordpress"
@@ -39,4 +39,4 @@ jobs:
         # Branch name to sync to
         destination_branch: "main"
         # SSH key used to authenticate with git clone urls provided (optional if public or https clone url with authentication)
-        ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+        destination_ssh_private_key: ${{ secrets.SSH_DESTINATION_PRIVATE_KEY }}
