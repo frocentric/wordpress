@@ -25,7 +25,6 @@
  */
 class Froware_I18n {
 
-
 	/**
 	 * Load the plugin text domain for translation.
 	 *
@@ -40,7 +39,5 @@ class Froware_I18n {
 		);
 
 	}
-
-
 
 }

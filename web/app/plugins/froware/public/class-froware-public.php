@@ -82,7 +82,7 @@ class Froware_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/froware-public.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/froware-public.css', [], $this->version, 'all' );
 		wp_enqueue_style( 'dashicons' );
 		// phpcs:ignore
 		wp_enqueue_style( 'google-fonts-nunito', 'https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800;1,900&display=swap', false );
@@ -108,8 +108,8 @@ class Froware_Public {
 		 * class.
 		 */
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/froware-login.css', array(), $this->version, 'all' );
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/froware-login.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/froware-login.css', [], $this->version, 'all' );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/froware-login.js', [ 'jquery' ], $this->version, false );
 
 	}
 
@@ -132,14 +132,14 @@ class Froware_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/froware-public.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/froware-public.js', [ 'jquery' ], $this->version, false );
 		wp_localize_script(
 			$this->plugin_name,
 			'settings',
-			array(
+			[
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
 				'homeurl' => home_url(),
-			)
+			]
 		);
 
 	}
@@ -171,7 +171,7 @@ class Froware_Public {
 	public function generate_inside_post_meta_item_output( $output, $item ) {
 		if ( 'author' === $item ) {
 			$user_id = get_the_author_meta( 'ID' );
-			$output  = sprintf( '<a href="%1$s" class="avatar-link">%2$s</a>', get_author_posts_url( $user_id, ), get_avatar( $user_id, 32 ) );
+			$output  = sprintf( '<a href="%1$s" class="avatar-link">%2$s</a>', get_author_posts_url( $user_id ), get_avatar( $user_id, 32 ) );
 		}
 
 		return $output;
@@ -217,30 +217,33 @@ class Froware_Public {
 		global $post;
 
 		// Modifies primary navigation menu only.
-		if ( 'primary' === $args->theme_location ) {
-			$parent_classes = array( 'current-menu-item', 'page_item', 'current_page_item', 'current_page_parent' );
-			$events_class   = 'events';
+		if ( 'primary' !== $args->theme_location ) {
+			return $classes;
+		}
 
-			// Highlight Events page link for any event-related page.
-			if ( substr( wp_make_link_relative( get_permalink() ), 0, strlen( $events_class ) + 1 ) === "/$events_class" &&
-					in_array( $events_class, $classes, true ) ) {
+		$parent_classes = [ 'current-menu-item', 'page_item', 'current_page_item', 'current_page_parent' ];
+		$events_class   = 'events';
+
+		// Highlight Events page link for any event-related page.
+		if ( substr( wp_make_link_relative( get_permalink() ), 0, strlen( $events_class ) + 1 ) === "/$events_class" &&
+				in_array( $events_class, $classes, true ) ) {
+			$classes = array_merge( $classes, $parent_classes );
+		} else {
+			$posts_page = get_option( 'page_for_posts' );
+
+			// Specify default page if posts page not enabled.
+			if ( 0 === $posts_page ) {
+				$posts_page = 13283; // TODO: refactor magic number.
+			}
+
+			// Highlight Content page link for any post or category page.
+			if ( ( ( is_single() && get_post_type() === 'post' ) || is_category() ) && $posts_page === (int) $item->object_id ) {
 				$classes = array_merge( $classes, $parent_classes );
-			} else {
-				$posts_page = get_option( 'page_for_posts' );
-
-				// Specify default page if posts page not enabled.
-				if ( 0 === $posts_page ) {
-					$posts_page = 13283; // TODO: refactor magic number.
-				}
-
-				// Highlight Content page link for any post or category page.
-				if ( ( ( is_single() && get_post_type() === 'post' ) || is_category() ) && $posts_page === (int) $item->object_id ) {
-					$classes = array_merge( $classes, $parent_classes );
-				} elseif ( is_page() && $post->post_parent === (int) $item->object_id ) {
-					$classes = array_merge( $classes, $parent_classes );
-				}
+			} elseif ( is_page() && $post->post_parent === (int) $item->object_id ) {
+				$classes = array_merge( $classes, $parent_classes );
 			}
 		}
+
 		// Filter out duplicate classes.
 		return array_unique( $classes );
 	}
@@ -249,7 +252,7 @@ class Froware_Public {
 	 * Adds support for audio post types
 	 */
 	public function extend_theme_support() {
-		add_theme_support( 'post-formats', array( 'aside', 'image', 'video', 'quote', 'link', 'status', 'audio' ) );
+		add_theme_support( 'post-formats', [ 'aside', 'image', 'video', 'quote', 'link', 'status', 'audio' ] );
 	}
 
 	/**
@@ -275,7 +278,7 @@ class Froware_Public {
 	 */
 	public function wpematico_item_parsers_callback( $current_item, $campaign, $feed, $item ) {
 		$found     = false;
-		$tags      = array( 'pubDate', 'published' );
+		$tags      = [ 'pubDate', 'published' ];
 		$date_elem = null;
 
 		foreach ( $tags as $tag ) {
@@ -327,7 +330,7 @@ class Froware_Public {
 		$excerpt = $post->post_excerpt;
 
 		if ( has_post_thumbnail( $post->ID ) ) {
-			$excerpt = get_the_post_thumbnail( $post->ID, 'post-thumbnail', array( 'style' => 'max-width: 600px; width: 100%; height: auto; margin: 30px 0;' ) ) . $excerpt;
+			$excerpt = get_the_post_thumbnail( $post->ID, 'post-thumbnail', [ 'style' => 'max-width: 600px; width: 100%; height: auto; margin: 30px 0;' ] ) . $excerpt;
 		}
 
 		return $excerpt;
@@ -342,10 +345,10 @@ class Froware_Public {
 	 */
 	public function twig_anything_request_args( $args, $config ) {
 		if ( defined( 'DISCOURSE_API_KEY' ) && defined( 'DISCOURSE_API_USERNAME' ) ) {
-			$args['headers'] = array(
+			$args['headers'] = [
 				'Api-Key'      => DISCOURSE_API_KEY,
 				'Api-Username' => DISCOURSE_API_USERNAME,
-			);
+			];
 		}
 
 		return $args;
@@ -374,43 +377,55 @@ class Froware_Public {
 			// Capture domain from URL.
 			preg_match( $regex, $url, $matches );
 
-			if ( $matches && count( $matches ) > 1 ) {
-				switch ( $matches[1] ) {
-					case 'eventbrite.com':
-					case 'eventbrite.co.uk':
-					case 'www.eventbrite.com':
-					case 'www.eventbrite.co.uk':
-						$regex = '/.*-(\d+)(?:\/|\?)?.*$/';
-						// Capture event ID from URL.
-						preg_match( $regex, $url, $matches );
-
-						if ( $matches && count( $matches ) > 1 ) {
-							$event_id                         = $matches[1];
-							$response                         = new stdClass();
-							$response->action                 = 'import_event';
-							$response->eventbrite_import_by   = 'event_id';
-							$response->event_plugin           = 'tec';
-							$response->event_status           = 'draft';
-							$response->import_frequency       = 'daily';
-							$response->import_origin          = 'eventbrite';
-							$response->import_type            = 'onetime';
-							$response->wpea_action            = 'wpea_import_submit';
-							$response->wpea_eventbrite_id     = $event_id;
-							$response->wpea_import_form_nonce = wp_create_nonce( 'wpea_import_form_nonce_action' );
-
-							wp_send_json_success( $response );
-						} else {
-							wp_send_json_error( __( 'Valid URL not supplied, please try again', 'froware' ) );
-						}
-						break;
-				}
-				wp_send_json_error( __( 'Unsupported domain, please try again', 'froware' ) );
-			} else {
+			if ( ! $matches || count( $matches ) <= 1 ) {
 				wp_send_json_error( __( 'Invalid URL, please try again', 'froware' ) );
 			}
+
+			parse_url( $url, $matches );
 		} else {
 			wp_send_json_error( __( 'URL not supplied, please try again', 'froware' ) );
 		}
+	}
+
+	protected function parse_url( $url, $matches ) {
+		switch ( $matches[1] ) {
+			case 'eventbrite.com':
+			case 'eventbrite.co.uk':
+			case 'www.eventbrite.com':
+			case 'www.eventbrite.co.uk':
+				$this->parse_eventbrite_url( $url, $matches );
+				break;
+		}
+		wp_send_json_error( __( 'Unsupported domain, please try again', 'froware' ) );
+	}
+
+	protected function parse_eventbrite_url( $url, $matches ) {
+		$regex = '/.*-(\d+)(?:\/|\?)?.*$/';
+		// Capture event ID from URL.
+		preg_match( $regex, $url, $matches );
+
+		if ( $matches && count( $matches ) > 1 ) {
+			$this->send_response( 'eventbrite', $matches );
+		} else {
+			wp_send_json_error( __( 'Valid URL not supplied, please try again', 'froware' ) );
+		}
+	}
+
+	protected function send_response( $origin, $matches ) {
+		$event_id                         = $matches[1];
+		$response                         = new stdClass();
+		$response->action                 = 'import_event';
+		$response->eventbrite_import_by   = 'event_id';
+		$response->event_plugin           = 'tec';
+		$response->event_status           = 'draft';
+		$response->import_frequency       = 'daily';
+		$response->import_origin          = $origin;
+		$response->import_type            = 'onetime';
+		$response->wpea_action            = 'wpea_import_submit';
+		$response->wpea_eventbrite_id     = $event_id;
+		$response->wpea_import_form_nonce = wp_create_nonce( 'wpea_import_form_nonce_action' );
+
+		wp_send_json_success( $response );
 	}
 
 	/**
@@ -452,20 +467,26 @@ class Froware_Public {
 			if ( count( $wpea_success_msg ) > 0 ) {
 				$imported_event = tribe_get_event( $this->imported_event_id );
 
-				if ( ! empty( $imported_event ) && ! is_wp_error( $imported_event ) ) {
-					wp_send_json_success( $imported_event );
-				} else {
-					// TODO: Pattern match against __( '%d Skipped (Already exists)', 'wp-event-aggregator' )
-					$message = strpos( $wpea_success_msg[0], 'Already exists' ) > 0 ?
-						__( 'This event has already been imported, please try again', 'froware' ) :
-						$wpea_success_msg[0];
-					wp_send_json_error( $message );
-				}
+				$this->send_status( $imported_event );
 			} elseif ( count( $wpea_errors ) > 0 ) {
 				wp_send_json_error( $wpea_errors[0] );
 			}
 		} else {
 			wp_send_json_error( __( 'Unrecognised event format.', 'froware' ) );
+		}
+	}
+
+	protected function send_status( $imported_event ) {
+		global $wpea_success_msg;
+
+		if ( ! empty( $imported_event ) && ! is_wp_error( $imported_event ) ) {
+			wp_send_json_success( $imported_event );
+		} else {
+			// TODO: Pattern match against __( '%d Skipped (Already exists)', 'wp-event-aggregator' )
+			$message = strpos( $wpea_success_msg[0], 'Already exists' ) > 0 ?
+				__( 'This event has already been imported, please try again', 'froware' ) :
+				$wpea_success_msg[0];
+			wp_send_json_error( $message );
 		}
 	}
 
