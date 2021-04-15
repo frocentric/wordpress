@@ -19,24 +19,37 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
 
-    # Backs up repo
-    #- name: Backup Repo
-    #  run: git clone --mirror git@github.com:frocentric/wordpress.git
+      - name: Cache Composer dependencies
+        uses: actions/cache@v2
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
 
-    # Syncs the repository with destination
-    - name: Sync Repo
-      uses: wei/git-sync@v3
-      with:
-        # GitHub repo slug or full clone url
-        source_repo: "frocentric/wordpress"
-        # Branch name to sync from
-        source_branch: "main"
-        # GitHub repo slug or full clone url
-        destination_repo: "ssh://frowarecom@35.246.15.218:18528/www/frowarecom_769/private/frowarecom.git"
-        # Branch name to sync to
-        destination_branch: "main"
-        # SSH key used to authenticate with git clone urls provided (optional if public or https clone url with authentication)
-        destination_ssh_private_key: ${{ secrets.SSH_DESTINATION_PRIVATE_KEY }}
+      - name: Install dependencies
+        uses: php-actions/composer@v5
+        with:
+          php_version: 7.4
+
+      - name: Install phpcs
+        run: vendor/bin/phpcs -i
+
+      - name: PHP Code Style (phpcs)
+        run: composer cs
+
+      # Syncs the repository with destination
+      - name: Sync Repo
+        uses: wei/git-sync@v3
+        with:
+          # GitHub repo slug or full clone url
+          source_repo: "frocentric/wordpress"
+          # Branch name to sync from
+          source_branch: "main"
+          # GitHub repo slug or full clone url
+          destination_repo: "ssh://frowarecom@35.246.15.218:18528/www/frowarecom_769/private/frowarecom.git"
+          # Branch name to sync to
+          destination_branch: "main"
+          # SSH key used to authenticate with git clone urls provided (optional if public or https clone url with authentication)
+          destination_ssh_private_key: ${{ secrets.SSH_DESTINATION_PRIVATE_KEY }}
