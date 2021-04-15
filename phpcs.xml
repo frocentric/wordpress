@@ -1,23 +1,57 @@
 <?xml version="1.0"?>
-<ruleset name="Roots">
-  <description>Roots Coding Standards</description>
+<ruleset name="CS">
+	<description>Custom coding standards.</description>
+	<config name="testVersion" value="5.6-"/>
 
   <!-- Scan all files in directory -->
-  <file>.</file>
-
-  <!-- Scan only PHP files -->
-  <arg name="extensions" value="php"/>
+  <file>./web/app</file>
 
   <!-- Ignore WordPress and Composer dependencies -->
   <exclude-pattern>web/wp</exclude-pattern>
-  <exclude-pattern>vendor/</exclude-pattern>
+	<exclude-pattern>\.codeception/*</exclude-pattern>
+	<exclude-pattern>\.github/*</exclude-pattern>
+	<exclude-pattern>vendor/*</exclude-pattern>
+	<exclude-pattern>node_modues/*</exclude-pattern>
+	<exclude-pattern>assets/*</exclude-pattern>
+
+  <!-- Scan only PHP files -->
+  <arg name="extensions" value="php"/>
+	<arg name="colors"/>
+	<arg name="parallel" value="100"/>
+	<arg name="cache" value=".phpcs.cache"/>
 
   <!-- Show colors in console -->
   <arg value="-colors"/>
 
   <!-- Show sniff codes in all reports -->
   <arg value="ns"/>
+	<arg value="ps"/>
 
-  <!-- Use PSR-2 as a base -->
-  <rule ref="PSR2"/>
+	<rule ref="PHPCompatibilityWP" />
+	<config name="7.1-" />
+
+	<rule ref="NeutronRuleset"/>
+
+	<rule ref="NeutronStandard.Constants.DisallowDefine.Define">
+		<severity>0</severity>
+	</rule>
+
+	<rule ref="WordPress">
+		<!-- PSR4 -->
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+	</rule>
+
+	<rule ref="Generic.Metrics.CyclomaticComplexity">
+		<properties>
+			<property name="complexity" value="3"/>
+			<property name="absoluteComplexity" value="6"/>
+		</properties>
+	</rule>
+
+	<rule ref="Generic.Metrics.NestingLevel">
+		<properties>
+			<property name="absoluteNestingLevel" value="3"/>
+		</properties>
+	</rule>
 </ruleset>
