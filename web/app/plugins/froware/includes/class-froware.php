@@ -207,7 +207,7 @@ class Froware {
 		// Shortcodes.
 		add_shortcode(
 			'wpse_comments_template',
-			function( $atts = array(), $content = '' ) {
+			function( $atts = [], $content = '' ) {
 				if ( is_singular() && post_type_supports( get_post_type(), 'comments' ) ) {
 					ob_start();
 					comments_template();
@@ -221,7 +221,7 @@ class Froware {
 
 		add_shortcode(
 			'froware_import_event',
-			function( $atts = array() ) {
+			function( $atts = [] ) {
 				$plugin_public = new Froware_Public( $this->get_plugin_name(), $this->get_version() );
 
         // phpcs:ignore
