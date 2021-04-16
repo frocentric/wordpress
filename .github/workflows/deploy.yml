@@ -97,6 +97,8 @@ jobs:
       - name: Tag release
         run: |
           git fetch --unshallow --tags
+          git config --global user.email "${{github.event.pusher.email}}"
+          git config --global user.name "${{github.event.pusher.name}}"
           npx --yes standard-version
           message=`git log -1 --pretty=format:%B | cat`
           git commit --amend -m "$message
