@@ -13,6 +13,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   setup:
+    if: ${{ !contains(github.event.head_commit.message, 'chore(release)') }}
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -100,7 +101,11 @@ jobs:
           git config --global user.name "GitHub Action"
 
       - name: Tag release
-        run: npx --yes standard-version
+        run: |
+          npx --yes standard-version
+          temp=`git log -1 --pretty=format:%B | cat`
+          git commit --amend -m "$temp \
+          [skip ci]"
 
       - name: Publish release
         run: git push origin --follow-tags --no-verify
