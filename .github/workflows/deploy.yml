@@ -93,19 +93,12 @@ jobs:
         with:
           node-version: '15.x'
 
-      - run: git fetch --unshallow --tags
-
-      - name: Update Git credentials
-        run: |
-          git config --global user.email "${{github.event.pusher.email}}"
-          git config --global user.name "GitHub Action"
-
+      # Bumps version, updates changelog and creates tag. Adds [skip ci] to commit message to prevent infinite workflow loop
       - name: Tag release
         run: |
+          git fetch --unshallow --tags
           npx --yes standard-version
-          temp=`git log -1 --pretty=format:%B | cat`
-          git commit --amend -m "$temp \
+          message=`git log -1 --pretty=format:%B | cat`
+          git commit --amend -m "$message
           [skip ci]"
-
-      - name: Publish release
-        run: git push origin --follow-tags --no-verify
+          git push origin --follow-tags --no-verify
