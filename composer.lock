@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b3dbfa760c7fc5e60f976fa1cc20975",
+    "content-hash": "cb98248c23aaf3ddbaf34983ef25b35f",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -2537,15 +2537,15 @@
         },
         {
             "name": "wpackagist-plugin/publishpress",
-            "version": "2.4.2",
+            "version": "3.3.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/publishpress/",
-                "reference": "tags/2.4.2"
+                "reference": "tags/3.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/publishpress.2.4.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/publishpress.3.3.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
