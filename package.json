@@ -1,6 +1,6 @@
 {
   "name": "froware",
-  "version": "1.1.8",
+  "version": "1.1.9",
   "description": "[![Packagist](https://img.shields.io/packagist/v/roots/bedrock.svg?style=flat-square)](https://packagist.org/packages/roots/bedrock) [![Build Status](https://img.shields.io/travis/roots/bedrock.svg?style=flat-square)](https://travis-ci.org/roots/bedrock)",
   "main": "index.js",
   "dependencies": {
