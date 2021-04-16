@@ -78,7 +78,7 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 	 * @return array Widget categories.
 	 */
 	public function get_categories() {
-		return array( 'general' );
+		return [ 'general' ];
 	}
 
 	/**
@@ -111,41 +111,52 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 
 		// Get our options.
 		$settings = wp_parse_args(
-			get_option( 'generate_blog_settings', array() ),
+			get_option( 'generate_blog_settings', [] ),
 			generate_blog_get_defaults()
 		);
 
 		// Set our column classes.
-		if ( self::$enable_columns ) {
-			$classes[] = 'generate-columns';
-			$classes[] = 'tablet-grid-50';
-			$classes[] = 'mobile-grid-100';
-			$classes[] = 'grid-parent';
+		if ( ! self::$enable_columns ) {
+			return $classes;
+		}
 
-			// Set our featured column class.
-			if ( 0 === $wp_query->current_post && 1 === $paged && $settings['featured_column'] ) {
-				if ( 50 === generate_blog_get_column_count() ) {
-					$classes[] = 'grid-100';
-				}
+		$classes[] = 'generate-columns';
+		$classes[] = 'tablet-grid-50';
+		$classes[] = 'mobile-grid-100';
+		$classes[] = 'grid-parent';
 
-				if ( 33 === generate_blog_get_column_count() ) {
-					$classes[] = 'grid-66';
-				}
-
-				if ( 25 === generate_blog_get_column_count() ) {
-					$classes[] = 'grid-50';
-				}
-
-				if ( 20 === generate_blog_get_column_count() ) {
-					$classes[] = 'grid-60';
-				}
-				$classes[] = 'featured-column';
-			} else {
-				$classes[] = 'grid-' . generate_blog_get_column_count();
-			}
+		// Set our featured column class.
+		if ( 0 === $wp_query->current_post && 1 === $paged && $settings['featured_column'] ) {
+			$this->set_featured_column_classes( $classes );
+		} else {
+			$classes[] = 'grid-' . generate_blog_get_column_count();
 		}
 
 		return $classes;
+	}
+
+	/**
+	 * Sets classes for featured blog post
+	 *
+	 * @param string[] $classes  Array of CSS classes.
+	 */
+	protected function set_featured_column_classes( $classes ) {
+		switch ( generate_blog_get_columns() ) {
+			case 50:
+				$classes[] = 'grid-100';
+				break;
+			case 33:
+				$classes[] = 'grid-66';
+				break;
+			case 25:
+				$classes[] = 'grid-50';
+				break;
+			case 20:
+				$classes[] = 'grid-60';
+				break;
+		}
+
+		$classes[] = 'featured-column';
 	}
 
 	/**
@@ -171,9 +182,9 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 				get_the_post_thumbnail(
 					get_the_ID(),
 					apply_filters( 'generate_page_header_default_size', 'full' ),
-					array(
+					[
 						'itemprop' => 'image',
-					)
+					]
 				),
 				apply_filters( 'generate_inside_featured_image_output', '' )
 			)
@@ -203,9 +214,9 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 				get_the_post_thumbnail(
 					get_the_ID(),
 					apply_filters( 'generate_page_header_default_size', 'full' ),
-					array(
+					[
 						'itemprop' => 'image',
-					)
+					]
 				),
 				apply_filters( 'generate_inside_featured_image_output', '' )
 			)
@@ -225,39 +236,39 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 
 		$this->start_controls_section(
 			'content_section',
-			array(
+			[
 				'label' => __( 'Content', 'frocentric-elementor-extension' ),
 				'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
-			)
+			]
 		);
 
 		$this->add_control(
 			'query_type',
-			array(
+			[
 				'label'   => __( 'Query Type', 'frocentric-elementor-extension' ),
 				'type'    => \Elementor\Controls_Manager::CHOOSE,
-				'options' => array(
-					'latest'  => array(
+				'options' => [
+					'latest'  => [
 						'title' => __( 'Latest', 'frocentric-elementor-extension' ),
 						'icon'  => 'fa fa-calendar-alt',
-					),
-					'related' => array(
+					],
+					'related' => [
 						'title' => __( 'Related', 'frocentric-elementor-extension' ),
 						'icon'  => 'fa fa-link',
-					),
-				),
+					],
+				],
 				'default' => 'latest',
 				'toggle'  => true,
-			)
+			]
 		);
 
 		$this->add_control(
 			'page_size',
-			array(
+			[
 				'label'   => __( 'Post Count', 'frocentric-elementor-extension' ),
 				'type'    => \Elementor\Controls_Manager::NUMBER,
 				'default' => 3,
-			)
+			]
 		);
 
 		$this->end_controls_section();
@@ -279,11 +290,11 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 		$query_type = $settings['query_type'];
 
 		$the_query = 'related' === $query_type && is_singular( 'post' ) ? $this->get_related_posts( get_the_ID(), $page_size ) : new WP_Query(
-			array(
+			[
 				'ignore_sticky_posts' => true,
 				'post_type'           => 'post',
 				'posts_per_page'      => $page_size,
-			)
+			]
 		);
 		?>
 <div id="primary" <?php generate_do_element_classes( 'content' ); ?>>
@@ -345,23 +356,23 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 	 * @param int      $related_count  Count of related posts.
 	 * @param object[] $args  Array of arguments.
 	 */
-	protected function get_related_posts( $post_id, $related_count, $args = array() ) {
+	protected function get_related_posts( $post_id, $related_count, $args = [] ) {
 		$args = wp_parse_args(
 			(array) $args,
-			array(
+			[
 				'orderby' => 'rand',
 				'return'  => 'query', // Valid values are: 'query' (WP_Query object), 'array' (the arguments array).
-			)
+			]
 		);
 
-		$related_args = array(
+		$related_args = [
 			'post_type'      => get_post_type( $post_id ),
 			'posts_per_page' => $related_count,
 			'post_status'    => 'publish',
-			'post__not_in'   => array( $post_id ),
+			'post__not_in'   => [ $post_id ],
 			'orderby'        => $args['orderby'],
 			'tax_query'      => array(), //phpcs:ignore
-		);
+		];
 
 		$post       = get_post( $post_id );
 		$taxonomies = get_object_taxonomies( $post, 'names' );
@@ -372,11 +383,11 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 				continue;
 			}
 			$term_list                   = wp_list_pluck( $terms, 'slug' );
-			$related_args['tax_query'][] = array(
+			$related_args['tax_query'][] = [
 				'taxonomy' => $taxonomy,
 				'field'    => 'slug',
 				'terms'    => $term_list,
-			);
+			];
 		}
 
 		if ( count( $related_args['tax_query'] ) > 1 ) {
