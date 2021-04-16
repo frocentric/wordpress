@@ -38,6 +38,36 @@ jobs:
       - name: PHP Code Style (phpcs)
         run: composer cs
 
+  version:
+    if: ${{ github.ref == 'refs/heads/production' && github.event_name == 'push' && !contains(github.event.head_commit.author.name, 'GitHub Action') }}
+    needs: [ setup ]
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '15.x'
+
+      # Bumps version, updates changelog and creates tag. Adds [skip ci] to commit message to prevent infinite workflow loop
+      - name: Tag release
+        run: |
+          git fetch --unshallow --tags
+          git config --global user.email "${{github.event.pusher.email}}"
+          git config --global user.name "${{github.event.pusher.name}}"
+          npx --yes standard-version
+          message=`git log -1 --pretty=format:%B | cat`
+          git commit --amend -m "$message
+          [skip ci]"
+          git push origin --follow-tags --no-verify
+
   deploy:
     if: ${{ github.event_name == 'push' }}
     needs: [ setup, version ]
@@ -73,33 +103,3 @@ jobs:
           destination_branch: "main"
           # SSH key used to authenticate with git clone urls provided (optional if public or https clone url with authentication)
           destination_ssh_private_key: ${{ secrets.SSH_DESTINATION_PRIVATE_KEY }}
-
-  version:
-    if: ${{ github.ref == 'refs/heads/production' && github.event_name == 'push' && !contains(github.event.head_commit.author.name, 'GitHub Action') }}
-    needs: [ setup ]
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '15.x'
-
-      # Bumps version, updates changelog and creates tag. Adds [skip ci] to commit message to prevent infinite workflow loop
-      - name: Tag release
-        run: |
-          git fetch --unshallow --tags
-          git config --global user.email "${{github.event.pusher.email}}"
-          git config --global user.name "${{github.event.pusher.name}}"
-          npx --yes standard-version
-          message=`git log -1 --pretty=format:%B | cat`
-          git commit --amend -m "$message
-          [skip ci]"
-          git push origin --follow-tags --no-verify
