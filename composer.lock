@@ -713,10 +713,10 @@
         },
         {
             "name": "koodimonni-language/en_gb",
-            "version": "5.7",
+            "version": "5.7.1",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/5.7/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/5.7.1/en_GB.zip"
             },
             "require": {
                 "koodimonni-plugin-language/akismet-en_gb": "*",
