@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/froware/wordpress/compare/v1.1.13...v1.4.0) (2021-04-16)
+
+
+### Features
+
+* Upgrades dependencies to latest ([1e450f3](https://github.com/froware/wordpress/commit/1e450f3e354609d3b62a3d169538a0d20f7242f7))
+
 ## [1.3.0](https://github.com/froware/wordpress/compare/v1.1.13...v1.3.0) (2021-04-16)
 
 
