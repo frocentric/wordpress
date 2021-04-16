@@ -56,7 +56,7 @@
     "koodimonni-language/en_gb": "*",
     "oscarotero/env": "^2.1.0",
     "php": ">=5.6",
-	  "roots/bedrock-autoloader": "~1.0",
+	"roots/bedrock-autoloader": "~1.0",
     "roots/multisite-url-fixer": "~1.0",
     "roots/wp-config": "1.0.0",
     "roots/wp-password-bcrypt": "1.0.0",
