@@ -36,22 +36,26 @@ if ( ! defined( 'WPINC' ) ) {
  */
 define( 'PLUGIN_NAME_VERSION', '1.0.0' );
 
-/**
- * The code that runs during plugin activation.
- * This action is documented in includes/class-froware-activator.php
- */
-function activate_froware() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-froware-activator.php';
-	Froware_Activator::activate();
+if ( ! function_exists( 'activate_froware' ) ) {
+	/**
+	 * The code that runs during plugin activation.
+	 * This action is documented in includes/class-froware-activator.php
+	 */
+	function activate_froware() {
+		require_once plugin_dir_path( __FILE__ ) . 'includes/class-froware-activator.php';
+		Froware_Activator::activate();
+	}
 }
 
-/**
- * The code that runs during plugin deactivation.
- * This action is documented in includes/class-froware-deactivator.php
- */
-function deactivate_froware() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-froware-deactivator.php';
-	Froware_Deactivator::deactivate();
+if ( ! function_exists( 'deactivate_froware' ) ) {
+	/**
+	 * The code that runs during plugin deactivation.
+	 * This action is documented in includes/class-froware-deactivator.php
+	 */
+	function deactivate_froware() {
+		require_once plugin_dir_path( __FILE__ ) . 'includes/class-froware-deactivator.php';
+		Froware_Deactivator::deactivate();
+	}
 }
 
 register_activation_hook( __FILE__, 'activate_froware' );
@@ -63,19 +67,22 @@ register_deactivation_hook( __FILE__, 'deactivate_froware' );
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-froware.php';
 
-/**
- * Begins execution of the plugin.
- *
- * Since everything within the plugin is registered via hooks,
- * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.
- *
- * @since    1.0.0
- */
-function run_froware() {
+if ( ! function_exists( 'run_froware' ) ) {
+	/**
+	 * Begins execution of the plugin.
+	 *
+	 * Since everything within the plugin is registered via hooks,
+	 * then kicking off the plugin from this point in the file does
+	 * not affect the page life cycle.
+	 *
+	 * @since    1.0.0
+	 */
+	function run_froware() {
 
-	$plugin = new Froware();
-	$plugin->run();
+		$plugin = new Froware();
+		$plugin->run();
 
+	}
 }
+
 run_froware();

@@ -22,7 +22,12 @@ get_header(); ?>
 			<article>
 				<div class="inside-article">
 					<header class="entry-header">
-						<h1 class="entry-title" itemprop="headline"><?php echo esc_html( $pagename ); ?></h1>
+						<h1 class="entry-title" itemprop="headline">
+						<?php
+							// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+							echo esc_html( $pagename );
+						?>
+						</h1>
 					</header>
 				</div>
 			</article>
@@ -36,7 +41,8 @@ get_header(); ?>
 
 			if ( have_posts() ) :
 
-				while ( have_posts() ) : the_post();
+				while ( have_posts() ) :
+					the_post();
 
 					/* Include the Post-Format-specific template for the content.
 					 * If you want to override this in a child theme, then include a file
@@ -81,4 +87,4 @@ get_header(); ?>
 
 	generate_construct_sidebars();
 
-get_footer();
+	get_footer();

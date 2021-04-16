@@ -88,3 +88,6 @@ local-adminer-*.php
 
 # NPM
 /node_modules
+
+# PHP_CodeSniffer
+.phpcs.cache

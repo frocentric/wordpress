@@ -2,6 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
+//phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.SelfOutsideClass
 self::$enable_columns = true;
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?> <?php generate_do_microdata( 'article' ); ?>>
@@ -15,6 +16,7 @@ self::$enable_columns = true;
 		 * @hooked generate_featured_page_header_inside_single - 10
 		 */
 		do_action( 'generate_before_content' );
+		// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
 		$this->generate_post_image_for_widget();
 		?>
 
@@ -50,7 +52,8 @@ self::$enable_columns = true;
 		 */
 		do_action( 'generate_after_entry_header' );
 
-		if ( generate_show_excerpt() ) : ?>
+		if ( generate_show_excerpt() ) :
+			?>
 
 			<div class="entry-summary" itemprop="text">
 				<?php the_excerpt(); ?>
@@ -62,14 +65,17 @@ self::$enable_columns = true;
 				<?php
 				the_content();
 
-				wp_link_pages( array(
-					'before' => '<div class="page-links">' . __( 'Pages:', 'generatepress' ),
-					'after'  => '</div>',
-				) );
+				wp_link_pages(
+					[
+						'before' => '<div class="page-links">' . __( 'Pages:', 'generatepress' ),
+						'after'  => '</div>',
+					]
+				);
 				?>
 			</div><!-- .entry-content -->
 
-		<?php endif;
+			<?php
+		endif;
 
 		/**
 		 * generate_after_entry_content hook.
@@ -91,4 +97,5 @@ self::$enable_columns = true;
 </article><!-- #post-## -->
 
 <?php
+//phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.SelfOutsideClass
 self::$enable_columns = false;
