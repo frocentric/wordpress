@@ -95,6 +95,10 @@ jobs:
             production:${{ secrets.DESTINATION_REPO_PROD }}
             main:${{ secrets.DESTINATION_REPO_STAGE }}
 
+      - id: debug
+        run: |
+          echo 'Success: ${{ success() }}'
+          echo 'Failure: ${{ failure() }}''
       # Syncs the repository with destination
       - name: Sync Repo
         uses: wei/git-sync@v3
