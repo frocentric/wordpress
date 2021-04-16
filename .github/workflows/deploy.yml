@@ -96,8 +96,8 @@ jobs:
 
       - name: Update Git credentials
         run: |
-          git config --global user.email "GitHub Action"
-          git config --global user.name "${{github.event.pusher.name}}"
+          git config --global user.email "${{github.event.pusher.email}}"
+          git config --global user.name "GitHub Action"
 
       - name: Tag release
         run: npx --yes standard-version
