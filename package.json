@@ -42,12 +42,12 @@
     ],
     "rules": {
       "body-max-length": [
-        2,
+        1,
         "always",
         72
       ],
       "footer-max-length": [
-        2,
+        1,
         "always",
         72
       ],
