@@ -60,7 +60,7 @@
     "roots/multisite-url-fixer": "~1.0",
     "roots/wp-config": "1.0.0",
     "roots/wp-password-bcrypt": "1.0.0",
-    "vlucas/phpdotenv": "^5.3.0",
+    "vlucas/phpdotenv": "~4.0",
     "wpackagist-plugin/authors-list": "~1.0",
     "wpackagist-plugin/autodescription": "~4.0",
     "wpackagist-plugin/classic-editor": "~1.0",
