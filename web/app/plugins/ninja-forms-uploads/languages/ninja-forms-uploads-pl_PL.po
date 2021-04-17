@@ -1,0 +1,834 @@
+# Ninja Forms Uploads Pot File.
+# Copyright (C) 2017
+# This file is distributed under the same license as the ninja-forms-uploads package.
+# Ninja Forms <help@ninjaforms.com>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ninja-forms-uploads\n"
+"Report-Msgid-Bugs-To: help@ninjaforms.com\n"
+"POT-Creation-Date: 2017-02-03 11:15+0000\n"
+"PO-Revision-Date: 2018-04-24 11:47+0200\n"
+"Language-Team: English <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 2.0.5\n"
+"Last-Translator: \n"
+"Language: pl_PL\n"
+
+#: deprecated/includes/activation.php:44
+msgid "There was an error uploading your file."
+msgstr "Wystąpił błąd przy przesyłaniu pliku."
+
+#: deprecated/includes/admin/help.php:17
+msgid ""
+"If you leave the advanced rename box empty, the uploaded file will retain "
+"the original user's filename. (With any special characters removed.)"
+msgstr ""
+"Pozostawiając pole Zaawansowanej zmiany nazwy pustym, przesłany plik zachowa "
+"nazwę oryginalnego pliku. (Wszystkie znaki specjalne zostaną usunięte.)"
+
+#: deprecated/includes/admin/help.php:18
+msgid ""
+"If you want to rename the file, however, you can. These are the conventions "
+"that Ninja Forms understands, and their effect."
+msgstr ""
+"Jeśli jednak chcesz zmienić nazwę pliku to możesz. Oto zasady, które Ninja "
+"Forms rozumie wraz z ich efektami."
+
+#: deprecated/includes/admin/help.php:20
+msgid "The file's original filename, with any special characters removed."
+msgstr "Oryginalna nazwa pliku, z usuniętymi znakami specjalnymi."
+
+#: deprecated/includes/admin/help.php:21
+msgid "The title of the current form, with any special characters removed."
+msgstr "Tytuł aktualnego formularza, z usuniętymi znakami specjalnymi."
+
+#: deprecated/includes/admin/help.php:22
+msgid "The WordPress username for the user, if they are logged in."
+msgstr "Nazwa użytkownika WordPressa, jeśli jest zalogowany."
+
+#: deprecated/includes/admin/help.php:23
+msgid "The WordPress ID (int) for the user, if they are logged in."
+msgstr "ID użytkownika WordPressa, jeśli jest zalogowany."
+
+#: deprecated/includes/admin/help.php:24
+msgid "The WordPress displayname for the user, if they are logged in."
+msgstr "Wyświetlana nazwa użytkownika WordPressa, jeśli jest zalogowany."
+
+#: deprecated/includes/admin/help.php:25
+msgid "The WordPress lastname for the user, if they are logged in."
+msgstr "Nazwisko użytkownika WordPressa, jeśli jest zalogowany."
+
+#: deprecated/includes/admin/help.php:26
+msgid "The WordPress firstname for the user, if they are logged in."
+msgstr "Imię użytkownika WordPressa, jeśli jest zalogowany."
+
+#: deprecated/includes/admin/help.php:27
+msgid "Today's date in yyyy-mm-dd format."
+msgstr "Dzisiejsza data w formacie yyyy-mm-dd."
+
+#: deprecated/includes/admin/help.php:28
+msgid "Today's month in mm format."
+msgstr "Dzisiejszy miesiąc w formacie mm."
+
+#: deprecated/includes/admin/help.php:29
+msgid "Today's day in dd format."
+msgstr "Dzisiejszy dzień w formacie dd."
+
+#: deprecated/includes/admin/help.php:30
+msgid "Today's year in yyyy format."
+msgstr "Dzisiejszy rok w formacie yyyy."
+
+#: deprecated/includes/admin/help.php:31
+msgid "Another field in your form, where x is the field id."
+msgstr "Kolejne pole w twoim formularzu, gdzie x oznacza id pola."
+
+#: deprecated/includes/admin/help.php:35
+msgid ""
+"Any characters other than letters, numbers, dashes (-) and those on the list "
+"above will be removed. This includes spaces."
+msgstr ""
+"Wszelkie znaki poza literami, liczbami, myślnikami (-) oraz tymi w powyższej "
+"liście zostaną usunięte. Włączając w to spacje."
+
+#: deprecated/includes/admin/help.php:38
+msgid "An Example"
+msgstr "Przykład"
+
+#: deprecated/includes/admin/help.php:41
+#, fuzzy
+msgid "Would Yield"
+msgstr "Skutkuje"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:6
+msgid "Browse Uploads"
+msgstr "Przeglądaj Przesłane"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:118
+msgid "Bulk Actions"
+msgstr "Masowe działania"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:119
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:235
+#: includes/admin/uploadstable.php:211 includes/admin/uploadstable.php:265
+#: includes/display/render.php:79
+msgid "Delete"
+msgstr "Usuń"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:121
+msgid "Apply"
+msgstr "Potwierdź"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:129
+msgid "Uploads Per Page"
+msgstr "Przesłane na stronę"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:130
+msgid "Go"
+msgstr "Przejdź"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:136
+#: includes/admin/uploadstable.php:15
+msgid "Upload"
+msgstr "Prześlij"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:136
+#: includes/admin/uploadstable.php:17
+msgid "Uploads"
+msgstr "Przesłane"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:159
+msgid "Go to the first page"
+msgstr "Przejdź na pierwszą stronę"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:160
+msgid "Go to the previous page"
+msgstr "Przejdź na poprzednią stronę"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:161
+msgid "Current page"
+msgstr "Aktualna strona"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:175
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:271
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:117
+#: includes/admin/uploadstable.php:69
+msgid "File Name"
+msgstr "Nazwa pliku"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:176
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:272
+msgid "Original User Filename"
+msgstr "Oryginalna nazwa pliku"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:177
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:273
+msgid "Date"
+msgstr "Data"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:178
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:274
+#: includes/admin/uploadstable.php:72
+msgid "Form Name"
+msgstr "Nazwa formularza"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:179
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:275
+#: includes/admin/uploadstable.php:73
+msgid "User Name"
+msgstr "Nazwa użytkownika"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:180
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:276
+#: includes/admin/uploadstable.php:74
+msgid "File Location"
+msgstr "Lokalizacja pliku"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:234
+#: includes/admin/uploadstable.php:204
+msgid "View this file"
+msgstr "Zobacz ten plik"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:234
+#: deprecated/includes/fields/file-uploads.php:372
+#: includes/admin/uploadstable.php:204 includes/fields/upload.php:193
+msgid "View"
+msgstr "Zobacz"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:235
+#: includes/admin/uploadstable.php:211
+msgid "Delete this file"
+msgstr "Usuń ten plik"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:260
+msgid "No files found"
+msgstr "Nie odnaleziono pliku"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:293
+msgid "Uploads Deleted"
+msgstr "Przesłane pliki usunięte"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:296
+msgid "Upload Deleted"
+msgstr "Przesłany plik usunięty"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:11
+msgid "Find File Uploads"
+msgstr "Znajdź przesłane pliki"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:94
+msgid "Select A Form"
+msgstr "Wybierz formularz"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:97
+msgid "All Forms"
+msgstr "Wszystkie formularze"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:111
+msgid "User"
+msgstr "Użytkownik"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:111
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:117
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:121
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:127
+msgid "Optional"
+msgstr "Opcjonalne"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:115
+msgid "login, email, user ID"
+msgstr "login, email, ID użytkownika"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:121
+msgid "File Type"
+msgstr "Typ pliku"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:127
+msgid "Date Range"
+msgstr "Zakres czasowy"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:129
+msgid "Begin Date"
+msgstr "Data poczatkowa"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:134
+#: includes/templates/admin-menu-uploads-filter.html.php:14
+msgid "End Date"
+msgstr "Data końca"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:142
+msgid "Filter File Uploads"
+msgstr "Filtruj przesłane pliki"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/external-settings/external-settings.php:36
+#: includes/external/loader.php:153
+#, fuzzy
+msgid "External Settings"
+msgstr "Ustawienia zewnętrzne"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:39
+#: includes/admin/menus/uploads.php:71
+#: includes/templates/admin-menu-uploads-settings.html.php:16
+msgid "Upload Settings"
+msgstr "Ustawienia przesyłania"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:44
+#: includes/config/settings-upload.php:36
+msgid "Max File Size (in MB)"
+msgstr "Maksymalny rozmiar pliku (w MB)"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:45
+#: includes/config/settings-upload.php:37
+#, php-format
+msgid ""
+"Your server's maximum file size is set to %s. This setting cannot be "
+"increased beyond this value. To increase your server file size limit, please "
+"contact your host."
+msgstr ""
+"Limit maksymalnego rozmiaru pliku na twoim serwerze wynosi %s. Nie jesteśmy "
+"w stanie zwiększyć tej wartości. By zwiększyć limit rozmiaru pliku "
+"skontaktuj się ze swoim hostem."
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:50
+#: includes/config/settings-upload.php:44
+msgid "File upload error message"
+msgstr "Treść błędu podczas przesyłania pliku"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:122
+#: includes/config/settings-upload.php:51
+msgid "Custom Directory"
+msgstr "Własna lokalizacja"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:127
+msgid ""
+"If you want to create dynamic directories, you can put folder names in this "
+"box. You can use the following shortcodes, please include a slash at the "
+"beginning and a trailing slash"
+msgstr ""
+"Jeśli chcesz stworzyć dynamiczne lokalizacje, możesz umieścić nazwę folderu "
+"w tym polu. Możesz użyć tego shortcode, prosimy jednak o umieszczenie "
+"ukośnika na początku i końcowego ukośnika"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:128
+msgid "For example: /custom/director/structure/"
+msgstr "Dla przykładu /wlasna/lokalizacja/struktura/"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:129
+#: includes/admin/controllers/custompaths.php:19
+msgid "Puts in the title of the current form without any spaces"
+msgstr "Umieszcza tytuł aktualnego formularza bez spacji"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:130
+#: includes/admin/controllers/custompaths.php:24
+msgid "Puts in the user's username if they are logged in"
+msgstr "Umieszcza nazwę użytkownika jeśli jest zalogowany"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:131
+#: includes/admin/controllers/custompaths.php:20
+msgid "Puts in the date in yyyy-mm-dd (1998-05-23) format"
+msgstr "Umieszcza datę w formacie yyyy-mm-dd (1988-05-23)"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:132
+#: includes/admin/controllers/custompaths.php:21
+msgid "Puts in the month in mm (04) format"
+msgstr "Umieszcza miesiąc w formacie mm (04)"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:133
+#: includes/admin/controllers/custompaths.php:22
+msgid "Puts in the day in dd (20) format"
+msgstr "Umieszcza dzień w formacie dd (20)"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:134
+#: includes/admin/controllers/custompaths.php:23
+msgid "Puts in the year in yyyy (2011) format"
+msgstr "Umieszcza rok w formacie yyyy (2011)"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:138
+#: includes/config/settings-upload.php:58
+msgid "Full Directory"
+msgstr "Pełna lokalizacja"
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:157
+msgid "Settings Saved"
+msgstr "Ustawienia zapisane"
+
+#: deprecated/includes/display/processing/pre-process.php:112
+#: includes/ajax/controllers/uploads.php:129
+msgid "File exceeds maximum file size. File must be under: "
+msgstr ""
+"Rozmiar przekracza maksymalny rozmiar pliku. Pliku muszą mieć poniżej: "
+
+#: deprecated/includes/display/processing/pre-process.php:237
+msgid "File type is not allowed: "
+msgstr "Typ pliku jest niedozwolony: "
+
+#: deprecated/includes/display/processing/process.php:184
+msgid "File Upload Error"
+msgstr "Błąd przesyłania pliku"
+
+#: deprecated/includes/display/scripts.php:40
+msgid "Really delete this item?"
+msgstr "Naprawdę chcesz usunąć ten plik?"
+
+#: deprecated/includes/external/amazon.php:29
+#: includes/external/services/s3/config.php:8
+msgid "Access Key"
+msgstr "Klucz dostępu"
+
+#: deprecated/includes/external/amazon.php:35
+#: includes/external/services/s3/config.php:14
+msgid "Secret Key"
+msgstr "Sekretny klucz"
+
+#: deprecated/includes/external/amazon.php:41
+#: includes/external/services/s3/config.php:20
+#, fuzzy
+msgid "Bucket Name"
+msgstr "Nazwa miejsca"
+
+#: deprecated/includes/external/amazon.php:47
+#: deprecated/includes/external/dropbox.php:36
+#: includes/external/services/dropbox/config.php:13
+#: includes/external/services/s3/config.php:26
+msgid "File Path"
+msgstr "Adres pliku"
+
+#: deprecated/includes/external/amazon.php:48
+#, fuzzy
+msgid "The default file path in the bucket where the file will be uploaded to"
+msgstr "Domyślny adres pliku w miejscu, do którego pliki zostaną przesłane"
+
+#: deprecated/includes/external/dropbox.php:29
+#, php-format
+msgid "Connect to %s"
+msgstr "Połacz z %s"
+
+#: deprecated/includes/external/dropbox.php:37
+msgid ""
+"Custom directory for the files to be uploaded to in your Dropbox:<br> /Apps/"
+"Ninja Forms Uploads/"
+msgstr ""
+"Własna lokalizacja dla plików umieszczanych na twoim Dropboxie: <br> /Apps/"
+"Ninja Forms Uploads/"
+
+#: deprecated/includes/external/dropbox.php:107
+#: includes/external/services/dropbox/service.php:208
+msgid "Disconnect"
+msgstr "Rozłącz"
+
+#: deprecated/includes/external/dropbox.php:109
+#: includes/external/services/dropbox/service.php:210
+msgid "Connect"
+msgstr "Połącz"
+
+#: deprecated/includes/external/dropbox.php:130
+#, php-format
+msgid "Connected to %s"
+msgstr "Połączono z %s"
+
+#: deprecated/includes/external/dropbox.php:139
+#, php-format
+msgid "Disconnected from %s"
+msgstr "Rozłączono z %s"
+
+#: deprecated/includes/external/external.php:65
+#: includes/external/loader.php:199
+#, php-format
+msgid "%s Settings"
+msgstr "%s Ustawienia"
+
+#: deprecated/includes/fields/file-uploads.php:13
+#: includes/config/field-settings.php:61
+msgid "Allowed File Types"
+msgstr "Dozwolone typy plików"
+
+#: deprecated/includes/fields/file-uploads.php:13
+msgid ""
+"Comma Separated List of allowed file types. An empty list means all file "
+"types are accepted. (i.e. .jpg, .gif, .png, .pdf) This is not fool-proof and "
+"can be tricked, please remember that there is always a danger in allowing "
+"users to upload files."
+msgstr ""
+"Rozdzielona przecinkiem lista dozwolonych typów plików. Pusta lista oznacza, "
+"że wszystkie typy plików są akceptowane (np. .jpg, .gif, .png, .pdf). Opcja "
+"ta nie jest doskonała i można ją obejść, dlatego prosimy o to by pamiętać, "
+"że pozwalanie użytkownikom na przesyłanie plików zawsze wiąże się z "
+"niebezpieczeństwami."
+
+#: deprecated/includes/fields/file-uploads.php:19
+#: includes/config/field-settings.php:21
+msgid "Rename Uploaded File"
+msgstr "Zmień nazwę przesyłanego pliku"
+
+#: deprecated/includes/fields/file-uploads.php:19
+#: includes/config/field-settings.php:25
+msgid ""
+"Advanced renaming options. If you do not want to rename the files, leave "
+"this box blank"
+msgstr ""
+"Zaawansowane opcje zmiany nazwy. Jeśli nie chcesz zmienić nazwy pliku, "
+"pozostaw to pole puste"
+
+#: deprecated/includes/fields/file-uploads.php:19
+msgid "Get help renaming files"
+msgstr "Uzyskaj pomoc w sprawie zmiany nazwy plików"
+
+#: deprecated/includes/fields/file-uploads.php:25
+msgid "Select where to store the uploaded files"
+msgstr "Wybierz gdzie przechowywać przesłane pliki"
+
+#: deprecated/includes/fields/file-uploads.php:31
+msgid "Server"
+msgstr "Serwer"
+
+#: deprecated/includes/fields/file-uploads.php:35
+msgid "None"
+msgstr "Brak"
+
+#: deprecated/includes/fields/file-uploads.php:44
+msgid "Add this file to the WordPress Media Library?"
+msgstr "Dodać ten plik do Biblioteki Mediów Wordpressa?"
+
+#: deprecated/includes/fields/file-uploads.php:87
+msgid "Set as featured image for the Post."
+msgstr "Ustaw jako obrazek wyróżniający dla wpisu."
+
+#: deprecated/includes/fields/file-uploads.php:134
+msgid "Allow the user to upload multiple files."
+msgstr "Pozwól użytkownikowi na przesłanie wielu plików."
+
+#: deprecated/includes/fields/file-uploads.php:141
+#: includes/config/field-settings.php:46
+msgid "How many files can be uploaded?"
+msgstr "Jak wiele plików może zostać przesłanych?"
+
+#: deprecated/includes/fields/file-uploads.php:225
+msgid "Files"
+msgstr "Pliki"
+
+#: deprecated/includes/fields/file-uploads.php:227
+msgid "File"
+msgstr "Plik"
+
+#: deprecated/includes/fields/file-uploads.php:262
+msgid "Change This File"
+msgstr "Zmień ten plik"
+
+#: deprecated/includes/fields/file-uploads.php:275
+msgid "New Upload"
+msgstr "Nowe przesyłanie"
+
+#: deprecated/includes/fields/file-uploads.php:316
+msgid "Change Upload"
+msgstr "Zmień przesyłanie"
+
+#: deprecated/includes/lib/dropbox/dropbox.php:37
+#, php-format
+msgid ""
+"The cURL extension is not loaded. %sPlease ensure its installed and "
+"activated.%s"
+msgstr ""
+"Rozszerzenie cURL nie jest załadowane. %sUpewnij się, że jest ono "
+"zainstalowane i aktywowane.%s"
+
+#: includes/admin/controllers/custompaths.php:18
+msgid "Puts in the title of the file without any spaces"
+msgstr "Umieszcza nazwę pliku bez zastosowania spacji"
+
+#: includes/admin/controllers/custompaths.php:25
+msgid "Puts in the user's user ID if they are logged in"
+msgstr "Umieszcza ID użytkownika jeśli jest zalogowany"
+
+#: includes/admin/controllers/custompaths.php:26
+msgid "Puts in the user's display name if they are logged in"
+msgstr "Umieszcza wyświetlaną nazwę użytkownika jeśli jest zalogowany"
+
+#: includes/admin/controllers/custompaths.php:27
+msgid "Puts in the user's first name if they are logged in"
+msgstr "Umieszcza imię użytkownika jeśli jest zalogowany"
+
+#: includes/admin/controllers/custompaths.php:28
+msgid "Puts in the user's last name if they are logged in"
+msgstr "Umieszcza nazwisko użytkownika jeśli jest zalogowany"
+
+#: includes/admin/controllers/custompaths.php:29
+msgid "Puts in a random 5 character string"
+msgstr "Umieszcza ciąg 5 losowych znaków"
+
+#: includes/admin/menus/uploads.php:16
+#: includes/templates/admin-menu-uploads.html.php:3
+msgid "File Uploads"
+msgstr "Przesłane pliki"
+
+#: includes/admin/menus/uploads.php:70
+msgid "Browser Uploads"
+msgstr "Przeglądaj przesłane pliki"
+
+#: includes/admin/menus/uploads.php:97
+msgid "Save"
+msgstr "Zapisz"
+
+#: includes/admin/uploadstable.php:25
+msgid "No uploads found."
+msgstr "Brak przesłanych plików."
+
+#: includes/admin/uploadstable.php:70
+msgid "Original File name"
+msgstr "Oryginalna nazwa pliku"
+
+#: includes/admin/uploadstable.php:71
+msgid "Created"
+msgstr "Utworzone"
+
+#: includes/admin/uploadstable.php:349
+#, php-format
+msgid "%s upload deleted"
+msgid_plural "%s uploads deleted"
+msgstr[0] "%s przesłany plik usunięto"
+msgstr[1] "%s przesłane pliki usunięto"
+msgstr[2] "%s przesłanych plików usunięto"
+
+#: includes/admin/uploadstable.php:356
+msgid "There was a problem deleting the upload"
+msgid_plural "There was a problem deleting the uploads"
+msgstr[0] "Wystąpił błąd podczas usuwania przesłanego pliku"
+msgstr[1] "Wystąpił błąd podczas usuwania przesłanych plików"
+msgstr[2] "Wystąpił błąd podczas usuwania przesłanych plików"
+
+#: includes/ajax/controllers/uploads.php:98
+msgid "Unable to move uploaded temp file"
+msgstr "Nie udało się przenieść pliku tymczasowego"
+
+#: includes/ajax/controllers/uploads.php:184
+#: includes/ajax/controllers/uploads.php:209
+#, php-format
+msgid "File extension of %s not allowed"
+msgstr "Rozszerzenie pliku %s jest niedozwolone"
+
+#: includes/ajax/controllers/uploads.php:241
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini"
+msgstr "Przesłany plik przekracza dyrektywę upload_max_filesize w php.ini"
+
+#: includes/ajax/controllers/uploads.php:244
+msgid ""
+"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
+"the HTML form"
+msgstr ""
+"Przesłany plik przekracza dyrektywę MAX_FILE_SIZE określoną w formularzu HTML"
+
+#: includes/ajax/controllers/uploads.php:247
+msgid "The uploaded file was only partially uploaded"
+msgstr "Przesyłany plik został przesłany tylko częściowo"
+
+#: includes/ajax/controllers/uploads.php:250
+msgid "No file was uploaded"
+msgstr "Nie przesłano żadnego pliku"
+
+#: includes/ajax/controllers/uploads.php:253
+msgid "Missing a temporary folder"
+msgstr "Brak folderu tymczasowego"
+
+#: includes/ajax/controllers/uploads.php:256
+msgid "Failed to write file to disk"
+msgstr "Nie powiodło się zapisanie pliku na dysku"
+
+#: includes/ajax/controllers/uploads.php:259
+msgid "File upload stopped by extension"
+msgstr "Przesyłanie pliku zatrzymane przez rozszerzenie"
+
+#: includes/ajax/controllers/uploads.php:263
+msgid "Unknown upload error"
+msgstr "Nieznany błąd przesyłania"
+
+#: includes/config/field-settings.php:12
+msgid "Save to Server"
+msgstr "Zapisz na serwerze"
+
+#: includes/config/field-settings.php:15
+msgid "Save the file to the server."
+msgstr "Zapisz plik na serwerze."
+
+#: includes/config/field-settings.php:31
+msgid "Save to Media Library"
+msgstr "Zapisz w bibliotece mediów"
+
+#: includes/config/field-settings.php:34
+msgid "Save to Media Library."
+msgstr "Zapisz w bibliotece mediów."
+
+#: includes/config/field-settings.php:42
+msgid "File Limit"
+msgstr "Limit rozmiaru pliku"
+
+#: includes/config/field-settings.php:51
+msgid "File Size Limit"
+msgstr "Limit rozmiaru pliku"
+
+#: includes/config/field-settings.php:56
+#, php-format
+msgid "Maximum size of a file that can be uploaded. Defaults to %sM"
+msgstr "Dozwolony maksymalny rozmiar przesyłanego pliku. Domyślnie to %sM"
+
+#: includes/config/field-settings.php:62
+msgid ""
+"Comma Separated List of allowed file types. An empty list means all file "
+"types are accepted. (i.e. jpg, gif, png, pdf) This is not fool-proof and can "
+"be tricked, please remember that there is always a danger in allowing users "
+"to upload files."
+msgstr ""
+"Rozdzielona przecinkiem lista dozwolonych typów plików. Pusta lista oznacza, "
+"że wszystkie typy plików są akceptowane (np. .jpg, .gif, .png, .pdf). Opcja "
+"ta nie jest doskonała i można ją obejść, dlatego prosimy o to by pamiętać, "
+"że pozwalanie użytkownikom na przesyłanie plików zawsze wiąże się z "
+"niebezpieczeństwami."
+
+#: includes/config/settings-upload.php:9
+msgid ""
+"If you want to create dynamic directories, you can use various shortcodes:"
+msgstr ""
+"Jeśli chcesz stworzyć dynamiczne lokalizacje, możesz użyć różnych shortcode:"
+
+#: includes/config/settings-upload.php:16
+msgid ""
+"For Example: <code>/%formtitle%/%month%/%year%/</code> would be <code>/"
+"MyFormTitle/04/2012/</code>"
+msgstr ""
+"Na przykład <code>/%formtitle%/%month%/%year%/</code> oznacza <code>/"
+"MyFormTitle/04/2012/</code>"
+
+#: includes/display/render.php:73
+msgid "Max %n files are allowed"
+msgstr "Pozwolono na maksymalnie %n plików"
+
+#: includes/display/render.php:74
+msgid "Nonce error, upload failed"
+msgstr "Błąd tymczasowy, przesyłanie się nie powiodło"
+
+#: includes/display/render.php:75
+msgid "Upload error, upload failed"
+msgstr "Bład przesyłu, przesyłanie się nie powiodło"
+
+#: includes/display/render.php:76 includes/display/render.php:77
+msgid "File exceeds maximum file size. File must be under %nMB."
+msgstr ""
+"Rozmiar pliku przekracza maksymalny rozmiar plików. Plik musi mieć poniżej "
+"%nMB."
+
+#: includes/display/render.php:78
+msgid "Select Files"
+msgstr "Wybierz pliki"
+
+#: includes/external/action.php:36
+msgid "External File Upload"
+msgstr "Prześlij plik zewnętrzny"
+
+#: includes/external/action.php:66
+#: includes/integrations/ninjaforms/attachments.php:44
+msgid "Field"
+msgstr "Pole"
+
+#: includes/external/loader.php:191
+#, php-format
+msgid "%s requires %s"
+msgstr "%s wymagane %s"
+
+#: includes/external/services/dropbox/config.php:6
+msgid "Connect to Dropbox"
+msgstr "Połącz z Dropbox"
+
+#: includes/external/services/dropbox/config.php:14
+msgid ""
+"Custom directory for the files to be uploaded to in your Dropbox /Apps/Ninja "
+"Forms Uploads/ folder"
+msgstr ""
+"Własna lokalizacja dla plików umieszczanych na twoim Dropboxie /Apps/Ninja "
+"Forms Uploads/folder"
+
+#: includes/external/services/dropbox/service.php:225
+msgid "Learn more"
+msgstr "Dowiedz się więcej"
+
+#: includes/external/services/dropbox/service.php:226
+#, php-format
+msgid ""
+"The cURL extension to be installed. Please ensure its installed and "
+"activated. %s."
+msgstr ""
+"Rozszerzenie cURL jest niezainstalowane. Prosimy upewnić się czy jest "
+"zainstalowane i aktywowane. %s."
+
+#: includes/external/services/dropbox/service.php:382
+msgid "Connected to Dropbox"
+msgstr "Połączono z Dropbox"
+
+#: includes/external/services/dropbox/service.php:391
+msgid "Disconnected from Dropbox"
+msgstr "Rozłączono z Dropbox"
+
+#: includes/external/services/s3/config.php:27
+#, fuzzy
+msgid "The default file path in the bucket where the file will be uploaded to."
+msgstr "Domyślny adres pliku w miejscu, do którego zostanie one przesłany."
+
+#: includes/integrations/ninjaforms/attachments.php:36
+msgid "Attach File Uploads"
+msgstr "Załącz przesłane pliki"
+
+#: includes/integrations/postcreation/postcreation.php:17
+msgid "Featured Image"
+msgstr "Obrazek wyróżniający"
+
+#: includes/integrations/postcreation/postcreation.php:26
+msgid "Single file upload fields only"
+msgstr "Jedynie pola przesyłania pojedynczego pliku"
+
+#: includes/templates/admin-menu-uploads-browse.html.php:3
+msgid "Search Uploads"
+msgstr "Wyszukaj przesłanych plików"
+
+#: includes/templates/admin-menu-uploads-external.html.php:5
+#: includes/templates/admin-menu-uploads-settings.html.php:5
+msgid "Fix it."
+msgstr "Napraw to."
+
+#: includes/templates/admin-menu-uploads-external.html.php:20
+#, php-format
+msgid "PHP %s or greater required for external uploads."
+msgstr "PHP %s lub wyższe jest wymagane do zewnętrznego przesyłania."
+
+#: includes/templates/admin-menu-uploads-filter.html.php:2
+msgid "- Select a form"
+msgstr "- Wybierz formularz"
+
+#: includes/templates/admin-menu-uploads-filter.html.php:12
+#, fuzzy
+msgid "Being Date"
+msgstr "Data użyta"
+
+#: includes/templates/admin-menu-uploads-filter.html.php:15
+msgid "Filter"
+msgstr "Filtr"
+
+#: node_modules/grunt-pot/test/fixtures/some-file.php:3
+msgid "I'm a translatable string."
+msgstr "Można mnie przetłumaczyć."
+
+#: node_modules/grunt-pot/test/fixtures/some-other-file.php:4
+msgid "Me too"
+msgstr "Mnie też"
+
+#: node_modules/grunt-pot/test/fixtures/some-other-file.php:7
+#, php-format
+msgid "I have %d apple"
+msgid_plural "I have %d apples"
+msgstr[0] "Mam %d jabłko"
+msgstr[1] "Mam %d jabłka"
+msgstr[2] "Mam %d jabłek"
+
+#: node_modules/grunt-pot/test/fixtures/some-other-file.php:16
+msgid "yyyy-mm-dd"
+msgstr "yyyy-mm-dd"
