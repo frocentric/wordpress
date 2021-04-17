@@ -2,6 +2,6 @@
 . "$(dirname "$0")/_/husky.sh"
 
 # Check for $TERM environment variable; there may be more reliable tests than this
-if [[ -z "${TERM}" ]]; then
+if [[ -n "${TERM}" ]]; then
 	( exec < /dev/tty && node_modules/.bin/git-cz --hook ) || true 2> /dev/null
 fi
