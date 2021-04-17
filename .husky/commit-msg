@@ -1,0 +1,18 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+if type "npx" > /dev/null 2>&1; then
+	# Run commitlint if available
+	npx --no-install commitlint --edit $1
+else
+	# Fall back to basic regex checking for unsupported GUI clients (e.g. Tower)
+	if ! head -1 "$1" | grep -qE "^(build|ci|chore|docs|feat|fix|perf|refactor|revert|style|test)(\(.+?\))?: .{1,}$"; then
+		echo "Aborting commit. Your commit message must follow Angular-style conventions, \
+		see https://github.com/conventional-changelog/commitlint/tree/master/@commitlint/config-conventional#type-enum for more details" >&2
+		exit 1
+	fi
+	if ! head -1 "$1" | grep -qE "^.{1,50}$"; then
+		echo "Aborting commit. Your commit message is too long." >&2
+		exit 1
+	fi
+fi
