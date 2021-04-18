@@ -1,0 +1,983 @@
+# Ninja Forms Uploads Pot File.
+# Copyright (C) 2021
+# This file is distributed under the same license as the ninja-forms-uploads package.
+# Ninja Forms <help@ninjaforms.com>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: ninja-forms-uploads\n"
+"Report-Msgid-Bugs-To: help@ninjaforms.com\n"
+"POT-Creation-Date: 2021-03-24 11:28+0000\n"
+"PO-Revision-Date: 2021-03-24 11:28+GMT+0000\n"
+"Last-Translator: Ninja Forms <help@ninjaforms.com>\n"
+"Language-Team: English <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: deprecated/includes/activation.php:44
+msgid "There was an error uploading your file."
+msgstr ""
+
+#: deprecated/includes/admin/help.php:17
+msgid ""
+"If you leave the advanced rename box empty, the uploaded file will retain "
+"the original user's filename. (With any special characters removed.)"
+msgstr ""
+
+#: deprecated/includes/admin/help.php:18
+msgid ""
+"If you want to rename the file, however, you can. These are the conventions "
+"that Ninja Forms understands, and their effect."
+msgstr ""
+
+#: deprecated/includes/admin/help.php:20
+msgid "The file's original filename, with any special characters removed."
+msgstr ""
+
+#: deprecated/includes/admin/help.php:21
+msgid "The title of the current form, with any special characters removed."
+msgstr ""
+
+#: deprecated/includes/admin/help.php:22
+msgid "The WordPress username for the user, if they are logged in."
+msgstr ""
+
+#: deprecated/includes/admin/help.php:23
+msgid "The WordPress ID (int) for the user, if they are logged in."
+msgstr ""
+
+#: deprecated/includes/admin/help.php:24
+msgid "The WordPress displayname for the user, if they are logged in."
+msgstr ""
+
+#: deprecated/includes/admin/help.php:25
+msgid "The WordPress lastname for the user, if they are logged in."
+msgstr ""
+
+#: deprecated/includes/admin/help.php:26
+msgid "The WordPress firstname for the user, if they are logged in."
+msgstr ""
+
+#: deprecated/includes/admin/help.php:27
+msgid "Today's date in yyyy-mm-dd format."
+msgstr ""
+
+#: deprecated/includes/admin/help.php:28
+msgid "Today's month in mm format."
+msgstr ""
+
+#: deprecated/includes/admin/help.php:29
+msgid "Today's day in dd format."
+msgstr ""
+
+#: deprecated/includes/admin/help.php:30
+msgid "Today's year in yyyy format."
+msgstr ""
+
+#: deprecated/includes/admin/help.php:31
+msgid "Another field in your form, where x is the field id."
+msgstr ""
+
+#: deprecated/includes/admin/help.php:35
+msgid ""
+"Any characters other than letters, numbers, dashes (-) and those on the list "
+"above will be removed. This includes spaces."
+msgstr ""
+
+#: deprecated/includes/admin/help.php:38
+msgid "An Example"
+msgstr ""
+
+#: deprecated/includes/admin/help.php:41
+msgid "Would Yield"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:6
+#: includes/admin/menus/uploads.php:71
+msgid "Browse Uploads"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:118
+msgid "Bulk Actions"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:119
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:235
+#: includes/admin/uploadstable.php:226 includes/admin/uploadstable.php:280
+#: includes/display/render.php:76
+msgid "Delete"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:121
+msgid "Apply"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:129
+msgid "Uploads Per Page"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:130
+msgid "Go"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:136
+#: includes/admin/uploadstable.php:15
+msgid "Upload"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:136
+#: includes/admin/uploadstable.php:17
+msgid "Uploads"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:159
+msgid "Go to the first page"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:160
+msgid "Go to the previous page"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:161
+msgid "Current page"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:175
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:271
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:117
+#: includes/admin/uploadstable.php:69
+msgid "File Name"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:176
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:272
+msgid "Original User Filename"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:177
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:273
+msgid "Date"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:178
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:274
+#: includes/admin/uploadstable.php:72
+msgid "Form Name"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:179
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:275
+#: includes/admin/uploadstable.php:73
+msgid "User Name"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:180
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:276
+#: includes/admin/uploadstable.php:74
+msgid "File Location"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:234
+#: includes/admin/uploadstable.php:213
+msgid "View this file"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:234
+#: deprecated/includes/fields/file-uploads.php:372
+#: includes/admin/uploadstable.php:213 includes/fields/upload.php:278
+msgid "View"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:235
+#: includes/admin/uploadstable.php:226
+msgid "Delete this file"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:260
+msgid "No files found"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:293
+msgid "Uploads Deleted"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/browse-uploads.php:296
+msgid "Upload Deleted"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:11
+msgid "Find File Uploads"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:94
+msgid "Select A Form"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:97
+msgid "All Forms"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:111
+msgid "User"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:111
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:117
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:121
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:127
+msgid "Optional"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:115
+msgid "login, email, user ID"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:121
+msgid "File Type"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:127
+msgid "Date Range"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:129
+msgid "Begin Date"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:134
+#: includes/templates/admin-menu-uploads-filter.php:14
+msgid "End Date"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/browse-uploads/sidebars/select-uploads.php:142
+msgid "Filter File Uploads"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/external-settings/external-settings.php:36
+#: includes/external/loader.php:219
+#: includes/templates/admin-menu-uploads-external.php:19
+msgid "External Settings"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:39
+#: includes/admin/menus/uploads.php:72
+#: includes/templates/admin-menu-uploads-settings.php:16
+msgid "Upload Settings"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:44
+#: includes/config/settings-upload.php:25
+msgid "Max File Size (in MB)"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:45
+#, php-format
+msgid ""
+"Your server's maximum file size is set to %s. This setting cannot be "
+"increased beyond this value. To increase your server file size limit, please "
+"contact your host."
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:50
+#: includes/config/settings-upload.php:33
+msgid "File upload error message"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:122
+#: includes/config/settings-upload.php:40
+msgid "Custom Directory"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:127
+msgid ""
+"If you want to create dynamic directories, you can put folder names in this "
+"box. You can use the following shortcodes, please include a slash at the "
+"beginning and a trailing slash"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:128
+msgid "For example: /custom/director/structure/"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:129
+#: includes/admin/controllers/custompaths.php:19
+msgid "Puts in the title of the current form without any spaces"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:130
+#: includes/admin/controllers/custompaths.php:24
+msgid "Puts in the user's username if they are logged in"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:131
+#: includes/admin/controllers/custompaths.php:20
+msgid "Puts in the date in yyyy-mm-dd (1998-05-23) format"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:132
+#: includes/admin/controllers/custompaths.php:21
+msgid "Puts in the month in mm (04) format"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:133
+#: includes/admin/controllers/custompaths.php:22
+msgid "Puts in the day in dd (20) format"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:134
+#: includes/admin/controllers/custompaths.php:23
+msgid "Puts in the year in yyyy (2011) format"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:138
+#: includes/config/settings-upload.php:47
+msgid "Full Directory"
+msgstr ""
+
+#: deprecated/includes/admin/pages/ninja-forms-uploads/tabs/upload-settings/upload-settings.php:157
+msgid "Settings Saved"
+msgstr ""
+
+#: deprecated/includes/display/processing/pre-process.php:112
+msgid "File exceeds maximum file size. File must be under: "
+msgstr ""
+
+#: deprecated/includes/display/processing/pre-process.php:237
+msgid "File type is not allowed: "
+msgstr ""
+
+#: deprecated/includes/display/processing/process.php:184
+msgid "File Upload Error"
+msgstr ""
+
+#: deprecated/includes/display/scripts.php:40
+msgid "Really delete this item?"
+msgstr ""
+
+#: deprecated/includes/external/amazon.php:29
+#: includes/external/services/s3/config.php:8
+msgid "Access Key"
+msgstr ""
+
+#: deprecated/includes/external/amazon.php:35
+#: includes/external/services/s3/config.php:14
+msgid "Secret Key"
+msgstr ""
+
+#: deprecated/includes/external/amazon.php:41
+#: includes/external/services/s3/config.php:20
+msgid "Bucket Name"
+msgstr ""
+
+#: deprecated/includes/external/amazon.php:47
+#: deprecated/includes/external/dropbox.php:36
+#: includes/external/services/dropbox/config.php:13
+#: includes/external/services/googledrive/config.php:13
+#: includes/external/services/s3/config.php:26
+msgid "File Path"
+msgstr ""
+
+#: deprecated/includes/external/amazon.php:48
+msgid "The default file path in the bucket where the file will be uploaded to"
+msgstr ""
+
+#: deprecated/includes/external/dropbox.php:29
+#, php-format
+msgid "Connect to %s"
+msgstr ""
+
+#: deprecated/includes/external/dropbox.php:37
+msgid ""
+"Custom directory for the files to be uploaded to in your Dropbox:<br> /Apps/"
+"Ninja Forms Uploads/"
+msgstr ""
+
+#: deprecated/includes/external/dropbox.php:107
+#: includes/external/abstracts/oauthservice.php:73
+msgid "Disconnect"
+msgstr ""
+
+#: deprecated/includes/external/dropbox.php:109
+#: includes/external/abstracts/oauthservice.php:78
+msgid "Connect"
+msgstr ""
+
+#: deprecated/includes/external/dropbox.php:130
+#, php-format
+msgid "Connected to %s"
+msgstr ""
+
+#: deprecated/includes/external/dropbox.php:139
+#, php-format
+msgid "Disconnected from %s"
+msgstr ""
+
+#: deprecated/includes/external/external.php:65
+#: includes/external/loader.php:275
+#, php-format
+msgid "%s Settings"
+msgstr ""
+
+#: deprecated/includes/fields/file-uploads.php:13
+#: includes/config/field-settings.php:49
+msgid "Allowed File Types"
+msgstr ""
+
+#: deprecated/includes/fields/file-uploads.php:13
+msgid ""
+"Comma Separated List of allowed file types. An empty list means all file "
+"types are accepted. (i.e. .jpg, .gif, .png, .pdf) This is not fool-proof and "
+"can be tricked, please remember that there is always a danger in allowing "
+"users to upload files."
+msgstr ""
+
+#: deprecated/includes/fields/file-uploads.php:19
+#: includes/config/field-settings.php:19
+msgid "Rename Uploaded File"
+msgstr ""
+
+#: deprecated/includes/fields/file-uploads.php:19
+msgid ""
+"Advanced renaming options. If you do not want to rename the files, leave "
+"this box blank"
+msgstr ""
+
+#: deprecated/includes/fields/file-uploads.php:19
+msgid "Get help renaming files"
+msgstr ""
+
+#: deprecated/includes/fields/file-uploads.php:25
+msgid "Select where to store the uploaded files"
+msgstr ""
+
+#: deprecated/includes/fields/file-uploads.php:31
+msgid "Server"
+msgstr ""
+
+#: deprecated/includes/fields/file-uploads.php:35
+msgid "None"
+msgstr ""
+
+#: deprecated/includes/fields/file-uploads.php:44
+msgid "Add this file to the WordPress Media Library?"
+msgstr ""
+
+#: deprecated/includes/fields/file-uploads.php:87
+msgid "Set as featured image for the Post."
+msgstr ""
+
+#: deprecated/includes/fields/file-uploads.php:134
+msgid "Allow the user to upload multiple files."
+msgstr ""
+
+#: deprecated/includes/fields/file-uploads.php:141
+#: includes/config/field-settings.php:44
+msgid "How many files can be uploaded?"
+msgstr ""
+
+#: deprecated/includes/fields/file-uploads.php:225
+msgid "Files"
+msgstr ""
+
+#: deprecated/includes/fields/file-uploads.php:227
+msgid "File"
+msgstr ""
+
+#: deprecated/includes/fields/file-uploads.php:262
+msgid "Change This File"
+msgstr ""
+
+#: deprecated/includes/fields/file-uploads.php:275
+msgid "New Upload"
+msgstr ""
+
+#: deprecated/includes/fields/file-uploads.php:316
+msgid "Change Upload"
+msgstr ""
+
+#: deprecated/includes/lib/dropbox/dropbox.php:37
+#, php-format
+msgid ""
+"The cURL extension is not loaded. %sPlease ensure its installed and "
+"activated.%s"
+msgstr ""
+
+#: includes/admin/controllers/custompaths.php:18
+msgid "Puts in the title of the file without any spaces"
+msgstr ""
+
+#: includes/admin/controllers/custompaths.php:25
+msgid "Puts in the user's user ID if they are logged in"
+msgstr ""
+
+#: includes/admin/controllers/custompaths.php:26
+msgid "Puts in the user's display name if they are logged in"
+msgstr ""
+
+#: includes/admin/controllers/custompaths.php:27
+msgid "Puts in the user's first name if they are logged in"
+msgstr ""
+
+#: includes/admin/controllers/custompaths.php:28
+msgid "Puts in the user's last name if they are logged in"
+msgstr ""
+
+#: includes/admin/controllers/custompaths.php:29
+msgid "Puts in a random 5 character string"
+msgstr ""
+
+#: includes/admin/menus/uploads.php:16
+#: includes/integrations/ninjaforms/fileuploadmergetags.php:15
+#: includes/templates/admin-menu-uploads.php:3
+msgid "File Uploads"
+msgstr ""
+
+#: includes/admin/menus/uploads.php:112
+msgid "Save"
+msgstr ""
+
+#: includes/admin/uploadstable.php:25
+msgid "No uploads found."
+msgstr ""
+
+#: includes/admin/uploadstable.php:70
+msgid "Original File name"
+msgstr ""
+
+#: includes/admin/uploadstable.php:71
+msgid "Created"
+msgstr ""
+
+#: includes/admin/uploadstable.php:165
+msgid "Guest"
+msgstr ""
+
+#: includes/admin/uploadstable.php:218
+msgid "View submission"
+msgstr ""
+
+#: includes/admin/uploadstable.php:218
+msgid "View Submission"
+msgstr ""
+
+#: includes/admin/uploadstable.php:364
+#, php-format
+msgid "%s upload deleted"
+msgid_plural "%s uploads deleted"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/admin/uploadstable.php:371
+msgid "There was a problem deleting the upload"
+msgid_plural "There was a problem deleting the uploads"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/ajax/controllers/uploads.php:122
+msgid "No field ID supplied"
+msgstr ""
+
+#: includes/ajax/controllers/uploads.php:128
+msgid "Nonce error"
+msgstr ""
+
+#: includes/ajax/controllers/uploads.php:135
+msgid "No form ID supplied"
+msgstr ""
+
+#: includes/ajax/controllers/uploads.php:285
+msgid "Unable to move uploaded temp file"
+msgstr ""
+
+#: includes/ajax/controllers/uploads.php:320
+#, php-format
+msgid "File exceeds maximum file size. File must be under: %sMB."
+msgstr ""
+
+#: includes/ajax/controllers/uploads.php:340
+#, php-format
+msgid "File size under minimum size. File must be %sMB or greater."
+msgstr ""
+
+#: includes/ajax/controllers/uploads.php:357 includes/fields/upload.php:103
+#: includes/fields/upload.php:109 includes/fields/upload.php:169
+#: includes/fields/upload.php:175
+msgid "File extension not allowed"
+msgstr ""
+
+#: includes/ajax/controllers/uploads.php:374
+#: includes/ajax/controllers/uploads.php:534
+#, php-format
+msgid "File extension of %s not allowed"
+msgstr ""
+
+#: includes/ajax/controllers/uploads.php:571
+msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini"
+msgstr ""
+
+#: includes/ajax/controllers/uploads.php:574
+msgid ""
+"The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in "
+"the HTML form"
+msgstr ""
+
+#: includes/ajax/controllers/uploads.php:577
+msgid "The uploaded file was only partially uploaded"
+msgstr ""
+
+#: includes/ajax/controllers/uploads.php:580
+msgid "No file was uploaded"
+msgstr ""
+
+#: includes/ajax/controllers/uploads.php:583
+msgid "Missing a temporary folder"
+msgstr ""
+
+#: includes/ajax/controllers/uploads.php:586
+msgid "Failed to write file to disk"
+msgstr ""
+
+#: includes/ajax/controllers/uploads.php:589
+msgid "File upload stopped by extension"
+msgstr ""
+
+#: includes/ajax/controllers/uploads.php:593
+msgid "Unknown upload error"
+msgstr ""
+
+#: includes/config/field-settings.php:10
+msgid "Save to Server"
+msgstr ""
+
+#: includes/config/field-settings.php:13
+msgid "Save the file to the server."
+msgstr ""
+
+#: includes/config/field-settings.php:22
+msgid ""
+"Advanced renaming options. You can also create directories using \"/\". If "
+"you do not want to rename the files, leave this box blank"
+msgstr ""
+
+#: includes/config/field-settings.php:29
+msgid "Save to Media Library"
+msgstr ""
+
+#: includes/config/field-settings.php:32
+msgid "Save to Media Library."
+msgstr ""
+
+#: includes/config/field-settings.php:40
+msgid "File Limit"
+msgstr ""
+
+#: includes/config/field-settings.php:50
+msgid ""
+"Comma Separated List of allowed file types. An empty list means all file "
+"types are accepted. (i.e. jpg, gif, png, pdf) This is not fool-proof and can "
+"be tricked, please remember that there is always a danger in allowing users "
+"to upload files."
+msgstr ""
+
+#: includes/config/field-settings.php:57
+msgid "Maximum File Size (MB)"
+msgstr ""
+
+#: includes/config/field-settings.php:61
+msgid "Maximum size of a file that can be uploaded."
+msgstr ""
+
+#: includes/config/field-settings.php:66
+msgid "Minimum File Size (MB)"
+msgstr ""
+
+#: includes/config/field-settings.php:70
+msgid "Minimum size of a file that can be uploaded."
+msgstr ""
+
+#: includes/config/field-settings.php:75 includes/fields/upload.php:320
+msgid "Select Files"
+msgstr ""
+
+#: includes/config/field-settings.php:76
+msgid "Select Files Button Text"
+msgstr ""
+
+#: includes/config/field-settings.php:79
+msgid "Change the button text for selecting files."
+msgstr ""
+
+#: includes/config/field-settings.php:84 includes/fields/upload.php:321
+msgid "Cancel"
+msgstr ""
+
+#: includes/config/field-settings.php:85
+msgid "Cancel File Upload Button Text"
+msgstr ""
+
+#: includes/config/field-settings.php:88
+msgid "Change the button text for cancelling uploads."
+msgstr ""
+
+#: includes/config/layout-styles.php:5
+msgid "Progress Bar"
+msgstr ""
+
+#: includes/config/layout-styles.php:14
+msgid "Progress Bar Background"
+msgstr ""
+
+#: includes/config/layout-styles.php:23
+msgid "File List"
+msgstr ""
+
+#: includes/config/layout-styles.php:32
+msgid "File Delete Link"
+msgstr ""
+
+#: includes/config/layout-styles.php:41
+msgid "File Upload Cancel Button"
+msgstr ""
+
+#: includes/config/layout-styles.php:50
+msgid "File Upload Cancel Button Hover"
+msgstr ""
+
+#: includes/config/settings-external.php:9
+msgid "Use Public URL"
+msgstr ""
+
+#: includes/config/settings-external.php:10
+msgid ""
+"URLs to files uploaded to external services are by default only accessible "
+"to logged in users of the site. Enable this to make them publicly viewable."
+msgstr ""
+
+#: includes/config/settings-upload.php:9
+msgid ""
+"If you want to create dynamic directories, you can use various shortcodes:"
+msgstr ""
+
+#: includes/config/settings-upload.php:16
+msgid ""
+"For Example: <code>/%formtitle%/%month%/%year%/</code> would be <code>/"
+"MyFormTitle/04/2012/</code>"
+msgstr ""
+
+#: includes/config/settings-upload.php:26
+msgid ""
+"This limit can be overridden in the settings for a File Upload field. Very "
+"large uploads are possible, but we recommend setting a sensible limit."
+msgstr ""
+
+#: includes/config/styles-field-settings.php:6
+msgid "Progress Bar Styles"
+msgstr ""
+
+#: includes/config/styles-field-settings.php:14
+msgid "Progress Bar Background Styles"
+msgstr ""
+
+#: includes/config/styles-field-settings.php:22
+msgid "Uploaded Files List Styles"
+msgstr ""
+
+#: includes/config/styles-field-settings.php:29
+msgid "Uploaded File Delete Link Styles"
+msgstr ""
+
+#: includes/display/render.php:70
+msgid "Max %n files are allowed"
+msgstr ""
+
+#: includes/display/render.php:71
+msgid "Nonce error, upload failed"
+msgstr ""
+
+#: includes/display/render.php:72
+msgid "Nonce regeneration error, upload failed"
+msgstr ""
+
+#: includes/display/render.php:73
+msgid "Upload error, upload failed"
+msgstr ""
+
+#: includes/display/render.php:74
+msgid "File exceeds maximum file size. File must be under %nMB."
+msgstr ""
+
+#: includes/display/render.php:75
+msgid ""
+"File does not meet minimum file size. File must be %nMB or greater in size."
+msgstr ""
+
+#: includes/external/abstracts/backgroundupload.php:79
+#, php-format
+msgid "Ninja Forms File Upload: %s Upload. File does not exist %s"
+msgstr ""
+
+#: includes/external/action.php:36
+msgid "External File Upload"
+msgstr ""
+
+#: includes/external/action.php:66
+#: includes/integrations/ninjaforms/attachments.php:44
+msgid "Field"
+msgstr ""
+
+#: includes/external/action.php:78
+msgid "Background Upload"
+msgstr ""
+
+#: includes/external/loader.php:260
+#, php-format
+msgid "%s requires %s"
+msgstr ""
+
+#: includes/external/services/dropbox/config.php:6
+msgid "Connect to Dropbox"
+msgstr ""
+
+#: includes/external/services/dropbox/config.php:14
+msgid ""
+"Custom directory for the files to be uploaded to in your Dropbox /Apps/Ninja "
+"Forms Uploads/ folder"
+msgstr ""
+
+#: includes/external/services/dropbox/service.php:147
+msgid "log out"
+msgstr ""
+
+#: includes/external/services/dropbox/service.php:148
+#, php-format
+msgid "To connect with a different account, first %s of Dropbox"
+msgstr ""
+
+#: includes/external/services/googledrive/config.php:6
+msgid "Connect to Google Drive"
+msgstr ""
+
+#: includes/external/services/googledrive/config.php:14
+msgid "Custom directory for the files to be uploaded to in Google Drive"
+msgstr ""
+
+#: includes/external/services/s3/config.php:27
+msgid "The default file path in the bucket where the file will be uploaded to."
+msgstr ""
+
+#: includes/external/services/s3/service.php:180
+#, php-format
+msgid "There was an error attempting to get the region of the bucket %s: %s"
+msgstr ""
+
+#: includes/fields/upload.php:89
+msgid "Temp file does not exist"
+msgstr ""
+
+#: includes/fields/upload.php:186
+msgid "File upload error"
+msgstr ""
+
+#: includes/fields/upload.php:270
+#: includes/integrations/ninjaforms/submissions.php:71
+msgid "File removed"
+msgstr ""
+
+#: includes/integrations/ninjaforms/attachments.php:36
+msgid "Attach File Uploads"
+msgstr ""
+
+#: includes/integrations/ninjaforms/fileuploadmergetags.php:21
+msgid "Filename"
+msgstr ""
+
+#: includes/integrations/ninjaforms/fileuploadmergetags.php:27
+msgid "File Extension"
+msgstr ""
+
+#: includes/integrations/ninjaforms/mergetags.php:301
+msgid "Date in yyyy-mm-dd format"
+msgstr ""
+
+#: includes/integrations/ninjaforms/mergetags.php:307
+msgid "Year in yyyy format"
+msgstr ""
+
+#: includes/integrations/ninjaforms/mergetags.php:313
+msgid "Month in mm format"
+msgstr ""
+
+#: includes/integrations/ninjaforms/mergetags.php:319
+msgid "Day in dd format"
+msgstr ""
+
+#: includes/integrations/ninjaforms/mergetags.php:325
+msgid "Random 5 character string"
+msgstr ""
+
+#: includes/integrations/ninjaforms/templates.php:26
+msgid "File Upload"
+msgstr ""
+
+#: includes/integrations/ninjaforms/templates.php:27
+msgid ""
+"Allow users to upload files using a form. You can add and remove fields as "
+"needed."
+msgstr ""
+
+#: includes/integrations/postcreation/postcreation.php:17
+msgid "Featured Image"
+msgstr ""
+
+#: includes/integrations/postcreation/postcreation.php:26
+msgid "Single file upload fields only"
+msgstr ""
+
+#: includes/templates/admin-menu-uploads-browse.php:11
+msgid "Search Uploads"
+msgstr ""
+
+#: includes/templates/admin-menu-uploads-external.php:5
+#: includes/templates/admin-menu-uploads-settings.php:5
+msgid "Fix it."
+msgstr ""
+
+#: includes/templates/admin-menu-uploads-external.php:31
+#, php-format
+msgid "PHP %s or greater required for external uploads."
+msgstr ""
+
+#: includes/templates/admin-menu-uploads-filter.php:2
+msgid "- Select a form"
+msgstr ""
+
+#: includes/templates/admin-menu-uploads-filter.php:12
+msgid "Being Date"
+msgstr ""
+
+#: includes/templates/admin-menu-uploads-filter.php:15
+msgid "Filter"
+msgstr ""
+
+#: node_modules/grunt-pot/test/fixtures/some-file.php:3
+msgid "I'm a translatable string."
+msgstr ""
+
+#: node_modules/grunt-pot/test/fixtures/some-other-file.php:4
+msgid "Me too"
+msgstr ""
+
+#: node_modules/grunt-pot/test/fixtures/some-other-file.php:7
+#, php-format
+msgid "I have %d apple"
+msgid_plural "I have %d apples"
+msgstr[0] ""
+msgstr[1] ""
+
+#: node_modules/grunt-pot/test/fixtures/some-other-file.php:16
+msgid "yyyy-mm-dd"
+msgstr ""

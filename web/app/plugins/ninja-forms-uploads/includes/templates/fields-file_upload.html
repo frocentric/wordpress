@@ -1,0 +1,19 @@
+<script id="tmpl-nf-field-file_upload" type="text/template">
+	<button class="btn ninja-forms-field nf-element btn-success nf-fu-fileinput-button" type="button">
+        <span>{{{ data.select_files_text }}}</span>
+    </button>
+	<button type="reset" class="btn nf-fu-button-cancel" data-field-id="{{{ data.id }}}" data-form-id="{{{ data.formID }}}">{{{ data.cancel_upload_text }}}</button>
+	<input class="nf-element" style="display: block; visibility: hidden; width: 0; height: 0;" type="file" <# data.uploadMulti ? print( 'name="files-' + data.id + '[]" multiple' ) : print ( 'name="files-' + data.id + '"' ) #> <# data.upload_types ? print( 'accept=" ' + data.upload_types + '"' ) : '' #>>
+	<input type="hidden" class="nf-upload-nonce" value="{{{ data.uploadNonce }}}">
+	<div class="nf-fu-progress">
+		<div class="nf-fu-progress-bar nf-fu-progress-bar-success"></div>
+	</div>
+	<div class="files_uploaded"></div>
+</script>
+
+<script id="tmpl-nf-field-file-row" type="text/template">
+	<p>
+		{{{ data.name }}}
+		<a href="#" class="delete">{{{ nf_upload.strings.delete_file }}}</a>
+	</p>
+</script>

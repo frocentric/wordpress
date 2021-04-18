@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7b3dbfa760c7fc5e60f976fa1cc20975",
+    "content-hash": "0a3493cced386398c69708add677bdac",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -520,23 +520,25 @@
         },
         {
             "name": "ingenyus/configure-environment-plugins",
-            "version": "1.0.7",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Genyus/Configure-Environment-Plugins.git",
-                "reference": "5eeb76e6d906a4633b61bb5621a9894c1b35b587"
+                "reference": "9096198c49e2041e2f46b862670c93cf0712bc9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Genyus/Configure-Environment-Plugins/zipball/5eeb76e6d906a4633b61bb5621a9894c1b35b587",
-                "reference": "5eeb76e6d906a4633b61bb5621a9894c1b35b587",
+                "url": "https://api.github.com/repos/Genyus/Configure-Environment-Plugins/zipball/9096198c49e2041e2f46b862670c93cf0712bc9b",
+                "reference": "9096198c49e2041e2f46b862670c93cf0712bc9b",
                 "shasum": ""
             },
             "require": {
                 "composer/installers": "~1.0"
             },
             "require-dev": {
+                "automattic/phpcs-neutron-ruleset": "^3.4",
                 "dealerdirect/phpcodesniffer-composer-installer": "*",
+                "phpcompatibility/phpcompatibility-wp": "*",
                 "squizlabs/php_codesniffer": "3.*",
                 "wp-coding-standards/wpcs": "*"
             },
@@ -561,7 +563,7 @@
                 "issues": "https://github.com/Genyus/Configure-Environment-Plugins/issues",
                 "source": "https://github.com/Genyus/Configure-Environment-Plugins"
             },
-            "time": "2020-05-23T10:27:26+00:00"
+            "time": "2021-04-18T02:48:04+00:00"
         },
         {
             "name": "johnpbloch/wordpress",
@@ -802,10 +804,10 @@
         },
         {
             "name": "koodimonni-plugin-language/woocommerce-en_gb",
-            "version": "5.2.1",
+            "version": "5.2.2",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/5.2.1/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/5.2.2/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -2393,15 +2395,15 @@
         },
         {
             "name": "wpackagist-plugin/jetpack",
-            "version": "8.9.1",
+            "version": "9.6.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/jetpack/",
-                "reference": "tags/8.9.1"
+                "reference": "tags/9.6.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jetpack.8.9.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/jetpack.9.6.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2537,15 +2539,15 @@
         },
         {
             "name": "wpackagist-plugin/publishpress",
-            "version": "2.4.2",
+            "version": "3.3.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/publishpress/",
-                "reference": "tags/2.4.2"
+                "reference": "tags/3.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/publishpress.2.4.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/publishpress.3.3.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2591,15 +2593,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-analytify",
-            "version": "3.1.6",
+            "version": "4.0.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-analytify/",
-                "reference": "tags/3.1.6"
+                "reference": "tags/4.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-analytify.3.1.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-analytify.4.0.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2717,15 +2719,15 @@
         },
         {
             "name": "wpackagist-theme/generatepress",
-            "version": "2.4.2",
+            "version": "3.0.3",
             "source": {
                 "type": "svn",
                 "url": "https://themes.svn.wordpress.org/generatepress/",
-                "reference": "2.4.2"
+                "reference": "3.0.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/theme/generatepress.2.4.2.zip"
+                "url": "https://downloads.wordpress.org/theme/generatepress.3.0.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
