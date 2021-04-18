@@ -72,6 +72,7 @@ jobs:
           message=`git log -1 --pretty=format:%B | cat`
           git commit --amend -m "$message
           [skip ci]"
+          git tag -f $(git describe --tags $(git rev-list --tags --max-count=1))
           git push origin --follow-tags --no-verify
 
   deploy:
