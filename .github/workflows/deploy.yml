@@ -72,7 +72,7 @@ jobs:
           message=`git log -1 --pretty=format:%B | cat`
           git commit --amend -m "$message
           [skip ci]"
-          git push origin --follow-tags --no-verify
+          git push origin --follow-tags --verify
 
   deploy:
     # Ensure execution for stage deployments, as dependent version job is skipped
