@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/frocentric/wordpress/compare/v1.1.13...v1.6.0) (2021-04-18)
+
+
+### Features
+
+* add styling for role application form ([03dd6ce](https://github.com/frocentric/wordpress/commit/03dd6ce3c3c1eec2ab7cc250c5d3a73e3250779e))
+* add support for Ninja form file uploads ([2154706](https://github.com/frocentric/wordpress/commit/21547062e7004a40eae42e7a05ec2a1f41787b29))
+* Upgrades dependencies to latest ([1e450f3](https://github.com/frocentric/wordpress/commit/1e450f3e354609d3b62a3d169538a0d20f7242f7))
+
+
+### Bug Fixes
+
+* **deps:** revert phpdotenv to fix critical error ([af5109a](https://github.com/frocentric/wordpress/commit/af5109aa6c738b68fe61a494c3e57023efffc9b4))
+
 ## [1.5.0](https://github.com/frocentric/wordpress/compare/v1.1.13...v1.5.0) (2021-04-18)
 
 
