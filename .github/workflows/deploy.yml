@@ -73,7 +73,7 @@ jobs:
           git commit --amend -m "$message
           [skip ci]"
           git tag -f $(git describe --tags $(git rev-list --tags --max-count=1))
-          git push origin --follow-tags --no-verify
+          git push origin --tags --no-verify
 
   deploy:
     # Ensure execution for stage deployments, as dependent version job is skipped
