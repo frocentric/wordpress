@@ -520,23 +520,25 @@
         },
         {
             "name": "ingenyus/configure-environment-plugins",
-            "version": "1.0.7",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Genyus/Configure-Environment-Plugins.git",
-                "reference": "5eeb76e6d906a4633b61bb5621a9894c1b35b587"
+                "reference": "9096198c49e2041e2f46b862670c93cf0712bc9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Genyus/Configure-Environment-Plugins/zipball/5eeb76e6d906a4633b61bb5621a9894c1b35b587",
-                "reference": "5eeb76e6d906a4633b61bb5621a9894c1b35b587",
+                "url": "https://api.github.com/repos/Genyus/Configure-Environment-Plugins/zipball/9096198c49e2041e2f46b862670c93cf0712bc9b",
+                "reference": "9096198c49e2041e2f46b862670c93cf0712bc9b",
                 "shasum": ""
             },
             "require": {
                 "composer/installers": "~1.0"
             },
             "require-dev": {
+                "automattic/phpcs-neutron-ruleset": "^3.4",
                 "dealerdirect/phpcodesniffer-composer-installer": "*",
+                "phpcompatibility/phpcompatibility-wp": "*",
                 "squizlabs/php_codesniffer": "3.*",
                 "wp-coding-standards/wpcs": "*"
             },
@@ -561,7 +563,7 @@
                 "issues": "https://github.com/Genyus/Configure-Environment-Plugins/issues",
                 "source": "https://github.com/Genyus/Configure-Environment-Plugins"
             },
-            "time": "2020-05-23T10:27:26+00:00"
+            "time": "2021-04-18T02:48:04+00:00"
         },
         {
             "name": "johnpbloch/wordpress",
