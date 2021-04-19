@@ -2593,15 +2593,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-analytify",
-            "version": "4.0.1",
+            "version": "4.0.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-analytify/",
-                "reference": "tags/4.0.1"
+                "reference": "tags/4.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-analytify.4.0.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-analytify.4.0.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
