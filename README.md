@@ -1,4 +1,5 @@
 # [Frocentric](https://hq.frocentric.io/)
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Deploy Status](https://img.shields.io/github/workflow/status/frocentric/wordpress/CI/production?label=CI)](https://github.com/frocentric/wordpress/actions)
 
 This repository represents the Wordpress component in the technology stack behind [frocentric.io](https://hq.frocentric.io), a network of tailored digital hubs serving interest groups and communities across the African diaspora.
