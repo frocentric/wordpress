@@ -6,7 +6,7 @@ This repository represents the Wordpress component in the technology stack behin
 
 ## Contributing
 
-Contributions are welcome from interested members of our community. We have [contributing guidelines](https://github.com/frocentric/wordpress/wiki/Contributing) to help you get started.
+Contributions are welcome from interested members of our community. We have [contributing guidelines](https://github.com/frocentric/wordpress/blob/main/CONTRIBUTING.md) to help you get started.
 
 ## Community
 
