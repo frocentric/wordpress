@@ -46,14 +46,63 @@
           "type": "zip"
         }
       }
-    }
+    },
+	{
+		"type": "package",
+		"package": {
+			"name": "modern-tribe/events-calendar-pro",
+			"version": "5.5.0.2",
+			"type": "wordpress-plugin",
+			"dist": {
+				"url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}",
+				"type": "zip"
+			}
+		},
+		"require": {
+		  "ffraenz/private-composer-installer": "~5.0"
+		}
+	},
+	{
+		"type": "package",
+		"package": {
+			"name": "modern-tribe/the-events-calendar-community-events",
+			"version": "4.8.6",
+			"type": "wordpress-plugin",
+			"dist": {
+				"url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community&version={%VERSION}&key={%TEC_CE_LICENSE}",
+				"type": "zip"
+			}
+		},
+		"require": {
+		  "ffraenz/private-composer-installer": "~5.0"
+		}
+	},
+	{
+		"type": "package",
+		"package": {
+			"name": "modern-tribe/the-events-calendar-filterbar",
+			"version": "5.1.0",
+			"type": "wordpress-plugin",
+			"dist": {
+				"url": "https://pue.tri.be/api/plugins/v2/download?plugin=tribe-filterbar&version={%VERSION}&key={%TEC_FB_LICENSE}",
+				"type": "zip"
+			}
+		},
+		"require": {
+		  "ffraenz/private-composer-installer": "~5.0"
+		}
+	}
   ],
   "require": {
     "composer/installers": "^1.8",
+    "ffraenz/private-composer-installer": "^5.0",
     "humanmade/s3-uploads": "~2.0",
     "ingenyus/configure-environment-plugins": "~1.0",
     "johnpbloch/wordpress": "~5.0",
     "koodimonni-language/en_gb": "*",
+	"modern-tribe/events-calendar-pro": "*",
+	"modern-tribe/the-events-calendar-community-events": "*",
+	"modern-tribe/the-events-calendar-filterbar": "*",
     "oscarotero/env": "^2.1.0",
     "php": ">=5.6",
 	"roots/bedrock-autoloader": "~1.0",
@@ -115,7 +164,11 @@
       "web/app/languages/plugins/": ["vendor:koodimonni-plugin-language"],
       "web/app/languages/themes/": ["vendor:koodimonni-theme-language"]
     },
-    "wordpress-install-dir": "web/wp"
+    "wordpress-install-dir": "web/wp",
+    "private-composer-installer": {
+      "dotenv-path": ".",
+      "dotenv-name": ".env"
+    }
   },
   "scripts": {
     "post-root-package-install": [
