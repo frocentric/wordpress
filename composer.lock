@@ -2456,15 +2456,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "4.6.2",
+            "version": "4.6.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/4.6.2"
+                "reference": "tags/4.6.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.4.6.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.4.6.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2492,15 +2492,15 @@
         },
         {
             "name": "wpackagist-plugin/feedzy-rss-feeds",
-            "version": "3.6.1",
+            "version": "3.6.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/feedzy-rss-feeds/",
-                "reference": "tags/3.6.1"
+                "reference": "tags/3.6.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.3.6.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.3.6.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2618,15 +2618,15 @@
         },
         {
             "name": "wpackagist-plugin/meta-box",
-            "version": "5.3.9",
+            "version": "5.3.10",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/meta-box/",
-                "reference": "tags/5.3.9"
+                "reference": "tags/5.3.10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/meta-box.5.3.9.zip"
+                "url": "https://downloads.wordpress.org/plugin/meta-box.5.3.10.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
