@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Filter Clear Selectors Should match snapshot 1`] = `"{\\"clearButton\\":\\"[data-js=\\\\\\"tribe-filter-bar-c-clear-button\\\\\\"]\\",\\"selectedFilter\\":\\"[data-js=\\\\\\"tribe-filter-bar__selected-filter\\\\\\"]\\"}"`;
