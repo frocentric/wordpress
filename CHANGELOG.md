@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.2](https://github.com/frocentric/wordpress/compare/v1.7.1...v1.7.2) (2021-05-15)
+
+
+### Bug Fixes
+
+* fix form styling ([4c01c3f](https://github.com/frocentric/wordpress/commit/4c01c3f0ff47485a1445cc9cd3012bb020e9e2dd))
+
 ### [1.7.1](https://github.com/frocentric/wordpress/compare/v1.7.0...v1.7.1) (2021-04-28)
 
 ## [1.7.0](https://github.com/frocentric/wordpress/compare/v1.1.13...v1.7.0) (2021-04-18)
