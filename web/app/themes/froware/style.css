@@ -337,7 +337,7 @@ aside.cite {
   line-height: 1;
   font-weight: 400;
   font-style: normal;
-  speak: none;
+  speak: never;
   text-decoration: inherit;
   text-transform: none;
   text-rendering: auto;
@@ -434,6 +434,12 @@ select.nf-element {
 	background-size: 12px;
 	background-position: right 20px top 60%;
 	background-repeat: no-repeat;
+}
+select.nf-element[multiple] {
+	background-image: none;
+}
+.nf-after-form-content {
+	clear: both;
 }
 
 ::-webkit-input-placeholder {
@@ -704,10 +710,6 @@ select.nf-element {
 
   .section-title h1 {
     text-align: left;
-  }
-
-  .section-title input[type="text"] {
-    /*max-width: 60%;*/
   }
 
   .section-title .searchandfilter ul {
