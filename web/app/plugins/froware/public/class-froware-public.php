@@ -372,22 +372,12 @@ class Froware_Public {
 
 		$url = filter_input( INPUT_POST, 'event_url' );
 
-		if ( ! empty( $url ) ) {
-			$regex = '/^https?:\/\/([^\/]+)*/';
-			// Capture domain from URL.
-			preg_match( $regex, $url, $matches );
-
-			if ( ! $matches || count( $matches ) <= 1 ) {
-				wp_send_json_error( __( 'Invalid URL, please try again', 'froware' ) );
-			}
-
-			parse_url( $url, $matches );
-		} else {
-			wp_send_json_error( __( 'URL not supplied, please try again', 'froware' ) );
-		}
+		$this->validate_url( $url );
 	}
 
-	protected function parse_url( $url, $matches ) {
+	protected function validate_url( $url ) {
+		$matches = $this->parse_url( $url );
+
 		switch ( $matches[1] ) {
 			case 'eventbrite.com':
 			case 'eventbrite.co.uk':
@@ -396,7 +386,24 @@ class Froware_Public {
 				$this->parse_eventbrite_url( $url, $matches );
 				break;
 		}
+
 		wp_send_json_error( __( 'Unsupported domain, please try again', 'froware' ) );
+	}
+
+	protected function parse_url( $url ) {
+		if ( empty( $url ) ) {
+			wp_send_json_error( __( 'URL not supplied, please try again', 'froware' ) );
+		}
+
+		$regex = '/^https?:\/\/([^\/]+)*/';
+		// Capture domain from URL.
+		preg_match( $regex, $url, $matches );
+
+		if ( ! $matches || count( $matches ) <= 1 ) {
+			wp_send_json_error( __( 'Invalid URL, please try again', 'froware' ) );
+		}
+
+		return $matches;
 	}
 
 	protected function parse_eventbrite_url( $url, $matches ) {
