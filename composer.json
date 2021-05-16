@@ -148,11 +148,11 @@
     "wp-media/wp-rocket": "~3.0"
   },
   "require-dev": {
-    "squizlabs/php_codesniffer": "3.*",
+    "automattic/phpcs-neutron-ruleset": "^3.4",
     "dealerdirect/phpcodesniffer-composer-installer": "*",
-    "wp-coding-standards/wpcs": "*",
     "phpcompatibility/phpcompatibility-wp": "*",
-    "automattic/phpcs-neutron-ruleset": "^3.4"
+    "squizlabs/php_codesniffer": "3.*",
+    "wp-coding-standards/wpcs": "*"
   },
   "extra": {
     "installer-paths": {
