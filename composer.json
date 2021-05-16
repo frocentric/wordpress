@@ -141,6 +141,7 @@
     "wpackagist-plugin/wp-analytify": "~4.0",
     "wpackagist-plugin/wp-discourse": "~2.0",
     "wpackagist-plugin/wp-event-aggregator": "~1.0",
+    "wpackagist-plugin/wp-graphql": "~1.0",
     "wpackagist-plugin/wp-mail-smtp": "~2.0",
     "wpackagist-plugin/wp-show-posts": "~1.0",
     "wpackagist-theme/generatepress": "~3.0",
