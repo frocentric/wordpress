@@ -75,7 +75,6 @@ logs
 *.log
 
 # VS Code config
-.editorconfig
 .vscode/launch.json
 
 # Local By Flywheel config
