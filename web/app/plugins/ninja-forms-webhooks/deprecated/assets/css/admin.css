@@ -1,0 +1,44 @@
+.single-wh-args {
+    border-bottom: 1px solid #ddd;
+    padding: 5px 0 5px 20px;
+}
+
+.nf-wh-args {
+    background: #fff;
+    overflow: hidden;
+}
+
+.nf-wh-argss-title{
+    background: #ddd;
+    padding: 10px;
+}
+
+.nf-wh-argss {
+    border: 1px solid #ddd;
+}
+
+.nf-wh-args-add div {
+    margin-top: 3px;
+}
+
+.nf-wh-args-delete {
+    text-decoration: none;
+    color: #333;
+}
+
+.nf-wh-args-delete div {
+    margin-top: 10px;
+}
+
+.nf-wh-args-delete:hover {
+    color: red;
+}
+
+#nf_wh_args .tokenfield {
+    float: left;
+    width: 50% !important;
+}
+
+.nf-wh-args-key {
+    height: 2.6em;
+}
