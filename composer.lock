@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8bf694bc087be10267f547310c3fb3c8",
+    "content-hash": "f660cc19feb7912bd2623af6e02e3565",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.183.11",
+            "version": "3.183.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "f42dcf893227842aca11e8ea19f7b2123cf3244b"
+                "reference": "0e0be404854482b7cae61ef9f707c7a876b43cdf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/f42dcf893227842aca11e8ea19f7b2123cf3244b",
-                "reference": "f42dcf893227842aca11e8ea19f7b2123cf3244b",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0e0be404854482b7cae61ef9f707c7a876b43cdf",
+                "reference": "0e0be404854482b7cae61ef9f707c7a876b43cdf",
                 "shasum": ""
             },
             "require": {
@@ -92,9 +92,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.183.11"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.183.13"
             },
-            "time": "2021-06-02T18:14:10+00:00"
+            "time": "2021-06-04T18:12:54+00:00"
         },
         {
             "name": "composer/installers",
@@ -614,23 +614,33 @@
         },
         {
             "name": "humanmade/s3-uploads",
-            "version": "2.3.0",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/humanmade/S3-Uploads.git",
-                "reference": "3b995ba6d1ccde4354efb9564c3e244f871bbcda"
+                "reference": "a8407011845e86ee75ab2f81f88bd7a486e780b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/humanmade/S3-Uploads/zipball/3b995ba6d1ccde4354efb9564c3e244f871bbcda",
-                "reference": "3b995ba6d1ccde4354efb9564c3e244f871bbcda",
+                "url": "https://api.github.com/repos/humanmade/S3-Uploads/zipball/a8407011845e86ee75ab2f81f88bd7a486e780b9",
+                "reference": "a8407011845e86ee75ab2f81f88bd7a486e780b9",
                 "shasum": ""
             },
             "require": {
                 "aws/aws-sdk-php": "~3.18",
                 "composer/installers": "~1.0"
             },
+            "require-dev": {
+                "humanmade/psalm-plugin-wordpress": "^1.0",
+                "pcov/clobber": "^2.0",
+                "phpunit/phpunit": "7.5"
+            },
             "type": "wordpress-plugin",
+            "autoload": {
+                "classmap": [
+                    "./inc"
+                ]
+            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-2.0+"
@@ -651,7 +661,7 @@
                 "issues": "https://github.com/humanmade/s3-uploads/issues",
                 "source": "https://github.com/humanmade/s3-uploads"
             },
-            "time": "2021-03-18T10:55:13+00:00"
+            "time": "2021-02-19T19:49:27+00:00"
         },
         {
             "name": "ingenyus/configure-environment-plugins",
@@ -2254,16 +2264,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.9",
+            "version": "v3.9.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "0e3a5d1669347708e76bde070093a9c4b41eb2fe"
+                "reference": "48f5466c8e9699f23318968a943b1302abadcab6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/0e3a5d1669347708e76bde070093a9c4b41eb2fe",
-                "reference": "0e3a5d1669347708e76bde070093a9c4b41eb2fe",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/48f5466c8e9699f23318968a943b1302abadcab6",
+                "reference": "48f5466c8e9699f23318968a943b1302abadcab6",
                 "shasum": ""
             },
             "require": {
@@ -2286,7 +2296,6 @@
                 "phpunit/phpunit": "^7.5",
                 "roave/security-advisories": "dev-master",
                 "szepeviktor/phpstan-wordpress": "^0.7.0",
-                "woocommerce/woocommerce": "^3.9",
                 "wp-coding-standards/wpcs": "^2",
                 "wp-media/background-processing": "^1.3",
                 "wp-media/cloudflare": "^1.0",
@@ -2300,6 +2309,7 @@
                 "wpackagist-plugin/pdf-embedder": "^4.6",
                 "wpackagist-plugin/simple-custom-css": "^4.0.3",
                 "wpackagist-plugin/spinupwp": "^1.1",
+                "wpackagist-plugin/woocommerce": "^4.9.2",
                 "wpackagist-plugin/wp-smushit": "^3.0"
             },
             "type": "wordpress-plugin",
@@ -2370,7 +2380,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2021-05-18T16:39:30+00:00"
+            "time": "2021-06-03T07:02:56+00:00"
         },
         {
             "name": "wpackagist-plugin/authors-list",
@@ -2860,15 +2870,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-discourse",
-            "version": "2.2.7",
+            "version": "2.2.8",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-discourse/",
-                "reference": "tags/2.2.7"
+                "reference": "tags/2.2.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-discourse.2.2.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-discourse.2.2.8.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
