@@ -56,13 +56,12 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
       root=${root%/*}
     done
     if [[ $root != "" ]]; then
-      cd "$root"
+      pushd "$root"
     else
       echo "❌  Unable to find a Bedrock site root"
       exit 1
     fi
   };
-  findenv
 
   # Make sure both environments are available before we continue
   availfrom() {
@@ -75,7 +74,6 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
       echo "✅  Able to connect to $FROM"
     fi
   };
-  availfrom
 
   availto() {
     local AVAILTO
@@ -87,12 +85,12 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
       echo "✅  Able to connect to $TO"
     fi
   };
-  availto
-  echo
 
   sync_db() {
 	local DESTSUBDOMAIN
 	local SOURCESUBDOMAIN
+
+  	echo
 
     # Export/import database
     wp "@$TO" db export &&
@@ -114,13 +112,11 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
       wp @$TO search-replace "https://$SOURCESUBDOMAIN" "https://$DESTSUBDOMAIN" --url="https://$DESTSUBDOMAIN"
     done
   };
-  sync_db
 
   sync_uploads() {
     # Sync buckets
     aws s3 sync "${SOURCE[bucket]}" "${DEST[bucket]}" --profile frocentric
   };
-  sync_uploads
 
   # Slack notification when sync direction is up or horizontal
   notify() {
@@ -128,9 +124,16 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
     #   USER="$(git config user.name)"
     #   curl -X POST -H "Content-type: application/json" --data "{\"attachments\":[{\"fallback\": \"\",\"color\":\"#36a64f\",\"text\":\"🔄 Sync from ${SOURCE[url]} to ${DEST[url]} by ${USER} complete \"}],\"channel\":\"#site\"}" https://hooks.slack.com/services/xx/xx/xx
     # fi
-  };
-  #notify
 
-  echo -e "\n\n🔄  Sync from $FROM to $TO complete.\n\n    ${bold}${DEST[url]}${normal}\n"
-  cd "$pwd"
+    echo -e "\n\n🔄  Sync from $FROM to $TO complete.\n\n    ${bold}${DEST[url]}${normal}\n"
+  };
+
+  findenv
+  availfrom
+  availto
+  sync_db
+  sync_uploads
+  notify
+
+  popd
 fi
