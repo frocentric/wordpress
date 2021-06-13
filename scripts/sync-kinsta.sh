@@ -1,29 +1,8 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Syncing Trellis & Bedrock-based WordPress environments with WP-CLI aliases (Kinsta version)
 # Version 1.1.0
 # Copyright (c) Ben Word
-
-DEVBUCKET="s3://froware-local"
-DEVDIR="web/app/uploads/"
-DEVFROWAREDOMAIN="froware.frocentric.local"
-DEVFROCENTRICDOMAIN="frocentric.local"
-DEVSITE="https://$DEVFROCENTRICDOMAIN"
-DEVPORT="22"
-
-REMOTEDIR="frowarecom@35.246.15.218:/www/frowarecom_769/public/current/web/app/uploads/"
-
-PRODBUCKET="s3://froware"
-PRODPORT="24583"
-PRODFROWAREDOMAIN="froware.com"
-PRODFROCENTRICDOMAIN="frocentric.org"
-PRODSITE="https://$PRODFROCENTRICDOMAIN"
-
-STAGBUCKET="s3://froware-staging"
-STAGPORT="18528"
-STAGFROWAREDOMAIN="staging.froware.com"
-STAGFROCENTRICDOMAIN="staging.frocentric.org"
-STAGSITE="https://$STAGFROCENTRICDOMAIN"
 
 FROM=$1
 TO=$2
@@ -31,19 +10,39 @@ TO=$2
 bold=$(tput bold)
 normal=$(tput sgr0)
 
+# Declare arrays to store environment configuration values
+SUBDOMAINS=("hq" "tech-api")
+declare -A SOURCE
+declare -A DEST
+declare -A DEV=( ["bucket"]="s3://froware-local" ["rootdomain"]="frocentric.local" ["domain"]="frocentric.local" ["url"]="https://frocentric.local" ["prefix"]="")
+declare -A STAGING=( ["bucket"]="s3://froware-staging" ["rootdomain"]="frocentric.io" ["domain"]="stage.frocentric.io" ["url"]="https://stage.frocentric.io" ["prefix"]="stage-")
+declare -A PRODUCTION=( ["bucket"]="s3://froware" ["rootdomain"]="frocentric.io" ["domain"]="www.frocentric.io" ["url"]="https://www.frocentric.io" ["prefix"]="")
+
 case "$1-$2" in
-  production-development) DIR="down ⬇️ "           FROMSITE=$PRODSITE; FROMFROWAREDOMAIN=$PRODFROWAREDOMAIN; FROMFROCENTRICDOMAIN=$PRODFROCENTRICDOMAIN; FROMDIR=$REMOTEDIR; FROMPORT=$PRODPORT; FROMBUCKET=$PRODBUCKET; TOPORT=$DEVPORT; TOSITE=$DEVSITE; TOFROWAREDOMAIN=$DEVFROWAREDOMAIN; TOFROCENTRICDOMAIN=$DEVFROCENTRICDOMAIN; TODIR=$DEVDIR; TOBUCKET=$DEVBUCKET; ;;
-  staging-development)    DIR="down ⬇️ "           FROMSITE=$STAGSITE; FROMFROWAREDOMAIN=$STAGFROWAREDOMAIN; FROMFROCENTRICDOMAIN=$STAGFROCENTRICDOMAIN; FROMDIR=$REMOTEDIR; FROMPORT=$STAGPORT; FROMBUCKET=$STAGBUCKET; TOPORT=$DEVPORT; TOSITE=$DEVSITE; TOFROWAREDOMAIN=$DEVFROWAREDOMAIN; TOFROCENTRICDOMAIN=$DEVFROCENTRICDOMAIN;  TODIR=$DEVDIR; TOBUCKET=$DEVBUCKET; ;;
-  development-production) DIR="up ⬆️ "             FROMSITE=$DEVSITE; FROMFROWAREDOMAIN=$DEVFROWAREDOMAIN; FROMFROCENTRICDOMAIN=$DEVFROCENTRICDOMAIN; FROMDIR=$DEVDIR;  FROMPORT=$DEVPORT; FROMBUCKET=$DEVBUCKET; TOPORT=$PRODPORT; TOSITE=$PRODSITE; TOFROWAREDOMAIN=$PRODFROWAREDOMAIN; TOFROCENTRICDOMAIN=$PRODFROCENTRICDOMAIN; TODIR=$REMOTEDIR; TOBUCKET=$PRODBUCKET; ;;
-  development-staging)    DIR="up ⬆️ "             FROMSITE=$DEVSITE; FROMFROWAREDOMAIN=$DEVFROWAREDOMAIN; FROMFROCENTRICDOMAIN=$DEVFROCENTRICDOMAIN; FROMDIR=$DEVDIR;  FROMPORT=$DEVPORT; FROMBUCKET=$DEVBUCKET; TOPORT=$STAGPORT; TOSITE=$STAGSITE; TOFROWAREDOMAIN=$STAGFROWAREDOMAIN; TOFROCENTRICDOMAIN=$STAGFROCENTRICDOMAIN; TODIR=$REMOTEDIR; TOBUCKET=$STAGBUCKET; ;;
-  production-staging)     DIR="horizontally ↔️ ";  FROMSITE=$PRODSITE; FROMFROWAREDOMAIN=$PRODFROWAREDOMAIN; FROMFROCENTRICDOMAIN=$PRODFROCENTRICDOMAIN; FROMDIR=$REMOTEDIR; FROMPORT=$PRODPORT; FROMBUCKET=$PRODBUCKET; TOPORT=$STAGPORT; TOSITE=$STAGSITE; TOFROWAREDOMAIN=$STAGFROWAREDOMAIN; TOFROCENTRICDOMAIN=$STAGFROCENTRICDOMAIN; TODIR=$REMOTEDIR; TOBUCKET=$STAGBUCKET; ;;
-  staging-production)     DIR="horizontally ↔️ ";  FROMSITE=$STAGSITE; FROMFROWAREDOMAIN=$STAGFROWAREDOMAIN; FROMFROCENTRICDOMAIN=$STAGFROCENTRICDOMAIN; FROMDIR=$REMOTEDIR; FROMPORT=$STAGPORT; FROMBUCKET=$STAGBUCKET; TOPORT=$PRODPORT; TOSITE=$PRODSITE; TOFROWAREDOMAIN=$PRODFROWAREDOMAIN; TOFROCENTRICDOMAIN=$PRODFROCENTRICDOMAIN; TODIR=$REMOTEDIR; TOBUCKET=$PRODBUCKET; ;;
-  *) echo "usage: $0 production development | staging development | development staging | development production | staging production | production staging" && exit 1 ;;
+  production-development) DIR="down ⬇️ "; ;;
+  staging-development)    DIR="down ⬇️ "; ;;
+  development-production) echo "syncing development to production not supported, sync to staging first. usage: $0 production development | staging development | development staging | staging production | production staging" && exit 1 ;;
+  development-staging)    DIR="up ⬆️ "; ;;
+  production-staging)     DIR="horizontally ↔️ "; ;;
+  staging-production)     DIR="horizontally ↔️ "; ;;
+  *) echo "usage: $0 production development | staging development | development staging | staging production | production staging" && exit 1 ;;
 esac
 
-read -r -p "
-🔄  Would you really like to ⚠️  ${bold}reset the $TO database${normal} ($TOSITE)
-    and sync ${bold}$DIR${normal} from $FROM ($FROMSITE)? [y/N] " response
+case "$1" in
+  production)  SOURCE=("${(@fkv)PRODUCTION}"); ;;
+  development) SOURCE=("${(@fkv)DEV}"); ;;
+  staging)     SOURCE=("${(@fkv)STAGING}"); ;;
+esac
+
+case "$2" in
+  development) DEST=("${(@fkv)DEV}"); ;;
+  production)  DEST=("${(@fkv)PRODUCTION}"); ;;
+  staging)     DEST=("${(@fkv)STAGING}"); ;;
+esac
+
+read "response?
+🔄  Would you really like to ⚠️  ${bold}reset the $TO database${normal} (${DEST[url]})
+    and sync ${bold}$DIR${normal} from $FROM (${SOURCE[url]})? [y/N] "
 
 if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
   # Change to site directory
@@ -52,17 +51,17 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
 
   # Check we're running under a Bedrock site: https://unix.stackexchange.com/a/22215
   findenv () {
-    path=$(pwd)
-    while [[ "$path" != "" && ! -e "$path/.env" ]]; do
-      path=${path%/*}
+    root=$(pwd)
+    while [[ "$root" != "" && ! -e "$root/.env" ]]; do
+      root=${root%/*}
     done
-    if [[ $path != "" ]]; then
-      cd "$path"
+    if [[ $root != "" ]]; then
+      cd "$root"
     else
       echo "❌  Unable to find a Bedrock site root"
       exit 1
     fi
-  }
+  };
   findenv
 
   # Make sure both environments are available before we continue
@@ -91,27 +90,47 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
   availto
   echo
 
-  # Export/import database
-  wp "@$TO" db export &&
-  wp "@$TO" db reset --yes &&
-  wp "@$FROM" db export - | wp "@$TO" db import -
+  sync_db() {
+	local DESTSUBDOMAIN
+	local SOURCESUBDOMAIN
 
-  # Sync buckets
-  aws s3 sync $FROMBUCKET $TOBUCKET --profile frocentric
+    # Export/import database
+    wp "@$TO" db export &&
+    wp "@$TO" db reset --yes &&
+    wp "@$FROM" db export - | wp "@$TO" db import -
 
-  # Run search & replace
-  wp @$TO search-replace "$FROMFROCENTRICDOMAIN" "$TOFROCENTRICDOMAIN" --url=https://$FROMFROCENTRICDOMAIN &&
-  wp @$TO search-replace "$FROMFROWAREDOMAIN" "$TOFROWAREDOMAIN" &&
-  wp @$TO search-replace "$FROMFROWAREDOMAIN" "$TOFROWAREDOMAIN" --url=https://$TOFROWAREDOMAIN
-  # wp @development site list --field=url | xargs -n1 -I % wp --url=% search-replace "staging.froware.com" "froware.frocentric.local"
-#  wp "@$TO" search-replace "$FROMSITE" "$TOSITE" &&
-#  wp "@$TO" search-replace "$FROMFROWAREDOMAIN" "$TOFROWAREDOMAIN"
+    # Run search & replace for primary domain
+	echo
+	echo "Replacing ${SOURCE[domain]} with ${DEST[domain]}"
+    wp @$TO search-replace "${SOURCE[domain]}" "${DEST[domain]}" --url="${SOURCE[url]}"
+
+    # Run search & replace for sub-domains
+    for subdomain in "${SUBDOMAINS[@]}"; do
+      DESTSUBDOMAIN="${DEST[prefix]}$subdomain.${DEST[rootdomain]}"
+      SOURCESUBDOMAIN="${SOURCE[prefix]}$subdomain.${SOURCE[rootdomain]}"
+	  echo
+	  echo "Replacing $SOURCESUBDOMAIN with $DESTSUBDOMAIN"
+      wp @$TO search-replace "$SOURCESUBDOMAIN" "$DESTSUBDOMAIN" &&
+      wp @$TO search-replace "https://$SOURCESUBDOMAIN" "https://$DESTSUBDOMAIN" --url="https://$DESTSUBDOMAIN"
+    done
+  };
+  sync_db
+
+  sync_uploads() {
+    # Sync buckets
+    aws s3 sync "${SOURCE[bucket]}" "${DEST[bucket]}" --profile frocentric
+  };
+  sync_uploads
 
   # Slack notification when sync direction is up or horizontal
-  # if [[ $DIR != "down"* ]]; then
-  #   USER="$(git config user.name)"
-  #   curl -X POST -H "Content-type: application/json" --data "{\"attachments\":[{\"fallback\": \"\",\"color\":\"#36a64f\",\"text\":\"🔄 Sync from ${FROMSITE} to ${TOSITE} by ${USER} complete \"}],\"channel\":\"#site\"}" https://hooks.slack.com/services/xx/xx/xx
-  # fi
-  echo -e "\n\n🔄  Sync from $FROM to $TO complete.\n\n    ${bold}$TOSITE${normal}\n"
+  notify() {
+    # if [[ $DIR != "down"* ]]; then
+    #   USER="$(git config user.name)"
+    #   curl -X POST -H "Content-type: application/json" --data "{\"attachments\":[{\"fallback\": \"\",\"color\":\"#36a64f\",\"text\":\"🔄 Sync from ${SOURCE[url]} to ${DEST[url]} by ${USER} complete \"}],\"channel\":\"#site\"}" https://hooks.slack.com/services/xx/xx/xx
+    # fi
+  };
+  #notify
+
+  echo -e "\n\n🔄  Sync from $FROM to $TO complete.\n\n    ${bold}${DEST[url]}${normal}\n"
   cd "$pwd"
 fi
