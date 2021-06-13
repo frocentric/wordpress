@@ -1,0 +1,78 @@
+version: 2
+updates:
+- package-ecosystem: composer
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  target-branch: main
+  ignore:
+  - dependency-name: wpackagist-plugin/feedzy-rss-feeds
+    versions:
+    - 3.6.1
+  - dependency-name: wpackagist-plugin/essential-addons-for-elementor-lite
+    versions:
+    - 4.4.0
+    - 4.4.1
+    - 4.5.0
+    - 4.5.1
+    - 4.5.2
+    - 4.6.0
+    - 4.6.1
+    - 4.6.2
+  - dependency-name: wpackagist-plugin/jetpack
+    versions:
+    - 9.3.2
+    - "9.4"
+    - 9.4.1
+    - "9.5"
+    - 9.5.1
+    - 9.5.2
+    - "9.6"
+  - dependency-name: wpackagist-plugin/publishpress
+    versions:
+    - 3.1.0
+    - 3.2.0
+    - 3.3.0
+  - dependency-name: wpackagist-plugin/wp-analytify
+    versions:
+    - 4.0.0
+  - dependency-name: wpackagist-plugin/the-events-calendar
+    versions:
+    - 5.5.0
+  - dependency-name: wpackagist-plugin/cloudflare
+    versions:
+    - 4.3.0
+    - 4.4.0
+  - dependency-name: humanmade/s3-uploads
+    versions:
+    - 2.3.0
+  - dependency-name: johnpbloch/wordpress
+    versions:
+    - 5.7.0
+  - dependency-name: wp-media/wp-rocket
+    versions:
+    - 3.8.3
+    - 3.8.4
+    - 3.8.5
+    - 3.8.6
+  - dependency-name: wpackagist-plugin/elementor
+    versions:
+    - 3.1.0
+    - 3.1.1
+    - 3.1.2
+    - 3.1.3
+  - dependency-name: koodimonni-language/en_gb
+    versions:
+    - "5.6"
+    - 5.6.1
+    - 5.6.2
+  - dependency-name: composer/installers
+    versions:
+    - 1.10.0
+  - dependency-name: wpackagist-plugin/wp-discourse
+    versions:
+    - 2.2.1
+  - dependency-name: wpackagist-theme/generatepress
+    versions:
+    - 3.0.2
