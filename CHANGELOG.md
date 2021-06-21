@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.5](https://github.com/frocentric/wordpress/compare/v1.7.4...v1.7.5) (2021-06-21)
+
+
+### Bug Fixes
+
+* fix positioning for new site logo ([ba2248b](https://github.com/frocentric/wordpress/commit/ba2248b7b15bf9e5ad95fa0b7a5353c57fe572e8))
+
 ### [1.7.4](https://github.com/frocentric/wordpress/compare/v1.7.3...v1.7.4) (2021-06-13)
 
 ### [1.7.3](https://github.com/frocentric/wordpress/compare/v1.7.2...v1.7.3) (2021-06-06)
