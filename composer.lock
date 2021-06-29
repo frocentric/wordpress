@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.184.2",
+            "version": "3.184.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "78fe691ab466fecf195209672f6c00c5d4ed219a"
+                "reference": "d5d5fe5fdfca6c7a56f2f8364d09c3100d5c2149"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/78fe691ab466fecf195209672f6c00c5d4ed219a",
-                "reference": "78fe691ab466fecf195209672f6c00c5d4ed219a",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d5d5fe5fdfca6c7a56f2f8364d09c3100d5c2149",
+                "reference": "d5d5fe5fdfca6c7a56f2f8364d09c3100d5c2149",
                 "shasum": ""
             },
             "require": {
@@ -92,9 +92,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.184.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.184.7"
             },
-            "time": "2021-06-11T18:20:15+00:00"
+            "time": "2021-06-21T18:37:16+00:00"
         },
         {
             "name": "composer/installers",
@@ -614,16 +614,16 @@
         },
         {
             "name": "humanmade/s3-uploads",
-            "version": "3.0.0",
+            "version": "3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/humanmade/S3-Uploads.git",
-                "reference": "a8407011845e86ee75ab2f81f88bd7a486e780b9"
+                "reference": "d47a5962fcd383047a140c099a8100c716b8a434"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/humanmade/S3-Uploads/zipball/a8407011845e86ee75ab2f81f88bd7a486e780b9",
-                "reference": "a8407011845e86ee75ab2f81f88bd7a486e780b9",
+                "url": "https://api.github.com/repos/humanmade/S3-Uploads/zipball/d47a5962fcd383047a140c099a8100c716b8a434",
+                "reference": "d47a5962fcd383047a140c099a8100c716b8a434",
                 "shasum": ""
             },
             "require": {
@@ -661,7 +661,7 @@
                 "issues": "https://github.com/humanmade/s3-uploads/issues",
                 "source": "https://github.com/humanmade/s3-uploads"
             },
-            "time": "2021-02-19T19:49:27+00:00"
+            "time": "2021-06-16T18:17:34+00:00"
         },
         {
             "name": "ingenyus/configure-environment-plugins",
@@ -1281,16 +1281,16 @@
         },
         {
             "name": "mtdowling/jmespath.php",
-            "version": "2.6.0",
+            "version": "2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jmespath/jmespath.php.git",
-                "reference": "42dae2cbd13154083ca6d70099692fef8ca84bfb"
+                "reference": "9b87907a81b87bc76d19a7fb2d61e61486ee9edb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jmespath/jmespath.php/zipball/42dae2cbd13154083ca6d70099692fef8ca84bfb",
-                "reference": "42dae2cbd13154083ca6d70099692fef8ca84bfb",
+                "url": "https://api.github.com/repos/jmespath/jmespath.php/zipball/9b87907a81b87bc76d19a7fb2d61e61486ee9edb",
+                "reference": "9b87907a81b87bc76d19a7fb2d61e61486ee9edb",
                 "shasum": ""
             },
             "require": {
@@ -1298,7 +1298,7 @@
                 "symfony/polyfill-mbstring": "^1.17"
             },
             "require-dev": {
-                "composer/xdebug-handler": "^1.4",
+                "composer/xdebug-handler": "^1.4 || ^2.0",
                 "phpunit/phpunit": "^4.8.36 || ^7.5.15"
             },
             "bin": [
@@ -1336,9 +1336,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jmespath/jmespath.php/issues",
-                "source": "https://github.com/jmespath/jmespath.php/tree/2.6.0"
+                "source": "https://github.com/jmespath/jmespath.php/tree/2.6.1"
             },
-            "time": "2020-07-31T21:01:56+00:00"
+            "time": "2021-06-14T00:11:39+00:00"
         },
         {
             "name": "oscarotero/env",
@@ -2264,16 +2264,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.9.0.1",
+            "version": "v3.9.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "48f5466c8e9699f23318968a943b1302abadcab6"
+                "reference": "b5fa2579920d85bf0ed70566c2450037b81baf6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/48f5466c8e9699f23318968a943b1302abadcab6",
-                "reference": "48f5466c8e9699f23318968a943b1302abadcab6",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/b5fa2579920d85bf0ed70566c2450037b81baf6e",
+                "reference": "b5fa2579920d85bf0ed70566c2450037b81baf6e",
                 "shasum": ""
             },
             "require": {
@@ -2380,7 +2380,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2021-06-03T07:02:56+00:00"
+            "time": "2021-06-18T16:16:24+00:00"
         },
         {
             "name": "wpackagist-plugin/authors-list",
@@ -2528,15 +2528,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "3.2.4",
+            "version": "3.2.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/3.2.4"
+                "reference": "tags/3.2.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.3.2.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/elementor.3.2.5.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2564,15 +2564,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "4.7.1",
+            "version": "4.7.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/4.7.1"
+                "reference": "tags/4.7.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.4.7.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.4.7.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2798,15 +2798,15 @@
         },
         {
             "name": "wpackagist-plugin/publishpress",
-            "version": "3.3.2",
+            "version": "3.3.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/publishpress/",
-                "reference": "tags/3.3.2"
+                "reference": "tags/3.3.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/publishpress.3.3.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/publishpress.3.3.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2852,15 +2852,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-analytify",
-            "version": "4.0.3",
+            "version": "4.1.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-analytify/",
-                "reference": "tags/4.0.3"
+                "reference": "tags/4.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-analytify.4.0.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-analytify.4.1.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2906,15 +2906,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-graphql",
-            "version": "1.3.10",
+            "version": "1.4.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-graphql/",
-                "reference": "tags/1.3.10"
+                "reference": "tags/1.4.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-graphql.1.3.10.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-graphql.1.4.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -3388,16 +3388,16 @@
         },
         {
             "name": "sirbrillig/phpcs-variable-analysis",
-            "version": "v2.11.0",
+            "version": "v2.11.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sirbrillig/phpcs-variable-analysis.git",
-                "reference": "e76e816236f401458dd8e16beecab905861b5867"
+                "reference": "9df9ade5961a3505d0d24b0e6be2ab82e335f753"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sirbrillig/phpcs-variable-analysis/zipball/e76e816236f401458dd8e16beecab905861b5867",
-                "reference": "e76e816236f401458dd8e16beecab905861b5867",
+                "url": "https://api.github.com/repos/sirbrillig/phpcs-variable-analysis/zipball/9df9ade5961a3505d0d24b0e6be2ab82e335f753",
+                "reference": "9df9ade5961a3505d0d24b0e6be2ab82e335f753",
                 "shasum": ""
             },
             "require": {
@@ -3437,7 +3437,7 @@
                 "source": "https://github.com/sirbrillig/phpcs-variable-analysis",
                 "wiki": "https://github.com/sirbrillig/phpcs-variable-analysis/wiki"
             },
-            "time": "2021-03-09T22:32:14+00:00"
+            "time": "2021-06-18T20:54:59+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
