@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.6](https://github.com/frocentric/wordpress/compare/v1.7.5...v1.7.6) (2021-06-29)
+
+
+### Bug Fixes
+
+* resolve plugin conflict ([900407a](https://github.com/frocentric/wordpress/commit/900407a910fcf9c540568b8c7f138580c955cc7f))
+
 ### [1.7.5](https://github.com/frocentric/wordpress/compare/v1.7.4...v1.7.5) (2021-06-21)
 
 
