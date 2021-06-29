@@ -500,4 +500,23 @@ class Froware_Public {
 	public function track_new_event( $new_event_id, $formatted_args, $centralize_array ) {
 		$this->imported_event_id = $new_event_id;
 	}
+
+	/**
+	 * Overrides parse_request event hook in The Events Calendar Community Events plugin
+	 */
+	public function override_community_events_parse_request_hook() {
+		if ( class_exists( 'WP_Router' ) ) {
+			remove_action( 'parse_request', [ WP_Router::get_instance(), 'parse_request' ], 10, 1 );
+			add_action( 'parse_request', [ $this, 'shim_parse_request' ], 10, 1 );
+		}
+	}
+
+	/**
+	 * Shims WP_Router->parse_request to prevent errors when The Events Calendar Community Events plugin is enabled
+	 */
+	public function shim_parse_request( $query ) {
+		if ( is_a( $query, 'WP' ) ) {
+			WP_Router::get_instance()->parse_request( $query );
+		}
+	}
 }
