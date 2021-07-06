@@ -212,6 +212,22 @@ class Froware_Public {
 	}
 
 	/**
+	 * Generate SVG icon markup for navigation menu.
+	 *
+	 * @param    string $output      Default output.
+	 * @param    string $time_string Post time string.
+	 * @return   array
+	 * @since    1.0.0
+	 */
+	public function generate_svg_icon_element( $output, $icon ) {
+		if ( 'menu-bars' === $icon ) {
+			$output = '<img alt="Menu open" src="' . esc_url( get_stylesheet_directory_uri() ) . '/images/burger-menu-open.svg" />';
+		}
+
+		return $output;
+	}
+
+	/**
 	 * Add categories and tags to pages
 	 *
 	 * @since    1.1.0
