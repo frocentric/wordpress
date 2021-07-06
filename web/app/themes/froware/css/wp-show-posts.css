@@ -1,0 +1,31 @@
+.wpsp-card .wp-show-posts-inner {
+  border-radius: 3px;
+  -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
+  -webkit-transition: all 0.25s;
+  -o-transition: all 0.25s;
+  transition: all 0.25s;
+}
+
+.wpsp-card .wp-show-posts-inner:hover {
+  -webkit-box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.15);
+}
+
+#content.site-content .wpsp-card .wpsp-content-wrap {
+  padding: 20px 0 0 0;
+}
+
+.wpsp-card .wp-show-posts-entry-header {
+  padding: 0 20px;
+}
+
+.wpsp-card .wpsp-read-more {
+  padding: 0 20px;
+}
+
+.wpsp-card .wp-show-posts-entry-meta-below-post {
+  border-top: 1px solid #eaeaea;
+  padding: 10px 20px;
+  display: block;
+}
