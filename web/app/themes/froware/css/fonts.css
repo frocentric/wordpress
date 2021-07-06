@@ -1,0 +1,10 @@
+/* Helvetica Neue Condensed Bold */
+@font-face {
+	font-family: "Helvetica Neue Condensed Bold";
+	font-style: normal;
+	font-weight: normal;
+	src: url("/app/uploads/2019/03/HelveticaNeueCondensedBold-1.woff")
+		format("woff"),
+	  url("/app/uploads/2019/03/HelveticaNeueCondensedBold.ttf")
+		format("truetype");
+  }

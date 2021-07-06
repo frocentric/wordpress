@@ -82,11 +82,29 @@ class Froware_Public {
 		 * class.
 		 */
 
+		$subdomain = $this->get_subdomain();
+
+		if ( $subdomain !== 'frocentric' && strpos( $subdomain, 'tech' ) !== false && file_exists( get_stylesheet_directory() . '/css/tech.css' ) ) {
+			wp_enqueue_style( $this->plugin_name, get_stylesheet_directory_uri() . '/css/tech.css', [], $this->version, 'all' );
+		}
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/froware-public.css', [], $this->version, 'all' );
 		wp_enqueue_style( 'dashicons' );
 		// phpcs:ignore
 		wp_enqueue_style( 'google-fonts-nunito', 'https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800;1,900&display=swap', false );
 
+	}
+
+	/**
+	 * Retrieves the sub-domain for the current request
+	 */
+	protected function get_subdomain() {
+		if ( ! isset( $_SERVER ) || ! isset( $_SERVER['SERVER_NAME'] ) ) {
+			return '';
+		}
+
+		$domain = filter_input( INPUT_SERVER, 'SERVER_NAME' );
+
+		return array_shift( explode( '.', $domain ) );
 	}
 
 	/**
