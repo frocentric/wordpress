@@ -553,4 +553,8 @@ class Froware_Public {
 			WP_Router::get_instance()->parse_request( $query );
 		}
 	}
+
+	public function discourse_comment_html( $output ) {
+		return str_replace( '64', '32', $output );
+	}
 }
