@@ -76,9 +76,31 @@
   color: #000000;
   font-weight: 700;
 }
-.comments-title.discourse-comments-title {
+.elementor-column-gap-default>.elementor-row>.elementor-column.elementor-col-33>.elementor-element-populated.elementor-column-wrap {
+  padding-left: 20px;
+  padding-top: 0;
+}
+.comments-area.discourse-comments-area h2,
+.comments-area.discourse-comments-area h3,
+.comments-area.discourse-comments-area h4 {
   color: #ffffff;
 }
 .comments-container .comment-content {
   padding: 0;
+}
+.comment-author.vcard, .comment-meta {
+  display: flex;
+  align-items: center;
+}
+.comment-meta {
+  font-size: 14px;
+  justify-content: space-between;
+  line-height: 1.7;
+}
+.comment-content {
+  font-size: 16px;
+  line-height: 1.7;
+}
+.comment-respond .avatar {
+  border-radius: 50%;
 }
