@@ -11,11 +11,11 @@ bold=$(tput bold)
 normal=$(tput sgr0)
 
 # Declare arrays to store environment configuration values
-SUBDOMAINS=("hq" "tech-api")
+SUBDOMAINS=("hq" "tech")
 declare -A SOURCE
 declare -A DEST
 declare -A DEV=( ["bucket"]="s3://froware-local" ["rootdomain"]="frocentric.local" ["domain"]="frocentric.local" ["url"]="https://frocentric.local" ["prefix"]="")
-declare -A STAGING=( ["bucket"]="s3://froware-staging" ["rootdomain"]="frocentric.io" ["domain"]="stage.frocentric.io" ["url"]="https://stage.frocentric.io" ["prefix"]="stage-")
+declare -A STAGING=( ["bucket"]="s3://froware-staging" ["rootdomain"]="frocentric.io" ["domain"]="staging.frocentric.io" ["url"]="https://staging.frocentric.io" ["prefix"]="staging.")
 declare -A PRODUCTION=( ["bucket"]="s3://froware" ["rootdomain"]="frocentric.io" ["domain"]="www.frocentric.io" ["url"]="https://www.frocentric.io" ["prefix"]="")
 
 case "$1-$2" in
@@ -97,20 +97,27 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
     wp "@$TO" db reset --yes &&
     wp "@$FROM" db export - | wp "@$TO" db import -
 
-    # Run search & replace for primary domain
-	echo
-	echo "Replacing ${SOURCE[domain]} with ${DEST[domain]}"
-    wp @$TO search-replace "${SOURCE[domain]}" "${DEST[domain]}" --url="${SOURCE[url]}"
+	if [ $? -ne 0 ]; then
+		echo "❌  Database import failed" >&2
+		exit 1
+	fi
 
     # Run search & replace for sub-domains
     for subdomain in "${SUBDOMAINS[@]}"; do
       DESTSUBDOMAIN="${DEST[prefix]}$subdomain.${DEST[rootdomain]}"
       SOURCESUBDOMAIN="${SOURCE[prefix]}$subdomain.${SOURCE[rootdomain]}"
 	  echo
-	  echo "Replacing $SOURCESUBDOMAIN with $DESTSUBDOMAIN"
-      wp @$TO search-replace "$SOURCESUBDOMAIN" "$DESTSUBDOMAIN" &&
-      wp @$TO search-replace "https://$SOURCESUBDOMAIN" "https://$DESTSUBDOMAIN" --url="https://$DESTSUBDOMAIN"
+	  echo "Replacing $SOURCESUBDOMAIN (sub-domain) with $DESTSUBDOMAIN"
+      wp @$TO search-replace "$SOURCESUBDOMAIN" "$DESTSUBDOMAIN" --url="$SOURCESUBDOMAIN" &&
+      wp @$TO search-replace "$SOURCESUBDOMAIN" "$DESTSUBDOMAIN" --url="${SOURCE[url]}"
     done
+
+    # Run search & replace for primary domain
+	echo
+	echo "Replacing ${SOURCE[domain]} (primary domain) with ${DEST[domain]}"
+    wp @$TO search-replace "${SOURCE[domain]}" "${DEST[domain]}" --url="${SOURCE[url]}" &&
+    wp @$TO search-replace --network "${SOURCE[domain]}" "${DEST[domain]}"
+
   };
 
   sync_uploads() {
