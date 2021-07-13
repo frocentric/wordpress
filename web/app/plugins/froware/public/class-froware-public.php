@@ -415,7 +415,7 @@ class Froware_Public {
 				wp_send_json_error( __( 'Invalid URL, please try again', 'froware' ) );
 			}
 
-			parse_url( $url, $matches );
+			$this->parse_url( $url, $matches );
 		} else {
 			wp_send_json_error( __( 'URL not supplied, please try again', 'froware' ) );
 		}
