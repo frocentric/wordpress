@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.185.6",
+            "version": "3.185.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "35310302912fdc3b4a0e829b84424c41e3fd9727"
+                "reference": "2c66ec7eab4ce3ca93f86295ac4e0fe56ddec128"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/35310302912fdc3b4a0e829b84424c41e3fd9727",
-                "reference": "35310302912fdc3b4a0e829b84424c41e3fd9727",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2c66ec7eab4ce3ca93f86295ac4e0fe56ddec128",
+                "reference": "2c66ec7eab4ce3ca93f86295ac4e0fe56ddec128",
                 "shasum": ""
             },
             "require": {
@@ -92,9 +92,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.185.6"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.185.13"
             },
-            "time": "2021-07-02T18:13:18+00:00"
+            "time": "2021-07-14T18:15:40+00:00"
         },
         {
             "name": "composer/installers",
@@ -665,16 +665,16 @@
         },
         {
             "name": "ingenyus/configure-environment-plugins",
-            "version": "1.0.8",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Genyus/Configure-Environment-Plugins.git",
-                "reference": "9096198c49e2041e2f46b862670c93cf0712bc9b"
+                "reference": "2b87f0ee749f37dfa6b39ab07b286b2d16fc0b3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Genyus/Configure-Environment-Plugins/zipball/9096198c49e2041e2f46b862670c93cf0712bc9b",
-                "reference": "9096198c49e2041e2f46b862670c93cf0712bc9b",
+                "url": "https://api.github.com/repos/Genyus/Configure-Environment-Plugins/zipball/2b87f0ee749f37dfa6b39ab07b286b2d16fc0b3b",
+                "reference": "2b87f0ee749f37dfa6b39ab07b286b2d16fc0b3b",
                 "shasum": ""
             },
             "require": {
@@ -708,7 +708,7 @@
                 "issues": "https://github.com/Genyus/Configure-Environment-Plugins/issues",
                 "source": "https://github.com/Genyus/Configure-Environment-Plugins"
             },
-            "time": "2021-04-18T02:48:04+00:00"
+            "time": "2021-07-15T13:57:13+00:00"
         },
         {
             "name": "johnpbloch/wordpress",
@@ -2546,15 +2546,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "3.2.5",
+            "version": "3.3.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/3.2.5"
+                "reference": "tags/3.3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.3.2.5.zip"
+                "url": "https://downloads.wordpress.org/plugin/elementor.3.3.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2582,15 +2582,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "4.7.4",
+            "version": "4.8.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/4.7.4"
+                "reference": "tags/4.8.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.4.7.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.4.8.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2618,15 +2618,15 @@
         },
         {
             "name": "wpackagist-plugin/feedzy-rss-feeds",
-            "version": "3.7.0",
+            "version": "3.7.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/feedzy-rss-feeds/",
-                "reference": "tags/3.7.0"
+                "reference": "tags/3.7.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.3.7.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.3.7.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2672,15 +2672,15 @@
         },
         {
             "name": "wpackagist-plugin/jetpack",
-            "version": "9.8.1",
+            "version": "9.9",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/jetpack/",
-                "reference": "tags/9.8.1"
+                "reference": "tags/9.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jetpack.9.8.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/jetpack.9.9.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2744,15 +2744,15 @@
         },
         {
             "name": "wpackagist-plugin/meta-box",
-            "version": "5.4.3",
+            "version": "5.4.6",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/meta-box/",
-                "reference": "tags/5.4.3"
+                "reference": "tags/5.4.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/meta-box.5.4.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/meta-box.5.4.6.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2762,15 +2762,15 @@
         },
         {
             "name": "wpackagist-plugin/ninja-forms",
-            "version": "3.5.6",
+            "version": "3.5.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/ninja-forms/",
-                "reference": "tags/3.5.6"
+                "reference": "tags/3.5.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.5.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.5.7.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2816,15 +2816,15 @@
         },
         {
             "name": "wpackagist-plugin/publishpress",
-            "version": "3.3.3",
+            "version": "3.4.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/publishpress/",
-                "reference": "tags/3.3.3"
+                "reference": "tags/3.4.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/publishpress.3.3.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/publishpress.3.4.0.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -2942,15 +2942,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-graphql",
-            "version": "1.5.0",
+            "version": "1.5.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-graphql/",
-                "reference": "tags/1.5.0"
+                "reference": "tags/1.5.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-graphql.1.5.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-graphql.1.5.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -3032,15 +3032,15 @@
         },
         {
             "name": "wpackagist-theme/generatepress",
-            "version": "3.0.3",
+            "version": "3.0.4",
             "source": {
                 "type": "svn",
                 "url": "https://themes.svn.wordpress.org/generatepress/",
-                "reference": "3.0.3"
+                "reference": "3.0.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/theme/generatepress.3.0.3.zip"
+                "url": "https://downloads.wordpress.org/theme/generatepress.3.0.4.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -3424,16 +3424,16 @@
         },
         {
             "name": "sirbrillig/phpcs-variable-analysis",
-            "version": "v2.11.1",
+            "version": "v2.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sirbrillig/phpcs-variable-analysis.git",
-                "reference": "9df9ade5961a3505d0d24b0e6be2ab82e335f753"
+                "reference": "3fad28475bfbdbf8aa5c440f8a8f89824983d85e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sirbrillig/phpcs-variable-analysis/zipball/9df9ade5961a3505d0d24b0e6be2ab82e335f753",
-                "reference": "9df9ade5961a3505d0d24b0e6be2ab82e335f753",
+                "url": "https://api.github.com/repos/sirbrillig/phpcs-variable-analysis/zipball/3fad28475bfbdbf8aa5c440f8a8f89824983d85e",
+                "reference": "3fad28475bfbdbf8aa5c440f8a8f89824983d85e",
                 "shasum": ""
             },
             "require": {
@@ -3473,7 +3473,7 @@
                 "source": "https://github.com/sirbrillig/phpcs-variable-analysis",
                 "wiki": "https://github.com/sirbrillig/phpcs-variable-analysis/wiki"
             },
-            "time": "2021-06-18T20:54:59+00:00"
+            "time": "2021-07-06T23:45:17+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
