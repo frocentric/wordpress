@@ -157,6 +157,7 @@ class Froware {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'save_post', $plugin_admin, 'set_canonical_url', 10, 3 );
+		$this->loader->add_filter( 'option_active_plugins', $plugin_admin, 'filter_active_plugins', 10, 2 );
 	}
 
 	/**

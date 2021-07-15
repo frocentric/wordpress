@@ -122,4 +122,21 @@ class Froware_Admin {
 
 	}
 
+	/**
+	 * Hooks in to the option_active_plugins filter and removes any malformed plugins
+	 */
+	public function filter_active_plugins( $value, $option ) {
+		if ( ! is_array( $value ) || count( $value ) === 0 ) {
+			return $value;
+		}
+
+		for ( $i = count( $value ) - 1; $i >= 0; $i-- ) {
+			if ( is_numeric( $value[ $i ] ) ) {
+				array_splice( $value, $i, 1 );
+			}
+		}
+
+		return $value;
+	}
+
 }
