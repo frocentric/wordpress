@@ -83,9 +83,10 @@ class Froware_Public {
 		 */
 
 		$subdomain = $this->get_subdomain();
+		$stylesheet = get_stylesheet_directory() . '/css/tech.css';
 
-		if ( $subdomain !== 'frocentric' && strpos( $subdomain, 'tech' ) !== false && file_exists( get_stylesheet_directory() . '/css/tech.css' ) ) {
-			wp_enqueue_style( $this->plugin_name, get_stylesheet_directory_uri() . '/css/tech.css', [], $this->version, 'all' );
+		if ( $subdomain !== 'frocentric' && strpos( $subdomain, 'tech' ) !== false && file_exists( $stylesheet ) ) {
+			wp_enqueue_style( $this->plugin_name, $stylesheet, [], $this->version, 'all' );
 		}
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/froware-public.css', [], $this->version, 'all' );
 		wp_enqueue_style( 'dashicons' );
@@ -103,8 +104,10 @@ class Froware_Public {
 		}
 
 		$domain = filter_input( INPUT_SERVER, 'SERVER_NAME' );
+		$parts = explode( '.', $domain );
+		$key = array_search( 'frocentric', $parts, true ) - 1;
 
-		return array_shift( explode( '.', $domain ) );
+		return $parts[ $key ];
 	}
 
 	/**
