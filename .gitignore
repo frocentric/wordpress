@@ -10,6 +10,7 @@ web/app/plugins/*
 !web/app/plugins/ninja-forms-multi-part
 !web/app/plugins/ninja-forms-post-creation
 !web/app/plugins/ninja-forms-uploads
+!web/app/plugins/ninja-forms-user-management
 !web/app/plugins/ninja-forms-webhooks
 !web/app/plugins/ninja-forms-zapier
 !web/app/plugins/twig-anything
