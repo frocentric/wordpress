@@ -14,9 +14,9 @@ normal=$(tput sgr0)
 SUBDOMAINS=("hq" "tech")
 declare -A SOURCE
 declare -A DEST
-declare -A DEV=( ["bucket"]="s3://froware-local" ["rootdomain"]="frocentric.local" ["domain"]="frocentric.local" ["url"]="https://frocentric.local" ["prefix"]="")
-declare -A STAGING=( ["bucket"]="s3://froware-staging" ["rootdomain"]="frocentric.io" ["domain"]="staging.frocentric.io" ["url"]="https://staging.frocentric.io" ["prefix"]="staging.")
-declare -A PRODUCTION=( ["bucket"]="s3://froware" ["rootdomain"]="frocentric.io" ["domain"]="www.frocentric.io" ["url"]="https://www.frocentric.io" ["prefix"]="")
+declare -A DEV=( ["bucket"]="s3://froware-local" ["rootdomain"]="frocentric.local" ["domain"]="frocentric.local" ["url"]="https://frocentric.local")
+declare -A STAGING=( ["bucket"]="s3://froware-staging" ["rootdomain"]="staging.frocentric.io" ["domain"]="staging.frocentric.io" ["url"]="https://staging.frocentric.io")
+declare -A PRODUCTION=( ["bucket"]="s3://froware" ["rootdomain"]="frocentric.io" ["domain"]="www.frocentric.io" ["url"]="https://www.frocentric.io")
 
 case "$1-$2" in
   production-development) DIR="down ⬇️ "; ;;
@@ -104,8 +104,8 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
 
     # Run search & replace for sub-domains
     for subdomain in "${SUBDOMAINS[@]}"; do
-      DESTSUBDOMAIN="${DEST[prefix]}$subdomain.${DEST[rootdomain]}"
-      SOURCESUBDOMAIN="${SOURCE[prefix]}$subdomain.${SOURCE[rootdomain]}"
+      DESTSUBDOMAIN="$subdomain.${DEST[rootdomain]}"
+      SOURCESUBDOMAIN="$subdomain.${SOURCE[rootdomain]}"
 	  echo
 	  echo "Replacing $SOURCESUBDOMAIN (sub-domain) with $DESTSUBDOMAIN"
       wp @$TO search-replace "$SOURCESUBDOMAIN" "$DESTSUBDOMAIN" --url="$SOURCESUBDOMAIN" &&
