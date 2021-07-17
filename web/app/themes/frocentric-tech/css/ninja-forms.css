@@ -1,0 +1,26 @@
+.nf-field .ninja-forms-field,
+.nf-field .nf-error .ninja-forms-field {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+.nf-field .nf-field-label label {
+  color: #474747;
+  font-size: 14px;
+  font-weight: 400;
+}
+select.nf-element {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='%23000'><polygon points='0,0 100,0 50,50'/></svg>") no-repeat;
+  background-size: 12px;
+  background-position: right 20px top 60%;
+  background-repeat: no-repeat;
+}
+select.nf-element[multiple] {
+  background-image: none;
+}
+.nf-after-form-content {
+  clear: both;
+}
