@@ -19,18 +19,6 @@ get_header(); ?>
 
 	<div id="primary" <?php generate_do_element_classes( 'content' ); ?>>
 		<main id="main" <?php generate_do_element_classes( 'main' ); ?>>
-			<article>
-				<div class="inside-article">
-					<header class="entry-header">
-						<h1 class="entry-title" itemprop="headline">
-						<?php
-							// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
-							echo esc_html( $pagename );
-						?>
-						</h1>
-					</header>
-				</div>
-			</article>
 			<?php
 			/**
 			 * generate_before_main_content hook.
