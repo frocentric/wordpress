@@ -1,0 +1,18 @@
+/*
+Theme Name:     Frocentric: Tech
+Theme URI:     https://tech.frocentric.io
+Description:   Frocentric: Tech WP child theme
+Author:       Gary McPherson
+Author URI:     http://hq.frocentric.io/
+Template:     generatepress
+Version:     1.0.0
+Text Domain:   frocentric
+-------------------------------------------------------------- */
+
+/* =Theme customization starts here
+------------------------------------------------------- */
+@import url("css/fonts.css");
+@import url("css/elements.css");
+@import url("css/elementor.css");
+@import url("css/wp-show-posts.css");
+@import url("css/ninja-forms.css");
