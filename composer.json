@@ -178,8 +178,8 @@
     "post-root-package-install": [
       "php -r \"copy('.env.example', '.env');\""
     ],
-    "cs": "phpcs --standard=phpcs.xml ./web/app/plugins/froware ./web/app/plugins/frocentric-elementor-extension ./web/app/themes/froware",
-    "cbf": "phpcbf --standard=phpcs.xml ./web/app/plugins/froware ./web/app/plugins/frocentric-elementor-extension ./web/app/themes/froware",
+    "cs": "phpcs --standard=phpcs.xml ./web/app/plugins/froware ./web/app/plugins/frocentric-elementor-extension ./web/app/themes/frocentric ./web/app/themes/frocentric-tech",
+    "cbf": "phpcbf --standard=phpcs.xml ./web/app/plugins/froware ./web/app/plugins/frocentric-elementor-extension ./web/app/themes/frocentric ./web/app/themes/frocentric-tech",
     "test": [
       "phpcs"
     ]
