@@ -1,8 +1,8 @@
 <?php
 /**
- * Froware custom theme
+ * Frocentric: Tech custom theme
  *
- * @package Froware theme
+ * @package Frocentric: Tech theme
  */
 
 add_action( 'wp_enqueue_scripts', 'enqueue_parent_styles' );
@@ -85,4 +85,7 @@ if ( ! function_exists( 'generate_post_meta' ) ) {
 }
 
 // Add custom image size used on homepage.
-add_image_size( 'froware-halfwidth', 580, 0 );
+add_image_size( 'frocentric-halfwidth', 580, 0 );
+
+// Disable page titles
+add_filter( 'generate_show_title', '__return_false' );
