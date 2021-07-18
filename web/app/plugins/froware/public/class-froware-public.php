@@ -333,6 +333,30 @@ class Froware_Public {
 	}
 
 	/**
+	 * Assign a specific author for a feed.
+	 * Requires "feed_author" parameter to be added to feed URL in Feedzy control panel. Can be set to either user ID or login.
+	 */
+	public function feedzy_insert_post_args_callback( $args, $item, $post_title, $post_content, $index, $job ) {
+		$source = $item['item']->get_feed()->subscribe_url();
+		$source = parse_url( $source );
+
+		if ( isset( $source['query'] ) ) {
+			parse_str( $source['query'], $params );
+			$feed_author = isset( $params['feed_author'] ) ? $params['feed_author'] : 0;
+
+			if ( $feed_author ) {
+				$author = is_numeric( $feed_author ) ? get_user_by( 'ID', (int) $feed_author ) : get_user_by( 'login', $feed_author );
+
+				if ( $author ) {
+					$args['post_author'] = $author->ID;
+				}
+			}
+		}
+
+		return $args;
+	}
+
+	/**
 	 * Get the post content up to the More tag
 	 *
 	 * @see https://codex.wordpress.org/Function_Reference/get_extended
