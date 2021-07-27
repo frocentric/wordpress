@@ -342,6 +342,8 @@ class Froware_Public {
 
 		if ( isset( $source['query'] ) ) {
 			parse_str( $source['query'], $params );
+
+			// Set post author
 			$feed_author = isset( $params['feed_author'] ) ? $params['feed_author'] : 0;
 
 			if ( $feed_author ) {
@@ -351,9 +353,41 @@ class Froware_Public {
 					$args['post_author'] = $author->ID;
 				}
 			}
+
+			// Set post format
+			$post_format = isset( $params['post_format'] ) ? $params['post_format'] : 0;
+
+			if ( $post_format ) {
+				$formats = array_keys( get_post_format_slugs() );
+
+				if ( empty( $args['meta_input'] ) ) {
+					$args['meta_input'] = [];
+				}
+
+				$args['meta_input']['post_format'] = in_array( $post_format, $formats, true ) ? $post_format : 'standard';
+			}
+
+			// Set source link
+			$url = $item['item_url'];
+			$args['meta_input']['_genesis_canonical_uri'] = $url;
 		}
 
 		return $args;
+	}
+
+	/**
+	 * Sets the post format based on stored meta data
+	 */
+	public function wp_insert_post_callback( $post_ID, $post, $update ) {
+		// execute only on creation, not on update, and only if the post type is post
+		if ( $update !== true && $post->post_type === 'post' ) {
+			$post_format = get_metadata( 'post', $post_ID, 'post_format', true );
+
+			if ( $post_format ) {
+				set_post_format( $post_ID, $post_format );
+				delete_post_meta( $post_ID, 'post_format' );
+			}
+		}
 	}
 
 	/**
