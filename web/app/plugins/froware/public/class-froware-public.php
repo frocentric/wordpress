@@ -333,44 +333,12 @@ class Froware_Public {
 	}
 
 	/**
-	 * Assign a specific author for a feed.
-	 * Requires "feed_author" parameter to be added to feed URL in Feedzy control panel. Can be set to either user ID or login.
+	 * Modifies the post arguments when importing an item.
 	 */
 	public function feedzy_insert_post_args_callback( $args, $item, $post_title, $post_content, $index, $job ) {
-		$source = $item['item']->get_feed()->subscribe_url();
-		$source = parse_url( $source );
-
-		if ( isset( $source['query'] ) ) {
-			parse_str( $source['query'], $params );
-
-			// Set post author
-			$feed_author = isset( $params['feed_author'] ) ? $params['feed_author'] : 0;
-
-			if ( $feed_author ) {
-				$author = is_numeric( $feed_author ) ? get_user_by( 'ID', (int) $feed_author ) : get_user_by( 'login', $feed_author );
-
-				if ( $author ) {
-					$args['post_author'] = $author->ID;
-				}
-			}
-
-			// Set post format
-			$post_format = isset( $params['post_format'] ) ? $params['post_format'] : 0;
-
-			if ( $post_format ) {
-				$formats = array_keys( get_post_format_slugs() );
-
-				if ( empty( $args['meta_input'] ) ) {
-					$args['meta_input'] = [];
-				}
-
-				$args['meta_input']['post_format'] = in_array( $post_format, $formats, true ) ? $post_format : 'standard';
-			}
-
-			// Set source link
-			$url = $item['item_url'];
-			$args['meta_input']['_genesis_canonical_uri'] = $url;
-		}
+		$args = $this->set_post_author( $args, $item );
+		$args = $this->set_post_canonical_url( $args, $item );
+		$args = $this->set_post_format( $args, $item );
 
 		return $args;
 	}
@@ -472,6 +440,71 @@ class Froware_Public {
 		} else {
 			wp_send_json_error( __( 'URL not supplied, please try again', 'froware' ) );
 		}
+	}
+
+	/**
+	 * Sets the post author based on the provided querystring value
+	 * Requires "feed_author" parameter to be added to feed URL in Feedzy control panel. Can be set to either a user ID or login.
+	 */
+	protected function set_post_author( $args, $item ) {
+		$source = $item['item']->get_feed()->subscribe_url();
+		$source = parse_url( $source );
+		$author = null;
+
+		if ( isset( $source['query'] ) ) {
+			parse_str( $source['query'], $params );
+
+			// Set post author
+			$feed_author = isset( $params['feed_author'] ) ? $params['feed_author'] : 0;
+
+			if ( $feed_author ) {
+				$author = is_numeric( $feed_author ) ? get_user_by( 'ID', (int) $feed_author ) : get_user_by( 'login', $feed_author );
+
+				if ( $author ) {
+					$args['post_author'] = $author->ID;
+				}
+			}
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Sets the post format based on the provided querystring value
+	 * Requires "post_format" parameter to be added to feed URL in Feedzy control panel. Can be set to any standard post format.
+	 */
+	protected function set_post_format( $args, $item ) {
+		$source = $item['item']->get_feed()->subscribe_url();
+		$source = parse_url( $source );
+		$post_format = null;
+
+		if ( isset( $source['query'] ) ) {
+			parse_str( $source['query'], $params );
+
+			// Set post format
+			$post_format = isset( $params['post_format'] ) ? $params['post_format'] : null;
+
+			if ( $post_format ) {
+				$formats = array_keys( get_post_format_slugs() );
+
+				if ( empty( $args['meta_input'] ) ) {
+					$args['meta_input'] = [];
+				}
+
+				$args['meta_input']['post_format'] = in_array( $post_format, $formats, true ) ? $post_format : 'standard';
+			}
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Sets the canonical link to the source item
+	 */
+	protected function set_post_canonical_url( $args, $item ) {
+		$args['meta_input']['_genesis_canonical_uri'] = $item['item_url'];
+
+		return $args;
 	}
 
 	protected function parse_url( $url, $matches ) {
