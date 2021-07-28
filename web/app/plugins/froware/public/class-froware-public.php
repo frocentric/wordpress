@@ -297,39 +297,16 @@ class Froware_Public {
 	}
 
 	/**
-	 * Forces imported posts to take date from feed
-	 *
-	 * @param    array  $current_item    Current post data to be saved.
-	 * @param    array  $campaign    Current campaign data.
-	 * @param    object $feed    Feed database object.
-	 * @param    object $item    SimplePie_Item object.
-	 * @return   array
+	 * Modifies the post content when the "Post Content" placeholder has been inserted
 	 */
-	public function wpematico_item_parsers_callback( $current_item, $campaign, $feed, $item ) {
-		$found     = false;
-		$tags      = [ 'pubDate', 'published' ];
-		$date_elem = null;
+	public function feedzy_content_callback( $item_content, $item ) {
+		$placeholder = esc_html__( 'Post Content', 'feedzy-rss-feeds' );
 
-		foreach ( $tags as $tag ) {
-			$elem = $item->get_item_tags( '', $tag );
-
-			if ( null !== $elem ) {
-				if ( is_array( $elem ) ) {
-					$date_elem = $elem[0]['data'];
-					$found     = true;
-				} elseif ( is_string( $elem ) ) {
-					$date_elem = $elem;
-					$found     = true;
-				}
-			}
+		if ( strpos( $item_content, $placeholder ) === 0 ) {
+			$item_content = str_replace( $placeholder, '', $item_content );
 		}
 
-		if ( $found ) {
-			$date                 = strtotime( trim( $date_elem, "; \t\n\r\0\x0B" ) );
-			$current_item['date'] = $date;
-		}
-
-		return $current_item;
+		return $item_content;
 	}
 
 	/**
