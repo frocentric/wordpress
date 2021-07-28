@@ -466,6 +466,8 @@ class Froware_Public {
 			}
 		}
 
+		$args = $this->set_post_citation( $args, $item, $author );
+
 		return $args;
 	}
 
@@ -503,6 +505,31 @@ class Froware_Public {
 	 */
 	protected function set_post_canonical_url( $args, $item ) {
 		$args['meta_input']['_genesis_canonical_uri'] = $item['item_url'];
+
+		return $args;
+	}
+
+	/**
+	 * Replaces the default "Read More" link to the source with a formatted citation
+	 */
+	protected function set_post_citation( $args, $item, $author ) {
+		$author_name = '';
+
+		if ( ! empty( $author ) ) {
+			$author_name = $author->display_name;
+		} else {
+			if ( $item['item_author'] ) {
+				if ( is_string( $item['item_author'] ) ) {
+					$author_name = $item['item_author'];
+				} elseif ( is_object( $item['item_author'] ) ) {
+					$author_name = $item['item_author']->get_name();
+				}
+			}
+		}
+
+		$item_link  = '<a href="' . $item['item_url'] . '" target="_blank">' . __( 'Read More', 'feedzy-rss-feeds' ) . '</a>';
+		$citation = '<aside class="cite">' . __( 'Originally posted by ', 'frocentric' ) . $author_name . ' to <a href="' . $item['item_url'] . '" target="_blank" rel="nofollow">' . $args['post_title'] . '</a></aside>';
+		$args['post_content'] = str_replace( $item_link, $citation, $args['post_content'] );
 
 		return $args;
 	}
