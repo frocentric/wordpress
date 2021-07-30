@@ -512,6 +512,7 @@ class Froware_Public {
 	}
 
 	protected function parse_url( $url, $matches ) {
+		// TODO: replace with regex test
 		switch ( $matches[1] ) {
 			case 'eventbrite.com':
 			case 'eventbrite.co.uk':
