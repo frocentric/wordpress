@@ -195,6 +195,7 @@ class Froware {
 		$this->loader->add_filter( 'wpsp_defaults', $plugin_public, 'wpsp_defaults' );
 		$this->loader->add_filter( 'feedzy_content', $plugin_public, 'feedzy_content_callback', 5, 2 );
 		$this->loader->add_filter( 'feedzy_insert_post_args', $plugin_public, 'feedzy_insert_post_args_callback', 10, 6 );
+		$this->loader->add_filter( 'feedzy_item_filter', $plugin_public, 'feedzy_item_filter_callback', 10, 5 );
 		$this->loader->add_filter( 'the_excerpt_rss', $plugin_public, 'filter_content_feed', 999, 1 );
 		$this->loader->add_filter( 'the_content_feed', $plugin_public, 'filter_content_feed', 999, 1 );
 		$this->loader->add_filter( 'twig_anything_request_args', $plugin_public, 'twig_anything_request_args', 10, 2 );
