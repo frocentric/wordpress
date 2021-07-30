@@ -310,6 +310,30 @@ class Froware_Public {
 	}
 
 	/**
+	 * Add attributes to $item_array.
+	 *
+	 * @since   1.0.0
+	 * @access  public
+	 *
+	 * @param   array  $item_array The item attributes array.
+	 * @param   object $item The feed item.
+	 * @param   array  $sc The shorcode attributes array.
+	 * @param   int    $index The item number (may not be the same as the item_index).
+	 * @param   int    $item_index The real index of this items in the feed (maybe be different from $index if filters are used).
+	 *
+	 * @return mixed
+	 */
+	public function feedzy_item_filter_callback( $item_array, $item, $sc = null, $index = null, $item_index = null ) {
+		// Embed enclosure for podcast feeds
+		if ( is_array( $item->data['enclosures'] ) && count( $item->data['enclosures'] ) > 0 ) {
+			$enclosure = $item->data['enclosures'][0];
+			$item_array['item_content'] .= '[audio src="' . $enclosure->link . '"]';
+		}
+
+		return $item_array;
+	}
+
+	/**
 	 * Modifies the post arguments when importing an item.
 	 */
 	public function feedzy_insert_post_args_callback( $args, $item, $post_title, $post_content, $index, $job ) {
