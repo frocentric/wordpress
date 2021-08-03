@@ -33,23 +33,6 @@
   line-height: 1.2;
 }
 
-/* TODO: fix menu rendering */
-#site-navigation #primary-menu {
-  display: none;
-}
-.menu-logo
-  .main-navigation:not(.mobile-header-navigation)
-  .inside-navigation
-  .menu-toggle {
-  display: flex;
-  flex-direction: column;
-  height: 60px;
-  justify-content: center;
-  margin-left: auto;
-  margin-right: 0;
-  padding-right: 0;
-  z-index: 999;
-}
 .single-post h1 {
   font-size: 50px;
   line-height: 1.18;
@@ -103,4 +86,20 @@
 }
 .comment-respond .avatar {
   border-radius: 50%;
+}
+
+@media screen and (max-width: 600px) {
+  .menu-logo
+  .main-navigation:not(.mobile-header-navigation)
+  .inside-navigation
+  .menu-toggle {
+  display: flex;
+  flex-direction: column;
+  height: 60px;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: 0;
+  padding-right: 0;
+  z-index: 999;
+  }
 }
