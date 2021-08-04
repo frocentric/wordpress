@@ -88,6 +88,24 @@
   border-radius: 50%;
 }
 
+#main .inside-article {
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  padding-bottom: 0
+}
+
+#main .inside-article .nf-field-label {
+  margin-bottom: 0;
+}
+
+#main .inside-article .elementor-column-gap-default>.elementor-row>.elementor-column>.elementor-element-populated {
+  padding: 63px 77px 50px 77px;
+}
+
+body .grid-container {
+  max-width: 864px;
+}
+
 @media screen and (max-width: 600px) {
   .menu-logo
   .main-navigation:not(.mobile-header-navigation)
