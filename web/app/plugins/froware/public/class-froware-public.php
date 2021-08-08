@@ -216,7 +216,8 @@ class Froware_Public {
 	 */
 	public function generate_svg_icon_element( $output, $icon ) {
 		if ( 'menu-bars' === $icon ) {
-			$output = '<img alt="Menu open" src="' . esc_url( get_stylesheet_directory_uri() ) . '/images/burger-menu-open.svg" />';
+			$output = '<img alt="Open menu" src="' . esc_url( get_stylesheet_directory_uri() ) . '/images/burger-menu-open.svg" class="open-menu" />';
+			$output .= '<img alt="Close menu" src="' . esc_url( get_stylesheet_directory_uri() ) . '/images/burger-menu-close.svg" class="close-menu" />';
 		}
 
 		return $output;

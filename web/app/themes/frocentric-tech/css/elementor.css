@@ -249,7 +249,7 @@
   padding: 0;
 }
 
-@media only screen and (min-width: 601px) {
+@media only screen and (min-width: 600px) {
   .elementor-section.wide-gutter
     > .elementor-container
     > .elementor-row
@@ -266,7 +266,7 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 599px) {
   .home h3.elementor-heading-title {
     font-size: 20px;
     line-height: 1.3;
