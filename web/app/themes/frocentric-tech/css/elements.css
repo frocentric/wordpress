@@ -6,8 +6,8 @@ a:hover,
   text-decoration: underline;
 }
 
-body.single {
-  background-color: #fff;
+body {
+  background-color: #f7f7f7;
 }
 
 h1 > a,
@@ -24,6 +24,7 @@ h6 > a,
 h6 > a:hover,
 a.generate-back-to-top,
 a.generate-back-to-top:hover {
+  border: 2px solid #ffffff;
   text-decoration: none;
 }
 
@@ -137,6 +138,7 @@ div.site-logo.sticky-logo.navigation-logo img{
 }
 
 .link-list li a {
+  color: #000000;
   display: block;
 }
 
@@ -197,6 +199,19 @@ input[type="submit"] {
   text-transform: uppercase;
 }
 
+.button-arrow .elementor-button-wrapper .elementor-button.elementor-button-link {
+  background: transparent center right url('../images/chevron-outline-right-black.svg') no-repeat;
+  border: none;
+  color: #000000;
+  line-height: 1.375;
+  padding: 0 30px;
+  margin: 15px 0;
+  text-transform: none;
+  /*-webkit-transition: none;
+  -o-transition: none;
+  transition: none;*/
+}
+
 #content .wpsp-read-more a.wp-show-posts-read-more:hover,
 .wp-editor-tabs button[type="button"],
 .wp-editor-tabs button[type="button"]:hover,
@@ -207,6 +222,12 @@ input[type="submit"]:hover,
   background-color: #000000;
   border-color: #000000;
   text-decoration: none;
+}
+
+.button-arrow .elementor-button-wrapper .elementor-button.elementor-button-link:hover {
+  background: transparent center right url('../images/chevron-filled-right-black.svg') no-repeat;
+  background-color: transparent;
+  text-decoration: underline;
 }
 
 aside.cite {

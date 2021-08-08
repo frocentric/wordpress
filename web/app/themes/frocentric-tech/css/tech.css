@@ -1,5 +1,5 @@
 .site-content {
-  padding-bottom: 2em;
+  padding-bottom: 0;
   padding-top: 2em;
 }
 .elementor-col-66 .ecs-posts.elementor-posts-container .elementor-post {
@@ -102,7 +102,7 @@
   padding: 63px 77px 50px 77px;
 }
 
-body .grid-container {
+body .site.grid-container {
   max-width: 864px;
 }
 
