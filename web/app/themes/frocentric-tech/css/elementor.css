@@ -3,18 +3,19 @@
 }
 
 .home h1.elementor-heading-title {
-  font-size: 48px;
-  line-height: 110%;
+  font-size: 41px;
+  font-weight: 900;
+  line-height: 1.366;
 }
 .home h2.elementor-heading-title {
-  font-size: 38px;
+  font-size: 31px;
   font-weight: 900;
-  line-height: 110%;
+  line-height: 1.355;
 }
-.home h4.elementor-heading-title {
-  font-size: 26px;
-  font-weight: 700;
-  line-height: 110%;
+.home h3.elementor-heading-title {
+  font-size: 24px;
+  font-weight: bold;
+  line-height: 1.333;
 }
 
 .elementor-posts--skin-cards .grid-50,
@@ -170,8 +171,85 @@
 .elementor-col-33 .elementor-shortcode li a {
   color: #000000;
 }
+.elementor-section.section-hero {
+  margin-bottom: 200px;
+  min-height: 656px;
+}
+.elementor-section.section-hero .elementor-widget-text-editor {
+  color: #000000;
+}
+.elementor-section.section-hero .elementor-cta--skin-classic {
+  position: absolute;
+  bottom: -440px;
+}
+.elementor-section.section-hero .elementor-cta--skin-classic .elementor-cta__content {
+  background-color: rgba(40, 40, 40, 0.89);
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 1fr 180px;
+  grid-template-rows: 1fr 1fr;
+  max-width: 830px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 25px;
+}
+.elementor-section.section-hero .elementor-cta--skin-classic .elementor-cta__content .elementor-cta__title {
+  font-size: 22px;
+  grid-column-end: span 2;
+  margin-bottom: 0;
+  text-align: left;
+}
+.elementor-section.section-hero .elementor-cta--skin-classic .elementor-cta__content .elementor-cta__description {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 0;
+  text-align: left;
+}
+.elementor-section.highlight-green {
+  background-color: #1995a7;
+}
+.elementor-section.highlight-green .elementor-widget-text-editor,
+.elementor-section.highlight-green .elementor-heading-title {
+  color: #ffffff;
+}
+.elementor-section.highlight-green .elementor-button-wrapper .elementor-button.elementor-button-link {
+  background-color: #000000;
+  border-color: #000000;
+}
+.elementor-section.highlight-green .elementor-button-wrapper .elementor-button.elementor-button-link:hover {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: #1995a7;
+}
+.elementor-section.highlight-white {
+  background-color: #ffffff;
+}
+.elementor-widget-posts .ecs-post-loop {
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+}
+.elementor-widget-posts .ecs-post-loop .elementor-image {
+  align-items: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  display: flex;
+  height: 199px;
+  overflow: hidden;
+}
+.elementor-widget-posts .ecs-post-loop .elementor-widget-author-box,
+.elementor-widget-posts .ecs-post-loop .elementor-widget-theme-post-title,
+.elementor-widget-posts .ecs-post-loop .elementor-widget-post-info {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.elementor-widget-posts .ecs-post-loop .elementor-widget-theme-post-title {
+  margin-bottom: 0;
+}
+.elementor-widget-posts .ecs-post-loop .elementor-column-gap-default>.elementor-row>.elementor-column>.elementor-element-populated {
+  padding: 0;
+}
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 601px) {
   .elementor-section.wide-gutter
     > .elementor-container
     > .elementor-row
@@ -188,7 +266,10 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 600px) {
+  .elementor-section.hero {
+      min-height: 560px;
+  }
   .section-title .elementor-column.elementor-col-50 {
     width: 50%;
   }
