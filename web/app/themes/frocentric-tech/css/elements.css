@@ -161,6 +161,10 @@ div.site-logo.sticky-logo.navigation-logo img {
   margin-top: 30px;
   margin-bottom: 30px;
 }
+#menu-main-menu .menu-item .avatar {
+  margin-right: 0.5em;
+  vertical-align: text-bottom;
+}
 
 #menu-main-menu .menu-item.current-menu-item a,
 #menu-main-menu .menu-item.current-menu-item a:hover {
