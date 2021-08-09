@@ -249,7 +249,7 @@
   padding: 0;
 }
 
-@media only screen and (min-width: 601px) {
+@media only screen and (min-width: 600px) {
   .elementor-section.wide-gutter
     > .elementor-container
     > .elementor-row
@@ -266,9 +266,61 @@
   }
 }
 
-@media (max-width: 600px) {
-  .elementor-section.hero {
-      min-height: 560px;
+@media (max-width: 599px) {
+  .home h3.elementor-heading-title {
+    font-size: 20px;
+    line-height: 1.3;
+  }
+  .elementor-section.section-hero {
+    background-position: top center;
+    background-size: 150%;
+    margin-bottom: unset;
+    min-height: unset;
+    padding-bottom: 2em;
+    padding-top: 90vw;
+  }
+  .elementor-section.section-hero h1 {
+    font-size: 36px;
+    line-height: 1;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  .elementor .elementor-column-gap-default>.elementor-row>.elementor-column>.elementor-element-populated {
+    padding: 10px 35px;
+  }
+  .elementor-section.section-hero .elementor-cta--skin-classic {
+    position: unset;
+    bottom: unset;
+  }
+  .elementor-section.section-hero .elementor-cta--skin-classic .elementor-cta__content {
+    display: unset;
+    margin-top: 2em;
+    padding: 30px;
+    z-index: unset;
+  }
+  .elementor-section.section-hero .elementor-cta--skin-classic .elementor-cta__content .elementor-cta__description {
+    margin-bottom: 1.5em;
+  }
+  .elementor-section.section-hero .elementor-button-wrapper,
+  .elementor-section.section-highlight .elementor-button-wrapper {
+    text-align: center;
+  }
+  .elementor-section.section-highlight h2 {
+    text-align: center;
+  }
+  .elementor-widget-posts .elementor .elementor-element.elementor-widget-author-box {
+    margin-bottom: 0.5em;
+  }
+  .elementor-widget-posts .elementor .elementor-element.elementor-widget-author-box .elementor-author-box__avatar img {
+    height: 45px;
+    width: 45px;
+  }
+  .elementor-widget-posts .elementor-widget-wrap {
+    padding-bottom: 20px;
+  }
+  .elementor-widget-posts .elementor-post-info {
+    font-size: 14px;
+    line-height: 1.357;
   }
   .section-title .elementor-column.elementor-col-50 {
     width: 50%;

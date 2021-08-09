@@ -158,8 +158,12 @@ div.site-logo.sticky-logo.navigation-logo img {
 }
 
 #menu-main-menu .menu-item {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+#menu-main-menu .menu-item .avatar {
+  margin-right: 0.5em;
+  vertical-align: text-bottom;
 }
 
 #menu-main-menu .menu-item.current-menu-item a,
@@ -204,7 +208,7 @@ input[type="submit"] {
   border: none;
   color: #000000;
   line-height: 1.375;
-  padding: 0 30px;
+  padding: 0 30px 0 0;
   margin: 15px 0;
   text-transform: none;
   /*-webkit-transition: none;
@@ -480,14 +484,14 @@ ul.menu {
   padding: 0 1em;
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 1200px) {
   .grid-33 {
     float: none;
     width: auto;
   }
 }
 
-@media (max-width: 1024px) and (min-width: 768px) {
+@media (max-width: 1199px) and (min-width: 900px) {
   .generate-columns-container {
     padding: 0 30px;
   }
@@ -501,7 +505,10 @@ ul.menu {
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 899px) {
+  .main-navigation .inside-navigation {
+    display: block;
+  }
   .site-main .generate-columns-container:not(.masonry-container) {
     grid-template-columns: 1fr;
   }
@@ -509,11 +516,11 @@ ul.menu {
     float: none;
     width: auto;
   }
-  #site-navigation #menu-main-menu .menu-item.current-menu-item {
-    background-color: #1995a7;
+  #site-navigation #menu-main-menu .menu-item a {
+    font-weight: bold;
   }
   #site-navigation #menu-main-menu .menu-item.current-menu-item a {
-    color: #fff;
+    color: #1995a7;
   }
   #site-navigation .menu-toggle:before {
     font-size: 24px;
@@ -555,6 +562,20 @@ ul.menu {
     position: fixed;
     right: 0;
   }
+  .menu-logo
+    .main-navigation:not(.mobile-header-navigation)
+    .inside-navigation
+    .menu-toggle[aria-expanded="true"]
+    .open-menu {
+    display: none;
+  }
+  .menu-logo
+    .main-navigation:not(.mobile-header-navigation)
+    .inside-navigation
+    .menu-toggle[aria-expanded="false"]
+    .close-menu {
+    display: none;
+  }
   #site-navigation .inside-navigation .menu-toggle:before {
     margin-top: 0;
     z-index: 999;
@@ -572,7 +593,13 @@ ul.menu {
     z-index: 1;
   }
   .mobile-menu-open .main-navigation .main-nav ul {
-    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    box-sizing: border-box;
+    padding-top: 60px;
   }
   .mobile-menu-open .main-navigation .main-nav ul li a,
   .menu-toggle {
@@ -581,7 +608,7 @@ ul.menu {
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 599px) {
   .footer-widgets .menu-site-footer-container ul {
     display: flex;
     flex-direction: column;
