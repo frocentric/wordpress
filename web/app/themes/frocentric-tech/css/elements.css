@@ -79,6 +79,7 @@ html input[type=button],input[type=submit] {
 
 .main-navigation .navigation-logo.site-logo {
   margin-left: 0;
+  margin-right: auto;
 }
 .main-navigation .main-nav a:hover {
   text-decoration: none;
@@ -86,9 +87,9 @@ html input[type=button],input[type=submit] {
 .main-navigation .inside-navigation {
 	align-items: center;
 	display: flex;
+  justify-content: flex-end;
 }
 .main-navigation .inside-navigation .main-nav {
-	margin-left: auto;
 	margin-right: 0;
 }
 div.site-logo.sticky-logo.navigation-logo img{
@@ -157,17 +158,13 @@ div.site-logo.sticky-logo.navigation-logo img {
   padding: 10px;
 }
 
-#menu-main-menu .menu-item {
-  margin-top: 30px;
-  margin-bottom: 30px;
-}
-#menu-main-menu .menu-item .avatar {
+#menu-user-menu .menu-item .avatar {
   margin-right: 0.5em;
   vertical-align: text-bottom;
 }
 
-#menu-main-menu .menu-item.current-menu-item a,
-#menu-main-menu .menu-item.current-menu-item a:hover {
+#menu-user-menu .menu-item.current-menu-item a,
+#menu-user-menu .menu-item.current-menu-item a:hover {
   color: #1995a7;
 	font-weight: bold;
 }
@@ -515,6 +512,10 @@ ul.menu {
   .grid-33 {
     float: none;
     width: auto;
+  }
+  #site-navigation #menu-main-menu .menu-item {
+    margin-top: 30px;
+    margin-bottom: 30px;
   }
   #site-navigation #menu-main-menu .menu-item a {
     font-weight: bold;
