@@ -139,4 +139,12 @@ class Froware_Admin {
 		return $value;
 	}
 
+	/**
+	 * Overrides admin_enqueue_scripts event hook in Elmentor to avoid conflict with Ninja Forms editor
+	 */
+	public function override_elementor_enqueue_scripts_hook() {
+		if ( class_exists( 'Elementor\Plugin' ) && isset( $_GET['page'] ) && 'ninja-forms' === $_GET['page'] ) {
+			remove_action( 'admin_enqueue_scripts', [ Elementor\Plugin::instance()->common, 'register_scripts' ] );
+		}
+	}
 }
