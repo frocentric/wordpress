@@ -6,8 +6,8 @@ a:hover,
   text-decoration: underline;
 }
 
-body.single {
-  background-color: #fff;
+body {
+  background-color: #f7f7f7;
 }
 
 h1 > a,
@@ -24,6 +24,7 @@ h6 > a,
 h6 > a:hover,
 a.generate-back-to-top,
 a.generate-back-to-top:hover {
+  border: 2px solid #ffffff;
   text-decoration: none;
 }
 
@@ -78,6 +79,7 @@ html input[type=button],input[type=submit] {
 
 .main-navigation .navigation-logo.site-logo {
   margin-left: 0;
+  margin-right: auto;
 }
 .main-navigation .main-nav a:hover {
   text-decoration: none;
@@ -85,9 +87,9 @@ html input[type=button],input[type=submit] {
 .main-navigation .inside-navigation {
 	align-items: center;
 	display: flex;
+  justify-content: flex-end;
 }
 .main-navigation .inside-navigation .main-nav {
-	margin-left: auto;
 	margin-right: 0;
 }
 div.site-logo.sticky-logo.navigation-logo img{
@@ -137,6 +139,7 @@ div.site-logo.sticky-logo.navigation-logo img{
 }
 
 .link-list li a {
+  color: #000000;
   display: block;
 }
 
@@ -155,13 +158,13 @@ div.site-logo.sticky-logo.navigation-logo img {
   padding: 10px;
 }
 
-#menu-main-menu .menu-item {
-  margin-top: 10px;
-  margin-bottom: 10px;
+#menu-user-menu .menu-item .avatar {
+  margin-right: 0.5em;
+  vertical-align: text-bottom;
 }
 
-#menu-main-menu .menu-item.current-menu-item a,
-#menu-main-menu .menu-item.current-menu-item a:hover {
+#menu-user-menu .menu-item.current-menu-item a,
+#menu-user-menu .menu-item.current-menu-item a:hover {
   color: #1995a7;
 	font-weight: bold;
 }
@@ -197,6 +200,19 @@ input[type="submit"] {
   text-transform: uppercase;
 }
 
+.button-arrow .elementor-button-wrapper .elementor-button.elementor-button-link {
+  background: transparent center right url('../images/chevron-outline-right-black.svg') no-repeat;
+  border: none;
+  color: #000000;
+  line-height: 1.375;
+  padding: 0 30px 0 0;
+  margin: 15px 0;
+  text-transform: none;
+  /*-webkit-transition: none;
+  -o-transition: none;
+  transition: none;*/
+}
+
 #content .wpsp-read-more a.wp-show-posts-read-more:hover,
 .wp-editor-tabs button[type="button"],
 .wp-editor-tabs button[type="button"]:hover,
@@ -207,6 +223,12 @@ input[type="submit"]:hover,
   background-color: #000000;
   border-color: #000000;
   text-decoration: none;
+}
+
+.button-arrow .elementor-button-wrapper .elementor-button.elementor-button-link:hover {
+  background: transparent center right url('../images/chevron-filled-right-black.svg') no-repeat;
+  background-color: transparent;
+  text-decoration: underline;
 }
 
 aside.cite {
@@ -459,14 +481,14 @@ ul.menu {
   padding: 0 1em;
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 1200px) {
   .grid-33 {
     float: none;
     width: auto;
   }
 }
 
-@media (max-width: 1024px) and (min-width: 768px) {
+@media (max-width: 1199px) and (min-width: 900px) {
   .generate-columns-container {
     padding: 0 30px;
   }
@@ -480,7 +502,10 @@ ul.menu {
   }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 899px) {
+  .main-navigation .inside-navigation {
+    display: block;
+  }
   .site-main .generate-columns-container:not(.masonry-container) {
     grid-template-columns: 1fr;
   }
@@ -488,11 +513,15 @@ ul.menu {
     float: none;
     width: auto;
   }
-  #site-navigation #menu-main-menu .menu-item.current-menu-item {
-    background-color: #1995a7;
+  #site-navigation #menu-main-menu .menu-item {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  #site-navigation #menu-main-menu .menu-item a {
+    font-weight: bold;
   }
   #site-navigation #menu-main-menu .menu-item.current-menu-item a {
-    color: #fff;
+    color: #1995a7;
   }
   #site-navigation .menu-toggle:before {
     font-size: 24px;
@@ -534,6 +563,20 @@ ul.menu {
     position: fixed;
     right: 0;
   }
+  .menu-logo
+    .main-navigation:not(.mobile-header-navigation)
+    .inside-navigation
+    .menu-toggle[aria-expanded="true"]
+    .open-menu {
+    display: none;
+  }
+  .menu-logo
+    .main-navigation:not(.mobile-header-navigation)
+    .inside-navigation
+    .menu-toggle[aria-expanded="false"]
+    .close-menu {
+    display: none;
+  }
   #site-navigation .inside-navigation .menu-toggle:before {
     margin-top: 0;
     z-index: 999;
@@ -551,7 +594,13 @@ ul.menu {
     z-index: 1;
   }
   .mobile-menu-open .main-navigation .main-nav ul {
-    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    box-sizing: border-box;
+    padding-top: 60px;
   }
   .mobile-menu-open .main-navigation .main-nav ul li a,
   .menu-toggle {
@@ -560,7 +609,7 @@ ul.menu {
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 599px) {
   .footer-widgets .menu-site-footer-container ul {
     display: flex;
     flex-direction: column;
