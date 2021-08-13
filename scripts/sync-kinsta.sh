@@ -10,6 +10,12 @@ TO=$2
 bold=$(tput bold)
 normal=$(tput sgr0)
 
+# Load variables from .env in order to access OneAll configuration values
+if [ -f ../.env ]; then
+    # Load Environment Variables
+    set -o allexport; source ../.env; set +o allexport
+fi
+
 # Declare arrays to store environment configuration values
 SUBDOMAINS=("hq" "tech")
 declare -A SOURCE
@@ -110,6 +116,29 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
 	  echo "Replacing $SOURCESUBDOMAIN (sub-domain) with $DESTSUBDOMAIN"
       wp @$TO search-replace "$SOURCESUBDOMAIN" "$DESTSUBDOMAIN" --url="$SOURCESUBDOMAIN" &&
       wp @$TO search-replace "$SOURCESUBDOMAIN" "$DESTSUBDOMAIN" --url="${SOURCE[url]}"
+
+	  # Run search & replace for OneAll connection settings
+	  OA_SOCIAL_LOGIN_SETTINGS=`wp @$TO option get oa_social_login_settings --url="$DESTSUBDOMAIN" --format=json 2>/dev/null`
+
+	  if [ $? -eq 0 ]; then
+		printf '%s\n' "${OA_SOCIAL_LOGIN_SETTINGS}" | php -r "
+			\$option = json_decode( fgets(STDIN) );
+			\$api_key = \"${OA_SOCIAL_LOGIN_SETTINGS_API_KEY}\";
+			\$api_secret = \"${OA_SOCIAL_LOGIN_SETTINGS_API_SECRET}\";
+			\$api_subdomain = \"${OA_SOCIAL_LOGIN_SETTINGS_SUBDOMAIN}\";
+
+			if ( ! empty ( \$api_key ) ) {
+				\$option->api_key = \$api_key;
+			}
+			if ( ! empty ( \$api_secret ) ) {
+				\$option->api_secret = \$api_secret;
+			}
+			if ( ! empty ( \$api_subdomain ) ) {
+				\$option->api_subdomain = \$api_subdomain;
+			}
+			print json_encode(\$option);
+			" | wp @$TO option set oa_social_login_settings --url="$DESTSUBDOMAIN" --format=json
+	  fi
     done
 
     # Run search & replace for primary domain
