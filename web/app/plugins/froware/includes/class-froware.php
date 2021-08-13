@@ -157,6 +157,7 @@ class Froware {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'save_post', $plugin_admin, 'set_canonical_url', 10, 3 );
+		$this->loader->add_action( 'init', $plugin_admin, 'override_elementor_enqueue_scripts_hook', 20 );
 		$this->loader->add_filter( 'option_active_plugins', $plugin_admin, 'filter_active_plugins', 10, 2 );
 	}
 
@@ -192,6 +193,7 @@ class Froware {
 		$this->loader->add_filter( 'generate_post_date_output', $plugin_public, 'generate_post_date_output', 10, 2 );
 		$this->loader->add_filter( 'generate_svg_icon_element', $plugin_public, 'generate_svg_icon_element', 10, 2 );
 		$this->loader->add_filter( 'nav_menu_css_class', $plugin_public, 'special_nav_class', 10, 3 );
+		$this->loader->add_filter( 'wp_nav_menu_objects', $plugin_public, 'wp_nav_menu_objects_callback' );
 		$this->loader->add_filter( 'wpsp_defaults', $plugin_public, 'wpsp_defaults' );
 		$this->loader->add_filter( 'feedzy_content', $plugin_public, 'feedzy_content_callback', 5, 2 );
 		$this->loader->add_filter( 'feedzy_insert_post_args', $plugin_public, 'feedzy_insert_post_args_callback', 10, 6 );

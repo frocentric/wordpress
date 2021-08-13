@@ -216,7 +216,8 @@ class Froware_Public {
 	 */
 	public function generate_svg_icon_element( $output, $icon ) {
 		if ( 'menu-bars' === $icon ) {
-			$output = '<img alt="Menu open" src="' . esc_url( get_stylesheet_directory_uri() ) . '/images/burger-menu-open.svg" />';
+			$output = '<img alt="Open menu" src="' . esc_url( get_stylesheet_directory_uri() ) . '/images/burger-menu-open.svg" class="open-menu" />';
+			$output .= '<img alt="Close menu" src="' . esc_url( get_stylesheet_directory_uri() ) . '/images/burger-menu-close.svg" class="close-menu" />';
 		}
 
 		return $output;
@@ -275,6 +276,39 @@ class Froware_Public {
 
 		// Filter out duplicate classes.
 		return array_unique( $classes );
+	}
+
+	/**
+	 * Hides navigation menu items depending on user login status
+	 */
+	public function wp_nav_menu_objects_callback( $items ) {
+		$current_user = wp_get_current_user();
+		$offset = 0;
+		$flagged = [];
+
+		foreach ( $items as $item ) {
+			if ( $item->title === 'Logout' ) {
+				$item->url = wp_logout_url();
+			}
+
+			if ( $item->title === 'User' && is_user_logged_in() ) {
+				$item->title = get_avatar( $current_user->ID, 25 ) . '<span>' . $current_user->display_name . '</span>';
+			}
+
+			if ( ( is_user_logged_in() && in_array( 'logged-out', $item->classes, true ) ) || ( ! is_user_logged_in() && in_array( 'logged-in', $item->classes, true ) ) ) {
+				$flagged[] = $offset;
+			}
+
+			$offset = ++$offset;
+		}
+
+		$index = count( $flagged );
+
+		while ( $index ) {
+			array_splice( $items, $flagged[ --$index ], 1 );
+		}
+
+		return $items;
 	}
 
 	/**
