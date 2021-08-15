@@ -703,10 +703,16 @@ class Froware_Public {
 		}
 	}
 
+	/**
+	 * Modifies the comment template to render user avatars as 32x32px
+	 */
 	public function discourse_comment_html( $output ) {
 		return str_replace( '64', '32', $output );
 	}
 
+	/**
+	 * Modifies the replies template to add the comment count to the title
+	 */
 	public function discourse_replies_html( $output ) {
 		$modified = $output;
 
