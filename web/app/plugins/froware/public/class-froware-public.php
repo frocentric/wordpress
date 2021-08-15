@@ -706,4 +706,18 @@ class Froware_Public {
 	public function discourse_comment_html( $output ) {
 		return str_replace( '64', '32', $output );
 	}
+
+	public function discourse_replies_html( $output ) {
+		$modified = $output;
+
+		if ( isset( $_GET['post_id'] ) && is_numeric( $_GET['post_id'] ) ) {
+			$post = get_post( sanitize_key( wp_unslash( $_GET['post_id'] ) ) );
+
+			if ( $post && get_comments_number( $post->ID ) ) {
+				$modified = str_replace( 'Comments</h2>', 'Comments (<span class="comment-count">' . get_comments_number( $post->ID ) . '</span>)</h2>', $modified );
+			}
+		}
+
+		return $modified;
+	}
 }
