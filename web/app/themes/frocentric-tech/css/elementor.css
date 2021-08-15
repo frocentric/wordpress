@@ -224,11 +224,11 @@
 .elementor-section.highlight-white {
   background-color: #ffffff;
 }
-.elementor-widget-posts .ecs-post-loop {
+.site-main .elementor-widget-posts .ecs-post-loop {
   border: 1px solid #dcdcdc;
   border-radius: 5px;
 }
-.elementor-widget-posts .ecs-post-loop .elementor-image {
+.site-main .elementor-widget-posts .ecs-post-loop .elementor-image {
   align-items: center;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -236,16 +236,16 @@
   height: 199px;
   overflow: hidden;
 }
-.elementor-widget-posts .ecs-post-loop .elementor-widget-author-box,
-.elementor-widget-posts .ecs-post-loop .elementor-widget-theme-post-title,
-.elementor-widget-posts .ecs-post-loop .elementor-widget-post-info {
+.site-main .elementor-widget-posts .ecs-post-loop .elementor-widget-author-box,
+.site-main .elementor-widget-posts .ecs-post-loop .elementor-widget-theme-post-title,
+.site-main .elementor-widget-posts .ecs-post-loop .elementor-widget-post-info {
   padding-left: 10px;
   padding-right: 10px;
 }
-.elementor-widget-posts .ecs-post-loop .elementor-widget-theme-post-title {
+.site-main .elementor-widget-posts .ecs-post-loop .elementor-widget-theme-post-title {
   margin-bottom: 0;
 }
-.elementor-widget-posts .ecs-post-loop .elementor-column-gap-default>.elementor-row>.elementor-column>.elementor-element-populated {
+.site-main .elementor-widget-posts .ecs-post-loop .elementor-column-gap-default>.elementor-row>.elementor-column>.elementor-element-populated {
   padding: 0;
 }
 

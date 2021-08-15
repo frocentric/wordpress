@@ -24,8 +24,12 @@ h6 > a,
 h6 > a:hover,
 a.generate-back-to-top,
 a.generate-back-to-top:hover {
-  border: 2px solid #ffffff;
   text-decoration: none;
+}
+
+a.generate-back-to-top,
+a.generate-back-to-top:hover {
+  border: 2px solid #ffffff;
 }
 
 /* Forms */
