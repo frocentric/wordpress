@@ -63,6 +63,19 @@
   padding-left: 20px;
   padding-top: 0;
 }
+
+#comments h3 {
+  color: #ffffff;
+}
+
+#comments a {
+  border: none;
+}
+
+#comments {
+  background: #282828;
+}
+
 .comments-area.discourse-comments-area h2,
 .comments-area.discourse-comments-area h3,
 .comments-area.discourse-comments-area h4 {
