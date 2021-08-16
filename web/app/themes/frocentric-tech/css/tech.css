@@ -74,6 +74,11 @@
 
 #comments {
   background: none;
+  padding-top: 0;
+}
+
+.elementor-section .elementor-inner-section .elementor-element .elementor-element-eaf0588 .comments-container .elementor-section-boxed .elementor-section-height-default .elementor-section-height-default {
+  padding-top: 12px;
 }
 
 .comments-area.discourse-comments-area h2,
