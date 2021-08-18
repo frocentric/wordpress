@@ -84,31 +84,6 @@ if ( ! function_exists( 'generate_post_meta' ) ) {
 	}
 }
 
-add_action( 'init', 'register_user_menu' );
-
-if ( ! function_exists( 'register_user_menu' ) ) {
-	function register_user_menu() {
-		register_nav_menu( 'user-menu', __( 'User Menu' ) );
-	}
-}
-
-add_action( 'generate_after_primary_menu', 'generate_after_primary_menu_callback' );
-
-if ( ! function_exists( 'generate_after_primary_menu_callback' ) ) {
-	function generate_after_primary_menu_callback() {
-		wp_nav_menu(
-			[
-				'theme_location' => 'user-menu',
-				'container' => 'div',
-				'container_class' => 'main-nav user-nav',
-				'container_id' => 'user-menu',
-				'menu_class' => '',
-				'items_wrap' => '<ul id="%1$s" class="%2$s ' . join( ' ', generate_get_element_classes( 'menu' ) ) . '">%3$s</ul>',
-			]
-		);
-	}
-}
-
 // Add custom image size used on homepage.
 add_image_size( 'frocentric-halfwidth', 580, 0 );
 
