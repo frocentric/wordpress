@@ -292,7 +292,7 @@ class Froware_Public {
 			}
 
 			if ( $item->title === 'User' && is_user_logged_in() ) {
-				$item->title = get_avatar( $current_user->ID, 25 ) . '<span>' . $current_user->display_name . '</span>';
+				$item->title = get_avatar( $current_user->ID, 25 );
 			}
 
 			if ( ( is_user_logged_in() && in_array( 'logged-out', $item->classes, true ) ) || ( ! is_user_logged_in() && in_array( 'logged-in', $item->classes, true ) ) ) {
