@@ -206,6 +206,13 @@ Config::define( 'WPMS_GMAIL_CLIENT_SECRET', env( 'WPMS_GMAIL_CLIENT_SECRET' ) );
 Config::define( 'FEEDZY_ALLOW_UNSAFE_HTML', true );
 
 /**
+ * OneAll Settings
+ */
+Config::define( 'OA_SOCIAL_LOGIN_SETTINGS_API_KEY', env( 'OA_SOCIAL_LOGIN_SETTINGS_API_KEY' ) ?? '' );
+Config::define( 'OA_SOCIAL_LOGIN_SETTINGS_API_SECRET', env( 'OA_SOCIAL_LOGIN_SETTINGS_API_SECRET' ) ?? '' );
+Config::define( 'OA_SOCIAL_LOGIN_SETTINGS_SUBDOMAIN', env( 'OA_SOCIAL_LOGIN_SETTINGS_SUBDOMAIN' ) ?? '' );
+
+/**
  * Allow WordPress to detect HTTPS when used behind a reverse proxy or a load balancer
  * See https://codex.wordpress.org/Function_Reference/is_ssl#Notes
  */
