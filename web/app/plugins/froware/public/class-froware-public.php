@@ -692,6 +692,40 @@ class Froware_Public {
 			remove_action( 'parse_request', [ WP_Router::get_instance(), 'parse_request' ], 10, 1 );
 			add_action( 'parse_request', [ $this, 'shim_parse_request' ], 10, 1 );
 		}
+
+		if ( function_exists( 'wpmus_maybesync_newuser' ) ) {
+			// phpcs:ignore
+			global $wpmus_newUserSync;
+
+			//phpcs:ignore
+			if ( $wpmus_newUserSync === 'yes' ) {
+				remove_action( 'wp_login', 'wpmus_maybesync_newuser', 10, 1 );
+				remove_action( 'social_connect_login', 'wpmus_maybesync_newuser', 10, 1 );
+				add_action( 'wp_login', [ $this, 'wpmus_maybesync_newuser' ], 10, 1 );
+				add_action( 'social_connect_login', [ $this, 'wpmus_maybesync_newuser' ], 10, 1 );
+			}
+		}
+	}
+
+	/**
+	 * New login trigger. This action is needed to check if the user is on all sites
+	 */
+	public function wpmus_maybesync_newuser( $user_login ) {
+		global $wpmus_newUserSync; //phpcs:ignore
+
+		//phpcs:ignore
+		if ( $wpmus_newUserSync === 'yes' ) {
+
+			if ( function_exists( 'get_user_by' ) ) {
+				$userdata = get_user_by( 'login', $user_login );
+			} else {
+				$userdata = get_userdatabylogin( $user_login ); //phpcs:ignore
+			}
+
+			if ( $userdata !== false && get_user_meta( $userdata->ID, 'msum_has_caps', true ) !== 'true' ) {
+				wpmus_sync_newuser( $userdata->ID );
+			}
+		}
 	}
 
 	/**
