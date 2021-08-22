@@ -203,6 +203,7 @@ class Froware {
 		$this->loader->add_filter( 'twig_anything_request_args', $plugin_public, 'twig_anything_request_args', 10, 2 );
 		$this->loader->add_filter( 'discourse_comment_html', $plugin_public, 'discourse_comment_html', 10, 1 );
 		$this->loader->add_filter( 'discourse_replies_html', $plugin_public, 'discourse_replies_html', 10, 1 );
+		$this->loader->add_filter( 'ninja_forms_post_run_action_type_redirect', $plugin_public, 'ninja_forms_post_run_action_type_redirect_callback', 10, 1 );
 
 	}
 

@@ -725,6 +725,18 @@ class Froware_Public {
 	}
 
 	/**
+	 * Hooks onto ninja_forms_post_run_action_type_redirect to correctly decode redirection URL argument
+	 * Fixes URL provided when logging in from Discourse
+	 */
+	public function ninja_forms_post_run_action_type_redirect_callback( $data ) {
+		if ( array_key_exists( 'actions', $data ) && array_key_exists( 'redirect', $data['actions'] ) ) {
+			$data['actions']['redirect'] = htmlspecialchars_decode( $data['actions']['redirect'] );
+		}
+
+		return $data;
+	}
+
+	/**
 	 * Shims WP_Router->parse_request to prevent errors when The Events Calendar Community Events plugin is enabled
 	 */
 	public function shim_parse_request( $query ) {
