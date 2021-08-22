@@ -102,6 +102,11 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
 		exit 1
 	fi
 
+	# Retrieve OneAll connection settings for environment
+	OA_SOCIAL_LOGIN_SETTINGS_API_KEY=`wp @$TO config get --type=constant OA_SOCIAL_LOGIN_SETTINGS_API_KEY`
+	OA_SOCIAL_LOGIN_SETTINGS_API_SECRET=`wp @$TO config get --type=constant OA_SOCIAL_LOGIN_SETTINGS_API_SECRET`
+	OA_SOCIAL_LOGIN_SETTINGS_SUBDOMAIN=`wp @$TO config get --type=constant OA_SOCIAL_LOGIN_SETTINGS_SUBDOMAIN`
+
     # Run search & replace for sub-domains
     for subdomain in "${SUBDOMAINS[@]}"; do
       DESTSUBDOMAIN="$subdomain.${DEST[rootdomain]}"
@@ -112,9 +117,6 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
       wp @$TO search-replace "$SOURCESUBDOMAIN" "$DESTSUBDOMAIN" --url="${SOURCE[url]}"
 
 	  # Run search & replace for OneAll connection settings
-	  OA_SOCIAL_LOGIN_SETTINGS_API_KEY=`wp @$TO config get --type=constant OA_SOCIAL_LOGIN_SETTINGS_API_KEY`
-	  OA_SOCIAL_LOGIN_SETTINGS_API_SECRET=`wp @$TO config get --type=constant OA_SOCIAL_LOGIN_SETTINGS_API_SECRET`
-	  OA_SOCIAL_LOGIN_SETTINGS_SUBDOMAIN=`wp @$TO config get --type=constant OA_SOCIAL_LOGIN_SETTINGS_SUBDOMAIN`
 	  OA_SOCIAL_LOGIN_SETTINGS=`wp @$TO option get oa_social_login_settings --url="$DESTSUBDOMAIN" --format=json 2>/dev/null`
 
 	  if [ $? -eq 0 ]; then
