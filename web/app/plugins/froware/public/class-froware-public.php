@@ -716,11 +716,7 @@ class Froware_Public {
 		//phpcs:ignore
 		if ( $wpmus_newUserSync === 'yes' ) {
 
-			if ( function_exists( 'get_user_by' ) ) {
-				$userdata = get_user_by( 'login', $user_login );
-			} else {
-				$userdata = get_userdatabylogin( $user_login ); //phpcs:ignore
-			}
+			$userdata = get_user_by( 'login', $user_login );
 
 			if ( $userdata !== false && get_user_meta( $userdata->ID, 'msum_has_caps', true ) !== 'true' ) {
 				wpmus_sync_newuser( $userdata->ID );
