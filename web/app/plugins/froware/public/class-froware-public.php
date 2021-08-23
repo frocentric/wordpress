@@ -281,17 +281,24 @@ class Froware_Public {
 	/**
 	 * Hides navigation menu items depending on user login status
 	 */
-	public function wp_nav_menu_objects_callback( $items ) {
+	public function wp_nav_menu_objects_callback( $items ) { //phpcs:ignore
+		global $wp;
+
+		$permalink = trailingslashit( home_url( $wp->request ) );
 		$current_user = wp_get_current_user();
 		$offset = 0;
 		$flagged = [];
 
 		foreach ( $items as $item ) {
-			if ( $item->title === 'Logout' ) {
-				$item->url = wp_logout_url();
+			if ( in_array( 'user-login', $item->classes, true ) && isset( $_SERVER['REQUEST_URI'] ) ) {
+				$item->url = add_query_arg( 'redirect_to', wp_sanitize_redirect( wp_unslash( $_SERVER['REQUEST_URI'] ) ), $item->url );
 			}
 
-			if ( $item->title === 'User' && is_user_logged_in() ) {
+			if ( in_array( 'user-logout', $item->classes, true ) ) {
+				$item->url = wp_logout_url( $permalink );
+			}
+
+			if ( in_array( 'user-profile', $item->classes, true ) && is_user_logged_in() ) {
 				$item->title = get_avatar( $current_user->ID, 25 );
 			}
 
