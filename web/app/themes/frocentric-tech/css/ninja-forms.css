@@ -1,9 +1,27 @@
 .nf-field .ninja-forms-field,
+.nf-field .nf-error .ninja-forms-field:hover {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+}
+
+.nf-field .ninja-forms-field,
 .nf-field .nf-error .ninja-forms-field {
   border-left: none;
   border-right: none;
   border-top: none;
 }
+
+.nf-field .ninja-forms-field,
+.nf-field .ninja-forms-field:hover {
+  border-bottom: 1px solid #1995A7;
+}
+
+.nf-field .ninja-forms-field,
+.nf-field .ninja-forms-field {
+  border-bottom: 1px solid #101010;
+}
+
 .nf-field .nf-field-label label {
   color: #474747;
   font-size: 14px;
