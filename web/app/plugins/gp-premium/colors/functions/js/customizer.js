@@ -562,31 +562,31 @@ generate_colors_live_update( 'form_button_text_color', button, 'color' );
  * Button on hover/focus selectors
  * Empty: initial
  */
-var button_hover = 'button:hover, \
-	html input[type="button"]:hover, \
-	input[type="reset"]:hover, \
-	input[type="submit"]:hover,\
-	a.button:hover,\
-	button:focus, \
-	html input[type="button"]:focus, \
-	input[type="reset"]:focus, \
-	input[type="submit"]:focus,\
-	a.button:focus,\
-	a.wp-block-button__link:not(.has-background):active,\
-	a.wp-block-button__link:not(.has-background):focus,\
-	a.wp-block-button__link:not(.has-background):hover';
+// var button_hover = 'button:hover, \
+// 	html input[type="button"]:hover, \
+// 	input[type="reset"]:hover, \
+// 	input[type="submit"]:hover,\
+// 	a.button:hover,\
+// 	button:focus, \
+// 	html input[type="button"]:focus, \
+// 	input[type="reset"]:focus, \
+// 	input[type="submit"]:focus,\
+// 	a.button:focus,\
+// 	a.wp-block-button__link:not(.has-background):active,\
+// 	a.wp-block-button__link:not(.has-background):focus,\
+// 	a.wp-block-button__link:not(.has-background):hover';
 
 /**
  * Button color on hover
  * Empty: initial
  */
-generate_colors_live_update( 'form_button_background_color_hover', button_hover, 'background-color' );
+generate_colors_live_update( 'form_button_background_color_hover', 'background-color' );
 
 /**
  * Button text color on hover
  * Empty: initial
  */
-generate_colors_live_update( 'form_button_text_color_hover', button_hover, 'color' );
+generate_colors_live_update( 'form_button_text_color_hover', 'color' );
 
 /**
  * Back to top background color

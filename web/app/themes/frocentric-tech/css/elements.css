@@ -187,21 +187,21 @@ a.wp-show-posts-read-more:visited,
 .wp-editor-tabs button[type="button"],
 html input[type="button"],
 input[type="submit"] {
-  border: 1px solid;
-  border-radius: 50vh;
-  padding: 1em 4em;
+  padding: 1em 5em;
 }
 
 .elementor-button-wrapper .elementor-button.elementor-button-link,
 .wp-editor-tabs button[type="button"],
 html input[type="button"],
 input[type="submit"] {
-  background-color: #1995a7;
-  border-color: #1995a7;
-  color: #ffffff;
-  font-size: 15px;
-  font-weight: 600;
-  text-transform: uppercase;
+  border: none;
+  color: black;
+  font-size: 18px;
+  font-weight: 700;
+  margin-right: 15em;
+  background: transparent center right url('../images/chevron-outline-right-black.svg') no-repeat;
+  background-position: 147px 10px
+
 }
 
 .button-arrow .elementor-button-wrapper .elementor-button.elementor-button-link {
@@ -217,7 +217,7 @@ input[type="submit"] {
   transition: none;*/
 }
 
-#content .wpsp-read-more a.wp-show-posts-read-more:hover,
+/* #content .wpsp-read-more a.wp-show-posts-read-more:hover,
 .wp-editor-tabs button[type="button"],
 .wp-editor-tabs button[type="button"]:hover,
 html input[type="button"]:hover,
@@ -227,7 +227,7 @@ input[type="submit"]:hover,
   background-color: #000000;
   border-color: #000000;
   text-decoration: none;
-}
+} */
 
 .button-arrow .elementor-button-wrapper .elementor-button.elementor-button-link:hover {
   background: transparent center right url('../images/chevron-filled-right-black.svg') no-repeat;
