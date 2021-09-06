@@ -318,6 +318,33 @@ class Froware_Public {
 		return $items;
 	}
 
+	public function save_post_post_callback( $post_id, $post ) {
+		// bail out if this is an autosave or trashed message
+		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || $post->post_status === 'trash' ) {
+			return;
+		}
+
+		// Bail out if not a content post
+		$tags = [];
+
+		// Get disciplines taxonomy
+		$terms = get_the_terms( $post->ID, 'discipline' );
+
+		foreach ( $terms as $term ) {
+			$tags[] = $term->slug;
+		}
+
+		// Get interests taxonomy
+		$terms = get_the_terms( $post->ID, 'interest' );
+
+		foreach ( $terms as $term ) {
+			$tags[] = $term->slug;
+		}
+
+		// Save Discourse tags
+		update_post_meta( $post_id, 'wpdc_topic_tags', $tags );
+	}
+
 	/**
 	 * Adds support for audio post types
 	 */
