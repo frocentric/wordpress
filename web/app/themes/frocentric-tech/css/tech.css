@@ -91,7 +91,8 @@
 #main .inside-article {
   border: 1px solid #e6e6e6;
   border-radius: 10px;
-  padding-bottom: 0
+  padding-bottom: 0;
+  margin-bottom: 50px;
 }
 
 #main .inside-article .nf-field-label {
