@@ -324,20 +324,20 @@ class Froware_Public {
 			return;
 		}
 
-		// Bail out if not a content post
+		// TODO: Bail out if not a content post
 		$tags = [];
 
 		// Get disciplines taxonomy
 		$terms = get_the_terms( $post->ID, 'discipline' );
 
-		foreach ( $terms as $term ) {
+		foreach ( array_filter( $terms ) as $term ) {
 			$tags[] = $term->slug;
 		}
 
 		// Get interests taxonomy
 		$terms = get_the_terms( $post->ID, 'interest' );
 
-		foreach ( $terms as $term ) {
+		foreach ( array_filter( $terms ) as $term ) {
 			$tags[] = $term->slug;
 		}
 
