@@ -91,8 +91,8 @@
 #main .inside-article {
   border: 1px solid #e6e6e6;
   border-radius: 10px;
-  padding-bottom: 0;
-  margin-bottom: 50px;
+  padding-bottom: 10px;
+  margin-bottom: 10rem;
 }
 
 #main .inside-article .nf-field-label {
@@ -120,5 +120,17 @@ body .site.grid-container {
   margin-right: 20px;
   padding-right: 0;
   z-index: 999;
+  }
+
+  #main .inside-article {
+    margin-left: 35px;
+    margin-right: 35px;
+    margin-bottom: 64px;
+    padding-left: 26px;
+    padding-right: 26px;
+  }
+
+  #main .inside-article .elementor-column-gap-default>.elementor-row>.elementor-column>.elementor-element-populated {
+    padding: 63px 0 50px 0;
   }
 }
