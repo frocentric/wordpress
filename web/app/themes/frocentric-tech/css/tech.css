@@ -130,6 +130,14 @@ body .site.grid-container {
   color: #1995A7;
   text-decoration: underline;
 }
+.list-checkbox-wrap .nf-field-element li, .list-image-wrap .nf-field-element li, .list-radio-wrap .nf-field-element li {
+  display: inline-block;
+  width: 32%;
+}
+.nf-checked-label {
+  color: #1995A7;
+}
+
 @media screen and (max-width: 899px) {
   .menu-logo
   .main-navigation:not(.mobile-header-navigation)
@@ -144,4 +152,8 @@ body .site.grid-container {
   padding-right: 0;
   z-index: 999;
   }
+  .list-checkbox-wrap .nf-field-element li, .list-image-wrap .nf-field-element li, .list-radio-wrap .nf-field-element li {
+    width: 100%;
+  }
+
 }
