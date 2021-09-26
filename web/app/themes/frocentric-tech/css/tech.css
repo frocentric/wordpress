@@ -106,6 +106,30 @@ body .site.grid-container {
   max-width: 864px;
 }
 
+.tag-cloud-link {
+  border: #1995A7 solid 2px;
+  border-radius: 3px;
+  margin: 0 3px 3px 0;
+  line-height: 20px;
+  font-size: 16px !important;
+  display: inline-block;
+  padding: 3px;
+}
+
+.tag-cloud-link:hover {
+  color: #fff;
+  background-color: #1995A7;
+}
+
+.elementor-col-33 .elementor-shortcode li a {
+  color: #000000;
+  font-size: 14px;
+}
+
+.elementor-col-33 .elementor-shortcode li a:hover {
+  color: #1995A7;
+  text-decoration: underline;
+}
 @media screen and (max-width: 899px) {
   .menu-logo
   .main-navigation:not(.mobile-header-navigation)
