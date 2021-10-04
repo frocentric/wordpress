@@ -134,8 +134,19 @@ body .site.grid-container {
   display: inline-block;
   width: 32%;
 }
-.nf-checked-label {
-  color: #1995A7;
+
+#edit-profile div.nf-field {
+  direction: rtl;
+  text-align: left;
+}
+
+#edit-profile div.nf-field * {
+  direction: ltr;
+}
+#edit-profile div.nf-field input:focus-visible + #main .inside-article .nf-field-label{
+  background-color: #1995A7;
+}
+
 }
 
 @media screen and (max-width: 899px) {
