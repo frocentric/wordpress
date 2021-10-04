@@ -130,6 +130,12 @@ body .site.grid-container {
   color: #1995A7;
   text-decoration: underline;
 }
+
+#registration .nf-next-previous li.nf-next-item {
+  float: none;
+  text-align: center;
+}
+
 .list-checkbox-wrap .nf-field-element li, .list-image-wrap .nf-field-element li, .list-radio-wrap .nf-field-element li {
   display: inline-block;
   width: 32%;
