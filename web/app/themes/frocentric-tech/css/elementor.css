@@ -236,6 +236,16 @@
   height: 199px;
   overflow: hidden;
 }
+.site-main .elementor-widget-posts .elementor-widget-image.post-author-default a {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+.site-main .elementor-widget-posts .elementor-widget-image.post-author-default a img[src$=".svg"] {
+  display: block;
+  width: 90%;
+}
 .site-main .elementor-widget-posts .ecs-post-loop .elementor-widget-author-box,
 .site-main .elementor-widget-posts .ecs-post-loop .elementor-widget-theme-post-title,
 .site-main .elementor-widget-posts .ecs-post-loop .elementor-widget-post-info {
