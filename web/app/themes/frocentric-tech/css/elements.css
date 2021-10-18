@@ -99,6 +99,12 @@ html input[type=button],input[type=submit] {
 .main-navigation .inside-navigation .main-nav.user-nav {
 	margin-left: 75px;
 }
+.main-navigation .main-nav ul li > a {
+  font-weight: 700;
+}
+.main-navigation .main-nav ul li.current-menu-item > a {
+  color: #1995a7;
+}
 div.site-logo.sticky-logo.navigation-logo img{
 	height: 34px;
 	padding: 0;
