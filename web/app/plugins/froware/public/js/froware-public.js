@@ -79,6 +79,10 @@
         }
       });
     });
+
+    $(
+      ".ecs-post-loop.has-post-thumbnail .elementor-widget-image.post-author-default"
+    ).remove();
   });
   function submit_event_url() {}
 })(jQuery);
