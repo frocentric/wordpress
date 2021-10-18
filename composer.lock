@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fdcbd97076776435a9ca540059c563a8",
+    "content-hash": "80c2aed67fc89a5675341cac21c5c52c",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1578,7 +1578,7 @@
         },
         {
             "name": "modern-tribe/events-calendar-pro",
-            "version": "5.8.0",
+            "version": "5.9.2.1",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}"
@@ -1587,7 +1587,7 @@
         },
         {
             "name": "modern-tribe/the-events-calendar-community-events",
-            "version": "4.8.6",
+            "version": "4.8.8",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community&version={%VERSION}&key={%TEC_CE_LICENSE}"
@@ -1596,7 +1596,7 @@
         },
         {
             "name": "modern-tribe/the-events-calendar-filterbar",
-            "version": "5.1.2",
+            "version": "5.2.1",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=tribe-filterbar&version={%VERSION}&key={%TEC_FB_LICENSE}"
