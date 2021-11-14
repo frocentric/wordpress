@@ -13,7 +13,7 @@
   line-height: 1.355;
 }
 .home h3.elementor-heading-title {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   line-height: 1.333;
 }
@@ -256,7 +256,7 @@
   margin-bottom: 0;
 }
 .site-main .elementor-widget-posts .ecs-post-loop .elementor-column-gap-default>.elementor-row>.elementor-column>.elementor-element-populated {
-  padding: 0;
+  padding: 15px;
 }
 
 @media only screen and (min-width: 600px) {
