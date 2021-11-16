@@ -177,6 +177,7 @@
 }
 .elementor-section.section-hero .elementor-widget-text-editor {
   color: #000000;
+  background-color:rgba(247,247,247, 0.75)
 }
 .elementor-section.section-hero .elementor-cta--skin-classic {
   position: absolute;
