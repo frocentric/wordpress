@@ -31,3 +31,5 @@ do
 		fi
 	fi
 done
+
+echo "wp-multisite-cron completed at $(date -u)"
