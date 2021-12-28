@@ -596,7 +596,7 @@ class Froware_Public {
 			}
 		}
 
-		$item_link  = '<a href="' . $item['item_url'] . '" target="_blank">' . __( 'Read More', 'feedzy-rss-feeds' ) . '</a>';
+		$item_link  = '<a href="' . $item['item_url'] . '" target="_blank" class="feedzy-rss-link-icon">' . __( 'Read More', 'feedzy-rss-feeds' ) . '</a>';
 		$citation = '<aside class="cite">' . __( 'Originally posted by ', 'frocentric' ) . $author_name . ' to <a href="' . $item['item_url'] . '" target="_blank" rel="nofollow">' . $args['post_title'] . '</a></aside>';
 		$args['post_content'] = str_replace( $item_link, $citation, $args['post_content'] );
 
