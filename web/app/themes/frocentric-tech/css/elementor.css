@@ -128,7 +128,8 @@
   -o-transition: all .3s;
   transition: all .3s;
 }
-.elementor-post-footer .elementor-icon-list-items .elementor-icon-list-item .elementor-icon-list-text a.elementor-post-info__terms-list-item {
+.elementor-post-footer .elementor-icon-list-items .elementor-icon-list-item .elementor-icon-list-text a.elementor-post-info__terms-list-item,
+.home .elementor-icon-list-items .elementor-icon-list-item .elementor-icon-list-text a.elementor-post-info__terms-list-item {
   background-color: #000;
   color: #fff;
   display: inline-block;
