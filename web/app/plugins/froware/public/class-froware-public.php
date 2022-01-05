@@ -260,14 +260,15 @@ class Froware_Public {
 			$classes = array_merge( $classes, $parent_classes );
 		} else {
 			$posts_page = get_option( 'page_for_posts' );
+			$slug       = $this->get_category_slug();
 
 			// Specify default page if posts page not enabled.
 			if ( 0 === $posts_page ) {
 				$posts_page = 13283; // TODO: refactor magic number.
 			}
 
-			// Highlight Content page link for any post or category page.
-			if ( ( ( is_single() && get_post_type() === 'post' ) || is_category() ) && $posts_page === (int) $item->object_id ) {
+			// Highlight Content page link for any content post or category page.
+			if ( ( ( is_single() && get_post_type() === 'post' && ( $slug === 'community' || $slug === 'platform' ) ) || is_category() || is_tax() || is_search() ) && 'Posts Page' === $item->type_label ) {
 				$classes = array_merge( $classes, $parent_classes );
 			} elseif ( is_page() && $post->post_parent === (int) $item->object_id ) {
 				$classes = array_merge( $classes, $parent_classes );
@@ -276,6 +277,17 @@ class Froware_Public {
 
 		// Filter out duplicate classes.
 		return array_unique( $classes );
+	}
+
+	protected function get_category_slug() {
+		$categories = get_the_category();
+		$slug       = null;
+
+		if ( ! empty( $categories ) ) {
+			$slug = $categories[0]->slug;
+		}
+
+		return $slug;
 	}
 
 	/**
@@ -328,21 +340,26 @@ class Froware_Public {
 		$tags = [];
 
 		// Get disciplines taxonomy
-		$terms = get_the_terms( $post->ID, 'discipline' );
-
-		foreach ( array_filter( $terms ) as $term ) {
-			$tags[] = $term->slug;
-		}
+		$tags = array_merge( $tags, $this->get_term_slugs( $post->ID, 'discipline' ) );
 
 		// Get interests taxonomy
-		$terms = get_the_terms( $post->ID, 'interest' );
-
-		foreach ( array_filter( $terms ) as $term ) {
-			$tags[] = $term->slug;
-		}
+		$tags = array_merge( $tags, $this->get_term_slugs( $post->ID, 'interest' ) );
 
 		// Save Discourse tags
 		update_post_meta( $post_id, 'wpdc_topic_tags', $tags );
+	}
+
+	protected function get_term_slugs( $id, $taxonomy ) {
+		$terms = get_terms( $id, $taxonomy );
+		$slugs = [];
+
+		if ( is_array( $terms ) ) {
+			foreach ( array_filter( $terms ) as $term ) {
+				$slugs[] = $term->slug;
+			}
+		}
+
+		return $slugs;
 	}
 
 	/**
