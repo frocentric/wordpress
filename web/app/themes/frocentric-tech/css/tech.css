@@ -38,7 +38,8 @@
   line-height: 1.18;
 }
 .elementor-column-gap-default>.elementor-row>.elementor-column.unpadded>.elementor-element-populated {
-  border: 1px solid #e8e8e8;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
   padding: 0;
 }
 .elementor-column-gap-default>.elementor-row>.elementor-column.unpadded .elementor-section.elementor-inner-section {
@@ -158,6 +159,17 @@ body .site.grid-container {
 }
 .simplesocialbuttons {
   display: none;
+}
+
+@media screen and (max-width: 599px) {
+  .elementor-column-gap-default>.elementor-row>.elementor-column.unpadded>.elementor-column-wrap.elementor-element-populated {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+  }
+  .elementor-column-gap-default>.elementor-row>.elementor-column.unpadded .elementor-section .elementor-column .elementor-element-populated {
+    padding: 0 15px;
+  }
 }
 
 @media screen and (max-width: 899px) {
