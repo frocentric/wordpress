@@ -211,7 +211,7 @@ class Froware_Public {
 	 *
 	 * @param    string $output      Default output.
 	 * @param    string $time_string Post time string.
-	 * @return   array
+	 * @return   string
 	 * @since    1.0.0
 	 */
 	public function generate_svg_icon_element( $output, $icon ) {
@@ -219,6 +219,25 @@ class Froware_Public {
 			$output = '<img alt="Open menu" src="' . esc_url( get_stylesheet_directory_uri() ) . '/images/burger-menu-open.svg" class="open-menu" />';
 			$output .= '<img alt="Close menu" src="' . esc_url( get_stylesheet_directory_uri() ) . '/images/burger-menu-close.svg" class="close-menu" />';
 		}
+
+		return $output;
+	}
+
+	/**
+	 * Filter SVG icon markup.
+	 * Removes default icon markup.
+	 *
+	 * @param    string $output      Default output.
+	 * @param    string $icon        The icon.
+	 * @return   string
+	 * @since    1.0.0
+	 */
+	public function generate_svg_icon( $output, $icon ) {
+		$output = str_replace(
+			'<svg viewBox="0 0 512 512" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"><path d="M71.029 71.029c9.373-9.372 24.569-9.372 33.942 0L256 222.059l151.029-151.03c9.373-9.372 24.569-9.372 33.942 0 9.372 9.373 9.372 24.569 0 33.942L289.941 256l151.03 151.029c9.372 9.373 9.372 24.569 0 33.942-9.373 9.372-24.569 9.372-33.942 0L256 289.941l-151.029 151.03c-9.373 9.372-24.569 9.372-33.942 0-9.372-9.373-9.372-24.569 0-33.942L222.059 256 71.029 104.971c-9.372-9.373-9.372-24.569 0-33.942z" /></svg>',
+			'',
+			$output
+		);
 
 		return $output;
 	}

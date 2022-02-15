@@ -57,12 +57,28 @@
   margin-left: 0;
 }
 
-.elementor-sidebar ul ul {
-  margin-bottom: 1em;
+.elementor-sidebar li li {
+  margin-left: 1em;
 }
 
-.elementor-sidebar li li:before {
-  content: "Latest: ";
+.elementor-sidebar .searchandfilter li {
+  width: 100%;
+  width: -moz-available;
+  width: -webkit-fill-available;
+  width: fill-available;
+}
+
+.elementor-sidebar .searchandfilter > div > ul > li:last-child {
+  text-align: center;
+}
+
+.elementor-sidebar .searchandfilter li input[type="text"] {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.elementor-sidebar .searchandfilter li input[type="submit"] {
+  margin-top: 2em;
 }
 
 .contact
