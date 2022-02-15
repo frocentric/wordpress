@@ -150,7 +150,7 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
 
   sync_uploads() {
     # Sync buckets
-    aws s3 sync "${SOURCE[bucket]}" "${DEST[bucket]}" --profile frocentric
+    aws s3 sync "${SOURCE[bucket]}" "${DEST[bucket]}" --cache-control max-age=31536000 --profile frocentric
   };
 
   # Slack notification when sync direction is up or horizontal
