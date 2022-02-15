@@ -3487,15 +3487,15 @@
         },
         {
             "name": "wpackagist-plugin/svg-support",
-            "version": "2.3.19",
+            "version": "2.4.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/svg-support/",
-                "reference": "tags/2.3.19"
+                "reference": "tags/2.4.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/svg-support.2.3.19.zip"
+                "url": "https://downloads.wordpress.org/plugin/svg-support.2.4.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
