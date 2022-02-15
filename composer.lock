@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "99998923553e2a3f820ac62b47d51be1",
+    "content-hash": "2dde17579d2716c3ac501d531161cff7",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -850,20 +850,20 @@
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "5.8.2",
+            "version": "5.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "4542ab539a46d3e5288db279a7fa5de3fecacaf6"
+                "reference": "6ada7243daf56881a1a09b5fbba60b993e38fa74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/4542ab539a46d3e5288db279a7fa5de3fecacaf6",
-                "reference": "4542ab539a46d3e5288db279a7fa5de3fecacaf6",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/6ada7243daf56881a1a09b5fbba60b993e38fa74",
+                "reference": "6ada7243daf56881a1a09b5fbba60b993e38fa74",
                 "shasum": ""
             },
             "require": {
-                "johnpbloch/wordpress-core": "5.8.2",
+                "johnpbloch/wordpress-core": "5.9.0",
                 "johnpbloch/wordpress-core-installer": "^1.0 || ^2.0",
                 "php": ">=5.6.20"
             },
@@ -892,20 +892,20 @@
                 "source": "http://core.trac.wordpress.org/browser",
                 "wiki": "http://codex.wordpress.org/"
             },
-            "time": "2021-11-10T17:28:17+00:00"
+            "time": "2022-01-25T20:11:11+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "5.8.2",
+            "version": "5.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "2bbb0498c019329aa12e22b21fa4f8b216ad6620"
+                "reference": "51241ed9138dd1fb552f6b85fc2025e6135fc03f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/2bbb0498c019329aa12e22b21fa4f8b216ad6620",
-                "reference": "2bbb0498c019329aa12e22b21fa4f8b216ad6620",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/51241ed9138dd1fb552f6b85fc2025e6135fc03f",
+                "reference": "51241ed9138dd1fb552f6b85fc2025e6135fc03f",
                 "shasum": ""
             },
             "require": {
@@ -913,7 +913,7 @@
                 "php": ">=5.6.20"
             },
             "provide": {
-                "wordpress/core-implementation": "5.8.2"
+                "wordpress/core-implementation": "5.9.0"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
@@ -940,7 +940,7 @@
                 "source": "https://core.trac.wordpress.org/browser",
                 "wiki": "https://codex.wordpress.org/"
             },
-            "time": "2021-11-10T17:28:15+00:00"
+            "time": "2022-01-25T20:28:49+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -998,10 +998,10 @@
         },
         {
             "name": "koodimonni-language/en_gb",
-            "version": "5.8.2",
+            "version": "5.9",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/5.8.2/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/5.9/en_GB.zip"
             },
             "require": {
                 "koodimonni-plugin-language/akismet-en_gb": "*",
@@ -1031,6 +1031,7 @@
                 "koodimonni-theme-language/twentytwelve-en_gb": "*",
                 "koodimonni-theme-language/twentytwenty-en_gb": "*",
                 "koodimonni-theme-language/twentytwentyone-en_gb": "*",
+                "koodimonni-theme-language/twentytwentytwo-en_gb": "*",
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
             },
             "type": "wordpress-language",
@@ -1044,10 +1045,10 @@
         },
         {
             "name": "koodimonni-plugin-language/akismet-en_gb",
-            "version": "4.2.1",
+            "version": "4.2.2",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/akismet/4.2.1/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/akismet/4.2.2/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1082,10 +1083,10 @@
         },
         {
             "name": "koodimonni-plugin-language/buddypress-en_gb",
-            "version": "9.1.1",
+            "version": "10.0.0",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/buddypress/9.1.1/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/buddypress/10.0.0/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1253,10 +1254,10 @@
         },
         {
             "name": "koodimonni-plugin-language/woocommerce-en_gb",
-            "version": "5.9.0",
+            "version": "6.1.1",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/5.9.0/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/6.1.1/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1348,10 +1349,10 @@
         },
         {
             "name": "koodimonni-theme-language/twentyeleven-en_gb",
-            "version": "3.9",
+            "version": "4.0",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/theme/twentyeleven/3.9/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/theme/twentyeleven/4.0/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1367,10 +1368,10 @@
         },
         {
             "name": "koodimonni-theme-language/twentyfifteen-en_gb",
-            "version": "3.0",
+            "version": "3.1",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/theme/twentyfifteen/3.0/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/theme/twentyfifteen/3.1/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1386,10 +1387,10 @@
         },
         {
             "name": "koodimonni-theme-language/twentyfourteen-en_gb",
-            "version": "3.2",
+            "version": "3.3",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/theme/twentyfourteen/3.2/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/theme/twentyfourteen/3.3/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1405,10 +1406,10 @@
         },
         {
             "name": "koodimonni-theme-language/twentynineteen-en_gb",
-            "version": "2.1",
+            "version": "2.2",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/theme/twentynineteen/2.1/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/theme/twentynineteen/2.2/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1424,10 +1425,10 @@
         },
         {
             "name": "koodimonni-theme-language/twentyseventeen-en_gb",
-            "version": "2.8",
+            "version": "2.9",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/theme/twentyseventeen/2.8/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/theme/twentyseventeen/2.9/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1443,10 +1444,10 @@
         },
         {
             "name": "koodimonni-theme-language/twentysixteen-en_gb",
-            "version": "2.5",
+            "version": "2.6",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/theme/twentysixteen/2.5/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/theme/twentysixteen/2.6/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1462,10 +1463,10 @@
         },
         {
             "name": "koodimonni-theme-language/twentyten-en_gb",
-            "version": "3.5",
+            "version": "3.6",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/theme/twentyten/3.5/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/theme/twentyten/3.6/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1481,10 +1482,10 @@
         },
         {
             "name": "koodimonni-theme-language/twentythirteen-en_gb",
-            "version": "3.4",
+            "version": "3.5",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/theme/twentythirteen/3.4/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/theme/twentythirteen/3.5/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1500,10 +1501,10 @@
         },
         {
             "name": "koodimonni-theme-language/twentytwelve-en_gb",
-            "version": "3.5",
+            "version": "3.6",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/theme/twentytwelve/3.5/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/theme/twentytwelve/3.6/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1519,10 +1520,10 @@
         },
         {
             "name": "koodimonni-theme-language/twentytwenty-en_gb",
-            "version": "1.8",
+            "version": "1.9",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/theme/twentytwenty/1.8/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/theme/twentytwenty/1.9/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1553,6 +1554,25 @@
                 "WordPress",
                 "en_gb",
                 "twentytwentyone"
+            ]
+        },
+        {
+            "name": "koodimonni-theme-language/twentytwentytwo-en_gb",
+            "version": "1.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/translation/theme/twentytwentytwo/1.0/en_GB.zip"
+            },
+            "require": {
+                "koodimonni/composer-dropin-installer": ">=0.2.3"
+            },
+            "type": "wordpress-language",
+            "description": "WordPress twentytwentytwo translations for English (UK) - en_gb",
+            "keywords": [
+                "Translation",
+                "WordPress",
+                "en_gb",
+                "twentytwentytwo"
             ]
         },
         {
@@ -2374,27 +2394,28 @@
         },
         {
             "name": "roots/wp-password-bcrypt",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/roots/wp-password-bcrypt.git",
-                "reference": "5cecd2e98ccc3193443cc5c5db9b3bc7abed5ffa"
+                "reference": "15f0d8919fb3731f79a0cf2fb47e1baecb86cb26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/roots/wp-password-bcrypt/zipball/5cecd2e98ccc3193443cc5c5db9b3bc7abed5ffa",
-                "reference": "5cecd2e98ccc3193443cc5c5db9b3bc7abed5ffa",
+                "url": "https://api.github.com/repos/roots/wp-password-bcrypt/zipball/15f0d8919fb3731f79a0cf2fb47e1baecb86cb26",
+                "reference": "15f0d8919fb3731f79a0cf2fb47e1baecb86cb26",
                 "shasum": ""
             },
             "require": {
-                "composer/installers": "~1.0",
-                "php": ">=5.5.0"
+                "php": ">=5.6.0"
             },
             "require-dev": {
-                "brain/monkey": "^1.3.1",
-                "mockery/mockery": "^0.9.4",
-                "phpunit/phpunit": "^4.8.23|^5.2.9",
-                "squizlabs/php_codesniffer": "^2.5.1"
+                "brain/monkey": "^2.6",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+                "mockery/mockery": "^1.4",
+                "phpcompatibility/php-compatibility": "^9.3",
+                "phpunit/phpunit": "<= 9.3",
+                "squizlabs/php_codesniffer": "^3.5"
             },
             "type": "library",
             "autoload": {
@@ -2413,8 +2434,12 @@
                     "homepage": "https://github.com/swalkinshaw"
                 },
                 {
-                    "name": "qwp6t",
+                    "name": "QWp6t",
                     "homepage": "https://github.com/qwp6t"
+                },
+                {
+                    "name": "Brandon Nifong",
+                    "homepage": "https://github.com/log1x"
                 },
                 {
                     "name": "Jan Pingel",
@@ -2425,14 +2450,26 @@
             "description": "WordPress plugin which replaces wp_hash_password and wp_check_password's phpass hasher with PHP 5.5's password_hash and password_verify using bcrypt.",
             "homepage": "https://roots.io/plugins/wp-password-bcrypt",
             "keywords": [
-                "wordpress wp bcrypt password"
+                "bcrypt",
+                "passwords",
+                "wordpress"
             ],
             "support": {
                 "forum": "https://discourse.roots.io/",
                 "issues": "https://github.com/roots/wp-password-bcrypt/issues",
-                "source": "https://github.com/roots/wp-password-bcrypt/tree/master"
+                "source": "https://github.com/roots/wp-password-bcrypt/tree/1.1.0"
             },
-            "time": "2016-03-01T16:27:06+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/roots",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/rootsdev",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2021-10-31T01:18:58+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -2825,16 +2862,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.10.5.1",
+            "version": "v3.10.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "97275bdefa096cfcae4c1833664a5552fae0685d"
+                "reference": "f33b012677585c686590271b711650ca9beb2d76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/97275bdefa096cfcae4c1833664a5552fae0685d",
-                "reference": "97275bdefa096cfcae4c1833664a5552fae0685d",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/f33b012677585c686590271b711650ca9beb2d76",
+                "reference": "f33b012677585c686590271b711650ca9beb2d76",
                 "shasum": ""
             },
             "require": {
@@ -2942,7 +2979,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2021-12-16T20:00:13+00:00"
+            "time": "2022-01-27T14:52:29+00:00"
         },
         {
             "name": "wpackagist-plugin/authors-list",
@@ -2964,15 +3001,15 @@
         },
         {
             "name": "wpackagist-plugin/autodescription",
-            "version": "4.2.2",
+            "version": "4.2.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/autodescription/",
-                "reference": "tags/4.2.2"
+                "reference": "tags/4.2.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/autodescription.4.2.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/autodescription.4.2.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3090,15 +3127,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "3.5.3",
+            "version": "3.5.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/3.5.3"
+                "reference": "tags/3.5.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.3.5.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/elementor.3.5.5.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3126,15 +3163,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "5.0.1",
+            "version": "5.0.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/5.0.1"
+                "reference": "tags/5.0.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.5.0.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.5.0.7.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3162,15 +3199,15 @@
         },
         {
             "name": "wpackagist-plugin/feedzy-rss-feeds",
-            "version": "3.8.1",
+            "version": "3.8.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/feedzy-rss-feeds/",
-                "reference": "tags/3.8.1"
+                "reference": "tags/3.8.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.3.8.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.3.8.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3216,15 +3253,15 @@
         },
         {
             "name": "wpackagist-plugin/jetpack",
-            "version": "10.4",
+            "version": "10.6",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/jetpack/",
-                "reference": "tags/10.4"
+                "reference": "tags/10.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jetpack.10.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/jetpack.10.6.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3342,15 +3379,15 @@
         },
         {
             "name": "wpackagist-plugin/ns-cloner-site-copier",
-            "version": "4.1.9.1",
+            "version": "4.1.9.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/ns-cloner-site-copier/",
-                "reference": "tags/4.1.9.1"
+                "reference": "tags/4.1.9.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ns-cloner-site-copier.4.1.9.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/ns-cloner-site-copier.4.1.9.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3378,15 +3415,15 @@
         },
         {
             "name": "wpackagist-plugin/pods",
-            "version": "2.8.8.1",
+            "version": "2.8.10",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/pods/",
-                "reference": "tags/2.8.8.1"
+                "reference": "tags/2.8.10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/pods.2.8.8.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/pods.2.8.10.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3396,15 +3433,15 @@
         },
         {
             "name": "wpackagist-plugin/publishpress",
-            "version": "3.6.3",
+            "version": "3.7.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/publishpress/",
-                "reference": "tags/3.6.3"
+                "reference": "tags/3.7.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/publishpress.3.6.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/publishpress.3.7.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3414,15 +3451,15 @@
         },
         {
             "name": "wpackagist-plugin/query-monitor",
-            "version": "3.8.1",
+            "version": "3.8.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/query-monitor/",
-                "reference": "tags/3.8.1"
+                "reference": "tags/3.8.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/query-monitor.3.8.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/query-monitor.3.8.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3450,15 +3487,15 @@
         },
         {
             "name": "wpackagist-plugin/svg-support",
-            "version": "2.3.19",
+            "version": "2.4.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/svg-support/",
-                "reference": "tags/2.3.19"
+                "reference": "tags/2.4.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/svg-support.2.3.19.zip"
+                "url": "https://downloads.wordpress.org/plugin/svg-support.2.4.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3468,15 +3505,15 @@
         },
         {
             "name": "wpackagist-plugin/the-events-calendar",
-            "version": "5.12.2",
+            "version": "5.13.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/the-events-calendar/",
-                "reference": "tags/5.12.2"
+                "reference": "tags/5.13.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.5.12.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.5.13.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3522,15 +3559,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-discourse",
-            "version": "2.3.7",
+            "version": "2.3.8",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-discourse/",
-                "reference": "tags/2.3.7"
+                "reference": "tags/2.3.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-discourse.2.3.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-discourse.2.3.8.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3540,15 +3577,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-event-aggregator",
-            "version": "1.6.3",
+            "version": "1.6.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-event-aggregator/",
-                "reference": "tags/1.6.3"
+                "reference": "tags/1.6.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-event-aggregator.1.6.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-event-aggregator.1.6.4.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3558,15 +3595,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-graphql",
-            "version": "1.6.10",
+            "version": "1.6.12",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-graphql/",
-                "reference": "tags/1.6.10"
+                "reference": "tags/1.6.12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-graphql.1.6.10.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-graphql.1.6.12.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3630,15 +3667,15 @@
         },
         {
             "name": "wpackagist-theme/generatepress",
-            "version": "3.1.0",
+            "version": "3.1.3",
             "source": {
                 "type": "svn",
                 "url": "https://themes.svn.wordpress.org/generatepress/",
-                "reference": "3.1.0"
+                "reference": "3.1.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/theme/generatepress.3.1.0.zip"
+                "url": "https://downloads.wordpress.org/theme/generatepress.3.1.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3734,27 +3771,27 @@
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
-            "version": "v0.7.1",
+            "version": "v0.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dealerdirect/phpcodesniffer-composer-installer.git",
-                "reference": "fe390591e0241955f22eb9ba327d137e501c771c"
+                "reference": "1c968e542d8843d7cd71de3c5c9c3ff3ad71a1db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dealerdirect/phpcodesniffer-composer-installer/zipball/fe390591e0241955f22eb9ba327d137e501c771c",
-                "reference": "fe390591e0241955f22eb9ba327d137e501c771c",
+                "url": "https://api.github.com/repos/Dealerdirect/phpcodesniffer-composer-installer/zipball/1c968e542d8843d7cd71de3c5c9c3ff3ad71a1db",
+                "reference": "1c968e542d8843d7cd71de3c5c9c3ff3ad71a1db",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^1.0 || ^2.0",
                 "php": ">=5.3",
-                "squizlabs/php_codesniffer": "^2.0 || ^3.0 || ^4.0"
+                "squizlabs/php_codesniffer": "^2.0 || ^3.1.0 || ^4.0"
             },
             "require-dev": {
                 "composer/composer": "*",
-                "phpcompatibility/php-compatibility": "^9.0",
-                "sensiolabs/security-checker": "^4.1.0"
+                "php-parallel-lint/php-parallel-lint": "^1.3.1",
+                "phpcompatibility/php-compatibility": "^9.0"
             },
             "type": "composer-plugin",
             "extra": {
@@ -3775,6 +3812,10 @@
                     "email": "franck.nijhof@dealerdirect.com",
                     "homepage": "http://www.frenck.nl",
                     "role": "Developer / IT Manager"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/Dealerdirect/phpcodesniffer-composer-installer/graphs/contributors"
                 }
             ],
             "description": "PHP_CodeSniffer Standards Composer Installer Plugin",
@@ -3786,6 +3827,7 @@
                 "codesniffer",
                 "composer",
                 "installer",
+                "phpcbf",
                 "phpcs",
                 "plugin",
                 "qa",
@@ -3800,7 +3842,7 @@
                 "issues": "https://github.com/dealerdirect/phpcodesniffer-composer-installer/issues",
                 "source": "https://github.com/dealerdirect/phpcodesniffer-composer-installer"
             },
-            "time": "2020-12-07T18:04:37+00:00"
+            "time": "2022-02-04T12:51:07+00:00"
         },
         {
             "name": "phpcompatibility/php-compatibility",
@@ -4190,5 +4232,5 @@
         "php": ">=5.6"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.2.0"
 }
