@@ -51,7 +51,7 @@
 		"type": "package",
 		"package": {
 			"name": "modern-tribe/events-calendar-pro",
-			"version": "5.11.1",
+			"version": "5.11.2",
 			"type": "wordpress-plugin",
 			"dist": {
 				"url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}",
@@ -66,7 +66,7 @@
 		"type": "package",
 		"package": {
 			"name": "modern-tribe/the-events-calendar-community-events",
-			"version": "4.8.10",
+			"version": "4.8.11",
 			"type": "wordpress-plugin",
 			"dist": {
 				"url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community&version={%VERSION}&key={%TEC_CE_LICENSE}",
