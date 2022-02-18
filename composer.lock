@@ -2868,16 +2868,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.10.7",
+            "version": "v3.10.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "f33b012677585c686590271b711650ca9beb2d76"
+                "reference": "e7ac3ccbfc8c09cc46088802f71730cc3d992a39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/f33b012677585c686590271b711650ca9beb2d76",
-                "reference": "f33b012677585c686590271b711650ca9beb2d76",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/e7ac3ccbfc8c09cc46088802f71730cc3d992a39",
+                "reference": "e7ac3ccbfc8c09cc46088802f71730cc3d992a39",
                 "shasum": ""
             },
             "require": {
@@ -2985,7 +2985,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2022-01-27T14:52:29+00:00"
+            "time": "2022-02-17T20:56:18+00:00"
         },
         {
             "name": "wpackagist-plugin/authors-list",
@@ -4256,5 +4256,5 @@
         "php": ">=5.6"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.2.0"
 }
