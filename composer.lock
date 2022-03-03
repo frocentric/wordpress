@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.209.24",
+            "version": "3.212.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "ce68bfc141863a25f4b870f10cfa996312fb1813"
+                "reference": "d7670125548a886f90e889e08ae0ae7be4958908"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ce68bfc141863a25f4b870f10cfa996312fb1813",
-                "reference": "ce68bfc141863a25f4b870f10cfa996312fb1813",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d7670125548a886f90e889e08ae0ae7be4958908",
+                "reference": "d7670125548a886f90e889e08ae0ae7be4958908",
                 "shasum": ""
             },
             "require": {
@@ -143,9 +143,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.209.24"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.212.0"
             },
-            "time": "2022-02-14T19:15:07+00:00"
+            "time": "2022-03-02T19:29:21+00:00"
         },
         {
             "name": "composer/installers",
@@ -578,12 +578,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "GuzzleHttp\\Promise\\": "src/"
-                },
                 "files": [
                     "src/functions_include.php"
-                ]
+                ],
+                "psr-4": {
+                    "GuzzleHttp\\Promise\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -752,21 +752,21 @@
         },
         {
             "name": "humanmade/s3-uploads",
-            "version": "3.0.3",
+            "version": "3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/humanmade/S3-Uploads.git",
-                "reference": "8a1262d482366e57a02885818570db6685efad42"
+                "reference": "8ad534d49c0307dd7ee56f0ab6d18c478f83a34a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/humanmade/S3-Uploads/zipball/8a1262d482366e57a02885818570db6685efad42",
-                "reference": "8a1262d482366e57a02885818570db6685efad42",
+                "url": "https://api.github.com/repos/humanmade/S3-Uploads/zipball/8ad534d49c0307dd7ee56f0ab6d18c478f83a34a",
+                "reference": "8ad534d49c0307dd7ee56f0ab6d18c478f83a34a",
                 "shasum": ""
             },
             "require": {
                 "aws/aws-sdk-php": "~3.18",
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0 || ^2.0"
             },
             "require-dev": {
                 "humanmade/psalm-plugin-wordpress": "^1.0",
@@ -799,7 +799,7 @@
                 "issues": "https://github.com/humanmade/s3-uploads/issues",
                 "source": "https://github.com/humanmade/s3-uploads"
             },
-            "time": "2021-07-30T15:42:32+00:00"
+            "time": "2022-03-02T11:59:49+00:00"
         },
         {
             "name": "ingenyus/configure-environment-plugins",
@@ -3079,15 +3079,15 @@
         },
         {
             "name": "wpackagist-plugin/disable-emails",
-            "version": "1.7.0",
+            "version": "1.8.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/disable-emails/",
-                "reference": "tags/1.7.0"
+                "reference": "tags/1.8.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/disable-emails.1.7.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/disable-emails.1.8.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -4256,5 +4256,5 @@
         "php": ">=5.6"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.2.0"
 }
