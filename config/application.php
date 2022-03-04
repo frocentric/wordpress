@@ -154,6 +154,7 @@ Config::define( 'KINSTA_CDN_USERDIRS', 'app' );
  * S3 configuration
  */
 Config::define( 'S3_UPLOADS_BUCKET', env( 'S3_UPLOADS_BUCKET' ) );
+Config::define( 'S3_UPLOADS_BUCKET_URL', env( 'S3_UPLOADS_BUCKET_URL' ) );
 Config::define( 'S3_UPLOADS_REGION', env( 'S3_UPLOADS_REGION' ) ); // the s3 bucket region (excluding the rest of the URL).
 Config::define( 'S3_UPLOADS_KEY', env( 'S3_UPLOADS_KEY' ) );
 Config::define( 'S3_UPLOADS_SECRET', env( 'S3_UPLOADS_SECRET' ) );

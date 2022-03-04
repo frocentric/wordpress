@@ -145,6 +145,7 @@ class Froware_Public {
 		 * class.
 		 */
 
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/modernizr-custom.js', [ 'jquery' ], $this->version, false );
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/froware-public.js', [ 'jquery' ], $this->version, false );
 		wp_localize_script(
 			$this->plugin_name,
@@ -271,6 +272,92 @@ class Froware_Public {
 			&& empty( $query->query['name'] ) ) {
 			$query->set( 'name', $query->query['pagename'] );
 		}
+	}
+
+	/**
+	 * Add "no-js" class to <html> element.
+	 *
+	 * @param string[] $classes An array of body class names.
+	 * @param string[] $class   An array of additional class names added to the body.
+	 *
+	 * @since    1.1.0
+	 */
+	public function add_nojs_class( $output, $doctype ) {
+		return $output . ' class="no-js"';
+	}
+
+	/**
+	 * Test if an URL is a S3 one.
+	 *
+	 * @param null|array|bool $is  Null by default. Must return an array if an S3 URL, or false if not.
+	 * @param string          $url The URL to test.
+	 *
+	 * @since    1.1.0
+	 */
+	public function imagify_is_s3_url( $is, $url ) {
+		$uploads_dir = 'uploads/(?:sites/\d+/)?'; // Allow multisite.
+
+		if ( defined( 'S3_UPLOADS_BUCKET_URL' ) ) {
+			$domain = sanitize_text_field( S3_UPLOADS_BUCKET_URL );
+			$domain = preg_replace( '@^(?:https?:)?//@', '', $domain );
+			$domain = preg_quote( $domain, '@' );
+		} else {
+			$domain = 's3-.+\.amazonaws\.com/[^/]+/';
+		}
+
+		$pattern = '@^(?:https?:)?//' . $domain . '/(?<key>' . $uploads_dir . '(?<year_month>\d{4}/\d{2}/)?(?<subdirs>.+/)?(?<filename>[^/]+))$@i';
+
+		if ( ! preg_match( $pattern, $url, $match ) ) {
+			return false;
+		}
+
+		unset( $match[0] );
+
+		return array_merge(
+			[
+				'year_month' => '',
+				'subdirs'    => '',
+			], $match
+		);
+	}
+
+	/**
+	 * Process the data for a image for WebP eligibility.
+	 *
+	 * @param array  $data  Null by default. Must return an array if an S3 URL, or false if not.
+	 * @param string $image The image to process.
+	 *
+	 * @since    1.1.0
+	 */
+	public function imagify_webp_picture_process_image( $data, $image ) {
+		if ( ! $data ) {
+			return $data;
+		}
+
+		if ( array_key_exists( 'src', $data ) && array_key_exists( 'url', $data['src'] ) ) {
+			$data['src']['url'] = preg_replace( '/-([^-]*(\d+)x(\d+)\.((?:png|jpeg|jpg|gif|bmp)))/', '.${4}', $data['src']['url'] );
+		}
+
+		if ( array_key_exists( 'srcset', $data ) && array_key_exists( 'webp_path', $data['srcset'] ) ) {
+			$data['srcset']['webp_path'] = null;
+		}
+
+		return $data;
+	}
+
+	/**
+	 * Sets dummy S3 data to satisfy Imagify WebP processing requirements.
+	 *
+	 * @param mixed  $value     The value to return, either a single metadata value or an array
+	 *                          of values depending on the value of `$single`.
+	 * @param int    $object_id ID of the object metadata is for.
+	 * @param string $meta_key  Metadata key.
+	 * @param bool   $single    Whether to return only the first value of the specified `$meta_key`.
+	 * @param string $meta_type Type of object metadata is for. Accepts 'post', 'comment', 'term', 'user',
+	 *                          or any other object type with an associated meta table.
+	 */
+	public function imagify_set_s3_metadata( $value, $object_id, $meta_key, $single, $meta_type ) {
+		return 'amazonS3_info' === $meta_key && 'post' === $meta_type ? true : $value;
 	}
 
 	/**

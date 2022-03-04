@@ -195,6 +195,7 @@ class Froware {
 		$this->loader->add_filter( 'generate_post_date_output', $plugin_public, 'generate_post_date_output', 10, 2 );
 		$this->loader->add_filter( 'generate_svg_icon_element', $plugin_public, 'generate_svg_icon_element', 10, 2 );
 		$this->loader->add_filter( 'generate_svg_icon', $plugin_public, 'remove_svg_icon', 10, 2 );
+		$this->loader->add_filter( 'language_attributes', $plugin_public, 'add_nojs_class', 10, 2 );
 		$this->loader->add_filter( 'nav_menu_css_class', $plugin_public, 'special_nav_class', 10, 3 );
 		$this->loader->add_filter( 'wp_nav_menu_objects', $plugin_public, 'wp_nav_menu_objects_callback' );
 		$this->loader->add_filter( 'wpsp_defaults', $plugin_public, 'wpsp_defaults' );
@@ -207,6 +208,9 @@ class Froware {
 		$this->loader->add_filter( 'discourse_comment_html', $plugin_public, 'discourse_comment_html', 10, 1 );
 		$this->loader->add_filter( 'discourse_replies_html', $plugin_public, 'discourse_replies_html', 10, 1 );
 		$this->loader->add_filter( 'ninja_forms_post_run_action_type_redirect', $plugin_public, 'ninja_forms_post_run_action_type_redirect_callback', 10, 1 );
+		$this->loader->add_filter( 'imagify_as3cf_is_s3_url', $plugin_public, 'imagify_is_s3_url', 10, 2 );
+		$this->loader->add_filter( 'imagify_webp_picture_process_image', $plugin_public, 'imagify_webp_picture_process_image', 5, 2 );
+		$this->loader->add_filter( 'default_post_metadata', $plugin_public, 'imagify_set_s3_metadata', 10, 5 );
 
 	}
 
