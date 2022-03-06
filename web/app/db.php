@@ -1,0 +1,1 @@
+/Users/gary/Sites/frocentric/app/public/web/app/plugins/query-monitor/wp-content/db.php

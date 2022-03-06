@@ -2,6 +2,7 @@
 web/app/languages
 web/app/plugins/*
 !web/app/plugins/elementor-pro
+!web/app/plugins/feedzy-rss-feeds-pro
 !web/app/plugins/frocentric-elementor-extension
 !web/app/plugins/froware
 !web/app/plugins/gp-premium
@@ -10,6 +11,7 @@ web/app/plugins/*
 !web/app/plugins/ninja-forms-multi-part
 !web/app/plugins/ninja-forms-post-creation
 !web/app/plugins/ninja-forms-uploads
+!web/app/plugins/ninja-forms-user-management
 !web/app/plugins/ninja-forms-webhooks
 !web/app/plugins/ninja-forms-zapier
 !web/app/plugins/twig-anything
@@ -24,9 +26,10 @@ web/app/mu-plugins/*
 web/app/upgrade
 web/app/uploads
 !web/app/uploads/.gitkeep
-web/app/themes
-!web/app/themes/froware
+web/app/themes/*
+!web/app/themes/frocentric*
 web/app/cache
+web/*phpinfo.php
 
 # WP Rocket
 web/app/advanced-cache.php
@@ -53,6 +56,7 @@ sql
 **/.DS_Store
 .AppleDouble
 .LSOverride
+Thumbs.db
 
 # Thumbnails
 ._*

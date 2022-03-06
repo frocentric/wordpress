@@ -122,4 +122,29 @@ class Froware_Admin {
 
 	}
 
+	/**
+	 * Hooks in to the option_active_plugins filter and removes any malformed plugins
+	 */
+	public function filter_active_plugins( $value, $option ) {
+		if ( ! is_array( $value ) || count( $value ) === 0 ) {
+			return $value;
+		}
+
+		for ( $i = count( $value ) - 1; $i >= 0; $i-- ) {
+			if ( is_numeric( $value[ $i ] ) ) {
+				array_splice( $value, $i, 1 );
+			}
+		}
+
+		return $value;
+	}
+
+	/**
+	 * Overrides admin_enqueue_scripts event hook in Elmentor to avoid conflict with Ninja Forms editor
+	 */
+	public function override_elementor_enqueue_scripts_hook() {
+		if ( class_exists( 'Elementor\Plugin' ) && isset( $_GET['page'] ) && 'ninja-forms' === $_GET['page'] ) {
+			remove_action( 'admin_enqueue_scripts', [ Elementor\Plugin::instance()->common, 'register_scripts' ] );
+		}
+	}
 }

@@ -11,12 +11,12 @@ bold=$(tput bold)
 normal=$(tput sgr0)
 
 # Declare arrays to store environment configuration values
-SUBDOMAINS=("hq" "tech-api")
+SUBDOMAINS=("hq" "tech")
 declare -A SOURCE
 declare -A DEST
-declare -A DEV=( ["bucket"]="s3://froware-local" ["rootdomain"]="frocentric.local" ["domain"]="frocentric.local" ["url"]="https://frocentric.local" ["prefix"]="")
-declare -A STAGING=( ["bucket"]="s3://froware-staging" ["rootdomain"]="frocentric.io" ["domain"]="stage.frocentric.io" ["url"]="https://stage.frocentric.io" ["prefix"]="stage-")
-declare -A PRODUCTION=( ["bucket"]="s3://froware" ["rootdomain"]="frocentric.io" ["domain"]="www.frocentric.io" ["url"]="https://www.frocentric.io" ["prefix"]="")
+declare -A DEV=( ["bucket"]="s3://froware-local" ["rootdomain"]="frocentric.local" ["domain"]="frocentric.local" ["url"]="https://frocentric.local")
+declare -A STAGING=( ["bucket"]="s3://froware-staging" ["rootdomain"]="staging.frocentric.io" ["domain"]="staging.frocentric.io" ["url"]="https://staging.frocentric.io")
+declare -A PRODUCTION=( ["bucket"]="s3://froware" ["rootdomain"]="frocentric.io" ["domain"]="www.frocentric.io" ["url"]="https://www.frocentric.io")
 
 case "$1-$2" in
   production-development) DIR="down ⬇️ "; ;;
@@ -97,25 +97,60 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
     wp "@$TO" db reset --yes &&
     wp "@$FROM" db export - | wp "@$TO" db import -
 
-    # Run search & replace for primary domain
-	echo
-	echo "Replacing ${SOURCE[domain]} with ${DEST[domain]}"
-    wp @$TO search-replace "${SOURCE[domain]}" "${DEST[domain]}" --url="${SOURCE[url]}"
+	if [ $? -ne 0 ]; then
+		echo "❌  Database import failed" >&2
+		exit 1
+	fi
+
+	# Retrieve OneAll connection settings for environment
+	OA_SOCIAL_LOGIN_SETTINGS_API_KEY=`wp @$TO config get --type=constant OA_SOCIAL_LOGIN_SETTINGS_API_KEY`
+	OA_SOCIAL_LOGIN_SETTINGS_API_SECRET=`wp @$TO config get --type=constant OA_SOCIAL_LOGIN_SETTINGS_API_SECRET`
+	OA_SOCIAL_LOGIN_SETTINGS_SUBDOMAIN=`wp @$TO config get --type=constant OA_SOCIAL_LOGIN_SETTINGS_SUBDOMAIN`
 
     # Run search & replace for sub-domains
     for subdomain in "${SUBDOMAINS[@]}"; do
-      DESTSUBDOMAIN="${DEST[prefix]}$subdomain.${DEST[rootdomain]}"
-      SOURCESUBDOMAIN="${SOURCE[prefix]}$subdomain.${SOURCE[rootdomain]}"
+      DESTSUBDOMAIN="$subdomain.${DEST[rootdomain]}"
+      SOURCESUBDOMAIN="$subdomain.${SOURCE[rootdomain]}"
 	  echo
-	  echo "Replacing $SOURCESUBDOMAIN with $DESTSUBDOMAIN"
-      wp @$TO search-replace "$SOURCESUBDOMAIN" "$DESTSUBDOMAIN" &&
-      wp @$TO search-replace "https://$SOURCESUBDOMAIN" "https://$DESTSUBDOMAIN" --url="https://$DESTSUBDOMAIN"
+	  echo "Replacing $SOURCESUBDOMAIN (sub-domain) with $DESTSUBDOMAIN"
+      wp @$TO search-replace "$SOURCESUBDOMAIN" "$DESTSUBDOMAIN" --url="$SOURCESUBDOMAIN" &&
+      wp @$TO search-replace "$SOURCESUBDOMAIN" "$DESTSUBDOMAIN" --url="${SOURCE[url]}"
+
+	  # Run search & replace for OneAll connection settings
+	  OA_SOCIAL_LOGIN_SETTINGS=`wp @$TO option get oa_social_login_settings --url="$DESTSUBDOMAIN" --format=json 2>/dev/null`
+
+	  if [ $? -eq 0 ]; then
+		printf '%s\n' "${OA_SOCIAL_LOGIN_SETTINGS}" | php -r "
+			\$option = json_decode( fgets(STDIN) );
+			\$api_key = \"${OA_SOCIAL_LOGIN_SETTINGS_API_KEY}\";
+			\$api_secret = \"${OA_SOCIAL_LOGIN_SETTINGS_API_SECRET}\";
+			\$api_subdomain = \"${OA_SOCIAL_LOGIN_SETTINGS_SUBDOMAIN}\";
+
+			if ( ! empty ( \$api_key ) ) {
+				\$option->api_key = \$api_key;
+			}
+			if ( ! empty ( \$api_secret ) ) {
+				\$option->api_secret = \$api_secret;
+			}
+			if ( ! empty ( \$api_subdomain ) ) {
+				\$option->api_subdomain = \$api_subdomain;
+			}
+			print json_encode(\$option);
+			" | wp @$TO option set oa_social_login_settings --url="$DESTSUBDOMAIN" --format=json
+	  fi
     done
+
+    # Run search & replace for primary domain
+	echo
+	echo "Replacing ${SOURCE[domain]} (primary domain) with ${DEST[domain]}"
+    wp @$TO search-replace "${SOURCE[domain]}" "${DEST[domain]}" --url="${SOURCE[url]}" &&
+    wp @$TO search-replace --network "${SOURCE[domain]}" "${DEST[domain]}"
+
   };
 
   sync_uploads() {
     # Sync buckets
-    aws s3 sync "${SOURCE[bucket]}" "${DEST[bucket]}" --profile frocentric
+    aws s3 sync "${SOURCE[bucket]}" "${DEST[bucket]}" --cache-control max-age=31536000 --profile frocentric
   };
 
   # Slack notification when sync direction is up or horizontal
