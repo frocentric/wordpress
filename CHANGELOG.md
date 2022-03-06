@@ -2,6 +2,51 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.8.0](https://github.com/frocentric/wordpress/compare/v1.7.6...v1.8.0) (2022-03-06)
+
+
+### Features
+
+* adds comment count to template ([48ec53e](https://github.com/frocentric/wordpress/commit/48ec53ee6fe96ccccf4d46b6b3736c967421cd75))
+* create Frocentric: Tech sibling theme ([2bf9828](https://github.com/frocentric/wordpress/commit/2bf98280618c33208eb302d5817502e586e1ae8f))
+* embed audio player for podcast feed posts ([f9a8007](https://github.com/frocentric/wordpress/commit/f9a8007ea73dbdc148baa3dc08900a597cf92849))
+* enable feed author assignment ([9f5d83b](https://github.com/frocentric/wordpress/commit/9f5d83b0c14acc24f7c19fbca2d46d55066777b4))
+* enable shared login across network ([a3472a2](https://github.com/frocentric/wordpress/commit/a3472a287a1ab931af3a6cb6c57c39f9497bc885))
+* enable unsafe HTML in Feedzy import ([f995314](https://github.com/frocentric/wordpress/commit/f99531453803f6bb5e1f3f27c433abd326beadaf))
+* install Feedzy Pro ([2397726](https://github.com/frocentric/wordpress/commit/2397726490a2c743a2810c8c27b55178cd0a795d))
+* install Ninja Forms User Management ([bf4b08f](https://github.com/frocentric/wordpress/commit/bf4b08f693874f7da9cf6410a45fd7062d3d6a39))
+* install Social Login plugin ([2b60666](https://github.com/frocentric/wordpress/commit/2b6066673b74d1e30a45597a5f3df0f7aed4fc62))
+* set post format and canonical URL ([38ff9ed](https://github.com/frocentric/wordpress/commit/38ff9ed2a5a70659822ba72d37c7e783dbe2c791))
+* sets Discourse tags for posts ([d75b8e7](https://github.com/frocentric/wordpress/commit/d75b8e72e7a76c050fc0bf7578b329cd2c153313))
+* supports placeholder image in content list ([c5c4dd9](https://github.com/frocentric/wordpress/commit/c5c4dd93bc417afe0c23306b3eba4e187de90270))
+
+
+### Bug Fixes
+
+* Enable completion of Discourse login flow ([25345f7](https://github.com/frocentric/wordpress/commit/25345f74fdc7d2f5a06fdf71e04c6c97354670ba))
+* filters malformed plugins ([5e21cd6](https://github.com/frocentric/wordpress/commit/5e21cd6b77e1d9c46fa7917cad493c4e06891024))
+* fix "Read More" link for imported content ([de2f3f9](https://github.com/frocentric/wordpress/commit/de2f3f9969e5e0b5fba77cac7922285fe4f63996))
+* fix button styling ([01c899e](https://github.com/frocentric/wordpress/commit/01c899e23e8a5d879ad6be0d6f650d16f2f5c1bf))
+* fix Ninja Forms editor ([883e9ce](https://github.com/frocentric/wordpress/commit/883e9ceaa99011e7ace8f63ce00c675ebae2f8ed))
+* fix tech.css stylesheet loading ([aeb342d](https://github.com/frocentric/wordpress/commit/aeb342de0648bbfbbf9fcfe3e56a683d0af2c768))
+* fixes content navigation highlighting ([#324](https://github.com/frocentric/wordpress/issues/324)) ([2080094](https://github.com/frocentric/wordpress/commit/2080094ec4c47c80f9cc255db0fee6bab15cac55)), closes [#319](https://github.com/frocentric/wordpress/issues/319)
+* fixes Elementor landing page 404 errors ([7ad77e1](https://github.com/frocentric/wordpress/commit/7ad77e1c00cf8528b0dd3de25cb9197334bb6486))
+* fixes homepage tag styling ([#323](https://github.com/frocentric/wordpress/issues/323)) ([5758db3](https://github.com/frocentric/wordpress/commit/5758db34ab7bcff44bf28b3a6a5370843abbcf6c)), closes [#320](https://github.com/frocentric/wordpress/issues/320)
+* fixes issues caused by over-broad rules ([b27a4d1](https://github.com/frocentric/wordpress/commit/b27a4d11f542db224f1b752471a53812a80b90b8))
+* fixes Ninja Form user login ([a99a681](https://github.com/frocentric/wordpress/commit/a99a681e987ac2222f68c0ea9f41c4511c550fdf))
+* fixes Read More link replacement ([c2e2597](https://github.com/frocentric/wordpress/commit/c2e25975c41f3e934201dbf8dc9adae6f670649f))
+* hides social buttons in post content ([43863a5](https://github.com/frocentric/wordpress/commit/43863a5c10a5dd89601a5de52a83bfb73be75302)), closes [#321](https://github.com/frocentric/wordpress/issues/321)
+* load tech.css correctly in new theme ([e8d067b](https://github.com/frocentric/wordpress/commit/e8d067babff0742d142f90f281cf5ee5a83cbd75))
+* migrate CSS from Customiser ([21f91ba](https://github.com/frocentric/wordpress/commit/21f91ba92911f99963ac6c79582bcff836589ca4))
+* reduce comment avatar size ([bace855](https://github.com/frocentric/wordpress/commit/bace8554c5abbda592711ad10c76d95ec8fd2ac6))
+* Remove "Post Content" placeholder text ([6a1c15e](https://github.com/frocentric/wordpress/commit/6a1c15e63d372af9a6ab1ffa788f78a3bcfd5f93))
+* removes legacy close icon ([fea7573](https://github.com/frocentric/wordpress/commit/fea75735f9dbce6aa4ee0805751e5b8540c79147))
+* resolve tech.css enqueuing for stage ([ef0e746](https://github.com/frocentric/wordpress/commit/ef0e746ff9ada1ffb144cb8bb22334591824c8d0))
+* restore event import ([c628a0a](https://github.com/frocentric/wordpress/commit/c628a0aad8224d2e609cf3b5be23974043148a09))
+* restructure OneAll configuration loading ([d87cabe](https://github.com/frocentric/wordpress/commit/d87cabe9f5513fc6540fba1ae33dc72386e0db07))
+* stops null reference error from empty terms ([d08a659](https://github.com/frocentric/wordpress/commit/d08a659a91fedcfa2d93bc8cf1c86f9370a6a937))
+* update subdomain syncing ([367a25d](https://github.com/frocentric/wordpress/commit/367a25dcec7173ba4f713a72b2efa50677df4433))
+
 ### [1.7.6](https://github.com/frocentric/wordpress/compare/v1.7.5...v1.7.6) (2021-06-29)
 
 
