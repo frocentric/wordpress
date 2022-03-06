@@ -112,6 +112,7 @@
     "vlucas/phpdotenv": "~5.3",
     "wpackagist-plugin/authors-list": "~1.0",
     "wpackagist-plugin/autodescription": "~4.0",
+    "wpackagist-plugin/avatar-privacy": "~2.0",
     "wpackagist-plugin/classic-editor": "~1.0",
     "wpackagist-plugin/cloudflare": "~4.0",
     "wpackagist-plugin/customizer-export-import": "~0.0",
