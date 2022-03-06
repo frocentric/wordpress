@@ -128,9 +128,12 @@ Config::define( 'DOMAIN_CURRENT_SITE', env( 'DOMAIN_CURRENT_SITE' ) );
 Config::define( 'PATH_CURRENT_SITE', env( 'PATH_CURRENT_SITE' ) ?? '/' );
 Config::define( 'SITE_ID_CURRENT_SITE', env( 'SITE_ID_CURRENT_SITE' ) ?? 1 );
 Config::define( 'BLOG_ID_CURRENT_SITE', env( 'BLOG_ID_CURRENT_SITE' ) ?? 1 );
-if ( ! defined( 'WP_CLI' ) && isset( $_SERVER['HTTP_HOST'] ) ) {
-	Config::define( 'COOKIE_DOMAIN', $_SERVER['HTTP_HOST'] ); // phpcs:ignore
+Config::define( 'WP_DEFAULT_THEME', 'frocentric');
+if ( ! defined( 'WP_CLI' ) ) {
+	Config::define( 'COOKIE_DOMAIN', '.' . env( 'DOMAIN_CURRENT_SITE' ) ); // phpcs:ignore
 }
+Config::define('COOKIEPATH', '/');
+Config::define('COOKIEHASH', md5( env( 'DOMAIN_CURRENT_SITE' ) ) ); // notice absence of a '.' in front
 if ( env( 'HEADLESS_MODE_CLIENT_URL' ) ) {
 	Config::define( 'HEADLESS_MODE_CLIENT_URL', env( 'HEADLESS_MODE_CLIENT_URL' ) );
 }
@@ -196,6 +199,18 @@ Config::define( 'WPMS_MAILER', env( 'WPMS_MAILER' ) );
 Config::define( 'WPMS_SET_RETURN_PATH', env( 'WPMS_SET_RETURN_PATH' ) ?? true );
 Config::define( 'WPMS_GMAIL_CLIENT_ID', env( 'WPMS_GMAIL_CLIENT_ID' ) );
 Config::define( 'WPMS_GMAIL_CLIENT_SECRET', env( 'WPMS_GMAIL_CLIENT_SECRET' ) );
+
+/**
+ * Feedzy Settings
+ */
+Config::define( 'FEEDZY_ALLOW_UNSAFE_HTML', true );
+
+/**
+ * OneAll Settings
+ */
+Config::define( 'OA_SOCIAL_LOGIN_SETTINGS_API_KEY', env( 'OA_SOCIAL_LOGIN_SETTINGS_API_KEY' ) ?? '' );
+Config::define( 'OA_SOCIAL_LOGIN_SETTINGS_API_SECRET', env( 'OA_SOCIAL_LOGIN_SETTINGS_API_SECRET' ) ?? '' );
+Config::define( 'OA_SOCIAL_LOGIN_SETTINGS_SUBDOMAIN', env( 'OA_SOCIAL_LOGIN_SETTINGS_SUBDOMAIN' ) ?? '' );
 
 /**
  * Allow WordPress to detect HTTPS when used behind a reverse proxy or a load balancer

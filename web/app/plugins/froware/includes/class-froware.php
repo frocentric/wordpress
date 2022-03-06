@@ -157,6 +157,8 @@ class Froware {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'save_post', $plugin_admin, 'set_canonical_url', 10, 3 );
+		$this->loader->add_action( 'init', $plugin_admin, 'override_elementor_enqueue_scripts_hook', 20 );
+		$this->loader->add_filter( 'option_active_plugins', $plugin_admin, 'filter_active_plugins', 10, 2 );
 	}
 
 	/**
@@ -183,17 +185,28 @@ class Froware {
 		$this->loader->add_action( 'tribe_events_community_form_before_template', $plugin_public, 'event_import_form' );
 		$this->loader->add_action( 'init', $plugin_public, 'add_taxonomy_to_pages' );
 		$this->loader->add_action( 'plugins_loaded', $plugin_public, 'override_community_events_parse_request_hook' );
+		$this->loader->add_action( 'wp_insert_post', $plugin_public, 'wp_insert_post_callback', 10, 3 );
+		$this->loader->add_action( 'save_post_post', $plugin_public, 'save_post_post_callback', 10, 2 );
+		$this->loader->add_action( 'pre_get_posts', $plugin_public, 'elementor_pre_get_posts', 100 );
 
 		// Filters.
 		$this->loader->add_filter( 'generate_typography_default_fonts', $plugin_public, 'add_generatepress_fonts' );
 		$this->loader->add_filter( 'generate_inside_post_meta_item_output', $plugin_public, 'generate_inside_post_meta_item_output', 20, 2 );
 		$this->loader->add_filter( 'generate_post_date_output', $plugin_public, 'generate_post_date_output', 10, 2 );
+		$this->loader->add_filter( 'generate_svg_icon_element', $plugin_public, 'generate_svg_icon_element', 10, 2 );
+		$this->loader->add_filter( 'generate_svg_icon', $plugin_public, 'remove_svg_icon', 10, 2 );
 		$this->loader->add_filter( 'nav_menu_css_class', $plugin_public, 'special_nav_class', 10, 3 );
+		$this->loader->add_filter( 'wp_nav_menu_objects', $plugin_public, 'wp_nav_menu_objects_callback' );
 		$this->loader->add_filter( 'wpsp_defaults', $plugin_public, 'wpsp_defaults' );
-		$this->loader->add_filter( 'wpematico_item_parsers', $plugin_public, 'wpematico_item_parsers_callback', 10, 4 );
+		$this->loader->add_filter( 'feedzy_content', $plugin_public, 'feedzy_content_callback', 5, 2 );
+		$this->loader->add_filter( 'feedzy_insert_post_args', $plugin_public, 'feedzy_insert_post_args_callback', 10, 6 );
+		$this->loader->add_filter( 'feedzy_item_filter', $plugin_public, 'feedzy_item_filter_callback', 10, 5 );
 		$this->loader->add_filter( 'the_excerpt_rss', $plugin_public, 'filter_content_feed', 999, 1 );
 		$this->loader->add_filter( 'the_content_feed', $plugin_public, 'filter_content_feed', 999, 1 );
 		$this->loader->add_filter( 'twig_anything_request_args', $plugin_public, 'twig_anything_request_args', 10, 2 );
+		$this->loader->add_filter( 'discourse_comment_html', $plugin_public, 'discourse_comment_html', 10, 1 );
+		$this->loader->add_filter( 'discourse_replies_html', $plugin_public, 'discourse_replies_html', 10, 1 );
+		$this->loader->add_filter( 'ninja_forms_post_run_action_type_redirect', $plugin_public, 'ninja_forms_post_run_action_type_redirect_callback', 10, 1 );
 
 	}
 

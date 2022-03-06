@@ -1,8 +1,8 @@
 <?php
 /**
- * Froware custom theme
+ * Frocentric: Tech custom theme
  *
- * @package Froware theme
+ * @package Frocentric: Tech theme
  */
 
 add_action( 'wp_enqueue_scripts', 'enqueue_parent_styles' );
@@ -13,6 +13,11 @@ if ( ! function_exists( 'enqueue_parent_styles' ) ) {
 	 */
 	function enqueue_parent_styles() {
 		wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css', null, wp_get_theme()->get( 'Version' ) );
+		wp_enqueue_style( 'theme-fonts', get_theme_file_uri( 'css/fonts.css' ), [ 'generate-child' ], filemtime( get_theme_file_path( 'css/fonts.css' ) ), 'all' );
+		wp_enqueue_style( 'theme-elements', get_theme_file_uri( 'css/elements.css' ), [ 'theme-fonts' ], filemtime( get_theme_file_path( 'css/elements.css' ) ), 'all' );
+		wp_enqueue_style( 'theme-elementor', get_theme_file_uri( 'css/elementor.css' ), [ 'theme-elements' ], filemtime( get_theme_file_path( 'css/elementor.css' ) ), 'all' );
+		wp_enqueue_style( 'theme-forms', get_theme_file_uri( 'css/ninja-forms.css' ), [ 'theme-elements' ], filemtime( get_theme_file_path( 'css/ninja-forms.css' ) ), 'all' );
+		wp_enqueue_style( 'theme-tech', get_theme_file_uri( 'css/tech.css' ), [ 'theme-forms' ], filemtime( get_theme_file_path( 'css/tech.css' ) ), 'all' );
 	}
 }
 
@@ -85,4 +90,7 @@ if ( ! function_exists( 'generate_post_meta' ) ) {
 }
 
 // Add custom image size used on homepage.
-add_image_size( 'froware-halfwidth', 580, 0 );
+add_image_size( 'frocentric-halfwidth', 580, 0 );
+
+// Disable page titles
+add_filter( 'generate_show_title', '__return_false' );
