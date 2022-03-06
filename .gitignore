@@ -29,6 +29,7 @@ web/app/uploads
 web/app/themes/*
 !web/app/themes/frocentric*
 web/app/cache
+web/*phpinfo.php
 
 # WP Rocket
 web/app/advanced-cache.php
