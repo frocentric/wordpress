@@ -388,12 +388,11 @@ class Froware_Public {
 
 		// TODO: Bail out if not a content post
 		$tags = [];
+		$taxonomies = [ 'discipline', 'interest' ];
 
-		// Get disciplines taxonomy
-		$tags = array_merge( $tags, $this->get_term_slugs( $post->ID, 'discipline' ) );
-
-		// Get interests taxonomy
-		$tags = array_merge( $tags, $this->get_term_slugs( $post->ID, 'interest' ) );
+		foreach ( $taxonomies as $taxonomy ) {
+			$tags = array_merge( $tags, $this->get_term_slugs( $post->ID, $taxonomy ) );
+		}
 
 		// Save Discourse tags
 		update_post_meta( $post_id, 'wpdc_topic_tags', $tags );
