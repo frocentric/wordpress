@@ -605,7 +605,7 @@ ul.menu {
     width: 100%;
     z-index: 1;
   }
-  .mobile-menu-open .main-navigation .main-nav ul {
+  .mobile-menu-open .main-navigation.toggled .main-nav>ul {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
