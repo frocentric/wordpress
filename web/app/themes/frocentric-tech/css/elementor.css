@@ -273,8 +273,9 @@
 .site-main .elementor-widget-posts .ecs-post-loop .elementor-widget-theme-post-title {
   margin-bottom: 0;
 }
-.site-main .elementor-widget-posts .ecs-post-loop .elementor-column-gap-default>.elementor-row>.elementor-column>.elementor-element-populated {
-  padding: 15px;
+.site-main .elementor-widget-posts .ecs-post-loop .elementor-column-gap-default>.elementor-row>.elementor-column>.elementor-element-populated,
+.site-main .elementor-column-gap-default>.elementor-row>.elementor-column>.elementor-element-populated>.elementor-widget-wrap {
+  padding: 0;
 }
 
 @media only screen and (min-width: 600px) {
