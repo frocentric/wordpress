@@ -173,20 +173,6 @@ body .site.grid-container {
 }
 
 @media screen and (max-width: 899px) {
-  .menu-logo
-  .main-navigation:not(.mobile-header-navigation)
-  .inside-navigation
-  .menu-toggle {
-  display: flex;
-  flex-direction: column;
-  height: 60px;
-  justify-content: center;
-  margin-left: 0;
-  margin-right: 20px;
-  padding-right: 0;
-  z-index: 999;
-  }
-
   #main .inside-article {
     margin-left: 35px;
     margin-right: 35px;
