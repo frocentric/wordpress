@@ -92,7 +92,8 @@
 #main .inside-article {
   border: 1px solid #e6e6e6;
   border-radius: 10px;
-  padding-bottom: 0
+  padding-bottom: 0;
+  margin-bottom: 20px;
 }
 
 #main .inside-article .nf-field-label {
@@ -154,9 +155,6 @@ body .site.grid-container {
   background-color: #1995A7;
 }
 
-.site-footer {
-  margin-top: 185px;
-}
 .simplesocialbuttons {
   display: none;
 }
@@ -173,20 +171,6 @@ body .site.grid-container {
 }
 
 @media screen and (max-width: 899px) {
-  .menu-logo
-  .main-navigation:not(.mobile-header-navigation)
-  .inside-navigation
-  .menu-toggle {
-  display: flex;
-  flex-direction: column;
-  height: 60px;
-  justify-content: center;
-  margin-left: 0;
-  margin-right: 20px;
-  padding-right: 0;
-  z-index: 999;
-  }
-
   #main .inside-article {
     margin-left: 35px;
     margin-right: 35px;
