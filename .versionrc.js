@@ -1,8 +1,10 @@
-const files = [
+const pluginFiles = [
   {
     filename: "./web/app/plugins/froware/froware.php",
     updater: require("./scripts/js/wp-version-updater"),
   },
+];
+const themeFiles = [
   {
     filename: "./web/app/themes/frocentric/style.css",
     updater: require("./scripts/js/wp-version-updater"),
@@ -14,6 +16,6 @@ const files = [
 ];
 
 module.exports = {
-  bumpFiles: files,
-  packageFiles: files,
+  bumpFiles: pluginFiles.concat(themeFiles),
+  packageFiles: pluginFiles,
 };
