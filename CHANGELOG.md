@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.1](https://github.com/frocentric/wordpress/compare/v1.8.0...v1.8.1) (2022-03-10)
+
+
+### Bug Fixes
+
+* apply mobile menu styling correctly ([b260e26](https://github.com/frocentric/wordpress/commit/b260e2627482098ad51cd6148f410735bb000427))
+* fixes homepage content image styling ([8a7f2c0](https://github.com/frocentric/wordpress/commit/8a7f2c0b986db02a43654a5a8891140fde81afbc))
+* fixes tablet navigation styling ([1752338](https://github.com/frocentric/wordpress/commit/1752338fcf2b8cf70804d0aeecbc4b6ac5eb92fb))
+* removes over-broad footer margin ([b3c7b97](https://github.com/frocentric/wordpress/commit/b3c7b97c06215d3b6c5baca216ab50a0772e8bf0))
+
 ## [1.8.0](https://github.com/frocentric/wordpress/compare/v1.7.6...v1.8.0) (2022-03-06)
 
 
