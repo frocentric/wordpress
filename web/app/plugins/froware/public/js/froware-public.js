@@ -83,6 +83,18 @@
     $(
       ".ecs-post-loop.has-post-thumbnail .elementor-widget-image.post-author-default"
     ).remove();
+    $(".ecs-post-loop")
+      .not(".has-post-thumbnail")
+      .each(function (index) {
+        const $this = $(this);
+        const $avatar = $this.find(".elementor-author-box__avatar img");
+        const $link = $this.find(
+          ".elementor-author-box__text .elementor-author-box__name"
+        );
+        const $author_image = $this.find(".post-author-default img");
+        $author_image.attr("src", $avatar.attr("src"));
+        $author_image.attr("alt", $link.text());
+      });
   });
   function submit_event_url() {}
 })(jQuery);
