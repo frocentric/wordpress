@@ -106,9 +106,9 @@ class Froware_Admin {
 			return $value;
 		}
 
-		for ( $i = count( $value ) - 1; $i >= 0; $i-- ) {
-			if ( is_numeric( $value[ $i ] ) ) {
-				array_splice( $value, $i, 1 );
+		foreach ( $value as $key => $val ) {
+			if ( is_numeric( $val ) ) {
+				unset( $value[ $key ] );
 			}
 		}
 
