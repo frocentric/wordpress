@@ -99,7 +99,7 @@ jobs:
       - uses: nelonoel/branch-name@v1.0.1
 
       # Enables branch-specific environment variables
-      - uses: iamtheyammer/branch-env-vars@v1.0.2
+      - uses: iamtheyammer/branch-env-vars@v1.0.4
         with:
           DESTINATION_REPO: |
             env/hq/production:${{ secrets.DESTINATION_REPO_HQ_PROD }}
