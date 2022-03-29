@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.2](https://github.com/frocentric/wordpress/compare/v1.8.1...v1.8.2) (2022-03-29)
+
+
+### Bug Fixes
+
+* enables full-width display for calendar pages ([7ae814b](https://github.com/frocentric/wordpress/commit/7ae814b97b8b4d91e81b5e8c75f4e13a54334af7))
+* fixes array iteration logic ([d57df64](https://github.com/frocentric/wordpress/commit/d57df6447f0b55d1ae327e3b2d49be3f327e7e03))
+* fixes logout link in main nav ([90da12a](https://github.com/frocentric/wordpress/commit/90da12a7d7773ef92f377335901cd056e149c6ae)), closes [#375](https://github.com/frocentric/wordpress/issues/375)
+* fixes navigation menu styling on mobile ([eb40f94](https://github.com/frocentric/wordpress/commit/eb40f946f77035a2d9a44063ade35494f530521e))
+
 ### [1.8.1](https://github.com/frocentric/wordpress/compare/v1.8.0...v1.8.1) (2022-03-10)
 
 
