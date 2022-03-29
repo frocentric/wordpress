@@ -868,4 +868,21 @@ class Froware_Public {
 
 		return $modified;
 	}
+
+	/**
+	 * Modifies the "Logout" menu link to direct to the correct URL
+	 */
+	public function set_logout_menu_item_url( $items, $menu, $args ) {
+		if ( is_admin() || ! is_user_logged_in() ) {
+			return $items;
+		}
+		foreach ( $items as $key => $item ) {
+			if ( str_contains( $item->url, 'logout' ) ) {
+				$items[ $key ]->url = wp_logout_url();
+
+				break;
+			}
+		}
+		return $items;
+	}
 }

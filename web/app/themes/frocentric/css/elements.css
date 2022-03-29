@@ -53,10 +53,11 @@ textarea:focus,
 select {
   outline: none;
 }
-html input[type=button],input[type=submit] {
-    background-color: #e0594b;
-    border-color: #e0594b;
-    color: #ffffff;
+html input[type="button"],
+input[type="submit"] {
+  background-color: #e0594b;
+  border-color: #e0594b;
+  color: #ffffff;
 }
 
 ::-webkit-input-placeholder {
@@ -77,22 +78,24 @@ html input[type=button],input[type=submit] {
 }
 
 .main-navigation .navigation-logo.site-logo {
+  flex: 1;
   margin-left: 0;
 }
 .main-navigation .main-nav a:hover {
   text-decoration: none;
 }
 .main-navigation .inside-navigation {
-	align-items: center;
-	display: flex;
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
 }
 .main-navigation .inside-navigation .main-nav {
-	margin-left: auto;
-	margin-right: 0;
+  margin-left: 0;
+  margin-right: 0;
 }
-div.site-logo.sticky-logo.navigation-logo img{
-	height: 34px;
-	padding: 0;
+div.site-logo.sticky-logo.navigation-logo img {
+  height: 34px;
+  padding: 0;
 }
 
 .section-highlight {
@@ -163,7 +166,7 @@ div.site-logo.sticky-logo.navigation-logo img {
 #menu-main-menu .menu-item.current-menu-item a,
 #menu-main-menu .menu-item.current-menu-item a:hover {
   color: #1995a7;
-	font-weight: bold;
+  font-weight: bold;
 }
 
 #content .wpsp-read-more a.wp-show-posts-read-more,
@@ -547,6 +550,7 @@ ul.menu {
     background-color: #fff;
     position: fixed;
     height: 100vh;
+    top: 0;
     width: 100%;
     z-index: 1;
   }

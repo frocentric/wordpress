@@ -104,7 +104,7 @@
   padding: 59px 53px 45px 53px;
 }
 
-body .site.grid-container {
+body.page-template-default .site.grid-container {
   max-width: 864px;
 }
 
