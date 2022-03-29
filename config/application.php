@@ -130,7 +130,7 @@ Config::define( 'SITE_ID_CURRENT_SITE', env( 'SITE_ID_CURRENT_SITE' ) ?? 1 );
 Config::define( 'BLOG_ID_CURRENT_SITE', env( 'BLOG_ID_CURRENT_SITE' ) ?? 1 );
 Config::define( 'WP_DEFAULT_THEME', 'frocentric');
 if ( ! defined( 'WP_CLI' ) ) {
-	Config::define( 'COOKIE_DOMAIN', '.' . env( 'DOMAIN_CURRENT_SITE' ) ); // phpcs:ignore
+	Config::define( 'COOKIE_DOMAIN', '.' . env( 'DOMAIN_CURRENT_SITE' ) ?? 'frocentric.io' ); // phpcs:ignore
 }
 Config::define('COOKIEPATH', '/');
 Config::define('COOKIEHASH', md5( env( 'DOMAIN_CURRENT_SITE' ) ) ); // notice absence of a '.' in front
