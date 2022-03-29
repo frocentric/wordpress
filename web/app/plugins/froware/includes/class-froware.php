@@ -156,7 +156,6 @@ class Froware {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'save_post', $plugin_admin, 'set_canonical_url', 10, 3 );
 		$this->loader->add_action( 'init', $plugin_admin, 'override_elementor_enqueue_scripts_hook', 20 );
 		$this->loader->add_filter( 'option_active_plugins', $plugin_admin, 'filter_active_plugins', 10, 2 );
 	}
@@ -207,7 +206,7 @@ class Froware {
 		$this->loader->add_filter( 'discourse_comment_html', $plugin_public, 'discourse_comment_html', 10, 1 );
 		$this->loader->add_filter( 'discourse_replies_html', $plugin_public, 'discourse_replies_html', 10, 1 );
 		$this->loader->add_filter( 'ninja_forms_post_run_action_type_redirect', $plugin_public, 'ninja_forms_post_run_action_type_redirect_callback', 10, 1 );
-
+		$this->loader->add_filter( 'wp_get_nav_menu_items', $plugin_public, 'set_logout_menu_item_url', 10, 3 );
 	}
 
 	/**

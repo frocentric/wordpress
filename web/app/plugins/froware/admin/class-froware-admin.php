@@ -99,30 +99,6 @@ class Froware_Admin {
 	}
 
 	/**
-	 * Set the canonical URL if the post is imported and has an external URL defined.
-	 *
-	 * @param    int     $post_id     The post ID.
-	 * @param    WP_Post $post        The post.
-	 * @param    bool    $update      Whether this is an existing post being updated.
-	 * @since    1.0.0
-	 */
-	public function set_canonical_url( $post_id, $post, $update ) {
-
-		// Test if The SEO Framework and WPeMatico plugins are installed.
-		if ( \get_post_type( $post_id ) === 'post' && defined( 'THE_SEO_FRAMEWORK_DB_VERSION' ) && class_exists( 'WPeMatico' ) ) {
-			$source_field    = 'wpe_sourcepermalink';
-			$canonical_field = '_genesis_canonical_uri';
-			$source          = \get_post_meta( $post_id, $source_field, true );
-			$canonical       = \get_post_meta( $post_id, $canonical_field, true );
-			// Test if the canonical URL is empty and there is a source permalink URL available.
-			if ( $source && ! $canonical ) {
-				\update_post_meta( $post_id, $canonical_field, \esc_url_raw( $source ) );
-			}
-		}
-
-	}
-
-	/**
 	 * Hooks in to the option_active_plugins filter and removes any malformed plugins
 	 */
 	public function filter_active_plugins( $value, $option ) {
@@ -130,9 +106,9 @@ class Froware_Admin {
 			return $value;
 		}
 
-		for ( $i = count( $value ) - 1; $i >= 0; $i-- ) {
-			if ( is_numeric( $value[ $i ] ) ) {
-				array_splice( $value, $i, 1 );
+		foreach ( $value as $key => $val ) {
+			if ( is_numeric( $val ) ) {
+				unset( $value[ $key ] );
 			}
 		}
 

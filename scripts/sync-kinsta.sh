@@ -14,9 +14,9 @@ normal=$(tput sgr0)
 SUBDOMAINS=("hq" "tech")
 declare -A SOURCE
 declare -A DEST
-declare -A DEV=( ["bucket"]="s3://froware-local" ["rootdomain"]="frocentric.local" ["domain"]="frocentric.local" ["url"]="https://frocentric.local")
-declare -A STAGING=( ["bucket"]="s3://froware-staging" ["rootdomain"]="staging.frocentric.io" ["domain"]="staging.frocentric.io" ["url"]="https://staging.frocentric.io")
-declare -A PRODUCTION=( ["bucket"]="s3://froware" ["rootdomain"]="frocentric.io" ["domain"]="www.frocentric.io" ["url"]="https://www.frocentric.io")
+declare -A DEV=( ["bucket"]="s3://froware-local" ["rootdomain"]="frocentric.local" ["domain"]="frocentric.local" ["url"]="https://frocentric.local" ["discourseurl"]="https://localhost:4200")
+declare -A STAGING=( ["bucket"]="s3://froware-staging" ["rootdomain"]="staging.frocentric.io" ["domain"]="staging.frocentric.io" ["url"]="https://staging.frocentric.io" ["discourseurl"]="https://community-tech.staging.frocentric.io")
+declare -A PRODUCTION=( ["bucket"]="s3://froware" ["rootdomain"]="frocentric.io" ["domain"]="www.frocentric.io" ["url"]="https://www.frocentric.io" ["discourseurl"]="https://community.tech.frocentric.io")
 
 case "$1-$2" in
   production-development) DIR="down ⬇️ "; ;;
@@ -145,6 +145,11 @@ if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
 	echo "Replacing ${SOURCE[domain]} (primary domain) with ${DEST[domain]}"
     wp @$TO search-replace "${SOURCE[domain]}" "${DEST[domain]}" --url="${SOURCE[url]}" &&
     wp @$TO search-replace --network "${SOURCE[domain]}" "${DEST[domain]}"
+
+    # Run search & replace for Discourse connection settings
+	echo
+	echo "Replacing ${SOURCE[discourseurl]} (Discourse URL) with ${DEST[discourseurl]}"
+    wp @$TO search-replace "${SOURCE[discourseurl]}" "${DEST[discourseurl]}" --url="${SOURCE[url]}"
 
   };
 
