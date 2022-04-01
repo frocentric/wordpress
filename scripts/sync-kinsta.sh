@@ -14,9 +14,30 @@ normal=$(tput sgr0)
 SUBDOMAINS=("hq" "tech")
 declare -A SOURCE
 declare -A DEST
-declare -A DEV=( ["bucket"]="s3://froware-local" ["rootdomain"]="frocentric.local" ["domain"]="frocentric.local" ["url"]="https://frocentric.local" ["discourseurl"]="https://localhost:4200")
-declare -A STAGING=( ["bucket"]="s3://froware-staging" ["rootdomain"]="staging.frocentric.io" ["domain"]="staging.frocentric.io" ["url"]="https://staging.frocentric.io" ["discourseurl"]="https://community-tech.staging.frocentric.io")
-declare -A PRODUCTION=( ["bucket"]="s3://froware" ["rootdomain"]="frocentric.io" ["domain"]="www.frocentric.io" ["url"]="https://www.frocentric.io" ["discourseurl"]="https://community.tech.frocentric.io")
+declare -A DEV=(
+	["bucket"]="s3://froware-local/sites/tech"
+	["bucketurl"]="https://dzrf8lsyz0jmv.cloudfront.net/sites/tech"
+	["rootdomain"]="frocentric.local"
+	["domain"]="frocentric.local"
+	["url"]="https://frocentric.local"
+	["discourseurl"]="https://localhost:4200"
+)
+declare -A STAGING=(
+	["bucket"]="s3://froware-staging/sites/tech"
+	["bucketurl"]="https://d2rk5nbr5qq2m5.cloudfront.net/sites/tech"
+	["rootdomain"]="staging.frocentric.io"
+	["domain"]="staging.frocentric.io"
+	["url"]="https://staging.frocentric.io"
+	["discourseurl"]="https://community-tech.staging.frocentric.io"
+)
+declare -A PRODUCTION=(
+	["bucket"]="s3://froware/sites/tech"
+	["bucketurl"]="https://d3kjg0zldfafgn.cloudfront.net/sites/tech"
+	["rootdomain"]="frocentric.io"
+	["domain"]="www.frocentric.io"
+	["url"]="https://www.frocentric.io"
+	["discourseurl"]="https://community.tech.frocentric.io"
+)
 
 case "$1-$2" in
   production-development) DIR="down ⬇️ "; ;;
