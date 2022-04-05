@@ -3255,15 +3255,15 @@
         },
         {
             "name": "wpackagist-plugin/jetpack",
-            "version": "10.7",
+            "version": "10.8",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/jetpack/",
-                "reference": "tags/10.7"
+                "reference": "tags/10.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jetpack.10.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/jetpack.10.8.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -4180,5 +4180,5 @@
         "php": ">=5.6"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.2.0"
 }
