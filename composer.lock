@@ -998,10 +998,10 @@
         },
         {
             "name": "koodimonni-language/en_gb",
-            "version": "5.9.2",
+            "version": "5.9.3",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/5.9.2/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/5.9.3/en_GB.zip"
             },
             "require": {
                 "koodimonni-plugin-language/akismet-en_gb": "*",
@@ -1236,10 +1236,10 @@
         },
         {
             "name": "koodimonni-plugin-language/performance-lab-en_gb",
-            "version": "1.0.0-beta.2",
+            "version": "1.0.0-rc.1",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/performance-lab/1.0.0-beta.2/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/performance-lab/1.0.0-rc.1/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -4180,5 +4180,5 @@
         "php": ">=5.6"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.2.0"
 }
