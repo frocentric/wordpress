@@ -862,7 +862,8 @@ class Froware_Public {
 			$post = get_post( sanitize_key( wp_unslash( $_GET['post_id'] ) ) );
 
 			if ( $post && get_comments_number( $post->ID ) ) {
-				$modified = str_replace( 'Comments</h2>', 'Comments (<span class="comment-count">' . get_comments_number( $post->ID ) . '</span>)</h2>', $modified );
+				$modified = str_replace( '</h2>', ' (<span class="comment-count">' . get_comments_number( $post->ID ) . '</span>)<a name="comments"></a></h2>', $modified );
+
 			}
 		}
 
