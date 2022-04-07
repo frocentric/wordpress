@@ -67,7 +67,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '15.x'
+          node-version: '16.x'
 
       # Bumps version, updates changelog and creates tag. Adds [skip ci] to commit message to prevent infinite workflow loop
       - name: Tag release
