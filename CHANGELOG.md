@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.5](https://github.com/frocentric/wordpress/compare/v1.8.4...v1.8.5) (2022-04-07)
+
+
+### Bug Fixes
+
+* remove named anchor from comment section ([8ae9b60](https://github.com/frocentric/wordpress/commit/8ae9b6092187c7c039bd2122443c61ceac3cc77b))
+
 ### [1.8.4](https://github.com/frocentric/wordpress/compare/v1.8.3...v1.8.4) (2022-04-07)
 
 
