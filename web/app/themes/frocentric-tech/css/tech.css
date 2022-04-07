@@ -52,7 +52,7 @@
 .elementor-column-gap-default>.elementor-row>.elementor-column.unpadded .elementor-section .elementor-column .elementor-element-populated {
   padding: 0 50px;
 }
-.elementor-section.comments-container, .separate-containers .comments-area.discourse-comments-area {
+.elementor-section.comments-container, .separate-containers .wpdc-comments-loaded .comments-area {
   background-color: #282828;
   color: #ffffff;
 }
