@@ -81,7 +81,7 @@ jobs:
           [skip ci]"
           tag=$(git describe --tags $(git rev-list --tags --max-count=1))
           git tag -f $tag
-          git push --atomic --no-verify origin env/tech/production $tag
+          git push --atomic --no-verify origin production $tag
 
   deploy:
     # Ensure execution for stage deployments, as dependent version job is skipped
