@@ -56,6 +56,9 @@
   background-color: #282828;
   color: #ffffff;
 }
+.separate-containers .wpdc-comments-loaded .comment-reply-title {
+  color: #ffffff;
+}
 .elementor-section .elementor-element .elementor-author-box__name {
   color: #000000;
   font-weight: 700;
