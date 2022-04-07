@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.4](https://github.com/frocentric/wordpress/compare/v1.8.3...v1.8.4) (2022-04-07)
+
+
+### Bug Fixes
+
+* fix empty comment area styling ([bf9fce2](https://github.com/frocentric/wordpress/commit/bf9fce2c86c03e6c53c3320db3b319a439c21ec2))
+* restore comment count in heading ([faef111](https://github.com/frocentric/wordpress/commit/faef1111b1007f369081d51ea1e57f0dd99211c6))
+
 ### [1.8.3](https://github.com/frocentric/wordpress/compare/v1.8.2...v1.8.3) (2022-03-29)
 
 ### [1.8.2](https://github.com/frocentric/wordpress/compare/v1.8.1...v1.8.2) (2022-03-29)
