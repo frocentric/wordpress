@@ -3057,15 +3057,15 @@
         },
         {
             "name": "wpackagist-plugin/customizer-export-import",
-            "version": "0.9.2",
+            "version": "0.9.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/customizer-export-import/",
-                "reference": "tags/0.9.2"
+                "reference": "trunk"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/customizer-export-import.0.9.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/customizer-export-import.zip?timestamp=1649351003"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -4180,5 +4180,5 @@
         "php": ">=5.6"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.2.0"
 }
