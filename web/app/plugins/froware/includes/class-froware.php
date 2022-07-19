@@ -202,6 +202,7 @@ class Froware {
 		$this->loader->add_filter( 'feedzy_item_filter', $plugin_public, 'feedzy_item_filter_callback', 10, 5 );
 		$this->loader->add_filter( 'the_excerpt_rss', $plugin_public, 'filter_content_feed', 999, 1 );
 		$this->loader->add_filter( 'the_content_feed', $plugin_public, 'filter_content_feed', 999, 1 );
+		$this->loader->add_filter( 'the_content', $plugin_public, 'append_copyright_notice', 999, 1 );
 		$this->loader->add_filter( 'twig_anything_request_args', $plugin_public, 'twig_anything_request_args', 10, 2 );
 		$this->loader->add_filter( 'discourse_comment_html', $plugin_public, 'discourse_comment_html', 10, 1 );
 		$this->loader->add_filter( 'discourse_replies_html', $plugin_public, 'discourse_replies_html', 10, 1 );
