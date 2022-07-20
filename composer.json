@@ -17,7 +17,13 @@
     }
   ],
   "keywords": [
-    "bedrock", "roots", "wordpress", "stack", "composer", "vagrant", "wp"
+    "bedrock",
+    "roots",
+    "wordpress",
+    "stack",
+    "composer",
+    "vagrant",
+    "wp"
   ],
   "support": {
     "issues": "https://github.com/roots/bedrock/issues",
@@ -47,60 +53,60 @@
         }
       }
     },
-	{
-		"type": "package",
-		"package": {
-			"name": "modern-tribe/events-calendar-pro",
-			"version": "5.11.2",
-			"type": "wordpress-plugin",
-			"dist": {
-				"url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}",
-				"type": "zip"
-			}
-		},
-		"require": {
-		  "ffraenz/private-composer-installer": "~5.0"
-		}
-	},
-	{
-		"type": "package",
-		"package": {
-			"name": "modern-tribe/the-events-calendar-community-events",
-			"version": "4.8.11",
-			"type": "wordpress-plugin",
-			"dist": {
-				"url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community&version={%VERSION}&key={%TEC_CE_LICENSE}",
-				"type": "zip"
-			}
-		},
-		"require": {
-		  "ffraenz/private-composer-installer": "~5.0"
-		}
-	},
-	{
-		"type": "package",
-		"package": {
-			"name": "modern-tribe/the-events-calendar-filterbar",
-			"version": "5.2.1",
-			"type": "wordpress-plugin",
-			"dist": {
-				"url": "https://pue.tri.be/api/plugins/v2/download?plugin=tribe-filterbar&version={%VERSION}&key={%TEC_FB_LICENSE}",
-				"type": "zip"
-			}
-		},
-		"require": {
-		  "ffraenz/private-composer-installer": "~5.0"
-		}
-	},
-	{
-		"type": "composer",
-		"url": "https://wp-languages.github.io",
-		"only": [
-			"koodimonni-language/*",
-			"koodimonni-plugin-language/*",
-			"koodimonni-theme-language/*"
-		]
-	}
+    {
+      "type": "package",
+      "package": {
+        "name": "modern-tribe/events-calendar-pro",
+        "version": "5.11.2",
+        "type": "wordpress-plugin",
+        "dist": {
+          "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}",
+          "type": "zip"
+        }
+      },
+      "require": {
+        "ffraenz/private-composer-installer": "~5.0"
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "modern-tribe/the-events-calendar-community-events",
+        "version": "4.8.11",
+        "type": "wordpress-plugin",
+        "dist": {
+          "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community&version={%VERSION}&key={%TEC_CE_LICENSE}",
+          "type": "zip"
+        }
+      },
+      "require": {
+        "ffraenz/private-composer-installer": "~5.0"
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "modern-tribe/the-events-calendar-filterbar",
+        "version": "5.2.1",
+        "type": "wordpress-plugin",
+        "dist": {
+          "url": "https://pue.tri.be/api/plugins/v2/download?plugin=tribe-filterbar&version={%VERSION}&key={%TEC_FB_LICENSE}",
+          "type": "zip"
+        }
+      },
+      "require": {
+        "ffraenz/private-composer-installer": "~5.0"
+      }
+    },
+    {
+      "type": "composer",
+      "url": "https://wp-languages.github.io",
+      "only": [
+        "koodimonni-language/*",
+        "koodimonni-plugin-language/*",
+        "koodimonni-theme-language/*"
+      ]
+    }
   ],
   "require": {
     "composer/installers": "^1.8",
@@ -109,12 +115,13 @@
     "ingenyus/configure-environment-plugins": "~1.0",
     "johnpbloch/wordpress": "~5.0",
     "koodimonni-language/en_gb": "*",
-	"modern-tribe/events-calendar-pro": "*",
-	"modern-tribe/the-events-calendar-community-events": "*",
-	"modern-tribe/the-events-calendar-filterbar": "*",
+    "modern-tribe/events-calendar-pro": "*",
+    "modern-tribe/the-events-calendar-community-events": "*",
+    "modern-tribe/the-events-calendar-filterbar": "*",
     "oscarotero/env": "^2.1.0",
     "php": ">=5.6",
-	"roots/bedrock-autoloader": "~1.0",
+    "roots/bedrock-autoloader": "~1.0",
+    "roots/multisite-url-fixer": "~1.0",
     "roots/wp-config": "1.0.0",
     "roots/wp-password-bcrypt": "1.1.0",
     "vlucas/phpdotenv": "~5.3",
@@ -125,6 +132,7 @@
     "wpackagist-plugin/cloudflare": "~4.0",
     "wpackagist-plugin/customizer-export-import": "~0.0",
     "wpackagist-plugin/disable-emails": "~1.0",
+    "wpackagist-plugin/dynamic-visibility-for-elementor": "~4.0",
     "wpackagist-plugin/easy-theme-and-plugin-upgrades": "~2.0",
     "wpackagist-plugin/ele-custom-skin": "~3.0",
     "wpackagist-plugin/elementor": "~3.0",
@@ -135,7 +143,6 @@
     "wpackagist-plugin/granular-controls-for-elementor": "~1.0",
     "wpackagist-plugin/imagify": "~1.0",
     "wpackagist-plugin/jetpack": "~10.0",
-    "wpackagist-plugin/jwt-authentication-for-wp-rest-api": "~1.0",
     "wpackagist-plugin/lightweight-grid-columns": "~1.0",
     "wpackagist-plugin/log-emails": "~1.0",
     "wpackagist-plugin/meta-box": "~5.0",
@@ -144,11 +151,12 @@
     "wpackagist-plugin/oa-social-login": "~5.0",
     "wpackagist-plugin/pods": "~2.0",
     "wpackagist-plugin/publishpress": "~3.3",
-	"wpackagist-plugin/query-monitor": "~3.0",
+    "wpackagist-plugin/query-monitor": "~3.0",
     "wpackagist-plugin/search-filter": "~1.2",
     "wpackagist-plugin/svg-support": "~2.0",
     "wpackagist-plugin/the-events-calendar": "~5.0",
     "wpackagist-plugin/wordpress-importer": "0.*",
+    "wpackagist-plugin/wpm-user-sync": "~1.0",
     "wpackagist-plugin/wp-analytify": "~4.0",
     "wpackagist-plugin/wp-discourse": "~2.0",
     "wpackagist-plugin/wp-event-aggregator": "~1.0",
@@ -166,14 +174,26 @@
   },
   "extra": {
     "installer-paths": {
-      "web/app/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
-      "web/app/plugins/{$name}/": ["type:wordpress-plugin"],
-      "web/app/themes/{$name}/": ["type:wordpress-theme"]
+      "web/app/mu-plugins/{$name}/": [
+        "type:wordpress-muplugin"
+      ],
+      "web/app/plugins/{$name}/": [
+        "type:wordpress-plugin"
+      ],
+      "web/app/themes/{$name}/": [
+        "type:wordpress-theme"
+      ]
     },
     "dropin-paths": {
-      "web/app/languages/": ["vendor:koodimonni-language"],
-      "web/app/languages/plugins/": ["vendor:koodimonni-plugin-language"],
-      "web/app/languages/themes/": ["vendor:koodimonni-theme-language"]
+      "web/app/languages/": [
+        "vendor:koodimonni-language"
+      ],
+      "web/app/languages/plugins/": [
+        "vendor:koodimonni-plugin-language"
+      ],
+      "web/app/languages/themes/": [
+        "vendor:koodimonni-theme-language"
+      ]
     },
     "wordpress-install-dir": "web/wp",
     "private-composer-installer": {
@@ -192,5 +212,5 @@
     ]
   },
   "minimum-stability": "dev",
-  "prefer-stable" : true
+  "prefer-stable": true
 }
