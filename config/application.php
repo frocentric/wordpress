@@ -109,7 +109,7 @@ Config::define( 'DISABLE_WP_CRON', env( 'DISABLE_WP_CRON' ) ?? false );
 // Disable the plugin and theme file editor in the admin.
 Config::define( 'DISALLOW_FILE_EDIT', true );
 // Disable plugin and theme updates and installation from the admin.
-Config::define( 'DISALLOW_FILE_MODS', true );
+Config::define( 'DISALLOW_FILE_MODS', env( 'DISALLOW_FILE_MODS' ) ?? true );
 
 /**
  * Debugging Settings
