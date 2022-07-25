@@ -23,3 +23,8 @@ Config::define('WP_DEBUG_DISPLAY', env('WP_DEBUG_DISPLAY') ?? false);
  */
 Config::define('WP_ROCKET_EMAIL', '');
 Config::define('WP_ROCKET_KEY', '');
+
+/**
+ * Jetpack Settings
+ */
+Config::define( 'JETPACK_STAGING_MODE', true );
