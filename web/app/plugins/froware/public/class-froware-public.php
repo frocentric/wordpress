@@ -527,6 +527,23 @@ class Froware_Public {
 	}
 
 	/**
+	 * Append a copyright notice to the end of the post content
+	 *
+	 * @see https://codex.wordpress.org/Plugin_API/Filter_Reference/the_content_feed
+	 * @param    string $content    The post content.
+	 * @return   string
+	 */
+	public function append_copyright_notice( $content ) {
+		global $post;
+		if ( is_single( $post ) && ! empty( $post->_genesis_canonical_uri ) ) {
+			// translators: %1 is the current year, %2 is the post author's name.
+			$content .= '<aside class="copyright-notice">' . sprintf( esc_html__( '&copy; %1$s %2$s. Licensed for use by Frocentric CIC.', 'frocentric' ), gmdate( 'Y' ), get_the_author_meta( 'display_name', $post->post_author ) ) . '</aside>';
+		}
+
+		return $content;
+	}
+
+	/**
 	 * Filter the request args for Twig Anything requests to support Discourse API changes
 	 *
 	 * @param   array $args   Array of request arguments.

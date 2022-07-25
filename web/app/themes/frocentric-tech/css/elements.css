@@ -244,10 +244,17 @@ input[type="submit"]:hover,
   text-decoration: underline;
 }
 
-aside.cite {
+aside.cite, aside.copyright-notice {
   background-color: #f4f4f4;
   padding: 1em;
+}
+
+aside.cite {
   margin-bottom: 1.5em;
+}
+
+aside.copyright-notice {
+  margin-top: 1.5em;
 }
 
 .page-header-image-single.featured-image {
