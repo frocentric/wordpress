@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4b72723a56d0ce35eda229679a856a15",
+    "content-hash": "93c571f9df1d7e468e89263d4a5ac66c",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.231.10",
+            "version": "3.231.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "e46b7c5fcb70fadf38079755982cc1d3f0583c41"
+                "reference": "8f8742caa42b260950320c98ddc5da4926e2373d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/e46b7c5fcb70fadf38079755982cc1d3f0583c41",
-                "reference": "e46b7c5fcb70fadf38079755982cc1d3f0583c41",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/8f8742caa42b260950320c98ddc5da4926e2373d",
+                "reference": "8f8742caa42b260950320c98ddc5da4926e2373d",
                 "shasum": ""
             },
             "require": {
@@ -144,9 +144,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.231.10"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.231.12"
             },
-            "time": "2022-07-20T18:17:18+00:00"
+            "time": "2022-07-22T18:19:47+00:00"
         },
         {
             "name": "composer/installers",
@@ -848,6 +848,52 @@
                 "source": "https://github.com/Genyus/Configure-Environment-Plugins"
             },
             "time": "2021-10-07T13:44:53+00:00"
+        },
+        {
+            "name": "ingenyus/multisite-url-fixer",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Genyus/multisite-url-fixer.git",
+                "reference": "7da17929f0c529175b1b5f2c2467b6652a51ca5e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Genyus/multisite-url-fixer/zipball/7da17929f0c529175b1b5f2c2467b6652a51ca5e",
+                "reference": "7da17929f0c529175b1b5f2c2467b6652a51ca5e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "squizlabs/php_codesniffer": "^3.1"
+            },
+            "default-branch": true,
+            "type": "wordpress-muplugin",
+            "autoload": {
+                "psr-4": {
+                    "Roots\\Bedrock\\": "src/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "phpcs --ignore=vendor --extensions=php --standard=PSR2 ."
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Fixes WordPress issues with home and site URL on multisite when using Bedrock",
+            "homepage": "https://github.com/Genyus/multisite-url-fixer/",
+            "keywords": [
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/roots/multisite-url-fixer/issues",
+                "source": "https://github.com/Genyus/multisite-url-fixer/tree/main"
+            },
+            "time": "2022-07-22T21:39:17+00:00"
         },
         {
             "name": "johnpbloch/wordpress",
@@ -2253,49 +2299,6 @@
             "time": "2020-12-04T15:59:12+00:00"
         },
         {
-            "name": "roots/multisite-url-fixer",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/roots/multisite-url-fixer.git",
-                "reference": "e664180d71b29ae8362261ae3bc772a28eac2308"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/roots/multisite-url-fixer/zipball/e664180d71b29ae8362261ae3bc772a28eac2308",
-                "reference": "e664180d71b29ae8362261ae3bc772a28eac2308",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0.0"
-            },
-            "require-dev": {
-                "squizlabs/php_codesniffer": "^3.1"
-            },
-            "type": "wordpress-muplugin",
-            "autoload": {
-                "psr-4": {
-                    "Roots\\Bedrock\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Fixes WordPress issues with home and site URL on multisite when using Bedrock",
-            "homepage": "https://roots.io/bedrock/",
-            "keywords": [
-                "wordpress"
-            ],
-            "support": {
-                "forum": "https://discourse.roots.io/",
-                "issues": "https://github.com/roots/multisite-url-fixer/issues",
-                "source": "https://github.com/roots/multisite-url-fixer/tree/1.1.0"
-            },
-            "abandoned": true,
-            "time": "2017-10-17T21:07:50+00:00"
-        },
-        {
             "name": "roots/wp-config",
             "version": "1.0.0",
             "source": {
@@ -3455,15 +3458,15 @@
         },
         {
             "name": "wpackagist-plugin/the-events-calendar",
-            "version": "5.16.3",
+            "version": "5.16.3.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/the-events-calendar/",
-                "reference": "tags/5.16.3"
+                "reference": "tags/5.16.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.5.16.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.5.16.3.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3996,27 +3999,27 @@
         },
         {
             "name": "sirbrillig/phpcs-variable-analysis",
-            "version": "v2.11.3",
+            "version": "v2.11.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sirbrillig/phpcs-variable-analysis.git",
-                "reference": "c921498b474212fe4552928bbeb68d70250ce5e8"
+                "reference": "e9c99cda31b21ccb4da4c2124b57c8355ddce48e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sirbrillig/phpcs-variable-analysis/zipball/c921498b474212fe4552928bbeb68d70250ce5e8",
-                "reference": "c921498b474212fe4552928bbeb68d70250ce5e8",
+                "url": "https://api.github.com/repos/sirbrillig/phpcs-variable-analysis/zipball/e9c99cda31b21ccb4da4c2124b57c8355ddce48e",
+                "reference": "e9c99cda31b21ccb4da4c2124b57c8355ddce48e",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0",
-                "squizlabs/php_codesniffer": "^3.5"
+                "squizlabs/php_codesniffer": "^3.5.6"
             },
             "require-dev": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
-                "limedeck/phpunit-detailed-printer": "^3.1 || ^4.0 || ^5.0",
-                "phpstan/phpstan": "^0.11.8",
-                "phpunit/phpunit": "^5.0 || ^6.5 || ^7.0 || ^8.0",
+                "phpcsstandards/phpcsdevcs": "^1.1",
+                "phpstan/phpstan": "^1.7",
+                "phpunit/phpunit": "^4.8.36 || ^5.7.21 || ^6.5 || ^7.0 || ^8.0 || ^9.0",
                 "sirbrillig/phpcs-import-detection": "^1.1"
             },
             "type": "phpcodesniffer-standard",
@@ -4045,7 +4048,7 @@
                 "source": "https://github.com/sirbrillig/phpcs-variable-analysis",
                 "wiki": "https://github.com/sirbrillig/phpcs-variable-analysis/wiki"
             },
-            "time": "2022-02-21T17:01:13+00:00"
+            "time": "2022-06-13T13:49:41+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -4157,7 +4160,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "ingenyus/multisite-url-fixer": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
