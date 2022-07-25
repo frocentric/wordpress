@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/frocentric/wordpress/compare/v1.8.5...v1.9.0) (2022-07-25)
+
+
+### Features
+
+* adds copyright license to imported posts ([7d023a3](https://github.com/frocentric/wordpress/commit/7d023a378eb911734ca4c3e9f7dff54f3fc05f61))
+* adds dynamic Elementor visibilty ([94d71c0](https://github.com/frocentric/wordpress/commit/94d71c06842a7fe59e323cd37bc3370035a5e909))
+* updates core and plugins to latest ([d953685](https://github.com/frocentric/wordpress/commit/d95368573fc2420bd0e52a9a39f1e3183b856b97))
+
+
+### Bug Fixes
+
+* fixes multisite URLs ([2a22ca1](https://github.com/frocentric/wordpress/commit/2a22ca1c5c36c4d56d1fa351ee64cd77551ca1b8))
+
 ### [1.8.5](https://github.com/frocentric/wordpress/compare/v1.8.4...v1.8.5) (2022-04-07)
 
 
