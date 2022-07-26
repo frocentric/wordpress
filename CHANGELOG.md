@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.2](https://github.com/frocentric/wordpress/compare/v1.9.1...v1.9.2) (2022-07-26)
+
+
+### Bug Fixes
+
+* fixes login redirection ([edcdce1](https://github.com/frocentric/wordpress/commit/edcdce1ae73ee2c76958e785c1561849cdf209e6))
+* fixes login URL ([8a7fe01](https://github.com/frocentric/wordpress/commit/8a7fe018c92ba640b8f887025779c408ff64cfc3))
+* highlights 'Content' link correctly ([ab5a338](https://github.com/frocentric/wordpress/commit/ab5a338d6f3560105d1ac08f53826c3f4f233751)), closes [#447](https://github.com/frocentric/wordpress/issues/447)
+* Highlights 'Content' link for tag archives ([74d6ff0](https://github.com/frocentric/wordpress/commit/74d6ff0489f0e9c12c1ead8072a420127d123a21)), closes [#447](https://github.com/frocentric/wordpress/issues/447)
+* redirects to origin page after logging out ([368968d](https://github.com/frocentric/wordpress/commit/368968d225a80a90cd7b55435979f003eb767bea))
+
 ### [1.9.1](https://github.com/frocentric/wordpress/compare/v1.9.0...v1.9.1) (2022-07-26)
 
 ## [1.9.0](https://github.com/frocentric/wordpress/compare/v1.8.5...v1.9.0) (2022-07-25)
