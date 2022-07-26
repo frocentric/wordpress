@@ -193,6 +193,8 @@ class Froware {
 		$this->loader->add_filter( 'generate_inside_post_meta_item_output', $plugin_public, 'generate_inside_post_meta_item_output', 20, 2 );
 		$this->loader->add_filter( 'generate_post_date_output', $plugin_public, 'generate_post_date_output', 10, 2 );
 		$this->loader->add_filter( 'generate_svg_icon_element', $plugin_public, 'generate_svg_icon_element', 10, 2 );
+		$this->loader->add_filter( 'login_redirect', $plugin_public, 'discourse_login_redirect', 10, 3 );
+		$this->loader->add_filter( 'logout_redirect', $plugin_public, 'logout_redirect', 10, 3 );
 		$this->loader->add_filter( 'generate_svg_icon', $plugin_public, 'remove_svg_icon', 10, 2 );
 		$this->loader->add_filter( 'nav_menu_css_class', $plugin_public, 'special_nav_class', 10, 3 );
 		$this->loader->add_filter( 'wp_nav_menu_objects', $plugin_public, 'wp_nav_menu_objects_callback' );

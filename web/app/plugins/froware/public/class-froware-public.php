@@ -318,7 +318,7 @@ class Froware_Public {
 			}
 
 			// Highlight Content page link for any content post or category page.
-			if ( ( ( is_single() && get_post_type() === 'post' && ( $slug === 'community' || $slug === 'platform' ) ) || is_category() || is_tax() || is_search() ) && 'Posts Page' === $item->type_label ) {
+			if ( ( ( is_single() && get_post_type() === 'post' && $slug !== 'news' ) || is_author() || is_category() || is_tag() || is_tax() || is_search() ) && strpos( parse_url( $item->url, PHP_URL_PATH ), '/content' ) === 0 ) {
 				$classes = array_merge( $classes, $parent_classes );
 			} elseif ( is_page() && $post->post_parent === (int) $item->object_id ) {
 				$classes = array_merge( $classes, $parent_classes );
@@ -352,8 +352,8 @@ class Froware_Public {
 		$flagged = [];
 
 		foreach ( $items as $item ) {
-			if ( in_array( 'user-login', $item->classes, true ) && isset( $_SERVER['REQUEST_URI'] ) ) {
-				$item->url = add_query_arg( 'redirect_to', wp_sanitize_redirect( wp_unslash( $_SERVER['REQUEST_URI'] ) ), $item->url );
+			if ( in_array( 'user-login', $item->classes, true ) && isset( $_SERVER['REQUEST_URI'] ) && strpos( $item->url, 'redirect_to=' ) === false ) {
+				$item->url = add_query_arg( 'redirect_to', wp_sanitize_redirect( urlencode( home_url( esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) ) ), $item->url );
 			}
 
 			if ( in_array( 'user-logout', $item->classes, true ) ) {
@@ -885,6 +885,51 @@ class Froware_Public {
 		}
 
 		return $modified;
+	}
+
+	/**
+	 * Redirect user after successful login via Discourse.
+	 *
+	 * @param string $redirect_to URL to redirect to.
+	 * @param string $request URL the user is coming from.
+	 * @param object $user Logged user's data.
+	 * @return string
+	 */
+	public function discourse_login_redirect( $redirect_to, $request, $user ) {
+		//is there a user to check?
+		if ( isset( $user->roles ) && is_array( $user->roles ) && $this->discourse_client_configured() ) {
+			// check for admin URL
+			if ( str_starts_with( $redirect_to, admin_url() ) ) {
+				// redirect them to the default location
+				return $redirect_to;
+			} else {
+				// redirect them to the community
+				return get_option( 'discourse_connect' )['url'];
+			}
+		} else {
+			return $redirect_to;
+		}
+	}
+
+	/**
+	 * Checks if WordPress is configured as a Discourse client.
+	 *
+	 * @return bool
+	 */
+	protected function discourse_client_configured() {
+		return class_exists( 'WPDiscourse\Discourse\Discourse' ) && isset( get_option( 'discourse_connect' )['url'] );
+	}
+
+	/**
+	 * Redirects the user to homepage after logging out.
+	 *
+	 * @param string $redirect_to URL to redirect to.
+	 * @param string $request URL the user is coming from.
+	 * @param object $user Logged user's data.
+	 * @return string
+	 */
+	public function logout_redirect( $redirect_to, $request, $user ) {
+		return esc_url( home_url() );
 	}
 
 	/**
