@@ -914,6 +914,40 @@ class Froware_Public {
 	}
 
 	/**
+	 * Imports an event using the WP Event Aggregator API
+	 */
+	public function discourse_logout() {
+		global $wpea_success_msg, $wpea_errors;
+
+		// Ensure callback handler only executes once per request.
+		if ( did_action( 'discourse_logout' ) > 1 ) {
+			return;
+		}
+
+		// if ( check_admin_referer( 'wpea_import_form_nonce_action', 'wpea_import_form_nonce' ) === false ) {
+		// 	wp_send_json_error();
+		// }
+
+		// TODO: Validate fields (type, frequency, status, categories).
+
+		if ( class_exists( 'WP_Event_Aggregator_Pro_Manage_Import' ) ) {
+			$importer = new WP_Event_Aggregator_Pro_Manage_Import();
+
+			$importer->handle_import_form_submit();
+
+			if ( count( $wpea_success_msg ) > 0 ) {
+				$imported_event = tribe_get_event( $this->imported_event_id );
+
+				$this->send_status( $imported_event );
+			} elseif ( count( $wpea_errors ) > 0 ) {
+				wp_send_json_error( $wpea_errors[0] );
+			}
+		} else {
+			wp_send_json_error( __( 'Unrecognised event format.', 'froware' ) );
+		}
+	}
+
+	/**
 	 * Modifies the "Logout" menu link to direct to the correct URL
 	 */
 	public function set_logout_menu_item_url( $items, $menu, $args ) {
