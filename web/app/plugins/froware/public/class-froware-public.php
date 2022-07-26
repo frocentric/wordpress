@@ -896,17 +896,15 @@ class Froware_Public {
 	 * @return string
 	 */
 	public function discourse_login_redirect( $redirect_to, $request, $user ) {
-		$discourse_settings = get_option( 'discourse_connect' );
-		$is_discourse_client = class_exists( 'WPDiscourse\Discourse\Discourse' ) && isset( $discourse_settings['url'] );
 		//is there a user to check?
-		if ( isset( $user->roles ) && is_array( $user->roles ) && $is_discourse_client ) {
+		if ( isset( $user->roles ) && is_array( $user->roles ) && $this->discourse_client_configured() ) {
 			// check for admin URL
 			if ( str_starts_with( $redirect_to, admin_url() ) ) {
 				// redirect them to the default location
 				return $redirect_to;
 			} else {
 				// redirect them to the community
-				return $discourse_settings['url'];
+				return get_option( 'discourse_connect' )['url'];
 			}
 		} else {
 			return $redirect_to;
@@ -914,37 +912,24 @@ class Froware_Public {
 	}
 
 	/**
-	 * Imports an event using the WP Event Aggregator API
+	 * Checks if WordPress is configured as a Discourse client.
+	 *
+	 * @return bool
 	 */
-	public function discourse_logout() {
-		global $wpea_success_msg, $wpea_errors;
+	protected function discourse_client_configured() {
+		return class_exists( 'WPDiscourse\Discourse\Discourse' ) && isset( get_option( 'discourse_connect' )['url'] );
+	}
 
-		// Ensure callback handler only executes once per request.
-		if ( did_action( 'discourse_logout' ) > 1 ) {
-			return;
-		}
-
-		// if ( check_admin_referer( 'wpea_import_form_nonce_action', 'wpea_import_form_nonce' ) === false ) {
-		// 	wp_send_json_error();
-		// }
-
-		// TODO: Validate fields (type, frequency, status, categories).
-
-		if ( class_exists( 'WP_Event_Aggregator_Pro_Manage_Import' ) ) {
-			$importer = new WP_Event_Aggregator_Pro_Manage_Import();
-
-			$importer->handle_import_form_submit();
-
-			if ( count( $wpea_success_msg ) > 0 ) {
-				$imported_event = tribe_get_event( $this->imported_event_id );
-
-				$this->send_status( $imported_event );
-			} elseif ( count( $wpea_errors ) > 0 ) {
-				wp_send_json_error( $wpea_errors[0] );
-			}
-		} else {
-			wp_send_json_error( __( 'Unrecognised event format.', 'froware' ) );
-		}
+	/**
+	 * Redirects the user to homepage after logging out.
+	 *
+	 * @param string $redirect_to URL to redirect to.
+	 * @param string $request URL the user is coming from.
+	 * @param object $user Logged user's data.
+	 * @return string
+	 */
+	public function logout_redirect( $redirect_to, $request, $user ) {
+		return esc_url( home_url() );
 	}
 
 	/**
