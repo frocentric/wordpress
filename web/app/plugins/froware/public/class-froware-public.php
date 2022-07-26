@@ -352,8 +352,8 @@ class Froware_Public {
 		$flagged = [];
 
 		foreach ( $items as $item ) {
-			if ( in_array( 'user-login', $item->classes, true ) && isset( $_SERVER['REQUEST_URI'] ) ) {
-				$item->url = add_query_arg( 'redirect_to', wp_sanitize_redirect( wp_unslash( $_SERVER['REQUEST_URI'] ) ), $item->url );
+			if ( in_array( 'user-login', $item->classes, true ) && isset( $_SERVER['REQUEST_URI'] ) && strpos( $item->url, 'redirect_to=' ) === false ) {
+				$item->url = add_query_arg( 'redirect_to', wp_sanitize_redirect( urlencode( home_url( esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) ) ), $item->url );
 			}
 
 			if ( in_array( 'user-logout', $item->classes, true ) ) {
