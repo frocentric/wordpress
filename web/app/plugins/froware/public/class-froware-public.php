@@ -318,7 +318,7 @@ class Froware_Public {
 			}
 
 			// Highlight Content page link for any content post or category page.
-			if ( ( ( is_single() && get_post_type() === 'post' && ( $slug === 'community' || $slug === 'platform' ) ) || is_category() || is_tax() || is_search() ) && 'Posts Page' === $item->type_label ) {
+			if ( ( ( is_single() && get_post_type() === 'post' && $slug !== 'news' ) || is_author() || is_category() || is_tax() || is_search() ) && strpos( parse_url( $item->url, PHP_URL_PATH ), '/content' ) === 0 ) {
 				$classes = array_merge( $classes, $parent_classes );
 			} elseif ( is_page() && $post->post_parent === (int) $item->object_id ) {
 				$classes = array_merge( $classes, $parent_classes );
