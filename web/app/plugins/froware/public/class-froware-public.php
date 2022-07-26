@@ -380,32 +380,6 @@ class Froware_Public {
 		return $items;
 	}
 
-	/**
-	 * Redirect user after successful login via Discourse.
-	 *
-	 * @param string $redirect_to URL to redirect to.
-	 * @param string $request URL the user is coming from.
-	 * @param object $user Logged user's data.
-	 * @return string
-	 */
-	public function discourse_login_redirect( $redirect_to, $request, $user ) {
-		$discourse_settings = get_option( 'discourse_connect' );
-		$is_discourse_client = class_exists( 'WPDiscourse\Discourse\Discourse' ) && isset( $discourse_settings['url'] );
-		//is there a user to check?
-		if ( isset( $user->roles ) && is_array( $user->roles ) && $is_discourse_client ) {
-			// check for admin URL
-			if ( str_starts_with( $redirect_to, admin_url() ) ) {
-				// redirect them to the default location
-				return $redirect_to;
-			} else {
-				// redirect them to the community
-				return $discourse_settings['url'];
-			}
-		} else {
-			return $redirect_to;
-		}
-	}
-
 	public function save_post_post_callback( $post_id, $post ) {
 		// bail out if this is an autosave or trashed message
 		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || $post->post_status === 'trash' ) {
@@ -911,6 +885,51 @@ class Froware_Public {
 		}
 
 		return $modified;
+	}
+
+	/**
+	 * Redirect user after successful login via Discourse.
+	 *
+	 * @param string $redirect_to URL to redirect to.
+	 * @param string $request URL the user is coming from.
+	 * @param object $user Logged user's data.
+	 * @return string
+	 */
+	public function discourse_login_redirect( $redirect_to, $request, $user ) {
+		//is there a user to check?
+		if ( isset( $user->roles ) && is_array( $user->roles ) && $this->discourse_client_configured() ) {
+			// check for admin URL
+			if ( str_starts_with( $redirect_to, admin_url() ) ) {
+				// redirect them to the default location
+				return $redirect_to;
+			} else {
+				// redirect them to the community
+				return get_option( 'discourse_connect' )['url'];
+			}
+		} else {
+			return $redirect_to;
+		}
+	}
+
+	/**
+	 * Checks if WordPress is configured as a Discourse client.
+	 *
+	 * @return bool
+	 */
+	protected function discourse_client_configured() {
+		return class_exists( 'WPDiscourse\Discourse\Discourse' ) && isset( get_option( 'discourse_connect' )['url'] );
+	}
+
+	/**
+	 * Redirects the user to homepage after logging out.
+	 *
+	 * @param string $redirect_to URL to redirect to.
+	 * @param string $request URL the user is coming from.
+	 * @param object $user Logged user's data.
+	 * @return string
+	 */
+	public function logout_redirect( $redirect_to, $request, $user ) {
+		return esc_url( home_url() );
 	}
 
 	/**
