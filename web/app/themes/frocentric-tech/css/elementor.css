@@ -314,8 +314,12 @@
     margin-bottom: 30px;
     text-align: center;
   }
-  .elementor .elementor-column-gap-default>.elementor-row>.elementor-column>.elementor-element-populated {
-    padding: 10px 35px;
+  .elementor .elementor-column-gap-default>.elementor-row>.elementor-column>.elementor-element-populated,
+  .home .elementor .elementor-section.section-highlight.highlight-white .elementor-column-gap-default>.elementor-row>.elementor-column>.elementor-element-populated {
+    padding: 10px 0;
+  }
+  .home .elementor .elementor-column-gap-default>.elementor-row>.elementor-column>.elementor-element-populated {
+    padding: 10px 10px;
   }
   .elementor-section.section-hero .elementor-cta--skin-classic {
     position: unset;
