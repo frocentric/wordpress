@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.3](https://github.com/frocentric/wordpress/compare/v1.9.2...v1.9.3) (2022-07-27)
+
+
+### Bug Fixes
+
+* fixes content spacing on mobile ([fbcb916](https://github.com/frocentric/wordpress/commit/fbcb91697f902aad90803d9f53db66ff091a54bf))
+* resolves mobile menu styling ([1fefa00](https://github.com/frocentric/wordpress/commit/1fefa00036447b5856b951391618ef4e41d1450e))
+
 ### [1.9.2](https://github.com/frocentric/wordpress/compare/v1.9.1...v1.9.2) (2022-07-26)
 
 
