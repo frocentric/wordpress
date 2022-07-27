@@ -57,7 +57,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-calendar-pro",
-        "version": "5.11.2",
+        "version": "5.14.4",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}",
@@ -72,7 +72,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/the-events-calendar-community-events",
-        "version": "4.8.11",
+        "version": "4.9.2.1",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community&version={%VERSION}&key={%TEC_CE_LICENSE}",
@@ -87,7 +87,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/the-events-calendar-filterbar",
-        "version": "5.2.1",
+        "version": "5.3.1",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=tribe-filterbar&version={%VERSION}&key={%TEC_FB_LICENSE}",
@@ -106,10 +106,6 @@
         "koodimonni-plugin-language/*",
         "koodimonni-theme-language/*"
       ]
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/Genyus/multisite-url-fixer.git"
     }
   ],
   "require": {
@@ -117,7 +113,6 @@
     "ffraenz/private-composer-installer": "^5.0",
     "humanmade/s3-uploads": "~3.0",
     "ingenyus/configure-environment-plugins": "~1.0",
-    "ingenyus/multisite-url-fixer": "dev-main",
     "johnpbloch/wordpress": "~6.0",
     "koodimonni-language/en_gb": "*",
     "modern-tribe/events-calendar-pro": "*",
@@ -142,7 +137,6 @@
     "wpackagist-plugin/elementor": "~3.0",
     "wpackagist-plugin/enable-media-replace": "~3.0",
     "wpackagist-plugin/essential-addons-for-elementor-lite": "~5.0",
-    "wpackagist-plugin/events-manager": "~5.0",
     "wpackagist-plugin/feedzy-rss-feeds": "~4.0",
     "wpackagist-plugin/granular-controls-for-elementor": "~1.0",
     "wpackagist-plugin/imagify": "~2.0",

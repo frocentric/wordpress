@@ -140,7 +140,7 @@ div.site-logo.sticky-logo.navigation-logo img{
   width: 32px;
 }
 
-.link-list {
+.link-list ul {
   margin-left: 0;
   border-top: 1px solid #cccccc;
 }

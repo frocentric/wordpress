@@ -1,0 +1,63 @@
+.woocommerce ul.products.e-add-simplelist-container li.product {
+  float: none;
+  width: auto;
+}
+.woocommerce ul.products.e-add-simplelist-container li.product a img {
+  margin: 0;
+}
+
+.e-add-list-vertical .e-add-simplelist-container {
+    display: block;  
+}
+.e-add-list-horizontal .e-add-simplelist-container{
+    padding: 0;
+}
+.e-add-list-horizontal .e-add-simplelist-container li{
+    display: inline flow-root list-item;
+    margin-left: 30px;
+}
+/* .e-add-simplelist-container li::marker{
+    width: 10px;
+    background-size: 10px;
+} */
+.e-add-list-type-image .e-add-simplelist-container{
+    padding-left: 0;
+}
+.e-add-list-type-icon li{
+    list-style-type: none;
+}
+.e-add-list-type-icon li{
+    list-style-type: none;
+    
+}
+.e-add-list-type-icon .e-add-simplelist-container{
+    padding: 0;
+}
+.e-add-list-type-icon li .e-add-item{
+    display: flex;
+    align-items: center;
+}
+
+.e-add-list-type-icon li .e-add-item > *:not(.e-add-icon-list){
+    display: inline-block;
+}
+.e-add-list-type-icon.e-add-list-type-icon-square li{
+    padding: 8px 9px;
+    border-radius: 100px;
+}
+.e-add-list-type-icon.e-add-list-type-icon-circle li{
+    padding: 8px 9px;
+    border-radius: 100px;
+}
+.e-add-list-type-icon li .e-add-icon-list{
+    display: inline-block;
+    margin-right: 10px;
+    line-height: 0;
+}
+.e-add-list-type-icon li .e-add-icon-list i:before{
+    font-size: 1em;
+}
+.e-add-list-type-icon li .e-add-icon-list svg{
+    width: 1em;
+    height: 1em;
+}

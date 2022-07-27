@@ -1,0 +1,300 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: e-addons for Elementor\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-11-17 10:23+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.4.4; wp-5.5.3"
+
+#: core/dashboard/dashboard.php:130
+msgid "Addons"
+msgstr ""
+
+#: core/controls/transformations.php:112
+msgid "Angle"
+msgstr ""
+
+#: core/controls/groups/masking.php:267
+msgid "Auto"
+msgstr ""
+
+#: core/controls/groups/masking.php:146
+msgid "Bottom Center"
+msgstr ""
+
+#: core/controls/groups/masking.php:147
+msgid "Bottom Left"
+msgstr ""
+
+#: core/controls/groups/masking.php:148
+msgid "Bottom Right"
+msgstr ""
+
+#: core/controls/groups/masking.php:140
+msgid "Center Center"
+msgstr ""
+
+#: core/controls/groups/masking.php:141
+msgid "Center Left"
+msgstr ""
+
+#: core/controls/groups/masking.php:142
+msgid "Center Right"
+msgstr ""
+
+#: core/dashboard/dashboard.php:175
+msgid "Changelog"
+msgstr ""
+
+#: core/controls/groups/masking.php:269
+msgid "Contain"
+msgstr ""
+
+#: core/dashboard/pages/dash.php:100
+msgid "Core"
+msgstr ""
+
+#: core/controls/groups/masking.php:268
+msgid "Cover"
+msgstr ""
+
+#: core/controls/groups/masking.php:149 core/controls/groups/masking.php:270
+msgid "Custom"
+msgstr ""
+
+#: core/dashboard/dashboard.php:145
+msgid "Dashboard"
+msgstr ""
+
+#: core/dashboard/pages/dash.php:104
+msgid "Deactivate"
+msgstr ""
+
+#: core/controls/groups/masking.php:139 core/controls/groups/masking.php:248
+#: core/controls/groups/masking.php:266
+msgid "Default"
+msgstr ""
+
+#: core/dashboard/dashboard.php:174
+msgid "e-addons Changelog"
+msgstr ""
+
+#: core/dashboard/dashboard.php:129 core/dashboard/dashboard.php:144
+msgid "e-addons Dashboard"
+msgstr ""
+
+#. Name of the plugin
+msgid "e-addons for Elementor"
+msgstr ""
+
+#: base/base-action.php:35
+msgid "e-addons Form PRO Action"
+msgstr ""
+
+#: core/dashboard/dashboard.php:156
+msgid "e-addons Settings"
+msgstr ""
+
+#: core/dashboard/dashboard.php:165
+msgid "e-addons Version Control"
+msgstr ""
+
+#: base/module-base.php:179
+msgid "e-addons-for-elementor"
+msgstr ""
+
+#: core/dashboard/pages/dash.php:103
+msgid "Enable addon"
+msgstr ""
+
+#: core/controls/groups/masking.php:36
+msgid "Enable Mask"
+msgstr ""
+
+#: core/dashboard/pages/dash.php:102
+msgid "Enabled"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://e-addons.com"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://nerds.farm"
+msgstr ""
+
+#. Author of the plugin
+msgid "Nerds Farm"
+msgstr ""
+
+#: core/dashboard/pages/dash.php:118
+msgid "New version available"
+msgstr ""
+
+#: core/controls/groups/masking.php:249
+msgid "No-repeat"
+msgstr ""
+
+#: core/dashboard/pages/dash.php:49
+msgid ""
+"Please install and enable <b>e-addons MANAGER</b>, it add support for manage "
+"addons license, automatic updates and more!"
+msgstr ""
+
+#: core/controls/groups/masking.php:135
+msgid "Position"
+msgstr ""
+
+#: core/controls/groups/masking.php:343
+msgid "Predefined Clip-Path"
+msgstr ""
+
+#: core/controls/groups/masking.php:244 core/controls/groups/masking.php:250
+msgid "Repeat"
+msgstr ""
+
+#: core/controls/groups/masking.php:251
+msgid "Repeat-x"
+msgstr ""
+
+#: core/controls/groups/masking.php:252
+msgid "Repeat-y"
+msgstr ""
+
+#: core/controls/transformations.php:118
+msgid "Rotate X"
+msgstr ""
+
+#: core/controls/transformations.php:124
+msgid "Rotate Y"
+msgstr ""
+
+#: core/controls/transformations.php:148
+msgid "Scale"
+msgstr ""
+
+#: core/controls/groups/masking.php:59
+msgid "Select IMAGE mask"
+msgstr ""
+
+#: core/controls/groups/masking.php:118
+msgid "Select PNG:"
+msgstr ""
+
+#: core/dashboard/dashboard.php:157
+msgid "Settings"
+msgstr ""
+
+#: core/controls/groups/masking.php:262
+msgid "Size"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"The new must-have tool-set for web experts. Exploit Elementor limitless "
+"potential, with powerful widgets & extensions, and boost your workflow."
+msgstr ""
+
+#: core/controls/groups/masking.php:143
+msgid "Top Center"
+msgstr ""
+
+#: core/controls/groups/masking.php:144
+msgid "Top Left"
+msgstr ""
+
+#: core/controls/groups/masking.php:145
+msgid "Top Right"
+msgstr ""
+
+#: core/controls/groups/transform.php:101
+msgctxt "Transform"
+msgid "Transform Origin"
+msgstr ""
+
+#: core/controls/groups/transform.php:113
+msgctxt "Transform origin"
+msgid "Bottom Center"
+msgstr ""
+
+#: core/controls/groups/transform.php:114
+msgctxt "Transform origin"
+msgid "Bottom Left"
+msgstr ""
+
+#: core/controls/groups/transform.php:115
+msgctxt "Transform origin"
+msgid "Bottom Right"
+msgstr ""
+
+#: core/controls/groups/transform.php:107
+msgctxt "Transform origin"
+msgid "Center Center"
+msgstr ""
+
+#: core/controls/groups/transform.php:108
+msgctxt "Transform origin"
+msgid "Center Left"
+msgstr ""
+
+#: core/controls/groups/transform.php:109
+msgctxt "Transform origin"
+msgid "Center Right"
+msgstr ""
+
+#: core/controls/groups/transform.php:106
+msgctxt "Transform origin"
+msgid "Default"
+msgstr ""
+
+#: core/controls/groups/transform.php:110
+msgctxt "Transform origin"
+msgid "Top Center"
+msgstr ""
+
+#: core/controls/groups/transform.php:111
+msgctxt "Transform origin"
+msgid "Top Left"
+msgstr ""
+
+#: core/controls/groups/transform.php:112
+msgctxt "Transform origin"
+msgid "Top Right"
+msgstr ""
+
+#: core/dashboard/dashboard.php:166
+msgid "Version Control"
+msgstr ""
+
+#: core/controls/groups/masking.php:280
+msgid "Width"
+msgstr ""
+
+#: core/controls/transformations.php:130
+msgid "X"
+msgstr ""
+
+#: core/controls/groups/masking.php:159
+msgid "X Position"
+msgstr ""
+
+#: core/controls/transformations.php:136
+msgid "Y"
+msgstr ""
+
+#: core/controls/groups/masking.php:202
+msgid "Y Position"
+msgstr ""
+
+#: core/controls/transformations.php:142
+msgid "Z"
+msgstr ""
