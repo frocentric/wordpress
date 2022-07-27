@@ -1,0 +1,261 @@
+.e-add-dualslider-posts,
+.e-add-dualslider-thumbnails{
+	position: relative;
+}
+
+/* DEFAULT settings */
+.e-add-dualslider-thumbnails .e-add-dualslider-wrap{
+	transition: opacity 0.4s;
+}
+
+.e-add-thumbnail-image .e-add-bgimage{
+	height: 150px;
+}
+.e-add-thumbnail-title{
+	font-size: 17px;
+	line-height: 1.1;
+}
+
+.e-add-dualslider-gallery-thumbs.swiper-container-autoheight .swiper-wrapper{
+	display: flex;
+	align-items: stretch;
+}
+.e-add-dualslider-wrapper .e-add-dualslider-item{
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+/*.e-add-dualslider-wrapper .e-add-dualslider-item.swiper-slide-thumb-active{
+	background-color: #f5f5f5;
+}*/
+
+/* Overlay */
+.e-add-dualslider-thumbnails .e-add-dualslider-gallery-thumbs .e-add-thumbnail-image{
+	position: relative;
+	height: 100%;
+	overflow: hidden;
+}
+.e-add-dualslider-thumbnails .e-add-dualslider-gallery-thumbs .e-add-thumbnail-image img{
+	max-width: inherit;
+	width: 100%;
+}
+.e-add-dualslider-thumbnails .e-add-dualslider-gallery-thumbs .e-add-thumbnail-image:after{
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+
+	transition: background 0.4s;
+}
+.e-add-dualslider-thumbnails .e-add-dualslider-gallery-thumbs .swiper-slide-thumb-active .e-add-thumbnail-image:after{
+	background-color: rgba(0,0,0,0.5);
+}
+
+
+/* NAVIGATION: PREV-NEXT */
+.e-add-dualslider-controls{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.e-add-dualslider-controls .swiper-button-prev,
+.e-add-dualslider-controls .swiper-button-next {
+	position: absolute;
+
+	width: auto;
+	height: auto;
+	margin: 0;
+
+	z-index: 9;
+
+	cursor: pointer;
+	outline: none;
+}
+
+.e-add-dualslider-controls .swiper-button-prev.swiper-button-disabled,
+.e-add-dualslider-controls .swiper-button-next.swiper-button-disabled {
+  opacity: 0;
+  cursor: auto;
+  pointer-events: none;
+}
+.e-add-dualslider-controls .swiper-button-prev svg line,
+.e-add-dualslider-controls .swiper-button-prev svg polyline,
+.e-add-dualslider-controls .swiper-button-next svg line,
+.e-add-dualslider-controls .swiper-button-next svg polyline{
+  transition: stroke 0.8s linear;
+  -webkit-transition: stroke 0.8s linear;
+  -moz-transition: stroke 0.8s linear;
+  -o-transition: stroke 0.8s linear;
+  -ms-transition: stroke 0.8s linear;
+}
+.e-add-dualslider-controls.hoveranim-yes .swiper-button-prev:hover svg,
+.e-add-dualslider-controls.hoveranim-yes .swiper-button-next:hover svg{
+  transform: scale(1.2);
+}
+
+.e-add-dualslider-controls .swiper-button-prev svg,
+.e-add-dualslider-controls .swiper-button-next svg{
+  overflow: visible;
+
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
+
+  transition: transform .6s cubic-bezier(.46,.03,.14,.93);
+  -webkit-transition: transform .6s cubic-bezier(.46,.03,.14,.93);
+  -moz-transition: transform .6s cubic-bezier(.46,.03,.14,.93);
+  -o-transition: transform .6s cubic-bezier(.46,.03,.14,.93);
+  -ms-transition: transform .6s cubic-bezier(.46,.03,.14,.93);
+}
+.e-add-dualslider-controls .swiper-button-prev.swiper-button-disabled svg,
+.e-add-dualslider-controls .swiper-button-next.swiper-button-disabled svg{
+  -webkit-transform: scale(0.1);
+  -ms-transform: scale(0.1);
+  -o-transform: scale(0.1);
+  transform: scale(0.1);
+}
+
+.e-add-dualslider-controls .swiper-button-next:focus, 
+.e-add-dualslider-controls .swiper-button-prev:focus{
+  outline: none;
+}
+.e-add-dualslider-controls .swiper-button-prev, 
+.e-add-dualslider-controls .swiper-container-rtl .swiper-button-next,
+.e-add-dualslider-controls .swiper-button-next, 
+.e-add-dualslider-controls .swiper-container-rtl .swiper-button-prev{
+  background-image: none;
+}
+
+/* left-right */
+.e-add-dualslider-controls-row-reverse .swiper-button-prev,
+.e-add-dualslider-controls-row-reverse .swiper-container-rtl .swiper-button-prev,
+.e-add-dualslider-controls-row .swiper-button-prev,
+.e-add-dualslider-controls-row .swiper-container-rtl .swiper-button-prev{
+	top: -10px;
+	bottom: auto; 
+	left: 50%;
+  	right: auto;
+	background-image: none;
+	transform: translate(-50%, -100%);
+}
+.e-add-dualslider-controls-row-reverse .swiper-button-next,
+.e-add-dualslider-controls-row-reverse .swiper-container-rtl .swiper-button-next,
+.e-add-dualslider-controls-row .swiper-button-next,
+.e-add-dualslider-controls-row .swiper-container-rtl .swiper-button-next {
+	top: auto;
+	bottom: -10px;  
+	right: auto;
+  	left: 50%;
+	background-image: none;
+	transform: translate(-50%, 100%);
+}
+/* top-bottom */
+.e-add-dualslider-controls-column-reverse .swiper-button-prev,
+.e-add-dualslider-controls-column-reverse .swiper-container-rtl .swiper-button-prev,
+.e-add-dualslider-controls-column .swiper-button-prev,
+.e-add-dualslider-controls-column .swiper-container-rtl .swiper-button-prev{
+	top: 50%;
+	bottom: auto;
+  	left: -10px;
+  	right: auto;
+	background-image: none;
+	transform: translateX(-100%);
+}
+.e-add-dualslider-controls-column-reverse .swiper-button-next,
+.e-add-dualslider-controls-column-reverse .swiper-container-rtl .swiper-button-next,
+.e-add-dualslider-controls-column .swiper-button-next,
+.e-add-dualslider-controls-column .swiper-container-rtl .swiper-button-next {
+	top: 50%;
+	bottom: auto;
+	right: -10px;
+  	left: auto;
+	background-image: none;
+	transform: translateX(100%);
+}
+
+.e-add-dualslider-controls .swiper-button-prev:after,
+.e-add-dualslider-controls .swiper-container-rtl .swiper-button-next:after {
+ content: none;
+}
+.e-add-dualslider-controls .swiper-button-next:after,
+.e-add-dualslider-controls .swiper-container-rtl .swiper-button-prev:after {
+ content: none;
+}
+
+
+
+
+
+
+
+
+
+
+/* --------------------[ Direction style ]---------------------- */
+/* (bottom,top,left,right) */
+.e-add-style-position-dualslider{
+	display: flex;
+	
+}
+/*.e-add-style-dualslider-position-bottom .e-add-style-position-dualslider{
+	flex-direction: column;
+}
+.e-add-style-dualslider-position-top .e-add-style-position-dualslider{
+	flex-direction: column-reverse;
+}*/
+
+/* LEFT-RIGHT: Layout Style */
+/*.e-add-style-dualslider-position-right .e-add-style-position-dualslider{
+	flex-direction: row;
+}
+.e-add-style-dualslider-position-left .e-add-style-position-dualslider{
+	flex-direction: row-reverse;
+}*/
+
+.e-add-style-dualslider-position-row .e-add-style-position-dualslider .e-add-dualslider-posts,
+.e-add-style-dualslider-position-row-reverse .e-add-style-position-dualslider .e-add-dualslider-posts{
+	width: 70%;
+}
+.e-add-style-dualslider-position-row .e-add-style-position-dualslider .e-add-dualslider-thumbnails,
+.e-add-style-dualslider-position-row-reverse .e-add-style-position-dualslider .e-add-dualslider-thumbnails{
+	width: 30%;
+}
+
+.e-add-style-dualslider-position-row .e-add-style-position-dualslider .e-add-dualslider-posts .swiper-container,
+.e-add-style-dualslider-position-row-reverse .e-add-style-position-dualslider .e-add-dualslider-posts .swiper-container{
+	height: 100%;
+}
+.e-add-style-dualslider-position-row .e-add-style-position-dualslider .e-add-dualslider-thumbnails .swiper-container,
+.e-add-style-dualslider-position-row-reverse .e-add-style-position-dualslider .e-add-dualslider-thumbnails .swiper-container{
+	height: 100%;
+}
+.e-add-style-dualslider-position-row .e-add-style-position-dualslider .e-add-dualslider-thumbnails .e-add-dualslider-wrap,
+.e-add-style-dualslider-position-row-reverse .e-add-style-position-dualslider .e-add-dualslider-thumbnails .e-add-dualslider-wrap{
+	height: 100%;
+}
+/* multi */
+.e-add-style-dualslider-position-row .e-add-style-position-dualslider .e-add-dualslider-thumbnails .e-add-dualslider-multi .e-add-dualslider-wrap,
+.e-add-style-dualslider-position-row-reverse .e-add-style-position-dualslider .e-add-dualslider-thumbnails .e-add-dualslider-multi .e-add-dualslider-wrap{
+	display: flex;
+	align-items: center;
+}
+.e-add-style-dualslider-position-row .e-add-style-position-dualslider .e-add-dualslider-thumbnails .e-add-dualslider-gallery-thumbs .e-add-dualslider-multi .swiper-slide .e-add-thumbnail-image,
+.e-add-style-dualslider-position-row-reverse .e-add-style-position-dualslider .e-add-dualslider-thumbnails .e-add-dualslider-gallery-thumbs .e-add-dualslider-multi .swiper-slide .e-add-thumbnail-image{
+	flex: 0 0 50%;
+	align-self: stretch;
+}
+.e-add-style-dualslider-position-row .e-add-style-position-dualslider .e-add-dualslider-thumbnails .e-add-dualslider-gallery-thumbs .e-add-dualslider-multi .swiper-slide .e-add-thumbnail-title,
+.e-add-style-dualslider-position-row-reverse .e-add-style-position-dualslider .e-add-dualslider-thumbnails .e-add-dualslider-gallery-thumbs .e-add-dualslider-multi .swiper-slide .e-add-thumbnail-title{
+	flex: 0 0 50%;
+	align-self: stretch;
+	padding: 10px;
+}
+/*  */
+.e-add-style-dualslider-position-row .e-add-style-position-dualslider .e-add-thumbnail-image .e-add-bgimage,
+.e-add-style-dualslider-position-row-reverse .e-add-style-position-dualslider .e-add-thumbnail-image .e-add-bgimage{
+	height: 100%;
+}

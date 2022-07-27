@@ -1,0 +1,51 @@
+/******************************************************************************/
+
+.elementor-control-type-element-id input {
+    border-radius: 3px 0 0 3px;
+}
+.elementor-control-type-element-id.elementor-control-dynamic-value input {
+    display: none;
+}
+.elementor-control-type-element-id .elementor-control-input-wrapper .elementor-control-unit-1 {
+    order: 2;
+}
+.elementor-tag-settings-popup .elementor-control-type-element-id .elementor-control-element-id-target {
+    width: 100% !important;
+}
+
+.elementor-control-type-element-id .elementor-control-element-id-target {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    height: 27px;
+    cursor: pointer;
+    border: 1px solid #d5dadf;
+    border-left: none;
+    -webkit-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+    background: #fff;
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .elementor-control-type-element-id .elementor-control-element-id-target {
+        background-color: #34383C;
+        border-color: #64666A;
+        color: #E0E1E3;
+    }
+}
+
+.elementor-control-type-element-id .elementor-control-element-id-target i {
+    font-size: 12px;
+}
+.elementor-control-type-element-id.elementor-control-dynamic-value .elementor-control-element-id-target {
+    display: none;
+}

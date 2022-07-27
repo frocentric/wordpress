@@ -1,0 +1,125 @@
+/******************************************************************************/
+/* COPY PASTE CROSSITE */
+/* #e_copy_paste {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        box-shadow: 0 2px 30px 0 rgba(0, 0, 0, 0.1);
+        background: white;
+        padding: 20px;
+        margin: 1%;
+        width: 98%;
+} */
+#e_copy_paste {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    box-shadow: 0 2px 40px 0 rgba(0, 0, 0, 0.3);
+    background: white;
+    padding: 0;
+    margin: 0;
+    width: 60%;
+    max-width: 640px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    height: auto;
+    border: none;
+    color: #666;
+}
+#e_copy_paste p {
+    margin-bottom: 5px;
+    display: block;
+    width: 82%;
+    padding: 15px 0 15px 55px;
+    margin: 0;
+    line-height: 1.2;
+}
+#e_copy_paste p:before{
+    content: '\E89B';
+    font-family: eicons;
+    font-size: inherit;
+    font-weight: 400;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 30px;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+}
+#e_copy_paste__close {
+    position: absolute;
+    top: 11px;
+    right: 11px;
+    color: inherit;
+    font-size: 25px;
+}
+
+/* #e_copy_paste__textarea {
+    height: 40px;
+    background-color: #f5f5f5;
+} */
+#e_copy_paste__textarea {
+    height: 40px;
+    background-color: #f5f5f5;
+    height: 200px;
+    border-radius: 0;
+    border: none;
+    padding: 15px;
+    color: #999;
+}
+/* #e_copy_paste__btn {
+        position: absolute;
+        right: 20px;
+        height: 40px;
+        cursor: pointer;
+        font-weight: bold;
+        padding: 10px 20px;
+        background-color: #000;
+        border: none;
+        color: #fff;
+        border-radius: 0 3px 3px 0;
+} */
+#e_copy_paste__btn {
+    cursor: pointer;
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: #d30c5c;
+    border: none;
+    color: #fff;
+    border-radius: 0 0 3px 3px;
+    width: 100%;
+    text-transform: uppercase;
+}
+
+#e_copy_paste__file_label {
+    text-align: center;
+    display: block;
+    width: 100%;
+}
+.elementor-context-menu .elementor-context-menu-element__icon {
+    float: right;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin-right: 4px;
+    padding: 2px 4px;
+    color: #c2cbd2;
+    line-height: 1;
+}
+.elementor-context-menu .elementor-context-menu-list__item:hover .elementor-context-menu-element__icon {    
+    color: white;
+    cursor: pointer;
+}
+.elementor-context-menu .elementor-context-menu-list__item.elementor-context-menu-list__item--disabled:hover  .elementor-context-menu-element__icon {
+    background-color: #71d7f7;
+}
+.elementor-context-menu .elementor-context-menu-list__item:not(.elementor-context-menu-list__item--disabled):hover .elementor-context-menu-element__icon:hover {
+    background-color: white;
+    color: #71d7f7;
+}
+.elementor-context-menu .elementor-context-menu-list__item.elementor-context-menu-list__item-e_paste,
+.elementor-context-menu .elementor-context-menu-list__item.elementor-context-menu-list__item-e_paste_style {
+    display: none;
+}

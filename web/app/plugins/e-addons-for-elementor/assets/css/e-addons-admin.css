@@ -1,0 +1,183 @@
+.e_addons_heading{
+}
+.e_addons_heading b{
+    font-weight: 900 !important;
+}
+.e_addons_version{
+    position: absolute;
+    right: 25px;
+    top: 12px;
+    background-color: #FFF;
+    padding: 10px 20px;
+    border-radius: 40px;
+}
+h1.e_addons-title {
+    padding: 10px;
+    font-weight: 900;
+    font-size: 3em;
+    display: block;
+    margin: 20px auto 0;
+    color: #000;
+    text-align: center;
+}
+h2.e_addons-title {
+    font-size: 2em;
+    margin: 0 0 20px 0;
+    text-align: center;
+}
+h3.e_addons-title {
+    font-size: 2em;
+    margin: 30px 0 20px 11px;
+}
+.e_addons-title .e_addons_ic {
+    background-color: #fff;
+    border-radius: 200px;
+    padding: 10px;
+    color: #000;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+/* buttons */
+.e_addons-button{
+    padding: 10px 20px;
+    /*border-radius: 3px;*/
+    border: 1px solid transparent;
+    color: #777;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.e_addons-button-default{
+    background-color: #f1f1f1;
+    border-color: #b8b8b7;
+    color: #848484;
+}
+.e_addons-button-default:hover{
+    background-color: #e3e3e3;
+    color: #888888;
+}
+.e_addons-button-primary{
+    color: #fff;
+    background-color: #007cba;
+}
+.e_addons-button-primary:hover{
+    background-color: #06507b;
+    color: #fff;
+}
+.e_addons-button-danger{
+    color: #fff;
+    background-color: #dc3545;
+}
+.e_addons-button-danger:hover{
+    background-color: #dc3545;
+    color: #fff;
+}
+/* Pannello */
+.e_addons-panel {
+    background-color: white;
+    box-sizing: border-box;
+    position: relative;
+    margin-bottom: 15px;
+
+    box-shadow: 0 0px 30px rgba(0,0,0,.1);
+    border-radius: 10px;
+
+    overflow: hidden;
+    padding: 20px !important;
+    /*border-left-width: 10px !important;*/
+}
+.e_addons-panel-info {
+    border-left: 2px solid #00a0d2;
+}
+.e_addons-panel-success {
+    border-left: 2px solid #46b450;
+}
+.e_addons-panel-warning {
+    border-left: 2px solid #ffb900;
+}
+.e_addons-panel-error {
+    border-left: 2px solid #dc3232;
+}
+/* #adminmenu #toplevel_page_e_addons div.wp-menu-image::before {
+    content: '';
+        background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxpdmVsbG9fMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCAyMDAgMjAwOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4uc3Qwe2ZpbGw6I0ZGRkZGRjt9PC9zdHlsZT48cGF0aCBjbGFzcz0ic3QwIiBkPSJNNzYuOSw5NC40TDc2LjksOTQuNEw3Ni45LDk0LjRMNzYuOSw5NC40eiBNNTEsMTM3LjVjLTguMS04LjYtMTAuNi0xOS40LTExLjUtMjYuNGwtMzksMEMzLjEsMTM1LDE0LjIsMTU3LjEsMzIsMTczLjVDNTAuNSwxOTAuNiw3NC42LDIwMCw5OS44LDIwMGMzNS45LDAsNjguNy0xOSw4Ni42LTQ5LjloLTEwM0M2OS43LDE1MC4xLDU4LjgsMTQ1LjgsNTEsMTM3LjV6IE05Ny43LDczLjZjMC0xMS41LTkuMy0yMC44LTIwLjgtMjAuOGMtMTEuNSwwLTIwLjgsOS4zLTIwLjgsMjAuOEw1Niw5NC40bDIwLjksMEM4OC40LDk0LjQsOTcuNyw4NS4xLDk3LjcsNzMuNnogTTE3MC42LDI5LjNDMTUxLjcsMTAuNCwxMjYuNiwwLDk5LjgsMEM3My43LDAsNDguOSwxMCwzMC4yLDI4LjNDMTIsNDUuOSwxLjQsNjkuMywwLDk0LjRsMzkuMiwwbDAuMS0yMC44QzM5LjMsNTIuOSw1Ni4yLDM2LDc2LjksMzZjMjAuNywwLDM3LjYsMTYuOSwzNy42LDM3LjZzLTE2LjksMzcuNi0zNy42LDM3LjZsLTIwLjUsMGMwLjcsNC40LDIuNSwxMC40LDYuOCwxNC45YzQuNSw0LjgsMTEuMyw3LjIsMjAuMiw3LjJoMTEwLjdjMy44LTEwLjcsNS43LTIxLjksNS43LTMzLjNDMTk5LjgsNzMuMywxODkuNCw0OC4yLDE3MC42LDI5LjN6Ii8+PC9zdmc+);    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    opacity: .6;
+}
+#adminmenu #toplevel_page_e_addons:hover div.wp-menu-image::before {
+    opacity: 1;
+} */
+#adminmenu #toplevel_page_e_addons div.wp-menu-image::before{
+    content: "\E860";
+    font-family: eadd;
+    font-size: 18px;
+    margin-top: 1px;
+}
+
+#adminmenu .dashicons-warning.e-count {
+    color: #ca4a1f;
+    background-color: white;
+    border-radius: 50%;
+    margin-left: 5px;
+}
+#adminmenu .update-plugins.e-count, 
+#adminmenu li a.wp-has-current-submenu .update-plugins.e-count {
+    color: #fff;
+    padding: 0px 5px !important;
+    display: inline-block;
+    height: 22px;
+    min-width: 22px;
+    vertical-align: middle;
+    position: absolute;
+    top: 7px;
+    line-height: 1.8;
+    right: 17px;
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 100px;
+    margin: 0;
+    border: 1px solid rgba(255,255,255,0.4);
+}
+html[dir="rtl"] #adminmenu .update-plugins.e-count, 
+html[dir="rtl"] #adminmenu li a.wp-has-current-submenu .update-plugins.e-count {    
+    right: auto;
+    left: 17px;
+}
+/* Avvisi */
+.notice.e-add-notice{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    position: relative;
+}
+.notice.e-add-notice p{
+    margin: 0;
+}
+.e-add-notice .eadd-logo-e-addons{
+    font-size: 30px;
+    coloor: #333;
+    float: left;
+    margin-right: 10px;
+}
+.notice-warning.e-add-notice .eadd-logo-e-addons{
+    color: #ffb900;
+}
+.notice-error.e-add-notice .eadd-logo-e-addons{
+
+}
+.wp-core-ui .button.my_notice_eaddons_update{
+    background-color: #ffb900;
+    color: #000;
+    border: none;
+    margin: 0 10px;
+    padding: 5px 15px;
+
+    float: none;
+
+    transition: all 0.4s ease;;
+}
+.wp-core-ui .button.my_notice_eaddons_update:hover{
+    background-color: #000;
+    color:#ffb900;
+}
