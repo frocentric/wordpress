@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "93c571f9df1d7e468e89263d4a5ac66c",
+    "content-hash": "fb6be47f49edd3784cd0a81144d3e62c",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3170,15 +3170,15 @@
         },
         {
             "name": "wpackagist-plugin/events-manager",
-            "version": "5.12.1",
+            "version": "6.0.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/events-manager/",
-                "reference": "tags/5.12.1"
+                "reference": "tags/6.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/events-manager.5.12.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/events-manager.6.0.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -4169,5 +4169,5 @@
         "php": ">=5.6"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.3.0"
 }
