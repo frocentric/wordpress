@@ -1,0 +1,567 @@
+.my_e_addons {
+    display: flex;
+    width: 100%;
+    flex-flow: wrap;
+    justify-content: center;
+    margin: 25px 0;
+    max-width: 1480px;
+    margin: 0 auto 40px;
+}
+.my_e_addons a:focus{
+    outline: none;
+    box-shadow: none;
+}
+.my_e_addons .my_e_addon_description cite {
+    display: none;
+}
+.my_e_addons cite a, .my_e_addons cite a:active{
+    text-decoration: none;
+    color: rgba(0,0,0,0.5);
+}
+.my_e_addons cite a:hover {
+    color: #000;
+}
+.my_e_addons_foreveralone {
+    /*justify-content: center;
+    text-align: center;*/    
+    margin: 0 auto;
+}
+.my_e_addons_foreveralone .my_eaddon_body {
+    display: block;
+}
+.my_e_addons_foreveralone .my_e_addon_thumb {
+    width: 100%;
+    height: auto;
+}
+.my_e_addons_foreveralone .my_e_addon_title, .e_addons-center {
+    text-align: center;
+}
+
+
+.my_e_addon {
+    background-color: white;
+    box-sizing: border-box;
+    width: 32%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    box-shadow: 0 0px 30px rgba(0,0,0,.1);
+    border: 1px solid #ccd0d4;
+    border-radius: 7px;
+    overflow: hidden;
+    margin: 0.5%;
+}
+@media(max-width:992px) {
+    .my_e_addon {
+        width: 48%; 
+    }
+}
+@media(max-width:620px) {
+    .my_e_addon {
+        width: 98%; 
+    }
+}
+.my_e_addon_update{
+    background-color: #f3f3d3;
+}
+.my_eaddon_header{
+    padding: 0px;
+}
+.my_eaddon_body{
+    padding: 20px;
+    display: flex;
+}
+.my_eaddon_figure{
+    margin: 0;
+}
+.my_eaddon_desc{
+    width: 100%;
+}
+.my_eaddon_cta {
+    text-align: center;
+    margin: -15px 0px 20px -15px;
+}
+.my_eaddon_cta a {
+    margin: 20px auto;
+}
+.toplevel_page_e_addons .button.right {
+    display: flex;
+    align-items: center;
+}
+.my_eaddon_actions{
+    clear: both;
+    padding: 20px;
+    border-top: 1px solid #ccc;
+}
+.my_e_addon_title{
+    font-weight: 900;
+    font-size: 22px;
+    line-height: 1.1;
+    margin: 0 0 15px 0;
+}
+
+/* in caso di disabled */
+.my_e_addon_disabled {
+    box-shadow: none;
+    background-color: #FFF;
+    color: #acacac;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 1px, #e7e7e7 1px, #e7e7e7 10px);
+}
+.my_e_addon_disabled.my_e_addon_update{
+    background-color: #dfdfbf;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 1px, #f3f3d3 1px, #f3f3d3 10px);
+}
+.my_e_addon_disabled .my_e_addon_title, .my_e_addon_disabled .e_addon-button-icon{
+    color: #6b6b6b;
+}
+.my_e_addon_disabled .my_e_addon_version{
+    background-color: #CCC;
+    color: #FFF;
+}
+
+
+.my_e_addon_disabled:hover {
+    opacity: 1;
+}
+.my_e_addon_activation {
+    background: #4cb164;
+    padding: 10px 20px;
+    position: relative;
+    display: inline-block;
+    color: #fff;
+}
+.my_e_addon_core{
+    background: #9f16ff;
+}
+.my_e_addon_disabled .my_e_addon_activation {
+    background: #ae524b;
+    text-decoration: none;
+    color: #fff;
+    font-style: italic;
+    font-size: 12px;
+}
+.my_e_addon_disabled .my_e_addon_activation:hover {
+    background: #6e120b;
+    color: #fff;
+}
+
+.my_e_addon .my_e_addon_activate {
+    display: none;
+}
+.my_e_addon .my_e_addon_activated {
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.my_e_addon.my_e_addon_disabled .my_e_addon_activate {
+    display: inline-block;
+}
+.my_e_addon.my_e_addon_disabled .my_e_addon_license_wrapper,
+.my_e_addon.my_e_addon_disabled .my_e_addon_activated,
+.my_e_addon.my_e_addon_disabled .my_e_addon_deactivate,
+.my_e_addon.my_e_addon_disabled .my_e_addon_settings {
+    display: none;
+}
+
+.my_e_addon_thumb {
+    float: left;
+    margin-right: 20px;
+}
+.my_e_addon_disabled .my_e_addon_thumb {
+    opacity: 0.5;
+}
+.my_e_addon_version {
+    float: right;
+    background: #E9E9E9;
+    color: #6b6b6b;
+    padding: 10px 20px;
+    position: relative;
+}
+.my_e_addon_version.my_e_addon_version_update, .my_e_addon_version.my_e_addon_version_update:hover {
+    float: right;
+    background: #444;
+    color: white;
+    text-decoration: none;
+    color: #f3f3d3;
+}
+.my_e_addon_version.my_e_addon_version_update small {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    display: none;
+    background-color: #ca4a1f;
+    width: 120px;
+    text-align: center;
+    margin-bottom: 2px;
+}
+.my_e_addon_version.my_e_addon_version_update:hover small {
+    display: block;
+}
+.my_e_addon_license{
+    padding: 5px;
+    border-top: 1px solid #ccc;
+    position: relative;
+    background-color: #fff;
+}
+.my_e_addoons_license-wrap{
+    background-color: #f5f5f5;
+    padding: 13px;
+}
+.my_e_addon_license_status{
+    font-size: 13px;
+    line-height: 1;
+    margin: 2px 0;    
+}
+.my_e_addon_license_status b{
+    color: #ae524b;
+}
+.my_e_addon_license_status .dashicons {
+    color: #333;
+}
+.my_e_addon_license > p {
+    margin: 0;
+}
+.my_e_addon_license input.my_e_addon_license_key {
+    width: 100%;
+    border: 1px dashed;
+    border-radius: 0;
+    margin-top: 10px;
+}
+.my_e_addon_license_closed {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    background-color: white;
+    color:  #333;
+    text-decoration: none;
+    display: none;
+    border-radius: 50%;
+    padding: 5px;
+    color: #ae524b;
+}
+.my_e_addon_license_closed:hover {
+    color: #999;
+}
+.my_e_addon_license_close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    background-color: white;
+    color:  #333;
+    text-decoration: none;
+}
+
+
+
+.my_e_addon_update {
+    float: right;
+}
+.my_e_addon_update-actions{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.my_e_addon_update-actions-user{
+    margin: 20px 0;
+}
+
+.my_e_addon_update-actions .my_e_addon_update {
+    transition: all 0.5s ease;
+}
+.my_e_addon_update-actions .my_e_addon_update.my_e_addon_update-key{
+    padding: 12px 35px 12px 20px;
+    background-color: #FFF;
+    color: #4cb164;
+}
+.my_e_addon_update-actions .dashicons.e-key {
+    font-size: 22px;
+    color: #4cb164;
+    background: #fff;
+    display: block;
+    padding: 9px;
+    line-height: 23px;
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin: -30px 0 0 -30px;
+    border: 1px solid #C1C1C1;
+}
+.my_e_addon_update-actions .my_e_addon_update.my_e_addon_update-key:hover{
+    background-color: #4cb164;
+    color: #FFF;
+}
+
+
+.my_e_addon_update-actions .my_e_addon_update.my_e_addon_update-user {
+    background-color: #FFF; 
+    color: #939393;
+    vertical-align: middle;
+    border-radius: 50px;
+    outline: 0;
+}
+.my_e_addon_update-actions .my_e_addon_update:not(.my_e_addon_update-user-connected){
+    border: 1px solid #C1C1C1;
+}
+.my_e_addon_update-actions .my_e_addon_update.my_e_addon_update-user-connected{
+    background-color: #47af4f;
+    color: #fff;
+    position: relative;
+}
+.my_e_addon_update-actions .my_e_addon_update.my_e_addon_update-user-connected::after {
+    content: '';
+    display: block;
+    border: 5px solid #74db7c;
+    border-radius: 100px;
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    -webkit-animation-duration: 3s;
+    animation-duration: 3s;
+    -webkit-animation-name: updateconnectedpulse;
+    animation-name: updateconnectedpulse;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+}
+@keyframes updateconnectedpulse {
+    0% { 
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+.my_e_addon_update-actions .my_e_addon_update.my_e_addon_update-remove{
+    padding: 10px 5px;
+    background-color: transparent;
+    border: none;
+}
+.my_e_addon_update-actions .my_e_addon_update.my_e_addon_update-remove .dashicons{
+    margin-right: -4px;
+}
+.my_e_addon_update-actions .my_e_addon_update.my_e_addon_update-remove:hover{
+    color: #000;
+}
+.my_e_addon_update-actions .my_e_addon_update.my_e_addon_update-user .eadd-logo-e-addons {
+    font-size: 20px;
+    margin-left: 7px;
+}
+.my_e_addon_update-actions .my_e_addon_update.my_e_addon_update-user:not(.my_e_addon_update-user-connected) .eadd-logo-e-addons {
+    color: #9f16ff;
+    transition: color 0.5s ease;
+}
+.my_e_addon_update-actions .my_e_addon_update.my_e_addon_update-user:hover{
+    background-color: #9f16ff;
+    color: #FFF;
+}
+.my_e_addon_update-actions .my_e_addon_update.my_e_addon_update-user:not(.my_e_addon_update-user-connected):hover .eadd-logo-e-addons {
+    color: #FFF;
+}
+.my_e_addon_check_license {
+    position: absolute;
+    right: 25px;
+    bottom: 25px;
+}
+.my_e_addon_deactivate_license {
+    position: absolute;
+    right: 45px;
+    bottom: 25px;
+    color: #6e120b;
+}
+
+.my_e_addon_license_status__valid .my_e_addon_license_closed,
+.my_e_addon_license_status__valid .my_e_addon_license_status .dashicons,
+.my_e_addon_license_status__valid .my_e_addon_license_status b {
+    color: #4cb164;
+}
+
+.my_e_addon.my_e_addon_disabled .my_e_addon_license_closed,
+.my_e_addon_license_status__valid .my_e_addon_license_closed {
+    display: block;
+}
+.my_e_addon.my_e_addon_disabled .my_e_addon_license,
+.my_e_addon_license_status__valid .my_e_addon_license {
+    display: none;
+}
+
+/* Icon */
+.my_e_addons_ic{
+    vertical-align: middle;
+}
+.my_eaddon_header .e_addons-button{
+    position: relative;
+}
+
+/* Button */
+.my_e_addons .e_addons-button-default {
+    background-color: #333;
+    border-color: #333;
+    color: #fff;
+    transition: all 0.4s ease;
+}
+
+/* l'abbassamento al roll-hover */
+.my_e_addons-add .my_eaddon_header .e_addons-button:after{
+    transition: all 0.5s ease;
+    background-color: rgba(0,0,0,0.4);
+    opacity: 0;
+
+    display: block;
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+.my_e_addons-add .my_eaddon_header .e_addons-button:hover:after{
+    opacity: 1;
+
+}
+/*  */
+.my_eaddon_header .e_addons-button .btn-txt, .my_eaddon_header .e_addons-button .dashicons{
+    position: relative;
+    z-index: 10;
+}
+
+
+.e_addons-button.my_e_addon_cache,
+.e_addons-button.my_e_addon_install {
+    background-color: #555; /*9f16ff #4474b5*/
+    color: white;
+    text-align: center;
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    width: 100%;
+    color: #fff;
+    border-radius: 0;
+}
+
+
+.e_addons-button.my_e_addon_buy{
+    background-color: #9f16ff; /*#7f54b3;*/
+    color: white;
+    text-align: center;
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    width: 100%;
+    color: #fff;
+    border-radius: 0;
+}
+
+
+
+.dashicons.spin {
+    animation: dashicons-spin 1s infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes dashicons-spin {
+    0% {
+        transform: rotate( 0deg );
+    }
+    100% {
+        transform: rotate( 360deg );
+    }
+}
+
+.e_addons-button.e_addon-button-icon{
+    padding: 10px 10px 10px 0;
+    text-decoration: none;
+    color: #797979;
+    float: right;
+}
+.e_addons-button.e_addon-button-icon:hover{
+    color: #444;
+}
+.my_e_addon_deactivate.e_addon-button-icon{
+    background: transparent;
+    float: none;
+    padding: 0 6px;
+}
+
+.wp-core-ui .button.my_notice_eaddons_enable,
+.wp-core-ui .button.my_notice_eaddons_install,
+.wp-core-ui .button.my_notice_eaddons_update {
+    line-height: 1.4;
+    min-height: 0;
+}
+
+.my_e_addon.my_e_addons-cache {
+    background-color: transparent;
+    border: 2px dashed #666;
+    text-align: center;
+}
+/* MORTI */
+
+#my_e_addons__e-addons-query-media::before, 
+#my_e_addons__e-addons-query-posts::before, 
+#my_e_addons__e-addons-editor::before, 
+#my_e_addons__e-addons-copy-paste::before {
+	content: 'integrate in CORE';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	z-index: 13;
+	color: #fff;
+	font-size: 20px;
+	background-color: #9f16ff;
+	padding: 15px;
+	border-radius: 10px;
+	box-shadow: 0 0 15px rgba(0,0,0,0.3);
+	border: 2px solid rgba(255,255,255,0.5);
+}
+
+#my_e_addons__e-addons-query-media:after,
+#my_e_addons__e-addons-query-posts:after,
+#my_e_addons__e-addons-editor:after,
+#my_e_addons__e-addons-copy-paste:after{
+    content: '';
+    position: absolute;
+    background-color: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 12;
+}
+#my_e_addons__e-addons-query-media .my_e_addon_version,
+#my_e_addons__e-addons-query-posts .my_e_addon_version,
+#my_e_addons__e-addons-editor .my_e_addon_version,
+#my_e_addons__e-addons-copy-paste .my_e_addon_version{
+    background-color: #6e120b;
+}
+#my_e_addons__e-addons-query-media .e_addon-button-icon,
+#my_e_addons__e-addons-query-posts .e_addon-button-icon,
+#my_e_addons__e-addons-editor .e_addon-button-icon,
+#my_e_addons__e-addons-copy-paste .e_addon-button-icon{
+    color: #fff;
+}
+
+#my_e_addons__e-addons-query-media .my_e_addon_activate,
+#my_e_addons__e-addons-query-posts .my_e_addon_activate,
+#my_e_addons__e-addons-editor .my_e_addon_activate,
+#my_e_addons__e-addons-copy-paste .my_e_addon_activate{
+    display: none;
+}
+#my_e_addons__e-addons-query-media .my_e_addon_activation,
+#my_e_addons__e-addons-query-posts .my_e_addon_activation,
+#my_e_addons__e-addons-editor .my_e_addon_activation,
+#my_e_addons__e-addons-copy-paste .my_e_addon_activation{
+    position: relative;
+    z-index: 20;
+}
+#my_e_addons__e-addons-query-media .my_e_addon_activation .dashicons-remove,
+#my_e_addons__e-addons-query-posts .my_e_addon_activation .dashicons-remove,
+#my_e_addons__e-addons-editor .my_e_addon_activation .dashicons-remove,
+#my_e_addons__e-addons-copy-paste .my_e_addon_activation .dashicons-remove{
+
+}

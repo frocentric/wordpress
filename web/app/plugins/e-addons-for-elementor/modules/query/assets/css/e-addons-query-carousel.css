@@ -1,0 +1,579 @@
+.e-add-carousel-container{
+  position: relative;
+}
+/* NAVIGATION: PREV-NEXT 
+.e-add-carousel-controls .e-add-container-navigation{
+	position: absolute;
+	width: 100%;
+	left: 0;
+	z-index: 10000;
+}*/
+.e-add-carousel-controls .swiper-button-prev,
+.e-add-carousel-controls .swiper-button-next {
+  position: absolute;
+  top: 50%;
+  width: auto; /*85px;*/
+  height: auto; /*85px;*/
+  /* margin-top: -43px; */
+  z-index: 9;
+  cursor: pointer;
+  background-size: 85px 85px;
+  background-position: center;
+  background-repeat: no-repeat;
+  outline: none;
+}
+
+.e-add-carousel-controls .swiper-button-prev.swiper-button-disabled,
+.e-add-carousel-controls .swiper-button-next.swiper-button-disabled {
+  opacity: 0;
+  cursor: auto;
+  pointer-events: none;
+}
+
+
+.e-add-carousel-controls .swiper-button-prev svg line,
+.e-add-carousel-controls .swiper-button-prev svg polyline,
+.e-add-carousel-controls .swiper-button-next svg line,
+.e-add-carousel-controls .swiper-button-next svg polyline{
+  transition: stroke 0.8s linear;
+  -webkit-transition: stroke 0.8s linear;
+  -moz-transition: stroke 0.8s linear;
+  -o-transition: stroke 0.8s linear;
+  -ms-transition: stroke 0.8s linear;
+}
+.e-add-carousel-controls.hoveranim-yes .swiper-button-prev:hover svg,
+.e-add-carousel-controls.hoveranim-yes .swiper-button-next:hover svg{
+  transform: scale(1.2);
+}
+
+.e-add-carousel-controls .swiper-button-prev svg,
+.e-add-carousel-controls .swiper-button-next svg{
+  position: relative;
+	z-index: 10;
+  overflow: visible;
+
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
+
+  transition: transform .6s cubic-bezier(.46,.03,.14,.93);
+  -webkit-transition: transform .6s cubic-bezier(.46,.03,.14,.93);
+  -moz-transition: transform .6s cubic-bezier(.46,.03,.14,.93);
+  -o-transition: transform .6s cubic-bezier(.46,.03,.14,.93);
+  -ms-transition: transform .6s cubic-bezier(.46,.03,.14,.93);
+}
+
+.e-add-carousel-controls .swiper-button-prev.swiper-button-disabled svg,
+.e-add-carousel-controls .swiper-button-next.swiper-button-disabled svg{
+  -webkit-transform: scale(0.1);
+  -ms-transform: scale(0.1);
+  -o-transform: scale(0.1);
+  transform: scale(0.1);
+}
+.e-add-carousel-controls .swiper-button-next line{
+	transform-origin: 100% 0;
+}
+.e-add-carousel-controls .swiper-button-prev line{
+	transform-origin: 0 0;
+}
+
+.e-add-carousel-controls .swiper-button-next:focus, 
+.e-add-carousel-controls .swiper-button-prev:focus{
+  outline: none;
+}
+.e-add-carousel-controls .swiper-button-prev, 
+.e-add-carousel-controls .swiper-container-rtl .swiper-button-next,
+.e-add-carousel-controls .swiper-button-next, 
+.e-add-carousel-controls .swiper-container-rtl .swiper-button-prev{
+  background-image: none;
+}
+.e-add-carousel-controls .swiper-button-prev,
+.e-add-carousel-controls .swiper-container-rtl .swiper-button-prev {
+  left: 10px;
+  right: auto;
+  background-image: none;
+}
+.e-add-carousel-controls .swiper-button-next,
+.e-add-carousel-controls .swiper-container-rtl .swiper-button-next {
+  right: 10px;
+  left: auto;
+  background-image: none;
+}
+.e-add-carousel-controls .swiper-button-prev:after,
+.e-add-carousel-controls .swiper-container-rtl .swiper-button-next:after {
+ content: none;
+}
+.e-add-carousel-controls .swiper-button-next:after,
+.e-add-carousel-controls .swiper-container-rtl .swiper-button-prev:after {
+ content: none;
+}
+
+/* ---------------- arrows CIRCLE ---------------- */
+.e-add-carousel-controls .e-add-container-navigation .arrow-wrap{
+  display: inline-block;
+	position: relative;
+}
+.e-add-carousel-controls .e-add-container-navigation .e-add-navigation-circle .arrow-wrap:before{
+	content: '';
+	border-radius: 300px;
+	display: block;
+	width: 80px;
+	height: 80px;
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	transition: background-color 0.4s ease;
+}
+.e-add-carousel-controls .e-add-container-navigation .swiper-button-prev.e-add-navigation-circle .arrow-wrap:before{
+	left: 0;
+	right: auto;
+}
+.e-add-carousel-controls .e-add-container-navigation .swiper-button-next.e-add-navigation-circle .arrow-wrap:before{
+	left: auto;
+	right: 0;
+	transform: rotate(180deg);
+}
+
+/* PAGINATION [ Base ] */
+.e-add-carousel-controls .e-add-container-pagination > .swiper-pagination-bullets .swiper-pagination-bullet {
+  transition: background .5s, border .5s, opacity .5s;
+}
+.e-add-carousel-controls .e-add-container-pagination > .swiper-pagination-bullets.swiper-pagination-bullets-dynamic .swiper-pagination-bullet {
+  transition: .5s transform,.5s top,.5s left,.5s background-color;
+}
+
+.e-add-container-navigation{
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 1;
+}
+
+/* --------------------[ Navigation style ]---------------------- */
+.swiper-pagination-bullet-active {
+  background: #000000;
+}
+.swiper-container-vertical > .swiper-wrapper {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.e-add-nav-style .swiper-pagination-bullet {
+  position: relative;
+  
+  border: 0;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+.e-add-container-pagination.swiper-container-vertical > .swiper-pagination-bullets.e-add-nav-style .swiper-pagination-bullet {
+   display: block;
+}
+.e-add-container-pagination.swiper-container-horizontal > .swiper-pagination-bullets.e-add-nav-style .swiper-pagination-bullet {
+   display: inline-block;
+}
+.e-add-container-pagination > .swiper-pagination-bullets.e-add-nav-style .swiper-pagination-bullet:focus {
+  outline: none;
+}
+
+/*@p i numeri sopra ai pallini*/
+.e-add-container-pagination > .swiper-pagination-bullets .swiper-pagination-bullet-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  white-space: nowrap;
+  pointer-events: none;
+  
+  opacity: 0;
+  
+  -webkit-transition: opacity 0.5s, -webkit-transform 0.5s;
+  transition: opacity 0.5s, transform 0.5s;
+  -webkit-transition-timing-function: cubic-bezier(0.2,1,0.3,1);
+  transition-timing-function: cubic-bezier(0.2,1,0.3,1);
+  
+  color: #000;
+  font-size: 0.9em;
+  line-height: 1;
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets .swiper-pagination-bullet-active .swiper-pagination-bullet-title {
+  opacity: 1;
+
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+}
+
+/* numbers horizontal */
+.e-add-container-pagination.swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet-title {
+  padding: 0 0 10px 0;
+
+  align-items: flex-end;
+  justify-content: center;
+
+  -webkit-transform: scale3d(0.1,0.1,1) translateY(-100%);
+  transform: scale3d(0.1,0.1,1) translateY(-100%);
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+}
+.e-add-container-pagination.swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet-active .swiper-pagination-bullet-title {
+  -webkit-transform: scale3d(1,1,1) translateY(-100%);
+  transform: scale3d(1,1,1) translateY(-100%);
+}
+/* numbers vertical */
+.e-add-container-pagination.swiper-container-vertical > .swiper-pagination-bullets .swiper-pagination-bullet-title {
+  padding: 0 10px 0 0;
+
+  align-items: center;
+  justify-content: flex-end;
+  
+  -webkit-transform: scale3d(0.1,0.1,1) translateX(-100%);
+  transform: scale3d(0.1,0.1,1) translateX(-100%);
+  -webkit-transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
+}
+.e-add-container-pagination.swiper-container-vertical > .swiper-pagination-bullets .swiper-pagination-bullet-active .swiper-pagination-bullet-title {
+  -webkit-transform: scale3d(1,1,1) translateX(-100%);
+  transform: scale3d(1,1,1) translateX(-100%);
+}
+
+
+/*** Timiro (Circles) ***/
+.e-add-container-pagination > .swiper-pagination-bullets.nav--timiro .swiper-pagination-bullet {
+  
+  width: 1.5em;
+  height: 1.5em;
+
+  border-radius: 50%;
+
+  background: #999;
+  opacity: 1;
+  
+  -webkit-transform: scale3d(0.5,0.5,1);
+  transform: scale3d(0.5,0.5,1);
+
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  -webkit-transition-timing-function: cubic-bezier(0.2,1,0.3,1);
+  transition-timing-function: cubic-bezier(0.2,1,0.3,1);
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.nav--timiro .swiper-pagination-bullet-active,
+.e-add-container-pagination > .swiper-pagination-bullets.nav--timiro .swiper-pagination-bullet:not(.swiper-pagination-bullet-active):focus,
+.e-add-container-pagination > .swiper-pagination-bullets.nav--timiro .swiper-pagination-bullet:not(.swiper-pagination-bullet-active):hover {
+  -webkit-transform: scale3d(1,1,1);
+  transform: scale3d(1,1,1);
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.nav--timiro .swiper-pagination-bullet::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: #000;
+  border-radius: 100px;
+
+  -webkit-transform: translate3d(0,0,0) scale(0);
+  transform: translate3d(0,0,0) scale(0);
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  -webkit-transition-timing-function: cubic-bezier(0.2,1,0.3,1);
+  transition-timing-function: cubic-bezier(0.2,1,0.3,1);
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.nav--timiro .swiper-pagination-bullet-active::before {
+  -webkit-transform: translate3d(0,0,0) scale(1);
+  transform: translate3d(0,0,0) scale(1);
+
+  height: 100%;
+}
+
+/*** Shamso (Dots) ***/
+.e-add-container-pagination > .swiper-pagination-bullets.nav--shamso .swiper-pagination-bullet {
+  width: 25px;
+  height: 25px;
+  opacity: 1;
+  
+}
+.e-add-container-pagination > .swiper-pagination-bullets.nav--shamso .swiper-pagination-bullet-active{
+  background: none;
+}
+.e-add-container-pagination > .swiper-pagination-bullets.nav--shamso .swiper-pagination-bullet::before,
+.e-add-container-pagination > .swiper-pagination-bullets.nav--shamso .swiper-pagination-bullet::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.nav--shamso .swiper-pagination-bullet::before {
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  background: #CCC;
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  -webkit-transition-timing-function: cubic-bezier(0.2,1,0.3,1);
+  transition-timing-function: cubic-bezier(0.2,1,0.3,1);
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.nav--shamso .swiper-pagination-bullet:not(.swiper-pagination-bullet-active):focus::before,
+.e-add-container-pagination > .swiper-pagination-bullets.nav--shamso .swiper-pagination-bullet:not(.swiper-pagination-bullet-active):hover::before {
+  -webkit-transform: scale3d(1.35,1.35,1);
+  transform: scale3d(1.35,1.35,1);
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.nav--shamso .swiper-pagination-bullet-active::before {
+  background-color: #000;
+  -webkit-transform: scale3d(0.35,0.35,1);
+  transform: scale3d(0.35,0.35,1);
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.nav--shamso .swiper-pagination-bullet::after {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  box-shadow: inset 0 0 0 3px #333;
+  -webkit-transform: scale3d(0.35,0.35,1);
+  transform: scale3d(0.35,0.35,1);
+
+  -webkit-transition: -webkit-transform 0.5s, box-shadow 0.5s, opacity 0.5s, border 0.5s;
+  transition: transform 0.5s, box-shadow 0.5s, opacity 0.5s, border 0.5s;
+
+  -webkit-transition-timing-function: cubic-bezier(0.2,1,0.3,1);
+  transition-timing-function: cubic-bezier(0.2,1,0.3,1);
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.nav--shamso .swiper-pagination-bullet-active::after {
+  opacity: 1;
+  box-shadow: inset 0 0 0 3px #333;
+  -webkit-transform: scale3d(1,1,1);
+  transform: scale3d(1,1,1);
+}
+
+/*** 2 Xusni (VerticalBars) ***/
+.e-add-container-pagination > .swiper-pagination-bullets.nav--xusni{
+  right: 0;
+}
+.e-add-container-pagination > .swiper-pagination-bullets.nav--xusni .swiper-pagination-bullet {
+  width: 3em !important; 
+  height: 20px;
+  border-radius: 0;
+  opacity: 1;
+  background: none;
+}
+.e-add-container-pagination.swiper-container-vertical > .swiper-pagination-bullets.nav--xusni .swiper-pagination-bullet {
+  width: 20px; 
+  height: 3em !important;
+}
+.e-add-container-pagination > .swiper-pagination-bullets.nav--xusni .swiper-pagination-bullet::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 100%;
+  height: 100%;
+  background: #999;
+
+  -webkit-transform: scale3d(1,0.2,1);
+  transform: scale3d(1,0.2,1);
+
+  -webkit-transform-origin: bottom center;
+  transform-origin: bottom center;
+
+  -webkit-transition: -webkit-transform 0.5s, background-color 0.5s, border 0.5s, opacity 0.5s;
+  transition: transform 0.5s, background-color 0.5s, border 0.5s, opacity 0.5s;
+
+  -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+  transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+}
+.e-add-container-pagination.swiper-container-vertical > .swiper-pagination-bullets.nav--xusni .swiper-pagination-bullet::before {
+  -webkit-transform: scale3d(0.2,1,1);
+  transform: scale3d(0.2,1,1);
+
+  -webkit-transform-origin: center right;
+  transform-origin: center right;
+}
+.e-add-container-pagination > .swiper-pagination-bullets.nav--xusni .swiper-pagination-bullet:not(.swiper-pagination-bullet-active):hover::before,
+.e-add-container-pagination > .swiper-pagination-bullets.nav--xusni .swiper-pagination-bullet:not(.swiper-pagination-bullet-active):focus::before {
+  background: #999;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.nav--xusni .swiper-pagination-bullet-active::before {
+  background: #444;
+  -webkit-transform: scale3d(1,1,1);
+  transform: scale3d(1,1,1);
+}
+.e-add-container-pagination.swiper-container-vertical > .swiper-pagination-bullets.nav--xusni .swiper-pagination-bullet-active::before {
+  -webkit-transform: scale3d(1,1,1);
+  transform: scale3d(1,1,1);
+}
+
+/*** 3 Etefu (Bars) ***/
+.e-add-container-pagination > .swiper-pagination-bullets.nav--etefu .swiper-pagination-bullet {
+  width: 3em !important; 
+  height: 20px;
+  border-radius: 0;
+  opacity: 1;
+
+  background-color: #999;
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.nav--etefu .swiper-pagination-bullet::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 100%;
+  height: 100%;
+  background: #000;
+
+  -webkit-transform: scale3d(0,1,1);
+  transform: scale3d(0,1,1);
+
+  -webkit-transform-origin: center left;
+  transform-origin: center left;
+
+  -webkit-transition: -webkit-transform 0.5s, background-color 0.5s, border 0.5s, opacity 0.5s;
+  transition: transform 0.5s, background-color 0.5s, border 0.5s, opacity 0.5s;
+
+  -webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+  transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.nav--etefu .swiper-pagination-bullet:not(.swiper-pagination-bullet-active):hover::before,
+.e-add-container-pagination > .swiper-pagination-bullets.nav--etefu .swiper-pagination-bullet:not(.swiper-pagination-bullet-active):focus::before {
+  background: #999;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.nav--etefu .swiper-pagination-bullet-active::before {
+  background: #444;
+  -webkit-transform: scale3d(1,1,1);
+  transform: scale3d(1,1,1);
+}
+
+
+/*** 4 Magool (Lines) ***/
+.e-add-container-pagination > .swiper-pagination-bullets.nav--magool .swiper-pagination-bullet {
+  height: 20px;
+  width: 1.25em !important;
+  border-radius: 0;
+  opacity: 1;
+  background: none;
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.nav--magool .swiper-pagination-bullet::after {
+  content: '';
+  position: absolute;
+  left: 45%;
+  bottom: 0;
+  height: 100%;
+  width: 10%;
+  
+  background: #999;
+
+  -webkit-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+
+  -webkit-transition: -webkit-transform 0.5s, background-color 0.5s;
+  transition: transform 0.5s, background-color 0.5s;
+  -webkit-transition-timing-function: cubic-bezier(0.2,1,0.3,1);
+  transition-timing-function: cubic-bezier(0.2,1,0.3,1);
+}
+.e-add-container-pagination.swiper-container-vertical > .swiper-pagination-bullets.nav--magool .swiper-pagination-bullet::after {
+  top: 45%;
+  right: 0;
+  height: 10%;
+  width: 100%;
+
+  -webkit-transform-origin: 100% 0;
+  transform-origin: 100% 0;
+}
+.e-add-container-pagination > .swiper-pagination-bullets.nav--magool .swiper-pagination-bullet:not(.swiper-pagination-bullet-active):focus::after,
+.e-add-container-pagination > .swiper-pagination-bullets.nav--magool .swiper-pagination-bullet:not(.swiper-pagination-bullet-active):hover::after {
+  opacity: 0.5;
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.nav--magool .swiper-pagination-bullet:not(.swiper-pagination-bullet-active):hover::after {
+  -webkit-transform: scale3d(1,2,1);
+  transform: scale3d(1,2,1);
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.nav--magool .swiper-pagination-bullet-active::after {
+  background: #333;
+  -webkit-transform: scale3d(1,2,1);
+  transform: scale3d(1,2,1);
+}
+.e-add-container-pagination.swiper-container-vertical > .swiper-pagination-bullets.nav--magool .swiper-pagination-bullet-active::after {
+  -webkit-transform: scale3d(2,1,1);
+  transform: scale3d(2,1,1);
+}
+.e-add-container-pagination > .swiper-pagination-bullets.nav--magool .swiper-pagination-bullet-active .swiper-pagination-bullet-title {
+  -webkit-transform: scale3d(1,1,1) translateY(-200%);
+  transform: scale3d(1,1,1) translateY(-200%);
+  padding: 0 0 7px 0;
+}
+.e-add-container-pagination.swiper-container-vertical > .swiper-pagination-bullets.nav--magool .swiper-pagination-bullet-active .swiper-pagination-bullet-title {
+  -webkit-transform: scale3d(1,1,1) translateX(-200%);
+  transform: scale3d(1,1,1) translateX(-200%);
+  padding: 0 7px 0 0;
+}
+/*** 5 Ubax (Squares) ***/
+.e-add-container-pagination > .swiper-pagination-bullets.nav--ubax .swiper-pagination-bullet {
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 0;
+  opacity: 1;
+  background: none;
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.nav--ubax .swiper-pagination-bullet::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  border: 2px solid transparent;
+  background-color: #CCC;
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.nav--ubax .swiper-pagination-bullet-active::after {
+  z-index: 10;
+ 
+  background: #000;
+
+  -webkit-transform: scale3d(1.5,1.5,1);
+  transform: scale3d(1.5,1.5,1);
+
+  -webkit-transition: -webkit-transform 0.3s, background-color 0.3s, border-color 0.3s;
+  transition: transform 0.3s, background-color 0.3s, border-color 0.3s;
+}
+
+.e-add-container-pagination > .swiper-pagination-bullets.nav--ubax .swiper-pagination-bullet:not(.swiper-pagination-bullet-active):focus::after,
+.e-add-container-pagination > .swiper-pagination-bullets.nav--ubax .swiper-pagination-bullet:not(.swiper-pagination-bullet-active):hover::after {
+  background: #444;
+  -webkit-transition: -webkit-transform 0.3s, background-color 0.3s;
+  transition: transform 0.3s, background-color 0.3s;
+}

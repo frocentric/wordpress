@@ -1,0 +1,10 @@
+{
+    "config": {
+        "platform-check": false
+    },
+    "require": {
+        "symfony/dom-crawler": "^5.1",
+        "symfony/css-selector": "^5.2",
+        "phpoffice/phpspreadsheet": "^1.18"
+    }
+}
