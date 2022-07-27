@@ -565,8 +565,7 @@ ul.menu {
     .navigation-stick:not(.mobile-header-navigation)
     .inside-navigation
     .menu-toggle,
-  .menu-logo
-    .main-navigation:not(.mobile-header-navigation)
+  .main-navigation:not(.mobile-header-navigation)
     .inside-navigation
     .menu-toggle {
     display: flex;
@@ -575,22 +574,19 @@ ul.menu {
     height: 60px;
     z-index: 999;
   }
-  .menu-logo
-    .main-navigation:not(.mobile-header-navigation)
+  .main-navigation:not(.mobile-header-navigation)
     .inside-navigation
     .menu-toggle[aria-expanded="true"] {
     position: fixed;
     right: 0;
   }
-  .menu-logo
-    .main-navigation:not(.mobile-header-navigation)
+  .main-navigation:not(.mobile-header-navigation)
     .inside-navigation
     .menu-toggle[aria-expanded="true"]
     .open-menu {
     display: none;
   }
-  .menu-logo
-    .main-navigation:not(.mobile-header-navigation)
+  .main-navigation:not(.mobile-header-navigation)
     .inside-navigation
     .menu-toggle[aria-expanded="false"]
     .close-menu {
@@ -607,8 +603,9 @@ ul.menu {
   }
   .mobile-menu-open .main-navigation .main-nav {
     background-color: #fff;
-    position: fixed;
     height: 100vh;
+    position: fixed;
+    top: 0;
     width: 100%;
     z-index: 1;
   }
