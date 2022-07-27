@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa97564bc1edc8b6184d986ab02d0c36",
+    "content-hash": "1d118a143067e41a4281c29b76024cc6",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -804,16 +804,16 @@
         },
         {
             "name": "ingenyus/configure-environment-plugins",
-            "version": "1.0.10",
+            "version": "1.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Genyus/Configure-Environment-Plugins.git",
-                "reference": "fc9508a3ba0daaba3b067f81b7e25f4ecced34d9"
+                "reference": "ba432a2a75adbe9888bf14a49025bf2670775242"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Genyus/Configure-Environment-Plugins/zipball/fc9508a3ba0daaba3b067f81b7e25f4ecced34d9",
-                "reference": "fc9508a3ba0daaba3b067f81b7e25f4ecced34d9",
+                "url": "https://api.github.com/repos/Genyus/Configure-Environment-Plugins/zipball/ba432a2a75adbe9888bf14a49025bf2670775242",
+                "reference": "ba432a2a75adbe9888bf14a49025bf2670775242",
                 "shasum": ""
             },
             "require": {
@@ -847,53 +847,7 @@
                 "issues": "https://github.com/Genyus/Configure-Environment-Plugins/issues",
                 "source": "https://github.com/Genyus/Configure-Environment-Plugins"
             },
-            "time": "2021-10-07T13:44:53+00:00"
-        },
-        {
-            "name": "ingenyus/multisite-url-fixer",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Genyus/multisite-url-fixer.git",
-                "reference": "7da17929f0c529175b1b5f2c2467b6652a51ca5e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Genyus/multisite-url-fixer/zipball/7da17929f0c529175b1b5f2c2467b6652a51ca5e",
-                "reference": "7da17929f0c529175b1b5f2c2467b6652a51ca5e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0.0"
-            },
-            "require-dev": {
-                "squizlabs/php_codesniffer": "^3.1"
-            },
-            "default-branch": true,
-            "type": "wordpress-muplugin",
-            "autoload": {
-                "psr-4": {
-                    "Roots\\Bedrock\\": "src/"
-                }
-            },
-            "scripts": {
-                "test": [
-                    "phpcs --ignore=vendor --extensions=php --standard=PSR2 ."
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "Fixes WordPress issues with home and site URL on multisite when using Bedrock",
-            "homepage": "https://github.com/Genyus/multisite-url-fixer/",
-            "keywords": [
-                "wordpress"
-            ],
-            "support": {
-                "issues": "https://github.com/roots/multisite-url-fixer/issues",
-                "source": "https://github.com/Genyus/multisite-url-fixer/tree/main"
-            },
-            "time": "2022-07-22T21:39:17+00:00"
+            "time": "2022-07-27T13:43:59+00:00"
         },
         {
             "name": "johnpbloch/wordpress",
@@ -3008,15 +2962,15 @@
         },
         {
             "name": "wpackagist-plugin/cloudflare",
-            "version": "4.10.1",
+            "version": "4.11.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/cloudflare/",
-                "reference": "tags/4.10.1"
+                "reference": "tags/4.11.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/cloudflare.4.10.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/cloudflare.4.11.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -4142,9 +4096,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "ingenyus/multisite-url-fixer": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
