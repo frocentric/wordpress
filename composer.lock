@@ -3008,15 +3008,15 @@
         },
         {
             "name": "wpackagist-plugin/cloudflare",
-            "version": "4.10.1",
+            "version": "4.11.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/cloudflare/",
-                "reference": "tags/4.10.1"
+                "reference": "tags/4.11.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/cloudflare.4.10.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/cloudflare.4.11.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -4169,5 +4169,5 @@
         "php": ">=5.6"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.3.0"
 }
