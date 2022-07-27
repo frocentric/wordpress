@@ -948,4 +948,34 @@ class Froware_Public {
 		}
 		return $items;
 	}
+
+	/**
+	 * Parses API fields from the e-addons link field
+	 * Tokens are in the format {{field_name}}
+	 */
+	public function parse_api_fields( $value, $fields = [], $urlencode = false ) {
+		if ( ! array_key_exists( 'block', $fields ) ) {
+			return $value;
+		}
+
+		$api_fields = $fields['block'];
+		$value = preg_replace_callback(
+			'/(\{\{\s*(\w+)\s*\}\})/',
+			function ( $matches ) use ( $urlencode, $api_fields ) {
+				$value = '';
+
+				if ( isset( $api_fields[ $matches[2] ] ) ) {
+					$value = $api_fields[ $matches[2] ];
+				}
+
+				if ( $urlencode ) {
+					$value = urlencode( $value );
+				}
+
+				return $value;
+			}, $value
+		);
+
+		return $value;
+	}
 }
