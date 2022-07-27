@@ -210,6 +210,7 @@ class Froware {
 		$this->loader->add_filter( 'discourse_replies_html', $plugin_public, 'discourse_replies_html', 10, 1 );
 		$this->loader->add_filter( 'ninja_forms_post_run_action_type_redirect', $plugin_public, 'ninja_forms_post_run_action_type_redirect_callback', 10, 1 );
 		$this->loader->add_filter( 'wp_get_nav_menu_items', $plugin_public, 'set_logout_menu_item_url', 10, 3 );
+		$this->loader->add_filter( 'e_addons/dynamic', $plugin_public, 'parse_api_fields', 10, 3 );
 	}
 
 	/**
