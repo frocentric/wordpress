@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.9.4](https://github.com/frocentric/wordpress/compare/v1.9.3...v1.9.4) (2022-07-27)
+
+
+### Bug Fixes
+
+* adds support for dynamic links ([5537b66](https://github.com/frocentric/wordpress/commit/5537b66737f153d5744b90ca0f019d81f896f6f9))
+* fixes topic list styling ([b85aa07](https://github.com/frocentric/wordpress/commit/b85aa07fbd2a50b33bbc4105e4cc3505a2a8ec72))
+* removes redundant plugin ([74ff4d2](https://github.com/frocentric/wordpress/commit/74ff4d25b8716e393158a3f751aa47447c578dc1))
+
 ### [1.9.3](https://github.com/frocentric/wordpress/compare/v1.9.2...v1.9.3) (2022-07-27)
 
 
