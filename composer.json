@@ -106,10 +106,6 @@
         "koodimonni-plugin-language/*",
         "koodimonni-theme-language/*"
       ]
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/Genyus/multisite-url-fixer.git"
     }
   ],
   "require": {
@@ -117,7 +113,6 @@
     "ffraenz/private-composer-installer": "^5.0",
     "humanmade/s3-uploads": "~3.0",
     "ingenyus/configure-environment-plugins": "~1.0",
-    "ingenyus/multisite-url-fixer": "dev-main",
     "johnpbloch/wordpress": "~6.0",
     "koodimonni-language/en_gb": "*",
     "modern-tribe/events-calendar-pro": "*",
