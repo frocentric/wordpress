@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "93c571f9df1d7e468e89263d4a5ac66c",
+    "content-hash": "fa97564bc1edc8b6184d986ab02d0c36",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.231.12",
+            "version": "3.231.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "8f8742caa42b260950320c98ddc5da4926e2373d"
+                "reference": "6b79b9c8204813d9674ffa7badcd567d7f608165"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/8f8742caa42b260950320c98ddc5da4926e2373d",
-                "reference": "8f8742caa42b260950320c98ddc5da4926e2373d",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6b79b9c8204813d9674ffa7badcd567d7f608165",
+                "reference": "6b79b9c8204813d9674ffa7badcd567d7f608165",
                 "shasum": ""
             },
             "require": {
@@ -144,9 +144,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.231.12"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.231.14"
             },
-            "time": "2022-07-22T18:19:47+00:00"
+            "time": "2022-07-26T18:20:14+00:00"
         },
         {
             "name": "composer/installers",
@@ -1092,10 +1092,10 @@
         },
         {
             "name": "koodimonni-plugin-language/akismet-en_gb",
-            "version": "4.2.5",
+            "version": "5.0",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/akismet/4.2.5/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/akismet/5.0/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1672,7 +1672,7 @@
         },
         {
             "name": "modern-tribe/events-calendar-pro",
-            "version": "5.11.2",
+            "version": "5.14.4",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}"
@@ -1681,7 +1681,7 @@
         },
         {
             "name": "modern-tribe/the-events-calendar-community-events",
-            "version": "4.8.11",
+            "version": "4.9.2.1",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community&version={%VERSION}&key={%TEC_CE_LICENSE}"
@@ -1690,7 +1690,7 @@
         },
         {
             "name": "modern-tribe/the-events-calendar-filterbar",
-            "version": "5.2.1",
+            "version": "5.3.1",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=tribe-filterbar&version={%VERSION}&key={%TEC_FB_LICENSE}"
@@ -3062,15 +3062,15 @@
         },
         {
             "name": "wpackagist-plugin/dynamic-visibility-for-elementor",
-            "version": "5.0.0",
+            "version": "5.0.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/dynamic-visibility-for-elementor/",
-                "reference": "tags/5.0.0"
+                "reference": "tags/5.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/dynamic-visibility-for-elementor.5.0.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/dynamic-visibility-for-elementor.5.0.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3167,24 +3167,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/essential-addons-for-elementor-lite/"
-        },
-        {
-            "name": "wpackagist-plugin/events-manager",
-            "version": "5.12.1",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/events-manager/",
-                "reference": "tags/5.12.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/events-manager.5.12.1.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/events-manager/"
         },
         {
             "name": "wpackagist-plugin/feedzy-rss-feeds",
