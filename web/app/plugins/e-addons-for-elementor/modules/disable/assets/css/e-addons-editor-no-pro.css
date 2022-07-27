@@ -1,0 +1,15 @@
+#elementor-panel-category-pro-elements,
+#elementor-panel-category-theme-elements,
+#elementor-panel-category-woocommerce-elements,
+#elementor-panel-get-pro-elements,
+#e-notice-bar, #elementor-notice-bar,
+.elementor-component-tab.elementor-panel-navigation-tab[data-tab="global"],
+.elementor-panel-menu-item.elementor-panel-menu-item-site-editor,
+.elementor-control.elementor-control-section_custom_attributes_pro,
+.elementor-control.elementor-control-section_custom_css_pro,
+#elementor-panel-page-settings .elementor-tab-control-advanced,
+.elementor-element--promotion,
+.elementor-tags-list__teaser {
+    display: none !important;
+}
+/*.elementor-context-menu-list__group.elementor-context-menu-list__group-save*/
