@@ -1,0 +1,202 @@
+.elementor-control-acf_repeater_field .select2-selection--single.select2-selection, 
+.elementor-control-metafield_key .select2-selection--single.select2-selection {
+    background-color: #e8edee;
+}
+.elementor-control-section_items .e-add-control-spinner,
+.elementor-control-section_custommeta .e-add-control-spinner{
+    float: right;
+}
+.e-add-skin-dis {
+    text-align: center;
+}
+.e-add-skin-dis .eaddicon-skin {
+	font-size: 6.8em;
+	color: #5bc0de;
+}
+.e-add-pagination-dis{
+    margin-top: -15px;
+    margin-bottom: 15px;
+}
+.e-add-pagination-dis i.eaddicon-skin{
+    font-size: 3em;
+    margin: -15px 0;
+    color: #A0A0A0;
+    display: block;
+}
+.e-add-skin-dis .fa-circle {
+	color: #fff;
+	font-size: 3.5em;
+	height: 95px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+    z-index: 0;
+    text-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+.eaddicon-skin.eicon-elementor-square {
+	font-size: 3.5em;
+	height: 95px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+    position: relative;
+    z-index: 1;
+}
+.elementor-control.elementor-control-skin_dis_customtemplate,
+.elementor-control.elementor-control-skin_dis_infinitescroll,
+.elementor-control.elementor-control-skin_dis_pagination
+{
+    padding: 0;
+}
+.e-add-ect-dis {
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    background: transparent;
+    width: 100%;
+    left: 0;
+}
+
+.elementor-control-section_items .e-add-control-spinner,
+.elementor-control-section_custommeta .e-add-control-spinner{
+    float: right;
+}
+.e-add-skin-dis img {
+    width: 70%;
+    margin: 0 auto;
+    display: block;
+}
+.e-add-pagination-dis{
+    margin-top: -15px;
+    margin-bottom: 15px;
+}
+.e-add-pagination-dis img{
+    width: 50%;
+}
+.elementor-control.elementor-control-skin_dis_customtemplate,
+.elementor-control.elementor-control-skin_dis_infinitescroll,
+.elementor-control.elementor-control-skin_dis_pagination
+{
+    padding: 0;
+}
+.e-add-ect-dis {
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    background: transparent;
+    width: 100%;
+    left: 0;
+}
+
+/* ------ QueryPosts Ui sortabe REPEATER ----- */
+.elementor-control-list_layout_posts .elementor-repeater-row-controls{
+    display: none;
+}
+.elementor-control-list_items .elementor-repeater-row-item-title{
+    position: relative;
+}
+
+.elementor-control-list_items .elementor-repeater-row-item-title:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:rgba(100,100,100,0.2);
+}
+
+.elementor-control-list_items .elementor-repeater-row-item-title .e-add-item-name{
+    position: relative;
+    z-index: 1;
+}
+.elementor-control-list_items .elementor-repeater-row-item-title .e-add-item-icon {
+    text-align: right;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    font-size: 20px;
+    z-index: 0;
+}
+.elementor-control-list_items .elementor-repeater-row-item-title .e-add-item-icon.fa-check {
+    background-color: rgba(200, 200, 200, 0.5);
+}
+.elementor-control-list_items .elementor-repeater-row-item-title .e-add-item-icon.fa-ban {
+    color: #cccccc;
+}
+/*elementor-control elementor-control-avviso_automatic_mode elementor-control-type-raw_html elementor-label-inline elementor-control-separator-default elementor-control-hidden-label*/
+.elementor-control-avviso_automatic_mode .eadd-automatic-info{
+    margin: 5px 0 0;
+    padding: 5px 0 0;
+    width: 100%;
+    border-top: 1px dashed rgba(100,100,100,0.3);
+}
+.elementor-control-avviso_automatic_mode .eadd-automatic-info ul{
+    padding-left: 14px;
+}
+.elementor-control-avviso_automatic_mode .eadd-automatic-info li{
+    display: list-item;
+    list-style: disc;
+    font-style: italic;
+    margin: 2px 0;
+    font-size: 12px;
+}
+.elementor-control.elementor-control-metafield_type{
+    background-color:rgba(200,200,200,0.2);
+    margin-bottom: 8px;
+    padding-top: 10px;
+}
+
+.elementor-section-title [class^="eadd-"]::before, .elementor-section-title [class*=" eadd-"]::before{
+    margin-left: -2px;
+}
+.elementor-section-title .eaddicon{
+    font-size: 20px;
+    vertical-align: middle;
+    margin-right: 3px;
+}
+.elementor-control.elementor-open .elementor-section-title .eaddicon,
+.e-add-inner-heading{
+    color: #71d7f7;
+}
+.fa.item_image-ic::before { content: "\f03e"; }
+.fa.item_date-ic::before { content: "\f073"; }
+.fa.item_title-ic::before { content: "\f1dc"; }
+.fa.item_subtitle-ic::before { content: "\f032"; }
+.fa.item_termstaxonomy-ic::before { content: "\f02c"; }  
+.fa.item_template-ic::before { content: "\f07c"; }
+.fa.item_counts-ic::before { content: "\f163"; }
+.fa.item_content-ic::before, 
+.fa.item_excerpt-ic::before, 
+.fa.item_description-ic::before, 
+.fa.item_descriptiontext-ic::before{ content: "\f036"; }
+.fa.item_author-ic::before { content: "\f2bd"; }
+.fa.item_readmore-ic::before { content: "\f25a"; }
+.fa.item_posttype-ic::before { content: "\f08d"; }
+.fa.item_custommeta-ic::before { content: "\f058"; }
+.fa.item_taxonomy-ic::before { content: "\f187"; }
+.fa.item_label-ic::before{ content: "\f7a4"; }
+.fa.item_avatar-ic::before { content: "\f2b9"; }
+.fa.item_displayname-ic::before { content: "\f2bb"; }
+.fa.item_user-ic::before { content: "\f2bd"; }
+.fa.item_role-ic::before { content: "\f0c0"; }
+.fa.item_firstname-ic::before { content: "\f007"; }
+.fa.item_lastname-ic::before { content: "\f508"; }
+.fa.item_nickname-ic::before { content: "\f118"; }
+.fa.item_email-ic::before { content: "\f0e0"; }
+.fa.item_website-ic::before { content: "\f0ac"; }
+.fa.item_bio-ic::before { content: "\f036"; }
+.fa.item_registered-ic::before { content: "\f073"; }
+.fa.item_alternativetext-ic::before { content: "\f4ad"; }
+.fa.item_caption-ic::before { content: "\f15c"; }
+.fa.item_uploadedto-ic::before { content: "\f56f"; }
+.fa.item_imagemeta-ic::before { content: "\f87c"; }
+.fa.item_mimetype-ic::before { content: "\f86d"; }
+.fa.item_imageoricon-ic::before { content: "\f1c5"; }

@@ -1,0 +1,5 @@
+.elementor-element .e-add-transforms > :first-child , 
+.elementor-element .e-add-transforms .elementor-image img{
+    transition-property: transform;
+    transform-style: preserve-3d;
+}

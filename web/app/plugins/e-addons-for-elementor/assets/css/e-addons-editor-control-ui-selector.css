@@ -1,0 +1,97 @@
+/* ------ Control Images_Selector ----- */
+.elementor-uiselector {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: wrap;
+}
+.elementor-uiselector-item{
+    flex: 0 1 33%;
+    padding: 2px;
+}
+.elementor-uiselector-column-1{
+    flex-basis: 100%;
+}
+.elementor-uiselector-column-2{
+    flex-basis: 50%;
+}
+.elementor-uiselector-column-3{
+    flex-basis: 33%;
+}
+.elementor-uiselector-column-4{
+    flex-basis: 25%;
+}
+.elementor-uiselector-column-5{
+    flex-basis: 20%;
+}
+.elementor-uiselector-column-6{
+    flex-basis: 16%;
+}
+
+.elementor-uiselector-type-icon{
+
+}
+.elementor-uiselector-type-icon .elementor-uiselector-label {
+    border-radius: 10px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #C4C4C4;
+    width: 100%;
+    text-align: center;
+    height: 100%;
+}
+.elementor-uiselector-type-icon i{
+    font-size: 1.7em;
+    line-height: 1.8
+}
+
+.elementor-uiselector-type-image img{
+    display: block;
+    width: 300px;
+    height: auto;
+}
+.elementor-uiselector-type-image .elementor-uiselector-label,
+.elementor-uiselector-type-bgimage .elementor-uiselector-label {
+    width: 100%;
+    border: 2px solid rgba(150, 150, 150, 0.2);
+    border-radius: 10px;
+    display: block;
+    overflow: hidden;
+    opacity: 0.9;
+    background-color: rgba(240, 240, 240, 0.5);
+    opacity: 0.4;
+}
+.elementor-uiselector-item .elementor-uiselector-bgimage{
+    display: block;
+    background-size: cover;
+    min-height: 100px;
+    background-position: center;
+    min-height: 100px;
+}
+.elementor-uiselector-item input[type=radio]{
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.elementor-uiselector-item input[type=radio] + .elementor-uiselector-label {
+    cursor: pointer;
+}
+
+.elementor-uiselector-item input[type=radio]:checked + .elementor-uiselector-label {
+    color: #5bc0de;
+    background-color: #e7e7e7;
+    border-color: #444444;
+    opacity: 1;
+}
+.elementor-control.elementor-control-type-ui_selector.elementor-label-inline .elementor-control-field{
+    -webkit-box-align: start;
+    align-items: flex-start;
+}
+.elementor-control.elementor-control-type-ui_selector.elementor-label-inline  .elementor-control-title{
+    margin-top: 10px;
+}
+.elementor-control.elementor-control-type-ui_selector.elementor-label-inline .elementor-uiselector.elementor-uiselector-type-image{
+    justify-content: flex-end;
+}
