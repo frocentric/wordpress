@@ -187,6 +187,7 @@ class Froware {
 		$this->loader->add_action( 'wp_insert_post', $plugin_public, 'wp_insert_post_callback', 10, 3 );
 		$this->loader->add_action( 'save_post_post', $plugin_public, 'save_post_post_callback', 10, 2 );
 		$this->loader->add_action( 'pre_get_posts', $plugin_public, 'elementor_pre_get_posts', 100 );
+		$this->loader->add_action( 'wpdc_after_sso_client_user_update', $plugin_public, 'discourse_sso_update_user_meta', 10, 2 );
 
 		// Filters.
 		$this->loader->add_filter( 'generate_typography_default_fonts', $plugin_public, 'add_generatepress_fonts' );
@@ -211,6 +212,7 @@ class Froware {
 		$this->loader->add_filter( 'ninja_forms_post_run_action_type_redirect', $plugin_public, 'ninja_forms_post_run_action_type_redirect_callback', 10, 1 );
 		$this->loader->add_filter( 'wp_get_nav_menu_items', $plugin_public, 'set_logout_menu_item_url', 10, 3 );
 		$this->loader->add_filter( 'e_addons/dynamic', $plugin_public, 'parse_api_fields', 10, 3 );
+		$this->loader->add_filter( 'get_avatar_url', $plugin_public, 'discourse_get_avatar_url', 10, 3 );
 	}
 
 	/**
