@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.10.0](https://github.com/frocentric/wordpress/compare/v1.9.4...v1.10.0) (2022-08-04)
+
+
+### Features
+
+* renders Discourse avatar when available ([2a6f173](https://github.com/frocentric/wordpress/commit/2a6f173d2a13ea74ec11e5a2a7e424e42b747ac3))
+
 ### [1.9.4](https://github.com/frocentric/wordpress/compare/v1.9.3...v1.9.4) (2022-07-27)
 
 
