@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.231.14",
+            "version": "3.232.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "6b79b9c8204813d9674ffa7badcd567d7f608165"
+                "reference": "7e79325815640d21f3bcab9889f7002a8268d674"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6b79b9c8204813d9674ffa7badcd567d7f608165",
-                "reference": "6b79b9c8204813d9674ffa7badcd567d7f608165",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7e79325815640d21f3bcab9889f7002a8268d674",
+                "reference": "7e79325815640d21f3bcab9889f7002a8268d674",
                 "shasum": ""
             },
             "require": {
@@ -144,9 +144,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.231.14"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.232.1"
             },
-            "time": "2022-07-26T18:20:14+00:00"
+            "time": "2022-08-03T18:16:18+00:00"
         },
         {
             "name": "composer/installers",
@@ -368,24 +368,24 @@
         },
         {
             "name": "graham-campbell/result-type",
-            "version": "v1.0.4",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrahamCampbell/Result-Type.git",
-                "reference": "0690bde05318336c7221785f2a932467f98b64ca"
+                "reference": "a878d45c1914464426dc94da61c9e1d36ae262a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrahamCampbell/Result-Type/zipball/0690bde05318336c7221785f2a932467f98b64ca",
-                "reference": "0690bde05318336c7221785f2a932467f98b64ca",
+                "url": "https://api.github.com/repos/GrahamCampbell/Result-Type/zipball/a878d45c1914464426dc94da61c9e1d36ae262a8",
+                "reference": "a878d45c1914464426dc94da61c9e1d36ae262a8",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0 || ^8.0",
-                "phpoption/phpoption": "^1.8"
+                "php": "^7.2.5 || ^8.0",
+                "phpoption/phpoption": "^1.9"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.5.14 || ^7.5.20 || ^8.5.19 || ^9.5.8"
+                "phpunit/phpunit": "^8.5.28 || ^9.5.21"
             },
             "type": "library",
             "autoload": {
@@ -414,7 +414,7 @@
             ],
             "support": {
                 "issues": "https://github.com/GrahamCampbell/Result-Type/issues",
-                "source": "https://github.com/GrahamCampbell/Result-Type/tree/v1.0.4"
+                "source": "https://github.com/GrahamCampbell/Result-Type/tree/v1.1.0"
             },
             "funding": [
                 {
@@ -426,7 +426,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-11-21T21:41:47+00:00"
+            "time": "2022-07-30T15:56:11+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -1855,29 +1855,33 @@
         },
         {
             "name": "phpoption/phpoption",
-            "version": "1.8.1",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/php-option.git",
-                "reference": "eab7a0df01fe2344d172bff4cd6dbd3f8b84ad15"
+                "reference": "dc5ff11e274a90cc1c743f66c9ad700ce50db9ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/php-option/zipball/eab7a0df01fe2344d172bff4cd6dbd3f8b84ad15",
-                "reference": "eab7a0df01fe2344d172bff4cd6dbd3f8b84ad15",
+                "url": "https://api.github.com/repos/schmittjoh/php-option/zipball/dc5ff11e274a90cc1c743f66c9ad700ce50db9ab",
+                "reference": "dc5ff11e274a90cc1c743f66c9ad700ce50db9ab",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.0 || ^8.0"
+                "php": "^7.2.5 || ^8.0"
             },
             "require-dev": {
-                "bamarni/composer-bin-plugin": "^1.4.1",
-                "phpunit/phpunit": "^6.5.14 || ^7.5.20 || ^8.5.19 || ^9.5.8"
+                "bamarni/composer-bin-plugin": "^1.8",
+                "phpunit/phpunit": "^8.5.28 || ^9.5.21"
             },
             "type": "library",
             "extra": {
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": true
+                },
                 "branch-alias": {
-                    "dev-master": "1.8-dev"
+                    "dev-master": "1.9-dev"
                 }
             },
             "autoload": {
@@ -1910,7 +1914,7 @@
             ],
             "support": {
                 "issues": "https://github.com/schmittjoh/php-option/issues",
-                "source": "https://github.com/schmittjoh/php-option/tree/1.8.1"
+                "source": "https://github.com/schmittjoh/php-option/tree/1.9.0"
             },
             "funding": [
                 {
@@ -1922,7 +1926,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-12-04T23:24:31+00:00"
+            "time": "2022-07-30T15:51:26+00:00"
         },
         {
             "name": "psr/http-client",
@@ -2774,16 +2778,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.11.4.2",
+            "version": "v3.11.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "5e960dee6b815b51a3cfcfa4cec14295d616aea1"
+                "reference": "cb0ef908b6d0e1eace8545b96d23b0b93c44d1ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/5e960dee6b815b51a3cfcfa4cec14295d616aea1",
-                "reference": "5e960dee6b815b51a3cfcfa4cec14295d616aea1",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/cb0ef908b6d0e1eace8545b96d23b0b93c44d1ec",
+                "reference": "cb0ef908b6d0e1eace8545b96d23b0b93c44d1ec",
                 "shasum": ""
             },
             "require": {
@@ -2886,7 +2890,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2022-07-11T13:21:01+00:00"
+            "time": "2022-08-03T14:37:20+00:00"
         },
         {
             "name": "wpackagist-plugin/authors-list",
@@ -3052,15 +3056,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "3.6.7",
+            "version": "3.6.8",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/3.6.7"
+                "reference": "tags/3.6.8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.3.6.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/elementor.3.6.8.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3088,15 +3092,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "5.1.8",
+            "version": "5.1.9",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/5.1.8"
+                "reference": "tags/5.1.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.5.1.8.zip"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.5.1.9.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3160,15 +3164,15 @@
         },
         {
             "name": "wpackagist-plugin/jetpack",
-            "version": "11.1.2",
+            "version": "11.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/jetpack/",
-                "reference": "tags/11.1.2"
+                "reference": "tags/11.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jetpack.11.1.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/jetpack.11.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
