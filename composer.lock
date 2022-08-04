@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1d118a143067e41a4281c29b76024cc6",
+    "content-hash": "21c7acb2040646ad7249431bada6d6c0",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -2925,24 +2925,6 @@
             "homepage": "https://wordpress.org/plugins/autodescription/"
         },
         {
-            "name": "wpackagist-plugin/avatar-privacy",
-            "version": "2.6.0",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/avatar-privacy/",
-                "reference": "tags/2.6.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/avatar-privacy.2.6.0.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/avatar-privacy/"
-        },
-        {
             "name": "wpackagist-plugin/classic-editor",
             "version": "1.6.2",
             "source": {
@@ -3283,24 +3265,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/ninja-forms-addon-manager/"
-        },
-        {
-            "name": "wpackagist-plugin/oa-social-login",
-            "version": "5.7",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/oa-social-login/",
-                "reference": "tags/5.7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/oa-social-login.5.7.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/oa-social-login/"
         },
         {
             "name": "wpackagist-plugin/pods",
