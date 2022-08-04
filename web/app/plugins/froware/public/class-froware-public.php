@@ -912,6 +912,45 @@ class Froware_Public {
 	}
 
 	/**
+	 * Uses the Discourse avatar if user has one, otherwise uses the WordPress avatar.
+	 *
+	 * @param string $url The current URL.
+	 * @param mixed $id_or_email The Gravatar key.
+	 * @param array $args Arguments passed to get_avatar_data.
+	 */
+	public function discourse_get_avatar_url( $url, $id_or_email, $args ) {
+		if ( is_numeric( $id_or_email ) ) {
+			$user = get_user_by( 'id', $id_or_email );
+		} elseif ( is_object( $id_or_email ) ) {
+			if ( ! empty( $id_or_email->user_id ) ) {
+				$user = get_user_by( 'id', $id_or_email->user_id );
+			}
+		} else {
+			$user = get_user_by( 'email', $id_or_email );
+		}
+
+		if ( $user && $user->ID ) {
+			$discourse_user = get_user_meta( $user->ID, 'discourse_user', true );
+
+			if ( $discourse_user && isset( $discourse_user['avatar_url'] ) ) {
+				return $discourse_user['avatar_url'];
+			}
+		}
+
+		return $url;
+	}
+
+	/**
+	 * Saves the Discourse account details to the user metadata.
+	 *
+	 * @param int $user_id The WordPress user's ID.
+	 * @param array $discourse_user The Discourse user data.
+	 */
+	public function discourse_sso_update_user_meta( $user_id, $discourse_user ) {
+		update_user_meta( $user_id, 'discourse_user', $discourse_user );
+	}
+
+	/**
 	 * Checks if WordPress is configured as a Discourse client.
 	 *
 	 * @return bool
