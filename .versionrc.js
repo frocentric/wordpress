@@ -1,17 +1,17 @@
 const pluginFiles = [
   {
-    filename: "./web/app/plugins/froware/froware.php",
-    updater: require("./scripts/js/wp-version-updater"),
+    filename: './web/app/plugins/froware/froware.php',
+    updater: './scripts/js/wp-version-updater.js',
   },
 ];
 const themeFiles = [
   {
-    filename: "./web/app/themes/frocentric/style.css",
-    updater: require("./scripts/js/wp-version-updater"),
+    filename: './web/app/themes/frocentric/style.css',
+    updater: './scripts/js/wp-version-updater.js',
   },
   {
-    filename: "./web/app/themes/frocentric-tech/style.css",
-    updater: require("./scripts/js/wp-version-updater"),
+    filename: './web/app/themes/frocentric-tech/style.css',
+    updater: './scripts/js/wp-version-updater.js',
   },
 ];
 
