@@ -215,9 +215,13 @@ class Feedzy_Rss_Feeds_Pro_Spinnerchief implements Feedzy_Rss_Feeds_Pro_Services
 		}
 
 		$url  = $this->url;
-		$args = apply_filters( 'feedzy_spinnerchief_args', array_merge( $additional, array( 'spintype' => 1 ) ) );
-		$url = add_query_arg( $args, $url );
+		$url_query_string = array();
+		$parse_url = wp_parse_url( $url, PHP_URL_PATH );
+		wp_parse_str( $parse_url, $url_query_string );
 
+		$args = apply_filters( 'feedzy_spinnerchief_args', array_merge( $additional, array( 'spintype' => 1 ) ) );
+		$args = array_merge( $url_query_string, $args );
+		$url  = str_replace( $parse_url, '', $url ) . urldecode( http_build_query( $args ) );
 		do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'spinnerchief: calling %s for %s', $url, $text ), 'info', __FILE__, __LINE__ );
 
 		$response = wp_remote_post(

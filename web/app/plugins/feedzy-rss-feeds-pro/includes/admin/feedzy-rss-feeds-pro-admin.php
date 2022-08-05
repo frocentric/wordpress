@@ -62,11 +62,11 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	/**
 	 * Initialize the class and set its properties.
 	 *
+	 * @param string $plugin_name The name of this plugin.
+	 * @param string $version The version of this plugin.
+	 *
 	 * @since       1.0.0
 	 * @access      public
-	 *
-	 * @param       string $plugin_name The name of this plugin.
-	 * @param       string $version The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;
@@ -80,13 +80,12 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 * The custom plugin_row_meta function
 	 * Adds additional links on the plugins page for this plugin
 	 *
-	 * @since   1.0.0
-	 * @access  public
-	 *
-	 * @param   array  $links The array having default links for the plugin.
-	 * @param   string $file The name of the plugin file.
+	 * @param array  $links The array having default links for the plugin.
+	 * @param string $file The name of the plugin file.
 	 *
 	 * @return  array
+	 * @since   1.0.0
+	 * @access  public
 	 */
 	public function plugin_row_meta( $links, $file ) {
 		if ( strpos( $file, 'feedzy-rss-feed-pro.php' ) !== false ) {
@@ -109,24 +108,24 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	public function custom_field_template( $html ) {
 		if ( feedzy_is_pro() ) {
 			$html .= '
-				<div class="row">
-					<div class="feedzy-row fields">
-						<div class="form-group form_item">
-							<input type="text" name="custom_vars_key[]" placeholder="' . __( 'Key Name', 'feedzy-rss-feeds' ) . '" class="form-control">
-						</div>
-						<div class="feedzy-separator dashicons dashicons-leftright"></div>
-						<div class="form-group input-group form_item">
-							<input type="text" name="custom_vars_value[]" placeholder="' . __( 'Value', 'feedzy-rss-feeds' ) . '" class="form-control">
-							<div class="input-group-btn">
-								<button type="button" class="btn btn-remove-fields">
-									<span class="dashicons dashicons-trash"></span>
-								</button>
-							</div>
-						</div>
+				<div class="key-value-item">
+					<div class="fz-form-group">
+						<input type="text" name="custom_vars_key[]" placeholder="' . __( 'Key Name', 'feedzy-rss-feeds' ) . '" class="form-control">
+					</div>
+					<div class="key-value-arrow">
+						<span class="dashicons dashicons-arrow-right-alt"></span>
+					</div>
+					<div class="fz-form-group">
+						<input type="text" name="custom_vars_value[]" placeholder="' . __( 'Value', 'feedzy-rss-feeds' ) . '" class="form-control">
+					</div>
+					<div class="remove-group">
+						<button type="button" class="btn-remove-fields">
+						</button>
 					</div>
 				</div>
 			';
 		}
+
 		return $html;
 	}
 
@@ -270,12 +269,11 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 * Returns the attributes of the shortcode for the PRO version
 	 * Overrides the Lite method
 	 *
-	 * @since   1.0.0
-	 * @access  public
-	 *
-	 * @param   array $atts The attributes passed by WordPress.
+	 * @param array $atts The attributes passed by WordPress.
 	 *
 	 * @return array
+	 * @since   1.0.0
+	 * @access  public
 	 */
 	public function feedzy_pro_get_short_code_attributes( $atts ) {
 		// Retrieve & extract shorcode parameters.
@@ -298,13 +296,12 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	/**
 	 * Add grid class to item
 	 *
-	 * @since   1.0.0
-	 * @access  private
-	 *
-	 * @param   array $classes The feed item classes.
-	 * @param   array $sc The shortcode attributes.
+	 * @param array $classes The feed item classes.
+	 * @param array $sc The shortcode attributes.
 	 *
 	 * @return string
+	 * @since   1.0.0
+	 * @access  private
 	 */
 	public function add_grid_class( $classes = array(), $sc = array() ) {
 		$classes[] = 'feedzy-rss-col-' . $sc['columns'];
@@ -313,19 +310,18 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	}
 
 	/**
-	 * Check title for banned keywords
+	 * Additional filter.
 	 *
-	 * @since   1.0.2
-	 * @access  public
-	 *
-	 * @param   boolean $continue A boolean to stop the script.
-	 * @param   array   $sc The shortcode attrs.
-	 * @param   object  $item The feed item.
-	 * @param   string  $feed_url The feed URL.
+	 * @param boolean $continue A boolean to stop the script.
+	 * @param array   $sc The shortcode attrs.
+	 * @param object  $item The feed item.
+	 * @param string  $feed_url The feed URL.
 	 *
 	 * @return  boolean
+	 * @since   1.0.2
+	 * @access  public
 	 */
-	public function item_keywords_ban( $continue, $sc, $item, $feed_url ) {
+	public function item_additional_filter( $continue, $sc, $item, $feed_url ) {
 		$keywords_ban = $sc['keywords_ban'];
 		if ( ! empty( $keywords_ban ) ) {
 			foreach ( $keywords_ban as $keyword ) {
@@ -335,22 +331,33 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 			}
 		}
 
+		if ( ! empty( $sc['keywords_inc'] ) || ! empty( $sc['keywords_title'] ) ) {
+			return $continue;
+		}
+
+		// Date filter.
+		if ( $continue && ! empty( $sc['from_datetime'] ) && ! empty( $sc['to_datetime'] ) ) {
+			$from_datetime = strtotime( $sc['from_datetime'] );
+			$to_datetime   = strtotime( $sc['to_datetime'] );
+			$item_date     = strtotime( $item->get_date() );
+			$continue      = ( ( $from_datetime <= $item_date ) && ( $item_date <= $to_datetime ) );
+		}
+
 		return $continue;
 	}
 
 	/**
 	 * Add attributes to $item_array.
 	 *
-	 * @since   1.0.0
-	 * @access  public
-	 *
-	 * @param   array  $item_array The item attributes array.
-	 * @param   object $item The feed item.
-	 * @param   array  $sc The shorcode attributes array.
-	 * @param   int    $index The item number (may not be the same as the item_index).
-	 * @param   int    $item_index The real index of this items in the feed (maybe be different from $index if filters are used).
+	 * @param array  $item_array The item attributes array.
+	 * @param object $item The feed item.
+	 * @param array  $sc The shorcode attributes array.
+	 * @param int    $index The item number (may not be the same as the item_index).
+	 * @param int    $item_index The real index of this items in the feed (maybe be different from $index if filters are used).
 	 *
 	 * @return mixed
+	 * @since   1.0.0
+	 * @access  public
 	 */
 	public function add_data_to_item( $item_array, $item, $sc = null, $index = null, $item_index = null ) {
 		$price                    = $this->retrive_price( $item, $sc, $item_index );
@@ -362,20 +369,20 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 		$item_array['item_media'] = $media;
 
 		$item_array = $this->fetch_additional_content( $item_array, $item, $sc );
+
 		return $item_array;
 	}
 
 	/**
 	 * Retrive the price from feed
 	 *
-	 * @since   1.0.0
-	 * @access  private
-	 *
-	 * @param   object $item The feed item.
-	 * @param   array  $sc The shorcode attributes array.
-	 * @param   int    $index The real index of this items in the feed.
+	 * @param object $item The feed item.
+	 * @param array  $sc The shorcode attributes array.
+	 * @param int    $index The real index of this items in the feed.
 	 *
 	 * @return string
+	 * @since   1.0.0
+	 * @access  private
 	 */
 	private function retrive_price( $item, $sc = null, $index = null ) {
 		$the_price = '';
@@ -406,11 +413,11 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	/**
 	 * Extracts a particular component (e.g. price) from a custom tag in the feed.
 	 *
-	 * @param   string|mixed $default    The default value of the component.
-	 * @param   string       $name   The name of the component.
-	 * @param   object       $item The feed item.
-	 * @param   array        $sc The shorcode attributes array.
-	 * @param   int          $index The real index of this items in the feed.
+	 * @param string|mixed $default The default value of the component.
+	 * @param string       $name The name of the component.
+	 * @param object       $item The feed item.
+	 * @param array        $sc The shorcode attributes array.
+	 * @param int          $index The real index of this items in the feed.
 	 */
 	public function extract_from_custom_tag( $default, $name, $item, $sc, $index ) {
 		if ( is_null( $sc ) ) {
@@ -444,24 +451,32 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 
 		$tag    = $map[ $name ];
 		$result = $this->parse_custom_tags( $tag, $item->get_feed(), $index );
+
 		return $result;
 	}
 
 	/**
 	 * Retrive media form feed enclosure.
 	 *
-	 * @since   1.4.0
-	 * @access  private
-	 *
-	 * @param   object $item The feed item.
+	 * @param object $item The feed item.
 	 *
 	 * @return array
+	 * @since   1.4.0
+	 * @access  private
 	 */
 	private function retrive_media( $item ) {
 		$enclosure = $item->get_enclosure();
 		if ( isset( $enclosure ) ) {
 			$type = $enclosure->type;
-			if ( in_array( $type, apply_filters( 'feedzy_add_player_for_media_formats', array( 'audio/mpeg', 'audio/x-m4a', 'audio/mp3' ) ), true ) ) {
+			if ( in_array(
+				$type, apply_filters(
+					'feedzy_add_player_for_media_formats', array(
+						'audio/mpeg',
+						'audio/x-m4a',
+						'audio/mp3',
+					)
+				), true
+			) ) {
 				return array(
 					'src'      => $enclosure->link,
 					'duration' => $enclosure->duration,
@@ -482,13 +497,12 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 * Otherwise
 	 * 2) The value will be appended to the URL of the feed item.
 	 *
-	 * @since   1.0.0
-	 * @access  public
-	 *
-	 * @param   string $item_link The item url.
-	 * @param   array  $sc The shortcode attributes array.
+	 * @param string $item_link The item url.
+	 * @param array  $sc The shortcode attributes array.
 	 *
 	 * @return string
+	 * @since   1.0.0
+	 * @access  public
 	 */
 	public function referral_url( $item_link, $sc ) {
 		$new_link = $item_link;
@@ -514,15 +528,14 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 * Takes into account the PRO shortcode attributes
 	 * Overrides the Lite method
 	 *
-	 * @since   1.0.0
-	 * @access  public
-	 *
-	 * @param   string $content The original content.
-	 * @param   array  $sc The shorcode attributes array.
-	 * @param   array  $feed_title The feed title array.
-	 * @param   array  $feed_items The feed items array.
+	 * @param string $content The original content.
+	 * @param array  $sc The shorcode attributes array.
+	 * @param array  $feed_title The feed title array.
+	 * @param array  $feed_items The feed items array.
 	 *
 	 * @return string
+	 * @since   1.0.0
+	 * @access  public
 	 */
 	public function render_content( $content, $sc, $feed_title, $feed_items ) {
 		if ( ! array_key_exists( 'item_url_follow', $sc ) ) {
@@ -549,12 +562,11 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	/**
 	 * Checks if file exists in templates.
 	 *
-	 * @since   1.0.0
-	 * @access  private
-	 *
-	 * @param   string $file_name The name of the file to check in templates (defaults to default).
+	 * @param string $file_name The name of the file to check in templates (defaults to default).
 	 *
 	 * @return mixed
+	 * @since   1.0.0
+	 * @access  private
 	 */
 	private function check_template_file_exists( $file_name = 'default' ) {
 		$user_template = get_stylesheet_directory() . '/feedzy_templates/' . $file_name . '.php';
@@ -576,12 +588,11 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	/**
 	 * Get the template content
 	 *
-	 * @since   1.0.0
-	 * @access  private
-	 *
-	 * @param   string $file_name The name of the file to check in templates (defaults to default).
+	 * @param string $file_name The name of the file to check in templates (defaults to default).
 	 *
 	 * @return string
+	 * @since   1.0.0
+	 * @access  private
 	 */
 	private function get_template( $file_name = 'default' ) {
 		if ( $this->check_template_file_exists( $file_name ) !== false ) {
@@ -604,11 +615,11 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	/**
 	 * Shows additional rows in the metabox page as required by the license.
 	 *
-	 * @param   string  $html The default HTML shown in the metabox (empty string).
-	 * @param   integer $job_id The post ID.
-	 * @param   string  $row_slug The slug that indicates which portion of the file to show.
-	 *                   This is important in scenarios where 2 rows need to be shown
-	 *                   in 2 different locations. The slug will indicate which one needs to be shown.
+	 * @param string  $html The default HTML shown in the metabox (empty string).
+	 * @param integer $job_id The post ID.
+	 * @param string  $row_slug The slug that indicates which portion of the file to show.
+	 *                    This is important in scenarios where 2 rows need to be shown
+	 *                    in 2 different locations. The slug will indicate which one needs to be shown.
 	 */
 	public function metabox_show_rows( $html, $job_id, $row_slug ) {
 		$include_file = null;
@@ -642,6 +653,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 				'selected'                    => $language,
 			)
 		);
+
 		return str_replace( '<select ', '<select class="form-control feedzy-chosen" ', $dropdown );
 	}
 
@@ -649,13 +661,12 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 * Save method for custom post type
 	 * import feeds.
 	 *
-	 * @since   1.2.0
-	 * @access  public
-	 *
-	 * @param   integer $post_id The post ID.
-	 * @param   object  $post The post object.
+	 * @param integer $post_id The post ID.
+	 * @param object  $post The post object.
 	 *
 	 * @return bool
+	 * @since   1.2.0
+	 * @access  public
 	 */
 	public function save_feedzy_import_feed_meta( $post_id, $post ) {
 		// phpcs:ignore
@@ -695,26 +706,29 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 				delete_post_meta( $post_id, 'imports_custom_fields' );
 			}
 		}
+
 		return true;
 	}
 
 	/**
 	 * Appends additional messages when showing the last run status.
 	 *
-	 * @param string $msg    Message for last run status.
+	 * @param string $msg Message for last run status.
 	 * @param int    $job_id Post ID.
 	 */
 	public function run_status_errors( $msg, $job_id ) {
 		$msg .= $this->show_service_errors( $job_id );
+
 		return $msg;
 	}
 
 	/**
 	 * The Cron Job.
 	 *
+	 * @param WP_Post $job A WP_Post Object.
+	 *
 	 * @since   1.2.0
 	 * @access  public
-	 * @param  WP_Post $job A WP_Post Object.
 	 */
 	public function run_cron_extra( $job ) {
 		$this->delete_old_posts( $job );
@@ -723,15 +737,23 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	/**
 	 * Deletes posts created by a specific job.
 	 *
+	 * @param WP_Post $job A WP_Post Object.
+	 *
+	 * @return  void
 	 * @since   1.6.5
 	 * @access  private
-	 * @return  void
-	 * @param  WP_Post $job A WP_Post Object.
 	 */
 	private function delete_old_posts( $job ) {
 		$days = intval( get_post_meta( $job->ID, 'import_feed_delete_days', true ) );
+
+		// Get global post delete setting.
+		if ( 0 === $days && ! empty( $this->free_settings['general']['feedzy-delete-days'] ) ) {
+			$days = (int) $this->free_settings['general']['feedzy-delete-days'];
+		}
+
 		if ( 0 === $days ) {
 			do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'Not deleting any posts imported by %s', $job->post_title ), 'info', __FILE__, __LINE__ );
+
 			return;
 		}
 
@@ -763,7 +785,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 		if ( $query->have_posts() ) {
 			while ( $query->next_post() ) {
 				wp_delete_post( $query->post );
-				$count++;
+				$count ++;
 			}
 		}
 		do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'Deleted %d posts imported by %s that were more than %d days old ', $count, $job->post_title, $days ), 'info', __FILE__, __LINE__ );
@@ -773,24 +795,39 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 * Adds additional options when running the cron job.
 	 *
 	 * @param array   $options Array of options.
-	 * @param WP_Post $job     A WP_Post object of post type feedzy_imports.
+	 * @param WP_Post $job A WP_Post object of post type feedzy_imports.
 	 */
 	public function run_cron_options( $options, $job ) {
 		if ( ! empty( $options['keywords_title'] ) ) {
-			$options['keywords_title'] = rtrim( $options['keywords_title'], ',' );
-			$options['keywords_title'] = array_map( 'trim', explode( ',', $options['keywords_title'] ) );
+			if ( is_array( $options['keywords_title'] ) ) {
+				$options['keywords_title'] = implode( ',', $options['keywords_title'] );
+			}
+			if ( function_exists( 'feedzy_filter_custom_pattern' ) ) {
+				$options['keywords_title'] = feedzy_filter_custom_pattern( $options['keywords_title'] );
+			} else {
+				$options['keywords_title'] = rtrim( $options['keywords_title'], ',' );
+				$options['keywords_title'] = array_map( 'trim', explode( ',', $options['keywords_title'] ) );
+			}
 		}
 		if ( ! empty( $options['keywords_ban'] ) ) {
-			$options['keywords_ban'] = rtrim( $options['keywords_ban'], ',' );
-			$options['keywords_ban'] = array_map( 'trim', explode( ',', $options['keywords_ban'] ) );
+			if ( is_array( $options['keywords_ban'] ) ) {
+				$options['keywords_ban'] = implode( ',', $options['keywords_ban'] );
+			}
+			if ( function_exists( 'feedzy_filter_custom_pattern' ) ) {
+				$options['keywords_ban'] = feedzy_filter_custom_pattern( $options['keywords_ban'] );
+			} else {
+				$options['keywords_ban'] = rtrim( $options['keywords_ban'], ',' );
+				$options['keywords_ban'] = array_map( 'trim', explode( ',', $options['keywords_ban'] ) );
+			}
 		}
+
 		return $options;
 	}
 
 	/**
 	 * Performs actions before running the cron job.
 	 *
-	 * @param WP_Post $job    A WP_Post object of post type feedzy_imports.
+	 * @param WP_Post $job A WP_Post object of post type feedzy_imports.
 	 * @param array   $result $results['items'] from feedzy_run_job_pre action.
 	 */
 	public function run_job_pre( $job, $result ) {
@@ -800,13 +837,13 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	/**
 	 * Runs a specific job.
 	 *
-	 * @param   WP_Post $job The import job object.
-	 * @param   array   $results The array that stores results.
-	 * @param   int     $new_post_id The newly created import ID.
-	 * @param   int     $index The item number (may not be the same as the item_index).
-	 * @param   int     $item_index The real index of this items in the feed (maybe be different from $index if filters are used).
-	 * @param   array   $import_errors The array that contains the import errors.
-	 * @param   array   $import_info The array that contains the import info data.
+	 * @param WP_Post $job The import job object.
+	 * @param array   $results The array that stores results.
+	 * @param int     $new_post_id The newly created import ID.
+	 * @param int     $index The item number (may not be the same as the item_index).
+	 * @param int     $item_index The real index of this items in the feed (maybe be different from $index if filters are used).
+	 * @param array   $import_errors The array that contains the import errors.
+	 * @param array   $import_info The array that contains the import info data.
 	 *
 	 * @since   ?
 	 * @access  public
@@ -841,19 +878,19 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 * - [#item_custom_y:x@z] will extract text from an attribute 'z' inside an item-level element <y:x>.
 	 * - [#feed_custom_y:x@z] will extract text from an attribute 'z' inside the feed-level element <y:x>.
 	 *
-	 * @since   ?
-	 * @access  public
-	 *
-	 * @param   string    $content    The content from where to extract the custom tags.
-	 * @param   SimplePie $feed       The SimplePie feed object.
-	 * @param   int       $index      The index of the element to fetch.
+	 * @param string    $content The content from where to extract the custom tags.
+	 * @param SimplePie $feed The SimplePie feed object.
+	 * @param int       $index The index of the element to fetch.
 	 *
 	 * @return string
+	 * @since   ?
+	 * @access  public
 	 */
 	public function parse_custom_tags( $content, $feed, $index ) {
 		// only allow this for single feed.
 		if ( ! empty( $feed->multifeed_url ) ) {
 			do_action( 'themeisle_log_event', FEEDZY_NAME, 'This is only supported for single URL feeds. Skipping.', 'info', __FILE__, __LINE__ );
+
 			return $content;
 		}
 
@@ -861,20 +898,54 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 
 		if ( ! $has_custom_tags ) {
 			do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( '%s does not contain any custom tags. Skipping.', $content ), 'warn', __FILE__, __LINE__ );
+
 			return $content;
 		}
 
+		$magic_tag = '';
+		// Character length.
+		preg_match_all( '/\[(#item_custom_)([a-zA-Z0-9:@\-]*)\[(len:\d+)]]/i', $content, $char_len );
+
+		$char_length = '';
+		if ( is_array( $char_len ) && ! empty( $char_len ) ) {
+			if ( ! empty( $char_len[3] ) && is_array( $char_len[3] ) ) {
+				$magic_tag   = reset( $char_len[0] );
+				$char_length = reset( $char_len[3] );
+				$content     = str_replace( "[$char_length]", '', $content );
+				$char_length = (int) filter_var( $char_length, FILTER_SANITIZE_NUMBER_INT );
+			}
+		}
+
 		// item related data.
-		preg_match_all( '/\[(#item_custom_)([a-zA-Z0-9:@\-]*)\]/i', $content, $item_matches );
+		preg_match_all( '/\[(#item_custom_)([a-zA-Z0-9:@\-_]*)\]/i', $content, $item_matches );
+
+		// If check item matches not found then check match extra custom element magic.
+		if ( is_array( $item_matches ) && empty( $item_matches[0] ) ) {
+			// Match custom element[n] magic shortcode.
+			preg_match_all( '/\[(#item_custom_)([a-zA-Z0-9:@\-_]*)\/?(\[\d+]?])/i', $content, $item_matches );
+			$item_matches = array_filter( $item_matches );
+			// If check custom element number found or not.
+			if ( is_array( $item_matches ) && isset( $item_matches[3] ) ) {
+				$item_matches[3] = preg_replace( '/[^0-9]/', '', $item_matches[3] );
+				$item_matches[3] = ! empty( $item_matches[3] ) ? intval( reset( $item_matches[3] ) ) : 0;
+				if ( $item_matches[3] && $item_matches[3] >= 1 ) {
+					$item_matches[3] = $item_matches[3] - 1;
+				}
+			}
+		}
+
 		// feed related data.
-		preg_match_all( '/\[(#feed_custom_)([a-zA-Z0-9:@\-]*)\]/i', $content, $feed_matches );
+		preg_match_all( '/\[(#feed_custom_)([a-zA-Z0-9:@\-_]*)\]/i', $content, $feed_matches );
 
 		if ( ! is_array( $item_matches ) && ! is_array( $item_matches[0] ) && ! is_array( $feed_matches ) && ! is_array( $feed_matches[0] ) ) {
 			// phpcs:ignore
 			do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( '%s does not match custom tags in the content = %s', print_r( array_merge( $item_matches, $feed_matches ), true ), $content ), 'warn', __FILE__, __LINE__ );
+
 			return $content;
 		}
-
+		if ( empty( $magic_tag ) ) {
+			$magic_tag = reset( $item_matches[0] );
+		}
 		$new_content = $content;
 
 		$sxe = null;
@@ -894,6 +965,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 
 		if ( is_null( $sxe ) ) {
 			do_action( 'themeisle_log_event', FEEDZY_NAME, 'SimpleXMLElement is null; will abort parsing of custom tags', 'error', __FILE__, __LINE__ );
+
 			return $content;
 		}
 
@@ -932,11 +1004,33 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 					$element = $prefix . $element;
 				}
 
-				$xpath = empty( $attribute ) ? "//{$prefix}{$item_tag}//{$element}/text()" : "//{$prefix}{$item_tag}//{$element}/@{$attribute}";
+				$evals      = array();
+				$item_count = 1;
+				// Create xpath values group for each item.
+				foreach ( $sxe->xpath( "//{$prefix}{$item_tag}" ) as $key => $item ) {
+					$xpath = empty( $attribute ) ? "//{$prefix}{$item_tag}[$item_count]//{$element}/text()" : "//{$prefix}{$item_tag}[$item_count]//{$element}/@{$attribute}";
+					$eval  = $sxe->xpath( $xpath );
 
-				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( '%s: going to extract from %s for item %d', $tag, $xpath, $index ), 'debug', __FILE__, __LINE__ );
+					if ( isset( $item_matches[3] ) && ! empty( $eval ) ) {
+						$eval = isset( $eval[ $item_matches[3] ] ) ? $eval[ $item_matches[3] ] : '';
+					} else {
+						$eval = reset( $eval );
+					}
+					$evals[] = array(
+						'xpath' => $xpath,
+						'eval'  => $eval,
+					);
+					$item_count ++;
+				}
 
-				$eval = $sxe->xpath( $xpath );
+				$eval  = false;
+				$xpath = array_column( $evals, 'xpath' );
+				$xpath = isset( $xpath[ $index ] ) ? $xpath[ $index ] : '';
+
+				$eval = array_column( $evals, 'eval' );
+				$eval = ! empty( $eval ) ? $eval : false;
+
+				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( '%s: going to extract from %s for item %d', $magic_tag, $xpath, $index ), 'debug', __FILE__, __LINE__ );
 
 				if ( false === $eval ) {
 					do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'Nothing found corresponding to %s for item %d. Skipping.', $xpath, $index ), 'error', __FILE__, __LINE__ );
@@ -952,15 +1046,18 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 
 				if ( ! empty( $attribute ) ) {
 					$store_evals = array();
-					foreach ( range( 1, count( $sxe->channel->item ) + 1 ) as $key => $e ) {
-						$xpath  = "//{$prefix}{$item_tag}[$key]//{$element}/@{$attribute}";
+					$count       = 1;
+					foreach ( $sxe->xpath( "//{$prefix}{$item_tag}" ) as $item ) {
+						$xpath         = "//{$prefix}{$item_tag}[$count]//{$element}/@{$attribute}";
 						$store_evals[] = $sxe->xpath( $xpath );
+						$count ++;
 					}
 					$store_evals = array_values(
 						array_filter(
 							$store_evals,
-							function( $attr_val ) {
+							function ( $attr_val ) {
 								$attr_val = array_filter( $attr_val );
+
 								return $attr_val;
 							}
 						)
@@ -981,18 +1078,28 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 						}
 					}
 					if ( is_array( $merge_eval[ $index ] ) ) {
-						$merge_eval[ $index ] = implode( ' ', $merge_eval[ $index ] );
+						if ( isset( $item_matches[3] ) ) {
+							$merge_eval[ $index ] = isset( $merge_eval[ $index ][ $item_matches[3] ] ) ? $merge_eval[ $index ][ $item_matches[3] ] : '';
+						} else {
+							$merge_eval[ $index ] = implode( ' ', $merge_eval[ $index ] );
+						}
 					}
-					$text   = (string) $merge_eval[ $index ];
+					$text = (string) $merge_eval[ $index ];
 				} else {
-					$text   = (string) $eval[ $index ];
+					$text = (string) $eval[ $index ];
 				}
 
-				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( '%s: extracted %s', $tag, $text ), 'debug', __FILE__, __LINE__ );
+				if ( ! empty( $char_length ) ) {
+					$text = substr( $text, 0, $char_length );
+				}
 
-				$text = apply_filters( 'feedzy_custom_magic_tag_format', $text, $tag, $feed, $index );
+				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( '%s: extracted %s', $magic_tag, $text ), 'debug', __FILE__, __LINE__ );
+
+				$text = apply_filters( 'feedzy_custom_magic_tag_format', $text, $magic_tag, $feed, $index );
 
 				$new_content = str_replace( $tag, $text, $new_content );
+				// Recursive get magic tag value.
+				$new_content = $this->parse_custom_tags( $new_content, $feed, $index );
 			}
 		}
 
@@ -1015,7 +1122,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 
 				$xpath = empty( $attribute ) ? "//{$element}/text()" : "//{$element}/@{$attribute}";
 
-				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( '%s: going to extract from %s', $tag, $xpath ), 'debug', __FILE__, __LINE__ );
+				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( '%s: going to extract from %s', $magic_tag, $xpath ), 'debug', __FILE__, __LINE__ );
 
 				$eval = $sxe->xpath( $xpath );
 
@@ -1027,9 +1134,13 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 
 				$text = (string) $eval[0];
 
-				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( '%s: extracted %s', $tag, $text ), 'debug', __FILE__, __LINE__ );
+				if ( ! empty( $char_length ) ) {
+					$text = substr( $text, 0, $char_length );
+				}
 
-				$text = apply_filters( 'feedzy_custom_magic_tag_format', $text, $tag, $feed, $index );
+				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( '%s: extracted %s', $magic_tag, $text ), 'debug', __FILE__, __LINE__ );
+
+				$text = apply_filters( 'feedzy_custom_magic_tag_format', $text, $magic_tag, $feed, $index );
 
 				$new_content = str_replace( $tag, $text, $new_content );
 			}
@@ -1054,12 +1165,127 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 		// if license does not exist, use the site url
 		// this should obviously never happen unless on dev instances.
 		$data['license'] = sprintf( 'n/a - %s', get_site_url() );
-		$license_data    = get_option( 'feedzy_rss_feeds_pro_license_data', '' );
-		if ( ! empty( $license_data ) && isset( $license_data->key ) ) {
-			$data['license'] = $license_data->key;
+		$license_data = apply_filters( 'product_feedzy_license_key', '' );
+
+		if ( ! empty( $license_data ) ) {
+			$data['license'] = $license_data;
 		}
+		$data['site_url'] = get_site_url();
 
 		return $data;
+	}
+
+	/**
+	 * Invoke the automatically translation services.
+	 *
+	 * @access  public
+	 *
+	 * @param string $field Item Content.
+	 * @param string $magic_tag Feedzy tag.
+	 * @param string $lang_code Target lang.
+	 * @param array  $job Import job info.
+	 *
+	 * @return string Translated content Default EN
+	 */
+	public function invoke_auto_translate_services( $field, $magic_tag, $lang_code, $job, $source_lang_code ) {
+		if ( $this->feedzy_is_agency() ) {
+			switch ( $magic_tag ) {
+				case '[#translated_title]':
+				case '[#translated_content]':
+				case '[#translated_description]':
+				case '[#item_url]':
+					return $this->get_translated_content( $field, $lang_code, $magic_tag, $source_lang_code );
+					break;
+
+				case '[#translated_full_content]':
+					return $this->get_translated_content( $field, $lang_code, $magic_tag, $source_lang_code, true );
+					break;
+			}
+		}
+
+		return $field;
+	}
+
+	/**
+	 * Get translated content.
+	 *
+	 * @param string $source Source text.
+	 * @param string $lang_code Target lang.
+	 * @param string $magic_tag Magic tag.
+	 * @param string $source_lang_code Feed source language code.
+	 * @param bool   $is_url Item URL Default false.
+	 *
+	 * @return string Translated content
+	 */
+	private function get_translated_content( $source, $lang_code, $magic_tag, $source_lang_code, $is_url = false ) {
+		if ( empty( $lang_code ) ) {
+			return $source;
+		}
+
+		$post_data = array(
+			'source'           => $source,
+			'source_lang_code' => $source_lang_code,
+			'target_lang'      => $lang_code,
+			'magic_tag'        => $magic_tag,
+		);
+		if ( $is_url ) {
+			$post_data['item_url'] = $source;
+		}
+
+		$response = wp_remote_post(
+			FEEDZY_PRO_AUTO_TRANSLATE_CONTENT,
+			apply_filters(
+				'feedzy_auto_translate_content_args',
+				array(
+					'timeout' => 100,
+					'body'    => array_merge( $post_data, $this->get_additional_client_data() ),
+				)
+			)
+		);
+
+		if ( ! is_wp_error( $response ) ) {
+			if ( array_key_exists( 'response', $response ) && array_key_exists( 'code', $response['response'] ) && intval( $response['response']['code'] ) !== 200 ) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'error in response = %s', print_r( $response, true ) ), 'error', __FILE__, __LINE__ );
+			}
+			$body = wp_remote_retrieve_body( $response );
+			if ( ! is_wp_error( $body ) ) {
+				$response_data = json_decode( $body, true );
+				if ( isset( $response_data['translated_content'] ) ) {
+					$source = $response_data['translated_content'];
+				}
+			} else {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'error in body = %s', print_r( $body, true ) ), 'error', __FILE__, __LINE__ );
+			}
+		} else {
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'error in request = %s', print_r( $response, true ) ), 'error', __FILE__, __LINE__ );
+		}
+
+		return $source;
+	}
+
+	/**
+	 * Renders the tags for the post excerpt.
+	 *
+	 * @param array $default The default tags, empty.
+	 *
+	 * @since   1.9.0
+	 * @access  public
+	 */
+	public function magic_tags_post_excerpt( $default ) {
+		if ( $this->feedzy_is_agency() ) {
+			$default['translated_title']       = __( 'Translated Title', 'feedzy-rss-feeds' );
+			$default['translated_content']     = __( 'Translated Content', 'feedzy-rss-feeds' );
+			$default['translated_description'] = __( 'Translated Description', 'feedzy-rss-feeds' );
+		} else {
+			$default['translated_title:disabled']       = __( '🚫 Translated Title', 'feedzy-rss-feeds' );
+			$default['translated_content:disabled']     = __( '🚫 Translated Content', 'feedzy-rss-feeds' );
+			$default['translated_description:disabled'] = __( '🚫 Translated Description', 'feedzy-rss-feeds' );
+		}
+
+		return apply_filters( 'feedzy_agency_magic_tags_post_excerpt', $default );
 	}
 
 	/**
@@ -1067,9 +1293,9 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 *
 	 * @access  public
 	 *
-	 * @param   mixed  $feed_url The original url(s).
-	 * @param   string $import_content The import content (along with the magic tags).
-	 * @param   array  $options The options for the job.
+	 * @param mixed  $feed_url The original url(s).
+	 * @param string $import_content The import content (along with the magic tags).
+	 * @param array  $options The options for the job.
 	 *
 	 * @return mixed
 	 */
@@ -1131,7 +1357,12 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 								$json['url']
 							);
 							do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'full content url = %s', $feed_url ), 'info', __FILE__, __LINE__ );
-							add_action( 'feedzy_modify_feed_config', array( $this, 'feedzy_modify_feed_config' ), 10, 1 );
+							add_action(
+								'feedzy_modify_feed_config', array(
+									$this,
+									'feedzy_modify_feed_config',
+								), 10, 1
+							);
 							add_filter( 'feedzy_item_filter', array( $this, 'populate_middleware_content' ), 999, 2 );
 						}
 					} else {
@@ -1156,7 +1387,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 *
 	 * @access  public
 	 *
-	 * @param   SimplePie $feed SimplePie object.
+	 * @param SimplePie $feed SimplePie object.
 	 */
 	public function feedzy_modify_feed_config( $feed ) {
 		// @codingStandardsIgnoreStart
@@ -1170,8 +1401,8 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 *
 	 * @access  public
 	 *
-	 * @param   array          $item_array Array of items.
-	 * @param   SimplePie_Item $item SimplePie_Item object.
+	 * @param array          $item_array Array of items.
+	 * @param SimplePie_Item $item SimplePie_Item object.
 	 *
 	 * @return array
 	 */
@@ -1179,14 +1410,15 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 		$content = $item->get_item_tags( SIMPLEPIE_NAMESPACE_ATOM_10, 'full-content' );
 		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		do_action( 'themeisle_log_event', FEEDZY_NAME, 'full content = ' . print_r( $content, true ), 'debug', __FILE__, __LINE__ );
-		$content                         = $content[0]['data'];
+		$content                         = ! empty( $content[0]['data'] ) ? $content[0]['data'] : '';
 		$item_array['item_full_content'] = $content;
 
 		// if full content is empty, check if there is an error
 		// at the item or feed level.
 		if ( empty( $content ) ) {
 			// at item level.
-			$error = $item->get_item_tags( SIMPLEPIE_NAMESPACE_ATOM_10, 'error' );
+			$error     = $item->get_item_tags( SIMPLEPIE_NAMESPACE_ATOM_10, 'error' );
+			$error_msg = '';
 			if ( is_array( $error ) && ! empty( $error ) ) {
 				$error_msg = $error[0]['data'];
 			} else {
@@ -1198,6 +1430,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 			}
 			$item_array['full_content_error'] = $error_msg;
 		}
+
 		return $item_array;
 	}
 
@@ -1205,9 +1438,9 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 * Method to return license status.
 	 * Used to filter PRO version types.
 	 *
+	 * @return bool
 	 * @since   1.2.0
 	 * @access  private
-	 * @return bool
 	 */
 	private function feedzy_is_business() {
 		return apply_filters( 'feedzy_is_license_of_type', false, 'business' );
@@ -1216,9 +1449,9 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	/**
 	 * Method to return if licence is agency.
 	 *
+	 * @return bool
 	 * @since   1.3.2
 	 * @access  private
-	 * @return bool
 	 */
 	private function feedzy_is_agency() {
 		return apply_filters( 'feedzy_is_license_of_type', false, 'agency' );
@@ -1275,6 +1508,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 				}
 			}
 		}
+
 		return empty( $error ) ? null : $error;
 	}
 
@@ -1305,6 +1539,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 						// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 						do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( '%s account appears to have a problem %s', $name, print_r( $error, true ) ), 'error', __FILE__, __LINE__ );
 						update_post_meta( $job->ID, "{$name}_errors", array( array( 'message' => $error ) ) );
+
 						return null;
 					}
 
@@ -1315,6 +1550,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 						// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 						do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'Error while calling service %s = %s', $name, print_r( $spun, true ) ), 'error', __FILE__, __LINE__ );
 						update_post_meta( $job->ID, "{$name}_errors", $addon->get_api_errors() );
+
 						return null;
 					} elseif ( ! is_null( $spun ) ) {
 						// when we get back the spun text, we may get back HTML tags.
@@ -1328,6 +1564,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 				}
 			}
 		}
+
 		return $field;
 	}
 
@@ -1356,6 +1593,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 				}
 			}
 		}
+
 		return $msg;
 	}
 
@@ -1440,6 +1678,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 				}
 			}
 		}
+
 		return $magic_tags;
 	}
 
@@ -1468,46 +1707,53 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 				}
 			}
 		}
+
 		return $tabs;
 	}
 
 	/**
 	 * Render a view page.
 	 *
-	 * @since   1.3.2
-	 * @access  public
-	 *
-	 * @param   string $file The default file being included.
-	 * @param   string $name The name of the view.
+	 * @param string $file The default file being included.
+	 * @param string $name The name of the view.
 	 *
 	 * @return string
+	 * @since   1.3.2
+	 * @access  public
 	 */
 	public function render_view( $file, $name ) {
 		if ( file_exists( FEEDZY_PRO_ABSPATH . '/includes/views/' . $name . '-view.php' ) ) {
 			return FEEDZY_PRO_ABSPATH . '/includes/views/' . $name . '-view.php';
 		}
+
 		return $file;
 	}
 
 	/**
 	 * Renders the tags for the title.
 	 *
+	 * @param array $default The default tags, empty.
+	 *
 	 * @since   1.4.2
 	 * @access  public
-	 *
-	 * @param   array $default The default tags, empty.
 	 */
 	public function magic_tags_title( $default ) {
+		if ( $this->feedzy_is_agency() ) {
+			$default['title_feedzy_rewrite'] = __( 'Paraphrased title using Feedzy', 'feedzy-rss-feeds' );
+		} else {
+			$default['title_feedzy_rewrite:disabled'] = __( '🚫 Paraphrased title using Feedzy', 'feedzy-rss-feeds' );
+		}
+
 		return apply_filters( 'feedzy_agency_magic_tags_title', $default );
 	}
 
 	/**
 	 * Renders the tags for the date.
 	 *
+	 * @param array $default The default tags, empty.
+	 *
 	 * @since   1.4.2
 	 * @access  public
-	 *
-	 * @param   array $default The default tags, empty.
 	 */
 	public function magic_tags_date( $default ) {
 		return apply_filters( 'feedzy_agency_magic_tags_date', $default );
@@ -1516,27 +1762,46 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	/**
 	 * Renders the tags for the content.
 	 *
+	 * @param array $default The default tags, empty.
+	 *
 	 * @since   1.4.2
 	 * @access  public
-	 *
-	 * @param   array $default The default tags, empty.
 	 */
 	public function magic_tags_content( $default ) {
 		if ( $this->feedzy_is_business() ) {
 			$default['item_full_content'] = __( 'Item Full Content', 'feedzy-rss-feeds' );
 		} else {
-			$default['item_full_content:disabled'] = __( 'Item Full Content', 'feedzy-rss-feeds' );
+			$default['item_full_content:disabled'] = __( '🚫 Item Full Content', 'feedzy-rss-feeds' );
 		}
+
+		if ( $this->feedzy_is_agency() ) {
+			$default['translated_content']      = __( 'Translated Content', 'feedzy-rss-feeds' );
+			$default['translated_description']  = __( 'Translated Description', 'feedzy-rss-feeds' );
+			$default['translated_full_content'] = __( 'Translated Full Content', 'feedzy-rss-feeds' );
+		} else {
+			$default['translated_content:disabled']      = __( '🚫 Translated Content', 'feedzy-rss-feeds' );
+			$default['translated_description:disabled']  = __( '🚫 Translated Description', 'feedzy-rss-feeds' );
+			$default['translated_full_content:disabled'] = __( '🚫 Translated Full Content', 'feedzy-rss-feeds' );
+		}
+
+		if ( $this->feedzy_is_agency() ) {
+			$default['content_feedzy_rewrite']      = __( 'Paraphrased content from Feedzy', 'feedzy-rss-feeds' );
+			$default['full_content_feedzy_rewrite'] = __( 'Paraphrased full content from Feedzy', 'feedzy-rss-feeds' );
+		} else {
+			$default['content_feedzy_rewrite:disabled']      = __( '🚫 Paraphrased content from Feedzy', 'feedzy-rss-feeds' );
+			$default['full_content_feedzy_rewrite:disabled'] = __( '🚫 Paraphrased full content from Feedzy', 'feedzy-rss-feeds' );
+		}
+
 		return apply_filters( 'feedzy_agency_magic_tags_content', $default );
 	}
 
 	/**
 	 * Renders the tags for the featured image.
 	 *
+	 * @param array $default The default tags, empty.
+	 *
 	 * @since   1.4.2
 	 * @access  public
-	 *
-	 * @param   array $default The default tags, empty.
 	 */
 	public function magic_tags_image( $default ) {
 		return apply_filters( 'feedzy_agency_magic_tags_image', $default );
@@ -1546,10 +1811,10 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	/**
 	 * Renders the tags for the title, for the agency.
 	 *
+	 * @param array $default The default tags, empty.
+	 *
 	 * @since   1.4.2
 	 * @access  public
-	 *
-	 * @param   array $default The default tags, empty.
 	 */
 	public function agency_magic_tags_title( $default ) {
 		if ( $this->feedzy_is_agency() ) {
@@ -1560,9 +1825,15 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 				}
 			}
 		} else {
-			$default['title_spinnerchief:disabled'] = __( 'Title from SpinnerChief', 'feedzy-rss-feeds' );
-			$default['title_wordai:disabled']       = __( 'Title from WordAI', 'feedzy-rss-feeds' );
+			$default['title_spinnerchief:disabled'] = __( '🚫 Title from SpinnerChief', 'feedzy-rss-feeds' );
+			$default['title_wordai:disabled']       = __( '🚫 Title from WordAI', 'feedzy-rss-feeds' );
 		}
+		if ( $this->feedzy_is_agency() ) {
+			$default['translated_title'] = __( '🚫 Translated Title', 'feedzy-rss-feeds' );
+		} else {
+			$default['translated_title:disabled'] = __( '🚫 Translated Title', 'feedzy-rss-feeds' );
+		}
+
 		return $default;
 	}
 
@@ -1570,10 +1841,10 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	/**
 	 * Renders the tags for the content, for the agency.
 	 *
+	 * @param array $default The default tags, empty.
+	 *
 	 * @since   1.4.2
 	 * @access  public
-	 *
-	 * @param   array $default The default tags, empty.
 	 */
 	public function agency_magic_tags_content( $default ) {
 		if ( $this->feedzy_is_agency() ) {
@@ -1587,21 +1858,22 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 				}
 			}
 		} else {
-			$default['content_spinnerchief:disabled']      = __( 'Content from SpinnerChief', 'feedzy-rss-feeds' );
-			$default['full_content_spinnerchief:disabled'] = __( 'Full content from SpinnerChief', 'feedzy-rss-feeds' );
-			$default['content_wordai:disabled']            = __( 'Content from WordAI', 'feedzy-rss-feeds' );
-			$default['full_content_wordai:disabled']       = __( 'Full content from WordAI', 'feedzy-rss-feeds' );
+			$default['content_spinnerchief:disabled']      = __( '🚫 Content from SpinnerChief', 'feedzy-rss-feeds' );
+			$default['full_content_spinnerchief:disabled'] = __( '🚫 Full content from SpinnerChief', 'feedzy-rss-feeds' );
+			$default['content_wordai:disabled']            = __( '🚫 Content from WordAI', 'feedzy-rss-feeds' );
+			$default['full_content_wordai:disabled']       = __( '🚫 Full content from WordAI', 'feedzy-rss-feeds' );
 		}
+
 		return $default;
 	}
 
 	/**
 	 * Renders the tags for the date, for the agency.
 	 *
+	 * @param array $default The default tags, empty.
+	 *
 	 * @since   1.4.2
 	 * @access  public
-	 *
-	 * @param   array $default The default tags, empty.
 	 */
 	public function agency_magic_tags_date( $default ) {
 		return $default;
@@ -1610,10 +1882,10 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	/**
 	 * Renders the tags for the featured image, for the agency.
 	 *
+	 * @param array $default The default tags, empty.
+	 *
 	 * @since   1.4.2
 	 * @access  public
-	 *
-	 * @param   array $default The default tags, empty.
 	 */
 	public function agency_magic_tags_image( $default ) {
 		return $default;
@@ -1624,9 +1896,9 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 *
 	 * @access  public
 	 *
-	 * @param   array  $item_array The item attributes array.
-	 * @param   object $item The feed item.
-	 * @param   array  $sc The shorcode attributes array. This will be empty through the block editor.
+	 * @param array  $item_array The item attributes array.
+	 * @param object $item The feed item.
+	 * @param array  $sc The shorcode attributes array. This will be empty through the block editor.
 	 */
 	private function fetch_additional_content( $item_array, $item, $sc ) {
 		$url = '';
@@ -1665,6 +1937,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 			}
 			$item_array['item_content'] .= '[video src="' . $url . '"]';
 		}
+
 		return $item_array;
 	}
 
@@ -1694,7 +1967,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 						add_query_arg(
 							array(
 								'page' => 'feedzy-support',
-								'tab' => 'help#import',
+								'tab'  => 'help#import',
 							), admin_url( 'admin.php' )
 						)
 					);
@@ -1705,32 +1978,6 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	}
 
 	/**
-	 * Add support tabs headings.
-	 */
-	public function support_tab_heading( $default, $active_tab ) {
-		return '
-		<a href="' . esc_url( admin_url( 'admin.php?page=feedzy-support&tab=contact' ) ) . '"
-		   class="nav-tab ' . ( 'contact' === $active_tab ? 'nav-tab-active' : '' ) . '">' . __( 'Contact Us', 'feedzy-rss-feeds' ) . '</a>';
-
-	}
-
-	/**
-	 * Add support tabs content.
-	 *
-	 * @param string $default    File path.
-	 * @param string $active_tab Title of tab.
-	 */
-	public function support_tab_content( $default, $active_tab ) {
-		switch ( $active_tab ) {
-			case 'contact':
-				$default = FEEDZY_PRO_ABSPATH . '/includes/views/contact-us.php';
-				break;
-		}
-
-		return $default;
-	}
-
-	/**
 	 * View feedzy settings page.
 	 */
 	public function view_feedzy_settings() {
@@ -1738,19 +1985,125 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	}
 
 	/**
+	 * Invoke the feedzy in-build content rewrite services.
+	 *
+	 * @access  public
+	 *
+	 * @param string $field Item Content.
+	 * @param string $tag Feedzy tag.
+	 * @param array  $job Import job info.
+	 *
+	 * @return string Content
+	 */
+	public function invoke_content_rewrite_services( $field, $tag, $job ) {
+		if ( $this->feedzy_is_business() || $this->feedzy_is_agency() ) {
+			switch ( $tag ) {
+				case '[#title_feedzy_rewrite]':
+					return $this->get_rewrite_content( $field, false );
+					break;
+
+				case '[#content_feedzy_rewrite]':
+					return $this->get_rewrite_content( $field );
+					break;
+
+				case '[#full_content_feedzy_rewrite]':
+					return $this->get_rewrite_content( $field, true, true );
+					break;
+			}
+		}
+
+		return $field;
+	}
+
+	/**
+	 * Get translated content.
+	 *
+	 * @param string $content Source text.
+	 * @param bool   $auto_format Content auto format.
+	 * @param bool   $is_url Item URL Default false.
+	 *
+	 * @return string content
+	 */
+	private function get_rewrite_content( $content, $auto_format = true, $is_url = false ) {
+		if ( empty( $content ) ) {
+			return $content;
+		}
+
+		$post_data = array(
+			'text' => $content,
+		);
+		if ( $is_url ) {
+			$post_data['item_url'] = $content;
+		}
+
+		$response = wp_remote_post(
+			FEEDZY_PRO_REWRITE_CONTENT_API,
+			apply_filters(
+				'feedzy_rewrite_content_args',
+				array(
+					'body' => array_merge( $post_data, $this->get_additional_client_data() ),
+				)
+			)
+		);
+
+		if ( ! is_wp_error( $response ) ) {
+			if ( array_key_exists( 'response', $response ) && array_key_exists( 'code', $response['response'] ) && intval( $response['response']['code'] ) !== 200 ) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'error in response = %s', print_r( $response, true ) ), 'error', __FILE__, __LINE__ );
+			}
+			$body = wp_remote_retrieve_body( $response );
+			if ( ! is_wp_error( $body ) ) {
+				$response_data = json_decode( $body, true );
+				if ( isset( $response_data['rewrite_content'] ) ) {
+					$content = $response_data['rewrite_content'];
+					if ( $auto_format ) {
+						$content = wpautop( $content, true );
+					}
+				}
+			} else {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'error in body = %s', print_r( $body, true ) ), 'error', __FILE__, __LINE__ );
+			}
+		} else {
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'error in request = %s', print_r( $response, true ) ), 'error', __FILE__, __LINE__ );
+		}
+
+		return $content;
+	}
+
+	/**
 	 * Filters the HTML that is allowed for a given setting content.
 	 *
 	 * @param array $allowed_html Allowed HTML.
+	 *
 	 * @return array
 	 */
 	public function feedzy_wp_kses_allowed_html( $allowed_html ) {
-		$allowed_html['script'] = array(
+		$allowed_html['script']            = array(
 			array(
 				'type' => array(),
-				'src' => array(),
+				'src'  => array(),
 			),
 		);
 		$allowed_html['button']['onclick'] = array();
+
 		return $allowed_html;
+	}
+
+	/**
+	 * Text spinner process.
+	 *
+	 * @param string $text Spinner text.
+	 *
+	 * @return string|html
+	 */
+	public function feedzy_text_spinner( $text ) {
+		if ( ! empty( $text ) && class_exists( 'bjoernffm\Spintax\Parser' ) ) {
+			$spintax = bjoernffm\Spintax\Parser::parse( $text );
+			$text    = $spintax->generate();
+		}
+
+		return $text;
 	}
 }
