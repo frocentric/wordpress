@@ -1,6 +1,15 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+### [1.10.1](https://github.com/frocentric/wordpress/compare/v1.10.0...v1.10.1) (2022-08-05)
+
+
+### Bug Fixes
+
+* fixes GitHub styling ([9d688b5](https://github.com/frocentric/wordpress/commit/9d688b53b3e23761ce60dfc3534a1664ac725c2c))
+* resolves standard-version error ([57c89d7](https://github.com/frocentric/wordpress/commit/57c89d7f069bd86faf90368f85fbafde00171ef8))
+* upgrades Feedy RSS Feeds Pro ([59e698f](https://github.com/frocentric/wordpress/commit/59e698fdfd3428705455b0a0e1e1ca6791bc5146))
 
 ## [1.10.0](https://github.com/frocentric/wordpress/compare/v1.9.4...v1.10.0) (2022-08-04)
 
