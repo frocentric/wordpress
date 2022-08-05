@@ -162,6 +162,78 @@ body.page-template-default .site.grid-container {
   display: none;
 }
 
+/* GitHub embed syntax highlighting */
+.ltag-github-readme-tag {
+  position: relative;
+  border: 1px solid #dbdbdb;
+  border-radius: 3px;
+  box-shadow: 1px 2px 4px 0 rgba(0,0,0,0.18);
+  margin: 1.1em auto 1.3em;
+  overflow: hidden;
+  max-width: 620px;
+}
+.ltag-github-readme-tag .readme-overview {
+  padding: 0.8em 0.5em;
+  border-bottom: 1px solid #dbdbdb;
+}
+.ltag-github-readme-tag .readme-overview p {
+  margin-bottom: 0;
+}
+.ltag-github-readme-tag .readme-overview h2 {
+  font-weight: 400 !important;
+  font-size: 1.2em !important;
+  line-height: 1.3em !important;
+  margin: 0em 0px 0.5em !important;
+}
+.ltag-github-readme-tag .readme-overview h2 img {
+  width: 1.15em !important;
+  max-width: 1.1em !important;
+  display: inline-block;
+  left: 0px;
+  margin: 0;
+  vertical-align: -0.18em;
+  filter: invert(0);
+  filter: var(--theme-social-icon-invert, invert(0));
+}
+.ltag-github-readme-tag .readme-overview h2 br {
+  display: none;
+}
+.ltag-github-readme-tag .readme-overview h3 {
+  font-weight: 400;
+  margin: 0;
+  margin-left: 0.15em;
+  font-size: 0.9em;
+  line-height: 1.05em;
+}
+.ltag-github-readme-tag .ltag-github-body {
+  font-size: 0.72em;
+  line-height: 1.12em;
+  text-align: left;
+  min-height: 100px;
+  padding: 1em 0.5em;
+  max-height: calc(21vw + 165px);
+  overflow: hidden;
+}
+.ltag-github-readme-tag .ltag-github-body h1 {
+  font-size: 1.75em;
+  font-weight: 500;
+}
+.ltag-github-readme-tag .gh-btn-container {
+  text-align: center;
+}
+
+@media screen and (min-width: 430px) {
+  .ltag-github-body {
+    max-height: calc(20vw + 153px);
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .ltag-github-body {
+      max-height: 310px;
+  }
+}
+
 @media screen and (max-width: 599px) {
   .elementor-column-gap-default>.elementor-row>.elementor-column.unpadded>.elementor-column-wrap.elementor-element-populated {
     background-color: transparent;
