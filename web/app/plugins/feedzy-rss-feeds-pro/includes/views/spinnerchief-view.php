@@ -33,30 +33,37 @@ if ( isset( $this->settings['spinnerchief_message'] ) && ! empty( $this->setting
 }
 
 ?>
-				<h2>SpinnerChief</h2>
+<div class="fz-form-wrap">
+	<div class="form-block">
+		<div class="fz-form-row">
+			<div class="fz-form-col-6">
 				<div class="fz-form-group">
-					<b><?php echo esc_html_x( 'API Status:', 'Status', 'feedzy-rss-feeds' ); ?></b>
-					<span id="spinnerchief_api_status" style="color:<?php echo esc_attr( $licence_status_color ); ?>"><?php echo wp_kses_post( $_status ); ?></span><div> <?php echo esc_html_x( 'Last check: ', 'Time last checked.', 'feedzy-rss-feeds' ) . esc_html( $spinnerchief_last_check ); ?></div>
+					<label class="form-label"><?php esc_html_e( 'The SpinnerChief username:', 'feedzy-rss-feeds' ); ?></label>
+					<input type="text" class="form-control" id="spinnerchief_username" name="spinnerchief_username" value="<?php echo esc_attr( $spinnerchief_username ); ?>" placeholder="<?php echo esc_html_x( 'SpinnerChief Username', 'Username for SpinnerChief service', 'feedzy-rss-feeds' ); ?>"/>
 				</div>
+			</div>
+			<div class="fz-form-col-6">
 				<div class="fz-form-group">
-					<label><?php esc_html_e( 'The SpinnerChief username:', 'feedzy-rss-feeds' ); ?></label>
+					<label class="form-label"><?php echo esc_html_x( 'The SpinnerChief password:', 'Password for SpinnerChief service', 'feedzy-rss-feeds' ); ?></label>
+					<input type="password" class="form-control" id="spinnerchief_password" name="spinnerchief_password" value="<?php echo esc_attr( $spinnerchief_password ); ?>" placeholder="<?php echo esc_html_x( 'SpinnerChief Password', 'Password for SpinnerChief service', 'feedzy-rss-feeds' ); ?>"/>
 				</div>
-				<div class="fz-form-group">
-					<input type="text" id="spinnerchief_username" class="fz-form-control" name="spinnerchief_username" value="<?php echo esc_attr( $spinnerchief_username ); ?>" placeholder="<?php echo esc_html_x( 'SpinnerChief Username', 'Username for SpinnerChief service', 'feedzy-rss-feeds' ); ?>"/>
+			</div>
+		</div>
+		<div class="fz-form-group">
+			<label class="form-label"><?php esc_html_e( 'SpinnerChief API key', 'feedzy-rss-feeds' ); ?></label>
+			<div class="fz-input-group">
+				<div class="fz-input-group-left">
+					<input type="password" id="spinnerchief_key" class="form-control" name="spinnerchief_key" value="<?php echo esc_attr( $spinnerchief_key ); ?>" placeholder="<?php esc_attr_e( 'SpinnerChief API Key', 'feedzy-rss-feeds' ); ?>"/>
+					<div class="help-text"><?php echo wp_kses_post( wp_sprintf( __( 'API Status: %1$s | Last check: %2$s', 'feedzy-rss-feeds' ), $_status, $spinnerchief_last_check ) ); ?></div>
 				</div>
-				<div class="fz-form-group">
-					<label><?php echo esc_html_x( 'The SpinnerChief password:', 'Password for SpinnerChief service', 'feedzy-rss-feeds' ); ?></label>
+				<div class="fz-input-group-right">
+					<button id="check_spinnerchief_api" type="button" class="btn btn-outline-primary" onclick="return ajaxUpdate();"><?php echo esc_html_x( 'Validate connection', 'Check and save action button', 'feedzy-rss-feeds' ); ?></button>
 				</div>
-				<div class="fz-form-group fz-input-group">
-					<input type="password" id="spinnerchief_password" class="fz-form-control" name="spinnerchief_password" value="<?php echo esc_attr( $spinnerchief_password ); ?>" placeholder="<?php echo esc_html_x( 'SpinnerChief Password', 'Password for SpinnerChief service', 'feedzy-rss-feeds' ); ?>"/>
-				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-				<div class="fz-form-group fz-input-group">
-					<input type="password" id="spinnerchief_key" class="fz-form-control" name="spinnerchief_key" value="<?php echo esc_attr( $spinnerchief_key ); ?>" placeholder="<?php esc_attr_e( 'SpinnerChief API Key', 'feedzy-rss-feeds' ); ?>"/>
-					<div class="fz-input-group-btn">
-						<button id="check_spinnerchief_api" type="button" class="fz-btn fz-btn-submit fz-btn-activate" onclick="return ajaxUpdate();"><?php echo esc_html_x( 'Check & Save', 'Check and save action button', 'feedzy-rss-feeds' ); ?></button>
-					</div>
-				</div>
 
 <script type="text/javascript">
 	function ajaxUpdate() {
@@ -77,7 +84,7 @@ if ( isset( $this->settings['spinnerchief_message'] ) && ! empty( $this->setting
 		jQuery( '#check_spinnerchief_api' ).html('<?php echo esc_html__( 'Checking ...', 'feedzy-rss-feeds' ); ?>');
 		jQuery.post( ajaxurl, data, function( response ) {
 			jQuery( '#check_spinnerchief_api' ).prop( 'disabled', false );
-			jQuery( '#check_spinnerchief_api' ).html('<?php echo esc_html__( 'Check & Save', 'feedzy-rss-feeds' ); ?>');
+			jQuery( '#check_spinnerchief_api' ).html('<?php echo esc_html__( 'Validate connection', 'feedzy-rss-feeds' ); ?>');
 			location.reload();
 		}, 'json');
 

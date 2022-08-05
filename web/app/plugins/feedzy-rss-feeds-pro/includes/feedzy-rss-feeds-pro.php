@@ -66,7 +66,7 @@ class Feedzy_Rss_Feeds_Pro {
 	 */
 	public function __construct() {
 		$this->plugin_name = 'feedzy-rss-feeds-pro';
-		$this->version     = '1.7.5';
+		$this->version     = '2.0.2';
 		$this->loader      = new Feedzy_Rss_Feeds_Pro_Loader();
 		$this->set_locale();
 		$this->define_admin_hooks();
@@ -138,7 +138,7 @@ class Feedzy_Rss_Feeds_Pro {
 		$this->loader->add_filter( 'feedzy_run_status_errors', $plugin_admin, 'run_status_errors', 10, 2 );
 		$this->loader->add_filter( 'plugin_row_meta', $plugin_admin, 'plugin_row_meta', 10, 2 );
 		$this->loader->add_filter( 'feedzy_add_classes_item', $plugin_admin, 'add_grid_class', 10, 2 );
-		$this->loader->add_filter( 'feedzy_item_keyword', $plugin_admin, 'item_keywords_ban', 20, 4 );
+		$this->loader->add_filter( 'feedzy_item_keyword', $plugin_admin, 'item_additional_filter', 20, 4 );
 		$this->loader->add_filter( 'feedzy_get_short_code_attributes_filter', $plugin_admin, 'feedzy_pro_get_short_code_attributes' );
 		$this->loader->add_filter( 'feedzy_global_output', $plugin_admin, 'render_content', 10, 4 );
 		$this->loader->add_filter( 'feedzy_item_url_filter', $plugin_admin, 'referral_url', 10, 2 );
@@ -156,13 +156,23 @@ class Feedzy_Rss_Feeds_Pro {
 		$this->loader->add_filter( 'feedzy_parse_custom_tags', $plugin_admin, 'parse_custom_tags', 10, 3 );
 		$this->loader->add_filter( 'feedzy_get_service_magic_tags', $plugin_admin, 'get_service_magic_tags', 10, 2 );
 		$this->loader->add_filter( 'feedzy_extract_from_custom_tag', $plugin_admin, 'extract_from_custom_tag', 10, 5 );
-		$this->loader->add_filter( 'feedzy_support_tab_heading', $plugin_admin, 'support_tab_heading', 10, 2 );
-		$this->loader->add_filter( 'feedzy_support_tab_content', $plugin_admin, 'support_tab_content', 10, 2 );
+		$this->loader->add_filter( 'feedzy_invoke_content_rewrite_services', $plugin_admin, 'invoke_content_rewrite_services', 10, 3 );
+		$this->loader->add_filter( 'feedzy_invoke_auto_translate_services', $plugin_admin, 'invoke_auto_translate_services', 10, 5 );
+
+		// Text spinner.
+		$this->loader->add_filter( 'feedzy_parse_custom_tags', $plugin_admin, 'feedzy_text_spinner', 10, 1 );
 
 		$plugin_widget = new Feedzy_Rss_Feeds_Pro_Widget( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_filter( 'feedzy_widget_form_filter', $plugin_widget, 'feedzy_pro_form_widget', 11, 3 );
 		$this->loader->add_filter( 'feedzy_widget_update_filter', $plugin_widget, 'feedzy_pro_widget_update', 11, 3 );
 		$this->loader->add_filter( 'feedzy_widget_shortcode_attributes_filter', $plugin_widget, 'feedzy_pro_widget_shortcode_attributes', 11, 3 );
+
+		// Load elementor action and filter.
+		$plugin_elementor_widget = new Feedzy_Rss_Feeds_Pro_Elementor();
+		$this->loader->add_action( 'elementor/dynamic_tags/register_tags', $plugin_elementor_widget, 'feedzy_elementor_register_dynamic_tags' );
+		$this->loader->add_action( 'elementor/documents/register', $plugin_elementor_widget, 'feedzy_elementor_register_document' );
+		$this->loader->add_action( 'elementor/widgets/widgets_registered', $plugin_elementor_widget, 'feedzy_elementor_widgets_registered' );
+		$this->loader->add_filter( 'elementor/template-library/create_new_dialog_types', $plugin_elementor_widget, 'feedzy_elementor_dialog_types', 10, 2 );
 
 		if ( defined( 'TI_CYPRESS_TESTING' ) ) {
 			$this->load_cypress_hooks();
@@ -238,7 +248,5 @@ class Feedzy_Rss_Feeds_Pro {
 	public static function is_free_older_than( $version ) {
 		return version_compare( Feedzy_Rss_Feeds::instance()->get_version(), $version, '<' );
 	}
-
-
 
 }

@@ -26,26 +26,29 @@ if ( isset( $this->settings['wordai_last_check'] ) ) {
 if ( isset( $this->settings['wordai_message'] ) && ! empty( $this->settings['wordai_message'] ) ) {
 	$_status = $this->settings['wordai_message'];
 }
-?>
-				<h2>WordAi</h2>
-				<div class="fz-form-group">
-					<b><?php esc_html_e( 'API Status:', 'feedzy-rss-feeds' ); ?> </b> <span id="wordai_api_status" style="color:<?php echo esc_attr( $license_status_color ); ?>"><?php echo wp_kses_post( $_status ); ?></span><div> <?php echo esc_html__( 'Last check: ', 'feedzy-rss-feeds' ) . wp_kses_post( $wordai_last_check ); ?></div>
+?>			
+<div class="fz-form-wrap">
+	<div class="form-block">
+		<div class="fz-form-group mb-24">
+			<label class="form-label"><?php esc_html_e( 'The WordAi account email:', 'feedzy-rss-feeds' ); ?></label>
+			<input type="text" class="form-control" id="wordai_username" name="wordai_username" value="<?php echo esc_attr( $wordai_username ); ?>" placeholder="<?php echo esc_attr( __( 'WordAi Email', 'feedzy-rss-feeds' ) ); ?>"/>
+		</div>
+		<div class="fz-form-group">
+			<label class="form-label"><?php esc_html_e( 'The WordAi account API key:', 'feedzy-rss-feeds' ); ?></label>
+			<div class="fz-input-group">
+				<div class="fz-input-group-left">
+					<input type="password" id="wordai_pass" class="form-control" name="wordai_pass" value="<?php echo esc_attr( $wordai_pass ); ?>" placeholder="<?php echo esc_attr( __( 'WordAI API key', 'feedzy-rss-feeds' ) ); ?>"/>
+					<div class="help-text"><?php echo wp_kses_post( wp_sprintf( __( 'API Status: %1$s | Last check: %2$s', 'feedzy-rss-feeds' ), $_status, $wordai_last_check ) ); ?></div>
 				</div>
-				<div class="fz-form-group">
-					<label><?php esc_html_e( 'The WordAi account email:', 'feedzy-rss-feeds' ); ?></label>
-				</div>
-				<div class="fz-form-group">
-					<input type="text" id="wordai_username" class="fz-form-control" name="wordai_username" value="<?php echo esc_attr( $wordai_username ); ?>" placeholder="<?php echo esc_attr( __( 'WordAi Email', 'feedzy-rss-feeds' ) ); ?>"/>
-				</div>
-				<div class="fz-form-group">
-					<label><?php esc_html_e( 'The WordAi account API key:', 'feedzy-rss-feeds' ); ?></label>
-				</div>
-				<div class="fz-form-group fz-input-group">
-					<input type="password" id="wordai_pass" class="fz-form-control" name="wordai_pass" value="<?php echo esc_attr( $wordai_pass ); ?>" placeholder="<?php echo esc_attr( __( 'WordAI API key', 'feedzy-rss-feeds' ) ); ?>"/>
+				<div class="fz-input-group-right">
 					<div class="fz-input-group-btn">
-						<button id="check_wordai_api" type="button" class="fz-btn fz-btn-submit fz-btn-activate" onclick="return ajaxUpdate();"><?php esc_html_e( 'Check & Save', 'feedzy-rss-feeds' ); ?></button>
+						<button id="check_wordai_api" type="button" class="btn btn-outline-primary" onclick="return ajaxUpdate();"><?php esc_html_e( 'Validate connection', 'feedzy-rss-feeds' ); ?></button>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <script type="text/javascript">
 	function ajaxUpdate() {
@@ -65,7 +68,7 @@ if ( isset( $this->settings['wordai_message'] ) && ! empty( $this->settings['wor
 		jQuery( '#check_wordai_api' ).html('<?php esc_html_e( 'Checking ...', 'feedzy-rss-feeds' ); ?>');
 		jQuery.post( ajaxurl, data, function( response ) {
 			jQuery( '#check_wordai_api' ).prop( 'disabled', false );
-			jQuery( '#check_wordai_api' ).html('<?php esc_html_e( 'Check & Save', 'feedzy-rss-feeds' ); ?>');
+			jQuery( '#check_wordai_api' ).html('<?php esc_html_e( 'Validate connection', 'feedzy-rss-feeds' ); ?>');
 			location.reload();
 		}, 'json');
 
