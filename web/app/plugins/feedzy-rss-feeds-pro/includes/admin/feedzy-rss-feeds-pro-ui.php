@@ -81,6 +81,27 @@ class Feedzy_Rss_Feeds_Pro_Ui {
 		$elements['section_pro']['elements']['template']['disabled']      = false;
 		$elements['section_item']['elements']['keywords_ban']['disabled'] = false;
 		$elements['section_item']['elements']['keywords_ban']['disabled'] = false;
+		// Date filter.
+		$section_date_filter = array(
+			'section_date_filter' => array(
+				'title'    => __( 'Filter feed item by date range.', 'feedzy-rss-feeds' ),
+				'elements' => array(
+					'from_datetime'   => array(
+						'label'       => __( 'From ', 'feedzy-rss-feeds' ),
+						'placeholder' => __( 'From', 'feedzy-rss-feeds' ),
+						'type'        => 'datetime-local',
+						'value'       => '',
+					),
+					'to_datetime'   => array(
+						'label'       => __( 'To ', 'feedzy-rss-feeds' ),
+						'placeholder' => __( 'To', 'feedzy-rss-feeds' ),
+						'type'        => 'datetime-local',
+						'value'       => '',
+					),
+				),
+			),
+		);
+		$elements = array_merge( array_splice( $elements, 0, 2 ), $section_date_filter, $elements );
 		return $elements;
 	}
 }

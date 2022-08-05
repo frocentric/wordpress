@@ -1,3 +1,51 @@
+##### [Version 2.0.2](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.0.1...v2.0.2) (2022-07-22)
+
+* Fix WordAI & SpinnerChief connection issue.
+
+##### [Version 2.0.1](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.0.0...v2.0.1) (2022-07-19)
+
+#### Fixes
+* Fix import custom field value issue with underscore key
+
+#### [Version 2.0.0](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v1.8.2...v2.0.0) (2022-07-14)
+
+#### Features
+- Adds Translation support on imported content.
+- Adds built-in paraphrasing service.
+- Adds Spintax text support.
+- Major UI update to make the plugin much easier and cleaner to use.
+
+#### Fixes
+- Add support for data attributes
+- Fix feedzy tags to display if the Elementor template is "Feedzy Loop"
+- Fix date filter is not working with Feedzy Block
+
+##### [Version 1.8.2](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v1.8.1...v1.8.2) (2022-01-28)
+
+- Fix keyword filter issue with date filter
+- Fix PHP notice regarding full content post
+- Manipulate custom tag data
+
+##### [Version 1.8.1](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v1.8.0...v1.8.1) (2021-12-20)
+
+- Have a fallback for [#item_image]
+- Conflict with Elementor editor
+- Warnings when using Feedzy Elementor Widget and Elementor PRO
+- Keyword Filtering when Excluding Posts
+
+#### [Version 1.8.0](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v1.7.6...v1.8.0) (2021-10-19)
+
+ - Adds compatibility for [Elementor Template Builder](https://docs.themeisle.com/article/1396-elementor-compatibility-in-feedzy) and Dynamic Tags support.
+ - Adds compatibility [Enhanced keyword](https://docs.themeisle.com/article/1154-how-to-use-feed-to-post-feature-in-feedzy#filters) filtering support for grouping keywords with or/and
+- Adds new global setting for deleting imported items
+- Add more features to magic tags that allow exporting custom values from the feed
+- Add filter by date and time support
+
+##### [Version 1.7.6](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v1.7.5...v1.7.6) (2021-08-04)
+
+Add wpautop tag support before import content
+Fix feed import issue when use spinnerchief magic tags
+
 ##### [Version 1.7.5](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v1.7.4...v1.7.5) (2021-07-14)
 
 * Fix WordAI rewrite content issue

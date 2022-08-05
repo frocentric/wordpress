@@ -78,10 +78,18 @@ class Feedzy_Rss_Feeds_Pro_Widget {
 	 */
 	public function feedzy_pro_widget_update( $instance, $new_instance ) {
 		$instance                 = $instance;
-		$instance['referral_url'] = strip_tags( $new_instance['referral_url'] );
-		$instance['price']        = strip_tags( $new_instance['price'] );
-		$instance['template']     = strip_tags( $new_instance['template'] );
-		$instance['columns']      = strip_tags( $new_instance['columns'] );
+		if ( isset( $new_instance['referral_url'] ) ) {
+			$instance['referral_url'] = strip_tags( $new_instance['referral_url'] );
+		}
+		if ( isset( $new_instance['price'] ) ) {
+			$instance['price']        = strip_tags( $new_instance['price'] );
+		}
+		if ( isset( $new_instance['template'] ) ) {
+			$instance['template']     = strip_tags( $new_instance['template'] );
+		}
+		if ( isset( $new_instance['columns'] ) ) {
+			$instance['columns']      = strip_tags( $new_instance['columns'] );
+		}
 
 		return $instance;
 	}
