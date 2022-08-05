@@ -235,7 +235,7 @@ class Feedzy_Rss_Feeds_Pro_Wordai implements Feedzy_Rss_Feeds_Pro_Services_Inter
 			} else {
 				$spun_text = ! empty( $decode_response['rewrites'] ) ? reset( $decode_response['rewrites'] ) : '';
 				if ( 'title' !== $type ) {
-					$spun_text = nl2br( $spun_text );
+					$spun_text = wpautop( $spun_text, true );
 				}
 				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'wordai: %s spun to %s', $text, $spun_text ), 'info', __FILE__, __LINE__ );
 			}
