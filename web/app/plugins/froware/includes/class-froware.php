@@ -185,7 +185,7 @@ class Froware {
 		$this->loader->add_action( 'init', $plugin_public, 'add_taxonomy_to_pages' );
 		$this->loader->add_action( 'plugins_loaded', $plugin_public, 'override_community_events_parse_request_hook' );
 		$this->loader->add_action( 'wp_insert_post', $plugin_public, 'wp_insert_post_callback', 10, 3 );
-		$this->loader->add_action( 'save_post_post', $plugin_public, 'save_post_post_callback', 10, 2 );
+		$this->loader->add_action( 'set_object_terms', $plugin_public, 'discourse_update_post_meta', 10, 4 );
 		$this->loader->add_action( 'pre_get_posts', $plugin_public, 'elementor_pre_get_posts', 100 );
 		$this->loader->add_action( 'wpdc_after_sso_client_user_update', $plugin_public, 'discourse_sso_update_user_meta', 10, 2 );
 
