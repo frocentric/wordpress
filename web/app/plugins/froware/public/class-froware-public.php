@@ -957,6 +957,12 @@ class Froware_Public {
 		if ( ! metadata_exists( 'post', $object_id, 'publish_to_discourse' ) ) {
 			// Enable publishing in Discourse, during initial save only.
 			update_post_meta( $object_id, 'publish_to_discourse', true );
+			$discourse_publish_option = get_option( 'discourse_publish' );
+
+			if ( is_array( $discourse_publish_option ) && array_key_exists( 'publish-category', $discourse_publish_option ) ) {
+				$publish_category = $discourse_publish_option['publish-category'];
+				update_post_meta( $object_id, 'publish_post_category', $publish_category );
+			}
 		}
 	}
 
