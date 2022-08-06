@@ -49,6 +49,11 @@ class Froware_Public {
 	protected $imported_event_id;
 
 	/**
+	 * The taxonomies used to generate Discourse tags.
+	 */
+	protected $discourse_tag_taxonomies;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -60,6 +65,7 @@ class Froware_Public {
 		$this->plugin_name       = $plugin_name;
 		$this->version           = $version;
 		$this->imported_event_id = -1;
+		$this->discourse_tag_taxonomies = [ 'discipline', 'interest' ];
 
 	}
 
@@ -378,37 +384,6 @@ class Froware_Public {
 		}
 
 		return $items;
-	}
-
-	public function save_post_post_callback( $post_id, $post ) {
-		// bail out if this is an autosave or trashed message
-		if ( ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) || $post->post_status === 'trash' ) {
-			return;
-		}
-
-		// TODO: Bail out if not a content post
-		$tags = [];
-		$taxonomies = [ 'discipline', 'interest' ];
-
-		foreach ( $taxonomies as $taxonomy ) {
-			$tags = array_merge( $tags, $this->get_term_slugs( $post->ID, $taxonomy ) );
-		}
-
-		// Save Discourse tags
-		update_post_meta( $post_id, 'wpdc_topic_tags', $tags );
-	}
-
-	protected function get_term_slugs( $id, $taxonomy ) {
-		$terms = get_terms( $id, $taxonomy );
-		$slugs = [];
-
-		if ( is_array( $terms ) ) {
-			foreach ( array_filter( $terms ) as $term ) {
-				$slugs[] = $term->slug;
-			}
-		}
-
-		return $slugs;
 	}
 
 	/**
@@ -948,6 +923,63 @@ class Froware_Public {
 	 */
 	public function discourse_sso_update_user_meta( $user_id, $discourse_user ) {
 		update_user_meta( $user_id, 'discourse_user', $discourse_user );
+	}
+
+	/**
+	 * Updates Discourse publishing meta.
+	 *
+	 * @param int $post_id The object's ID.
+	 * @param array $terms An array of object term IDs or slugs.
+	 * @param array $tt_ids An array of term taxonomy IDs.
+	 * @param string $taxonomy The taxonomy slug.
+	 */
+	public function discourse_update_post_meta( $object_id, $terms, $tt_ids, $taxonomy ) {
+		if ( ! in_array( $taxonomy, $this->discourse_tag_taxonomies, true ) ) {
+			return;
+		}
+
+		$post = get_post( $object_id );
+		// bail out if this isn't a regular post
+		if ( empty( $post ) || is_wp_error( $post ) || 'post' !== $post->post_type ) {
+			return;
+		}
+
+		// bail out if the post isn't in the Community or Platform categories
+		$categories = wp_get_post_categories( $object_id, [ 'fields' => 'slugs' ] );
+		if ( ! in_array( 'community', $categories, true ) && ! in_array( 'platform', $categories, true ) ) {
+			return;
+		}
+
+		$tags = $this->generate_discourse_tags( $object_id );
+		// Update Discourse tags.
+		update_post_meta( $object_id, 'wpdc_topic_tags', $tags );
+
+		if ( ! metadata_exists( 'post', $object_id, 'publish_to_discourse' ) ) {
+			// Enable publishing in Discourse, during initial save only.
+			update_post_meta( $object_id, 'publish_to_discourse', true );
+		}
+	}
+
+	/**
+	 * Generates the Discourse tags based on WP taxonomies.
+	 *
+	 * @param int $post_id The post's ID.
+	 * @return array
+	 */
+	protected function generate_discourse_tags( $post_id ) {
+		$tags       = [];
+
+		foreach ( $this->discourse_tag_taxonomies as $taxonomy ) {
+			$terms = get_the_terms( $post_id, $taxonomy );
+
+			if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+				foreach ( $terms as $term ) {
+					$tags[] = $term->slug;
+				}
+			}
+		}
+
+		return $tags;
 	}
 
 	/**
