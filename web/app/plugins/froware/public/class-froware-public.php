@@ -933,7 +933,7 @@ class Froware_Public {
 	 * @param array $tt_ids An array of term taxonomy IDs.
 	 * @param string $taxonomy The taxonomy slug.
 	 */
-	public function discourse_update_post_meta( $object_id, array $terms, array $tt_ids, string $taxonomy ) {
+	public function discourse_update_post_meta( $object_id, $terms, $tt_ids, $taxonomy ) {
 		if ( ! in_array( $taxonomy, $this->discourse_tag_taxonomies, true ) ) {
 			return;
 		}
