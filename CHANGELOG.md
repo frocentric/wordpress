@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+### [1.10.2](https://github.com/frocentric/wordpress/compare/v1.10.1...v1.10.2) (2022-08-06)
+
+
+### Bug Fixes
+
+* fixes Discourse config for easier publishing ([739ad5f](https://github.com/frocentric/wordpress/commit/739ad5fa20db51086c7b9ba042ce6a01602d3b42))
+* fixes syntax error ([1b34e2a](https://github.com/frocentric/wordpress/commit/1b34e2a94ed54529771f60b7d63188f45f45a2d3))
+
 ### [1.10.1](https://github.com/frocentric/wordpress/compare/v1.10.0...v1.10.1) (2022-08-05)
 
 
