@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+### [1.10.3](https://github.com/frocentric/wordpress/compare/v1.10.2...v1.10.3) (2022-08-06)
+
+
+### Bug Fixes
+
+* sets Discourse category for imported posts ([e484b83](https://github.com/frocentric/wordpress/commit/e484b83ff3ac11c9be2d0f78bdde316b10452041))
+
 ### [1.10.2](https://github.com/frocentric/wordpress/compare/v1.10.1...v1.10.2) (2022-08-06)
 
 
