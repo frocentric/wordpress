@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+### [1.10.4](https://github.com/frocentric/wordpress/compare/v1.10.3...v1.10.4) (2022-08-07)
+
+
+### Bug Fixes
+
+* fixes version regex ([f1e75e0](https://github.com/frocentric/wordpress/commit/f1e75e0e39337f255ca423eb814298beb63e7147))
+
 ### [1.10.3](https://github.com/frocentric/wordpress/compare/v1.10.2...v1.10.3) (2022-08-06)
 
 
