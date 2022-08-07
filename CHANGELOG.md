@@ -1,6 +1,38 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
+
+## [1.9.0](https://github.com/frocentric/wordpress/compare/v1.8.4...v1.9.0) (2022-08-07)
+
+
+### Features
+
+* adds copyright license to imported posts ([7d023a3](https://github.com/frocentric/wordpress/commit/7d023a378eb911734ca4c3e9f7dff54f3fc05f61))
+* adds dynamic Elementor visibilty ([94d71c0](https://github.com/frocentric/wordpress/commit/94d71c06842a7fe59e323cd37bc3370035a5e909))
+* renders Discourse avatar when available ([2a6f173](https://github.com/frocentric/wordpress/commit/2a6f173d2a13ea74ec11e5a2a7e424e42b747ac3))
+* updates core and plugins to latest ([d953685](https://github.com/frocentric/wordpress/commit/d95368573fc2420bd0e52a9a39f1e3183b856b97))
+
+
+### Bug Fixes
+
+* adds support for dynamic links ([5537b66](https://github.com/frocentric/wordpress/commit/5537b66737f153d5744b90ca0f019d81f896f6f9))
+* fixes content spacing on mobile ([fbcb916](https://github.com/frocentric/wordpress/commit/fbcb91697f902aad90803d9f53db66ff091a54bf))
+* fixes Discourse config for easier publishing ([739ad5f](https://github.com/frocentric/wordpress/commit/739ad5fa20db51086c7b9ba042ce6a01602d3b42))
+* fixes GitHub styling ([9d688b5](https://github.com/frocentric/wordpress/commit/9d688b53b3e23761ce60dfc3534a1664ac725c2c))
+* fixes login redirection ([edcdce1](https://github.com/frocentric/wordpress/commit/edcdce1ae73ee2c76958e785c1561849cdf209e6))
+* fixes login URL ([8a7fe01](https://github.com/frocentric/wordpress/commit/8a7fe018c92ba640b8f887025779c408ff64cfc3))
+* fixes multisite URLs ([2a22ca1](https://github.com/frocentric/wordpress/commit/2a22ca1c5c36c4d56d1fa351ee64cd77551ca1b8))
+* fixes syntax error ([1b34e2a](https://github.com/frocentric/wordpress/commit/1b34e2a94ed54529771f60b7d63188f45f45a2d3))
+* fixes topic list styling ([b85aa07](https://github.com/frocentric/wordpress/commit/b85aa07fbd2a50b33bbc4105e4cc3505a2a8ec72))
+* highlights 'Content' link correctly ([ab5a338](https://github.com/frocentric/wordpress/commit/ab5a338d6f3560105d1ac08f53826c3f4f233751)), closes [#447](https://github.com/frocentric/wordpress/issues/447)
+* Highlights 'Content' link for tag archives ([74d6ff0](https://github.com/frocentric/wordpress/commit/74d6ff0489f0e9c12c1ead8072a420127d123a21)), closes [#447](https://github.com/frocentric/wordpress/issues/447)
+* redirects to origin page after logging out ([368968d](https://github.com/frocentric/wordpress/commit/368968d225a80a90cd7b55435979f003eb767bea))
+* remove named anchor from comment section ([8ae9b60](https://github.com/frocentric/wordpress/commit/8ae9b6092187c7c039bd2122443c61ceac3cc77b))
+* removes redundant plugin ([74ff4d2](https://github.com/frocentric/wordpress/commit/74ff4d25b8716e393158a3f751aa47447c578dc1))
+* resolves mobile menu styling ([1fefa00](https://github.com/frocentric/wordpress/commit/1fefa00036447b5856b951391618ef4e41d1450e))
+* resolves standard-version error ([57c89d7](https://github.com/frocentric/wordpress/commit/57c89d7f069bd86faf90368f85fbafde00171ef8))
+* sets Discourse category for imported posts ([e484b83](https://github.com/frocentric/wordpress/commit/e484b83ff3ac11c9be2d0f78bdde316b10452041))
+* upgrades Feedy RSS Feeds Pro ([59e698f](https://github.com/frocentric/wordpress/commit/59e698fdfd3428705455b0a0e1e1ca6791bc5146))
 
 ### [1.8.4](https://github.com/frocentric/wordpress/compare/v1.8.3...v1.8.4) (2022-04-07)
 
