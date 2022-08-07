@@ -35,8 +35,10 @@ class CWS_Query_Standard_Format_Posts {
 		$slugs = array_flip( get_post_format_slugs() );
 		$by_raw_slug = get_post_format_slugs();
 		$by_translated_slug = array_flip( $by_raw_slug );
+		// Strip the post-format- prefix from value, if present
+		$clean_post_format = $this->clean_post_format( $qvs['post_format'] );
 
-		if ( 'standard' === $by_translated_slug[ $qvs['post_format'] ] ) {
+		if ( 'standard' === $by_translated_slug[ $clean_post_format ] ) {
 			if ( isset( $slugs[ $qvs['post_format'] ] ) ) {
 				$qvs['post_format'] = 'post-format-' . $slugs[ $qvs['post_format'] ];
 			}
@@ -65,12 +67,20 @@ class CWS_Query_Standard_Format_Posts {
 		return $qvs;
 	}
 
-	protected function parse_query( $q ) {
+	public function parse_query( $q ) {
 		$q->is_tax = true;
 		$q->is_archive = true;
 		$q->is_home = false;
 		$q->queried_object = get_term_by( 'slug', 'post-format-standard', 'post_format' );
 		$q->queried_object_id = $q->queried_object->term_id;
+	}
+
+	protected function clean_post_format( $post_format ) {
+		if ( strpos( $post_format, 'post-format-' ) === 0 ) {
+			$post_format = substr( $post_format, 12 );
+		}
+
+		return $post_format;
 	}
 
 }
