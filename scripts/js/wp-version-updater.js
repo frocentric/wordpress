@@ -1,6 +1,6 @@
-const universalRegex = /(Version:\s+)(\d\.\d\.\d)($|\n)/m;
+const universalRegex = /(Version:\s+)(\d+\.\d+\.\d+)($|\n)/m;
 const pluginRegex =
-  /(define\(\s?(?:'|")PLUGIN_NAME_VERSION(?:'|"),\s?(?:'|"))(\d\.\d\.\d)('|")/m;
+  /(define\(\s?(?:'|")PLUGIN_NAME_VERSION(?:'|"),\s?(?:'|"))(\d+\.\d+\.\d+)('|")/m;
 
 module.exports.readVersion = function (contents) {
   const match = contents.match(universalRegex);
