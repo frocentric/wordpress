@@ -312,6 +312,8 @@ class Froware {
 				$icon = 'text';
 				break;
 		}
+
+		return $icon;
 	}
 
 	/**
