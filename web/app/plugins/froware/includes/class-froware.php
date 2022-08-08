@@ -252,6 +252,65 @@ class Froware {
 			}
 		);
 
+		add_shortcode(
+			'frocentric_post_format',
+			function( $atts = [] ) {
+				$plugin_public = new Froware_Public( $this->get_plugin_name(), $this->get_version() );
+
+        // phpcs:ignore
+				if ( ! empty( get_post() ) ) {
+					$format = get_post_format();
+
+					if ( empty( $format ) ) {
+						$format = 'standard';
+					}
+
+					$format_string = get_post_format_string( $format );
+
+					if ( $format_string === 'Standard' ) {
+						$format_string = 'Text';
+					}
+
+					switch ( $format ) {
+						case 'aside':
+							$icon = 'format-aside';
+							break;
+						case 'audio':
+							$icon = 'microphone';
+							break;
+						case 'chat':
+							$icon = 'format-chat';
+							break;
+						case 'gallery':
+							$icon = 'format-gallery';
+							break;
+						case 'image':
+							$icon = 'format-image';
+							break;
+						case 'link':
+							$icon = 'admin-links';
+							break;
+						case 'quote':
+							$icon = 'format-quote';
+							break;
+						case 'status':
+							$icon = 'post-status';
+							break;
+						case 'video':
+							$icon = 'video-alt3';
+							break;
+						default:
+							$icon = 'text';
+							break;
+					}
+
+					return '<a href="/type/post-format-' . $format . '" class="dashicons dashicons-' . $icon . '" title="' . esc_attr( 'View all ' . strtolower( $format_string ) . ' format posts' ) . '">' . $format_string . '</a>';
+				} else {
+					return '';
+				}
+			}
+		);
+
 	}
 
 	/**
