@@ -209,6 +209,7 @@ class Froware {
 		$this->loader->add_filter( 'twig_anything_request_args', $plugin_public, 'twig_anything_request_args', 10, 2 );
 		$this->loader->add_filter( 'discourse_comment_html', $plugin_public, 'discourse_comment_html', 10, 1 );
 		$this->loader->add_filter( 'discourse_replies_html', $plugin_public, 'discourse_replies_html', 10, 1 );
+		$this->loader->add_filter( 'discourse_no_replies_html', $plugin_public, 'discourse_replies_html', 10, 1 );
 		$this->loader->add_filter( 'ninja_forms_post_run_action_type_redirect', $plugin_public, 'ninja_forms_post_run_action_type_redirect_callback', 10, 1 );
 		$this->loader->add_filter( 'wp_get_nav_menu_items', $plugin_public, 'set_logout_menu_item_url', 10, 3 );
 		$this->loader->add_filter( 'e_addons/dynamic', $plugin_public, 'parse_api_fields', 10, 3 );
@@ -252,6 +253,68 @@ class Froware {
 			}
 		);
 
+		add_shortcode(
+			'frocentric_post_format',
+			function( $atts = [] ) {
+				if ( ! empty( get_post() ) ) {
+					$format = get_post_format();
+
+					if ( empty( $format ) ) {
+						$format = 'standard';
+					}
+
+					$format_string = get_post_format_string( $format );
+
+					if ( $format_string === 'Standard' ) {
+						$format_string = 'Text';
+					}
+
+					$icon = $this->get_icon( $format );
+
+					return '<a href="/type/post-format-' . $format . '" class="dashicons dashicons-' . $icon . '" title="' . esc_attr( 'View all ' . strtolower( $format_string ) . ' format posts' ) . '">' . $format_string . '</a>';
+				} else {
+					return '';
+				}
+			}
+		);
+	}
+
+	// phpcs:ignore
+	protected function get_icon( $format ) {
+		switch ( $format ) {
+			case 'aside':
+				$icon = 'format-aside';
+				break;
+			case 'audio':
+				$icon = 'microphone';
+				break;
+			case 'chat':
+				$icon = 'format-chat';
+				break;
+			case 'gallery':
+				$icon = 'format-gallery';
+				break;
+			case 'image':
+				$icon = 'format-image';
+				break;
+			case 'link':
+				$icon = 'admin-links';
+				break;
+			case 'quote':
+				$icon = 'format-quote';
+				break;
+			case 'status':
+				$icon = 'post-status';
+				break;
+			case 'video':
+				$icon = 'video-alt3';
+				break;
+			default:
+				$icon = 'text';
+				break;
+		}
+
+		return $icon;
 	}
 
 	/**

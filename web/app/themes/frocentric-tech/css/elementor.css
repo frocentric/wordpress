@@ -123,6 +123,26 @@
 .slim-section .generate-columns-container .post {
   margin-bottom: 0;
 }
+.elementor-shortcode .dashicons {
+  font-size: 0;
+  border: 2px solid #1995a7;
+  display: inline-block;
+  width: auto;
+  height: auto;
+  padding: 5px;
+  border-radius: 3px;
+}
+.elementor-shortcode .dashicons:hover {
+  background-color: #1995a7;
+  color: white;
+  text-decoration: none;
+}
+.elementor-shortcode .dashicons:before {
+  font-size: 2rem;
+  display: block;
+  height: 1em;
+  width: 1em;
+}
 .elementor-post-info__terms-list {
   font-size: 0;
 }

@@ -859,9 +859,39 @@ class Froware_Public {
 			}
 		}
 
+		$modified = preg_replace_callback(
+			'/(<h3\sid="reply-title".*?href="([^"]+)".*?<\/h3>)/s',
+			function ( $matches ) {
+				$value = '<div class="elementor-button-wrapper"><a href="' . $matches[2] . '#reply" class="elementor-button-link elementor-button elementor-size-lg" role="button"><span class="elementor-button-content-wrapper"><span class="elementor-button-text">' . esc_html__( 'Reply', 'frocentric' ) . '</span></span></a></div>';
+
+				return $value;
+			}, $modified
+		);
+		$needle = 'class="comments-area">';
+
+		if ( strpos( $modified, $needle ) !== false ) {
+			$modified = str_replace(
+				$needle,
+				$needle . '<div class="comments-title-wrap"><h2 class="comments-title discourse-comments-title">' . esc_html__( 'No Replies' ) . '</h2></div>',
+				$modified
+			);
+		}
+
 		return $modified;
 	}
 
+	/*
+
+			<div class="comments-title-wrap">
+				<h2 class="comments-title discourse-comments-title"><?php echo esc_html( self::get_text_options( 'notable-replies-text' ) ); ?></h2>
+			</div>
+	"		<div id="comments" class="comments-area">
+			<div class="respond comment-respond">
+				<div class="elementor-button-wrapper"><a href="{topic_url}#reply" class="elementor-button-link elementor-button elementor-size-lg" role="button"><span class="elementor-button-content-wrapper"><span class="elementor-button-text">Reply</span></span></a></div>
+			</div>
+		</div>
+		"
+	*/
 	/**
 	 * Redirect user after successful login via Discourse.
 	 *
