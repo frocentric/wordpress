@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.11.0](https://github.com/frocentric/wordpress/compare/v1.10.3...v1.11.0) (2022-08-10)
+
+
+### Features
+
+* replaces text content with button link ([#491](https://github.com/frocentric/wordpress/issues/491)) ([f988d6a](https://github.com/frocentric/wordpress/commit/f988d6a553361a3663776087c58629f24329ef06))
+
+
+### Bug Fixes
+
+* fixes missing icon ([8a0a053](https://github.com/frocentric/wordpress/commit/8a0a053c50c18b034cb841ba9762ee89c0419a7a))
+* fixes version regex ([f1e75e0](https://github.com/frocentric/wordpress/commit/f1e75e0e39337f255ca423eb814298beb63e7147))
+
 ### [1.10.3](https://github.com/frocentric/wordpress/compare/v1.10.2...v1.10.3) (2022-08-06)
 
 
