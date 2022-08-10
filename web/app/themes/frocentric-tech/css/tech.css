@@ -67,9 +67,9 @@
   padding-left: 20px;
   padding-top: 0;
 }
-.comments-area.discourse-comments-area h2,
-.comments-area.discourse-comments-area h3,
-.comments-area.discourse-comments-area h4 {
+.comments-area h2,
+.comments-area h3,
+.comments-area h4 {
   color: #ffffff;
 }
 .comments-container .comment-content {
