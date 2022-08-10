@@ -238,6 +238,12 @@ input[type="submit"]:hover,
   text-decoration: none;
 }
 
+.comments-area .elementor-button-wrapper .elementor-button.elementor-button-link:hover {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: #1995a7;
+}
+
 .button-arrow .elementor-button-wrapper .elementor-button.elementor-button-link:hover {
   background: transparent center right url('../images/chevron-filled-right-black.svg') no-repeat;
   background-color: transparent;
