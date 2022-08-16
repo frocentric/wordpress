@@ -862,7 +862,14 @@ class Froware_Public {
 		$modified = preg_replace_callback(
 			'/(<h3\sid="reply-title".*?href="([^"]+)".*?<\/h3>)/s',
 			function ( $matches ) {
-				$value = '<div class="elementor-button-wrapper"><a href="' . $matches[2] . '#reply" class="elementor-button-link elementor-button elementor-size-lg" role="button"><span class="elementor-button-content-wrapper"><span class="elementor-button-text">' . esc_html__( 'Reply', 'frocentric' ) . '</span></span></a></div>';
+				$url = $matches[2] . '#reply';
+
+				if ( ! wp_validate_logged_in_cookie( false ) ) {
+					$url = home_url( '?discourse_sso=1&redirect_to=' . urlencode( $url ) );
+					$url = str_replace( '%7B', '{', str_replace( '%7D', '}', $url ) );
+				}
+
+				$value = '<div class="elementor-button-wrapper"><a href="' . $url . '" class="elementor-button-link elementor-button elementor-size-lg" role="button"><span class="elementor-button-content-wrapper"><span class="elementor-button-text">' . esc_html__( 'Reply', 'frocentric' ) . '</span></span></a></div>';
 
 				return $value;
 			}, $modified
