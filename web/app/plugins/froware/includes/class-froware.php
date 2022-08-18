@@ -172,6 +172,8 @@ class Froware {
 		$plugin_public = new Froware_Public( $this->get_plugin_name(), $this->get_version() );
 
 		// Actions.
+		//$this->loader->add_action( 'admin_init', $plugin_public, 'restrict_wpadmin_access' );
+		$this->loader->add_action( 'admin_print_scripts-profile.php', $plugin_public, 'hide_admin_bar_prefs' );
 		$this->loader->add_action( 'after_setup_theme', $plugin_public, 'extend_theme_support', 100 );
 		$this->loader->add_action( 'init', $plugin_public, 'add_taxonomy_to_pages' );
 		$this->loader->add_action( 'login_enqueue_scripts', $plugin_public, 'enqueue_login_styles' );
@@ -207,6 +209,7 @@ class Froware {
 		$this->loader->add_filter( 'logout_redirect', $plugin_public, 'logout_redirect', 10, 3 );
 		$this->loader->add_filter( 'nav_menu_css_class', $plugin_public, 'special_nav_class', 10, 3 );
 		$this->loader->add_filter( 'ninja_forms_post_run_action_type_redirect', $plugin_public, 'ninja_forms_post_run_action_type_redirect_callback', 10, 1 );
+		$this->loader->add_filter( 'show_admin_bar', $plugin_public, 'toggle_admin_bar', 20, 1 );
 		$this->loader->add_filter( 'the_content', $plugin_public, 'append_copyright_notice', 999, 1 );
 		$this->loader->add_filter( 'the_content_feed', $plugin_public, 'filter_content_feed', 999, 1 );
 		$this->loader->add_filter( 'the_excerpt_rss', $plugin_public, 'filter_content_feed', 999, 1 );
