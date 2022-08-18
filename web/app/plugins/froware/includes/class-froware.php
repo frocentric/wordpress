@@ -172,7 +172,7 @@ class Froware {
 		$plugin_public = new Froware_Public( $this->get_plugin_name(), $this->get_version() );
 
 		// Actions.
-		//$this->loader->add_action( 'admin_init', $plugin_public, 'restrict_wpadmin_access' );
+		$this->loader->add_action( 'admin_init', $plugin_public, 'restrict_wpadmin_access' );
 		$this->loader->add_action( 'admin_print_scripts-profile.php', $plugin_public, 'hide_admin_bar_prefs' );
 		$this->loader->add_action( 'after_setup_theme', $plugin_public, 'extend_theme_support', 100 );
 		$this->loader->add_action( 'init', $plugin_public, 'add_taxonomy_to_pages' );
