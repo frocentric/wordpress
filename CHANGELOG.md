@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.12.0](https://github.com/frocentric/wordpress/compare/v1.11.0...v1.12.0) (2022-08-18)
+
+
+### Features
+
+* adds dynamic comment reply link ([b625415](https://github.com/frocentric/wordpress/commit/b6254159d751d30b3fb535d42e045f5503d8843d))
+* blocks regular users from WP backend ([5140b42](https://github.com/frocentric/wordpress/commit/5140b42a7c8deec56c469debfee3587071239d39))
+* replaces text content with button link ([280d53a](https://github.com/frocentric/wordpress/commit/280d53a51ca9bbcf4e8874d80d8a641fe24a9ef1))
+
 ## [1.11.0](https://github.com/frocentric/wordpress/compare/v1.10.3...v1.11.0) (2022-08-10)
 
 
