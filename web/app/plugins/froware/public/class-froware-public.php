@@ -862,7 +862,14 @@ class Froware_Public {
 		$modified = preg_replace_callback(
 			'/(<h3\sid="reply-title".*?href="([^"]+)".*?<\/h3>)/s',
 			function ( $matches ) {
-				$value = '<div class="elementor-button-wrapper"><a href="' . $matches[2] . '#reply" class="elementor-button-link elementor-button elementor-size-lg" role="button"><span class="elementor-button-content-wrapper"><span class="elementor-button-text">' . esc_html__( 'Reply', 'frocentric' ) . '</span></span></a></div>';
+				$url = $matches[2] . '#reply';
+
+				if ( ! wp_validate_logged_in_cookie( false ) ) {
+					$url = home_url( '?discourse_sso=1&redirect_to=' . urlencode( $url ) );
+					$url = str_replace( '%7B', '{', str_replace( '%7D', '}', $url ) );
+				}
+
+				$value = '<div class="elementor-button-wrapper"><a href="' . $url . '" class="elementor-button-link elementor-button elementor-size-lg" role="button"><span class="elementor-button-content-wrapper"><span class="elementor-button-text">' . esc_html__( 'Reply', 'frocentric' ) . '</span></span></a></div>';
 
 				return $value;
 			}, $modified
@@ -1084,5 +1091,39 @@ class Froware_Public {
 		);
 
 		return $value;
+	}
+
+	/**
+	 * Hides the admin bar if user can't create/edit posts.
+	 */
+	public function toggle_admin_bar( $show_admin_bar ) {
+		return current_user_can( 'edit_posts' ) ? $show_admin_bar : false;
+	}
+
+	/**
+	 * Renders stylesheet to hide admin bar on profile page
+	 */
+	public function hide_admin_bar_prefs() { ?>
+		<style type="text/css">
+			.show-admin-bar {display: none;}
+		</style>
+		<?php
+	}
+
+	/**
+	 * Restricts wp-admin access if user can't create/edit posts.
+	 */
+	public function restrict_wpadmin_access() {
+		if ( wp_doing_ajax() || current_user_can( 'edit_posts' ) ) {
+			return;
+		} else {
+			global $wp_query;
+			$wp_query->set_404();
+			http_response_code( 404 );
+			nocache_headers();
+			get_template_part( 'content', '404' );
+
+			die();
+		}
 	}
 }
