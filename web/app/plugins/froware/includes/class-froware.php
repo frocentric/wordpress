@@ -172,48 +172,48 @@ class Froware {
 		$plugin_public = new Froware_Public( $this->get_plugin_name(), $this->get_version() );
 
 		// Actions.
-		$this->loader->add_action( 'login_enqueue_scripts', $plugin_public, 'enqueue_login_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action( 'after_setup_theme', $plugin_public, 'extend_theme_support', 100 );
-		$this->loader->add_action( 'wp_ajax_nopriv_import_event', $plugin_public, 'import_event' );
+		$this->loader->add_action( 'init', $plugin_public, 'add_taxonomy_to_pages' );
+		$this->loader->add_action( 'login_enqueue_scripts', $plugin_public, 'enqueue_login_styles' );
+		$this->loader->add_action( 'plugins_loaded', $plugin_public, 'override_community_events_parse_request_hook' );
+		$this->loader->add_action( 'pre_get_posts', $plugin_public, 'elementor_pre_get_posts', 100 );
+		$this->loader->add_action( 'set_object_terms', $plugin_public, 'discourse_update_post_meta', 10, 4 );
+		$this->loader->add_action( 'tribe_events_community_form_before_template', $plugin_public, 'event_import_form' );
+		$this->loader->add_action( 'wpdc_after_sso_client_user_update', $plugin_public, 'discourse_sso_update_user_meta', 10, 2 );
+		$this->loader->add_action( 'wpea_after_create_tec_eventbrite_event', $plugin_public, 'track_new_event', 10, 3 );
 		$this->loader->add_action( 'wp_ajax_import_event', $plugin_public, 'import_event' );
+		$this->loader->add_action( 'wp_ajax_nopriv_import_event', $plugin_public, 'import_event' );
 		$this->loader->add_action( 'wp_ajax_nopriv_validate_event_url', $plugin_public, 'validate_event_url' );
 		$this->loader->add_action( 'wp_ajax_validate_event_url', $plugin_public, 'validate_event_url' );
-		$this->loader->add_action( 'wpea_after_create_tec_eventbrite_event', $plugin_public, 'track_new_event', 10, 3 );
-		$this->loader->add_action( 'tribe_events_community_form_before_template', $plugin_public, 'event_import_form' );
-		$this->loader->add_action( 'init', $plugin_public, 'add_taxonomy_to_pages' );
-		$this->loader->add_action( 'plugins_loaded', $plugin_public, 'override_community_events_parse_request_hook' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_insert_post', $plugin_public, 'wp_insert_post_callback', 10, 3 );
-		$this->loader->add_action( 'set_object_terms', $plugin_public, 'discourse_update_post_meta', 10, 4 );
-		$this->loader->add_action( 'pre_get_posts', $plugin_public, 'elementor_pre_get_posts', 100 );
-		$this->loader->add_action( 'wpdc_after_sso_client_user_update', $plugin_public, 'discourse_sso_update_user_meta', 10, 2 );
 
 		// Filters.
-		$this->loader->add_filter( 'generate_typography_default_fonts', $plugin_public, 'add_generatepress_fonts' );
-		$this->loader->add_filter( 'generate_inside_post_meta_item_output', $plugin_public, 'generate_inside_post_meta_item_output', 20, 2 );
-		$this->loader->add_filter( 'generate_post_date_output', $plugin_public, 'generate_post_date_output', 10, 2 );
-		$this->loader->add_filter( 'generate_svg_icon_element', $plugin_public, 'generate_svg_icon_element', 10, 2 );
-		$this->loader->add_filter( 'login_redirect', $plugin_public, 'discourse_login_redirect', 10, 3 );
-		$this->loader->add_filter( 'logout_redirect', $plugin_public, 'logout_redirect', 10, 3 );
-		$this->loader->add_filter( 'generate_svg_icon', $plugin_public, 'remove_svg_icon', 10, 2 );
-		$this->loader->add_filter( 'nav_menu_css_class', $plugin_public, 'special_nav_class', 10, 3 );
-		$this->loader->add_filter( 'wp_nav_menu_objects', $plugin_public, 'wp_nav_menu_objects_callback' );
-		$this->loader->add_filter( 'wpsp_defaults', $plugin_public, 'wpsp_defaults' );
+		$this->loader->add_filter( 'discourse_comment_html', $plugin_public, 'discourse_comment_html', 10, 1 );
+		$this->loader->add_filter( 'discourse_no_replies_html', $plugin_public, 'discourse_replies_html', 10, 1 );
+		$this->loader->add_filter( 'discourse_replies_html', $plugin_public, 'discourse_replies_html', 10, 1 );
+		$this->loader->add_filter( 'e_addons/dynamic', $plugin_public, 'parse_api_fields', 10, 3 );
 		$this->loader->add_filter( 'feedzy_content', $plugin_public, 'feedzy_content_callback', 5, 2 );
 		$this->loader->add_filter( 'feedzy_insert_post_args', $plugin_public, 'feedzy_insert_post_args_callback', 10, 6 );
 		$this->loader->add_filter( 'feedzy_item_filter', $plugin_public, 'feedzy_item_filter_callback', 10, 5 );
-		$this->loader->add_filter( 'the_excerpt_rss', $plugin_public, 'filter_content_feed', 999, 1 );
-		$this->loader->add_filter( 'the_content_feed', $plugin_public, 'filter_content_feed', 999, 1 );
-		$this->loader->add_filter( 'the_content', $plugin_public, 'append_copyright_notice', 999, 1 );
-		$this->loader->add_filter( 'twig_anything_request_args', $plugin_public, 'twig_anything_request_args', 10, 2 );
-		$this->loader->add_filter( 'discourse_comment_html', $plugin_public, 'discourse_comment_html', 10, 1 );
-		$this->loader->add_filter( 'discourse_replies_html', $plugin_public, 'discourse_replies_html', 10, 1 );
-		$this->loader->add_filter( 'discourse_no_replies_html', $plugin_public, 'discourse_replies_html', 10, 1 );
-		$this->loader->add_filter( 'ninja_forms_post_run_action_type_redirect', $plugin_public, 'ninja_forms_post_run_action_type_redirect_callback', 10, 1 );
-		$this->loader->add_filter( 'wp_get_nav_menu_items', $plugin_public, 'set_logout_menu_item_url', 10, 3 );
-		$this->loader->add_filter( 'e_addons/dynamic', $plugin_public, 'parse_api_fields', 10, 3 );
+		$this->loader->add_filter( 'generate_inside_post_meta_item_output', $plugin_public, 'generate_inside_post_meta_item_output', 20, 2 );
+		$this->loader->add_filter( 'generate_post_date_output', $plugin_public, 'generate_post_date_output', 10, 2 );
+		$this->loader->add_filter( 'generate_svg_icon', $plugin_public, 'remove_svg_icon', 10, 2 );
+		$this->loader->add_filter( 'generate_svg_icon_element', $plugin_public, 'generate_svg_icon_element', 10, 2 );
+		$this->loader->add_filter( 'generate_typography_default_fonts', $plugin_public, 'add_generatepress_fonts' );
 		$this->loader->add_filter( 'get_avatar_url', $plugin_public, 'discourse_get_avatar_url', 10, 3 );
+		$this->loader->add_filter( 'login_redirect', $plugin_public, 'discourse_login_redirect', 10, 3 );
+		$this->loader->add_filter( 'logout_redirect', $plugin_public, 'logout_redirect', 10, 3 );
+		$this->loader->add_filter( 'nav_menu_css_class', $plugin_public, 'special_nav_class', 10, 3 );
+		$this->loader->add_filter( 'ninja_forms_post_run_action_type_redirect', $plugin_public, 'ninja_forms_post_run_action_type_redirect_callback', 10, 1 );
+		$this->loader->add_filter( 'the_content', $plugin_public, 'append_copyright_notice', 999, 1 );
+		$this->loader->add_filter( 'the_content_feed', $plugin_public, 'filter_content_feed', 999, 1 );
+		$this->loader->add_filter( 'the_excerpt_rss', $plugin_public, 'filter_content_feed', 999, 1 );
+		$this->loader->add_filter( 'twig_anything_request_args', $plugin_public, 'twig_anything_request_args', 10, 2 );
+		$this->loader->add_filter( 'wpsp_defaults', $plugin_public, 'wpsp_defaults' );
+		$this->loader->add_filter( 'wp_get_nav_menu_items', $plugin_public, 'set_logout_menu_item_url', 10, 3 );
+		$this->loader->add_filter( 'wp_nav_menu_objects', $plugin_public, 'wp_nav_menu_objects_callback' );
 	}
 
 	/**
