@@ -182,7 +182,7 @@ class Froware {
 		$this->loader->add_action( 'set_object_terms', $plugin_public, 'discourse_update_post_meta', 10, 4 );
 		$this->loader->add_action( 'tribe_events_community_form_before_template', $plugin_public, 'event_import_form' );
 		$this->loader->add_action( 'wpdc_after_sso_client_user_update', $plugin_public, 'discourse_sso_update_user_meta', 10, 2 );
-		$this->loader->add_action( 'wpdc_webhook_before_update_user_data', $plugin_public, 'discourse_webhook_before_update_user_meta', 10, 2 );
+		$this->loader->add_action( 'wpdc_webhook_before_update_user_data', $plugin_public, 'discourse_webhook_before_update_user_meta', 10, 3 );
 		$this->loader->add_action( 'wpea_after_create_tec_eventbrite_event', $plugin_public, 'track_new_event', 10, 3 );
 		$this->loader->add_action( 'wp_ajax_import_event', $plugin_public, 'import_event' );
 		$this->loader->add_action( 'wp_ajax_nopriv_import_event', $plugin_public, 'import_event' );
