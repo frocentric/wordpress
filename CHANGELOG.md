@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.13.0](https://github.com/frocentric/wordpress/compare/v1.12.0...v1.13.0) (2022-08-19)
+
+
+### Features
+
+* syncs users when updating Discourse profile ([8e1e6b0](https://github.com/frocentric/wordpress/commit/8e1e6b0ee81a0adfa3b87fe429bf87fa6869de8f))
+
+
+### Bug Fixes
+
+* fixes action parameter count ([03d44a9](https://github.com/frocentric/wordpress/commit/03d44a9beb4586225b51ca8a768472c8a50a14fc))
+
 ## [1.12.0](https://github.com/frocentric/wordpress/compare/v1.11.0...v1.12.0) (2022-08-18)
 
 
