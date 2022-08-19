@@ -1004,6 +1004,37 @@ class Froware_Public {
 	}
 
 	/**
+	 * Enables the Discourse user webhook.
+	 */
+	public function discourse_enable_user_webhook( $use_webhook_sync ) {
+		return true;
+	}
+
+	public function discourse_webhook_before_update_user_meta( $wordpress_user, $discourse_user, $event_type ) {
+		$bio  = $discourse_user['bio_raw'];
+		$website = $discourse_user['website'];
+		$user_fields = $discourse_user['user_fields'];
+		$user_id = $wordpress_user->ID;
+		$discourse_meta = get_user_meta( $user_id, 'discourse_user', true );
+
+		if ( empty( $discourse_meta ) && ! empty( $user_fields ) ) {
+			$discourse_meta = [];
+		}
+
+		if ( empty( $user_fields ) ) {
+			if ( array_key_exists( 'user_fields', $discourse_meta ) ) {
+				unset( $discourse_meta['user_fields'] );
+			}
+		} else {
+			$discourse_meta['user_fields'] = $user_fields;
+		}
+
+		update_user_meta( $user_id, 'discourse_user', $discourse_meta );
+		update_user_meta( $user_id, 'description', empty( $bio ) ? '' : $bio );
+		wp_update_user( [ 'ID' => $user_id, 'user_url' => empty( $website ) ? '' : $website ] );
+	}
+
+	/**
 	 * Generates the Discourse tags based on WP taxonomies.
 	 *
 	 * @param int $post_id The post's ID.
