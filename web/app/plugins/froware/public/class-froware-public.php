@@ -708,9 +708,6 @@ class Froware_Public {
 	 * Renders the event import form
 	 */
 	public function event_import_form() {
-		$action       = '';
-		$tribe_id     = '';
-		$tribe_events = new Tribe__Events__Community__Main();
 		$post_id      = get_the_ID();
 
 		if ( class_exists( 'WP_Event_Aggregator_Pro_Manage_Import' ) && ( ! $post_id || ! tribe_is_event( $post_id ) ) ) {
