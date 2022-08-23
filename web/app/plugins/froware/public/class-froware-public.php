@@ -760,7 +760,7 @@ class Froware_Public {
 			// translators: %s is the singular event label.
 			if ( strpos( $message, sprintf( __( '%s updated.', 'tribe-events-community' ), $events_label_singular ) ) === 0 ) {
 				// translators: %s is the lower-case singular event label.
-				$message = sprintf( __( 'Your %s has been submitted and is pending review for publication. Thank you for contributing, we truly appreciate it!', 'tribe-events-community' ), $events_label_singular_lowercase );
+				$message = sprintf( __( 'Your %s has been submitted and is awaiting review before being published. Thank you for contributing, we truly appreciate it!', 'tribe-events-community' ), $events_label_singular_lowercase );
 			}
 		}
 
