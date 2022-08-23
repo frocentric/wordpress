@@ -687,12 +687,13 @@ class Froware_Public {
 	}
 
 	protected function send_response( $origin, $matches ) {
+		$default_status = tribe( 'community.main' )->getOption( 'defaultStatus', 'pending' );
 		$event_id                         = $matches[1];
 		$response                         = new stdClass();
 		$response->action                 = 'import_event';
 		$response->eventbrite_import_by   = 'event_id';
 		$response->event_plugin           = 'tec';
-		$response->event_status           = 'draft';
+		$response->event_status           = $default_status;
 		$response->import_frequency       = 'daily';
 		$response->import_origin          = $origin;
 		$response->import_type            = 'onetime';
