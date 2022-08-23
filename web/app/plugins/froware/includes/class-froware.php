@@ -214,6 +214,7 @@ class Froware {
 		$this->loader->add_filter( 'the_content', $plugin_public, 'append_copyright_notice', 999, 1 );
 		$this->loader->add_filter( 'the_content_feed', $plugin_public, 'filter_content_feed', 999, 1 );
 		$this->loader->add_filter( 'the_excerpt_rss', $plugin_public, 'filter_content_feed', 999, 1 );
+		$this->loader->add_filter( 'tribe_events_community_submission_message', $plugin_public, 'tribe_events_filter_submission_message', 10, 2 );
 		// $this->loader->add_filter( 'tribe_events_event_insert_args', $plugin_public, 'tribe_events_update_event_args', 10, 1 );
 		$this->loader->add_filter( 'twig_anything_request_args', $plugin_public, 'twig_anything_request_args', 10, 2 );
 		$this->loader->add_filter( 'wpdc_use_discourse_user_webhook', $plugin_public, 'discourse_enable_user_webhook', 10, 1 );
