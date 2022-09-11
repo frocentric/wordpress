@@ -510,13 +510,15 @@ var generateOffside = offside( '.slideout-navigation', {
 		document.body.classList.add( 'slide-opened' );
 
 		// Get the first link so we can focus on it.
-		var slideoutMenu = document.getElementById( 'generate-slideout-menu' ).querySelector( 'ul.slideout-menu' );
+		var slideoutMenu = document.querySelector( 'ul.slideout-menu' );
 
 		if ( slideoutMenu ) {
 			var firstLink = slideoutMenu.firstChild.querySelector( 'a' );
 
 			if ( firstLink ) {
-				firstLink.focus();
+				setTimeout( function() {
+					firstLink.focus();
+				}, 200 );
 			}
 		}
 	},

@@ -1,41 +1,48 @@
 <?php
-// No direct access, please
+/**
+ * This file handles the navigation spacing Customizer options.
+ *
+ * @package GP Premium
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // No direct access, please.
 }
 
-// Add our old navigation section
+// Add our old navigation section.
 $wp_customize->add_section(
 	'generate_spacing_navigation',
 	array(
 		'title' => __( 'Primary Navigation', 'gp-premium' ),
 		'capability' => 'edit_theme_options',
 		'priority' => 15,
-		'panel' => 'generate_spacing_panel'
+		'panel' => 'generate_spacing_panel',
 	)
 );
 
-// If our new Layout section doesn't exist, use the old navigation section
+// If our new Layout section doesn't exist, use the old navigation section.
 $navigation_section = ( $wp_customize->get_panel( 'generate_layout_panel' ) ) ? 'generate_layout_navigation' : 'generate_spacing_navigation';
 
-// Menu item width
+// Menu item width.
 $wp_customize->add_setting(
-	'generate_spacing_settings[menu_item]', array(
+	'generate_spacing_settings[menu_item]',
+	array(
 		'default' => $defaults['menu_item'],
 		'type' => 'option',
 		'capability' => 'edit_theme_options',
 		'sanitize_callback' => 'absint',
-		'transport' => 'postMessage'
+		'transport' => 'postMessage',
 	)
 );
 
 $wp_customize->add_setting(
-	'generate_spacing_settings[mobile_menu_item]', array(
+	'generate_spacing_settings[mobile_menu_item]',
+	array(
 		'default' => $defaults['mobile_menu_item'],
 		'type' => 'option',
 		'capability' => 'edit_theme_options',
 		'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
-		'transport' => 'postMessage'
+		'transport' => 'postMessage',
 	)
 );
 
@@ -71,24 +78,26 @@ $wp_customize->add_control(
 	)
 );
 
-// Menu item height
+// Menu item height.
 $wp_customize->add_setting(
-	'generate_spacing_settings[menu_item_height]', array(
+	'generate_spacing_settings[menu_item_height]',
+	array(
 		'default' => $defaults['menu_item_height'],
 		'type' => 'option',
 		'capability' => 'edit_theme_options',
 		'sanitize_callback' => 'absint',
-		'transport' => 'postMessage'
+		'transport' => 'postMessage',
 	)
 );
 
 $wp_customize->add_setting(
-	'generate_spacing_settings[mobile_menu_item_height]', array(
+	'generate_spacing_settings[mobile_menu_item_height]',
+	array(
 		'default' => $defaults['mobile_menu_item_height'],
 		'type' => 'option',
 		'capability' => 'edit_theme_options',
 		'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
-		'transport' => 'postMessage'
+		'transport' => 'postMessage',
 	)
 );
 
@@ -124,14 +133,15 @@ $wp_customize->add_control(
 	)
 );
 
-// Sub-menu item height
+// Sub-menu item height.
 $wp_customize->add_setting(
-	'generate_spacing_settings[sub_menu_item_height]', array(
+	'generate_spacing_settings[sub_menu_item_height]',
+	array(
 		'default' => $defaults['sub_menu_item_height'],
 		'type' => 'option',
 		'capability' => 'edit_theme_options',
 		'sanitize_callback' => 'absint',
-		'transport' => 'postMessage'
+		'transport' => 'postMessage',
 	)
 );
 
@@ -160,14 +170,14 @@ $wp_customize->add_control(
 );
 
 if ( isset( $defaults['sub_menu_width'] ) ) {
-	// Sub-menu item height
 	$wp_customize->add_setting(
-		'generate_spacing_settings[sub_menu_width]', array(
+		'generate_spacing_settings[sub_menu_width]',
+		array(
 			'default' => $defaults['sub_menu_width'],
 			'type' => 'option',
 			'capability' => 'edit_theme_options',
 			'sanitize_callback' => 'absint',
-			'transport' => 'postMessage'
+			'transport' => 'postMessage',
 		)
 	);
 
@@ -196,14 +206,15 @@ if ( isset( $defaults['sub_menu_width'] ) ) {
 	);
 }
 
-// Sticky menu height
+// Sticky menu height.
 $wp_customize->add_setting(
-	'generate_spacing_settings[sticky_menu_item_height]', array(
+	'generate_spacing_settings[sticky_menu_item_height]',
+	array(
 		'default' => $defaults['sticky_menu_item_height'],
 		'type' => 'option',
 		'capability' => 'edit_theme_options',
 		'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
-		'transport' => 'postMessage'
+		'transport' => 'postMessage',
 	)
 );
 
@@ -232,14 +243,15 @@ $wp_customize->add_control(
 	)
 );
 
-// Off canvas menu height
+// Off canvas menu height.
 $wp_customize->add_setting(
-	'generate_spacing_settings[off_canvas_menu_item_height]', array(
+	'generate_spacing_settings[off_canvas_menu_item_height]',
+	array(
 		'default' => $defaults['off_canvas_menu_item_height'],
 		'type' => 'option',
 		'capability' => 'edit_theme_options',
 		'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
-		'transport' => 'postMessage'
+		'transport' => 'postMessage',
 	)
 );
 

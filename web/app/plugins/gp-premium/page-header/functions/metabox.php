@@ -83,7 +83,13 @@ if ( ! function_exists( 'generate_page_header_metabox_enqueue' ) ) {
 				wp_enqueue_media();
 				wp_enqueue_script( 'wp-color-picker' );
 				wp_enqueue_style( 'wp-color-picker' );
-				wp_enqueue_script( 'wp-color-picker-alpha', plugin_dir_url( __FILE__ ) . 'js/wp-color-picker-alpha.min.js', array( 'wp-color-picker' ), GENERATE_PAGE_HEADER_VERSION );
+				wp_enqueue_script( 'wp-color-picker-alpha', GP_LIBRARY_DIRECTORY_URL . 'alpha-color-picker/wp-color-picker-alpha.min.js', array( 'wp-color-picker' ), '3.0.0', true );
+
+				wp_add_inline_script(
+					'wp-color-picker-alpha',
+					'jQuery( function() { jQuery( ".color-picker" ).wpColorPicker(); } );'
+				);
+
 				wp_enqueue_style( 'generate-page-header-metabox', plugin_dir_url( __FILE__ ) . 'css/metabox.css', array(), GENERATE_PAGE_HEADER_VERSION );
 				wp_enqueue_script( 'generate-lc-switch', plugin_dir_url( __FILE__ ) . 'js/lc_switch.js', array( 'jquery' ), GENERATE_PAGE_HEADER_VERSION, false );
 				wp_enqueue_script( 'generate-page-header-metabox', plugin_dir_url( __FILE__ ) . 'js/metabox.js', array( 'jquery','generate-lc-switch', 'wp-color-picker' ), GENERATE_PAGE_HEADER_VERSION, false );
@@ -162,12 +168,12 @@ if ( ! function_exists( 'show_generate_page_header_meta_box' ) ) {
 		if ( '' !== generate_page_header_get_post_meta( get_the_ID(), '_meta-generate-page-header-content', true ) ) {
 			?>
 			<script>
-				jQuery(document).ready(function($) {
+				jQuery( function( $ ) {
 					$('#generate-image-tab').hide();
 					$('#generate-content-tab').show();
 					$('.generate-tabs-menu .content-settings').addClass('generate-current');
 					$('.generate-tabs-menu .image-settings').removeClass('generate-current');
-				});
+				} );
 			</script>
 			<?php
 		}
@@ -253,17 +259,20 @@ if ( ! function_exists( 'show_generate_page_header_meta_box' ) ) {
 						</p>
 
 						<div id="crop-enabled" style="display:none">
-							<p>
-								<label for="_meta-generate-page-header-image-width" class="example-row-title"><strong><?php _e( 'Image Width', 'gp-premium' );?></strong></label><br />
-								<input style="width:45px" type="text" name="_meta-generate-page-header-image-width" id="_meta-generate-page-header-image-width" value="<?php echo intval( generate_page_header_get_post_meta( get_the_ID(), '_meta-generate-page-header-image-width', true ) ); ?>" /><label for="_meta-generate-page-header-image-width"><span class="pixels">px</span></label>
-							</p>
+							<p><?php _e( 'These options are no longer available as of GP Premium 1.10.0.', 'gp-premium' ); ?>
+							<div style="display: none;">
+								<p>
+									<label for="_meta-generate-page-header-image-width" class="example-row-title"><strong><?php _e( 'Image Width', 'gp-premium' );?></strong></label><br />
+									<input style="width:45px" type="text" name="_meta-generate-page-header-image-width" id="_meta-generate-page-header-image-width" value="<?php echo intval( generate_page_header_get_post_meta( get_the_ID(), '_meta-generate-page-header-image-width', true ) ); ?>" /><label for="_meta-generate-page-header-image-width"><span class="pixels">px</span></label>
+								</p>
 
-							<p style="margin-bottom:0;">
-								<label for="_meta-generate-page-header-image-height" class="example-row-title"><strong><?php _e( 'Image Height', 'gp-premium' );?></strong></label><br />
-								<input placeholder="" style="width:45px" type="text" name="_meta-generate-page-header-image-height" id="_meta-generate-page-header-image-height" value="<?php echo intval( generate_page_header_get_post_meta( get_the_ID(), '_meta-generate-page-header-image-height', true ) ); ?>" />
-								<label for="_meta-generate-page-header-image-height"><span class="pixels">px</span></label>
-								<span class="description" style="display:block;"><?php _e( 'Use "0" or leave blank for proportional resizing.', 'gp-premium' );?></span>
-							</p>
+								<p style="margin-bottom:0;">
+									<label for="_meta-generate-page-header-image-height" class="example-row-title"><strong><?php _e( 'Image Height', 'gp-premium' );?></strong></label><br />
+									<input placeholder="" style="width:45px" type="text" name="_meta-generate-page-header-image-height" id="_meta-generate-page-header-image-height" value="<?php echo intval( generate_page_header_get_post_meta( get_the_ID(), '_meta-generate-page-header-image-height', true ) ); ?>" />
+									<label for="_meta-generate-page-header-image-height"><span class="pixels">px</span></label>
+									<span class="description" style="display:block;"><?php _e( 'Use "0" or leave blank for proportional resizing.', 'gp-premium' );?></span>
+								</p>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -360,7 +369,7 @@ if ( ! function_exists( 'show_generate_page_header_meta_box' ) ) {
 						<div class="page-header-column last">
 							<p>
 								<label for="_meta-generate-page-header-image-background-color" class="example-row-title"><strong><?php _e( 'Background Color', 'gp-premium' );?></strong></label><br />
-								<input class="color-picker" data-alpha="true" style="width:45px" type="text" name="_meta-generate-page-header-image-background-color" id="_meta-generate-page-header-image-background-color" value="<?php echo esc_attr( generate_page_header_get_post_meta( get_the_ID(), '_meta-generate-page-header-image-background-color', true ) ); ?>" />
+								<input class="color-picker" data-alpha-enabled="true" data-alpha-color-type="hex" style="width:45px" type="text" name="_meta-generate-page-header-image-background-color" id="_meta-generate-page-header-image-background-color" value="<?php echo esc_attr( generate_page_header_get_post_meta( get_the_ID(), '_meta-generate-page-header-image-background-color', true ) ); ?>" />
 							</p>
 
 							<p>
@@ -410,7 +419,7 @@ if ( ! function_exists( 'show_generate_page_header_meta_box' ) ) {
 
 					<p>
 						<label for="_meta-generate-page-header-video-overlay" class="example-row-title"><strong><?php _e( 'Overlay Color', 'gp-premium' );?></strong></label><br />
-						<input class="color-picker" data-alpha="true" style="width:45px" type="text" name="_meta-generate-page-header-video-overlay" id="_meta-generate-page-header-video-overlay" value="<?php echo esc_attr( generate_page_header_get_post_meta( get_the_ID(), '_meta-generate-page-header-video-overlay', true ) ); ?>" />
+						<input class="color-picker" data-alpha-enabled="true" data-alpha-color-type="hex" style="width:45px" type="text" name="_meta-generate-page-header-video-overlay" id="_meta-generate-page-header-video-overlay" value="<?php echo esc_attr( generate_page_header_get_post_meta( get_the_ID(), '_meta-generate-page-header-video-overlay', true ) ); ?>" />
 					</p>
 				</div>
 
@@ -526,7 +535,7 @@ if ( ! function_exists( 'show_generate_page_header_meta_box' ) ) {
 						<div class="navigation-colors">
 							<p>
 								<label for="_meta-generate-page-header-navigation-background" class="example-row-title"><strong><?php _e( 'Navigation Background', 'gp-premium' );?></strong></label><br />
-								<input class="color-picker" data-alpha="true" style="width:45px" type="text" name="_meta-generate-page-header-navigation-background" id="_meta-generate-page-header-navigation-background" value="<?php echo esc_attr( generate_page_header_get_post_meta( get_the_ID(), '_meta-generate-page-header-navigation-background', true ) ); ?>" />
+								<input class="color-picker" data-alpha-enabled="true" data-alpha-color-type="hex" style="width:45px" type="text" name="_meta-generate-page-header-navigation-background" id="_meta-generate-page-header-navigation-background" value="<?php echo esc_attr( generate_page_header_get_post_meta( get_the_ID(), '_meta-generate-page-header-navigation-background', true ) ); ?>" />
 							</p>
 
 							<p>
@@ -536,7 +545,7 @@ if ( ! function_exists( 'show_generate_page_header_meta_box' ) ) {
 
 							<p>
 								<label for="_meta-generate-page-header-navigation-background-hover" class="example-row-title"><strong><?php _e( 'Navigation Background Hover', 'gp-premium' );?></strong></label><br />
-								<input class="color-picker" data-alpha="true" style="width:45px" type="text" name="_meta-generate-page-header-navigation-background-hover" id="_meta-generate-page-header-navigation-background-hover" value="<?php echo esc_attr( generate_page_header_get_post_meta( get_the_ID(), '_meta-generate-page-header-navigation-background-hover', true ) ); ?>" />
+								<input class="color-picker" data-alpha-enabled="true" data-alpha-color-type="hex" style="width:45px" type="text" name="_meta-generate-page-header-navigation-background-hover" id="_meta-generate-page-header-navigation-background-hover" value="<?php echo esc_attr( generate_page_header_get_post_meta( get_the_ID(), '_meta-generate-page-header-navigation-background-hover', true ) ); ?>" />
 							</p>
 
 							<p>
@@ -546,7 +555,7 @@ if ( ! function_exists( 'show_generate_page_header_meta_box' ) ) {
 
 							<p>
 								<label for="_meta-generate-page-header-navigation-background-current" class="example-row-title"><strong><?php _e( 'Navigation Background Current', 'gp-premium' );?></strong></label><br />
-								<input class="color-picker" data-alpha="true" style="width:45px" type="text" name="_meta-generate-page-header-navigation-background-current" id="_meta-generate-page-header-navigation-background-current" value="<?php echo esc_attr( generate_page_header_get_post_meta( get_the_ID(), '_meta-generate-page-header-navigation-background-current', true ) ); ?>" />
+								<input class="color-picker" data-alpha-enabled="true" data-alpha-color-type="hex" style="width:45px" type="text" name="_meta-generate-page-header-navigation-background-current" id="_meta-generate-page-header-navigation-background-current" value="<?php echo esc_attr( generate_page_header_get_post_meta( get_the_ID(), '_meta-generate-page-header-navigation-background-current', true ) ); ?>" />
 							</p>
 
 							<p>

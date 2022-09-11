@@ -1,6 +1,12 @@
 <?php
+/**
+ * This file handles the Customizer options for the Secondary Nav module.
+ *
+ * @package GP Premium
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // No direct access, please
+	exit; // No direct access, please.
 }
 
 if ( ! function_exists( 'generate_colors_secondary_nav_customizer' ) ) {
@@ -15,36 +21,37 @@ if ( ! function_exists( 'generate_colors_secondary_nav_customizer' ) ) {
 	 * as we check to see if the layout control exists.
 	 *
 	 * Secondary Nav now uses 100 as a priority.
+	 *
+	 * @param object $wp_customize The Customizer object.
 	 */
 	function generate_colors_secondary_nav_customizer( $wp_customize ) {
-
-		// Bail if Secondary Nav isn't activated
+		// Bail if Secondary Nav isn't activated.
 		if ( ! $wp_customize->get_section( 'secondary_nav_section' ) ) {
 			return;
 		}
 
-		// Bail if we don't have our color defaults
+		// Bail if we don't have our color defaults.
 		if ( ! function_exists( 'generate_secondary_nav_get_defaults' ) ) {
 			return;
 		}
 
-		// Add our controls
+		// Add our controls.
 		require_once GP_LIBRARY_DIRECTORY . 'customizer-helpers.php';
 
-		// Get our defaults
+		// Get our defaults.
 		$defaults = generate_secondary_nav_get_defaults();
 
-		// Add control types so controls can be built using JS
+		// Add control types so controls can be built using JS.
 		if ( method_exists( $wp_customize, 'register_control_type' ) ) {
 			$wp_customize->register_control_type( 'GeneratePress_Alpha_Color_Customize_Control' );
 			$wp_customize->register_control_type( 'GeneratePress_Title_Customize_Control' );
 			$wp_customize->register_control_type( 'GeneratePress_Section_Shortcut_Control' );
 		}
 
-		// Get our palettes
+		// Get our palettes.
 		$palettes = generate_get_default_color_palettes();
 
-		// Add Secondary Navigation section
+		// Add Secondary Navigation section.
 		$wp_customize->add_section(
 			'secondary_navigation_color_section',
 			array(
@@ -78,17 +85,18 @@ if ( ! function_exists( 'generate_colors_secondary_nav_customizer' ) ) {
 				$wp_customize,
 				'generate_secondary_navigation_items',
 				array(
-					'section'     => 'secondary_navigation_color_section',
-					'type'        => 'generatepress-customizer-title',
-					'title'			=> __( 'Parent Items', 'gp-premium' ),
+					'section'  => 'secondary_navigation_color_section',
+					'type'     => 'generatepress-customizer-title',
+					'title'    => __( 'Parent Items', 'gp-premium' ),
 					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
 				)
 			)
 		);
 
-		// Background
+		// Background.
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[navigation_background_color]', array(
+			'generate_secondary_nav_settings[navigation_background_color]',
+			array(
 				'default' => $defaults['navigation_background_color'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -110,9 +118,10 @@ if ( ! function_exists( 'generate_colors_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Text
+		// Text.
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[navigation_text_color]', array(
+			'generate_secondary_nav_settings[navigation_text_color]',
+			array(
 				'default' => $defaults['navigation_text_color'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -133,9 +142,10 @@ if ( ! function_exists( 'generate_colors_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Background hover
+		// Background hover.
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[navigation_background_hover_color]', array(
+			'generate_secondary_nav_settings[navigation_background_hover_color]',
+			array(
 				'default' => $defaults['navigation_background_hover_color'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -157,9 +167,10 @@ if ( ! function_exists( 'generate_colors_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Text hover
+		// Text hover.
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[navigation_text_hover_color]', array(
+			'generate_secondary_nav_settings[navigation_text_hover_color]',
+			array(
 				'default' => $defaults['navigation_text_hover_color'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -180,9 +191,10 @@ if ( ! function_exists( 'generate_colors_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Background current
+		// Background current.
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[navigation_background_current_color]', array(
+			'generate_secondary_nav_settings[navigation_background_current_color]',
+			array(
 				'default' => $defaults['navigation_background_current_color'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -204,9 +216,10 @@ if ( ! function_exists( 'generate_colors_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Text current
+		// Text current.
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[navigation_text_current_color]', array(
+			'generate_secondary_nav_settings[navigation_text_current_color]',
+			array(
 				'default' => $defaults['navigation_text_current_color'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -232,17 +245,18 @@ if ( ! function_exists( 'generate_colors_secondary_nav_customizer' ) ) {
 				$wp_customize,
 				'generate_secondary_navigation_sub_menu_items',
 				array(
-					'section'     => 'secondary_navigation_color_section',
-					'type'        => 'generatepress-customizer-title',
-					'title'			=> __( 'Sub-Menu Items', 'gp-premium' ),
+					'section'  => 'secondary_navigation_color_section',
+					'type'     => 'generatepress-customizer-title',
+					'title'    => __( 'Sub-Menu Items', 'gp-premium' ),
 					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
 				)
 			)
 		);
 
-		// Background
+		// Background.
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[subnavigation_background_color]', array(
+			'generate_secondary_nav_settings[subnavigation_background_color]',
+			array(
 				'default' => $defaults['subnavigation_background_color'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -264,9 +278,10 @@ if ( ! function_exists( 'generate_colors_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Text
+		// Text.
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[subnavigation_text_color]', array(
+			'generate_secondary_nav_settings[subnavigation_text_color]',
+			array(
 				'default' => $defaults['subnavigation_text_color'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -287,9 +302,10 @@ if ( ! function_exists( 'generate_colors_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Background hover
+		// Background hover.
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[subnavigation_background_hover_color]', array(
+			'generate_secondary_nav_settings[subnavigation_background_hover_color]',
+			array(
 				'default' => $defaults['subnavigation_background_hover_color'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -311,9 +327,10 @@ if ( ! function_exists( 'generate_colors_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Text hover
+		// Text hover.
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[subnavigation_text_hover_color]', array(
+			'generate_secondary_nav_settings[subnavigation_text_hover_color]',
+			array(
 				'default' => $defaults['subnavigation_text_hover_color'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -334,9 +351,10 @@ if ( ! function_exists( 'generate_colors_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Background current
+		// Background current.
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[subnavigation_background_current_color]', array(
+			'generate_secondary_nav_settings[subnavigation_background_current_color]',
+			array(
 				'default' => $defaults['subnavigation_background_current_color'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -358,9 +376,10 @@ if ( ! function_exists( 'generate_colors_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Text current
+		// Text current.
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[subnavigation_text_current_color]', array(
+			'generate_secondary_nav_settings[subnavigation_text_current_color]',
+			array(
 				'default' => $defaults['subnavigation_text_current_color'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',

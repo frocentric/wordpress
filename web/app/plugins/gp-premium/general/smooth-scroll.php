@@ -1,7 +1,12 @@
 <?php
-// No direct access, please
+/**
+ * This file handles the smooth scroll functionality.
+ *
+ * @package GP Premium
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // No direct access, please.
 }
 
 add_action( 'wp_enqueue_scripts', 'generate_smooth_scroll_scripts' );
@@ -32,11 +37,14 @@ function generate_smooth_scroll_scripts() {
 		'generate-smooth-scroll',
 		'smooth',
 		array(
-			'elements' => apply_filters( 'generate_smooth_scroll_elements', array(
-				'.smooth-scroll',
-				'li.smooth-scroll a',
-			) ),
-			'duration' => apply_filters( 'generate_smooth_scroll_duration', 800 )
+			'elements' => apply_filters(
+				'generate_smooth_scroll_elements',
+				array(
+					'.smooth-scroll',
+					'li.smooth-scroll a',
+				)
+			),
+			'duration' => apply_filters( 'generate_smooth_scroll_duration', 800 ),
 		)
 	);
 }
@@ -78,7 +86,7 @@ function generate_smooth_scroll_customizer( $wp_customize ) {
 		array(
 			'default' => $defaults['smooth_scroll'],
 			'type' => 'option',
-			'sanitize_callback' => 'generate_premium_sanitize_checkbox'
+			'sanitize_callback' => 'generate_premium_sanitize_checkbox',
 		)
 	);
 

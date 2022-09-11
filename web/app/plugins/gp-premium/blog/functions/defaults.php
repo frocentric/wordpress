@@ -20,18 +20,21 @@ if ( ! function_exists( 'generate_blog_get_defaults' ) ) {
 			'post_image' => true,
 			'post_image_position' => '',
 			'post_image_alignment' => 'post-image-aligned-center',
+			'post_image_size' => 'full',
 			'post_image_width' => '',
 			'post_image_height' => '',
 			'post_image_padding' => true,
 			'single_post_image' => true,
 			'single_post_image_position' => 'inside-content',
 			'single_post_image_alignment' => 'center',
+			'single_post_image_size' => 'full',
 			'single_post_image_width' => '',
 			'single_post_image_height' => '',
 			'single_post_image_padding' => true,
 			'page_post_image' => true,
 			'page_post_image_position' => 'above-content',
 			'page_post_image_alignment' => 'center',
+			'page_post_image_size' => 'full',
 			'page_post_image_width' => '',
 			'page_post_image_height' => '',
 			'page_post_image_padding' => true,
@@ -47,7 +50,7 @@ if ( ! function_exists( 'generate_blog_get_defaults' ) ) {
 			'single_post_navigation' => true,
 			'column_layout' => false,
 			'columns' => '50',
-			'featured_column' => false
+			'featured_column' => false,
 		);
 
 		return apply_filters( 'generate_blog_option_defaults', $generate_blog_defaults );

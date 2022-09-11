@@ -1,7 +1,8 @@
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 	$( '[data-type="overlay_design"]' ).on( 'click', function( e ) {
 		e.preventDefault();
 
+		// eslint-disable-next-line no-alert
 		if ( ! confirm( gpButtonActions.warning ) ) {
 			return;
 		}
@@ -23,7 +24,20 @@ jQuery( document ).ready( function( $ ) {
 			api.instance( 'generate_settings[slideout_font_size]' ).set( gpButtonActions.styling.fontSize );
 
 			$( '.wp-color-picker' ).wpColorPicker().change();
-
 		}( wp.customize ) );
+	} );
+
+	$( '[data-type="regenerate_external_css"]' ).on( 'click', function( e ) {
+		var $thisButton = $( this ); // eslint-disable-line no-var
+		e.preventDefault();
+
+		$thisButton.removeClass( 'success' ).addClass( 'loading' );
+
+		$.post( ajaxurl, {
+			action: 'generatepress_regenerate_css_file',
+			_nonce: $thisButton.data( 'nonce' ),
+		} ).done( function() {
+			$thisButton.removeClass( 'loading' ).addClass( 'success' );
+		} );
 	} );
 } );

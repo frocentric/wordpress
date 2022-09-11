@@ -706,7 +706,7 @@ if (window.Element && !Element.prototype.closest) {
 }));
 
 /* GP */
-var scroll = new SmoothScroll( smooth.elements.join(), {
+var gpscroll = new SmoothScroll( smooth.elements.join(), {
 	speed: smooth.duration,
 	offset: function( anchor, toggle ) {
 		var body = document.body,

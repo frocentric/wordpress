@@ -1,7 +1,12 @@
 <?php
-// No direct access, please
+/**
+ * This file handles SVG icons.
+ *
+ * @package GP Premium
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // No direct access, please.
 }
 
 add_action( 'wp_enqueue_scripts', 'generate_enqueue_premium_icons' );
@@ -21,6 +26,8 @@ add_filter( 'generate_svg_icon', 'generate_premium_add_svg_icons', 10, 2 );
  * Add our premium SVG icons.
  *
  * @since 1.9
+ * @param string $output The SVG HTML output.
+ * @param string $icon The icon name.
  */
 function generate_premium_add_svg_icons( $output, $icon ) {
 	$svg = '';

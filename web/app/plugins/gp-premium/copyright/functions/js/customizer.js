@@ -5,7 +5,6 @@
  */
 
 ( function( $ ) {
-
 	// Update the site title in real time...
 	wp.customize( 'generate_copyright', function( value ) {
 		value.bind( function( newval ) {
@@ -16,5 +15,4 @@
 			}
 		} );
 	} );
-	
-} )( jQuery );
+}( jQuery ) );

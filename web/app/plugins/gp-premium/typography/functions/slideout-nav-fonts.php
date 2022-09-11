@@ -9,7 +9,6 @@ add_action( 'customize_register', 'generate_slideout_typography_customizer', 150
  * Adds our WooCommerce color options
  */
 function generate_slideout_typography_customizer( $wp_customize ) {
-
 	// Bail if we don't have our defaults function
 	if ( ! function_exists( 'generate_get_default_fonts' ) ) {
 		return;

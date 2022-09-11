@@ -1,4 +1,10 @@
 <?php
+/**
+ * This file handles the Hook Element.
+ *
+ * @package GP Premium
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // No direct access, please.
 }
@@ -14,6 +20,7 @@ class GeneratePress_Hook {
 	 * Set our content variable.
 	 *
 	 * @since 1.7
+	 * @var string The content.
 	 */
 	protected $content = '';
 
@@ -21,6 +28,7 @@ class GeneratePress_Hook {
 	 * Set our hook/action variable.
 	 *
 	 * @since 1.7
+	 * @var string The hook.
 	 */
 	protected $hook = '';
 
@@ -28,6 +36,7 @@ class GeneratePress_Hook {
 	 * Set our custom hook variable.
 	 *
 	 * @since 1.7
+	 * @var string The custom hook.
 	 */
 	protected $custom_hook = '';
 
@@ -35,6 +44,7 @@ class GeneratePress_Hook {
 	 * Set our disable site header variable.
 	 *
 	 * @since 1.7
+	 * @var boolean Whether we're disabling the header.
 	 */
 	protected $disable_site_header = false;
 
@@ -42,6 +52,7 @@ class GeneratePress_Hook {
 	 * Set our disable footer variable.
 	 *
 	 * @since 1.7
+	 * @var boolean Whether we're disabling the footer.
 	 */
 	protected $disable_site_footer = false;
 
@@ -49,6 +60,7 @@ class GeneratePress_Hook {
 	 * Set our priority variable.
 	 *
 	 * @since 1.7
+	 * @var int The hook priority.
 	 */
 	protected $priority = 10;
 
@@ -56,6 +68,7 @@ class GeneratePress_Hook {
 	 * Set our execute PHP variable.
 	 *
 	 * @since 1.7
+	 * @var boolean Whether we're executing PHP.
 	 */
 	protected $php = false;
 
@@ -63,6 +76,7 @@ class GeneratePress_Hook {
 	 * Set our execute shortcodes variable.
 	 *
 	 * @since 1.7
+	 * @var boolean Whether we're executing shortcodes.
 	 */
 	protected $shortcodes = false;
 
@@ -70,6 +84,7 @@ class GeneratePress_Hook {
 	 * Set our location variable.
 	 *
 	 * @since 1.7
+	 * @var array The conditions.
 	 */
 	protected $conditional = array();
 
@@ -77,6 +92,7 @@ class GeneratePress_Hook {
 	 * Set our exclusions variable.
 	 *
 	 * @since 1.7
+	 * @var array The exclusions.
 	 */
 	protected $exclude = array();
 
@@ -84,6 +100,7 @@ class GeneratePress_Hook {
 	 * Set our user condition variable.
 	 *
 	 * @since 1.7
+	 * @var array The user roles.
 	 */
 	protected $users = array();
 
@@ -94,7 +111,7 @@ class GeneratePress_Hook {
 	 *
 	 * @since 1.7
 	 */
-	function __construct( $post_id ) {
+	public function __construct( $post_id ) {
 
 		$this->hook = get_post_meta( $post_id, '_generate_hook', true );
 
@@ -146,7 +163,26 @@ class GeneratePress_Hook {
 
 		$display = apply_filters( 'generate_hook_element_display', GeneratePress_Conditions::show_data( $this->conditional, $this->exclude, $this->users ), $post_id );
 
+		/**
+		 * Simplify filter name.
+		 *
+		 * @since 2.0.0
+		 */
+		$display = apply_filters(
+			'generate_element_display',
+			$display,
+			$post_id
+		);
+
 		if ( $display ) {
+			global $generate_elements;
+
+			$generate_elements[ $post_id ] = array(
+				'is_block_element' => false,
+				'type' => 'hook',
+				'id' => $post_id,
+			);
+
 			if ( 'generate_header' === $this->hook && $this->disable_site_header ) {
 				remove_action( 'generate_header', 'generate_construct_header' );
 			}
@@ -176,12 +212,10 @@ class GeneratePress_Hook {
 
 		if ( $this->php && GeneratePress_Elements_Helper::should_execute_php() ) {
 			ob_start();
-			// @codingStandardsIgnoreStart
-			eval( '?>' . $content . '<?php ' );
-			// @codingStandardsIgnoreEnd
-			echo ob_get_clean();
+			eval( '?>' . $content . '<?php ' ); // phpcs:ignore -- Using eval() to execute PHP.
+			echo ob_get_clean(); // phpcs:ignore -- Escaping not necessary.
 		} else {
-			echo $content;
+			echo $content; // phpcs:ignore -- Escaping not necessary.
 		}
 
 	}

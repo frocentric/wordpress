@@ -113,9 +113,9 @@ gp_premium_typography_live_update( 'site_tagline_font_transform', '.site-descrip
 /**
  * Main navigation font size, weight and transform
  */
-gp_premium_typography_live_update( 'navigation_font_size', '.main-navigation a, .menu-toggle', 'font-size', 'px', gp_typography.desktop );
-gp_premium_typography_live_update( 'tablet_navigation_font_size', '.main-navigation a, .menu-toggle', 'font-size', 'px', gp_typography.tablet );
-gp_premium_typography_live_update( 'mobile_navigation_font_size', '.main-navigation:not(.slideout-navigation) a, .menu-toggle', 'font-size', 'px', gp_typography.mobile );
+gp_premium_typography_live_update( 'navigation_font_size', '.main-navigation a, .menu-toggle, .main-navigation .menu-bar-items', 'font-size', 'px', gp_typography.desktop );
+gp_premium_typography_live_update( 'tablet_navigation_font_size', '.main-navigation a, .menu-toggle, .main-navigation .menu-bar-items', 'font-size', 'px', gp_typography.tablet );
+gp_premium_typography_live_update( 'mobile_navigation_font_size', '.main-navigation:not(.slideout-navigation) a, .menu-toggle, .main-navigation .menu-bar-items', 'font-size', 'px', gp_typography.mobile );
 gp_premium_typography_live_update( 'navigation_font_weight', '.main-navigation a, .menu-toggle', 'font-weight' );
 gp_premium_typography_live_update( 'navigation_font_transform', '.main-navigation a, .menu-toggle', 'text-transform' );
 
@@ -129,7 +129,7 @@ gp_premium_typography_live_update( 'navigation_font_transform', '.main-navigatio
 /**
  * Secondary navigation font size, weight and transform
  */
-gp_premium_typography_live_update( 'secondary_navigation_font_size', '.secondary-navigation .main-nav ul li a,.secondary-navigation .menu-toggle, .secondary-navigation .top-bar', 'font-size', 'px', '', 'generate_secondary_nav_settings' );
+gp_premium_typography_live_update( 'secondary_navigation_font_size', '.secondary-navigation .main-nav ul li a,.secondary-navigation .menu-toggle, .secondary-navigation .top-bar, .secondary-navigation .secondary-menu-bar-items', 'font-size', 'px', '', 'generate_secondary_nav_settings' );
 gp_premium_typography_live_update( 'secondary_navigation_font_weight', '.secondary-navigation .main-nav ul li a,.secondary-navigation .menu-toggle, .secondary-navigation .top-bar', 'font-weight', '', '', 'generate_secondary_nav_settings' );
 gp_premium_typography_live_update( 'secondary_navigation_font_transform', '.secondary-navigation .main-nav ul li a,.secondary-navigation .menu-toggle, .secondary-navigation .top-bar', 'text-transform', '', '', 'generate_secondary_nav_settings' );
 
@@ -181,7 +181,8 @@ gp_premium_typography_live_update( 'archive_post_title_line_height', 'h2.entry-t
 /**
  * H3 font size, weight and transform
  */
-gp_premium_typography_live_update( 'heading_3_font_size', 'h3', 'font-size', 'px' );
+gp_premium_typography_live_update( 'heading_3_font_size', 'h3', 'font-size', 'px', gp_typography.desktop );
+gp_premium_typography_live_update( 'mobile_heading_3_font_size', 'h3', 'font-size', 'px', gp_typography.mobile );
 gp_premium_typography_live_update( 'heading_3_weight', 'h3', 'font-weight' );
 gp_premium_typography_live_update( 'heading_3_transform', 'h3', 'text-transform' );
 gp_premium_typography_live_update( 'heading_3_line_height', 'h3', 'line-height', 'em' );
@@ -190,7 +191,8 @@ gp_premium_typography_live_update( 'heading_3_margin_bottom', 'h3', 'margin-bott
 /**
  * H4 font size, weight and transform
  */
-gp_premium_typography_live_update( 'heading_4_font_size', 'h4', 'font-size', 'px' );
+gp_premium_typography_live_update( 'heading_4_font_size', 'h4', 'font-size', 'px', gp_typography.desktop );
+gp_premium_typography_live_update( 'mobile_heading_4_font_size', 'h4', 'font-size', 'px', gp_typography.mobile );
 gp_premium_typography_live_update( 'heading_4_weight', 'h4', 'font-weight' );
 gp_premium_typography_live_update( 'heading_4_transform', 'h4', 'text-transform' );
 gp_premium_typography_live_update( 'heading_4_line_height', 'h4', 'line-height', 'em' );
@@ -198,7 +200,8 @@ gp_premium_typography_live_update( 'heading_4_line_height', 'h4', 'line-height',
 /**
  * H5 font size, weight and transform
  */
-gp_premium_typography_live_update( 'heading_5_font_size', 'h5', 'font-size', 'px' );
+gp_premium_typography_live_update( 'heading_5_font_size', 'h5', 'font-size', 'px', gp_typography.desktop );
+gp_premium_typography_live_update( 'mobile_heading_5_font_size', 'h5', 'font-size', 'px', gp_typography.mobile );
 gp_premium_typography_live_update( 'heading_5_weight', 'h5', 'font-weight' );
 gp_premium_typography_live_update( 'heading_5_transform', 'h5', 'text-transform' );
 gp_premium_typography_live_update( 'heading_5_line_height', 'h5', 'line-height', 'em' );

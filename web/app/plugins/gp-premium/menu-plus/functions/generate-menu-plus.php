@@ -1,7 +1,12 @@
 <?php
-// No direct access, please
+/**
+ * This file handles the Menu Plus module functionality.
+ *
+ * @package GP Premium
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // No direct access, please.
 }
 
 if ( ! function_exists( 'generate_menu_plus_setup' ) ) {
@@ -10,9 +15,11 @@ if ( ! function_exists( 'generate_menu_plus_setup' ) ) {
 	 * Register the slide-out menu
 	 */
 	function generate_menu_plus_setup() {
-		register_nav_menus( array(
-			'slideout' => __( 'Off Canvas Menu', 'gp-premium' ),
-		) );
+		register_nav_menus(
+			array(
+				'slideout' => __( 'Off Canvas Menu', 'gp-premium' ),
+			)
+		);
 	}
 }
 
@@ -21,27 +28,30 @@ if ( ! function_exists( 'generate_menu_plus_get_defaults' ) ) {
 	 * Set default options
 	 */
 	function generate_menu_plus_get_defaults() {
-		return apply_filters( 'generate_menu_plus_option_defaults', array(
-			'mobile_menu_label' => __( 'Menu', 'gp-premium' ),
-			'sticky_menu' => 'false',
-			'sticky_menu_effect' => 'fade',
-			'sticky_menu_logo' => '', // Deprecated since 1.8.
-			'sticky_menu_logo_position' => 'sticky-menu', // Deprecated since 1.8.
-			'mobile_header' => 'disable',
-			'mobile_menu_breakpoint' => '768',
-			'mobile_header_logo' => '',
-			'mobile_header_sticky' => 'disable',
-			'mobile_header_branding' => 'logo',
-			'slideout_menu' => 'false',
-			'off_canvas_desktop_toggle_label' => '',
-			'slideout_menu_side' => 'left',
-			'slideout_menu_style' => 'slide',
-			'slideout_close_button' => 'outside',
-			'auto_hide_sticky' => false,
-			'mobile_header_auto_hide_sticky' => false,
-			'sticky_navigation_logo' => '',
-			'navigation_as_header' => false,
-		) );
+		return apply_filters(
+			'generate_menu_plus_option_defaults',
+			array(
+				'mobile_menu_label' => __( 'Menu', 'gp-premium' ),
+				'sticky_menu' => 'false',
+				'sticky_menu_effect' => 'fade',
+				'sticky_menu_logo' => '', // Deprecated since 1.8.
+				'sticky_menu_logo_position' => 'sticky-menu', // Deprecated since 1.8.
+				'mobile_header' => 'disable',
+				'mobile_menu_breakpoint' => '768',
+				'mobile_header_logo' => '',
+				'mobile_header_sticky' => 'disable',
+				'mobile_header_branding' => 'logo',
+				'slideout_menu' => 'false',
+				'off_canvas_desktop_toggle_label' => '',
+				'slideout_menu_side' => 'left',
+				'slideout_menu_style' => 'slide',
+				'slideout_close_button' => 'outside',
+				'auto_hide_sticky' => false,
+				'mobile_header_auto_hide_sticky' => false,
+				'sticky_navigation_logo' => '',
+				'navigation_as_header' => false,
+			)
+		);
 	}
 }
 
@@ -50,6 +60,7 @@ add_filter( 'generate_color_option_defaults', 'generate_menu_plus_color_defaults
  * Set the Menu Plus color defaults
  *
  * @since 1.6
+ * @param array $defaults Existing defaults.
  */
 function generate_menu_plus_color_defaults( $defaults ) {
 	$defaults['slideout_background_color'] = '';
@@ -73,6 +84,7 @@ add_filter( 'generate_font_option_defaults', 'generate_menu_plus_typography_defa
  * Set the Menu Plus typography option defaults.
  *
  * @since 1.6
+ * @param array $defaults Existing defaults.
  */
 function generate_menu_plus_typography_defaults( $defaults ) {
 	$defaults['slideout_font_weight'] = 'normal';
@@ -86,10 +98,11 @@ function generate_menu_plus_typography_defaults( $defaults ) {
 if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 	add_action( 'customize_register', 'generate_menu_plus_customize_register', 100 );
 	/**
-	 * Initiate Customizer controls
+	 * Initiate Customizer controls.
+	 *
+	 * @param object $wp_customize The Customizer object.
 	 */
 	function generate_menu_plus_customize_register( $wp_customize ) {
-		// Get our defaults
 		$defaults = generate_menu_plus_get_defaults();
 
 		$settings = wp_parse_args(
@@ -97,7 +110,6 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 			generate_menu_plus_get_defaults()
 		);
 
-		// Get our Customizer helpers
 		require_once GP_LIBRARY_DIRECTORY . 'customizer-helpers.php';
 
 		if ( method_exists( $wp_customize, 'register_control_type' ) ) {
@@ -107,22 +119,25 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 			$wp_customize->register_control_type( 'GeneratePress_Information_Customize_Control' );
 		}
 
-		// Add our old Menu Plus panel
-		// This panel shouldn't display anymore but is left for back compat
+		// Add our old Menu Plus panel.
+		// This panel shouldn't display anymore but is left for back compat.
 		if ( class_exists( 'WP_Customize_Panel' ) ) {
 			if ( ! $wp_customize->get_panel( 'generate_menu_plus' ) ) {
-				$wp_customize->add_panel( 'generate_menu_plus', array(
-					'priority'       => 50,
-					'capability'     => 'edit_theme_options',
-					'theme_supports' => '',
-					'title'          => esc_html__( 'Menu Plus', 'gp-premium' ),
-					'description'    => '',
-				) );
+				$wp_customize->add_panel(
+					'generate_menu_plus',
+					array(
+						'priority'       => 50,
+						'capability'     => 'edit_theme_options',
+						'theme_supports' => '',
+						'title'          => esc_html__( 'Menu Plus', 'gp-premium' ),
+						'description'    => '',
+					)
+				);
 			}
 		}
 
-		// Add our options to the Layout panel if it exists
-		// The layout panel is in the free theme, so we have the fallback in case people haven't updated
+		// Add our options to the Layout panel if it exists.
+		// The layout panel is in the free theme, so we have the fallback in case people haven't updated.
 		if ( $wp_customize->get_panel( 'generate_layout_panel' ) ) {
 			$panel = 'generate_layout_panel';
 			$navigation_section = 'generate_layout_navigation';
@@ -135,32 +150,32 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 			$sticky_menu_section = 'menu_plus_sticky_menu';
 		}
 
-		// Add Menu Plus section
-		// This section shouldn't display anymore for the above reasons
+		// Add Menu Plus section.
+		// This section shouldn't display anymore for the above reasons.
 		$wp_customize->add_section(
 			'menu_plus_section',
 			array(
 				'title' => esc_html__( 'General Settings', 'gp-premium' ),
 				'capability' => 'edit_theme_options',
-				'panel' => 'generate_menu_plus'
+				'panel' => 'generate_menu_plus',
 			)
 		);
 
-		// Mobile menu label
 		$wp_customize->add_setting(
 			'generate_menu_plus_settings[mobile_menu_label]',
 			array(
 				'default' => $defaults['mobile_menu_label'],
 				'type' => 'option',
-				'sanitize_callback' => 'wp_kses_post'
+				'sanitize_callback' => 'wp_kses_post',
 			)
 		);
 
 		$wp_customize->add_control(
-			'mobile_menu_label_control', array(
+			'mobile_menu_label_control',
+			array(
 				'label' => esc_html__( 'Mobile Menu Label', 'gp-premium' ),
 				'section' => $navigation_section,
-				'settings' => 'generate_menu_plus_settings[mobile_menu_label]'
+				'settings' => 'generate_menu_plus_settings[mobile_menu_label]',
 			)
 		);
 
@@ -198,24 +213,22 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 			);
 		}
 
-		// Sticky menu section
 		$wp_customize->add_section(
 			'menu_plus_sticky_menu',
 			array(
 				'title' => esc_html__( 'Sticky Navigation', 'gp-premium' ),
 				'capability' => 'edit_theme_options',
 				'panel' => $panel,
-				'priority' => 33
+				'priority' => 33,
 			)
 		);
 
-		// Sticky menu
 		$wp_customize->add_setting(
 			'generate_menu_plus_settings[sticky_menu]',
 			array(
 				'default' => $defaults['sticky_menu'],
 				'type' => 'option',
-				'sanitize_callback' => 'generate_premium_sanitize_choices'
+				'sanitize_callback' => 'generate_premium_sanitize_choices',
 			)
 		);
 
@@ -229,20 +242,19 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 					'mobile' => esc_html__( 'Mobile only', 'gp-premium' ),
 					'desktop' => esc_html__( 'Desktop only', 'gp-premium' ),
 					'true' => esc_html__( 'On', 'gp-premium' ),
-					'false' => esc_html__( 'Off', 'gp-premium' )
+					'false' => esc_html__( 'Off', 'gp-premium' ),
 				),
 				'settings' => 'generate_menu_plus_settings[sticky_menu]',
-				'priority' => 105
+				'priority' => 105,
 			)
 		);
 
-		// Transition
 		$wp_customize->add_setting(
 			'generate_menu_plus_settings[sticky_menu_effect]',
 			array(
 				'default' => $defaults['sticky_menu_effect'],
 				'type' => 'option',
-				'sanitize_callback' => 'generate_premium_sanitize_choices'
+				'sanitize_callback' => 'generate_premium_sanitize_choices',
 			)
 		);
 
@@ -255,21 +267,20 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 				'choices' => array(
 					'fade' => esc_html__( 'Fade', 'gp-premium' ),
 					'slide' => esc_html__( 'Slide', 'gp-premium' ),
-					'none' => esc_html__( 'None', 'gp-premium' )
+					'none' => esc_html__( 'None', 'gp-premium' ),
 				),
 				'settings' => 'generate_menu_plus_settings[sticky_menu_effect]',
 				'active_callback' => 'generate_sticky_navigation_activated',
-				'priority' => 110
+				'priority' => 110,
 			)
 		);
 
-		// Auto hide on scroll down
 		$wp_customize->add_setting(
 			'generate_menu_plus_settings[auto_hide_sticky]',
 			array(
 				'default' => $defaults['auto_hide_sticky'],
 				'type' => 'option',
-				'sanitize_callback' => 'generate_premium_sanitize_checkbox'
+				'sanitize_callback' => 'generate_premium_sanitize_checkbox',
 			)
 		);
 
@@ -285,14 +296,13 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 			)
 		);
 
-		if ( '' == $settings['sticky_menu_logo'] ) {
-			// Navigation logo
+		if ( '' == $settings['sticky_menu_logo'] ) { // phpcs:ignore -- Non-script on purpose.
 			$wp_customize->add_setting(
 				'generate_menu_plus_settings[sticky_navigation_logo]',
 				array(
 					'default' => $defaults['sticky_navigation_logo'],
 					'type' => 'option',
-					'sanitize_callback' => 'esc_url_raw'
+					'sanitize_callback' => 'esc_url_raw',
 				)
 			);
 
@@ -311,15 +321,14 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 			);
 		}
 
-		// Deprecated as of 1.8
-		if ( '' !== $settings['sticky_menu_logo'] ) {
-			// Navigation logo
+		// Deprecated as of 1.8.
+		if ( '' !== $settings['sticky_menu_logo'] ) { // phpcs:ignore -- Non-strict on purpose.
 			$wp_customize->add_setting(
 				'generate_menu_plus_settings[sticky_menu_logo]',
 				array(
 					'default' => $defaults['sticky_menu_logo'],
 					'type' => 'option',
-					'sanitize_callback' => 'esc_url_raw'
+					'sanitize_callback' => 'esc_url_raw',
 				)
 			);
 
@@ -331,12 +340,11 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 						'label' => esc_html__( 'Navigation Logo', 'gp-premium' ),
 						'section' => $sticky_menu_section,
 						'settings' => 'generate_menu_plus_settings[sticky_menu_logo]',
-						'priority' => 115
+						'priority' => 115,
 					)
 				)
 			);
 
-			// Logo placement
 			$wp_customize->add_setting(
 				'generate_menu_plus_settings[sticky_menu_logo_position]',
 				array(
@@ -355,7 +363,7 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 					'choices' => array(
 						'sticky-menu' => esc_html__( 'Sticky', 'gp-premium' ),
 						'menu' => esc_html__( 'Sticky + Static', 'gp-premium' ),
-						'regular-menu' => esc_html__( 'Static', 'gp-premium' )
+						'regular-menu' => esc_html__( 'Static', 'gp-premium' ),
 					),
 					'settings' => 'generate_menu_plus_settings[sticky_menu_logo_position]',
 					'priority' => 120,
@@ -364,19 +372,19 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 			);
 		}
 
-		// Mobile Header section
-		// No longer displays
+		// Mobile Header section.
+		// No longer displays.
 		$wp_customize->add_section(
 			'menu_plus_mobile_header',
 			array(
 				'title' => esc_html__( 'Mobile Header', 'gp-premium' ),
 				'capability' => 'edit_theme_options',
 				'panel' => $panel,
-				'priority' => 11
+				'priority' => 11,
 			)
 		);
 
-		if ( '' == $settings['sticky_menu_logo'] ) {
+		if ( '' == $settings['sticky_menu_logo'] ) { // phpcs:ignore -- Non-strict on purpose.
 			$wp_customize->add_setting(
 				'generate_menu_plus_settings[navigation_as_header]',
 				array(
@@ -397,13 +405,12 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 			);
 		}
 
-		// Mobile header
 		$wp_customize->add_setting(
 			'generate_menu_plus_settings[mobile_header]',
 			array(
 				'default' => $defaults['mobile_header'],
 				'type' => 'option',
-				'sanitize_callback' => 'generate_premium_sanitize_choices'
+				'sanitize_callback' => 'generate_premium_sanitize_choices',
 			)
 		);
 
@@ -415,7 +422,7 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 				'section' => $header_section,
 				'choices' => array(
 					'disable' => esc_html__( 'Off', 'gp-premium' ),
-					'enable' => esc_html__( 'On', 'gp-premium' )
+					'enable' => esc_html__( 'On', 'gp-premium' ),
 				),
 				'settings' => 'generate_menu_plus_settings[mobile_header]',
 			)
@@ -452,7 +459,7 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 			array(
 				'default' => $defaults['mobile_header_branding'],
 				'type' => 'option',
-				'sanitize_callback' => 'generate_premium_sanitize_choices'
+				'sanitize_callback' => 'generate_premium_sanitize_choices',
 			)
 		);
 
@@ -464,20 +471,19 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 				'section' => $header_section,
 				'choices' => array(
 					'logo' => esc_html__( 'Logo', 'gp-premium' ),
-					'title' => esc_html__( 'Site Title', 'gp-premium' )
+					'title' => esc_html__( 'Site Title', 'gp-premium' ),
 				),
 				'settings' => 'generate_menu_plus_settings[mobile_header_branding]',
 				'active_callback' => 'generate_mobile_header_activated',
 			)
 		);
 
-		// Mobile header logo
 		$wp_customize->add_setting(
 			'generate_menu_plus_settings[mobile_header_logo]',
 			array(
 				'default' => $defaults['mobile_header_logo'],
 				'type' => 'option',
-				'sanitize_callback' => 'esc_url_raw'
+				'sanitize_callback' => 'esc_url_raw',
 			)
 		);
 
@@ -489,18 +495,17 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 					'label' => esc_html__( 'Logo', 'gp-premium' ),
 					'section' => $header_section,
 					'settings' => 'generate_menu_plus_settings[mobile_header_logo]',
-					'active_callback' => 'generate_mobile_header_logo_active_callback'
+					'active_callback' => 'generate_mobile_header_logo_active_callback',
 				)
 			)
 		);
 
-		// Sticky mobile header
 		$wp_customize->add_setting(
 			'generate_menu_plus_settings[mobile_header_sticky]',
 			array(
 				'default' => $defaults['mobile_header_sticky'],
 				'type' => 'option',
-				'sanitize_callback' => 'generate_premium_sanitize_choices'
+				'sanitize_callback' => 'generate_premium_sanitize_choices',
 			)
 		);
 
@@ -512,20 +517,19 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 				'section' => $header_section,
 				'choices' => array(
 					'enable' => esc_html__( 'On', 'gp-premium' ),
-					'disable' => esc_html__( 'Off', 'gp-premium' )
+					'disable' => esc_html__( 'Off', 'gp-premium' ),
 				),
 				'settings' => 'generate_menu_plus_settings[mobile_header_sticky]',
-				'active_callback' => 'generate_mobile_header_activated'
+				'active_callback' => 'generate_mobile_header_activated',
 			)
 		);
 
-		// Auto hide on scroll down
 		$wp_customize->add_setting(
 			'generate_menu_plus_settings[mobile_header_auto_hide_sticky]',
 			array(
 				'default' => $defaults['mobile_header_auto_hide_sticky'],
 				'type' => 'option',
-				'sanitize_callback' => 'generate_premium_sanitize_checkbox'
+				'sanitize_callback' => 'generate_premium_sanitize_checkbox',
 			)
 		);
 
@@ -536,18 +540,17 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 				'label' => esc_html__( 'Hide when scrolling down', 'gp-premium' ),
 				'section' => $header_section,
 				'settings' => 'generate_menu_plus_settings[mobile_header_auto_hide_sticky]',
-				'active_callback' => 'generate_mobile_header_sticky_activated'
+				'active_callback' => 'generate_mobile_header_sticky_activated',
 			)
 		);
 
-		// Slide-out menu section
 		$wp_customize->add_section(
 			'menu_plus_slideout_menu',
 			array(
 				'title' => esc_html__( 'Off Canvas Panel', 'gp-premium' ),
 				'capability' => 'edit_theme_options',
 				'panel' => $panel,
-				'priority' => 34
+				'priority' => 34,
 			)
 		);
 
@@ -568,13 +571,12 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 			)
 		);
 
-		// Slide-out menu
 		$wp_customize->add_setting(
 			'generate_menu_plus_settings[slideout_menu]',
 			array(
 				'default' => $defaults['slideout_menu'],
 				'type' => 'option',
-				'sanitize_callback' => 'generate_premium_sanitize_choices'
+				'sanitize_callback' => 'generate_premium_sanitize_choices',
 			)
 		);
 
@@ -588,7 +590,7 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 					'mobile' => esc_html__( 'Mobile only', 'gp-premium' ),
 					'desktop' => esc_html__( 'Desktop only', 'gp-premium' ),
 					'both' => esc_html__( 'On', 'gp-premium' ),
-					'false' => esc_html__( 'Off', 'gp-premium' )
+					'false' => esc_html__( 'Off', 'gp-premium' ),
 				),
 				'settings' => 'generate_menu_plus_settings[slideout_menu]',
 			)
@@ -599,12 +601,13 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 			array(
 				'default' => $defaults['off_canvas_desktop_toggle_label'],
 				'type' => 'option',
-				'sanitize_callback' => 'wp_kses_post'
+				'sanitize_callback' => 'wp_kses_post',
 			)
 		);
 
 		$wp_customize->add_control(
-			'generate_menu_plus_settings[off_canvas_desktop_toggle_label]', array(
+			'generate_menu_plus_settings[off_canvas_desktop_toggle_label]',
+			array(
 				'label' => esc_html__( 'Desktop Toggle Label', 'gp-premium' ),
 				'section' => 'menu_plus_slideout_menu',
 				'settings' => 'generate_menu_plus_settings[off_canvas_desktop_toggle_label]',
@@ -617,7 +620,7 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 			array(
 				'default' => $defaults['slideout_menu_style'],
 				'type' => 'option',
-				'sanitize_callback' => 'generate_premium_sanitize_choices'
+				'sanitize_callback' => 'generate_premium_sanitize_choices',
 			)
 		);
 
@@ -641,7 +644,7 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 			array(
 				'default' => $defaults['slideout_menu_side'],
 				'type' => 'option',
-				'sanitize_callback' => 'generate_premium_sanitize_choices'
+				'sanitize_callback' => 'generate_premium_sanitize_choices',
 			)
 		);
 
@@ -667,7 +670,7 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 				array(
 					'section' => 'menu_plus_slideout_menu',
 					'data_type' => 'overlay_design',
-					'label'	=> __( 'Set Overlay Defaults', 'gp-premium' ),
+					'label' => __( 'Set Overlay Defaults', 'gp-premium' ),
 					'description' => esc_html__( 'Clicking the above button will design your overlay by changing some of your off canvas color and typography options.', 'gp-premium' ),
 					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
 					'active_callback' => 'generate_is_overlay_navigation_active_callback',
@@ -680,7 +683,7 @@ if ( ! function_exists( 'generate_menu_plus_customize_register' ) ) {
 			array(
 				'default' => $defaults['slideout_close_button'],
 				'type' => 'option',
-				'sanitize_callback' => 'generate_premium_sanitize_choices'
+				'sanitize_callback' => 'generate_premium_sanitize_choices',
 			)
 		);
 
@@ -714,15 +717,23 @@ if ( ! function_exists( 'generate_menu_plus_enqueue_css' ) ) {
 
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		// Add sticky menu script
-		if ( 'false' !== $settings['sticky_menu'] ) {
+		$using_flex = false;
+
+		if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+			$using_flex = true;
+		}
+
+		if ( 'false' !== $settings['sticky_menu'] && ! $using_flex ) {
 			wp_enqueue_style( 'generate-sticky', plugin_dir_url( __FILE__ ) . "css/sticky{$suffix}.css", array(), GENERATE_MENU_PLUS_VERSION );
 		}
 
-		// Add slideout menu script
 		if ( 'false' !== $settings['slideout_menu'] ) {
 			wp_enqueue_style( 'generate-offside', plugin_dir_url( __FILE__ ) . "css/offside{$suffix}.css", array(), GENERATE_MENU_PLUS_VERSION );
 			wp_add_inline_style( 'generate-offside', generate_do_off_canvas_css() );
+
+			if ( class_exists( 'GeneratePress_Typography' ) ) {
+				wp_add_inline_style( 'generate-offside', GeneratePress_Typography::get_css( 'off-canvas-panel' ) );
+			}
 
 			$font_icons = true;
 
@@ -737,21 +748,42 @@ if ( ! function_exists( 'generate_menu_plus_enqueue_css' ) ) {
 			}
 		}
 
-		// Add regular menu logo styling
 		if ( '' !== $settings['sticky_menu_logo'] ) {
 			wp_enqueue_style( 'generate-menu-logo', plugin_dir_url( __FILE__ ) . "css/menu-logo{$suffix}.css", array(), GENERATE_MENU_PLUS_VERSION );
 			wp_add_inline_style( 'generate-menu-logo', generate_do_mobile_navigation_logo_css() );
 		}
 
-		if ( $settings['navigation_as_header'] || $settings['sticky_navigation_logo'] || 'enable' == $settings['mobile_header'] ) {
-			wp_enqueue_style( 'generate-navigation-branding', plugin_dir_url( __FILE__ ) . "css/navigation-branding{$suffix}.css", array(), GENERATE_MENU_PLUS_VERSION );
+		if ( $settings['navigation_as_header'] || $settings['sticky_navigation_logo'] || 'enable' === $settings['mobile_header'] ) {
+			if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+				wp_enqueue_style( 'generate-navigation-branding', plugin_dir_url( __FILE__ ) . "css/navigation-branding-flex{$suffix}.css", array(), GENERATE_MENU_PLUS_VERSION );
+			} else {
+				wp_enqueue_style( 'generate-navigation-branding', plugin_dir_url( __FILE__ ) . "css/navigation-branding{$suffix}.css", array(), GENERATE_MENU_PLUS_VERSION );
+			}
+
 			wp_add_inline_style( 'generate-navigation-branding', generate_do_nav_branding_css() );
 		}
 
-		// Add inline CSS
-		wp_add_inline_style( 'generate-style', generate_menu_plus_inline_css() );
-
+		if ( 'inline' === generate_get_css_print_method() ) {
+			wp_add_inline_style( 'generate-style', generate_menu_plus_inline_css() );
+		}
 	}
+}
+
+add_filter( 'generate_external_dynamic_css_output', 'generate_menu_plus_add_to_external_stylesheet' );
+/**
+ * Add CSS to the external stylesheet.
+ *
+ * @since 1.11.0
+ * @param string $css Existing CSS.
+ */
+function generate_menu_plus_add_to_external_stylesheet( $css ) {
+	if ( 'inline' === generate_get_css_print_method() ) {
+		return $css;
+	}
+
+	$css .= generate_menu_plus_inline_css();
+
+	return $css;
 }
 
 if ( ! function_exists( 'generate_menu_plus_enqueue_js' ) ) {
@@ -767,12 +799,10 @@ if ( ! function_exists( 'generate_menu_plus_enqueue_js' ) ) {
 
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		// Add sticky menu script
-		if ( ( 'false' !== $settings['sticky_menu'] ) || ( 'enable' == $settings['mobile_header'] && 'enable' == $settings['mobile_header_sticky'] ) ) {
+		if ( ( 'false' !== $settings['sticky_menu'] ) || ( 'enable' === $settings['mobile_header'] && 'enable' === $settings['mobile_header_sticky'] ) ) {
 			wp_enqueue_script( 'generate-sticky', plugin_dir_url( __FILE__ ) . "js/sticky{$suffix}.js", array( 'jquery' ), GENERATE_MENU_PLUS_VERSION, true );
 		}
 
-		// Add slideout menu script
 		if ( 'false' !== $settings['slideout_menu'] ) {
 			wp_enqueue_script( 'generate-offside', plugin_dir_url( __FILE__ ) . "js/offside{$suffix}.js", array(), GENERATE_MENU_PLUS_VERSION, true );
 
@@ -780,7 +810,7 @@ if ( ! function_exists( 'generate_menu_plus_enqueue_js' ) ) {
 				'generate-offside',
 				'offSide',
 				array(
-					'side' => $settings['slideout_menu_side']
+					'side' => $settings['slideout_menu_side'],
 				)
 			);
 		}
@@ -794,14 +824,14 @@ if ( ! function_exists( 'generate_menu_plus_mobile_header_js' ) ) {
 	 */
 	function generate_menu_plus_mobile_header_js() {
 		if ( function_exists( 'wp_add_inline_script' ) ) {
-
 			$settings = wp_parse_args(
 				get_option( 'generate_menu_plus_settings', array() ),
 				generate_menu_plus_get_defaults()
 			);
 
-			if ( 'enable' == $settings[ 'mobile_header' ] && ( 'desktop' == $settings[ 'slideout_menu' ] || 'false' == $settings[ 'slideout_menu' ] ) ) {
-				wp_add_inline_script( 'generate-navigation',
+			if ( 'enable' === $settings['mobile_header'] && ( 'desktop' === $settings['slideout_menu'] || 'false' === $settings['slideout_menu'] ) ) {
+				wp_add_inline_script(
+					'generate-navigation',
 					"jQuery( document ).ready( function($) {
 						$( '#mobile-header .menu-toggle' ).on( 'click', function( e ) {
 							e.preventDefault();
@@ -823,7 +853,6 @@ if ( ! function_exists( 'generate_menu_plus_inline_css' ) ) {
 	 * Enqueue inline CSS
 	 */
 	function generate_menu_plus_inline_css() {
-		// Bail if GP isn't active
 		if ( ! function_exists( 'generate_get_defaults' ) ) {
 			return;
 		}
@@ -856,7 +885,11 @@ if ( ! function_exists( 'generate_menu_plus_inline_css' ) ) {
 		}
 
 		if ( 'false' !== $generate_menu_plus_settings['sticky_menu'] ) {
-			$return .= '.main-navigation .main-nav ul li a,.menu-toggle,.main-navigation .mobile-bar-items a{transition: line-height 300ms ease}';
+			if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+				$return .= '.main-navigation .main-nav ul li a,.menu-toggle,.main-navigation .menu-bar-item > a{transition: line-height 300ms ease}';
+			} else {
+				$return .= '.main-navigation .main-nav ul li a,.menu-toggle,.main-navigation .mobile-bar-items a{transition: line-height 300ms ease}';
+			}
 
 			if ( class_exists( 'FLBuilderModel' ) ) {
 				$return .= '.fl-builder-edit .navigation-stick {z-index: 10 !important;}';
@@ -874,6 +907,50 @@ if ( ! function_exists( 'generate_menu_plus_inline_css' ) ) {
 			}
 		}
 
+		if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+			if ( 'true' === $generate_menu_plus_settings['sticky_menu'] || 'desktop' === $generate_menu_plus_settings['sticky_menu'] || 'mobile' === $generate_menu_plus_settings['sticky_menu'] || 'enable' === $generate_menu_plus_settings['mobile_header_sticky'] ) {
+				$return .= '.sticky-enabled .gen-sidebar-nav.is_stuck .main-navigation {margin-bottom: 0px;}';
+				$return .= '.sticky-enabled .gen-sidebar-nav.is_stuck {z-index: 500;}';
+				$return .= '.sticky-enabled .main-navigation.is_stuck {box-shadow: 0 2px 2px -2px rgba(0, 0, 0, .2);}';
+				$return .= '.navigation-stick:not(.gen-sidebar-nav) {left: 0;right: 0;width: 100% !important;}';
+
+				if ( function_exists( 'generate_get_option' ) && generate_get_option( 'smooth_scroll' ) ) {
+					$return .= '.both-sticky-menu .main-navigation:not(#mobile-header).toggled .main-nav > ul,.mobile-sticky-menu .main-navigation:not(#mobile-header).toggled .main-nav > ul,.mobile-header-sticky #mobile-header.toggled .main-nav > ul {position: absolute;left: 0;right: 0;z-index: 999;}';
+				}
+
+				if ( function_exists( 'generate_has_inline_mobile_toggle' ) && generate_has_inline_mobile_toggle() && 'enable' !== $generate_menu_plus_settings['mobile_header'] ) {
+					$return .= '@media ' . generate_premium_get_media_query( 'mobile-menu' ) . '{#sticky-placeholder{height:0;overflow:hidden;}.has-inline-mobile-toggle #site-navigation.toggled{margin-top:0;}.has-inline-mobile-menu #site-navigation.toggled .main-nav > ul{top:1.5em;}}';
+				}
+
+				$return .= '.nav-float-right .navigation-stick {width: 100% !important;left: 0;}';
+				$return .= '.nav-float-right .navigation-stick .navigation-branding {margin-right: auto;}';
+				$return .= '.main-navigation.has-sticky-branding:not(.grid-container) .inside-navigation:not(.grid-container) .navigation-branding{margin-left: 10px;}';
+
+				if ( ! $generate_menu_plus_settings['navigation_as_header'] ) {
+					$header_left = 40;
+					$header_right = 40;
+
+					if ( function_exists( 'generate_spacing_get_defaults' ) ) {
+						$spacing_settings = wp_parse_args(
+							get_option( 'generate_spacing_settings', array() ),
+							generate_spacing_get_defaults()
+						);
+
+						$header_left = $spacing_settings['header_left'];
+						$header_right = $spacing_settings['header_right'];
+					}
+
+					if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+						if ( function_exists( 'generate_get_option' ) && 'text' === generate_get_option( 'container_alignment' ) ) {
+							$return .= '.main-navigation.navigation-stick.has-sticky-branding .inside-navigation.grid-container{padding-left:' . $header_left . 'px;padding-right:' . $header_right . 'px;}';
+
+							$return .= '@media ' . generate_premium_get_media_query( 'mobile' ) . '{.main-navigation.navigation-stick.has-sticky-branding .inside-navigation.grid-container{padding-left:0;padding-right:0;}}';
+						}
+					}
+				}
+			}
+		}
+
 		return $return;
 	}
 }
@@ -882,18 +959,26 @@ if ( ! function_exists( 'generate_menu_plus_mobile_header' ) ) {
 	add_action( 'generate_after_header', 'generate_menu_plus_mobile_header', 5 );
 	add_action( 'generate_inside_mobile_header', 'generate_navigation_search', 1 );
 	add_action( 'generate_inside_mobile_header', 'generate_mobile_menu_search_icon' );
+	/**
+	 * Build the mobile header.
+	 */
 	function generate_menu_plus_mobile_header() {
 		$settings = wp_parse_args(
 			get_option( 'generate_menu_plus_settings', array() ),
 			generate_menu_plus_get_defaults()
 		);
 
-		if ( 'disable' == $settings[ 'mobile_header' ] ) {
+		if ( 'disable' === $settings['mobile_header'] ) {
 			return;
 		}
 
-		if ( 'false' !== $settings['mobile_header_auto_hide_sticky'] && $settings[ 'mobile_header_auto_hide_sticky' ] ) {
+		$attributes = array(
+			'id' => 'mobile-header',
+		);
+
+		if ( 'false' !== $settings['mobile_header_auto_hide_sticky'] && $settings['mobile_header_auto_hide_sticky'] ) {
 			$hide_sticky = ' data-auto-hide-sticky="true"';
+			$attributes['data-auto-hide-sticky'] = true;
 		} else {
 			$hide_sticky = '';
 		}
@@ -902,6 +987,13 @@ if ( ! function_exists( 'generate_menu_plus_mobile_header' ) ) {
 
 		if ( function_exists( 'generate_get_microdata' ) ) {
 			$microdata = generate_get_microdata( 'navigation' );
+		}
+
+		if ( function_exists( 'generate_get_schema_type' ) ) {
+			if ( 'microdata' === generate_get_schema_type() ) {
+				$attributes['itemtype'] = 'https://schema.org/SiteNavigationElement';
+				$attributes['itemscope'] = true;
+			}
 		}
 
 		$classes = array(
@@ -919,23 +1011,55 @@ if ( ! function_exists( 'generate_menu_plus_mobile_header' ) ) {
 			}
 		}
 
+		if ( function_exists( 'generatepress_wc_get_setting' ) && generatepress_wc_get_setting( 'cart_menu_item' ) ) {
+			$classes[] = 'wc-menu-cart-activated';
+		}
+
+		if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+			if ( function_exists( 'generate_has_menu_bar_items' ) && generate_has_menu_bar_items() ) {
+				$classes[] = 'has-menu-bar-items';
+			}
+		}
+
 		$classes = implode( ' ', $classes );
+		$attributes['class'] = $classes;
+
+		$mobile_header_attributes = sprintf(
+			'id="mobile-header"%1$s class="%2$s" %3$s"',
+			$hide_sticky,
+			esc_attr( $classes ),
+			$microdata
+		);
+
+		if ( function_exists( 'generate_get_attr' ) ) {
+			$mobile_header_attributes = generate_get_attr(
+				'mobile-header',
+				$attributes
+			);
+		}
 		?>
-		<nav id="mobile-header"<?php echo $hide_sticky;?> class="<?php echo $classes; ?>" <?php echo $microdata; ?>>
+		<nav <?php echo $mobile_header_attributes; // phpcs:ignore -- No escaping needed. ?>>
 			<div class="inside-navigation grid-container grid-parent">
 				<?php
 				do_action( 'generate_inside_mobile_header' );
 
-				// Remove the menu toggle if it's disabled using Disable Elements.
-				$disable_navigation = false;
+				$disable_mobile_header_menu = apply_filters( 'generate_disable_mobile_header_menu', false );
 
-				if ( is_singular() ) {
-					$disable_navigation = get_post_meta( get_the_ID(), '_generate-disable-nav', true );
-				}
-
-				if ( ! $disable_navigation ) :
+				if ( ! $disable_mobile_header_menu ) :
+					if ( function_exists( 'generate_get_attr' ) ) {
+						$menu_toggle_attributes = generate_get_attr(
+							'mobile-header-menu-toggle',
+							array(
+								'class' => 'menu-toggle',
+								'aria-controls' => 'mobile-menu',
+								'aria-expanded' => 'false',
+							)
+						);
+					} else {
+						$menu_toggle_attributes = 'class="menu-toggle" aria-controls="mobile-menu" aria-expanded="false"';
+					}
 					?>
-					<button class="menu-toggle" aria-controls="mobile-menu" aria-expanded="false">
+					<button <?php echo $menu_toggle_attributes; // phpcs:ignore -- No escaping needed. ?>>
 						<?php
 						do_action( 'generate_inside_mobile_header_menu' );
 
@@ -948,7 +1072,7 @@ if ( ! function_exists( 'generate_menu_plus_mobile_header' ) ) {
 						if ( $mobile_menu_label ) {
 							printf(
 								'<span class="mobile-menu">%s</span>',
-								$mobile_menu_label
+								$mobile_menu_label // phpcs:ignore -- HTML allowed.
 							);
 						} else {
 							printf(
@@ -959,6 +1083,12 @@ if ( ! function_exists( 'generate_menu_plus_mobile_header' ) ) {
 						?>
 					</button>
 					<?php
+					/**
+					 * generate_after_mobile_header_menu_button hook
+					 *
+					 * @since 1.11.0
+					 */
+					do_action( 'generate_after_mobile_header_menu_button' );
 				endif;
 
 				wp_nav_menu(
@@ -969,10 +1099,17 @@ if ( ! function_exists( 'generate_menu_plus_mobile_header' ) ) {
 						'container_id' => 'mobile-menu',
 						'menu_class' => '',
 						'fallback_cb' => 'generate_menu_fallback',
-						'items_wrap' => '<ul id="%1$s" class="%2$s ' . join( ' ', generate_get_menu_class() ) . '">%3$s</ul>'
+						'items_wrap' => '<ul id="%1$s" class="%2$s ' . join( ' ', generate_get_menu_class() ) . '">%3$s</ul>',
 					)
 				);
-				?>
+
+				/**
+				 * generate_after_primary_menu hook.
+				 *
+				 * @since 1.11.0
+				 */
+				do_action( 'generate_after_primary_menu' );
+		?>
 			</div><!-- .inside-navigation -->
 		</nav><!-- #site-navigation -->
 		<?php
@@ -1008,7 +1145,7 @@ if ( ! function_exists( 'generate_slideout_navigation' ) ) {
 		}
 
 		?>
-		<nav id="generate-slideout-menu" class="main-navigation slideout-navigation<?php echo $overlay; ?>" <?php echo $microdata; ?> style="display: none;">
+		<nav id="generate-slideout-menu" class="main-navigation slideout-navigation<?php echo esc_attr( $overlay ); ?>" <?php echo $microdata; // phpcs:ignore -- No escaping needed. ?> style="display: none;">
 			<div class="inside-navigation grid-container grid-parent">
 				<?php
 				do_action( 'generate_inside_slideout_navigation' );
@@ -1020,7 +1157,7 @@ if ( ! function_exists( 'generate_slideout_navigation' ) ) {
 						'container_class' => 'main-nav',
 						'menu_class' => '',
 						'fallback_cb' => false,
-						'items_wrap' => '<ul id="%1$s" class="%2$s slideout-menu">%3$s</ul>'
+						'items_wrap' => '<ul id="%1$s" class="%2$s slideout-menu">%3$s</ul>',
 					)
 				);
 
@@ -1029,7 +1166,8 @@ if ( ! function_exists( 'generate_slideout_navigation' ) ) {
 			</div><!-- .inside-navigation -->
 		</nav><!-- #site-navigation -->
 
-		<?php if ( 'slide' === $settings['slideout_menu_style'] ) :
+		<?php
+		if ( 'slide' === $settings['slideout_menu_style'] ) :
 			$svg_icon = '';
 
 			if ( function_exists( 'generate_get_svg_icon' ) ) {
@@ -1039,32 +1177,23 @@ if ( ! function_exists( 'generate_slideout_navigation' ) ) {
 			<div class="slideout-overlay">
 				<?php if ( 'outside' === $settings['slideout_close_button'] && 'slide' === $settings['slideout_menu_style'] ) : ?>
 					<button class="slideout-exit <?php echo $svg_icon ? 'has-svg-icon' : ''; ?>">
-						<?php echo $svg_icon; ?>
+						<?php echo $svg_icon; // phpcs:ignore -- Escaping not needed. ?>
 						<span class="screen-reader-text"><?php esc_attr_e( 'Close', 'gp-premium' ); ?></span>
 					</button>
 				<?php endif; ?>
 			</div>
-		<?php endif;
+			<?php
+		endif;
 	}
 }
 
 add_action( 'generate_after_slideout_navigation', 'generate_slideout_menu_widget' );
+/**
+ * Add Off-Canvas panel widget to the panel.
+ */
 function generate_slideout_menu_widget() {
 	if ( is_active_sidebar( 'slide-out-widget' ) ) {
 		dynamic_sidebar( 'slide-out-widget' );
-	}
-}
-
-if ( ! function_exists( 'generate_slideout_menu_fallback' ) ) {
-	/**
-	 * Menu fallback.
-	 *
-	 * @param  array $args
-	 * @return string
-	 * @since 1.1.4
-	 */
-	function generate_slideout_menu_fallback( $args ) {
-
 	}
 }
 
@@ -1073,14 +1202,16 @@ add_action( 'widgets_init', 'generate_slideout_navigation_widget', 99 );
  * Register widgetized area and update sidebar with default widgets
  */
 function generate_slideout_navigation_widget() {
-	register_sidebar( array(
-		'name'          => esc_html__( 'Off Canvas Panel', 'gp-premium' ),
-		'id'            => 'slide-out-widget',
-		'before_widget' => '<aside id="%1$s" class="slideout-widget %2$s">',
-		'after_widget'  => '</aside>',
-		'before_title'  => apply_filters( 'generate_start_widget_title', '<h2 class="widget-title">' ),
-		'after_title'   => apply_filters( 'generate_end_widget_title', '</h2>' ),
-	) );
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Off Canvas Panel', 'gp-premium' ),
+			'id'            => 'slide-out-widget',
+			'before_widget' => '<aside id="%1$s" class="slideout-widget %2$s">',
+			'after_widget'  => '</aside>',
+			'before_title'  => apply_filters( 'generate_start_widget_title', '<h2 class="widget-title">' ),
+			'after_title'   => apply_filters( 'generate_end_widget_title', '</h2>' ),
+		)
+	);
 }
 
 if ( ! function_exists( 'generate_slideout_body_classes' ) ) {
@@ -1089,6 +1220,7 @@ if ( ! function_exists( 'generate_slideout_body_classes' ) ) {
 	 * Adds custom classes to body
 	 *
 	 * @since 0.1
+	 * @param array $classes Existing classes.
 	 */
 	function generate_slideout_body_classes( $classes ) {
 		$settings = wp_parse_args(
@@ -1096,49 +1228,45 @@ if ( ! function_exists( 'generate_slideout_body_classes' ) ) {
 			generate_menu_plus_get_defaults()
 		);
 
-		// Slide-out menu classes
 		if ( 'false' !== $settings['slideout_menu'] ) {
 			$classes[] = 'slideout-enabled';
 		}
 
-		if ( 'mobile' == $settings['slideout_menu'] ) {
+		if ( 'mobile' === $settings['slideout_menu'] ) {
 			$classes[] = 'slideout-mobile';
 		}
 
-		if ( 'desktop' == $settings['slideout_menu'] ) {
+		if ( 'desktop' === $settings['slideout_menu'] ) {
 			$classes[] = 'slideout-desktop';
 		}
 
-		if ( 'both' == $settings['slideout_menu'] ) {
+		if ( 'both' === $settings['slideout_menu'] ) {
 			$classes[] = 'slideout-both';
 		}
 
-		// Sticky menu transition class
-		if ( 'slide' == $settings['sticky_menu_effect'] ) {
+		if ( 'slide' === $settings['sticky_menu_effect'] ) {
 			$classes[] = 'sticky-menu-slide';
 		}
 
-		if ( 'fade' == $settings['sticky_menu_effect'] ) {
+		if ( 'fade' === $settings['sticky_menu_effect'] ) {
 			$classes[] = 'sticky-menu-fade';
 		}
 
-		if ( 'none' == $settings['sticky_menu_effect'] ) {
+		if ( 'none' === $settings['sticky_menu_effect'] ) {
 			$classes[] = 'sticky-menu-no-transition';
 		}
 
-		// If sticky menu is enabled
 		if ( 'false' !== $settings['sticky_menu'] ) {
 			$classes[] = 'sticky-enabled';
 		}
 
-		// Sticky menu classes
 		if ( '' !== $settings['sticky_menu_logo'] ) {
 
-			if ( 'sticky-menu' == $settings['sticky_menu_logo_position'] ) {
+			if ( 'sticky-menu' === $settings['sticky_menu_logo_position'] ) {
 				$classes[] = 'sticky-menu-logo';
-			} elseif ( 'menu' == $settings['sticky_menu_logo_position'] ) {
+			} elseif ( 'menu' === $settings['sticky_menu_logo_position'] ) {
 				$classes[] = 'menu-logo';
-			} elseif ( 'regular-menu' == $settings['sticky_menu_logo_position'] ) {
+			} elseif ( 'regular-menu' === $settings['sticky_menu_logo_position'] ) {
 				$classes[] = 'regular-menu-logo';
 			}
 
@@ -1146,29 +1274,27 @@ if ( ! function_exists( 'generate_slideout_body_classes' ) ) {
 
 		}
 
-		// Menu logo classes
-		if ( 'mobile' == $settings['sticky_menu'] ) {
+		if ( 'mobile' === $settings['sticky_menu'] ) {
 			$classes[] = 'mobile-sticky-menu';
 		}
 
-		if ( 'desktop' == $settings['sticky_menu'] ) {
+		if ( 'desktop' === $settings['sticky_menu'] ) {
 			$classes[] = 'desktop-sticky-menu';
 		}
 
-		if ( 'true' == $settings['sticky_menu'] ) {
+		if ( 'true' === $settings['sticky_menu'] ) {
 			$classes[] = 'both-sticky-menu';
 		}
 
-		// Mobile header classes
-		if ( 'enable' == $settings['mobile_header'] ) {
+		if ( 'enable' === $settings['mobile_header'] ) {
 			$classes[] = 'mobile-header';
 		}
 
-		if ( '' !== $settings['mobile_header_logo'] && 'enable' == $settings['mobile_header'] ) {
+		if ( '' !== $settings['mobile_header_logo'] && 'enable' === $settings['mobile_header'] ) {
 			$classes[] = 'mobile-header-logo';
 		}
 
-		if ( 'enable' == $settings['mobile_header_sticky'] && 'enable' == $settings['mobile_header'] ) {
+		if ( 'enable' === $settings['mobile_header_sticky'] && 'enable' === $settings['mobile_header'] ) {
 			$classes[] = 'mobile-header-sticky';
 		}
 
@@ -1183,6 +1309,8 @@ if ( ! function_exists( 'generate_menu_plus_slidebar_icon' ) ) {
 	 * Add slidebar icon to primary menu if set
 	 *
 	 * @since 0.1
+	 * @param string $nav Existing menu items.
+	 * @param object $args Nav args.
 	 */
 	function generate_menu_plus_slidebar_icon( $nav, $args ) {
 		$settings = wp_parse_args(
@@ -1190,12 +1318,16 @@ if ( ! function_exists( 'generate_menu_plus_slidebar_icon' ) ) {
 			generate_menu_plus_get_defaults()
 		);
 
-		// If the search icon isn't enabled, return the regular nav
+		if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+			return $nav;
+		}
+
+		// If the search icon isn't enabled, return the regular nav.
 		if ( 'desktop' !== $settings['slideout_menu'] && 'both' !== $settings['slideout_menu'] ) {
 			return $nav;
 		}
 
-		// If our primary menu is set, add the search icon
+		// If our primary menu is set, add the search icon.
 		if ( 'primary' === $args->theme_location ) {
 			$svg_icon = '';
 
@@ -1203,17 +1335,77 @@ if ( ! function_exists( 'generate_menu_plus_slidebar_icon' ) ) {
 				$svg_icon = generate_get_svg_icon( 'pro-menu-bars' );
 			}
 
-			$icon = apply_filters( 'generate_off_canvas_toggle_output', sprintf(
-				'<li class="slideout-toggle menu-item-align-right %2$s"><a href="#">%1$s%3$s</a></li>',
-				$svg_icon,
-				$svg_icon ? 'has-svg-icon' : '',
-				'' !== $settings['off_canvas_desktop_toggle_label'] ? '<span class="off-canvas-toggle-label">' . wp_kses_post( $settings['off_canvas_desktop_toggle_label'] ) . '</span>' : ''
-			) );
+			$icon = apply_filters(
+				'generate_off_canvas_toggle_output',
+				sprintf(
+					'<li class="slideout-toggle menu-item-align-right %2$s"><a href="#">%1$s%3$s</a></li>',
+					$svg_icon,
+					$svg_icon ? 'has-svg-icon' : '',
+					'' !== $settings['off_canvas_desktop_toggle_label'] ? '<span class="off-canvas-toggle-label">' . wp_kses_post( $settings['off_canvas_desktop_toggle_label'] ) . '</span>' : ''
+				)
+			);
 
 			return $nav . $icon;
 		}
 
 		return $nav;
+	}
+}
+
+add_action( 'wp', 'generate_add_menu_plus_menu_bar_items' );
+/**
+ * Conditionally add our menu bar items.
+ *
+ * @since 1.11.0
+ */
+function generate_add_menu_plus_menu_bar_items() {
+	if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+		$settings = wp_parse_args(
+			get_option( 'generate_menu_plus_settings', array() ),
+			generate_menu_plus_get_defaults()
+		);
+
+		if ( 'desktop' !== $settings['slideout_menu'] && 'both' !== $settings['slideout_menu'] ) {
+			return;
+		}
+
+		add_action( 'generate_menu_bar_items', 'generate_do_off_canvas_toggle_button', 15 );
+	}
+}
+
+/**
+ * Add the off-canvas toggle button to the menu.
+ *
+ * @since 1.11.0
+ */
+function generate_do_off_canvas_toggle_button() {
+	if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+		$settings = wp_parse_args(
+			get_option( 'generate_menu_plus_settings', array() ),
+			generate_menu_plus_get_defaults()
+		);
+
+		if ( 'desktop' !== $settings['slideout_menu'] && 'both' !== $settings['slideout_menu'] ) {
+			return;
+		}
+
+		$svg_icon = '';
+
+		if ( function_exists( 'generate_get_svg_icon' ) ) {
+			$svg_icon = generate_get_svg_icon( 'pro-menu-bars' );
+		}
+
+		$icon = apply_filters(
+			'generate_off_canvas_toggle_output',
+			sprintf(
+				'<span class="menu-bar-item slideout-toggle hide-on-mobile %2$s"><a href="#">%1$s%3$s</a></span>',
+				$svg_icon,
+				$svg_icon ? 'has-svg-icon' : '',
+				'' !== $settings['off_canvas_desktop_toggle_label'] ? '<span class="off-canvas-toggle-label">' . wp_kses_post( $settings['off_canvas_desktop_toggle_label'] ) . '</span>' : ''
+			)
+		);
+
+		echo $icon; // phpcs:ignore -- No escaping needed.
 	}
 }
 
@@ -1223,6 +1415,7 @@ if ( ! function_exists( 'generate_sticky_navigation_classes' ) ) {
 	 * Adds custom classes to the navigation.
 	 *
 	 * @since 0.1
+	 * @param array $classes Existing classes.
 	 */
 	function generate_sticky_navigation_classes( $classes ) {
 
@@ -1231,7 +1424,7 @@ if ( ! function_exists( 'generate_sticky_navigation_classes' ) ) {
 			generate_menu_plus_get_defaults()
 		);
 
-		if ( 'false' !== $settings['sticky_menu'] && $settings[ 'auto_hide_sticky' ] ) {
+		if ( 'false' !== $settings['sticky_menu'] && $settings['auto_hide_sticky'] ) {
 			$classes[] = 'auto-hide-sticky';
 		}
 
@@ -1280,21 +1473,25 @@ if ( ! function_exists( 'generate_menu_plus_sticky_logo' ) ) {
 			generate_menu_plus_get_defaults()
 		);
 
-		if ( '' == $settings['sticky_menu_logo'] ) {
+		if ( '' == $settings['sticky_menu_logo'] ) { // phpcs:ignore -- Non-strict on purpose.
 			return;
 		}
 
-		echo apply_filters( 'generate_navigation_logo_output', sprintf(
-			'<div class="site-logo sticky-logo navigation-logo">
-				<a href="%1$s" title="%2$s" rel="home">
-					<img src="%3$s" alt="%4$s" />
-				</a>
-			</div>',
-			esc_url( apply_filters( 'generate_logo_href' , home_url( '/' ) ) ),
-			esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
-			esc_url( apply_filters( 'generate_navigation_logo', $settings['sticky_menu_logo'] ) ),
-			esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) )
-		) );
+		// phpcs:ignore -- Escaping not needed.
+		echo apply_filters(
+			'generate_navigation_logo_output',
+			sprintf(
+				'<div class="site-logo sticky-logo navigation-logo">
+					<a href="%1$s" title="%2$s" rel="home">
+						<img src="%3$s" alt="%4$s" class="is-logo-image" />
+					</a>
+				</div>',
+				esc_url( apply_filters( 'generate_logo_href', home_url( '/' ) ) ),
+				esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
+				esc_url( apply_filters( 'generate_navigation_logo', $settings['sticky_menu_logo'] ) ),
+				esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) )
+			)
+		);
 	}
 }
 
@@ -1312,17 +1509,41 @@ if ( ! function_exists( 'generate_menu_plus_mobile_header_logo' ) ) {
 		);
 
 		if ( 'logo' === $settings['mobile_header_branding'] && '' !== $settings['mobile_header_logo'] ) {
-			echo apply_filters( 'generate_mobile_header_logo_output', sprintf(
-				'<div class="site-logo mobile-header-logo">
-					<a href="%1$s" title="%2$s" rel="home">
-						<img src="%3$s" alt="%4$s" />
-					</a>
-				</div>',
-				esc_url( apply_filters( 'generate_logo_href' , home_url( '/' ) ) ),
-				esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
-				esc_url( apply_filters( 'generate_mobile_header_logo', $settings['mobile_header_logo'] ) ),
-				esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) )
-			) );
+			$image = attachment_url_to_postid( $settings['mobile_header_logo'] );
+			$image_width = '';
+			$image_height = '';
+
+			if ( $image ) {
+				$image = wp_get_attachment_metadata( $image );
+
+				if ( ! empty( $image['width'] ) ) {
+					$image_width = $image['width'];
+				}
+
+				if ( ! empty( $image['height'] ) ) {
+					$image_height = $image['height'];
+				}
+			}
+
+			// phpcs:ignore -- Escaping not needed.
+			echo apply_filters(
+				'generate_mobile_header_logo_output',
+				sprintf(
+					'<div class="site-logo mobile-header-logo">
+						<a href="%1$s" title="%2$s" rel="home">
+							<img src="%3$s" alt="%4$s" class="is-logo-image" width="%5$s" height="%6$s" />
+						</a>
+					</div>',
+					esc_url( apply_filters( 'generate_logo_href', home_url( '/' ) ) ),
+					esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
+					esc_url( apply_filters( 'generate_mobile_header_logo', $settings['mobile_header_logo'] ) ),
+					esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
+					! empty( $image_width ) ? absint( $image_width ) : '',
+					! empty( $image_height ) ? absint( $image_height ) : ''
+				),
+				$settings['mobile_header_logo'],
+				$image
+			);
 		}
 
 		if ( 'title' === $settings['mobile_header_branding'] ) {
@@ -1330,16 +1551,20 @@ if ( ! function_exists( 'generate_menu_plus_mobile_header_logo' ) ) {
 
 				do_action( 'generate_inside_mobile_header_branding' );
 
-				echo apply_filters( 'generate_site_title_output', sprintf(
-					'<%1$s class="main-title" itemprop="headline">
-						<a href="%2$s" rel="home">
-							%3$s
-						</a>
-					</%1$s>',
-					( is_front_page() && is_home() ) ? 'h1' : 'p',
-					esc_url( apply_filters( 'generate_site_title_href', home_url( '/' ) ) ),
-					get_bloginfo( 'name' )
-				) );
+				// phpcs:ignore -- Escaping not needed.
+				echo apply_filters(
+					'generate_site_title_output',
+					sprintf(
+						'<%1$s class="main-title" itemprop="headline">
+							<a href="%2$s" rel="home">
+								%3$s
+							</a>
+						</%1$s>',
+						( is_front_page() && is_home() ) ? 'h1' : 'p',
+						esc_url( apply_filters( 'generate_site_title_href', home_url( '/' ) ) ),
+						get_bloginfo( 'name' )
+					)
+				);
 
 			echo '</div>';
 		}
@@ -1358,7 +1583,6 @@ function generate_do_off_canvas_css() {
 
 	$defaults = array_merge( generate_get_color_defaults(), generate_get_defaults(), generate_get_default_fonts() );
 
-	// Get our color settings
 	$settings = wp_parse_args(
 		get_option( 'generate_settings', array() ),
 		$defaults
@@ -1369,80 +1593,82 @@ function generate_do_off_canvas_css() {
 		generate_menu_plus_get_defaults()
 	);
 
-	// Initiate our CSS class
+	// Check if we're using our legacy typography system.
+	$using_dynamic_typography = function_exists( 'generate_is_using_dynamic_typography' ) && generate_is_using_dynamic_typography();
+
 	require_once GP_LIBRARY_DIRECTORY . 'class-make-css.php';
-	$css = new GeneratePress_Pro_CSS;
+	$css = new GeneratePress_Pro_CSS();
 
-	// Navigation background
 	$css->set_selector( '.slideout-navigation.main-navigation' );
-	$css->add_property( 'background-color', esc_attr( $settings[ 'slideout_background_color' ] ) );
+	$css->add_property( 'background-color', esc_attr( $settings['slideout_background_color'] ) );
 
-	// Navigation text
 	$css->set_selector( '.slideout-navigation.main-navigation .main-nav ul li a' );
-	$css->add_property( 'color', esc_attr( $settings[ 'slideout_text_color' ] ) );
-	$css->add_property( 'font-weight', esc_attr( $settings[ 'slideout_font_weight' ] ) );
-	$css->add_property( 'text-transform', esc_attr( $settings[ 'slideout_font_transform' ] ) );
+	$css->add_property( 'color', esc_attr( $settings['slideout_text_color'] ) );
 
-	if ( '' !== $settings[ 'slideout_font_size' ] ) {
-		$css->add_property( 'font-size', absint( $settings[ 'slideout_font_size' ] ), false, 'px' );
+	if ( ! $using_dynamic_typography ) {
+		$css->add_property( 'font-weight', esc_attr( $settings['slideout_font_weight'] ) );
+		$css->add_property( 'text-transform', esc_attr( $settings['slideout_font_transform'] ) );
+
+		if ( '' !== $settings['slideout_font_size'] ) {
+			$css->add_property( 'font-size', absint( $settings['slideout_font_size'] ), false, 'px' );
+		}
 	}
 
-	// Sub-navigation background
 	$css->set_selector( '.slideout-navigation.main-navigation ul ul' );
-	$css->add_property( 'background-color', esc_attr( $settings[ 'slideout_submenu_background_color' ] ) );
+	$css->add_property( 'background-color', esc_attr( $settings['slideout_submenu_background_color'] ) );
 
-	// Sub-navigation text
 	$css->set_selector( '.slideout-navigation.main-navigation .main-nav ul ul li a' );
-	$css->add_property( 'color', esc_attr( $settings[ 'slideout_submenu_text_color' ] ) );
+	$css->add_property( 'color', esc_attr( $settings['slideout_submenu_text_color'] ) );
 
-	if ( '' !== $settings[ 'slideout_font_size' ] ) {
-		$css->add_property( 'font-size', absint( $settings[ 'slideout_font_size' ] - 1 ), false, 'px' );
+	if ( ! $using_dynamic_typography ) {
+		$css->set_selector( '.slideout-navigation.main-navigation.do-overlay .main-nav ul ul li a' );
+		$css->add_property( 'font-size', '1em' );
+
+		if ( '' !== $settings['slideout_font_size'] ) {
+			$css->add_property( 'font-size', absint( $settings['slideout_font_size'] - 1 ), false, 'px' );
+		}
+
+		if ( '' !== $settings['slideout_mobile_font_size'] ) {
+			$css->start_media_query( generate_premium_get_media_query( 'mobile' ) );
+				$css->set_selector( '.slideout-navigation.main-navigation .main-nav ul li a' );
+				$css->add_property( 'font-size', absint( $settings['slideout_mobile_font_size'] ), false, 'px' );
+
+				$css->set_selector( '.slideout-navigation.main-navigation .main-nav ul ul li a' );
+				$css->add_property( 'font-size', absint( $settings['slideout_mobile_font_size'] - 1 ), false, 'px' );
+			$css->stop_media_query();
+		}
 	}
 
-	if ( '' !== $settings[ 'slideout_mobile_font_size' ] ) {
-		$css->start_media_query( generate_premium_get_media_query( 'mobile' ) );
-			$css->set_selector( '.slideout-navigation.main-navigation .main-nav ul li a' );
-			$css->add_property( 'font-size', absint( $settings[ 'slideout_mobile_font_size' ] ), false, 'px' );
+	$css->set_selector( '.slideout-navigation.main-navigation .main-nav ul li:not([class*="current-menu-"]):hover > a, .slideout-navigation.main-navigation .main-nav ul li:not([class*="current-menu-"]):focus > a, .slideout-navigation.main-navigation .main-nav ul li.sfHover:not([class*="current-menu-"]) > a' );
+	$css->add_property( 'color', esc_attr( $settings['slideout_text_hover_color'] ) );
+	$css->add_property( 'background-color', esc_attr( $settings['slideout_background_hover_color'] ) );
 
-			$css->set_selector( '.slideout-navigation.main-navigation .main-nav ul ul li a' );
-			$css->add_property( 'font-size', absint( $settings[ 'slideout_mobile_font_size' ] - 1 ), false, 'px' );
-		$css->stop_media_query();
-	}
+	$css->set_selector( '.slideout-navigation.main-navigation .main-nav ul ul li:not([class*="current-menu-"]):hover > a, .slideout-navigation.main-navigation .main-nav ul ul li:not([class*="current-menu-"]):focus > a, .slideout-navigation.main-navigation .main-nav ul ul li.sfHover:not([class*="current-menu-"]) > a' );
+	$css->add_property( 'color', esc_attr( $settings['slideout_submenu_text_hover_color'] ) );
+	$css->add_property( 'background-color', esc_attr( $settings['slideout_submenu_background_hover_color'] ) );
 
-	// Navigation background/text on hover
-	$css->set_selector( '.slideout-navigation.main-navigation .main-nav ul li:hover > a,.slideout-navigation.main-navigation .main-nav ul li:focus > a,.slideout-navigation.main-navigation .main-nav ul li.sfHover > a' );
-	$css->add_property( 'color', esc_attr( $settings[ 'slideout_text_hover_color' ] ) );
-	$css->add_property( 'background-color', esc_attr( $settings[ 'slideout_background_hover_color' ] ) );
+	$css->set_selector( '.slideout-navigation.main-navigation .main-nav ul li[class*="current-menu-"] > a' );
+	$css->add_property( 'color', esc_attr( $settings['slideout_text_current_color'] ) );
+	$css->add_property( 'background-color', esc_attr( $settings['slideout_background_current_color'] ) );
 
-	// Sub-Navigation background/text on hover
-	$css->set_selector( '.slideout-navigation.main-navigation .main-nav ul ul li:hover > a,.slideout-navigation.main-navigation .main-nav ul ul li:focus > a,.slideout-navigation.main-navigation .main-nav ul ul li.sfHover > a' );
-	$css->add_property( 'color', esc_attr( $settings[ 'slideout_submenu_text_hover_color' ] ) );
-	$css->add_property( 'background-color', esc_attr( $settings[ 'slideout_submenu_background_hover_color' ] ) );
-
-	// Navigation background / text current + hover
-	$css->set_selector( '.slideout-navigation.main-navigation .main-nav ul li[class*="current-menu-"] > a, .slideout-navigation.main-navigation .main-nav ul li[class*="current-menu-"] > a:hover,.slideout-navigation.main-navigation .main-nav ul li[class*="current-menu-"].sfHover > a' );
-	$css->add_property( 'color', esc_attr( $settings[ 'slideout_text_current_color' ] ) );
-	$css->add_property( 'background-color', esc_attr( $settings[ 'slideout_background_current_color' ] ) );
-
-	// Sub-Navigation background / text current + hover
-	$css->set_selector( '.slideout-navigation.main-navigation .main-nav ul ul li[class*="current-menu-"] > a,.slideout-navigation.main-navigation .main-nav ul ul li[class*="current-menu-"] > a:hover,.slideout-navigation.main-navigation .main-nav ul ul li[class*="current-menu-"].sfHover > a' );
-	$css->add_property( 'color', esc_attr( $settings[ 'slideout_submenu_text_current_color' ] ) );
-	$css->add_property( 'background-color', esc_attr( $settings[ 'slideout_submenu_background_current_color' ] ) );
+	$css->set_selector( '.slideout-navigation.main-navigation .main-nav ul ul li[class*="current-menu-"] > a' );
+	$css->add_property( 'color', esc_attr( $settings['slideout_submenu_text_current_color'] ) );
+	$css->add_property( 'background-color', esc_attr( $settings['slideout_submenu_background_current_color'] ) );
 
 	$css->set_selector( '.slideout-navigation, .slideout-navigation a' );
 
 	if ( $settings['slideout_text_color'] ) {
-		$css->add_property( 'color', esc_attr( $settings[ 'slideout_text_color' ] ) );
+		$css->add_property( 'color', esc_attr( $settings['slideout_text_color'] ) );
 	} else {
-		$css->add_property( 'color', esc_attr( $settings[ 'navigation_text_color' ] ) );
+		$css->add_property( 'color', esc_attr( $settings['navigation_text_color'] ) );
 	}
 
 	$css->set_selector( '.slideout-navigation button.slideout-exit' );
 
 	if ( $settings['slideout_text_color'] ) {
-		$css->add_property( 'color', esc_attr( $settings[ 'slideout_text_color' ] ) );
+		$css->add_property( 'color', esc_attr( $settings['slideout_text_color'] ) );
 	} else {
-		$css->add_property( 'color', esc_attr( $settings[ 'navigation_text_color' ] ) );
+		$css->add_property( 'color', esc_attr( $settings['navigation_text_color'] ) );
 	}
 
 	if ( function_exists( 'generate_spacing_get_defaults' ) ) {
@@ -1454,7 +1680,7 @@ function generate_do_off_canvas_css() {
 		$css->add_property( 'padding-left', absint( $spacing_settings['menu_item'] ), false, 'px' );
 		$css->add_property( 'padding-right', absint( $spacing_settings['menu_item'] ), false, 'px' );
 
-		if ( ! empty( $settings[ 'mobile_menu_item' ] ) ) {
+		if ( ! empty( $settings['mobile_menu_item'] ) ) {
 			$css->start_media_query( generate_premium_get_media_query( 'mobile' ) );
 				$css->set_selector( '.slideout-navigation button.slideout-exit' );
 
@@ -1472,8 +1698,21 @@ function generate_do_off_canvas_css() {
 				$css->set_selector( '.slide-opened nav.toggled .menu-toggle:before' );
 				$css->add_property( 'display', 'none' );
 			}
+
+			if ( 'font' === generate_get_option( 'icons' ) ) {
+				$css->set_selector( '.slideout-navigation .dropdown-menu-toggle:before' );
+				$css->add_property( 'content', '"\f107"' );
+
+				$css->set_selector( '.slideout-navigation .sfHover > a .dropdown-menu-toggle:before' );
+				$css->add_property( 'content', '"\f106"' );
+			}
 		}
 	}
+
+	$css->start_media_query( generate_premium_get_media_query( 'mobile-menu' ) );
+		$css->set_selector( '.menu-bar-item.slideout-toggle' );
+		$css->add_property( 'display', 'none' );
+	$css->stop_media_query();
 
 	return $css->css_output();
 }
@@ -1490,7 +1729,6 @@ function generate_do_nav_branding_css() {
 
 	$defaults = array_merge( generate_get_color_defaults(), generate_get_defaults(), generate_get_default_fonts() );
 
-	// Get our color settings
 	$settings = wp_parse_args(
 		get_option( 'generate_settings', array() ),
 		$defaults
@@ -1501,42 +1739,43 @@ function generate_do_nav_branding_css() {
 		generate_menu_plus_get_defaults()
 	);
 
-	// Initiate our CSS class
 	require_once GP_LIBRARY_DIRECTORY . 'class-make-css.php';
-	$css = new GeneratePress_Pro_CSS;
+	$css = new GeneratePress_Pro_CSS();
 
 	if ( 'enable' === $menu_plus_settings['mobile_header'] ) {
 		$css->start_media_query( generate_premium_get_media_query( 'mobile-menu' ) );
-			$css->set_selector( '.site-header, #site-navigation, #sticky-navigation' );
-			$css->add_property( 'display', 'none !important' );
-			$css->add_property( 'opacity', '0.0' );
+		$css->set_selector( '.site-header, #site-navigation, #sticky-navigation' );
+		$css->add_property( 'display', 'none !important' );
+		$css->add_property( 'opacity', '0.0' );
 
-			$css->set_selector( '#mobile-header' );
-			$css->add_property( 'display', 'block !important' );
-			$css->add_property( 'width', '100% !important' );
+		$css->set_selector( '#mobile-header' );
+		$css->add_property( 'display', 'block !important' );
+		$css->add_property( 'width', '100% !important' );
 
-			$css->set_selector( '#mobile-header .main-nav > ul' );
-			$css->add_property( 'display', 'none' );
+		$css->set_selector( '#mobile-header .main-nav > ul' );
+		$css->add_property( 'display', 'none' );
 
-			$css->set_selector( '#mobile-header.toggled .main-nav > ul, #mobile-header .menu-toggle, #mobile-header .mobile-bar-items' );
-			$css->add_property( 'display', 'block' );
+		$css->set_selector( '#mobile-header.toggled .main-nav > ul, #mobile-header .menu-toggle, #mobile-header .mobile-bar-items' );
+		$css->add_property( 'display', 'block' );
 
-			$css->set_selector( '#mobile-header .main-nav' );
-			$css->add_property( '-webkit-box-flex', '0' );
-			$css->add_property( '-ms-flex', '0 0 100%' );
-			$css->add_property( 'flex', '0 0 100%' );
-			$css->add_property( '-webkit-box-ordinal-group', '5' );
-			$css->add_property( '-ms-flex-order', '4' );
-			$css->add_property( 'order', '4' );
+		$css->set_selector( '#mobile-header .main-nav' );
+		$css->add_property( '-webkit-box-flex', '0' );
+		$css->add_property( '-ms-flex', '0 0 100%' );
+		$css->add_property( 'flex', '0 0 100%' );
+		$css->add_property( '-webkit-box-ordinal-group', '5' );
+		$css->add_property( '-ms-flex-order', '4' );
+		$css->add_property( 'order', '4' );
 
-			if ( ! $menu_plus_settings['navigation_as_header'] && 'title' === $menu_plus_settings['mobile_header_branding'] ) {
-				$css->set_selector( '.navigation-branding .main-title a, .navigation-branding .main-title a:hover, .navigation-branding .main-title a:visited' );
-				$css->add_property( 'color', $settings['navigation_text_color'] );
-			}
+		if ( ! $menu_plus_settings['navigation_as_header'] && 'title' === $menu_plus_settings['mobile_header_branding'] ) {
+			$css->set_selector( '.navigation-branding .main-title a, .navigation-branding .main-title a:hover, .navigation-branding .main-title a:visited' );
+			$css->add_property( 'color', $settings['navigation_text_color'] );
+		}
 		$css->stop_media_query();
 	}
 
-	if ( ! function_exists( 'generate_typography_premium_css' ) ) {
+	$is_using_dynamic_typography = function_exists( 'generate_is_using_dynamic_typography' ) && generate_is_using_dynamic_typography();
+
+	if ( ! function_exists( 'generate_typography_premium_css' ) && ! $is_using_dynamic_typography ) {
 		$css->set_selector( '.navigation-branding .main-title' );
 		$css->add_property( 'font-size', '25px' );
 		$css->add_property( 'font-weight', 'bold' );
@@ -1544,6 +1783,8 @@ function generate_do_nav_branding_css() {
 
 	$navigation_height = 60;
 	$mobile_navigation_height = '';
+	$content_left = 40;
+	$content_right = 40;
 
 	if ( function_exists( 'generate_spacing_get_defaults' ) ) {
 		$spacing_settings = wp_parse_args(
@@ -1555,6 +1796,34 @@ function generate_do_nav_branding_css() {
 
 		if ( isset( $spacing_settings['mobile_menu_item_height'] ) ) {
 			$mobile_navigation_height = $spacing_settings['mobile_menu_item_height'];
+		}
+
+		$content_left = $spacing_settings['content_left'];
+		$content_right = $spacing_settings['content_right'];
+	}
+
+	if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+		if ( function_exists( 'generate_get_option' ) ) {
+			if ( 'text' === generate_get_option( 'container_alignment' ) ) {
+				$css->set_selector( '.main-navigation.has-branding .inside-navigation.grid-container, .main-navigation.has-branding.grid-container .inside-navigation:not(.grid-container)' );
+				$css->add_property( 'padding', generate_padding_css( 0, $content_right, 0, $content_left ) );
+
+				$css->set_selector( '.main-navigation.has-branding:not(.grid-container) .inside-navigation:not(.grid-container) .navigation-branding' );
+
+				if ( ! is_rtl() ) {
+					$css->add_property( 'margin-left', '10px' );
+				} else {
+					$css->add_property( 'margin-right', '10px' );
+				}
+			} else {
+				$css->set_selector( '.main-navigation.has-branding.grid-container .navigation-branding, .main-navigation.has-branding:not(.grid-container) .inside-navigation:not(.grid-container) .navigation-branding' );
+
+				if ( ! is_rtl() ) {
+					$css->add_property( 'margin-left', '10px' );
+				} else {
+					$css->add_property( 'margin-right', '10px' );
+				}
+			}
 		}
 	}
 
@@ -1573,12 +1842,58 @@ function generate_do_nav_branding_css() {
 	$css->set_selector( '.navigation-branding .main-title' );
 	$css->add_property( 'line-height', absint( $navigation_height ), false, 'px' );
 
-	$css->start_media_query( '(max-width: ' . ( $settings['container_width'] + 10 ) . 'px)' );
+	$do_nav_padding = true;
+
+	if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+		if ( function_exists( 'generate_get_option' ) && 'text' === generate_get_option( 'container_alignment' ) ) {
+			$do_nav_padding = false;
+		}
+	}
+
+	if ( $do_nav_padding ) {
+		$css->start_media_query( '(max-width: ' . ( $settings['container_width'] + 10 ) . 'px)' );
 		$css->set_selector( '#site-navigation .navigation-branding, #sticky-navigation .navigation-branding' );
 		$css->add_property( 'margin-left', '10px' );
-	$css->stop_media_query();
+
+		if ( is_rtl() ) {
+			$css->set_selector( '#site-navigation .navigation-branding, #sticky-navigation .navigation-branding' );
+			$css->add_property( 'margin-left', 'auto' );
+			$css->add_property( 'margin-right', '10px' );
+		}
+		$css->stop_media_query();
+	}
 
 	$css->start_media_query( generate_premium_get_media_query( 'mobile-menu' ) );
+	if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+		$css->set_selector( '.main-navigation.has-branding.nav-align-center .menu-bar-items, .main-navigation.has-sticky-branding.navigation-stick.nav-align-center .menu-bar-items' );
+		$css->add_property( 'margin-left', 'auto' );
+
+		$css->set_selector( '.navigation-branding' );
+		$css->add_property( 'margin-right', 'auto' );
+		$css->add_property( 'margin-left', '10px' );
+
+		$css->set_selector( '.navigation-branding .main-title, .mobile-header-navigation .site-logo' );
+		$css->add_property( 'margin-left', '10px' );
+
+		if ( is_rtl() ) {
+			$css->set_selector( '.rtl .navigation-branding' );
+			$css->add_property( 'margin-left', 'auto' );
+			$css->add_property( 'margin-right', '10px' );
+
+			$css->set_selector( '.rtl .navigation-branding .main-title, .rtl .mobile-header-navigation .site-logo' );
+			$css->add_property( 'margin-right', '10px' );
+			$css->add_property( 'margin-left', '0px' );
+
+			$css->set_selector( '.rtl .main-navigation.has-branding.nav-align-center .menu-bar-items, .rtl .main-navigation.has-sticky-branding.navigation-stick.nav-align-center .menu-bar-items' );
+			$css->add_property( 'margin-left', '0px' );
+			$css->add_property( 'margin-right', 'auto' );
+		}
+
+		if ( function_exists( 'generate_get_option' ) && 'text' === generate_get_option( 'container_alignment' ) ) {
+			$css->set_selector( '.main-navigation.has-branding .inside-navigation.grid-container' );
+			$css->add_property( 'padding', '0px' );
+		}
+	} else {
 		$css->set_selector( '.main-navigation:not(.slideout-navigation) .main-nav' );
 		$css->add_property( '-webkit-box-flex', '0' );
 		$css->add_property( '-ms-flex', '0 0 100%' );
@@ -1596,14 +1911,15 @@ function generate_do_nav_branding_css() {
 
 		$css->set_selector( '.nav-aligned-center  .main-navigation.has-branding:not(.slideout-navigation) .inside-navigation .main-nav,.nav-aligned-center  .main-navigation.has-sticky-branding.navigation-stick .inside-navigation .main-nav,.nav-aligned-left  .main-navigation.has-branding:not(.slideout-navigation) .inside-navigation .main-nav,.nav-aligned-left  .main-navigation.has-sticky-branding.navigation-stick .inside-navigation .main-nav' );
 		$css->add_property( 'margin-right', '0px' );
+	}
 
-		if ( '' !== $mobile_navigation_height ) {
-			$css->set_selector( '.navigation-branding img, .site-logo.mobile-header-logo' );
-			$css->add_property( 'height', absint( $mobile_navigation_height ), false, 'px' );
+	if ( '' !== $mobile_navigation_height ) {
+		$css->set_selector( '.navigation-branding img, .site-logo.mobile-header-logo' );
+		$css->add_property( 'height', absint( $mobile_navigation_height ), false, 'px' );
 
-			$css->set_selector( '.navigation-branding .main-title' );
-			$css->add_property( 'line-height', absint( $mobile_navigation_height ), false, 'px' );
-		}
+		$css->set_selector( '.navigation-branding .main-title' );
+		$css->add_property( 'line-height', absint( $mobile_navigation_height ), false, 'px' );
+	}
 	$css->stop_media_query();
 
 	return $css->css_output();
@@ -1615,9 +1931,8 @@ function generate_do_nav_branding_css() {
  * @since 1.8
  */
 function generate_do_mobile_navigation_logo_css() {
-	// Initiate our CSS class
 	require_once GP_LIBRARY_DIRECTORY . 'class-make-css.php';
-	$css = new GeneratePress_Pro_CSS;
+	$css = new GeneratePress_Pro_CSS();
 
 	$css->start_media_query( generate_premium_get_media_query( 'mobile-menu' ) );
 		// Sticky & Sticky + Static logo.
@@ -1672,12 +1987,16 @@ function generate_do_slideout_menu_close_button() {
 			$svg_icon = generate_get_svg_icon( 'pro-close' );
 		}
 
-		echo apply_filters( 'generate_close_slideout_navigation_button', sprintf(
-			'<button class="slideout-exit %3$s">%1$s <span class="screen-reader-text">%2$s</span></button>',
-			$svg_icon,
-			esc_html__( 'Close', 'gp-premium' ),
-			$svg_icon ? 'has-svg-icon' : ''
-		) );
+		// phpcs:ignore -- No escaping needed.
+		echo apply_filters(
+			'generate_close_slideout_navigation_button',
+			sprintf(
+				'<button class="slideout-exit %3$s">%1$s <span class="screen-reader-text">%2$s</span></button>',
+				$svg_icon,
+				esc_html__( 'Close', 'gp-premium' ),
+				$svg_icon ? 'has-svg-icon' : ''
+			)
+		);
 	}
 }
 
@@ -1734,24 +2053,26 @@ function generate_do_navigation_branding() {
 		$retina_logo_url = esc_url( apply_filters( 'generate_retina_logo', generate_get_option( 'retina_logo' ) ) );
 
 		if ( $logo_url ) {
-			$attr = apply_filters( 'generate_logo_attributes', array(
-				'class' => 'header-image',
-				'alt'	=> esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
-				'src'	=> $logo_url,
-				'title'	=> esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
-			) );
+			$attr = apply_filters(
+				'generate_logo_attributes',
+				array(
+					'class' => 'header-image is-logo-image',
+					'alt'   => esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
+					'src'   => $logo_url,
+					'title' => esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
+				)
+			);
 
 			if ( '' !== $retina_logo_url ) {
 				$attr['srcset'] = $logo_url . ' 1x, ' . $retina_logo_url . ' 2x';
+			}
 
-				// Add dimensions to image if retina is set. This fixes a container width bug in Firefox.
-				if ( function_exists( 'the_custom_logo' ) && get_theme_mod( 'custom_logo' ) ) {
-					$data = wp_get_attachment_metadata( get_theme_mod( 'custom_logo' ) );
+			if ( function_exists( 'the_custom_logo' ) && get_theme_mod( 'custom_logo' ) ) {
+				$data = wp_get_attachment_metadata( get_theme_mod( 'custom_logo' ) );
 
-					if ( ! empty( $data ) ) {
-						$attr['width'] = $data['width'];
-						$attr['height'] = $data['height'];
-					}
+				if ( ! empty( $data ) ) {
+					$attr['width'] = $data['width'];
+					$attr['height'] = $data['height'];
 				}
 			}
 
@@ -1763,72 +2084,105 @@ function generate_do_navigation_branding() {
 			}
 
 			// Print our HTML.
-			$logo = apply_filters( 'generate_logo_output', sprintf( // WPCS: XSS ok, sanitization ok.
-				'<div class="site-logo">
-					<a href="%1$s" title="%2$s" rel="home">
-						<img %3$s />
-					</a>
-				</div>',
-				esc_url( apply_filters( 'generate_logo_href' , home_url( '/' ) ) ),
-				esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
+			$logo = apply_filters(
+				'generate_logo_output',
+				sprintf(
+					'<div class="site-logo">
+						<a href="%1$s" title="%2$s" rel="home">
+							<img %3$s />
+						</a>
+					</div>',
+					esc_url( apply_filters( 'generate_logo_href', home_url( '/' ) ) ),
+					esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
+					$html_attr
+				),
+				$logo_url,
 				$html_attr
-			), $logo_url, $html_attr );
+			);
 		}
 	}
 
-	if ( '' !== $settings['sticky_navigation_logo'] ) {
-		$sticky_logo = apply_filters( 'generate_sticky_navigation_logo_output', sprintf(
-			'<div class="sticky-navigation-logo">
-				<a href="%1$s" title="%2$s" rel="home">
-					<img src="%3$s" alt="%2$s" />
-				</a>
-			</div>',
-			esc_url( apply_filters( 'generate_logo_href' , home_url( '/' ) ) ),
-			esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
-			esc_url( $settings['sticky_navigation_logo'] )
-		) );
+	if ( 'false' !== $settings['sticky_menu'] && '' !== $settings['sticky_navigation_logo'] ) {
+		$image = attachment_url_to_postid( $settings['sticky_navigation_logo'] );
+		$image_width = '';
+		$image_height = '';
+
+		if ( $image ) {
+			$image = wp_get_attachment_metadata( $image );
+
+			if ( ! empty( $image['width'] ) ) {
+				$image_width = $image['width'];
+			}
+
+			if ( ! empty( $image['height'] ) ) {
+				$image_height = $image['height'];
+			}
+		}
+
+		$sticky_logo = apply_filters(
+			'generate_sticky_navigation_logo_output',
+			sprintf(
+				'<div class="sticky-navigation-logo">
+					<a href="%1$s" title="%2$s" rel="home">
+						<img src="%3$s" class="is-logo-image" alt="%2$s" width="%4$s" height="%5$s" />
+					</a>
+				</div>',
+				esc_url( apply_filters( 'generate_logo_href', home_url( '/' ) ) ),
+				esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
+				esc_url( $settings['sticky_navigation_logo'] ),
+				! empty( $image_width ) ? absint( $image_width ) : '',
+				! empty( $image_height ) ? absint( $image_height ) : ''
+			),
+			$settings['sticky_navigation_logo'],
+			$image
+		);
 	}
 
 	if ( $settings['navigation_as_header'] && ! generate_get_option( 'hide_title' ) ) {
-		$site_title = apply_filters( 'generate_site_title_output', sprintf(
-			'<%1$s class="main-title" itemprop="headline">
-				<a href="%2$s" rel="home">
-					%3$s
-				</a>
-			</%1$s>',
-			( is_front_page() && is_home() ) ? 'h1' : 'p',
-			esc_url( apply_filters( 'generate_site_title_href', home_url( '/' ) ) ),
-			get_bloginfo( 'name' )
-		) );
+		$site_title = apply_filters(
+			'generate_site_title_output',
+			sprintf(
+				'<%1$s class="main-title" itemprop="headline">
+					<a href="%2$s" rel="home">
+						%3$s
+					</a>
+				</%1$s>',
+				( is_front_page() && is_home() ) ? 'h1' : 'p',
+				esc_url( apply_filters( 'generate_site_title_href', home_url( '/' ) ) ),
+				get_bloginfo( 'name' )
+			)
+		);
 	}
 
 	if ( $logo || $sticky_logo || $site_title ) {
 		echo '<div class="navigation-branding">';
-			if ( $logo ) {
-				/**
-				 * generate_before_logo hook.
-				 *
-				 * @since 0.1
-				 */
-				do_action( 'generate_before_logo' );
 
-				echo $logo;
+		if ( $logo ) {
+			/**
+			 * generate_before_logo hook.
+			 *
+			 * @since 0.1
+			 */
+			do_action( 'generate_before_logo' );
 
-				/**
-				 * generate_after_logo hook.
-				 *
-				 * @since 0.1
-				 */
-				do_action( 'generate_after_logo' );
-			}
+			echo $logo; // phpcs:ignore -- No escaping needed.
 
-			if ( $sticky_logo ) {
-				echo $sticky_logo;
-			}
+			/**
+			 * generate_after_logo hook.
+			 *
+			 * @since 0.1
+			 */
+			do_action( 'generate_after_logo' );
+		}
 
-			if ( $site_title ) {
-				echo $site_title;
-			}
+		if ( $sticky_logo ) {
+			echo $sticky_logo; // phpcs:ignore -- No escaping needed.
+		}
+
+		if ( $site_title ) {
+			echo $site_title; // phpcs:ignore -- No escaping needed.
+		}
+
 		echo '</div>';
 	}
 }
@@ -1839,7 +2193,7 @@ add_filter( 'generate_mobile_menu_media_query', 'generate_set_mobile_menu_breakp
  *
  * @since 1.8
  *
- * @param string
+ * @param string $breakpoint Current breakpoint.
  * @return string
  */
 function generate_set_mobile_menu_breakpoint( $breakpoint ) {
@@ -1858,7 +2212,7 @@ function generate_set_mobile_menu_breakpoint( $breakpoint ) {
 	$mobile_menu_breakpoint = $settings['mobile_menu_breakpoint'];
 
 	if ( '' !== $mobile_menu_breakpoint ) {
-	 	return '(max-width: ' . absint( $mobile_menu_breakpoint ) . 'px)';
+		return '(max-width: ' . absint( $mobile_menu_breakpoint ) . 'px)';
 	}
 
 	return $breakpoint;
@@ -1870,7 +2224,7 @@ add_filter( 'generate_not_mobile_menu_media_query', 'generate_set_not_mobile_men
  *
  * @since 1.8.3
  *
- * @param string
+ * @param string $breakpoint Existing breakpoint.
  * @return string
  */
 function generate_set_not_mobile_menu_breakpoint( $breakpoint ) {
@@ -1893,4 +2247,45 @@ function generate_set_not_mobile_menu_breakpoint( $breakpoint ) {
 	}
 
 	return $breakpoint;
+}
+
+add_filter( 'generate_has_active_menu', 'generate_menu_plus_set_active_menu' );
+/**
+ * Tell GP about our active menus.
+ *
+ * @since 2.1.0
+ * @param boolean $has_active_menu Whether we have an active menu.
+ */
+function generate_menu_plus_set_active_menu( $has_active_menu ) {
+	$settings = wp_parse_args(
+		get_option( 'generate_menu_plus_settings', array() ),
+		generate_menu_plus_get_defaults()
+	);
+
+	if ( 'disable' !== $settings['mobile_header'] || 'false' !== $settings['slideout_menu'] ) {
+		return true;
+	}
+
+	return $has_active_menu;
+}
+
+add_filter( 'generate_typography_css_selector', 'generate_menu_plus_typography_selectors' );
+/**
+ * Add the Menu Plus typography CSS selectors.
+ *
+ * @since 2.1.0
+ * @param string $selector The selector we're targeting.
+ */
+function generate_menu_plus_typography_selectors( $selector ) {
+	switch ( $selector ) {
+		case 'off-canvas-panel-menu-items':
+			$selector = '.slideout-navigation.main-navigation .main-nav ul li a';
+			break;
+
+		case 'off-canvas-panel-sub-menu-items':
+			$selector = '.slideout-navigation.main-navigation .main-nav ul ul li a';
+			break;
+	}
+
+	return $selector;
 }
