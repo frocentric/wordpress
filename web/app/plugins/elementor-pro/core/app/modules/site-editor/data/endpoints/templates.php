@@ -150,13 +150,11 @@ class Templates extends Base_Endpoint {
 		$template['defaultCondition'] = $types[ $template['type'] ]['condition_type'];
 
 		$has_instances = ! empty( $template['instances'] );
-		$type = $template['type'];
 		$is_active = false;
 
 		if ( ! $has_instances ) {
-			$template['instances'] = [ 'no_instances' => __( 'No instances', 'elementor-pro' ) ];
+			$template['instances'] = [ 'no_instances' => esc_html__( 'No instances', 'elementor-pro' ) ];
 		} else {
-			$type = $this->calculate_template_type( $template['type'], $template['instances'] );
 			$is_active = 'publish' === $template['status'];
 		}
 
@@ -178,14 +176,27 @@ class Templates extends Base_Endpoint {
 				] );
 			}, $conditions_manager->get_document_conditions( $document ) ),
 			'isActive' => $is_active,
-			'type' => $type,
+			'type' => $this->calculate_template_type( $template['type'], $template['instances'] ),
 			'previewUrl' => $this->get_preview_url( $template['template_id'] ),
 			'placeholderUrl' => $site_editor_config['urls']['thumbnail'],
 			'pageLayout' => $site_editor_config['page_layout'],
 			'supportsSiteEditor' => true,
 		] );
 
-		return apply_filters( 'elementor-pro/site-editor/data/template', $data );
+		/**
+		 * Template data.
+		 *
+		 * Filters the data returned by Elementor API as JSON.
+		 *
+		 * By default Elementor API returns data in a JSON format that enables the
+		 * builder to work properly. This hook allows developers to alter the data
+		 * returned by the API to add new elements.
+		 *
+		 * @param array $data Template data.
+		 */
+		$data = apply_filters( 'elementor-pro/site-editor/data/template', $data );
+
+		return $data;
 	}
 
 	/**
@@ -203,15 +214,17 @@ class Templates extends Base_Endpoint {
 			'search' => 'search-results',
 		];
 
+		// "single" type was split into "single-page", "single-post" and "404".
+		// this section supports all the old templates that was created as "single".
 		if ( 'single' === $type ) {
 			// By default show it under single-post.
 			$type = 'single-post';
-		}
 
-		foreach ( $instances as $condition_name => $condition_label ) {
-			if ( isset( $condition_to_type_map[ $condition_name ] ) ) {
-				$type = $condition_to_type_map[ $condition_name ];
-				break;
+			foreach ( $instances as $condition_name => $condition_label ) {
+				if ( isset( $condition_to_type_map[ $condition_name ] ) ) {
+					$type = $condition_to_type_map[ $condition_name ];
+					break;
+				}
 			}
 		}
 

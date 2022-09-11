@@ -6,14 +6,14 @@ export const SiteTemplateBody = ( props ) => {
 	return (
 		<CardBody>
 			{
-				props.extended ?
-					<PreviewIFrame src={ props.previewUrl } templateType={ props.type }/> :
-					<SiteTemplateThumbnail
-						id={props.id}
-						title={props.title}
-						type={props.type}
-						thumbnail={props.thumbnail}
-						placeholder={props.placeholderUrl}
+				props.extended
+					? <PreviewIFrame src={ props.previewUrl } templateType={ props.type } />
+					: <SiteTemplateThumbnail
+							id={ props.id }
+							title={ props.title }
+							type={ props.type }
+							thumbnail={ props.thumbnail }
+							placeholder={ props.placeholderUrl }
 					/>
 			}
 		</CardBody>
