@@ -17,10 +17,6 @@ class Module extends Module_Base {
 		'twitter' => [
 			'title' => 'Twitter',
 		],
-		'google' => [
-			'title' => 'Google+',
-			'has_counter' => true,
-		],
 		'linkedin' => [
 			'title' => 'LinkedIn',
 			'has_counter' => true,
@@ -43,9 +39,6 @@ class Module extends Module_Base {
 		],
 		'tumblr' => [
 			'title' => 'Tumblr',
-		],
-		'delicious' => [
-			'title' => 'Delicious',
 		],
 		'digg' => [
 			'title' => 'Digg',
@@ -79,12 +72,6 @@ class Module extends Module_Base {
 		],
 		'print' => [
 			'title' => 'Print',
-		],
-		'weixin' => [
-			'title' => 'WeChat',
-		],
-		'weibo' => [
-			'title' => 'Weibo',
 		],
 	];
 
