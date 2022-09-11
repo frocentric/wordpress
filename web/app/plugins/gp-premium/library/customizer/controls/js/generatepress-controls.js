@@ -1,10 +1,9 @@
 ( function( $, api ) {
-
 	/**
 	 * Set some controls when we're using the navigation as a header.
 	 *
 	 * @since 1.8
-	*/
+	 */
 	api( 'generate_menu_plus_settings[navigation_as_header]', function( value ) {
 		value.bind( function( newval ) {
 			var navAlignmentSetting = api.instance( 'generate_settings[nav_alignment_setting]' ),
@@ -16,53 +15,63 @@
 				mobileHeader = api.instance( 'generate_menu_plus_settings[mobile_header]' ).get(),
 				navTextColorSetting = api.instance( 'generate_settings[navigation_text_color]' ),
 				navTextColor = gpControls.navigationTextColor,
-				headerTextColorSetting = api.instance( 'generate_settings[header_text_color]' ),
-				headerTextColor = gpControls.headerTextColor;
+				siteTitleTextColorSetting = api.instance( 'generate_settings[site_title_color]' ),
+				siteTitleTextColor = gpControls.siteTitleTextColor;
 
-			if ( ! siteTitleFontSizeSetting._dirty && 25 !== siteTitleFontSizeSetting.get() ) {
+			if ( siteTitleFontSizeSetting && ! siteTitleFontSizeSetting._dirty && 25 !== siteTitleFontSizeSetting.get() ) {
 				siteTitleFontSize = siteTitleFontSizeSetting.get();
 			}
 
-			if ( ! mobileSiteTitleFontSizeSetting._dirty && 20 !== mobileSiteTitleFontSizeSetting.get() ) {
+			if ( mobileSiteTitleFontSizeSetting && ! mobileSiteTitleFontSizeSetting._dirty && 20 !== mobileSiteTitleFontSizeSetting.get() ) {
 				mobileSiteTitleFontSize = mobileSiteTitleFontSizeSetting.get();
 			}
 
-			if ( ! navTextColorSetting._dirty ) {
+			if ( navTextColorSetting && ! navTextColorSetting._dirty ) {
 				navTextColor = navTextColorSetting.get();
 			}
 
-			if ( ! headerTextColorSetting._dirty ) {
-				headerTextColor = headerTextColorSetting.get();
+			if ( siteTitleTextColorSetting && ! siteTitleTextColorSetting._dirty ) {
+				siteTitleTextColor = siteTitleTextColorSetting.get();
 			}
 
 			if ( newval ) {
 				navAlignmentSetting.set( 'right' );
-				siteTitleFontSizeSetting.set( 25 );
-				api.instance( 'generate_settings[site_title_color]' ).set( navTextColor );
 
-				if ( 'enable' !== mobileHeader ) {
+				if ( siteTitleFontSizeSetting ) {
+					siteTitleFontSizeSetting.set( 25 );
+				}
+
+				if ( api.instance( 'generate_settings[site_title_color]' ) ) {
+					api.instance( 'generate_settings[site_title_color]' ).set( navTextColor );
+				}
+
+				if ( mobileSiteTitleFontSizeSetting && 'enable' !== mobileHeader ) {
 					mobileSiteTitleFontSizeSetting.set( 20 );
 				}
 			} else {
 				navAlignmentSetting.set( navAlignment );
-				siteTitleFontSizeSetting.set( siteTitleFontSize );
-				api.instance( 'generate_settings[site_title_color]' ).set( headerTextColor );
 
-				if ( 'enable' !== mobileHeader ) {
+				if ( siteTitleFontSizeSetting ) {
+					siteTitleFontSizeSetting.set( siteTitleFontSize );
+				}
+
+				if ( api.instance( 'generate_settings[site_title_color]' ) ) {
+					api.instance( 'generate_settings[site_title_color]' ).set( siteTitleTextColor );
+				}
+
+				if ( mobileSiteTitleFontSizeSetting && 'enable' !== mobileHeader ) {
 					mobileSiteTitleFontSizeSetting.set( mobileSiteTitleFontSize );
 				}
 			}
 		} );
 
 		var showRegularHeader,
-			showRegularHeaderCallback,
-			showNavHeader,
-			showNavHeaderCallback;
+			showRegularHeaderCallback;
 
 		/**
 		 * Determine whether we should display our header controls.
 		 *
-		 * @returns {boolean}
+		 * @return {boolean} Whether we should show the regular header.
 		 */
 		showRegularHeader = function() {
 			if ( value.get() ) {
@@ -73,22 +82,9 @@
 		};
 
 		/**
-		 * Determine whether our navigation is our header.
-		 *
-		 * @returns {boolean}
-		 */
-		showNavHeader = function() {
-			if ( value.get() ) {
-				return true;
-			}
-
-			return false;
-		};
-
-		/**
 		 * Update a control's active state according to the navigation as header option.
 		 *
-		 * @param {wp.customize.Control} control
+		 * @param {wp.customize.Control} control The current control.
 		 */
 		showRegularHeaderCallback = function( control ) {
 			var setActiveState = function() {
@@ -96,21 +92,6 @@
 			};
 
 			control.active.validate = showRegularHeader;
-			setActiveState();
-			value.bind( setActiveState );
-		};
-
-		/**
-		 * Update a control's active state according to the navigation as header option.
-		 *
-		 * @param {wp.customize.Control} control
-		 */
-		showNavHeaderCallback = function( control ) {
-			var setActiveState = function() {
-				control.active.set( showNavHeader() );
-			};
-
-			control.active.validate = showNavHeader;
 			setActiveState();
 			value.bind( setActiveState );
 		};
@@ -135,10 +116,10 @@
 	 * Set the navigation branding font size label on mobile header branding change.
 	 *
 	 * @since 1.8
-	*/
+	 */
 	api( 'generate_menu_plus_settings[mobile_header_branding]', function( value ) {
 		value.bind( function( newval ) {
-			if ( 'title' === newval ) {
+			if ( api.instance( 'generate_settings[mobile_site_title_font_size]' ) && 'title' === newval ) {
 				api.instance( 'generate_settings[mobile_site_title_font_size]' ).set( 20 );
 			}
 		} );
@@ -148,22 +129,23 @@
 	 * Set the navigation branding font size label on mobile header change.
 	 *
 	 * @since 1.8
-	*/
+	 */
 	api( 'generate_menu_plus_settings[mobile_header]', function( value ) {
 		value.bind( function( newval ) {
 			var mobileSiteTitleFontSizeSetting = api.instance( 'generate_settings[mobile_site_title_font_size]' ),
 				mobileSiteTitleFontSize = gpControls.mobileSiteTitleFontSize;
 
-			if ( ! mobileSiteTitleFontSizeSetting._dirty && 20 !== mobileSiteTitleFontSizeSetting.get() ) {
+			if ( mobileSiteTitleFontSizeSetting && ! mobileSiteTitleFontSizeSetting._dirty && 20 !== mobileSiteTitleFontSizeSetting.get() ) {
 				mobileSiteTitleFontSize = mobileSiteTitleFontSizeSetting.get();
 			}
 
-			if ( 'enable' === newval ) {
-				api.instance( 'generate_settings[mobile_site_title_font_size]' ).set( 20 );
-			} else {
-				api.instance( 'generate_settings[mobile_site_title_font_size]' ).set( mobileSiteTitleFontSize );
+			if ( api.instance( 'generate_settings[mobile_site_title_font_size]' ) ) {
+				if ( 'enable' === newval ) {
+					api.instance( 'generate_settings[mobile_site_title_font_size]' ).set( 20 );
+				} else {
+					api.instance( 'generate_settings[mobile_site_title_font_size]' ).set( mobileSiteTitleFontSize );
+				}
 			}
 		} );
 	} );
-
-} )( jQuery, wp.customize );
+}( jQuery, wp.customize ) );

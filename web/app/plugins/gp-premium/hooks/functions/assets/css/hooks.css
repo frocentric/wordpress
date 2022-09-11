@@ -4,8 +4,6 @@
 	background: #FFF;
 	display: block;
 	width: 100%;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	margin-bottom: 0;
 }
@@ -19,12 +17,7 @@
 	display: block;
 	max-width: 100%;
 	border: 1px solid #e5e5e5;
-    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
-	
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
 

@@ -18,7 +18,6 @@ if ( ! function_exists( 'generate_fonts_secondary_nav_customizer' ) ) {
 	 * Secondary Nav now uses 100 as a priority.
 	 */
 	function generate_fonts_secondary_nav_customizer( $wp_customize ) {
-
 		// Bail if we don't have our defaults function
 		if ( ! function_exists( 'generate_secondary_nav_get_defaults' ) ) {
 			return;

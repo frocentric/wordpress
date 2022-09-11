@@ -1,10 +1,23 @@
 <?php
+/**
+ * This file handles our Layout Element functionality.
+ *
+ * @package GP Premium
+ */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // No direct access, please.
+}
+
+/**
+ * The Layout Element.
+ */
 class GeneratePress_Site_Layout {
 	/**
 	 * Set our location variable.
 	 *
 	 * @since 1.7
+	 * @var array
 	 */
 	protected $conditional = array();
 
@@ -12,6 +25,7 @@ class GeneratePress_Site_Layout {
 	 * Set our exclusion variable.
 	 *
 	 * @since 1.7
+	 * @var array
 	 */
 	protected $exclude = array();
 
@@ -19,6 +33,7 @@ class GeneratePress_Site_Layout {
 	 * Set our user condition variable.
 	 *
 	 * @since 1.7
+	 * @var array
 	 */
 	protected $users = array();
 
@@ -27,30 +42,111 @@ class GeneratePress_Site_Layout {
 	 *
 	 * @since 1.7
 	 * @deprecated 1.7.3
+	 * @var array
 	 */
 	protected static $options = array();
 
 	/**
-	 * Set up options.
+	 * Sidebar layout.
 	 *
 	 * @since 1.7.3
+	 * @var string
 	 */
 	protected $sidebar_layout = null;
- 	protected $footer_widgets = null;
- 	protected $disable_site_header = null;
- 	protected $disable_top_bar = null;
- 	protected $disable_primary_navigation = null;
- 	protected $disable_secondary_navigation = null;
- 	protected $disable_featured_image = null;
- 	protected $disable_content_title = null;
- 	protected $disable_footer = null;
- 	protected $content_area = null;
- 	protected $content_width = null;
+
+	/**
+	 * Footer widgets layout.
+	 *
+	 * @since 1.7.3
+	 * @var int
+	 */
+	protected $footer_widgets = null;
+
+	/**
+	 * Whether to disable site header.
+	 *
+	 * @since 1.7.3
+	 * @var boolean
+	 */
+	protected $disable_site_header = null;
+
+	/**
+	 * Whether to disable mobile header.
+	 *
+	 * @since 1.11.0
+	 * @var boolean
+	 */
+	protected $disable_mobile_header = null;
+
+	/**
+	 * Whether to disable top bar.
+	 *
+	 * @since 1.7.3
+	 * @var boolean
+	 */
+	protected $disable_top_bar = null;
+
+	/**
+	 * Whether to disable primary nav.
+	 *
+	 * @since 1.7.3
+	 * @var boolean
+	 */
+	protected $disable_primary_navigation = null;
+
+	/**
+	 * Whether to disable secondary nav.
+	 *
+	 * @since 1.7.3
+	 * @var boolean
+	 */
+	protected $disable_secondary_navigation = null;
+
+	/**
+	 * Whether to disable featured image.
+	 *
+	 * @since 1.7.3
+	 * @var boolean
+	 */
+	protected $disable_featured_image = null;
+
+	/**
+	 * Whether to disable content title.
+	 *
+	 * @since 1.7.3
+	 * @var boolean
+	 */
+	protected $disable_content_title = null;
+
+	/**
+	 * Whether to disable footer.
+	 *
+	 * @since 1.7.3
+	 * @var boolean
+	 */
+	protected $disable_footer = null;
+
+	/**
+	 * Container type (full width etc..).
+	 *
+	 * @since 1.7.3
+	 * @var string
+	 */
+	protected $content_area = null;
+
+	/**
+	 * Content width.
+	 *
+	 * @since 1.7.3
+	 * @var int
+	 */
+	protected $content_width = null;
 
 	/**
 	 * Set our post ID.
 	 *
 	 * @since 1.7
+	 * @var int
 	 */
 	protected static $post_id = '';
 
@@ -59,6 +155,7 @@ class GeneratePress_Site_Layout {
 	 *
 	 * @since 1.7
 	 * @deprecated 1.7.3
+	 * @var int
 	 */
 	public static $instances = 0;
 
@@ -67,9 +164,9 @@ class GeneratePress_Site_Layout {
 	 *
 	 * @since 1.7
 	 *
-	 * @param int $post_ID The post ID of our element.
+	 * @param int $post_id The post ID of our element.
 	 */
-	function __construct( $post_id ) {
+	public function __construct( $post_id ) {
 
 		self::$post_id = $post_id;
 
@@ -89,39 +186,43 @@ class GeneratePress_Site_Layout {
 			$this->sidebar_layout = get_post_meta( $post_id, '_generate_sidebar_layout', true );
 		}
 
- 		if ( get_post_meta( $post_id, '_generate_footer_widgets', true ) ) {
+		if ( get_post_meta( $post_id, '_generate_footer_widgets', true ) ) {
 			$this->footer_widgets = get_post_meta( $post_id, '_generate_footer_widgets', true );
 		}
 
- 		if ( get_post_meta( $post_id, '_generate_disable_site_header', true ) ) {
+		if ( get_post_meta( $post_id, '_generate_disable_site_header', true ) ) {
 			$this->disable_site_header = get_post_meta( $post_id, '_generate_disable_site_header', true );
 		}
 
- 		if ( get_post_meta( $post_id, '_generate_disable_top_bar', true ) ) {
+		if ( get_post_meta( $post_id, '_generate_disable_mobile_header', true ) ) {
+			$this->disable_mobile_header = get_post_meta( $post_id, '_generate_disable_mobile_header', true );
+		}
+
+		if ( get_post_meta( $post_id, '_generate_disable_top_bar', true ) ) {
 			$this->disable_top_bar = get_post_meta( $post_id, '_generate_disable_top_bar', true );
 		}
 
- 		if ( get_post_meta( $post_id, '_generate_disable_primary_navigation', true ) ) {
+		if ( get_post_meta( $post_id, '_generate_disable_primary_navigation', true ) ) {
 			$this->disable_primary_navigation = get_post_meta( $post_id, '_generate_disable_primary_navigation', true );
 		}
 
- 		if ( get_post_meta( $post_id, '_generate_disable_secondary_navigation', true ) ) {
+		if ( get_post_meta( $post_id, '_generate_disable_secondary_navigation', true ) ) {
 			$this->disable_secondary_navigation = get_post_meta( $post_id, '_generate_disable_secondary_navigation', true );
 		}
 
- 		if ( get_post_meta( $post_id, '_generate_disable_featured_image', true ) ) {
+		if ( get_post_meta( $post_id, '_generate_disable_featured_image', true ) ) {
 			$this->disable_featured_image = get_post_meta( $post_id, '_generate_disable_featured_image', true );
 		}
 
- 		if ( get_post_meta( $post_id, '_generate_disable_content_title', true ) ) {
+		if ( get_post_meta( $post_id, '_generate_disable_content_title', true ) ) {
 			$this->disable_content_title = get_post_meta( $post_id, '_generate_disable_content_title', true );
 		}
 
- 		if ( get_post_meta( $post_id, '_generate_disable_footer', true ) ) {
+		if ( get_post_meta( $post_id, '_generate_disable_footer', true ) ) {
 			$this->disable_footer = get_post_meta( $post_id, '_generate_disable_footer', true );
 		}
 
- 		if ( get_post_meta( $post_id, '_generate_content_area', true ) ) {
+		if ( get_post_meta( $post_id, '_generate_content_area', true ) ) {
 			$this->content_area = get_post_meta( $post_id, '_generate_content_area', true );
 		}
 
@@ -131,9 +232,33 @@ class GeneratePress_Site_Layout {
 
 		$display = apply_filters( 'generate_layout_element_display', GeneratePress_Conditions::show_data( $this->conditional, $this->exclude, $this->users ), $post_id );
 
+		/**
+		 * Simplify filter name.
+		 *
+		 * @since 2.0.0
+		 */
+		$display = apply_filters(
+			'generate_element_display',
+			$display,
+			$post_id
+		);
+
 		if ( $display ) {
-			add_action( 'wp',					array( $this, 'after_setup' ), 100 );
-			add_action( 'wp_enqueue_scripts', 	array( $this, 'build_css' ), 50 );
+			global $generate_elements;
+
+			$generate_elements[ $post_id ] = array(
+				'is_block_element' => false,
+				'type' => 'layout',
+				'id' => $post_id,
+			);
+
+			add_action( 'wp', array( $this, 'after_setup' ), 100 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'build_css' ), 50 );
+
+			if ( is_admin() ) {
+				add_action( 'current_screen', array( $this, 'after_setup' ), 100 );
+				add_action( 'enqueue_block_editor_assets', array( $this, 'build_css' ), 50 );
+			}
 		}
 
 	}
@@ -168,13 +293,18 @@ class GeneratePress_Site_Layout {
 			remove_action( 'generate_header', 'generate_construct_header' );
 		}
 
+		if ( $this->disable_mobile_header ) {
+			remove_action( 'generate_after_header', 'generate_menu_plus_mobile_header', 5 );
+		}
+
 		if ( $this->disable_top_bar ) {
 			remove_action( 'generate_before_header', 'generate_top_bar', 5 );
+			remove_action( 'generate_inside_secondary_navigation', 'generate_secondary_nav_top_bar_widget', 5 );
 		}
 
 		if ( $this->disable_primary_navigation ) {
 			add_filter( 'generate_navigation_location', '__return_false', 20 );
-			remove_action( 'generate_after_header', 'generate_menu_plus_mobile_header', 5 );
+			add_filter( 'generate_disable_mobile_header_menu', '__return_true' );
 		}
 
 		if ( $this->disable_secondary_navigation ) {
@@ -187,6 +317,7 @@ class GeneratePress_Site_Layout {
 			remove_action( 'generate_after_header', 'generate_blog_single_featured_image' );
 			remove_action( 'generate_before_content', 'generate_featured_page_header_inside_single' );
 			remove_action( 'generate_after_header', 'generate_featured_page_header' );
+			add_filter( 'body_class', array( $this, 'remove_featured_image_class' ), 20 );
 		}
 
 		if ( $this->disable_content_title ) {
@@ -201,11 +332,48 @@ class GeneratePress_Site_Layout {
 		if ( $this->content_area ) {
 			add_filter( 'body_class', array( $this, 'body_classes' ) );
 		}
+
+		if ( is_admin() ) {
+			if ( $this->sidebar_layout && ! self::admin_post_meta_exists( '_generate-sidebar-layout-meta' ) ) {
+				add_filter( 'generate_block_editor_sidebar_layout', array( $this, 'filter_options' ) );
+			}
+
+			if ( $this->disable_content_title ) {
+				add_filter( 'generate_block_editor_show_content_title', '__return_false' );
+			}
+		}
 	}
 
+	/**
+	 * Build dynamic CSS
+	 */
 	public function build_css() {
 		if ( $this->content_width ) {
 			wp_add_inline_style( 'generate-style', '#content {max-width: ' . absint( $this->content_width ) . 'px;margin-left: auto;margin-right: auto;}' );
+		}
+
+		if ( is_admin() ) {
+			$admin_css = '';
+
+			if ( 'full-width' === $this->content_area ) {
+				$admin_css .= 'html .editor-styles-wrapper .wp-block{max-width: 100%}';
+			}
+
+			if ( $this->content_area ) {
+				$admin_css .= '#generate-layout-page-builder-container {opacity: 0.5;pointer-events: none;}';
+			}
+
+			if ( $this->disable_content_title ) {
+				$admin_css .= '.content-title-visibility{display: none !important;}label[for="meta-generate-disable-headline"] {opacity: 0.5;pointer-events: none;}';
+			}
+
+			if ( $this->content_width ) {
+				$admin_css .= 'html .editor-styles-wrapper .wp-block{max-width: ' . absint( $this->content_width ) . 'px;}';
+			}
+
+			if ( $admin_css ) {
+				wp_add_inline_style( 'wp-edit-blocks', $admin_css );
+			}
 		}
 	}
 
@@ -236,6 +404,42 @@ class GeneratePress_Site_Layout {
 	}
 
 	/**
+	 * Check to see if our individual post metabox has a value in the admin area.
+	 *
+	 * @since 1.11.0
+	 *
+	 * @param string $meta The meta key we're checking for.
+	 * @return bool
+	 */
+	public static function admin_post_meta_exists( $meta ) {
+		if ( is_admin() ) {
+			$current_screen = get_current_screen();
+
+			if ( isset( $current_screen->is_block_editor ) && $current_screen->is_block_editor ) {
+				$post_id = false;
+
+				if ( isset( $_GET['post'] ) ) { // phpcs:ignore -- No data processing happening here.
+					$post_id = absint( $_GET['post'] ); // phpcs:ignore -- No data processing happening here.
+				}
+
+				if ( $post_id ) {
+					$value = get_post_meta( $post_id, $meta, true );
+
+					if ( '_generate-footer-widget-meta' === $meta && '0' === $value ) {
+						$value = true;
+					}
+
+					if ( $value ) {
+						return true;
+					}
+				} else {
+					return false;
+				}
+			}
+		}
+	}
+
+	/**
 	 * Filter our filterable options.
 	 *
 	 * @since 1.7
@@ -243,7 +447,7 @@ class GeneratePress_Site_Layout {
 	public function filter_options() {
 		$filter = current_filter();
 
-		if ( 'generate_sidebar_layout' === $filter ) {
+		if ( 'generate_sidebar_layout' === $filter || 'generate_block_editor_sidebar_layout' === $filter ) {
 			return $this->sidebar_layout;
 		}
 
@@ -261,8 +465,8 @@ class GeneratePress_Site_Layout {
 	 *
 	 * @since 1.7
 	 *
-	 * @param bool $has_nav_menu
-	 * @param string $location
+	 * @param bool   $has_nav_menu The existing value.
+	 * @param string $location The location we're checking.
 	 * @return bool
 	 */
 	public static function disable_secondary_navigation( $has_nav_menu, $location ) {
@@ -288,6 +492,20 @@ class GeneratePress_Site_Layout {
 
 		if ( 'contained' === $this->content_area ) {
 			$classes[] = 'contained-content';
+		}
+
+		return $classes;
+	}
+
+	/**
+	 * Remove the featured image class if it's disabled.
+	 *
+	 * @since 2.1.0
+	 * @param array $classes The body classes.
+	 */
+	public function remove_featured_image_class( $classes ) {
+		if ( is_singular() ) {
+			$classes = generate_premium_remove_featured_image_class( $classes, $this->disable_featured_image );
 		}
 
 		return $classes;

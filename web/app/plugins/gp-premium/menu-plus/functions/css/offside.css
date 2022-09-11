@@ -37,10 +37,6 @@
  */
 .offside--left.is-open,
 .offside-js--is-left .offside-sliding-element {
-    -webkit-transform: translate3d(265px, 0, 0);
-    -moz-transform: translate3d(265px, 0, 0);
-    -ms-transform: translate3d(265px, 0, 0);
-    -o-transform: translate3d(265px, 0, 0);
     transform: translate3d(265px, 0, 0);
 }
 
@@ -51,19 +47,12 @@
  */
 .offside--right.is-open,
 .offside-js--is-right .offside-sliding-element {
-    -webkit-transform: translate3d(-265px, 0, 0);
-    -moz-transform: translate3d(-265px, 0, 0);
-    -ms-transform: translate3d(-265px, 0, 0);
-    -o-transform: translate3d(-265px, 0, 0);
     transform: translate3d(-265px, 0, 0);
 }
 
 /* Elements Transitions */
 .offside-js--interact .offside,
 .offside-js--interact .offside-sliding-element {
-    -webkit-transition: -webkit-transform .2s cubic-bezier(.16, .68, .43, .99);
-    -moz-transition: -moz-transform .2s cubic-bezier(.16, .68, .43, .99);
-    -o-transition: -o-transform .2s cubic-bezier(.16, .68, .43, .99);
     transition: transform .2s cubic-bezier(.16, .68, .43, .99);
 
     /* improves performance issues on mobile*/
@@ -81,7 +70,6 @@
 
 /* Modernizr false negative csstransforms3d fix, reset CSS 3d Transitions */
 .no-csstransforms3d .offside {
-    -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
 }
 
@@ -124,10 +112,6 @@
     visibility: hidden;
     opacity: 0;
     cursor: pointer;
-
-    -webkit-transition: visibility .2s ease, opacity .2s ease;
-    -moz-transition: visibility .2s ease, opacity .2s ease;
-    -o-transition: visibility .2s ease, opacity .2s ease;
     transition: visibility .2s ease, opacity .2s ease;
 }
 
@@ -143,6 +127,11 @@
 	color: #fff;
 	font-size: 30px;
 	border: 0;
+	opacity: 0;
+}
+
+.slide-opened .slideout-overlay button.slideout-exit {
+	opacity: 1;
 }
 
 button.slideout-exit:hover {
@@ -178,6 +167,11 @@ button.slideout-exit:hover {
 .slideout-navigation .main-nav,
 .slideout-navigation .slideout-widget:not(:last-child) {
 	margin-bottom: 40px;
+}
+
+.slideout-navigation:not(.do-overlay) .main-nav {
+	width: 100%;
+	box-sizing: border-box;
 }
 
 .slideout-navigation .mega-menu > ul > li {
@@ -292,12 +286,7 @@ button.slideout-exit:hover {
 }
 
 .slideout-navigation.do-overlay .inside-navigation {
-	display: -webkit-box;
-	display: -ms-flexbox;
 	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-ms-flex-direction: column;
 	flex-direction: column;
 	padding: 10% 10% 0;
 	max-width: 700px;
@@ -337,10 +326,6 @@ button.slideout-exit:hover {
 	margin: 0 0 0 10px;
 }
 
-.slideout-navigation.main-navigation.do-overlay .main-nav ul ul li a {
-    font-size: 1em;
-}
-
 .slideout-navigation.do-overlay ul ul {
 	box-shadow: 0 0 0;
 }
@@ -351,14 +336,10 @@ button.slideout-exit:hover {
 }
 
 .slideout-navigation .sfHover > a > .dropdown-menu-toggle > .gp-icon svg {
-	-webkit-transform: rotate(180deg);
-	-ms-transform: rotate(180deg);
 	transform: rotate(180deg);
 }
 
 .slideout-navigation .sub-menu .dropdown-menu-toggle .gp-icon svg {
-	-webkit-transform: rotate(0deg);
-	-ms-transform: rotate(0deg);
 	transform: rotate(0deg);
 }
 
@@ -366,6 +347,11 @@ button.slideout-exit:hover {
 .slideout-both .main-navigation.toggled .main-nav > ul,
 .slideout-desktop .main-navigation.toggled .main-nav li.slideout-toggle {
 	display: none !important;
+}
+
+.slideout-mobile .has-inline-mobile-toggle #site-navigation.toggled,
+.slideout-both .has-inline-mobile-toggle #site-navigation.toggled {
+	margin-top: 0;
 }
 
 .sf-menu > li.slideout-toggle {

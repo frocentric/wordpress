@@ -1,16 +1,23 @@
 <?php
-// No direct access, please
+/**
+ * This file handles the Customizer options for the WooCommerce module.
+ *
+ * @package GP Premium
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // No direct access, please.
 }
 
 if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 	add_action( 'customize_register', 'generate_colors_wc_customizer', 100 );
 	/**
 	 * Adds our WooCommerce color options
+	 *
+	 * @param object $wp_customize The Customizer object.
 	 */
 	function generate_colors_wc_customizer( $wp_customize ) {
-		// Bail if WooCommerce isn't activated
+		// Bail if WooCommerce isn't activated.
 		if ( ! $wp_customize->get_section( 'generate_woocommerce_colors' ) ) {
 			return;
 		}
@@ -19,13 +26,13 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 			return;
 		}
 
-		// Add our controls
+		// Add our controls.
 		require_once GP_LIBRARY_DIRECTORY . 'customizer-helpers.php';
 
-		// Get our defaults
+		// Get our defaults.
 		$defaults = generate_get_color_defaults();
 
-		// Add control types so controls can be built using JS
+		// Add control types so controls can be built using JS.
 		if ( method_exists( $wp_customize, 'register_control_type' ) ) {
 			$wp_customize->register_control_type( 'GeneratePress_Alpha_Color_Customize_Control' );
 			$wp_customize->register_control_type( 'GeneratePress_Title_Customize_Control' );
@@ -33,7 +40,7 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 			$wp_customize->register_control_type( 'GeneratePress_Section_Shortcut_Control' );
 		}
 
-		// Get our palettes
+		// Get our palettes.
 		$palettes = generate_get_default_color_palettes();
 
 		$wp_customize->add_control(
@@ -61,7 +68,7 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 					'section' => 'generate_woocommerce_colors',
 					'type' => 'generatepress-customizer-title',
 					'title' => __( 'Buttons', 'gp-premium' ),
-					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname'
+					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
 				)
 			)
 		);
@@ -71,10 +78,10 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 				$wp_customize,
 				'generate_woocommerce_primary_button_message',
 				array(
-					'section'     => 'generate_woocommerce_colors',
-					'label'			=> __( 'Primary Button Colors','generate-woocommerce' ),
-					'description' => __( 'Primary button colors can be set <a href="#">here</a>.','generate-woocommerce' ),
-					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname'
+					'section' => 'generate_woocommerce_colors',
+					'label' => __( 'Primary Button Colors', 'gp-premium' ),
+					'description' => __( 'Primary button colors can be set <a href="#">here</a>.', 'gp-premium' ),
+					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
 				)
 			)
 		);
@@ -128,7 +135,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_alt_button_text]', array(
+			'generate_settings[wc_alt_button_text]',
+			array(
 				'default' => $defaults['wc_alt_button_text'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -149,9 +157,9 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 			)
 		);
 
-
 		$wp_customize->add_setting(
-			'generate_settings[wc_alt_button_text_hover]', array(
+			'generate_settings[wc_alt_button_text_hover]',
+			array(
 				'default' => $defaults['wc_alt_button_text_hover'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -180,13 +188,14 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 					'section' => 'generate_woocommerce_colors',
 					'type' => 'generatepress-customizer-title',
 					'title' => __( 'Products', 'gp-premium' ),
-					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname'
+					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
 				)
 			)
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_product_title_color]', array(
+			'generate_settings[wc_product_title_color]',
+			array(
 				'default' => $defaults['wc_product_title_color'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -208,7 +217,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_product_title_color_hover]', array(
+			'generate_settings[wc_product_title_color_hover]',
+			array(
 				'default' => $defaults['wc_product_title_color_hover'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -278,7 +288,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_sale_sticker_text]', array(
+			'generate_settings[wc_sale_sticker_text]',
+			array(
 				'default' => $defaults['wc_sale_sticker_text'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -300,7 +311,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_price_color]', array(
+			'generate_settings[wc_price_color]',
+			array(
 				'default' => $defaults['wc_price_color'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -329,7 +341,7 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 					'section' => 'generate_woocommerce_colors',
 					'type' => 'generatepress-customizer-title',
 					'title' => __( 'Sticky Panel Cart', 'gp-premium' ),
-					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname'
+					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
 				)
 			)
 		);
@@ -359,7 +371,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_panel_cart_text_color]', array(
+			'generate_settings[wc_panel_cart_text_color]',
+			array(
 				'default' => $defaults['wc_panel_cart_text_color'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -381,7 +394,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_panel_cart_button_background]', array(
+			'generate_settings[wc_panel_cart_button_background]',
+			array(
 				'default' => $defaults['wc_panel_cart_button_background'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -403,7 +417,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_panel_cart_button_background_hover]', array(
+			'generate_settings[wc_panel_cart_button_background_hover]',
+			array(
 				'default' => $defaults['wc_panel_cart_button_background_hover'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -425,7 +440,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_panel_cart_button_text]', array(
+			'generate_settings[wc_panel_cart_button_text]',
+			array(
 				'default' => $defaults['wc_panel_cart_button_text'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -447,7 +463,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_panel_cart_button_text_hover]', array(
+			'generate_settings[wc_panel_cart_button_text_hover]',
+			array(
 				'default' => $defaults['wc_panel_cart_button_text_hover'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -476,7 +493,7 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 					'section' => 'generate_woocommerce_colors',
 					'type' => 'generatepress-customizer-title',
 					'title' => __( 'Menu Mini Cart', 'gp-premium' ),
-					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname'
+					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
 				)
 			)
 		);
@@ -506,7 +523,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_mini_cart_text_color]', array(
+			'generate_settings[wc_mini_cart_text_color]',
+			array(
 				'default' => $defaults['wc_mini_cart_text_color'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -528,7 +546,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_mini_cart_button_background]', array(
+			'generate_settings[wc_mini_cart_button_background]',
+			array(
 				'default' => $defaults['wc_mini_cart_button_background'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -550,7 +569,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_mini_cart_button_background_hover]', array(
+			'generate_settings[wc_mini_cart_button_background_hover]',
+			array(
 				'default' => $defaults['wc_mini_cart_button_background_hover'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -572,7 +592,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_mini_cart_button_text]', array(
+			'generate_settings[wc_mini_cart_button_text]',
+			array(
 				'default' => $defaults['wc_mini_cart_button_text'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -594,7 +615,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_mini_cart_button_text_hover]', array(
+			'generate_settings[wc_mini_cart_button_text_hover]',
+			array(
 				'default' => $defaults['wc_mini_cart_button_text_hover'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -623,13 +645,14 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 					'section' => 'generate_woocommerce_colors',
 					'type' => 'generatepress-customizer-title',
 					'title' => __( 'Price Slider Widget', 'gp-premium' ),
-					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname'
+					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
 				)
 			)
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_price_slider_background_color]', array(
+			'generate_settings[wc_price_slider_background_color]',
+			array(
 				'default' => $defaults['wc_price_slider_background_color'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_hex_color',
@@ -650,7 +673,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_price_slider_bar_color]', array(
+			'generate_settings[wc_price_slider_bar_color]',
+			array(
 				'default' => $defaults['wc_price_slider_bar_color'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_hex_color',
@@ -678,13 +702,14 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 					'section' => 'generate_woocommerce_colors',
 					'type' => 'generatepress-customizer-title',
 					'title' => __( 'Product Tabs', 'gp-premium' ),
-					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname'
+					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
 				)
 			)
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_product_tab]', array(
+			'generate_settings[wc_product_tab]',
+			array(
 				'default' => $defaults['wc_product_tab'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -706,7 +731,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_product_tab_highlight]', array(
+			'generate_settings[wc_product_tab_highlight]',
+			array(
 				'default' => $defaults['wc_product_tab_highlight'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -735,7 +761,7 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 					'section' => 'generate_woocommerce_colors',
 					'type' => 'generatepress-customizer-title',
 					'title' => __( 'Messages', 'gp-premium' ),
-					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname'
+					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
 				)
 			)
 		);
@@ -765,7 +791,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_success_message_text]', array(
+			'generate_settings[wc_success_message_text]',
+			array(
 				'default' => $defaults['wc_success_message_text'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -811,7 +838,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_info_message_text]', array(
+			'generate_settings[wc_info_message_text]',
+			array(
 				'default' => $defaults['wc_info_message_text'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -857,7 +885,8 @@ if ( ! function_exists( 'generate_colors_wc_customizer' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[wc_error_message_text]', array(
+			'generate_settings[wc_error_message_text]',
+			array(
 				'default' => $defaults['wc_error_message_text'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',

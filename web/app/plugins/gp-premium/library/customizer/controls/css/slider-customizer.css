@@ -4,8 +4,6 @@
 	height: 6px;
 	background-color: rgba(0,0,0,.10);
 	cursor: pointer;
-	-webkit-transition: background .5s;
-	-moz-transition: background .5s;
 	transition: background .5s;
 }
 
@@ -28,21 +26,14 @@
 	display: inline-block;
 	position: absolute;
 	top: 50%;
-	-webkit-transform: translateY(-50%) translateX(-4px);
 	transform: translateY(-50%) translateX(-4px);
 	border-radius: 50%;
 	cursor: pointer;
 }
 
 .customize-control-generatepress-pro-range-slider .wrapper {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-	-webkit-box-pack: justify;
-	-ms-flex-pack: justify;
 	justify-content: space-between;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
 	align-items: center;
 }
 
@@ -51,8 +42,6 @@
 	padding: 0;
 	font-weight: 400;
 	width: 50px;
-	display: -webkit-box;
-	display: -ms-flexbox;
 	display: flex;
 }
 
@@ -126,8 +115,6 @@
 }
 
 .gp-range-title-area {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
 }
 

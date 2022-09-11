@@ -34,7 +34,8 @@
 	z-index: 999;
 }
 
-#sticky-placeholder.mobile-header-navigation .mobile-header-logo {
+#sticky-placeholder.mobile-header-navigation .mobile-header-logo,
+#sticky-placeholder .navigation-branding {
 	display: none;
 }
 

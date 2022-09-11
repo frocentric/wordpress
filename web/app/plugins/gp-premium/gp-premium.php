@@ -1,41 +1,47 @@
 <?php
-/*
-Plugin Name: GP Premium
-Plugin URI: https://generatepress.com
-Description: The entire collection of GeneratePress premium modules.
-Version: 1.9.1
-Author: Tom Usborne
-Author URI: https://generatepress.com
-License: GNU General Public License v2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: gp-premium
-*/
+/**
+ * Plugin Name: GP Premium
+ * Plugin URI: https://generatepress.com
+ * Description: The entire collection of GeneratePress premium modules.
+ * Version: 2.1.2
+ * Requires at least: 5.2
+ * Requires PHP: 5.6
+ * Author: Tom Usborne
+ * Author URI: https://generatepress.com
+ * License: GNU General Public License v2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: gp-premium
+ *
+ * @package GP Premium
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-// Set our version
-define( 'GP_PREMIUM_VERSION', '1.9.1' );
-
-// Set our library directory
+define( 'GP_PREMIUM_VERSION', '2.1.2' );
+define( 'GP_PREMIUM_DIR_PATH', plugin_dir_path( __FILE__ ) );
+define( 'GP_PREMIUM_DIR_URL', plugin_dir_url( __FILE__ ) );
 define( 'GP_LIBRARY_DIRECTORY', plugin_dir_path( __FILE__ ) . 'library/' );
 define( 'GP_LIBRARY_DIRECTORY_URL', plugin_dir_url( __FILE__ ) . 'library/' );
 
+require_once GP_PREMIUM_DIR_PATH . 'inc/class-rest.php';
+
 if ( ! function_exists( 'generatepress_is_module_active' ) ) {
 	/**
-	 * Check to see if an add-ons is active
-	 * module: Check the database entry
-	 * definition: Check to see if defined in wp-config.php
+	 * Checks if a module is active.
+	 *
+	 * @param string $module The option name to check.
+	 * @param string $constant The constant to check for.
 	 **/
-	function generatepress_is_module_active( $module, $definition ) {
-		// If we don't have the module or definition, bail.
-		if ( ! $module && ! $definition ) {
+	function generatepress_is_module_active( $module, $constant ) {
+		// If we don't have the module or constant, bail.
+		if ( ! $module && ! $constant ) {
 			return false;
 		}
 
 		// If our module is active, return true.
-		if ( 'activated' == get_option( $module ) || defined( $definition ) ) {
+		if ( 'activated' === get_option( $module ) || defined( $constant ) ) {
 			return true;
 		}
 
@@ -54,98 +60,99 @@ if ( ! function_exists( 'generate_package_setup' ) ) {
 	}
 }
 
-// Backgrounds
 if ( generatepress_is_module_active( 'generate_package_backgrounds', 'GENERATE_BACKGROUNDS' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . 'backgrounds/generate-backgrounds.php';
+	require_once GP_PREMIUM_DIR_PATH . 'backgrounds/generate-backgrounds.php';
 }
 
-// Blog
 if ( generatepress_is_module_active( 'generate_package_blog', 'GENERATE_BLOG' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . 'blog/generate-blog.php';
+	require_once GP_PREMIUM_DIR_PATH . 'blog/generate-blog.php';
 }
 
-// Colors
-if ( generatepress_is_module_active( 'generate_package_colors', 'GENERATE_COLORS' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . 'colors/generate-colors.php';
-}
-
-// Copyright
 if ( generatepress_is_module_active( 'generate_package_copyright', 'GENERATE_COPYRIGHT' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . 'copyright/generate-copyright.php';
+	require_once GP_PREMIUM_DIR_PATH . 'copyright/generate-copyright.php';
 }
 
-// Disable Elements
 if ( generatepress_is_module_active( 'generate_package_disable_elements', 'GENERATE_DISABLE_ELEMENTS' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . 'disable-elements/generate-disable-elements.php';
+	require_once GP_PREMIUM_DIR_PATH . 'disable-elements/generate-disable-elements.php';
 }
 
-// Elements
 if ( generatepress_is_module_active( 'generate_package_elements', 'GENERATE_ELEMENTS' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . 'elements/elements.php';
+	require_once GP_PREMIUM_DIR_PATH . 'elements/elements.php';
 }
 
-// Hooks
-if ( generatepress_is_module_active( 'generate_package_hooks', 'GENERATE_HOOKS' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . 'hooks/generate-hooks.php';
-}
-
-// Page Header
-if ( generatepress_is_module_active( 'generate_package_page_header', 'GENERATE_PAGE_HEADER' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . 'page-header/generate-page-header.php';
-}
-
-// Secondary Navigation
 if ( generatepress_is_module_active( 'generate_package_secondary_nav', 'GENERATE_SECONDARY_NAV' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . 'secondary-nav/generate-secondary-nav.php';
+	require_once GP_PREMIUM_DIR_PATH . 'secondary-nav/generate-secondary-nav.php';
 }
 
-// Spacing
 if ( generatepress_is_module_active( 'generate_package_spacing', 'GENERATE_SPACING' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . 'spacing/generate-spacing.php';
+	require_once GP_PREMIUM_DIR_PATH . 'spacing/generate-spacing.php';
 }
 
-// Typography
-if ( generatepress_is_module_active( 'generate_package_typography', 'GENERATE_TYPOGRAPHY' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . 'typography/generate-fonts.php';
-}
-
-// Sections
-if ( generatepress_is_module_active( 'generate_package_sections', 'GENERATE_SECTIONS' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . 'sections/generate-sections.php';
-}
-
-// Menu Plus
 if ( generatepress_is_module_active( 'generate_package_menu_plus', 'GENERATE_MENU_PLUS' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . 'menu-plus/generate-menu-plus.php';
+	require_once GP_PREMIUM_DIR_PATH . 'menu-plus/generate-menu-plus.php';
 }
 
-// WooCommerce
 if ( generatepress_is_module_active( 'generate_package_woocommerce', 'GENERATE_WOOCOMMERCE' ) ) {
-	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	include_once ABSPATH . 'wp-admin/includes/plugin.php';
+
 	if ( is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
-		require_once plugin_dir_path( __FILE__ ) . 'woocommerce/woocommerce.php';
+		require_once GP_PREMIUM_DIR_PATH . 'woocommerce/woocommerce.php';
 	}
 }
 
-// General
-require_once plugin_dir_path( __FILE__ ) . 'inc/functions.php';
-require_once plugin_dir_path( __FILE__ ) . 'general/smooth-scroll.php';
-require_once plugin_dir_path( __FILE__ ) . 'general/icons.php';
+// Deprecated modules.
+if ( generatepress_is_module_active( 'generate_package_hooks', 'GENERATE_HOOKS' ) ) {
+	require_once GP_PREMIUM_DIR_PATH . 'hooks/generate-hooks.php';
+}
 
-// Deprecated functions.
-require_once plugin_dir_path( __FILE__ ) . 'inc/deprecated.php';
+if ( generatepress_is_module_active( 'generate_package_page_header', 'GENERATE_PAGE_HEADER' ) ) {
+	require_once GP_PREMIUM_DIR_PATH . 'page-header/generate-page-header.php';
+}
 
-// Load admin-only files.
+if ( generatepress_is_module_active( 'generate_package_sections', 'GENERATE_SECTIONS' ) ) {
+	require_once GP_PREMIUM_DIR_PATH . 'sections/generate-sections.php';
+}
+
+add_action( 'after_setup_theme', 'generate_premium_load_modules' );
+/**
+ * Load our modules after the theme has initiated.
+ *
+ * @since 2.1.0
+ */
+function generate_premium_load_modules() {
+	$is_using_dynamic_typography = function_exists( 'generate_is_using_dynamic_typography' ) && generate_is_using_dynamic_typography();
+
+	if ( ! $is_using_dynamic_typography && generatepress_is_module_active( 'generate_package_typography', 'GENERATE_TYPOGRAPHY' ) ) {
+		require_once GP_PREMIUM_DIR_PATH . 'typography/generate-fonts.php';
+	}
+
+	if ( version_compare( generate_premium_get_theme_version(), '3.1.0-alpha.1', '<' ) && generatepress_is_module_active( 'generate_package_colors', 'GENERATE_COLORS' ) ) {
+		require_once GP_PREMIUM_DIR_PATH . 'colors/generate-colors.php';
+	}
+}
+
+// General functionality.
+require_once GP_PREMIUM_DIR_PATH . 'inc/functions.php';
+require_once GP_PREMIUM_DIR_PATH . 'general/class-external-file-css.php';
+require_once GP_PREMIUM_DIR_PATH . 'general/smooth-scroll.php';
+require_once GP_PREMIUM_DIR_PATH . 'general/icons.php';
+require_once GP_PREMIUM_DIR_PATH . 'general/enqueue-scripts.php';
+require_once GP_PREMIUM_DIR_PATH . 'inc/deprecated.php';
+
+// Load our Dashboard functions once the theme has loaded.
+require_once GP_PREMIUM_DIR_PATH . 'inc/class-dashboard.php';
+
+if ( generatepress_is_module_active( 'generate_package_site_library', 'GENERATE_SITE_LIBRARY' ) && version_compare( PHP_VERSION, '5.4', '>=' ) && ! defined( 'GENERATE_DISABLE_SITE_LIBRARY' ) ) {
+	require_once GP_PREMIUM_DIR_PATH . 'site-library/class-site-library-rest.php';
+	require_once GP_PREMIUM_DIR_PATH . 'site-library/class-site-library-helper.php';
+}
+
 if ( is_admin() ) {
-	require_once plugin_dir_path( __FILE__ ) . 'inc/reset.php';
-	require_once plugin_dir_path( __FILE__ ) . 'import-export/generate-ie.php';
+	require_once GP_PREMIUM_DIR_PATH . 'inc/deprecated-admin.php';
 
 	if ( generatepress_is_module_active( 'generate_package_site_library', 'GENERATE_SITE_LIBRARY' ) && version_compare( PHP_VERSION, '5.4', '>=' ) && ! defined( 'GENERATE_DISABLE_SITE_LIBRARY' ) ) {
-		require_once plugin_dir_path( __FILE__ ) . 'sites/sites.php';
+		require_once GP_PREMIUM_DIR_PATH . 'site-library/class-site-library.php';
 	}
-
-	require_once plugin_dir_path( __FILE__ ) . 'inc/activation.php';
-	require_once plugin_dir_path( __FILE__ ) . 'inc/dashboard.php';
 }
 
 if ( ! function_exists( 'generate_premium_updater' ) ) {
@@ -154,25 +161,46 @@ if ( ! function_exists( 'generate_premium_updater' ) ) {
 	 * Set up the updater
 	 **/
 	function generate_premium_updater() {
-		// Load EDD SL Plugin Updater
-		if ( ! class_exists( 'EDD_SL_Plugin_Updater' ) ) {
-			include( dirname( __FILE__ ) . '/library/EDD_SL_Plugin_Updater.php' );
+		if ( ! class_exists( 'GeneratePress_Premium_Plugin_Updater' ) ) {
+			include GP_PREMIUM_DIR_PATH . 'library/class-plugin-updater.php';
 		}
 
-		// retrieve our license key from the DB
 		$license_key = get_option( 'gen_premium_license_key' );
 
-		// setup the updater
-		$edd_updater = new EDD_SL_Plugin_Updater( 'https://generatepress.com', __FILE__, array(
-				'version' 	=> GP_PREMIUM_VERSION,
-				'license' 	=> trim( $license_key ),
+		$edd_updater = new GeneratePress_Premium_Plugin_Updater(
+			'https://generatepress.com',
+			__FILE__,
+			array(
+				'version'   => GP_PREMIUM_VERSION,
+				'license'   => trim( $license_key ),
 				'item_name' => 'GP Premium',
-				'author' 	=> 'Tom Usborne',
+				'author'    => 'Tom Usborne',
 				'url'       => home_url(),
-				'beta'		=> apply_filters( 'generate_premium_beta_tester', false ),
+				'beta'      => apply_filters( 'generate_premium_beta_tester', false ),
 			)
 		);
 	}
+}
+
+add_filter( 'edd_sl_plugin_updater_api_params', 'generate_premium_set_updater_api_params', 10, 3 );
+/**
+ * Add the GeneratePress version to our updater params.
+ *
+ * @param array  $api_params  The array of data sent in the request.
+ * @param array  $api_data    The array of data set up in the class constructor.
+ * @param string $plugin_file The full path and filename of the file.
+ */
+function generate_premium_set_updater_api_params( $api_params, $api_data, $plugin_file ) {
+	/*
+	 * Make sure $plugin_file matches your plugin's file path. You should have a constant for this
+	 * or can use __FILE__ if this code goes in your plugin's main file.
+	 */
+	if ( __FILE__ === $plugin_file ) {
+		// Dynamically retrieve the current version number.
+		$api_params['generatepress_version'] = defined( 'GENERATE_VERSION' ) ? GENERATE_VERSION : '';
+	}
+
+	return $api_params;
 }
 
 if ( ! function_exists( 'generate_premium_setup' ) ) {
@@ -196,15 +224,12 @@ if ( ! function_exists( 'generate_premium_theme_information' ) ) {
 	 * @since 1.2.95
 	 **/
 	function generate_premium_theme_information() {
-
-		// Get our theme data
 		$theme = wp_get_theme();
 
-		// If we're using GeneratePress
-		if ( 'GeneratePress' == $theme->name || 'generatepress' == $theme->template ) {
+		if ( 'GeneratePress' === $theme->name || 'generatepress' === $theme->template ) {
 
-			// Get our information on updates
-			// Taken from https://developer.wordpress.org/reference/functions/wp_prepare_themes_for_js/
+			// Get our information on updates.
+			// @see https://developer.wordpress.org/reference/functions/wp_prepare_themes_for_js/.
 			$updates = array();
 			if ( current_user_can( 'update_themes' ) ) {
 				$updates_transient = get_site_transient( 'update_themes' );
@@ -213,13 +238,11 @@ if ( ! function_exists( 'generate_premium_theme_information' ) ) {
 				}
 			}
 
-			// Check what admin page we're on
 			$screen = get_current_screen();
 
 			// If a GeneratePress update exists, and we're not on the themes page.
 			// No need to tell people an update exists on the themes page, WP does that for us.
-			if ( isset( $updates[ 'generatepress' ] ) && 'themes' !== $screen->base ) {
-
+			if ( isset( $updates['generatepress'] ) && 'themes' !== $screen->base ) {
 				printf(
 					'<div class="notice is-dismissible notice-info">
 						<p>%1$s <a href="%2$s">%3$s</a></p>
@@ -228,20 +251,17 @@ if ( ! function_exists( 'generate_premium_theme_information' ) ) {
 					esc_url( admin_url( 'themes.php' ) ),
 					esc_html__( 'Update now.', 'gp-premium' )
 				);
-
 			}
-
 		} else {
-
 			// GeneratePress isn't the active theme, let them know GP Premium won't work.
 			printf(
 				'<div class="notice is-dismissible notice-warning">
-					<p>%1$s <a href="https://generatepress.com/install-generatepress" target="_blank">%2$s</a></p>
+					<p>%1$s <a href="%3$s">%2$s</a></p>
 				</div>',
 				esc_html__( 'GP Premium requires GeneratePress to be your active theme.', 'gp-premium' ),
-				esc_html__( 'Install now.', 'gp-premium' )
+				esc_html__( 'Install now.', 'gp-premium' ),
+				esc_url( admin_url( 'theme-install.php?theme=generatepress' ) )
 			);
-
 		}
 
 	}
@@ -252,9 +272,11 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'generate_add_
  * Show a "Configure" link in the plugin action links.
  *
  * @since 1.3
+ * @param array $links The existing plugin row links.
  */
 function generate_add_configure_action_link( $links ) {
 	$configuration_link = '<a href="' . admin_url( 'themes.php?page=generate-options' ) . '">' . __( 'Configure', 'gp-premium' ) . '</a>';
+
 	return array_merge( $links, array( $configuration_link ) );
 }
 
@@ -278,7 +300,7 @@ function generatepress_deactivate_standalone_addons() {
 		'generate-secondary-nav/generate-secondary-nav.php',
 		'generate-sections/generate-sections.php',
 		'generate-spacing/generate-spacing.php',
-		'generate-typography/generate-fonts.php'
+		'generate-typography/generate-fonts.php',
 	);
 
 	deactivate_plugins( $addons );

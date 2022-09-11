@@ -1,6 +1,13 @@
 <?php
-// No direct access, please
-if ( ! defined( 'ABSPATH' ) ) exit;
+/**
+ * This file handles Secondary Nav background images.
+ *
+ * @package GP Premium
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // No direct access, please.
+}
 
 if ( ! function_exists( 'generate_backgrounds_secondary_nav_customizer' ) ) {
 	add_action( 'customize_register', 'generate_backgrounds_secondary_nav_customizer', 1000 );
@@ -14,29 +21,26 @@ if ( ! function_exists( 'generate_backgrounds_secondary_nav_customizer' ) ) {
 	 * as we check to see if the layout control exists.
 	 *
 	 * Secondary Nav now uses 100 as a priority.
+	 *
+	 * @param object $wp_customize Our Customizer object.
 	 */
 	function generate_backgrounds_secondary_nav_customizer( $wp_customize ) {
-		// Bail if we don't have our defaults
 		if ( ! function_exists( 'generate_secondary_nav_get_defaults' ) ) {
 			return;
 		}
 
-		// Make sure Secondary Nav is activated
 		if ( ! $wp_customize->get_section( 'secondary_nav_section' ) ) {
 			return;
 		}
 
-		// Get our defaults
 		$defaults = generate_secondary_nav_get_defaults();
 
 		if ( method_exists( $wp_customize, 'register_control_type' ) ) {
 			$wp_customize->register_control_type( 'GeneratePress_Section_Shortcut_Control' );
 		}
 
-		// Get our controls
 		require_once GP_LIBRARY_DIRECTORY . 'customizer-helpers.php';
 
-		// Add our section
 		$wp_customize->add_section(
 			'secondary_bg_images_section',
 			array(
@@ -66,9 +70,9 @@ if ( ! function_exists( 'generate_backgrounds_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Background
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[nav_image]', array(
+			'generate_secondary_nav_settings[nav_image]',
+			array(
 				'default' => $defaults['nav_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -89,7 +93,6 @@ if ( ! function_exists( 'generate_backgrounds_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Repeat
 		$wp_customize->add_setting(
 			'generate_secondary_nav_settings[nav_repeat]',
 			array(
@@ -111,13 +114,13 @@ if ( ! function_exists( 'generate_backgrounds_secondary_nav_customizer' ) ) {
 					'no-repeat' => __( 'No Repeat', 'gp-premium' ),
 				),
 				'settings' => 'generate_secondary_nav_settings[nav_repeat]',
-				'priority' => 800
+				'priority' => 800,
 			)
 		);
 
-		// Item background
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[nav_item_image]', array(
+			'generate_secondary_nav_settings[nav_item_image]',
+			array(
 				'default' => $defaults['nav_item_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -138,7 +141,6 @@ if ( ! function_exists( 'generate_backgrounds_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Item repeat
 		$wp_customize->add_setting(
 			'generate_secondary_nav_settings[nav_item_repeat]',
 			array(
@@ -160,13 +162,13 @@ if ( ! function_exists( 'generate_backgrounds_secondary_nav_customizer' ) ) {
 					'no-repeat' => __( 'No Repeat', 'gp-premium' ),
 				),
 				'settings' => 'generate_secondary_nav_settings[nav_item_repeat]',
-				'priority' => 1000
+				'priority' => 1000,
 			)
 		);
 
-		// Item hover
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[nav_item_hover_image]', array(
+			'generate_secondary_nav_settings[nav_item_hover_image]',
+			array(
 				'default' => $defaults['nav_item_hover_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -187,7 +189,6 @@ if ( ! function_exists( 'generate_backgrounds_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Item hover repeat
 		$wp_customize->add_setting(
 			'generate_secondary_nav_settings[nav_item_hover_repeat]',
 			array(
@@ -213,9 +214,9 @@ if ( ! function_exists( 'generate_backgrounds_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Current background
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[nav_item_current_image]', array(
+			'generate_secondary_nav_settings[nav_item_current_image]',
+			array(
 				'default' => $defaults['nav_item_current_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -236,7 +237,6 @@ if ( ! function_exists( 'generate_backgrounds_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Current repeat
 		$wp_customize->add_setting(
 			'generate_secondary_nav_settings[nav_item_current_repeat]',
 			array(
@@ -262,7 +262,6 @@ if ( ! function_exists( 'generate_backgrounds_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Sub-navigation section
 		$wp_customize->add_section(
 			'secondary_subnav_bg_images_section',
 			array(
@@ -274,9 +273,9 @@ if ( ! function_exists( 'generate_backgrounds_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Item background
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[sub_nav_item_image]', array(
+			'generate_secondary_nav_settings[sub_nav_item_image]',
+			array(
 				'default' => $defaults['sub_nav_item_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -297,7 +296,6 @@ if ( ! function_exists( 'generate_backgrounds_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Item repeat
 		$wp_customize->add_setting(
 			'generate_secondary_nav_settings[sub_nav_item_repeat]',
 			array(
@@ -319,13 +317,13 @@ if ( ! function_exists( 'generate_backgrounds_secondary_nav_customizer' ) ) {
 					'no-repeat' => __( 'No Repeat', 'gp-premium' ),
 				),
 				'settings' => 'generate_secondary_nav_settings[sub_nav_item_repeat]',
-				'priority' => 1800
+				'priority' => 1800,
 			)
 		);
 
-		// Item hover
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[sub_nav_item_hover_image]', array(
+			'generate_secondary_nav_settings[sub_nav_item_hover_image]',
+			array(
 				'default' => $defaults['sub_nav_item_hover_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -346,7 +344,6 @@ if ( ! function_exists( 'generate_backgrounds_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Item hover repeat
 		$wp_customize->add_setting(
 			'generate_secondary_nav_settings[sub_nav_item_hover_repeat]',
 			array(
@@ -372,9 +369,9 @@ if ( ! function_exists( 'generate_backgrounds_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Current background
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[sub_nav_item_current_image]', array(
+			'generate_secondary_nav_settings[sub_nav_item_current_image]',
+			array(
 				'default' => $defaults['sub_nav_item_current_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -395,7 +392,6 @@ if ( ! function_exists( 'generate_backgrounds_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Current background repeat
 		$wp_customize->add_setting(
 			'generate_secondary_nav_settings[sub_nav_item_current_repeat]',
 			array(

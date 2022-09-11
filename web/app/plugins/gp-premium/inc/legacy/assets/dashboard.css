@@ -1,0 +1,199 @@
+.generatepress-dashboard-tabs {
+	margin-bottom: 40px;
+}
+
+.generatepress-dashboard-tabs a {
+	background-color: rgba(255,255,255,0.5);
+    border: 1px solid #ddd;
+    padding: 10px 15px;
+    cursor: pointer;
+    color: #222;
+	display: inline-block;
+	text-decoration: none;
+}
+
+.generatepress-dashboard-tabs a:not(:last-child) {
+    border-right: 0;
+}
+
+.generatepress-dashboard-tabs a.active {
+    background-color: #ffffff;
+    border-color: #ccc;
+	font-weight: 500;
+}
+
+input#generate-select-all,
+.addon-checkbox {
+	margin-right: 15px !important;
+}
+.gp-premium-version,
+.gp-addon-count {
+	display: block;
+	color:#ccc;
+}
+
+.addon-container:before,
+.addon-container:after {
+	content: ".";
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	font-size: 0;
+	line-height: 0;
+	width: 0;
+	height: 0;
+}
+
+.addon-container:after {
+	clear: both;
+}
+
+.premium-addons .gp-clear {
+	margin: 0 !important;
+	border: 0;
+	padding: 0 !important;
+}
+
+.premium-addons .add-on.gp-clear {
+	padding: 15px !important;
+	margin: 0 !important;
+	box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
+}
+
+.premium-addons .add-on:last-child {
+	border: 0 !important;
+}
+
+.addon-action {
+	float: right;
+	clear: right;
+}
+
+.addon-name {
+	float: left;
+}
+
+.premium-addons .add-on.gp-clear.activated {
+	background-color:#F7FCFE !important;
+	border-left: 5px solid #2EA2CC !important;
+	font-weight: bold;
+	padding-left: 10px !important;
+}
+
+.premium-addons .addon-action input[type="submit"],
+.premium-addons .addon-action input[type="submit"]:visited {
+	background: none;
+	border: 0;
+	color: #0d72b2;
+	padding: 0;
+	font-size: inherit;
+	cursor: pointer;
+	box-shadow: 0 0 0 transparent;
+}
+
+.premium-addons .addon-action input[type="submit"]:hover,
+.premium-addons .addon-action input[type="submit"]:focus {
+	background: none;
+	border: 0;
+	color: #0f92e5;
+	padding: 0;
+	font-size: inherit;
+	box-shadow: 0 0 0 transparent;
+}
+
+.premium-addons input[type="submit"].hide-customizer-button,
+.premium-addons input[type="submit"]:visited.hide-customizer-button {
+	color: #a00;
+	font-weight: normal;
+}
+
+.premium-addons input[type="submit"]:hover.hide-customizer-button,
+.premium-addons input[type="submit"]:focus.hide-customizer-button {
+	color: red;
+	font-weight: normal;
+}
+
+.premium-addons input[type="submit"].hide-customizer-button {
+	display: none;
+}
+
+.premium-addons .add-on.activated:hover input[type="submit"].hide-customizer-button {
+	display: inline;
+}
+
+.gp_premium input[name="generate_activate_all"] {
+	display: none;
+}
+
+.email-container .addon-name {
+	width: 75%;
+	min-width: 150px;
+}
+
+.license-key-container {
+	margin-bottom:15px;
+}
+
+.license-key-container:last-child {
+	margin:0;
+}
+
+.license-key-info {
+	float: right;
+	text-decoration: none;
+}
+
+.license-key-container label {
+	font-size: 11px;
+	font-weight: normal;
+	color: #777;
+	display: inline-block;
+	margin-bottom: 0;
+}
+
+.status {
+	position: absolute;
+	right:10px;
+	top:-1px;
+	background:rgba(255,255,255,0.9);
+}
+
+.license-key-input {
+	width:100%;
+	box-sizing:border-box;
+	padding:10px;
+}
+
+.license-key-input::-webkit-credentials-auto-fill-button {
+	visibility: hidden;
+	pointer-events: none;
+	position: absolute;
+	right: 0;
+}
+
+.license-key-button {
+	position:relative;
+	top:1px;
+	width:100%;
+	box-sizing:border-box;
+	padding: 10px !important;
+	height:auto !important;
+	line-height:normal !important;
+}
+
+.license-key-message {
+	font-size: 80%;
+	font-weight: normal;
+}
+
+.license-key-message.receiving-updates {
+	color: green;
+}
+
+.license-key-message.not-receiving-updates {
+	color: red;
+}
+
+.mass-activate-select {
+	margin-top: 0;
+}
