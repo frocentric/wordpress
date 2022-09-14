@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "21c7acb2040646ad7249431bada6d6c0",
+    "content-hash": "f373ea90aa08554072619cec21efc30a",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.232.1",
+            "version": "3.235.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "7e79325815640d21f3bcab9889f7002a8268d674"
+                "reference": "0f5d86c0dbed9b413cae6b77c4b5811bb857c9cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7e79325815640d21f3bcab9889f7002a8268d674",
-                "reference": "7e79325815640d21f3bcab9889f7002a8268d674",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0f5d86c0dbed9b413cae6b77c4b5811bb857c9cb",
+                "reference": "0f5d86c0dbed9b413cae6b77c4b5811bb857c9cb",
                 "shasum": ""
             },
             "require": {
@@ -86,6 +86,7 @@
                 "aws/aws-php-sns-message-validator": "~1.0",
                 "behat/behat": "~3.0",
                 "composer/composer": "^1.10.22",
+                "dms/phpunit-arraysubset-asserts": "^0.4.0",
                 "doctrine/cache": "~1.4",
                 "ext-dom": "*",
                 "ext-openssl": "*",
@@ -93,10 +94,11 @@
                 "ext-sockets": "*",
                 "nette/neon": "^2.3",
                 "paragonie/random_compat": ">= 2",
-                "phpunit/phpunit": "^4.8.35 || ^5.6.3",
+                "phpunit/phpunit": "^4.8.35 || ^5.6.3 || ^9.5",
                 "psr/cache": "^1.0",
                 "psr/simple-cache": "^1.0",
-                "sebastian/comparator": "^1.2.3"
+                "sebastian/comparator": "^1.2.3 || ^4.0",
+                "yoast/phpunit-polyfills": "^1.0"
             },
             "suggest": {
                 "aws/aws-php-sns-message-validator": "To validate incoming SNS notifications",
@@ -144,9 +146,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.232.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.235.7"
             },
-            "time": "2022-08-03T18:16:18+00:00"
+            "time": "2022-09-13T18:19:11+00:00"
         },
         {
             "name": "composer/installers",
@@ -430,16 +432,16 @@
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.4.5",
+            "version": "7.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "1dd98b0564cb3f6bd16ce683cb755f94c10fbd82"
+                "reference": "b50a2a1251152e43f6a37f0fa053e730a67d25ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/1dd98b0564cb3f6bd16ce683cb755f94c10fbd82",
-                "reference": "1dd98b0564cb3f6bd16ce683cb755f94c10fbd82",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/b50a2a1251152e43f6a37f0fa053e730a67d25ba",
+                "reference": "b50a2a1251152e43f6a37f0fa053e730a67d25ba",
                 "shasum": ""
             },
             "require": {
@@ -454,10 +456,10 @@
                 "psr/http-client-implementation": "1.0"
             },
             "require-dev": {
-                "bamarni/composer-bin-plugin": "^1.4.1",
+                "bamarni/composer-bin-plugin": "^1.8.1",
                 "ext-curl": "*",
                 "php-http/client-integration-tests": "^3.0",
-                "phpunit/phpunit": "^8.5.5 || ^9.3.5",
+                "phpunit/phpunit": "^8.5.29 || ^9.5.23",
                 "psr/log": "^1.1 || ^2.0 || ^3.0"
             },
             "suggest": {
@@ -467,8 +469,12 @@
             },
             "type": "library",
             "extra": {
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": false
+                },
                 "branch-alias": {
-                    "dev-master": "7.4-dev"
+                    "dev-master": "7.5-dev"
                 }
             },
             "autoload": {
@@ -534,7 +540,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.4.5"
+                "source": "https://github.com/guzzle/guzzle/tree/7.5.0"
             },
             "funding": [
                 {
@@ -550,20 +556,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-20T22:16:13+00:00"
+            "time": "2022-08-28T15:39:27+00:00"
         },
         {
             "name": "guzzlehttp/promises",
-            "version": "1.5.1",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
-                "reference": "fe752aedc9fd8fcca3fe7ad05d419d32998a06da"
+                "reference": "b94b2807d85443f9719887892882d0329d1e2598"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/promises/zipball/fe752aedc9fd8fcca3fe7ad05d419d32998a06da",
-                "reference": "fe752aedc9fd8fcca3fe7ad05d419d32998a06da",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/b94b2807d85443f9719887892882d0329d1e2598",
+                "reference": "b94b2807d85443f9719887892882d0329d1e2598",
                 "shasum": ""
             },
             "require": {
@@ -618,7 +624,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/promises/issues",
-                "source": "https://github.com/guzzle/promises/tree/1.5.1"
+                "source": "https://github.com/guzzle/promises/tree/1.5.2"
             },
             "funding": [
                 {
@@ -634,20 +640,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-10-22T20:56:57+00:00"
+            "time": "2022-08-28T14:55:35+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.4.0",
+            "version": "2.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "13388f00956b1503577598873fffb5ae994b5737"
+                "reference": "69568e4293f4fa993f3b0e51c9723e1e17c41379"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/13388f00956b1503577598873fffb5ae994b5737",
-                "reference": "13388f00956b1503577598873fffb5ae994b5737",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/69568e4293f4fa993f3b0e51c9723e1e17c41379",
+                "reference": "69568e4293f4fa993f3b0e51c9723e1e17c41379",
                 "shasum": ""
             },
             "require": {
@@ -661,15 +667,19 @@
                 "psr/http-message-implementation": "1.0"
             },
             "require-dev": {
-                "bamarni/composer-bin-plugin": "^1.4.1",
+                "bamarni/composer-bin-plugin": "^1.8.1",
                 "http-interop/http-factory-tests": "^0.9",
-                "phpunit/phpunit": "^8.5.8 || ^9.3.10"
+                "phpunit/phpunit": "^8.5.29 || ^9.5.23"
             },
             "suggest": {
                 "laminas/laminas-httphandlerrunner": "Emit PSR-7 responses"
             },
             "type": "library",
             "extra": {
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": false
+                },
                 "branch-alias": {
                     "dev-master": "2.4-dev"
                 }
@@ -733,7 +743,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.4.0"
+                "source": "https://github.com/guzzle/psr7/tree/2.4.1"
             },
             "funding": [
                 {
@@ -749,7 +759,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-20T21:43:11+00:00"
+            "time": "2022-08-28T14:45:39+00:00"
         },
         {
             "name": "humanmade/s3-uploads",
@@ -851,20 +861,20 @@
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "6.0.1",
+            "version": "6.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "185dfc9f49aa48efb4f345a042e78e5003d9b6a2"
+                "reference": "6c3d7d1a4ddb3b27e6f3ca4b2018b0150d7221b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/185dfc9f49aa48efb4f345a042e78e5003d9b6a2",
-                "reference": "185dfc9f49aa48efb4f345a042e78e5003d9b6a2",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/6c3d7d1a4ddb3b27e6f3ca4b2018b0150d7221b7",
+                "reference": "6c3d7d1a4ddb3b27e6f3ca4b2018b0150d7221b7",
                 "shasum": ""
             },
             "require": {
-                "johnpbloch/wordpress-core": "6.0.1",
+                "johnpbloch/wordpress-core": "6.0.2",
                 "johnpbloch/wordpress-core-installer": "^1.0 || ^2.0",
                 "php": ">=5.6.20"
             },
@@ -893,20 +903,20 @@
                 "issues": "https://core.trac.wordpress.org/",
                 "source": "https://core.trac.wordpress.org/browser"
             },
-            "time": "2022-07-12T16:22:03+00:00"
+            "time": "2022-08-30T17:46:21+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "6.0.1",
+            "version": "6.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "163eec26760f7d2cac040e04f00ce548cd303eb1"
+                "reference": "aa7b334880fd8158abe64469e71570bd8815f273"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/163eec26760f7d2cac040e04f00ce548cd303eb1",
-                "reference": "163eec26760f7d2cac040e04f00ce548cd303eb1",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/aa7b334880fd8158abe64469e71570bd8815f273",
+                "reference": "aa7b334880fd8158abe64469e71570bd8815f273",
                 "shasum": ""
             },
             "require": {
@@ -914,7 +924,7 @@
                 "php": ">=5.6.20"
             },
             "provide": {
-                "wordpress/core-implementation": "6.0.1"
+                "wordpress/core-implementation": "6.0.2"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
@@ -941,7 +951,7 @@
                 "source": "https://core.trac.wordpress.org/browser",
                 "wiki": "https://codex.wordpress.org/"
             },
-            "time": "2022-07-12T16:22:00+00:00"
+            "time": "2022-08-30T17:46:17+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -999,10 +1009,10 @@
         },
         {
             "name": "koodimonni-language/en_gb",
-            "version": "6.0.1",
+            "version": "6.0.2",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/6.0.1/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/6.0.2/en_GB.zip"
             },
             "require": {
                 "koodimonni-plugin-language/akismet-en_gb": "*",
@@ -1084,10 +1094,10 @@
         },
         {
             "name": "koodimonni-plugin-language/buddypress-en_gb",
-            "version": "10.3.0",
+            "version": "10.4.0",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/buddypress/10.3.0/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/buddypress/10.4.0/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1160,10 +1170,10 @@
         },
         {
             "name": "koodimonni-plugin-language/health-check-en_gb",
-            "version": "1.4.5",
+            "version": "1.5.0",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/health-check/1.4.5/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/health-check/1.5.0/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1255,10 +1265,10 @@
         },
         {
             "name": "koodimonni-plugin-language/woocommerce-en_gb",
-            "version": "6.7.0",
+            "version": "6.8.2",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/6.7.0/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/6.8.2/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1653,51 +1663,67 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "1.27.1",
+            "version": "2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "904713c5929655dc9b97288b69cfeedad610c9a1"
+                "reference": "720488632c590286b88b80e62aa3d3d551ad4a50"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/904713c5929655dc9b97288b69cfeedad610c9a1",
-                "reference": "904713c5929655dc9b97288b69cfeedad610c9a1",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/720488632c590286b88b80e62aa3d3d551ad4a50",
+                "reference": "720488632c590286b88b80e62aa3d3d551ad4a50",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0",
-                "psr/log": "~1.0"
+                "php": ">=7.2",
+                "psr/log": "^1.0.1 || ^2.0 || ^3.0"
             },
             "provide": {
-                "psr/log-implementation": "1.0.0"
+                "psr/log-implementation": "1.0.0 || 2.0.0 || 3.0.0"
             },
             "require-dev": {
                 "aws/aws-sdk-php": "^2.4.9 || ^3.0",
                 "doctrine/couchdb": "~1.0@dev",
-                "graylog2/gelf-php": "~1.0",
-                "php-amqplib/php-amqplib": "~2.4",
-                "php-console/php-console": "^3.1.3",
-                "phpstan/phpstan": "^0.12.59",
-                "phpunit/phpunit": "~4.5",
-                "ruflin/elastica": ">=0.90 <3.0",
-                "sentry/sentry": "^0.13",
-                "swiftmailer/swiftmailer": "^5.3|^6.0"
+                "elasticsearch/elasticsearch": "^7 || ^8",
+                "ext-json": "*",
+                "graylog2/gelf-php": "^1.4.2",
+                "guzzlehttp/guzzle": "^7.4",
+                "guzzlehttp/psr7": "^2.2",
+                "mongodb/mongodb": "^1.8",
+                "php-amqplib/php-amqplib": "~2.4 || ^3",
+                "phpspec/prophecy": "^1.15",
+                "phpstan/phpstan": "^0.12.91",
+                "phpunit/phpunit": "^8.5.14",
+                "predis/predis": "^1.1 || ^2.0",
+                "rollbar/rollbar": "^1.3 || ^2 || ^3",
+                "ruflin/elastica": "^7",
+                "swiftmailer/swiftmailer": "^5.3|^6.0",
+                "symfony/mailer": "^5.4 || ^6",
+                "symfony/mime": "^5.4 || ^6"
             },
             "suggest": {
                 "aws/aws-sdk-php": "Allow sending log messages to AWS services like DynamoDB",
                 "doctrine/couchdb": "Allow sending log messages to a CouchDB server",
+                "elasticsearch/elasticsearch": "Allow sending log messages to an Elasticsearch server via official client",
                 "ext-amqp": "Allow sending log messages to an AMQP server (1.0+ required)",
-                "ext-mongo": "Allow sending log messages to a MongoDB server",
+                "ext-curl": "Required to send log messages using the IFTTTHandler, the LogglyHandler, the SendGridHandler, the SlackWebhookHandler or the TelegramBotHandler",
+                "ext-mbstring": "Allow to work properly with unicode symbols",
+                "ext-mongodb": "Allow sending log messages to a MongoDB server (via driver)",
+                "ext-openssl": "Required to send log messages using SSL",
+                "ext-sockets": "Allow sending log messages to a Syslog server (via UDP driver)",
                 "graylog2/gelf-php": "Allow sending log messages to a GrayLog2 server",
-                "mongodb/mongodb": "Allow sending log messages to a MongoDB server via PHP Driver",
+                "mongodb/mongodb": "Allow sending log messages to a MongoDB server (via library)",
                 "php-amqplib/php-amqplib": "Allow sending log messages to an AMQP server using php-amqplib",
-                "php-console/php-console": "Allow sending log messages to Google Chrome",
                 "rollbar/rollbar": "Allow sending log messages to Rollbar",
-                "ruflin/elastica": "Allow sending log messages to an Elastic Search server",
-                "sentry/sentry": "Allow sending log messages to a Sentry server"
+                "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "2.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Monolog\\": "src/Monolog"
@@ -1711,11 +1737,11 @@
                 {
                     "name": "Jordi Boggiano",
                     "email": "j.boggiano@seld.be",
-                    "homepage": "http://seld.be"
+                    "homepage": "https://seld.be"
                 }
             ],
             "description": "Sends your logs to files, sockets, inboxes, databases and various web services",
-            "homepage": "http://github.com/Seldaek/monolog",
+            "homepage": "https://github.com/Seldaek/monolog",
             "keywords": [
                 "log",
                 "logging",
@@ -1723,7 +1749,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Seldaek/monolog/issues",
-                "source": "https://github.com/Seldaek/monolog/tree/1.27.1"
+                "source": "https://github.com/Seldaek/monolog/tree/2.8.0"
             },
             "funding": [
                 {
@@ -1735,7 +1761,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-09T08:53:42+00:00"
+            "time": "2022-07-24T11:55:47+00:00"
         },
         {
             "name": "mtdowling/jmespath.php",
@@ -2778,22 +2804,22 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.11.5",
+            "version": "v3.12.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "cb0ef908b6d0e1eace8545b96d23b0b93c44d1ec"
+                "reference": "301916893739f108e87b181b52485a917df7abe2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/cb0ef908b6d0e1eace8545b96d23b0b93c44d1ec",
-                "reference": "cb0ef908b6d0e1eace8545b96d23b0b93c44d1ec",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/301916893739f108e87b181b52485a917df7abe2",
+                "reference": "301916893739f108e87b181b52485a917df7abe2",
                 "shasum": ""
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0",
-                "monolog/monolog": "^1.0",
-                "php": ">=7.0"
+                "monolog/monolog": "^1.0 || ^2.0",
+                "php": ">=7.2"
             },
             "require-dev": {
                 "brain/monkey": "^2.0",
@@ -2819,6 +2845,7 @@
                 "wp-media/wp-imagify-partner": "^1.0",
                 "wpackagist-plugin/amp": "^1.1.4",
                 "wpackagist-plugin/hummingbird-performance": "2.0.1",
+                "wpackagist-plugin/jetpack": "9.3.2",
                 "wpackagist-plugin/pdf-embedder": "^4.6",
                 "wpackagist-plugin/simple-custom-css": "^4.0.3",
                 "wpackagist-plugin/spinupwp": "^1.1",
@@ -2890,7 +2917,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2022-08-03T14:37:20+00:00"
+            "time": "2022-09-01T18:14:59+00:00"
         },
         {
             "name": "wpackagist-plugin/authors-list",
@@ -3038,7 +3065,7 @@
         },
         {
             "name": "wpackagist-plugin/ele-custom-skin",
-            "version": "3.1.6",
+            "version": "3.1.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/ele-custom-skin/",
@@ -3046,7 +3073,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ele-custom-skin.zip?timestamp=1652854656"
+                "url": "https://downloads.wordpress.org/plugin/ele-custom-skin.zip?timestamp=1661262021"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3056,15 +3083,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "3.6.8",
+            "version": "3.7.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/3.6.8"
+                "reference": "tags/3.7.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.3.6.8.zip"
+                "url": "https://downloads.wordpress.org/plugin/elementor.3.7.4.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3074,15 +3101,15 @@
         },
         {
             "name": "wpackagist-plugin/enable-media-replace",
-            "version": "3.6.3",
+            "version": "4.0.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/enable-media-replace/",
-                "reference": "tags/3.6.3"
+                "reference": "tags/4.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/enable-media-replace.3.6.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/enable-media-replace.4.0.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3092,15 +3119,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "5.1.9",
+            "version": "5.2.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/5.1.9"
+                "reference": "tags/5.2.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.5.1.9.zip"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.5.2.4.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3110,15 +3137,15 @@
         },
         {
             "name": "wpackagist-plugin/feedzy-rss-feeds",
-            "version": "4.0.1",
+            "version": "4.0.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/feedzy-rss-feeds/",
-                "reference": "tags/4.0.1"
+                "reference": "tags/4.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.4.0.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.4.0.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3164,15 +3191,15 @@
         },
         {
             "name": "wpackagist-plugin/jetpack",
-            "version": "11.2",
+            "version": "11.3.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/jetpack/",
-                "reference": "tags/11.2"
+                "reference": "tags/11.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jetpack.11.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/jetpack.11.3.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3218,15 +3245,15 @@
         },
         {
             "name": "wpackagist-plugin/meta-box",
-            "version": "5.6.5",
+            "version": "5.6.6",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/meta-box/",
-                "reference": "tags/5.6.5"
+                "reference": "tags/5.6.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/meta-box.5.6.5.zip"
+                "url": "https://downloads.wordpress.org/plugin/meta-box.5.6.6.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3236,15 +3263,15 @@
         },
         {
             "name": "wpackagist-plugin/ninja-forms",
-            "version": "3.6.12",
+            "version": "3.6.14",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/ninja-forms/",
-                "reference": "tags/3.6.12"
+                "reference": "tags/3.6.14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.6.12.zip"
+                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.6.14.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3272,15 +3299,15 @@
         },
         {
             "name": "wpackagist-plugin/pods",
-            "version": "2.8.23",
+            "version": "2.9.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/pods/",
-                "reference": "tags/2.8.23"
+                "reference": "tags/2.9.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/pods.2.8.23.zip"
+                "url": "https://downloads.wordpress.org/plugin/pods.2.9.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3290,15 +3317,15 @@
         },
         {
             "name": "wpackagist-plugin/publishpress",
-            "version": "3.8.1",
+            "version": "3.8.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/publishpress/",
-                "reference": "tags/3.8.1"
+                "reference": "tags/3.8.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/publishpress.3.8.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/publishpress.3.8.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3308,15 +3335,15 @@
         },
         {
             "name": "wpackagist-plugin/query-monitor",
-            "version": "3.9.0",
+            "version": "3.10.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/query-monitor/",
-                "reference": "tags/3.9.0"
+                "reference": "tags/3.10.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/query-monitor.3.9.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/query-monitor.3.10.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3344,15 +3371,15 @@
         },
         {
             "name": "wpackagist-plugin/svg-support",
-            "version": "2.4.2",
+            "version": "2.5.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/svg-support/",
-                "reference": "tags/2.4.2"
+                "reference": "tags/2.5.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/svg-support.2.4.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/svg-support.2.5.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3362,15 +3389,15 @@
         },
         {
             "name": "wpackagist-plugin/the-events-calendar",
-            "version": "5.16.3.1",
+            "version": "5.16.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/the-events-calendar/",
-                "reference": "tags/5.16.3.1"
+                "reference": "tags/5.16.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.5.16.3.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.5.16.4.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3398,15 +3425,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-analytify",
-            "version": "4.2.2",
+            "version": "4.2.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-analytify/",
-                "reference": "tags/4.2.2"
+                "reference": "tags/4.2.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-analytify.4.2.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-analytify.4.2.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3434,15 +3461,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-event-aggregator",
-            "version": "1.6.4",
+            "version": "1.6.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-event-aggregator/",
-                "reference": "tags/1.6.4"
+                "reference": "tags/1.6.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-event-aggregator.1.6.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-event-aggregator.1.6.5.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3452,15 +3479,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-mail-smtp",
-            "version": "3.5.1",
+            "version": "3.5.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-mail-smtp/",
-                "reference": "tags/3.5.1"
+                "reference": "tags/3.5.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-mail-smtp.3.5.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-mail-smtp.3.5.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3903,16 +3930,16 @@
         },
         {
             "name": "sirbrillig/phpcs-variable-analysis",
-            "version": "v2.11.4",
+            "version": "v2.11.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sirbrillig/phpcs-variable-analysis.git",
-                "reference": "e9c99cda31b21ccb4da4c2124b57c8355ddce48e"
+                "reference": "aaf902277f2889fddbdb37046ae02b9965e2cf0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sirbrillig/phpcs-variable-analysis/zipball/e9c99cda31b21ccb4da4c2124b57c8355ddce48e",
-                "reference": "e9c99cda31b21ccb4da4c2124b57c8355ddce48e",
+                "url": "https://api.github.com/repos/sirbrillig/phpcs-variable-analysis/zipball/aaf902277f2889fddbdb37046ae02b9965e2cf0f",
+                "reference": "aaf902277f2889fddbdb37046ae02b9965e2cf0f",
                 "shasum": ""
             },
             "require": {
@@ -3924,7 +3951,8 @@
                 "phpcsstandards/phpcsdevcs": "^1.1",
                 "phpstan/phpstan": "^1.7",
                 "phpunit/phpunit": "^4.8.36 || ^5.7.21 || ^6.5 || ^7.0 || ^8.0 || ^9.0",
-                "sirbrillig/phpcs-import-detection": "^1.1"
+                "sirbrillig/phpcs-import-detection": "^1.1",
+                "vimeo/psalm": "^0.2 || ^0.3 || ^1.1 || ^4.24 || ^5.0@beta"
             },
             "type": "phpcodesniffer-standard",
             "autoload": {
@@ -3947,12 +3975,16 @@
                 }
             ],
             "description": "A PHPCS sniff to detect problems with variables.",
+            "keywords": [
+                "phpcs",
+                "static analysis"
+            ],
             "support": {
                 "issues": "https://github.com/sirbrillig/phpcs-variable-analysis/issues",
                 "source": "https://github.com/sirbrillig/phpcs-variable-analysis",
                 "wiki": "https://github.com/sirbrillig/phpcs-variable-analysis/wiki"
             },
-            "time": "2022-06-13T13:49:41+00:00"
+            "time": "2022-09-08T18:35:53+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -4071,5 +4103,5 @@
         "php": ">=5.6"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.3.0"
 }
