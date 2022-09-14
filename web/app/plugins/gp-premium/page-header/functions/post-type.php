@@ -128,7 +128,7 @@ function generate_page_header_add_legacy_locations_button() {
 	if ( 'generate_page_header' === $screen->post_type ) :
 		?>
 		<script>
-			jQuery( document ).ready( function( $ ) {
+			jQuery( function( $ ) {
 				$( '<a href="<?php echo admin_url(); ?>themes.php?page=page-header-global-locations" class="page-title-action legacy-button"><?php esc_html_e( "Global Locations", "gp-premium" ); ?></a>' ).insertAfter( '.page-title-action:not(.legacy-button)' );
 			} );
 		</script>
@@ -138,7 +138,7 @@ function generate_page_header_add_legacy_locations_button() {
 	if ( 'gp_elements' === $screen->post_type && 'edit' === $screen->base ) :
 		?>
 		<script>
-			jQuery( document ).ready( function( $ ) {
+			jQuery( function( $ ) {
 				$( '<a href="<?php echo admin_url(); ?>edit.php?post_type=generate_page_header" class="page-title-action legacy-button"><?php esc_html_e( "Legacy Page Headers", "gp-premium" ); ?></a>' ).insertAfter( '.page-title-action:not(.legacy-button)' );
 			} );
 		</script>

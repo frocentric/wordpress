@@ -28,6 +28,10 @@ class GeneratePress_Section_Shortcut_Control extends WP_Customize_Control {
 			if ( 'colors' === $name ) {
 				$name = esc_html__( 'Colors', 'gp-premium' );
 
+				if ( version_compare( generate_premium_get_theme_version(), '3.1.0-alpha.1', '>=' ) && 'generate_woocommerce_colors' !== $id ) {
+					$id = 'generate_colors_section';
+				}
+
 				if ( ! generatepress_is_module_active( 'generate_package_colors', 'GENERATE_COLORS' ) ) {
 					$id = false;
 					$name = false;
@@ -36,6 +40,10 @@ class GeneratePress_Section_Shortcut_Control extends WP_Customize_Control {
 
 			if ( 'typography' === $name ) {
 				$name = esc_html__( 'Typography', 'gp-premium' );
+
+				if ( function_exists( 'generate_is_using_dynamic_typography' ) && generate_is_using_dynamic_typography() ) {
+					$id = 'generate_typography_section';
+				}
 
 				if ( ! generatepress_is_module_active( 'generate_package_typography', 'GENERATE_TYPOGRAPHY' ) ) {
 					$id = false;
@@ -87,28 +95,29 @@ class GeneratePress_Section_Shortcut_Control extends WP_Customize_Control {
 
 	public function content_template() {
 		?>
-		<# if ( data.shortcuts ) { #>
 			<div class="generatepress-shortcuts">
-				<div class="show-shortcuts">
-					<span class="more-controls">
-						{{{ data.more }}}
-					</span>
+				<# if ( data.shortcuts ) { #>
+					<div class="show-shortcuts">
+						<span class="more-controls">
+							{{{ data.more }}}
+						</span>
 
-					<span class="shortcuts">
-						<# _.each( data.shortcuts, function( label, section ) { #>
-							<span class="shortcut">
-								<a href="#" data-section="{{{ section }}}" data-current-section="{{{ data.section }}}">{{{ label }}}</a>
-							</span>
-						<# } ) #>
-					</span>
-				</div>
+						<span class="shortcuts">
+							<# _.each( data.shortcuts, function( label, section ) { #>
+								<span class="shortcut">
+									<a href="#" data-section="{{{ section }}}" data-current-section="{{{ data.section }}}">{{{ label }}}</a>
+								</span>
+							<# } ) #>
+						</span>
+					</div>
+				<# } #>
 
 				<div class="return-shortcut" style="display: none;">
 					<span class="dashicons dashicons-no-alt"></span>
 					<a href="#">&larr; {{{ data.return }}}</a>
 				</div>
 			</div>
-		<# } #>
+
 		<?php
 	}
 }

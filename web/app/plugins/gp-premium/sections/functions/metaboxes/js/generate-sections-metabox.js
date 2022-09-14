@@ -735,7 +735,7 @@ var Generate_Sections = {
     /* Execute the above methods in the Generate_Sections object.
     /*-----------------------------------------------------------------------------------*/
 
-    jQuery(document).ready(function($) {
+	jQuery( function( $ ) {
 
         Generate_Sections.initApplication();
 
@@ -780,11 +780,17 @@ var Generate_Sections = {
                 'overflow': 'hidden'
             });
 
-			$( '.editor-block-list__layout' ).hide();
-			$( '.edit-post-layout__content .edit-post-visual-editor' ).css( {
+			$( '.block-editor-block-list__layout' ).hide();
+
+			$( '.edit-post-layout .edit-post-visual-editor' ).css( {
 				'flex-grow': 'unset',
 				'flex-basis': '0'
 			} );
+
+			$( '.edit-post-visual-editor .block-editor-writing-flow__click-redirect' ).css( {
+				'min-height': '0'
+			} );
+
 			$( '.edit-post-layout__metaboxes:not(:empty)' ).css( 'border-top', '0' );
 
             // Show the sections
@@ -818,11 +824,17 @@ var Generate_Sections = {
                 'height': 'auto'
             });
 
-			$( '.editor-block-list__layout' ).show();
-			$( '.edit-post-layout__content .edit-post-visual-editor' ).css( {
+			$( '.block-editor-block-list__layout' ).show();
+
+			$( '.edit-post-layout .edit-post-visual-editor' ).css( {
 				'flex-grow': '',
 				'flex-basis': ''
 			} );
+
+			$( '.edit-post-visual-editor .block-editor-writing-flow__click-redirect' ).css( {
+				'min-height': ''
+			} );
+
 			$( '.edit-post-layout__metaboxes:not(:empty)' ).css( 'border-top', '' );
 
             // Hide the sections

@@ -16,10 +16,7 @@
 	border-radius: 30px;
 	background: #ddd;
 	overflow: hidden;
-	cursor: pointer;
-	
-	-webkit-transition: all .2s ease-in-out;  
-	-ms-transition: 	all .2s ease-in-out; 
+	cursor: pointer; 
 	transition: 		all .2s ease-in-out; 
 }
 .lcs_cursor {
@@ -31,10 +28,7 @@
 	border-radius: 100%;
 	background: #fff;
 	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.1);
-	z-index: 10;
-	
-	-webkit-transition: all .2s linear;  
-	-ms-transition: 	all .2s linear; 
+	z-index: 10; 
 	transition: 		all .2s linear; 
 }
 .lcs_label {
@@ -49,10 +43,7 @@
 	top: 5px;
 	overflow: hidden;
 	text-align: center;
-	opacity: 0;
-	
-	-webkit-transition: all .2s ease-in-out .1s;  
-	-ms-transition: 	all .2s ease-in-out .1s;   
+	opacity: 0;   
 	transition: 		all .2s ease-in-out .1s;   
 }
 .lcs_label.lcs_label_on {

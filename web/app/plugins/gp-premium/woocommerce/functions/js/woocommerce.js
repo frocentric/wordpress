@@ -1,36 +1,16 @@
-jQuery( document ).ready( function( $ ) {
-	var throttle = function(fn, threshhold, scope) {
-		threshhold || (threshhold = 250);
-		var last,
-			deferTimer;
+jQuery( function( $ ) {
+	var debounce = function( callback, wait ) {
+		var timeout;
 
-		return function () {
-			var context = scope || this;
+		return function() {
+			clearTimeout( timeout );
 
-			var now = +new Date,
-				args = arguments;
-
-			if (last && now < last + threshhold) {
-				// hold on to it
-				clearTimeout(deferTimer);
-				deferTimer = setTimeout(function () {
-					last = now;
-					fn.apply(context, args);
-				}, threshhold);
-			} else {
-				last = now;
-				fn.apply(context, args);
-			}
+			timeout = setTimeout( function() {
+				timeout = undefined;
+				callback.call();
+			}, wait );
 		};
 	};
-
-	$( '.wc-has-gallery .wc-product-image' ).hover(
-		function() {
-			$( this ).find( '.secondary-image' ).css( 'opacity','1' );
-		}, function() {
-			$( this ).find( '.secondary-image' ).css( 'opacity','0' );
-		}
-	);
 
 	$( 'body' ).on( 'added_to_cart', function() {
 		if ( ! $( '.wc-menu-item' ).hasClass( 'has-items' ) ) {
@@ -54,7 +34,7 @@ jQuery( document ).ready( function( $ ) {
 	} );
 
 	if ( generateWooCommerce.addToCartPanel ) {
-		$( document.body ).on( "added_to_cart", function() {
+		$( document.body ).on( 'added_to_cart', function() {
 			var adminBar = $( '#wpadminbar' ),
 				stickyNav = $( '.navigation-stick' ),
 				top = 0;
@@ -70,7 +50,7 @@ jQuery( document ).ready( function( $ ) {
 			$( '.add-to-cart-panel' ).addClass( 'item-added' ).css( {
 				'-webkit-transform': 'translateY(' + top + 'px)',
 				'-ms-transform': 'translateY(' + top + 'px)',
-				'transform': 'translateY(' + top + 'px)'
+				transform: 'translateY(' + top + 'px)',
 			} );
 		} );
 
@@ -80,18 +60,18 @@ jQuery( document ).ready( function( $ ) {
 			$( '.add-to-cart-panel' ).removeClass( 'item-added' ).css( {
 				'-webkit-transform': 'translateY(-100%)',
 				'-ms-transform': 'translateY(-100%)',
-				'transform': 'translateY(-100%)'
+				transform: 'translateY(-100%)',
 			} );
 		} );
 
-		$( window ).on( 'scroll', throttle( function() {
+		$( window ).on( 'scroll', debounce( function() {
 			var panel = $( '.add-to-cart-panel' );
 
 			if ( panel.hasClass( 'item-added' ) ) {
 				panel.removeClass( 'item-added' ).css( {
 					'-webkit-transform': 'translateY(-100%)',
 					'-ms-transform': 'translateY(-100%)',
-					'transform': 'translateY(-100%)'
+					transform: 'translateY(-100%)',
 				} );
 			}
 		}, 250 ) );
@@ -99,9 +79,12 @@ jQuery( document ).ready( function( $ ) {
 
 	if ( generateWooCommerce.stickyAddToCart ) {
 		var lastScroll = 0;
-		$( window ).on( 'scroll', throttle( function() {
+		var scrollDownTimeout = 300;
+
+		$( window ).on( 'scroll', debounce( function() {
 			var adminBar = $( '#wpadminbar' ),
 				stickyNav = $( '.navigation-stick' ),
+				stuckElement = $( '.stuckElement' ),
 				top = 0,
 				scrollTop = $( window ).scrollTop(),
 				panel = $( '.add-to-cart-panel' ),
@@ -111,38 +94,44 @@ jQuery( document ).ready( function( $ ) {
 				buttonHeight = button.outerHeight(),
 				footerTop = $( '.site-footer' ).offset().top;
 
-			if ( adminBar.length ) {
-				top = adminBar.outerHeight();
-			}
-
-			if ( stickyNav.length ) {
-				if ( stickyNav.hasClass( 'auto-hide-sticky' ) ) {
-					if ( scrollTop < lastScroll && '0px' === stickyNav.css( 'top' ) ) {
-						top = top + stickyNav.outerHeight();
-					} else {
-						top = top;
-					}
-
-					lastScroll = scrollTop;
-				} else {
-					top = top + stickyNav.outerHeight();
-				}
+			if ( stuckElement.length === 0 ) {
+				scrollDownTimeout = 0;
 			}
 
 			if ( scrollTop > ( buttonTop + buttonHeight ) && panelPosition < footerTop ) {
-				panel.addClass( 'show-sticky-add-to-cart' ).css( {
-					'-webkit-transform': 'translateY(' + top + 'px)',
-					'-ms-transform': 'translateY(' + top + 'px)',
-					'transform': 'translateY(' + top + 'px)'
-				} );
-		    } else {
+				setTimeout( function() {
+					if ( adminBar.length ) {
+						top = adminBar.outerHeight();
+					}
+
+					if ( stickyNav.length ) {
+						if ( stickyNav.hasClass( 'auto-hide-sticky' ) ) {
+							if ( scrollTop < lastScroll && '0px' === stickyNav.css( 'top' ) ) {
+								top = top + stickyNav.outerHeight();
+							} else {
+								top = top;
+							}
+
+							lastScroll = scrollTop;
+						} else {
+							top = top + stickyNav.outerHeight();
+						}
+					}
+
+					panel.addClass( 'show-sticky-add-to-cart' ).css( {
+						'-webkit-transform': 'translateY(' + top + 'px)',
+						'-ms-transform': 'translateY(' + top + 'px)',
+						transform: 'translateY(' + top + 'px)',
+					} );
+				}, scrollDownTimeout );
+			} else {
 				panel.removeClass( 'show-sticky-add-to-cart' ).css( {
 					'-webkit-transform': '',
 					'-ms-transform': '',
-					'transform': ''
+					transform: '',
 				} );
 			}
-		}, 250 ) );
+		}, 50 ) );
 
 		$( '.go-to-variables' ).on( 'click', function( e ) {
 			e.preventDefault();
@@ -159,14 +148,14 @@ jQuery( document ).ready( function( $ ) {
 				offset = offset + adminBar.outerHeight();
 			}
 
-			$( 'html, body' ).animate({
-				scrollTop: $( '.variations' ).offset().top - offset
+			$( 'html, body' ).animate( {
+				scrollTop: $( '.variations' ).offset().top - offset,
 			}, 250 );
 		} );
 	}
 
-	$( document ).on( 'ready', function() {
-		"use strict";
+	$( function() {
+		'use strict';
 
 		if ( generateWooCommerce.quantityButtons ) {
 			generateQuantityButtons();
@@ -174,112 +163,123 @@ jQuery( document ).ready( function( $ ) {
 	} );
 
 	$( document ).ajaxComplete( function() {
-		"use strict";
+		'use strict';
 
 		if ( generateWooCommerce.quantityButtons ) {
 			generateQuantityButtons();
 		}
 	} );
 
-	function generateQuantityButtons( quantitySelector ) {
-		var quantityBoxes,
-			cart = $( '.woocommerce div.product form.cart' );
+	function generateQuantityButtons() {
+		// Check if we have an overwrite hook for this function
+		try {
+			return generateWooCommerce.hooks.generateQuantityButtons();
+		} catch ( e ) {
+			// No hook in place, carry on
+		}
 
+		// Grab the FIRST available cart form on the page
+		var cart = $( '.woocommerce div.product form.cart' ).first();
+
+		// Check if we see elementor style classes
 		if ( cart.closest( '.elementor-add-to-cart' ).length ) {
+			// Found classes, remove them and finish here
 			$( '.elementor.product' ).removeClass( 'do-quantity-buttons' );
 			return;
 		}
 
-		if ( ! quantitySelector ) {
-			quantitySelector = '.qty';
+		// Grab all the quantity boxes that need dynamic buttons adding
+		var quantityBoxes;
+
+		try {
+			// Is there a hook available?
+			quantityBoxes = generateWooCommerce.selectors.generateQuantityButtons.quantityBoxes;
+		} catch ( e ) {
+			// Use the default plugin selector functionality
+			quantityBoxes = $( '.cart div.quantity:not(.buttons-added), .cart td.quantity:not(.buttons-added)' ).find( '.qty' );
 		}
 
-		quantityBoxes = $( 'div.quantity:not(.buttons-added), td.quantity:not(.buttons-added)' ).find( quantitySelector );
+		// Test the elements have length and greater than 0
+		// Try, catch here to provide basic error checking on hooked data
+		try {
+			// Nothing found... stop here
+			if ( quantityBoxes.length === 0 ) {
+				return false;
+			}
+		} catch ( e ) {
+			return false;
+		}
 
-		if ( quantityBoxes && 'date' !== quantityBoxes.prop( 'type' ) && 'hidden' !== quantityBoxes.prop( 'type' ) ) {
+		// Allow the each loop callback to be completely overwritten
+		var quantityBoxesCallback;
 
-			// Add plus and minus icons
-			quantityBoxes.parent().addClass( 'buttons-added' ).prepend('<a href="javascript:void(0)" class="minus">-</a>');
-	        quantityBoxes.after('<a href="javascript:void(0)" class="plus">+</a>');
+		try {
+			// Try assign a hooked callback
+			quantityBoxesCallback = generateWooCommerce.callbacks.generateQuantityButtons.quantityBoxes;
+		} catch ( e ) {
+			// Use the default callback handler
+			quantityBoxesCallback = function( key, value ) {
+				var box = $( value );
 
-			// Target quantity inputs on product pages
-			$( 'input' + quantitySelector + ':not(.product-quantity input' + quantitySelector + ')' ).each( function() {
+				// Check allowed types
+				if ( [ 'date', 'hidden' ].indexOf( box.prop( 'type' ) ) !== -1 ) {
+					return;
+				}
+
+				// Add plus and minus icons
+				box.parent().addClass( 'buttons-added' ).prepend( '<a href="javascript:void(0)" class="minus">-</a>' );
+				box.after( '<a href="javascript:void(0)" class="plus">+</a>' );
+
+				// Enforce min value on the input
 				var min = parseFloat( $( this ).attr( 'min' ) );
 
 				if ( min && min > 0 && parseFloat( $( this ).val() ) < min ) {
 					$( this ).val( min );
 				}
-			});
 
-			// Quantity input
-			if ( $( 'body' ).hasClass( 'single-product' ) && ! cart.hasClass( 'grouped_form' ) ) {
-				var quantityInput = $( '.woocommerce form input[type=number].qty' );
-				quantityInput.on( 'keyup', function() {
-					var qty_val = $( this ).val();
-					quantityInput.val( qty_val );
-				});
-			}
+				// Add event handlers to plus and minus (within this scope)
+				box.parent().find( '.plus, .minus' ).on( 'click', function() {
+					// Get values
+					var currentQuantity = parseFloat( box.val() ),
+						maxQuantity = parseFloat( box.attr( 'max' ) ),
+						minQuantity = parseFloat( box.attr( 'min' ) ),
+						step = box.attr( 'step' );
 
-			$( '.plus, .minus' ).unbind( 'click' );
-
-			$( '.plus, .minus' ).on( 'click', function() {
-
-				// Quantity
-				var quantityBox;
-
-				// If floating bar is enabled
-				if ( $( 'body' ).hasClass( 'single-product' ) && ! cart.hasClass( 'grouped_form' ) && ! cart.hasClass( 'cart_group' ) ) {
-					quantityBox = $( '.plus, .minus' ).closest( '.quantity' ).find( quantitySelector );
-				} else {
-					quantityBox = $( this ).closest( '.quantity' ).find( quantitySelector );
-				}
-
-				// Get values
-				var currentQuantity = parseFloat( quantityBox.val() ),
-				    maxQuantity     = parseFloat( quantityBox.attr( 'max' ) ),
-				    minQuantity     = parseFloat( quantityBox.attr( 'min' ) ),
-				    step            = quantityBox.attr( 'step' );
-
-				// Fallback default values
-				if ( ! currentQuantity || '' === currentQuantity  || 'NaN' === currentQuantity ) {
-					currentQuantity = 0;
-				}
-
-				if ( '' === maxQuantity || 'NaN' === maxQuantity ) {
-					maxQuantity = '';
-				}
-
-				if ( '' === minQuantity || 'NaN' === minQuantity ) {
-					minQuantity = 0;
-				}
-
-				if ( 'any' === step || '' === step  || undefined === step || 'NaN' === parseFloat( step )  ) {
-					step = 1;
-				}
-
-				// Change the value
-				if ( $( this ).is( '.plus' ) ) {
-
-					if ( maxQuantity && ( maxQuantity == currentQuantity || currentQuantity > maxQuantity ) ) {
-						quantityBox.val( maxQuantity );
-					} else {
-						quantityBox.val( currentQuantity + parseFloat( step ) );
+					// Fallback default values
+					if ( ! currentQuantity || '' === currentQuantity || 'NaN' === currentQuantity ) {
+						currentQuantity = 0;
 					}
 
-				} else {
+					if ( '' === maxQuantity || 'NaN' === maxQuantity ) {
+						maxQuantity = '';
+					}
 
-					if ( minQuantity && ( minQuantity == currentQuantity || currentQuantity < minQuantity ) ) {
-						quantityBox.val( minQuantity );
+					if ( '' === minQuantity || 'NaN' === minQuantity ) {
+						minQuantity = 0;
+					}
+
+					if ( 'any' === step || '' === step || undefined === step || 'NaN' === parseFloat( step ) ) {
+						step = 1;
+					}
+
+					if ( $( this ).is( '.plus' ) ) {
+						if ( maxQuantity && ( maxQuantity === currentQuantity || currentQuantity > maxQuantity ) ) {
+							box.val( maxQuantity );
+						} else {
+							box.val( currentQuantity + parseFloat( step ) );
+						}
+					} else if ( minQuantity && ( minQuantity === currentQuantity || currentQuantity < minQuantity ) ) {
+						box.val( minQuantity );
 					} else if ( currentQuantity > 0 ) {
-						quantityBox.val( currentQuantity - parseFloat( step ) );
+						box.val( currentQuantity - parseFloat( step ) );
 					}
 
-				}
-
-				// Trigger change event
-				quantityBox.trigger( 'change' );
-
-			} );
+					// Trigger change event
+					box.trigger( 'change' );
+				} );
+			};
 		}
+
+		$.each( quantityBoxes, quantityBoxesCallback );
 	}
-});
+} );

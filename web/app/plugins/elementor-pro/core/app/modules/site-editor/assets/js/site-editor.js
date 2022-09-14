@@ -6,18 +6,22 @@ import Conditions from './pages/conditions/conditions';
 import Import from './pages/import';
 import TemplatesProvider, { Context as TemplatesContext } from './context/templates';
 import { Layout, AllPartsButton, NotFound } from '@elementor/site-editor';
-import { ErrorBoundary } from '@elementor/app-ui';
+import { ErrorBoundary, Grid, Button } from '@elementor/app-ui';
 import router from '@elementor/router';
 import Component from './data/component';
 
+import './site-editor.scss';
+
 function SiteEditor() {
-	const headerButtons = [ {
+	const headerButtons = [
+		{
 			id: 'import',
 			text: __( 'import', 'elementor-pro' ),
 			hideText: true,
 			icon: 'eicon-download-circle-o',
 			onClick: () => router.appHistory.navigate( 'site-editor/import' ),
-		} ];
+		},
+	];
 
 	// Remove Core cache.
 	elementorCommon.ajax.invalidateCache( {
@@ -28,31 +32,41 @@ function SiteEditor() {
 		const { templates } = React.useContext( TemplatesContext );
 
 		if ( Object.keys( templates ).length ) {
-			return <Redirect from={'/'} to={'/site-editor/templates'} noThrow={ true }/>;
+			return <Redirect from={ '/' } to={ '/site-editor/templates' } noThrow={ true } />;
 		}
 
-		return <Redirect from={'/'} to={'/site-editor/add-new'} noThrow={ true } />;
+		return <Redirect from={ '/' } to={ '/site-editor/add-new' } noThrow={ true } />;
 	};
 
 	return (
 		<ErrorBoundary
-			title={__( 'Theme Builder could not be loaded', 'elementor-pro' )}
+			title={ __( 'Theme Builder could not be loaded', 'elementor-pro' ) }
 			learnMoreUrl="https://go.elementor.com/app-theme-builder-load-issue"
 		>
 			<Layout allPartsButton={ <AllPartsButton url="/site-editor" /> } headerButtons={ headerButtons }>
-				<TemplatesProvider>
-					<LocationProvider history={ router.appHistory }>
-						<Router>
-							<SiteEditorDefault path="/site-editor" />
-							<Templates path="site-editor/templates" />
-							<TemplateType path="site-editor/templates/:type/*id" />
-							<AddNew path="site-editor/add-new" />
-							<Conditions path="site-editor/conditions/:id" />
-							<Import path="site-editor/import" />
-							<NotFound default />
-						</Router>
-					</LocationProvider>
-				</TemplatesProvider>
+				<Grid container className="e-site-editor__content_container">
+					<Grid item className="e-site-editor__content_container_main">
+						<TemplatesProvider>
+							<LocationProvider history={ router.appHistory }>
+								<Router>
+									<SiteEditorDefault path="/site-editor" />
+									<Templates path="site-editor/templates" />
+									<TemplateType path="site-editor/templates/:type/*id" />
+									<AddNew path="site-editor/add-new" />
+									<Conditions path="site-editor/conditions/:id" />
+									<Import path="site-editor/import" />
+									<NotFound default />
+								</Router>
+							</LocationProvider>
+						</TemplatesProvider>
+					</Grid>
+					<Grid item className="e-site-editor__content_container_secondary">
+						<Button
+							text={ __( 'Switch to table view', 'elementor-pro' ) }
+							url={ elementorAppProConfig[ 'site-editor' ]?.urls?.legacy_view }
+						/>
+					</Grid>
+				</Grid>
 			</Layout>
 		</ErrorBoundary>
 	);
