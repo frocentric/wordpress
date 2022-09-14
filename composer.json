@@ -150,7 +150,7 @@
     "wpackagist-plugin/query-monitor": "~3.0",
     "wpackagist-plugin/search-filter": "~1.2",
     "wpackagist-plugin/svg-support": "~2.0",
-    "wpackagist-plugin/the-events-calendar": "~5.0",
+    "wpackagist-plugin/the-events-calendar": "~6.0",
     "wpackagist-plugin/wordpress-importer": "0.*",
     "wpackagist-plugin/wpm-user-sync": "~1.0",
     "wpackagist-plugin/wp-analytify": "~4.0",
