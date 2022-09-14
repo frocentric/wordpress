@@ -1,9 +1,14 @@
-.generatepress-shortcuts {
+.generatepress-shortcuts > div {
     background: #fff;
     padding: 10px 15px;
     border-width: 0 1px 1px 0;
     border-color: #ddd;
     border-style: solid;
+	margin-bottom: 10px;
+}
+
+.customize-control-gp_section_shortcut {
+    margin-bottom: 0;
 }
 
 .generatepress-shortcuts .more-controls {

@@ -16,7 +16,7 @@ jQuery(document).ready(function($) {
 		}
 	} );
 
-	$( '#_meta-generate-page-header-content' ).bind( 'input change', function() {
+	$( '#_meta-generate-page-header-content' ).on( 'input change', function() {
 		if ( this.value.length ) {
 			$( '.page-header-content-required' ).hide();
 		} else {
@@ -25,7 +25,7 @@ jQuery(document).ready(function($) {
 	});
 });
 
-jQuery(window).load(function($) {
+jQuery(window).on('load', function() {
 	if ( jQuery( '#_meta-generate-page-header-enable-image-crop' ).val() == 'enable' ) {
 		jQuery( '#crop-enabled' ).show();
 	}

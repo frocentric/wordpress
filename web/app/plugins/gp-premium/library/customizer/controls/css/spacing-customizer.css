@@ -1,6 +1,4 @@
 .gp-spacing-control-section-title-area {
-	display: -webkit-box;
-	display: -ms-flexbox;
 	display: flex;
 }
 
@@ -17,8 +15,6 @@
 }
 
 .spacing-values-area {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
 }
 

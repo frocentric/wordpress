@@ -1,14 +1,19 @@
 <?php
-// No direct access, please
+/**
+ * This file handles the premium Typography functions.
+ *
+ * @package GP Premium
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // No direct access, please.
 }
 
-// Include necessary files
-require_once trailingslashit( dirname(__FILE__) ) . 'migration.php';
-require_once trailingslashit( dirname(__FILE__) ) . 'secondary-nav-fonts.php';
-require_once trailingslashit( dirname(__FILE__) ) . 'woocommerce-fonts.php';
-require_once trailingslashit( dirname(__FILE__) ) . 'slideout-nav-fonts.php';
+// Include necessary files.
+require_once trailingslashit( dirname( __FILE__ ) ) . 'migration.php';
+require_once trailingslashit( dirname( __FILE__ ) ) . 'secondary-nav-fonts.php';
+require_once trailingslashit( dirname( __FILE__ ) ) . 'woocommerce-fonts.php';
+require_once trailingslashit( dirname( __FILE__ ) ) . 'slideout-nav-fonts.php';
 
 if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 	add_action( 'customize_register', 'generate_fonts_customize_register' );
@@ -16,38 +21,42 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 	 * Build the Customizer controls.
 	 *
 	 * @since 0.1
+	 * @param object $wp_customize The Customizer object.
 	 */
 	function generate_fonts_customize_register( $wp_customize ) {
-		// Bail if we don't have our defaults function
+		// Bail if we don't have our defaults function.
 		if ( ! function_exists( 'generate_get_default_fonts' ) ) {
 			return;
 		}
 
-		// Get our custom controls
+		// Get our custom controls.
 		require_once GP_LIBRARY_DIRECTORY . 'customizer-helpers.php';
 
-		// Get our defaults
+		// Get our defaults.
 		$defaults = generate_get_default_fonts();
 
-		// Register our custom control types
-		if ( method_exists( $wp_customize,'register_control_type' ) ) {
+		// Register our custom control types.
+		if ( method_exists( $wp_customize, 'register_control_type' ) ) {
 			$wp_customize->register_control_type( 'GeneratePress_Pro_Range_Slider_Control' );
 			$wp_customize->register_control_type( 'GeneratePress_Pro_Typography_Customize_Control' );
 			$wp_customize->register_control_type( 'GeneratePress_Section_Shortcut_Control' );
 		}
 
-		// Add the typography panel
+		// Add the typography panel.
 		if ( class_exists( 'WP_Customize_Panel' ) ) {
-			$wp_customize->add_panel( 'generate_typography_panel', array(
-				'priority'       => 30,
-				'capability'     => 'edit_theme_options',
-				'theme_supports' => '',
-				'title'          => __( 'Typography', 'gp-premium' ),
-				'description'    => '',
-			) );
+			$wp_customize->add_panel(
+				'generate_typography_panel',
+				array(
+					'priority'       => 30,
+					'capability'     => 'edit_theme_options',
+					'theme_supports' => '',
+					'title'          => __( 'Typography', 'gp-premium' ),
+					'description'    => '',
+				)
+			);
 		}
 
-		// Body section
+		// Body section.
 		$wp_customize->add_section(
 			'font_section',
 			array(
@@ -55,7 +64,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'capability' => 'edit_theme_options',
 				'description' => '',
 				'priority' => 30,
-				'panel' => 'generate_typography_panel'
+				'panel' => 'generate_typography_panel',
 			)
 		);
 
@@ -76,53 +85,48 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			)
 		);
 
-		// Font family
 		$wp_customize->add_setting(
 			'generate_settings[font_body]',
 			array(
 				'default' => $defaults['font_body'],
 				'type' => 'option',
-				'sanitize_callback' => 'sanitize_text_field'
+				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 
-		// Variants
 		$wp_customize->add_setting(
 			'font_body_variants',
 			array(
 				'default' => $defaults['font_body_variants'],
-				'sanitize_callback' => 'generate_premium_sanitize_variants'
+				'sanitize_callback' => 'generate_premium_sanitize_variants',
 			)
 		);
 
-		// Category
 		$wp_customize->add_setting(
 			'font_body_category',
 			array(
 				'default' => $defaults['font_body_category'],
-				'sanitize_callback' => 'sanitize_text_field'
+				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 
-		// Font weight
 		$wp_customize->add_setting(
 			'generate_settings[body_font_weight]',
 			array(
 				'default' => $defaults['body_font_weight'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
-		// Text transform
 		$wp_customize->add_setting(
 			'generate_settings[body_font_transform]',
 			array(
 				'default' => $defaults['body_font_transform'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -144,14 +148,13 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			)
 		);
 
-		// Font size
 		$wp_customize->add_setting(
 			'generate_settings[body_font_size]',
 			array(
 				'default' => $defaults['body_font_size'],
 				'type' => 'option',
 				'sanitize_callback' => 'absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -179,14 +182,13 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			)
 		);
 
-		// Line height
 		$wp_customize->add_setting(
 			'generate_settings[body_line_height]',
 			array(
 				'default' => $defaults['body_line_height'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_decimal_integer',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -214,14 +216,13 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			)
 		);
 
-		// Paragraph margin
 		$wp_customize->add_setting(
 			'generate_settings[paragraph_margin]',
 			array(
 				'default' => $defaults['paragraph_margin'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_decimal_integer',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -249,7 +250,6 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			)
 		);
 
-		// Top bar section
 		$wp_customize->add_section(
 			'generate_top_bar_typography',
 			array(
@@ -257,60 +257,53 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'capability' => 'edit_theme_options',
 				'description' => '',
 				'priority' => 30,
-				'panel' => 'generate_typography_panel'
+				'panel' => 'generate_typography_panel',
 			)
 		);
 
-		if ( isset( $defaults[ 'font_top_bar' ] ) && function_exists( 'generate_is_top_bar_active' ) ) {
-
-			// Font family
+		if ( isset( $defaults['font_top_bar'] ) && function_exists( 'generate_is_top_bar_active' ) ) {
 			$wp_customize->add_setting(
 				'generate_settings[font_top_bar]',
 				array(
 					'default' => $defaults['font_top_bar'],
 					'type' => 'option',
-					'sanitize_callback' => 'sanitize_text_field'
+					'sanitize_callback' => 'sanitize_text_field',
 				)
 			);
 
-			// Category
 			$wp_customize->add_setting(
 				'font_top_bar_category',
 				array(
 					'default' => '',
-					'sanitize_callback' => 'sanitize_text_field'
+					'sanitize_callback' => 'sanitize_text_field',
 				)
 			);
 
-			// Variants
 			$wp_customize->add_setting(
 				'font_top_bar_variants',
 				array(
 					'default' => '',
-					'sanitize_callback' => 'generate_premium_sanitize_variants'
+					'sanitize_callback' => 'generate_premium_sanitize_variants',
 				)
 			);
 
-			// Font weight
 			$wp_customize->add_setting(
 				'generate_settings[top_bar_font_weight]',
 				array(
 					'default' => $defaults['top_bar_font_weight'],
 					'type' => 'option',
 					'sanitize_callback' => 'sanitize_key',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
-
-			// Text transform
 			$wp_customize->add_setting(
 				'generate_settings[top_bar_font_transform]',
 				array(
 					'default' => $defaults['top_bar_font_transform'],
 					'type' => 'option',
 					'sanitize_callback' => 'sanitize_key',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -334,15 +327,14 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 
 		}
 
-		if ( isset( $defaults[ 'top_bar_font_size' ] ) && function_exists( 'generate_is_top_bar_active' ) ) {
-			// Font size
+		if ( isset( $defaults['top_bar_font_size'] ) && function_exists( 'generate_is_top_bar_active' ) ) {
 			$wp_customize->add_setting(
 				'generate_settings[top_bar_font_size]',
 				array(
 					'default' => $defaults['top_bar_font_size'],
 					'type' => 'option',
 					'sanitize_callback' => 'absint',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -372,7 +364,6 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			);
 		}
 
-		// Header section
 		$wp_customize->add_section(
 			'font_header_section',
 			array(
@@ -380,7 +371,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'capability' => 'edit_theme_options',
 				'description' => '',
 				'priority' => 40,
-				'panel' => 'generate_typography_panel'
+				'panel' => 'generate_typography_panel',
 			)
 		);
 
@@ -402,53 +393,48 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			)
 		);
 
-		// Font family
 		$wp_customize->add_setting(
 			'generate_settings[font_site_title]',
 			array(
 				'default' => $defaults['font_site_title'],
 				'type' => 'option',
-				'sanitize_callback' => 'sanitize_text_field'
+				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 
-		// Category
 		$wp_customize->add_setting(
 			'font_site_title_category',
 			array(
 				'default' => '',
-				'sanitize_callback' => 'sanitize_text_field'
+				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 
-		// Variants
 		$wp_customize->add_setting(
 			'font_site_title_variants',
 			array(
 				'default' => '',
-				'sanitize_callback' => 'generate_premium_sanitize_variants'
+				'sanitize_callback' => 'generate_premium_sanitize_variants',
 			)
 		);
 
-		// Font weight
 		$wp_customize->add_setting(
 			'generate_settings[site_title_font_weight]',
 			array(
 				'default' => $defaults['site_title_font_weight'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
-		// Text transform
 		$wp_customize->add_setting(
 			'generate_settings[site_title_font_transform]',
 			array(
 				'default' => $defaults['site_title_font_transform'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -477,7 +463,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['site_title_font_size'],
 				'type' => 'option',
 				'sanitize_callback' => 'absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -486,8 +472,8 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			array(
 				'default' => $defaults['tablet_site_title_font_size'],
 				'type' => 'option',
-				'sanitize_callback' => 'absint',
-				'transport' => 'postMessage'
+				'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -496,8 +482,8 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			array(
 				'default' => $defaults['mobile_site_title_font_size'],
 				'type' => 'option',
-				'sanitize_callback' => 'absint',
-				'transport' => 'postMessage'
+				'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -512,7 +498,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 					'settings' => array(
 						'desktop' => 'generate_settings[site_title_font_size]',
 						'tablet' => 'generate_settings[tablet_site_title_font_size]',
-						'mobile' => 'generate_settings[mobile_site_title_font_size]'
+						'mobile' => 'generate_settings[mobile_site_title_font_size]',
 					),
 					'choices' => array(
 						'desktop' => array(
@@ -541,53 +527,48 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			)
 		);
 
-		// Tagline font family
 		$wp_customize->add_setting(
 			'generate_settings[font_site_tagline]',
 			array(
 				'default' => $defaults['font_site_tagline'],
 				'type' => 'option',
-				'sanitize_callback' => 'sanitize_text_field'
+				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 
-		// Category
 		$wp_customize->add_setting(
 			'font_site_tagline_category',
 			array(
 				'default' => '',
-				'sanitize_callback' => 'sanitize_text_field'
+				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 
-		// Variants
 		$wp_customize->add_setting(
 			'font_site_tagline_variants',
 			array(
 				'default' => '',
-				'sanitize_callback' => 'generate_premium_sanitize_variants'
+				'sanitize_callback' => 'generate_premium_sanitize_variants',
 			)
 		);
 
-		// Font weight
 		$wp_customize->add_setting(
 			'generate_settings[site_tagline_font_weight]',
 			array(
 				'default' => $defaults['site_tagline_font_weight'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
-		// Text transform
 		$wp_customize->add_setting(
 			'generate_settings[site_tagline_font_transform]',
 			array(
 				'default' => $defaults['site_tagline_font_transform'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -610,14 +591,13 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			)
 		);
 
-		// Font size
 		$wp_customize->add_setting(
 			'generate_settings[site_tagline_font_size]',
 			array(
 				'default' => $defaults['site_tagline_font_size'],
 				'type' => 'option',
 				'sanitize_callback' => 'absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -645,7 +625,6 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			)
 		);
 
-		// Primary navigation section
 		$wp_customize->add_section(
 			'font_navigation_section',
 			array(
@@ -653,7 +632,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'capability' => 'edit_theme_options',
 				'description' => '',
 				'priority' => 50,
-				'panel' => 'generate_typography_panel'
+				'panel' => 'generate_typography_panel',
 			)
 		);
 
@@ -675,53 +654,48 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			)
 		);
 
-		// Font family
 		$wp_customize->add_setting(
 			'generate_settings[font_navigation]',
 			array(
 				'default' => $defaults['font_navigation'],
 				'type' => 'option',
-				'sanitize_callback' => 'sanitize_text_field'
+				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 
-		// Category
 		$wp_customize->add_setting(
 			'font_navigation_category',
 			array(
 				'default' => '',
-				'sanitize_callback' => 'sanitize_text_field'
+				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 
-		// Variants
 		$wp_customize->add_setting(
 			'font_navigation_variants',
 			array(
 				'default' => '',
-				'sanitize_callback' => 'generate_premium_sanitize_variants'
+				'sanitize_callback' => 'generate_premium_sanitize_variants',
 			)
 		);
 
-		// Font weight
 		$wp_customize->add_setting(
 			'generate_settings[navigation_font_weight]',
 			array(
 				'default' => $defaults['navigation_font_weight'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
-		// Text transform
 		$wp_customize->add_setting(
 			'generate_settings[navigation_font_transform]',
 			array(
 				'default' => $defaults['navigation_font_transform'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -749,7 +723,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['navigation_font_size'],
 				'type' => 'option',
 				'sanitize_callback' => 'absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -759,7 +733,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['tablet_navigation_font_size'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -769,7 +743,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['mobile_navigation_font_size'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -813,7 +787,6 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			)
 		);
 
-		// Buttons section
 		$wp_customize->add_section(
 			'font_buttons_section',
 			array(
@@ -821,7 +794,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'capability' => 'edit_theme_options',
 				'description' => '',
 				'priority' => 55,
-				'panel' => 'generate_typography_panel'
+				'panel' => 'generate_typography_panel',
 			)
 		);
 
@@ -847,7 +820,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				array(
 					'default' => $defaults['font_buttons'],
 					'type' => 'option',
-					'sanitize_callback' => 'sanitize_text_field'
+					'sanitize_callback' => 'sanitize_text_field',
 				)
 			);
 
@@ -855,7 +828,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'font_buttons_category',
 				array(
 					'default' => '',
-					'sanitize_callback' => 'sanitize_text_field'
+					'sanitize_callback' => 'sanitize_text_field',
 				)
 			);
 
@@ -863,7 +836,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'font_buttons_variants',
 				array(
 					'default' => '',
-					'sanitize_callback' => 'generate_premium_sanitize_variants'
+					'sanitize_callback' => 'generate_premium_sanitize_variants',
 				)
 			);
 
@@ -873,7 +846,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 					'default' => $defaults['buttons_font_weight'],
 					'type' => 'option',
 					'sanitize_callback' => 'sanitize_key',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -883,7 +856,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 					'default' => $defaults['buttons_font_transform'],
 					'type' => 'option',
 					'sanitize_callback' => 'sanitize_key',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -910,7 +883,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 					'default' => $defaults['buttons_font_size'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -922,7 +895,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 						'description' => __( 'Font size', 'gp-premium' ),
 						'section' => 'font_buttons_section',
 						'settings' => array(
-							'desktop' => 'generate_settings[buttons_font_size]'
+							'desktop' => 'generate_settings[buttons_font_size]',
 						),
 						'choices' => array(
 							'desktop' => array(
@@ -938,7 +911,6 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			);
 		}
 
-		// Headings section
 		$wp_customize->add_section(
 			'font_content_section',
 			array(
@@ -946,7 +918,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'capability' => 'edit_theme_options',
 				'description' => '',
 				'priority' => 60,
-				'panel' => 'generate_typography_panel'
+				'panel' => 'generate_typography_panel',
 			)
 		);
 
@@ -972,7 +944,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			array(
 				'default' => $defaults['font_heading_1'],
 				'type' => 'option',
-				'sanitize_callback' => 'sanitize_text_field'
+				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 
@@ -980,7 +952,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			'font_heading_1_category',
 			array(
 				'default' => '',
-				'sanitize_callback' => 'sanitize_text_field'
+				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 
@@ -988,7 +960,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			'font_heading_1_variants',
 			array(
 				'default' => '',
-				'sanitize_callback' => 'generate_premium_sanitize_variants'
+				'sanitize_callback' => 'generate_premium_sanitize_variants',
 			)
 		);
 
@@ -998,7 +970,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['heading_1_weight'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1008,7 +980,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['heading_1_transform'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1036,7 +1008,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['heading_1_font_size'],
 				'type' => 'option',
 				'sanitize_callback' => 'absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1046,7 +1018,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['mobile_heading_1_font_size'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1082,14 +1054,13 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 		);
 
 		if ( isset( $defaults['heading_1_line_height'] ) ) {
-			// Line height
 			$wp_customize->add_setting(
 				'generate_settings[heading_1_line_height]',
 				array(
 					'default' => $defaults['heading_1_line_height'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_decimal_integer',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -1118,14 +1089,13 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 		}
 
 		if ( isset( $defaults['heading_1_margin_bottom'] ) ) {
-			// Line height
 			$wp_customize->add_setting(
 				'generate_settings[heading_1_margin_bottom]',
 				array(
 					'default' => $defaults['heading_1_margin_bottom'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_decimal_integer',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -1159,7 +1129,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['single_post_title_weight'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1169,7 +1139,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['single_post_title_transform'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1194,7 +1164,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['single_post_title_font_size'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1204,7 +1174,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['single_post_title_font_size_mobile'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1245,7 +1215,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['single_post_title_line_height'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_decimal_integer_empty',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1272,13 +1242,12 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			)
 		);
 
-		// H2
 		$wp_customize->add_setting(
 			'generate_settings[font_heading_2]',
 			array(
 				'default' => $defaults['font_heading_2'],
 				'type' => 'option',
-				'sanitize_callback' => 'sanitize_text_field'
+				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 
@@ -1286,7 +1255,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			'font_heading_2_category',
 			array(
 				'default' => '',
-				'sanitize_callback' => 'sanitize_text_field'
+				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 
@@ -1294,7 +1263,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			'font_heading_2_variants',
 			array(
 				'default' => '',
-				'sanitize_callback' => 'generate_premium_sanitize_variants'
+				'sanitize_callback' => 'generate_premium_sanitize_variants',
 			)
 		);
 
@@ -1304,7 +1273,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['heading_2_weight'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1314,7 +1283,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['heading_2_transform'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1342,7 +1311,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['heading_2_font_size'],
 				'type' => 'option',
 				'sanitize_callback' => 'absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1352,7 +1321,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['mobile_heading_2_font_size'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1388,14 +1357,13 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 		);
 
 		if ( isset( $defaults['heading_2_line_height'] ) ) {
-			// Line height
 			$wp_customize->add_setting(
 				'generate_settings[heading_2_line_height]',
 				array(
 					'default' => $defaults['heading_2_line_height'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_decimal_integer',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -1424,14 +1392,13 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 		}
 
 		if ( isset( $defaults['heading_2_margin_bottom'] ) ) {
-			// Line height
 			$wp_customize->add_setting(
 				'generate_settings[heading_2_margin_bottom]',
 				array(
 					'default' => $defaults['heading_2_margin_bottom'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_decimal_integer',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -1465,7 +1432,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['archive_post_title_weight'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1475,7 +1442,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['archive_post_title_transform'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1500,7 +1467,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['archive_post_title_font_size'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1510,7 +1477,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['archive_post_title_font_size_mobile'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1551,7 +1518,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['archive_post_title_line_height'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_decimal_integer_empty',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1578,13 +1545,12 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			)
 		);
 
-		// H3
 		$wp_customize->add_setting(
 			'generate_settings[font_heading_3]',
 			array(
 				'default' => $defaults['font_heading_3'],
 				'type' => 'option',
-				'sanitize_callback' => 'sanitize_text_field'
+				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 
@@ -1592,7 +1558,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			'font_heading_3_category',
 			array(
 				'default' => '',
-				'sanitize_callback' => 'sanitize_text_field'
+				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 
@@ -1600,7 +1566,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			'font_heading_3_variants',
 			array(
 				'default' => '',
-				'sanitize_callback' => 'generate_premium_sanitize_variants'
+				'sanitize_callback' => 'generate_premium_sanitize_variants',
 			)
 		);
 
@@ -1610,7 +1576,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['heading_3_weight'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1620,7 +1586,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['heading_3_transform'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -1648,9 +1614,45 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'default' => $defaults['heading_3_font_size'],
 				'type' => 'option',
 				'sanitize_callback' => 'absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
+
+		$h3_font_size_options = array(
+			'desktop' => array(
+				'min' => 10,
+				'max' => 80,
+				'step' => 1,
+				'edit' => true,
+				'unit' => 'px',
+			),
+		);
+
+		$h3_font_size_settings = array(
+			'desktop' => 'generate_settings[heading_3_font_size]',
+		);
+
+		if ( isset( $defaults['mobile_heading_3_font_size'] ) ) {
+			$wp_customize->add_setting(
+				'generate_settings[mobile_heading_3_font_size]',
+				array(
+					'default' => $defaults['mobile_heading_3_font_size'],
+					'type' => 'option',
+					'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
+					'transport' => 'postMessage',
+				)
+			);
+
+			$h3_font_size_options['mobile'] = array(
+				'min' => 10,
+				'max' => 80,
+				'step' => 1,
+				'edit' => true,
+				'unit' => 'px',
+			);
+
+			$h3_font_size_settings['mobile'] = 'generate_settings[mobile_heading_3_font_size]';
+		}
 
 		$wp_customize->add_control(
 			new GeneratePress_Pro_Range_Slider_Control(
@@ -1659,31 +1661,20 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				array(
 					'description' => __( 'Font size', 'gp-premium' ),
 					'section' => 'font_content_section',
-					'settings' => array(
-						'desktop' => 'generate_settings[heading_3_font_size]'
-					),
-					'choices' => array(
-						'desktop' => array(
-							'min' => 10,
-							'max' => 80,
-							'step' => 1,
-							'edit' => true,
-							'unit' => 'px',
-						),
-					),
+					'settings' => $h3_font_size_settings,
+					'choices' => $h3_font_size_options,
 				)
 			)
 		);
 
 		if ( isset( $defaults['heading_3_line_height'] ) ) {
-			// Line height
 			$wp_customize->add_setting(
 				'generate_settings[heading_3_line_height]',
 				array(
 					'default' => $defaults['heading_3_line_height'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_decimal_integer',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -1712,14 +1703,13 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 		}
 
 		if ( isset( $defaults['heading_3_margin_bottom'] ) ) {
-			// Line height
 			$wp_customize->add_setting(
 				'generate_settings[heading_3_margin_bottom]',
 				array(
 					'default' => $defaults['heading_3_margin_bottom'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_decimal_integer',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -1748,13 +1738,12 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 		}
 
 		if ( isset( $defaults['font_heading_4'] ) ) {
-			// H4
 			$wp_customize->add_setting(
 				'generate_settings[font_heading_4]',
 				array(
 					'default' => $defaults['font_heading_4'],
 					'type' => 'option',
-					'sanitize_callback' => 'sanitize_text_field'
+					'sanitize_callback' => 'sanitize_text_field',
 				)
 			);
 
@@ -1762,7 +1751,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'font_heading_4_category',
 				array(
 					'default' => '',
-					'sanitize_callback' => 'sanitize_text_field'
+					'sanitize_callback' => 'sanitize_text_field',
 				)
 			);
 
@@ -1770,7 +1759,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'font_heading_4_variants',
 				array(
 					'default' => '',
-					'sanitize_callback' => 'generate_premium_sanitize_variants'
+					'sanitize_callback' => 'generate_premium_sanitize_variants',
 				)
 			);
 
@@ -1780,7 +1769,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 					'default' => $defaults['heading_4_weight'],
 					'type' => 'option',
 					'sanitize_callback' => 'sanitize_key',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -1790,7 +1779,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 					'default' => $defaults['heading_4_transform'],
 					'type' => 'option',
 					'sanitize_callback' => 'sanitize_key',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -1818,9 +1807,45 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 					'default' => $defaults['heading_4_font_size'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
+
+			$h4_font_size_options = array(
+				'desktop' => array(
+					'min' => 10,
+					'max' => 80,
+					'step' => 1,
+					'edit' => true,
+					'unit' => 'px',
+				),
+			);
+
+			$h4_font_size_settings = array(
+				'desktop' => 'generate_settings[heading_4_font_size]',
+			);
+
+			if ( isset( $defaults['mobile_heading_4_font_size'] ) ) {
+				$wp_customize->add_setting(
+					'generate_settings[mobile_heading_4_font_size]',
+					array(
+						'default' => $defaults['mobile_heading_4_font_size'],
+						'type' => 'option',
+						'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
+						'transport' => 'postMessage',
+					)
+				);
+
+				$h4_font_size_options['mobile'] = array(
+					'min' => 10,
+					'max' => 80,
+					'step' => 1,
+					'edit' => true,
+					'unit' => 'px',
+				);
+
+				$h4_font_size_settings['mobile'] = 'generate_settings[mobile_heading_4_font_size]';
+			}
 
 			$wp_customize->add_control(
 				new GeneratePress_Pro_Range_Slider_Control(
@@ -1829,30 +1854,19 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 					array(
 						'description' => __( 'Font size', 'gp-premium' ),
 						'section' => 'font_content_section',
-						'settings' => array(
-							'desktop' => 'generate_settings[heading_4_font_size]'
-						),
-						'choices' => array(
-							'desktop' => array(
-								'min' => 10,
-								'max' => 80,
-								'step' => 1,
-								'edit' => true,
-								'unit' => 'px',
-							),
-						),
+						'settings' => $h4_font_size_settings,
+						'choices' => $h4_font_size_options,
 					)
 				)
 			);
 
-			// Line height
 			$wp_customize->add_setting(
 				'generate_settings[heading_4_line_height]',
 				array(
 					'default' => $defaults['heading_4_line_height'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_decimal_integer_empty',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -1881,13 +1895,12 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 		}
 
 		if ( isset( $defaults['font_heading_5'] ) ) {
-			// H5
 			$wp_customize->add_setting(
 				'generate_settings[font_heading_5]',
 				array(
 					'default' => $defaults['font_heading_5'],
 					'type' => 'option',
-					'sanitize_callback' => 'sanitize_text_field'
+					'sanitize_callback' => 'sanitize_text_field',
 				)
 			);
 
@@ -1895,7 +1908,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'font_heading_5_category',
 				array(
 					'default' => '',
-					'sanitize_callback' => 'sanitize_text_field'
+					'sanitize_callback' => 'sanitize_text_field',
 				)
 			);
 
@@ -1903,7 +1916,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'font_heading_5_variants',
 				array(
 					'default' => '',
-					'sanitize_callback' => 'generate_premium_sanitize_variants'
+					'sanitize_callback' => 'generate_premium_sanitize_variants',
 				)
 			);
 
@@ -1913,7 +1926,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 					'default' => $defaults['heading_5_weight'],
 					'type' => 'option',
 					'sanitize_callback' => 'sanitize_key',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -1923,7 +1936,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 					'default' => $defaults['heading_5_transform'],
 					'type' => 'option',
 					'sanitize_callback' => 'sanitize_key',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -1951,9 +1964,45 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 					'default' => $defaults['heading_5_font_size'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
+
+			$h5_font_size_options = array(
+				'desktop' => array(
+					'min' => 10,
+					'max' => 80,
+					'step' => 1,
+					'edit' => true,
+					'unit' => 'px',
+				),
+			);
+
+			$h5_font_size_settings = array(
+				'desktop' => 'generate_settings[heading_5_font_size]',
+			);
+
+			if ( isset( $defaults['mobile_heading_5_font_size'] ) ) {
+				$wp_customize->add_setting(
+					'generate_settings[mobile_heading_5_font_size]',
+					array(
+						'default' => $defaults['mobile_heading_5_font_size'],
+						'type' => 'option',
+						'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
+						'transport' => 'postMessage',
+					)
+				);
+
+				$h5_font_size_options['mobile'] = array(
+					'min' => 10,
+					'max' => 80,
+					'step' => 1,
+					'edit' => true,
+					'unit' => 'px',
+				);
+
+				$h5_font_size_settings['mobile'] = 'generate_settings[mobile_heading_5_font_size]';
+			}
 
 			$wp_customize->add_control(
 				new GeneratePress_Pro_Range_Slider_Control(
@@ -1962,30 +2011,19 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 					array(
 						'description' => __( 'Font size', 'gp-premium' ),
 						'section' => 'font_content_section',
-						'settings' => array(
-							'desktop' => 'generate_settings[heading_5_font_size]'
-						),
-						'choices' => array(
-							'desktop' => array(
-								'min' => 10,
-								'max' => 80,
-								'step' => 1,
-								'edit' => true,
-								'unit' => 'px',
-							),
-						),
+						'settings' => $h5_font_size_settings,
+						'choices' => $h5_font_size_options,
 					)
 				)
 			);
 
-			// Line height
 			$wp_customize->add_setting(
 				'generate_settings[heading_5_line_height]',
 				array(
 					'default' => $defaults['heading_5_line_height'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_decimal_integer_empty',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -2014,13 +2052,12 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 		}
 
 		if ( isset( $defaults['font_heading_6'] ) ) {
-			// H5
 			$wp_customize->add_setting(
 				'generate_settings[font_heading_6]',
 				array(
 					'default' => $defaults['font_heading_6'],
 					'type' => 'option',
-					'sanitize_callback' => 'sanitize_text_field'
+					'sanitize_callback' => 'sanitize_text_field',
 				)
 			);
 
@@ -2028,7 +2065,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'font_heading_6_category',
 				array(
 					'default' => '',
-					'sanitize_callback' => 'sanitize_text_field'
+					'sanitize_callback' => 'sanitize_text_field',
 				)
 			);
 
@@ -2036,7 +2073,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'font_heading_6_variants',
 				array(
 					'default' => '',
-					'sanitize_callback' => 'generate_premium_sanitize_variants'
+					'sanitize_callback' => 'generate_premium_sanitize_variants',
 				)
 			);
 
@@ -2046,7 +2083,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 					'default' => $defaults['heading_6_weight'],
 					'type' => 'option',
 					'sanitize_callback' => 'sanitize_key',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -2056,7 +2093,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 					'default' => $defaults['heading_6_transform'],
 					'type' => 'option',
 					'sanitize_callback' => 'sanitize_key',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -2084,7 +2121,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 					'default' => $defaults['heading_6_font_size'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -2096,7 +2133,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 						'description' => __( 'Font size', 'gp-premium' ),
 						'section' => 'font_content_section',
 						'settings' => array(
-							'desktop' => 'generate_settings[heading_6_font_size]'
+							'desktop' => 'generate_settings[heading_6_font_size]',
 						),
 						'choices' => array(
 							'desktop' => array(
@@ -2111,14 +2148,13 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				)
 			);
 
-			// Line height
 			$wp_customize->add_setting(
 				'generate_settings[heading_6_line_height]',
 				array(
 					'default' => $defaults['heading_6_line_height'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_decimal_integer_empty',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -2146,7 +2182,6 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			);
 		}
 
-		// Widgets section
 		$wp_customize->add_section(
 			'font_widget_section',
 			array(
@@ -2154,7 +2189,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'capability' => 'edit_theme_options',
 				'description' => '',
 				'priority' => 60,
-				'panel' => 'generate_typography_panel'
+				'panel' => 'generate_typography_panel',
 			)
 		);
 
@@ -2176,53 +2211,48 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			)
 		);
 
-		// Font family
 		$wp_customize->add_setting(
 			'generate_settings[font_widget_title]',
 			array(
 				'default' => $defaults['font_widget_title'],
 				'type' => 'option',
-				'sanitize_callback' => 'sanitize_text_field'
+				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 
-		// Category
 		$wp_customize->add_setting(
 			'font_widget_title_category',
 			array(
 				'default' => '',
-				'sanitize_callback' => 'sanitize_text_field'
+				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
 
-		// Variants
 		$wp_customize->add_setting(
 			'font_widget_title_variants',
 			array(
 				'default' => '',
-				'sanitize_callback' => 'generate_premium_sanitize_variants'
+				'sanitize_callback' => 'generate_premium_sanitize_variants',
 			)
 		);
 
-		// Font weight
 		$wp_customize->add_setting(
 			'generate_settings[widget_title_font_weight]',
 			array(
 				'default' => $defaults['widget_title_font_weight'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
-		// Text transform
 		$wp_customize->add_setting(
 			'generate_settings[widget_title_font_transform]',
 			array(
 				'default' => $defaults['widget_title_font_transform'],
 				'type' => 'option',
 				'sanitize_callback' => 'sanitize_key',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -2244,14 +2274,13 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			)
 		);
 
-		// Font size
 		$wp_customize->add_setting(
 			'generate_settings[widget_title_font_size]',
 			array(
 				'default' => $defaults['widget_title_font_size'],
 				'type' => 'option',
 				'sanitize_callback' => 'absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -2285,7 +2314,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 					'default' => $defaults['widget_title_separator'],
 					'type' => 'option',
 					'sanitize_callback' => 'absint',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -2297,7 +2326,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 						'description' => __( 'Bottom margin', 'gp-premium' ),
 						'section' => 'font_widget_section',
 						'settings' => array(
-							'desktop' => 'generate_settings[widget_title_separator]'
+							'desktop' => 'generate_settings[widget_title_separator]',
 						),
 						'choices' => array(
 							'desktop' => array(
@@ -2313,14 +2342,13 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			);
 		}
 
-		// Widget content font size
 		$wp_customize->add_setting(
 			'generate_settings[widget_content_font_size]',
 			array(
 				'default' => $defaults['widget_content_font_size'],
 				'type' => 'option',
 				'sanitize_callback' => 'absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -2348,7 +2376,6 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			)
 		);
 
-		// Footer section
 		$wp_customize->add_section(
 			'font_footer_section',
 			array(
@@ -2356,7 +2383,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'capability' => 'edit_theme_options',
 				'description' => '',
 				'priority' => 70,
-				'panel' => 'generate_typography_panel'
+				'panel' => 'generate_typography_panel',
 			)
 		);
 
@@ -2379,13 +2406,12 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 		);
 
 		if ( isset( $defaults['font_footer'] ) ) {
-			// H5
 			$wp_customize->add_setting(
 				'generate_settings[font_footer]',
 				array(
 					'default' => $defaults['font_footer'],
 					'type' => 'option',
-					'sanitize_callback' => 'sanitize_text_field'
+					'sanitize_callback' => 'sanitize_text_field',
 				)
 			);
 
@@ -2393,7 +2419,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'font_footer_category',
 				array(
 					'default' => '',
-					'sanitize_callback' => 'sanitize_text_field'
+					'sanitize_callback' => 'sanitize_text_field',
 				)
 			);
 
@@ -2401,7 +2427,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 				'font_footer_variants',
 				array(
 					'default' => '',
-					'sanitize_callback' => 'generate_premium_sanitize_variants'
+					'sanitize_callback' => 'generate_premium_sanitize_variants',
 				)
 			);
 
@@ -2411,7 +2437,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 					'default' => $defaults['footer_weight'],
 					'type' => 'option',
 					'sanitize_callback' => 'sanitize_key',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -2421,7 +2447,7 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 					'default' => $defaults['footer_transform'],
 					'type' => 'option',
 					'sanitize_callback' => 'sanitize_key',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -2443,14 +2469,13 @@ if ( ! function_exists( 'generate_fonts_customize_register' ) ) {
 			);
 		}
 
-		// Font size
 		$wp_customize->add_setting(
 			'generate_settings[footer_font_size]',
 			array(
 				'default' => $defaults['footer_font_size'],
 				'type' => 'option',
 				'sanitize_callback' => 'absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -2487,7 +2512,7 @@ if ( ! function_exists( 'generate_enqueue_google_fonts' ) ) {
 	 * @since 0.1
 	 */
 	function generate_enqueue_google_fonts() {
-		// Bail if we don't have our defaults function
+		// Bail if we don't have our defaults function.
 		if ( ! function_exists( 'generate_get_default_fonts' ) ) {
 			return;
 		}
@@ -2497,10 +2522,10 @@ if ( ! function_exists( 'generate_enqueue_google_fonts' ) ) {
 			generate_get_default_fonts()
 		);
 
-		// List our non-Google fonts
+		// List our non-Google fonts.
 		$not_google = str_replace( ' ', '+', generate_typography_default_fonts() );
 
-		// Grab our font family settings
+		// Grab our font family settings.
 		$font_settings = array(
 			'font_body',
 			'font_top_bar',
@@ -2518,57 +2543,53 @@ if ( ! function_exists( 'generate_enqueue_google_fonts' ) ) {
 			'font_footer',
 		);
 
-		// Create our Google Fonts array
+		// Create our Google Fonts array.
 		$google_fonts = array();
 		if ( ! empty( $font_settings ) ) {
-
 			foreach ( $font_settings as $key ) {
-
-				// If the key isn't set, move on
-				if ( ! isset( $generate_settings[$key] ) ) {
+				// If the key isn't set, move on.
+				if ( ! isset( $generate_settings[ $key ] ) ) {
 					continue;
 				}
 
-				// If our value is still using the old format, fix it
-				if ( strpos( $generate_settings[$key], ':' ) !== false ) {
-					$generate_settings[$key] = current( explode( ':', $generate_settings[$key] ) );
+				// If our value is still using the old format, fix it.
+				if ( strpos( $generate_settings[ $key ], ':' ) !== false ) {
+					$generate_settings[ $key ] = current( explode( ':', $generate_settings[ $key ] ) );
 				}
 
-				// Replace the spaces in the names with a plus
-				$value = str_replace( ' ', '+', $generate_settings[$key] );
+				// Replace the spaces in the names with a plus.
+				$value = str_replace( ' ', '+', $generate_settings[ $key ] );
 
-				// Grab the variants using the plain name
-				$variants = generate_get_google_font_variants( $generate_settings[$key], $key, generate_get_default_fonts() );
+				// Grab the variants using the plain name.
+				$variants = generate_get_google_font_variants( $generate_settings[ $key ], $key, generate_get_default_fonts() );
 
-				// If we have variants, add them to our value
+				// If we have variants, add them to our value.
 				$value = ! empty( $variants ) ? $value . ':' . $variants : $value;
 
-				// Make sure we don't add the same font twice
+				// Make sure we don't add the same font twice.
 				if ( ! in_array( $value, $google_fonts ) ) {
 					$google_fonts[] = $value;
 				}
-
 			}
-
 		}
 
-		// Ignore any non-Google fonts
-		$google_fonts = array_diff($google_fonts, $not_google);
+		// Ignore any non-Google fonts.
+		$google_fonts = array_diff( $google_fonts, $not_google );
 
-		// Separate each different font with a bar
-		$google_fonts = implode('|', $google_fonts);
+		// Separate each different font with a bar.
+		$google_fonts = implode( '|', $google_fonts );
 
-		// Apply a filter to the output
+		// Apply a filter to the output.
 		$google_fonts = apply_filters( 'generate_typography_google_fonts', $google_fonts );
 
-		// Get the subset
-		$subset = apply_filters( 'generate_fonts_subset','' );
+		// Get the subset.
+		$subset = apply_filters( 'generate_fonts_subset', '' );
 
-		// Set up our arguments
+		// Set up our arguments.
 		$font_args = array();
-		$font_args[ 'family' ] = $google_fonts;
+		$font_args['family'] = $google_fonts;
 		if ( '' !== $subset ) {
-			$font_args[ 'subset' ] = urlencode( $subset );
+			$font_args['subset'] = urlencode( $subset ); // phpcs:ignore -- Keeping legacy urlencode().
 		}
 
 		$display = apply_filters( 'generate_google_font_display', '' );
@@ -2577,20 +2598,22 @@ if ( ! function_exists( 'generate_enqueue_google_fonts' ) ) {
 			$font_args['display'] = $display;
 		}
 
-		// Create our URL using the arguments
+		// Create our URL using the arguments.
 		$fonts_url = add_query_arg( $font_args, '//fonts.googleapis.com/css' );
 
-		// Enqueue our fonts
+		// Enqueue our fonts.
 		if ( $google_fonts ) {
-			wp_enqueue_style('generate-fonts', $fonts_url, array(), null, 'all' );
+			wp_enqueue_style( 'generate-fonts', $fonts_url, array(), null, 'all' ); // phpcs:ignore -- Version not needed.
 		}
 	}
 }
 
 if ( ! function_exists( 'generate_get_all_google_fonts' ) ) {
 	/**
-	 * Return an array of all of our Google Fonts
+	 * Return an array of all of our Google Fonts.
+	 *
 	 * @since 1.3.0
+	 * @param string $amount The number of fonts to load.
 	 */
 	function generate_get_all_google_fonts( $amount = 'all' ) {
 		ob_start();
@@ -2598,21 +2621,21 @@ if ( ! function_exists( 'generate_get_all_google_fonts' ) ) {
 		$fonts_json = ob_get_clean();
 		$google_fonts = json_decode( $fonts_json );
 
-		// Loop through them and put what we need into our fonts array
+		// Loop through them and put what we need into our fonts array.
 		$fonts = array();
 		foreach ( (array) $google_fonts as $item ) {
 
-			// Grab what we need from our big list
+			// Grab what we need from our big list.
 			$atts = array(
 				'name'     => $item->family,
 				'category' => $item->category,
-				'variants' => $item->variants
+				'variants' => $item->variants,
 			);
 
-			// Create an ID using our font family name
+			// Create an ID using our font family name.
 			$id = strtolower( str_replace( ' ', '_', $item->family ) );
 
-			// Add our attributes to our new array
+			// Add our attributes to our new array.
 			$fonts[ $id ] = $atts;
 		}
 
@@ -2620,12 +2643,12 @@ if ( ! function_exists( 'generate_get_all_google_fonts' ) ) {
 			$fonts = array_slice( $fonts, 0, $amount );
 		}
 
-		// Alphabetize our fonts
+		// Alphabetize our fonts.
 		if ( apply_filters( 'generate_alphabetize_google_fonts', true ) ) {
 			asort( $fonts );
 		}
 
-		// Filter to allow us to modify the fonts array
+		// Filter to allow us to modify the fonts array.
 		return apply_filters( 'generate_google_fonts_array', $fonts );
 	}
 }
@@ -2638,26 +2661,25 @@ if ( ! function_exists( 'generate_get_all_google_fonts_ajax' ) ) {
 	 * @since 1.3.0
 	 */
 	function generate_get_all_google_fonts_ajax() {
-		// Bail if the nonce doesn't check out
-		if ( ! isset( $_POST[ 'gp_customize_nonce' ] ) || ! wp_verify_nonce( $_POST[ 'gp_customize_nonce' ], 'gp_customize_nonce' ) ) {
+		// Bail if the nonce doesn't check out.
+		if ( ! isset( $_POST['gp_customize_nonce'] ) || ! wp_verify_nonce( $_POST['gp_customize_nonce'], 'gp_customize_nonce' ) ) {
 			wp_die();
 		}
 
-		// Do another nonce check
+		// Do another nonce check.
 		check_ajax_referer( 'gp_customize_nonce', 'gp_customize_nonce' );
 
-		// Bail if user can't edit theme options
+		// Bail if user can't edit theme options.
 		if ( ! current_user_can( 'edit_theme_options' ) ) {
 			wp_die();
 		}
 
-		// Get all of our fonts
+		// Get all of our fonts.
 		$fonts = apply_filters( 'generate_typography_customize_list', generate_get_all_google_fonts() );
 
-		// Send all of our fonts in JSON format
+		// Send all of our fonts in JSON format.
 		echo wp_json_encode( $fonts );
 
-		// Exit
 		die();
 	}
 }
@@ -2668,56 +2690,59 @@ if ( ! function_exists( 'generate_get_google_font_variants' ) ) {
 	 * Example: generate_get_google_font_variation( 'Open Sans' )
 	 *
 	 * @since 1.3.0
+	 * @param string $font The font we're checking.
+	 * @param string $key The key we're checking.
+	 * @param array  $default The defaults we're checking.
 	 */
 	function generate_get_google_font_variants( $font, $key = '', $default = '' ) {
-		// Bail if we don't have our defaults function
+		// Bail if we don't have our defaults function.
 		if ( ! function_exists( 'generate_get_default_fonts' ) ) {
 			return;
 		}
 
-		// Don't need variants if we're using a system font
+		// Don't need variants if we're using a system font.
 		if ( in_array( $font, generate_typography_default_fonts() ) ) {
 			return;
 		}
 
-		// Return if we have our variants saved
+		// Return if we have our variants saved.
 		if ( '' !== $key && get_theme_mod( $key . '_variants' ) ) {
 			return get_theme_mod( $key . '_variants' );
 		}
 
-		// Make sure we have defaults
-		if ( '' == $default ) {
+		// Make sure we have defaults.
+		if ( '' == $default ) { // phpcs:ignore -- Non-strict allowed.
 			$default = generate_get_default_fonts();
 		}
 
-		// If our default font is selected and the category isn't saved, we already know the category
-		if ( $default[ $key ] == $font ) {
+		// If our default font is selected and the category isn't saved, we already know the category.
+		if ( $default[ $key ] == $font ) { // phpcs:ignore -- Non-strict allowed.
 			return $default[ $key . '_variants' ];
 		}
 
-		// Grab all of our fonts
-		// It's a big list, so hopefully we're not even still reading
+		// Grab all of our fonts.
+		// It's a big list, so hopefully we're not even still reading.
 		$fonts = generate_get_all_google_fonts();
 
-		// Get the ID from our font
+		// Get the ID from our font.
 		$id = strtolower( str_replace( ' ', '_', $font ) );
 
-		// If the ID doesn't exist within our fonts, we can bail
+		// If the ID doesn't exist within our fonts, we can bail.
 		if ( ! array_key_exists( $id, $fonts ) ) {
 			return;
 		}
 
-		// Grab all of the variants associated with our font
-		$variants = $fonts[$id]['variants'];
+		// Grab all of the variants associated with our font.
+		$variants = $fonts[ $id ]['variants'];
 
-		// Loop through them and put them into an array, then turn them into a comma separated list
+		// Loop through them and put them into an array, then turn them into a comma separated list.
 		$output = array();
 		if ( $variants ) {
 			foreach ( $variants as $variant ) {
 				$output[] = $variant;
 			}
 
-			return implode(',', apply_filters( 'generate_typography_variants', $output ));
+			return implode( ',', apply_filters( 'generate_typography_variants', $output ) );
 		}
 	}
 }
@@ -2728,49 +2753,52 @@ if ( ! function_exists( 'generate_get_google_font_category' ) ) {
 	 * Example: generate_get_google_font_category( 'Open Sans' )
 	 *
 	 * @since 1.3.0
+	 * @param string $font The font we're checking.
+	 * @param string $key The key we're checking.
+	 * @param array  $default The defaults we're checking.
 	 */
 	function generate_get_google_font_category( $font, $key = '', $default = '' ) {
-		// Bail if we don't have our defaults function
+		// Bail if we don't have our defaults function.
 		if ( ! function_exists( 'generate_get_default_fonts' ) ) {
 			return;
 		}
 
-		// Don't need a category if we're using a system font
+		// Don't need a category if we're using a system font.
 		if ( in_array( $font, generate_typography_default_fonts() ) ) {
 			return;
 		}
 
-		// Return if we have our variants saved
+		// Return if we have our variants saved.
 		if ( '' !== $key && get_theme_mod( $key . '_category' ) ) {
 			return ', ' . get_theme_mod( $key . '_category' );
 		}
 
-		// Make sure we have defaults
-		if ( '' == $default ) {
+		// Make sure we have defaults.
+		if ( '' == $default ) { // phpcs:ignore -- Non-strict allowed.
 			$default = generate_get_default_fonts();
 		}
 
-		// If our default font is selected and the category isn't saved, we already know the category
-		if ( $default[ $key ] == $font ) {
+		// If our default font is selected and the category isn't saved, we already know the category.
+		if ( $default[ $key ] == $font ) { // phpcs:ignore -- Non-strict allowed.
 			return ', ' . $default[ $key . '_category' ];
 		}
 
-		// Get all of our fonts
-		// It's a big list, so hopefully we're not even still reading
+		// Get all of our fonts.
+		// It's a big list, so hopefully we're not even still reading.
 		$fonts = generate_get_all_google_fonts();
 
-		// Get the ID from our font
+		// Get the ID from our font.
 		$id = strtolower( str_replace( ' ', '_', $font ) );
 
-		// If the ID doesn't exist within our fonts, we can bail
+		// If the ID doesn't exist within our fonts, we can bail.
 		if ( ! array_key_exists( $id, $fonts ) ) {
 			return;
 		}
 
-		// Let's grab our category to go with our font
-		$category = ! empty( $fonts[$id]['category'] ) ? ', ' . $fonts[$id]['category'] : '';
+		// Let's grab our category to go with our font.
+		$category = ! empty( $fonts[ $id ]['category'] ) ? ', ' . $fonts[ $id ]['category'] : '';
 
-		// Return it to be used by our function
+		// Return it to be used by our function.
 		return $category;
 
 	}
@@ -2781,6 +2809,9 @@ if ( ! function_exists( 'generate_get_font_family_css' ) ) {
 	 * Wrapper function to create font-family value for CSS.
 	 *
 	 * @since 1.3.0
+	 * @param string $font The font we're checking.
+	 * @param array  $settings The settings we're checking.
+	 * @param array  $default The defaults we're checking.
 	 */
 	function generate_get_font_family_css( $font, $settings, $default ) {
 		$generate_settings = wp_parse_args(
@@ -2788,7 +2819,7 @@ if ( ! function_exists( 'generate_get_font_family_css' ) ) {
 			$default
 		);
 
-		// We don't want to wrap quotes around these values
+		// We don't want to wrap quotes around these values.
 		$no_quotes = array(
 			'inherit',
 			'Arial, Helvetica, sans-serif',
@@ -2799,22 +2830,22 @@ if ( ! function_exists( 'generate_get_font_family_css' ) ) {
 			'Tahoma, Geneva, sans-serif',
 			'Trebuchet MS, Helvetica, sans-serif',
 			'Verdana, Geneva, sans-serif',
-			apply_filters( 'generate_typography_system_stack', '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"' )
+			apply_filters( 'generate_typography_system_stack', '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"' ),
 		);
 
-		// Get our font
+		// Get our font.
 		$font_family = $generate_settings[ $font ];
 
-		if ( 'System Stack' == $font_family ) {
-	 		$font_family = apply_filters( 'generate_typography_system_stack', '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"' );
+		if ( 'System Stack' === $font_family ) {
+			$font_family = apply_filters( 'generate_typography_system_stack', '-apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"' );
 		}
 
-		// If our value is still using the old format, fix it
+		// If our value is still using the old format, fix it.
 		if ( strpos( $font_family, ':' ) !== false ) {
 			$font_family = current( explode( ':', $font_family ) );
 		}
 
-		// Set up our wrapper
+		// Set up our wrapper.
 		if ( in_array( $font_family, $no_quotes ) ) {
 			$wrapper_start = null;
 			$wrapper_end = null;
@@ -2823,8 +2854,8 @@ if ( ! function_exists( 'generate_get_font_family_css' ) ) {
 			$wrapper_end = '"' . generate_get_google_font_category( $font_family, $font, $default );
 		}
 
-		// Output the CSS
-		$output = ( 'inherit' == $font_family ) ? 'inherit' : $wrapper_start . $font_family . $wrapper_end;
+		// Output the CSS.
+		$output = ( 'inherit' === $font_family ) ? 'inherit' : $wrapper_start . $font_family . $wrapper_end;
 		return $output;
 	}
 }
@@ -2836,18 +2867,22 @@ if ( ! function_exists( 'generate_typography_customizer_live_preview' ) ) {
 	 */
 	function generate_typography_customizer_live_preview() {
 		wp_enqueue_script(
-			  'generate-typography-customizer',
-			  trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/customizer.js',
-			  array( 'jquery','customize-preview' ),
-			  GENERATE_FONT_VERSION,
-			  true
+			'generate-typography-customizer',
+			trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/customizer.js',
+			array( 'jquery', 'customize-preview' ),
+			GENERATE_FONT_VERSION,
+			true
 		);
 
-		wp_localize_script( 'generate-typography-customizer', 'gp_typography', array(
-			'mobile' => generate_premium_get_media_query( 'mobile' ),
-			'tablet' => generate_premium_get_media_query( 'tablet' ),
-			'desktop' => generate_premium_get_media_query( 'desktop' ),
-		) );
+		wp_localize_script(
+			'generate-typography-customizer',
+			'gp_typography',
+			array(
+				'mobile' => generate_premium_get_media_query( 'mobile' ),
+				'tablet' => generate_premium_get_media_query( 'tablet' ),
+				'desktop' => generate_premium_get_media_query( 'desktop' ),
+			)
+		);
 	}
 }
 
@@ -2872,7 +2907,7 @@ if ( ! function_exists( 'generate_typography_default_fonts' ) ) {
 			'Segoe UI, Helvetica Neue, Helvetica, sans-serif',
 			'Tahoma, Geneva, sans-serif',
 			'Trebuchet MS, Helvetica, sans-serif',
-			'Verdana, Geneva, sans-serif'
+			'Verdana, Geneva, sans-serif',
 		);
 
 		return apply_filters( 'generate_typography_default_fonts', $fonts );
@@ -2881,7 +2916,8 @@ if ( ! function_exists( 'generate_typography_default_fonts' ) ) {
 
 if ( ! function_exists( 'generate_include_typography_defaults' ) ) {
 	/**
-	 * Check if we should include our default.css file
+	 * Check if we should include our default.css file.
+	 *
 	 * @since 1.3.42
 	 */
 	function generate_include_typography_defaults() {
@@ -2895,6 +2931,7 @@ if ( ! function_exists( 'generate_typography_premium_css_defaults' ) ) {
 	 * Add premium control defaults
 	 *
 	 * @since 1.3
+	 * @param array $defaults The existing defaults.
 	 */
 	function generate_typography_premium_css_defaults( $defaults ) {
 		$defaults['tablet_site_title_font_size'] = '';
@@ -2917,6 +2954,145 @@ if ( ! function_exists( 'generate_typography_premium_css_defaults' ) ) {
 	}
 }
 
+/**
+ * Premium typography CSS output.
+ */
+function generate_typography_get_premium_css() {
+	if ( ! function_exists( 'generate_get_default_fonts' ) ) {
+		return;
+	}
+
+	$generate_settings = wp_parse_args(
+		get_option( 'generate_settings', array() ),
+		generate_get_default_fonts()
+	);
+
+	// Initiate our CSS class.
+	require_once GP_LIBRARY_DIRECTORY . 'class-make-css.php';
+
+	$premium_css = new GeneratePress_Pro_CSS();
+
+	$site_title_family = false;
+	if ( function_exists( 'generate_get_font_family_css' ) ) {
+		$site_title_family = generate_get_font_family_css( 'font_site_title', 'generate_settings', generate_get_default_fonts() );
+	}
+
+	$premium_css->set_selector( 'h1.entry-title' );
+	$premium_css->add_property( 'font-weight', esc_attr( $generate_settings['single_post_title_weight'] ) );
+	$premium_css->add_property( 'text-transform', esc_attr( $generate_settings['single_post_title_transform'] ) );
+
+	if ( '' !== $generate_settings['single_post_title_font_size'] ) {
+		$premium_css->add_property( 'font-size', absint( $generate_settings['single_post_title_font_size'] ), false, 'px' );
+	}
+
+	if ( '' !== $generate_settings['single_post_title_line_height'] ) {
+		$premium_css->add_property( 'line-height', floatval( $generate_settings['single_post_title_line_height'] ), false, 'em' );
+	}
+
+	$premium_css->set_selector( 'h2.entry-title' );
+	$premium_css->add_property( 'font-weight', esc_attr( $generate_settings['archive_post_title_weight'] ) );
+	$premium_css->add_property( 'text-transform', esc_attr( $generate_settings['archive_post_title_transform'] ) );
+
+	if ( '' !== $generate_settings['archive_post_title_font_size'] ) {
+		$premium_css->add_property( 'font-size', absint( $generate_settings['archive_post_title_font_size'] ), false, 'px' );
+	}
+
+	if ( '' !== $generate_settings['archive_post_title_line_height'] ) {
+		$premium_css->add_property( 'line-height', floatval( $generate_settings['archive_post_title_line_height'] ), false, 'em' );
+	}
+
+	if ( function_exists( 'generate_menu_plus_get_defaults' ) ) {
+		$menu_settings = wp_parse_args(
+			get_option( 'generate_menu_plus_settings', array() ),
+			generate_menu_plus_get_defaults()
+		);
+
+		if ( $menu_settings['navigation_as_header'] || $menu_settings['sticky_navigation_logo'] || 'enable' === $menu_settings['mobile_header'] ) {
+			$premium_css->set_selector( '.navigation-branding .main-title' );
+			$premium_css->add_property( 'font-weight', esc_attr( $generate_settings['site_title_font_weight'] ) );
+			$premium_css->add_property( 'text-transform', esc_attr( $generate_settings['site_title_font_transform'] ) );
+			$premium_css->add_property( 'font-size', absint( $generate_settings['site_title_font_size'] ), false, 'px' );
+
+			if ( $site_title_family ) {
+				$premium_css->add_property( 'font-family', 'inherit' !== $generate_settings['font_site_title'] ? $site_title_family : null );
+			}
+		}
+	}
+
+	$premium_css->start_media_query( generate_premium_get_media_query( 'tablet' ) );
+
+	if ( '' !== $generate_settings['tablet_navigation_font_size'] ) {
+		$premium_css->set_selector( '.main-navigation:not(.slideout-navigation) a, .main-navigation .menu-toggle, .main-navigation .menu-bar-items' );
+		$premium_css->add_property( 'font-size', absint( $generate_settings['tablet_navigation_font_size'] ), false, 'px' );
+
+		$tablet_subnav_font_size = $generate_settings['tablet_navigation_font_size'] - 1;
+
+		if ( $generate_settings['tablet_navigation_font_size'] >= 17 ) {
+			$tablet_subnav_font_size = $generate_settings['tablet_navigation_font_size'] - 3;
+		}
+
+		$premium_css->set_selector( '.main-navigation:not(.slideout-navigation) .main-nav ul ul li a' );
+		$premium_css->add_property( 'font-size', absint( $tablet_subnav_font_size ), false, 'px' );
+	}
+
+	if ( '' !== $generate_settings['tablet_site_title_font_size'] ) {
+		$premium_css->set_selector( '.main-title, .navigation-branding .main-title' );
+		$premium_css->add_property( 'font-size', absint( $generate_settings['tablet_site_title_font_size'] ), false, 'px' );
+	}
+
+	$premium_css->stop_media_query();
+
+	$premium_css->start_media_query( generate_premium_get_media_query( 'mobile' ) );
+
+	$premium_css->set_selector( 'h1.entry-title' );
+
+	if ( '' !== $generate_settings['single_post_title_font_size_mobile'] ) {
+		$premium_css->add_property( 'font-size', absint( $generate_settings['single_post_title_font_size_mobile'] ), false, 'px' );
+	}
+
+	$premium_css->set_selector( 'h2.entry-title' );
+
+	if ( '' !== $generate_settings['archive_post_title_font_size_mobile'] ) {
+		$premium_css->add_property( 'font-size', absint( $generate_settings['archive_post_title_font_size_mobile'] ), false, 'px' );
+	}
+
+	$premium_css->stop_media_query();
+
+	$premium_css->start_media_query( generate_premium_get_media_query( 'mobile-menu' ) );
+
+	if ( ! empty( $generate_settings['mobile_navigation_font_size'] ) ) {
+		$premium_css->set_selector( '.main-navigation:not(.slideout-navigation) a, .main-navigation .menu-toggle, .main-navigation .menu-bar-items' );
+		$premium_css->add_property( 'font-size', absint( $generate_settings['mobile_navigation_font_size'] ), false, 'px' );
+
+		$mobile_subnav_font_size = $generate_settings['mobile_navigation_font_size'] - 1;
+
+		if ( $generate_settings['mobile_navigation_font_size'] >= 17 ) {
+			$mobile_subnav_font_size = $generate_settings['mobile_navigation_font_size'] - 3;
+		}
+
+		$premium_css->set_selector( '.main-navigation:not(.slideout-navigation) .main-nav ul ul li a' );
+		$premium_css->add_property( 'font-size', absint( $mobile_subnav_font_size ), false, 'px' );
+	}
+
+	if ( function_exists( 'generate_menu_plus_get_defaults' ) ) {
+		$menu_settings = wp_parse_args(
+			get_option( 'generate_menu_plus_settings', array() ),
+			generate_menu_plus_get_defaults()
+		);
+
+		if ( $menu_settings['navigation_as_header'] || $menu_settings['sticky_navigation_logo'] || 'enable' === $menu_settings['mobile_header'] ) {
+			if ( ! empty( $generate_settings['mobile_site_title_font_size'] ) ) {
+				$premium_css->set_selector( '.navigation-branding .main-title' );
+				$premium_css->add_property( 'font-size', absint( $generate_settings['mobile_site_title_font_size'] ), false, 'px' );
+			}
+		}
+	}
+
+	$premium_css->stop_media_query();
+
+	return $premium_css->css_output();
+}
+
 if ( ! function_exists( 'generate_typography_premium_css' ) ) {
 	add_action( 'wp_enqueue_scripts', 'generate_typography_premium_css', 100 );
 	/**
@@ -2925,113 +3101,25 @@ if ( ! function_exists( 'generate_typography_premium_css' ) ) {
 	 * @since 1.3
 	 */
 	function generate_typography_premium_css() {
-		if ( ! function_exists( 'generate_get_default_fonts' ) ) {
-			return;
+		if ( 'inline' === generate_get_css_print_method() ) {
+			wp_add_inline_style( 'generate-style', generate_typography_get_premium_css() );
 		}
-
-		$generate_settings = wp_parse_args(
-			get_option( 'generate_settings', array() ),
-			generate_get_default_fonts()
-		);
-
-		// Initiate our CSS class
-		require_once GP_LIBRARY_DIRECTORY . 'class-make-css.php';
-		$premium_css = new GeneratePress_Pro_CSS;
-
-		$site_title_family = false;
-		if ( function_exists( 'generate_get_font_family_css' ) ) {
-			$site_title_family = generate_get_font_family_css( 'font_site_title', 'generate_settings', generate_get_default_fonts() );
-		}
-
-		$premium_css->set_selector( 'h1.entry-title' );
-		$premium_css->add_property( 'font-weight', esc_attr( $generate_settings['single_post_title_weight'] ) );
-		$premium_css->add_property( 'text-transform', esc_attr( $generate_settings['single_post_title_transform'] ) );
-
-		if ( '' !== $generate_settings['single_post_title_font_size'] ) {
-			$premium_css->add_property( 'font-size', absint( $generate_settings['single_post_title_font_size'] ), false, 'px' );
-		}
-
-		if ( '' !== $generate_settings['single_post_title_line_height'] ) {
-			$premium_css->add_property( 'line-height', floatval( $generate_settings['single_post_title_line_height'] ), false, 'em' );
-		}
-
-		$premium_css->set_selector( 'h2.entry-title' );
-		$premium_css->add_property( 'font-weight', esc_attr( $generate_settings['archive_post_title_weight'] ) );
-		$premium_css->add_property( 'text-transform', esc_attr( $generate_settings['archive_post_title_transform'] ) );
-
-		if ( '' !== $generate_settings['archive_post_title_font_size'] ) {
-			$premium_css->add_property( 'font-size', absint( $generate_settings['archive_post_title_font_size'] ), false, 'px' );
-		}
-
-		if ( '' !== $generate_settings['archive_post_title_line_height'] ) {
-			$premium_css->add_property( 'line-height', floatval( $generate_settings['archive_post_title_line_height'] ), false, 'em' );
-		}
-
-		$premium_css->set_selector( '.navigation-branding .main-title' );
-		$premium_css->add_property( 'font-weight', esc_attr( $generate_settings['site_title_font_weight'] ) );
-		$premium_css->add_property( 'text-transform', esc_attr( $generate_settings['site_title_font_transform'] ) );
-		$premium_css->add_property( 'font-size', absint( $generate_settings['site_title_font_size'] ), false, 'px' );
-
-		if ( $site_title_family ) {
-			$premium_css->add_property( 'font-family', 'inherit' !== $generate_settings['font_site_title'] ? $site_title_family : null );
-		}
-
-		$premium_css->start_media_query( generate_premium_get_media_query( 'tablet' ) );
-			if ( '' !== $generate_settings[ 'tablet_navigation_font_size' ] ) {
-				$premium_css->set_selector( '.main-navigation:not(.slideout-navigation) a, .menu-toggle' );
-				$premium_css->add_property( 'font-size', absint( $generate_settings[ 'tablet_navigation_font_size' ] ), false, 'px' );
-
-				$tablet_subnav_font_size = $generate_settings['tablet_navigation_font_size'] - 1;
-
-				if ( $generate_settings['tablet_navigation_font_size'] >= 17 ) {
-					$tablet_subnav_font_size = $generate_settings['tablet_navigation_font_size'] - 3;
-				}
-
-				$premium_css->set_selector( '.main-navigation:not(.slideout-navigation) .main-nav ul ul li a' );
-				$premium_css->add_property( 'font-size', absint( $tablet_subnav_font_size ), false, 'px' );
-			}
-
-			if ( '' !== $generate_settings['tablet_site_title_font_size'] ) {
-				$premium_css->set_selector( '.main-title, .navigation-branding .main-title' );
-				$premium_css->add_property( 'font-size', absint( $generate_settings['tablet_site_title_font_size'] ), false, 'px' );
-			}
-		$premium_css->stop_media_query();
-
-		$premium_css->start_media_query( generate_premium_get_media_query( 'mobile' ) );
-			$premium_css->set_selector( 'h1.entry-title' );
-
-			if ( '' !== $generate_settings['single_post_title_font_size_mobile'] ) {
-				$premium_css->add_property( 'font-size', absint( $generate_settings['single_post_title_font_size_mobile'] ), false, 'px' );
-			}
-
-			$premium_css->set_selector( 'h2.entry-title' );
-
-			if ( '' !== $generate_settings['archive_post_title_font_size_mobile'] ) {
-				$premium_css->add_property( 'font-size', absint( $generate_settings['archive_post_title_font_size_mobile'] ), false, 'px' );
-			}
-		$premium_css->stop_media_query();
-
-		$premium_css->start_media_query( generate_premium_get_media_query( 'mobile-menu' ) );
-			if ( '' !== $generate_settings[ 'mobile_navigation_font_size' ] ) {
-				$premium_css->set_selector( '.main-navigation:not(.slideout-navigation) a, .menu-toggle' );
-				$premium_css->add_property( 'font-size', absint( $generate_settings[ 'mobile_navigation_font_size' ] ), false, 'px' );
-
-				$mobile_subnav_font_size = $generate_settings['mobile_navigation_font_size'] - 1;
-
-				if ( $generate_settings['mobile_navigation_font_size'] >= 17 ) {
-					$mobile_subnav_font_size = $generate_settings['mobile_navigation_font_size'] - 3;
-				}
-
-				$premium_css->set_selector( '.main-navigation:not(.slideout-navigation) .main-nav ul ul li a' );
-				$premium_css->add_property( 'font-size', absint( $mobile_subnav_font_size ), false, 'px' );
-			}
-
-			if ( '' !== $generate_settings['mobile_site_title_font_size'] ) {
-				$premium_css->set_selector( '.navigation-branding .main-title' );
-				$premium_css->add_property( 'font-size', absint( $generate_settings['mobile_site_title_font_size'] ), false, 'px' );
-			}
-		$premium_css->stop_media_query();
-
-		wp_add_inline_style( 'generate-style', $premium_css->css_output() );
 	}
+}
+
+add_filter( 'generate_external_dynamic_css_output', 'generate_typography_add_to_external_stylesheet' );
+/**
+ * Add CSS to the external stylesheet.
+ *
+ * @since 1.11.0
+ * @param string $css Existing CSS.
+ */
+function generate_typography_add_to_external_stylesheet( $css ) {
+	if ( 'inline' === generate_get_css_print_method() ) {
+		return $css;
+	}
+
+	$css .= generate_typography_get_premium_css();
+
+	return $css;
 }

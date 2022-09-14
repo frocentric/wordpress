@@ -1,39 +1,59 @@
 <?php
-// No direct access, please
-if ( ! defined( 'ABSPATH' ) ) exit;
+/**
+ * This file handles all of the Secondary Navigation functionality.
+ *
+ * @package GP Premium
+ */
 
-// Add necessary files
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // No direct access, please.
+}
+
+// Add necessary files.
 require plugin_dir_path( __FILE__ ) . 'css.php';
 
 if ( ! function_exists( 'generate_secondary_nav_setup' ) ) {
 	add_action( 'after_setup_theme', 'generate_secondary_nav_setup', 50 );
 	/**
 	 * Register our secondary navigation
+	 *
 	 * @since 0.1
 	 */
 	function generate_secondary_nav_setup() {
-		register_nav_menus( array(
-			'secondary' => __( 'Secondary Menu', 'gp-premium' ),
-		) );
+		register_nav_menus(
+			array(
+				'secondary' => __( 'Secondary Menu', 'gp-premium' ),
+			)
+		);
 	}
 }
 
 if ( ! function_exists( 'generate_secondary_nav_enqueue_scripts' ) ) {
 	add_action( 'wp_enqueue_scripts', 'generate_secondary_nav_enqueue_scripts', 100 );
 	/**
-	 * Add our necessary scripts
+	 * Add our necessary scripts.
+	 *
 	 * @since 0.1
 	 */
 	function generate_secondary_nav_enqueue_scripts() {
-		// Bail if no Secondary menu is set
+		// Bail if no Secondary menu is set.
 		if ( ! has_nav_menu( 'secondary' ) ) {
 			return;
 		}
 
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-		wp_enqueue_style( 'generate-secondary-nav', plugin_dir_url( __FILE__ ) . "css/style{$suffix}.css", array(), GENERATE_SECONDARY_NAV_VERSION );
+
+		if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+			wp_enqueue_style( 'generate-secondary-nav', plugin_dir_url( __FILE__ ) . "css/main{$suffix}.css", array(), GENERATE_SECONDARY_NAV_VERSION );
+			wp_enqueue_style( 'generate-secondary-nav-mobile', plugin_dir_url( __FILE__ ) . "css/main-mobile{$suffix}.css", array(), GENERATE_SECONDARY_NAV_VERSION, 'all' );
+		} else {
+			wp_enqueue_style( 'generate-secondary-nav', plugin_dir_url( __FILE__ ) . "css/style{$suffix}.css", array(), GENERATE_SECONDARY_NAV_VERSION );
+			wp_enqueue_style( 'generate-secondary-nav-mobile', plugin_dir_url( __FILE__ ) . "css/style-mobile{$suffix}.css", array(), GENERATE_SECONDARY_NAV_VERSION, 'all' );
+		}
+
 		if ( ! defined( 'GENERATE_DISABLE_MOBILE' ) ) {
-			wp_add_inline_script( 'generate-navigation',
+			wp_add_inline_script(
+				'generate-navigation',
 				"jQuery( document ).ready( function($) {
 					$( '.secondary-navigation .menu-toggle' ).on( 'click', function( e ) {
 						e.preventDefault();
@@ -45,8 +65,6 @@ if ( ! function_exists( 'generate_secondary_nav_enqueue_scripts' ) ) {
 					});
 				});"
 			);
-
-			wp_enqueue_style( 'generate-secondary-nav-mobile', plugin_dir_url( __FILE__ ) . "css/mobile{$suffix}.css", array(), GENERATE_SECONDARY_NAV_VERSION, 'all' );
 		}
 	}
 }
@@ -59,7 +77,15 @@ if ( ! function_exists( 'generate_secondary_nav_enqueue_customizer_scripts' ) ) 
 	 * @since 0.1
 	 */
 	function generate_secondary_nav_enqueue_customizer_scripts() {
-	    wp_enqueue_script( 'generate-secondary-nav-customizer', plugin_dir_url( __FILE__ ) . 'js/customizer.js', array( 'jquery', 'customize-preview' ), GENERATE_SECONDARY_NAV_VERSION, true );
+		wp_enqueue_script( 'generate-secondary-nav-customizer', plugin_dir_url( __FILE__ ) . 'js/customizer.js', array( 'jquery', 'customize-preview' ), GENERATE_SECONDARY_NAV_VERSION, true );
+
+		wp_localize_script(
+			'generate-secondary-nav-customizer',
+			'generateSecondaryNav',
+			array(
+				'isFlex' => function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox(),
+			)
+		);
 	}
 }
 
@@ -68,6 +94,7 @@ if ( ! function_exists( 'generate_secondary_nav_get_defaults' ) ) {
 	 * Set default options.
 	 *
 	 * @since 0.1
+	 * @param bool $filter Whether to filter the defaults or not.
 	 */
 	function generate_secondary_nav_get_defaults( $filter = true ) {
 		$generate_defaults = array(
@@ -114,7 +141,7 @@ if ( ! function_exists( 'generate_secondary_nav_get_defaults' ) ) {
 			'sub_nav_item_hover_repeat' => '',
 			'sub_nav_item_current_image' => '',
 			'sub_nav_item_current_repeat' => '',
-			'merge_top_bar' => false
+			'merge_top_bar' => false,
 		);
 
 		if ( $filter ) {
@@ -131,45 +158,46 @@ if ( ! function_exists( 'generate_secondary_nav_customize_register' ) ) {
 	 * Register our options.
 	 *
 	 * @since 0.1
+	 * @param object $wp_customize The Customizer object.
 	 */
 	function generate_secondary_nav_customize_register( $wp_customize ) {
-		// Get our defaults
 		$defaults = generate_secondary_nav_get_defaults();
 
-		// Controls
 		require_once GP_LIBRARY_DIRECTORY . 'customizer-helpers.php';
 
 		if ( method_exists( $wp_customize, 'register_control_type' ) ) {
 			$wp_customize->register_control_type( 'GeneratePress_Section_Shortcut_Control' );
 		}
 
-		// Use the Layout panel in the free theme if it exists
+		// Use the Layout panel in the free theme if it exists.
 		if ( $wp_customize->get_panel( 'generate_layout_panel' ) ) {
 			$layout_panel = 'generate_layout_panel';
 		} else {
 			$layout_panel = 'secondary_navigation_panel';
 		}
 
-		// Add our secondary navigation panel
-		// This shouldn't be used anymore if the theme is up to date
+		// Add our secondary navigation panel.
+		// This shouldn't be used anymore if the theme is up to date.
 		if ( class_exists( 'WP_Customize_Panel' ) ) {
-			$wp_customize->add_panel( 'secondary_navigation_panel', array(
-				'priority'       => 100,
-				'capability'     => 'edit_theme_options',
-				'theme_supports' => '',
-				'title'          => __( 'Secondary Navigation', 'gp-premium' ),
-				'description'    => '',
-			) );
+			$wp_customize->add_panel(
+				'secondary_navigation_panel',
+				array(
+					'priority'       => 100,
+					'capability'     => 'edit_theme_options',
+					'theme_supports' => '',
+					'title'          => __( 'Secondary Navigation', 'gp-premium' ),
+					'description'    => '',
+				)
+			);
 		}
 
-		// Add secondary navigation section
 		$wp_customize->add_section(
 			'secondary_nav_section',
 			array(
 				'title' => __( 'Secondary Navigation', 'gp-premium' ),
 				'capability' => 'edit_theme_options',
 				'priority' => 31,
-				'panel' => $layout_panel
+				'panel' => $layout_panel,
 			)
 		);
 
@@ -191,33 +219,32 @@ if ( ! function_exists( 'generate_secondary_nav_customize_register' ) ) {
 			)
 		);
 
-		// Mobile menu label
 		$wp_customize->add_setting(
 			'generate_secondary_nav_settings[secondary_nav_mobile_label]',
 			array(
 				'default' => $defaults['secondary_nav_mobile_label'],
 				'type' => 'option',
-				'sanitize_callback' => 'wp_kses_post'
+				'sanitize_callback' => 'wp_kses_post',
 			)
 		);
 
 		$wp_customize->add_control(
-			'secondary_nav_mobile_label_control', array(
+			'secondary_nav_mobile_label_control',
+			array(
 				'label' => __( 'Mobile Menu Label', 'gp-premium' ),
 				'section' => 'secondary_nav_section',
 				'settings' => 'generate_secondary_nav_settings[secondary_nav_mobile_label]',
-				'priority' => 10
+				'priority' => 10,
 			)
 		);
 
-		// Navigation width
 		$wp_customize->add_setting(
 			'generate_secondary_nav_settings[secondary_nav_layout_setting]',
 			array(
 				'default' => $defaults['secondary_nav_layout_setting'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_choices',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -229,21 +256,20 @@ if ( ! function_exists( 'generate_secondary_nav_customize_register' ) ) {
 				'section' => 'secondary_nav_section',
 				'choices' => array(
 					'secondary-fluid-nav' => _x( 'Full', 'Width', 'gp-premium' ),
-					'secondary-contained-nav' => _x( 'Contained', 'Width', 'gp-premium' )
+					'secondary-contained-nav' => _x( 'Contained', 'Width', 'gp-premium' ),
 				),
 				'settings' => 'generate_secondary_nav_settings[secondary_nav_layout_setting]',
-				'priority' => 15
+				'priority' => 15,
 			)
 		);
 
-		// Inner navigation width
 		$wp_customize->add_setting(
 			'generate_secondary_nav_settings[secondary_nav_inner_width]',
 			array(
 				'default' => $defaults['secondary_nav_inner_width'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_choices',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -255,21 +281,20 @@ if ( ! function_exists( 'generate_secondary_nav_customize_register' ) ) {
 				'section' => 'secondary_nav_section',
 				'choices' => array(
 					'full-width' => _x( 'Full', 'Width', 'gp-premium' ),
-					'contained' => _x( 'Contained', 'Width', 'gp-premium' )
+					'contained' => _x( 'Contained', 'Width', 'gp-premium' ),
 				),
 				'settings' => 'generate_secondary_nav_settings[secondary_nav_inner_width]',
-				'priority' => 15
+				'priority' => 15,
 			)
 		);
 
-		// Navigation alignment
 		$wp_customize->add_setting(
 			'generate_secondary_nav_settings[secondary_nav_alignment]',
 			array(
 				'default' => $defaults['secondary_nav_alignment'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_choices',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -282,21 +307,19 @@ if ( ! function_exists( 'generate_secondary_nav_customize_register' ) ) {
 				'choices' => array(
 					'left' => __( 'Left', 'gp-premium' ),
 					'center' => __( 'Center', 'gp-premium' ),
-					'right' => __( 'Right', 'gp-premium' )
+					'right' => __( 'Right', 'gp-premium' ),
 				),
 				'settings' => 'generate_secondary_nav_settings[secondary_nav_alignment]',
-				'priority' => 20
+				'priority' => 20,
 			)
 		);
 
-		// Navigation location
 		$wp_customize->add_setting(
 			'generate_secondary_nav_settings[secondary_nav_position_setting]',
 			array(
 				'default' => $defaults['secondary_nav_position_setting'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_choices',
-				'transport' => 'postMessage'
 			)
 		);
 
@@ -313,10 +336,10 @@ if ( ! function_exists( 'generate_secondary_nav_customize_register' ) ) {
 					'secondary-nav-float-left' => __( 'Float Left', 'gp-premium' ),
 					'secondary-nav-left-sidebar' => __( 'Left Sidebar', 'gp-premium' ),
 					'secondary-nav-right-sidebar' => __( 'Right Sidebar', 'gp-premium' ),
-					'' => __( 'No Navigation', 'gp-premium' )
+					'' => __( 'No Navigation', 'gp-premium' ),
 				),
 				'settings' => 'generate_secondary_nav_settings[secondary_nav_position_setting]',
-				'priority' => 30
+				'priority' => 30,
 			)
 		);
 
@@ -340,17 +363,16 @@ if ( ! function_exists( 'generate_secondary_nav_customize_register' ) ) {
 					'left' => __( 'Left', 'gp-premium' ),
 				),
 				'settings' => 'generate_secondary_nav_settings[secondary_nav_dropdown_direction]',
-				'priority' => 35
+				'priority' => 35,
 			)
 		);
 
-		// Merge top bar
 		$wp_customize->add_setting(
 			'generate_secondary_nav_settings[merge_top_bar]',
 			array(
 				'default' => $defaults['merge_top_bar'],
 				'type' => 'option',
-				'sanitize_callback' => 'generate_premium_sanitize_checkbox'
+				'sanitize_callback' => 'generate_premium_sanitize_checkbox',
 			)
 		);
 
@@ -362,7 +384,7 @@ if ( ! function_exists( 'generate_secondary_nav_customize_register' ) ) {
 				'section' => 'generate_top_bar',
 				'settings' => 'generate_secondary_nav_settings[merge_top_bar]',
 				'priority' => 100,
-				'active_callback' => 'generate_secondary_nav_show_merge_top_bar'
+				'active_callback' => 'generate_secondary_nav_show_merge_top_bar',
 			)
 		);
 	}
@@ -374,10 +396,9 @@ if ( ! function_exists( 'generate_display_secondary_google_fonts' ) ) {
 	 * Add Google Fonts to wp_head if needed.
 	 *
 	 * @since 0.1
+	 * @param array $google_fonts Existing fonts.
 	 */
-	function generate_display_secondary_google_fonts($google_fonts) {
-
-		// Bail if no Secondary menu is set
+	function generate_display_secondary_google_fonts( $google_fonts ) {
 		if ( ! has_nav_menu( 'secondary' ) ) {
 			return $google_fonts;
 		}
@@ -387,7 +408,6 @@ if ( ! function_exists( 'generate_display_secondary_google_fonts' ) ) {
 			generate_secondary_nav_get_defaults()
 		);
 
-		// List our non-Google fonts
 		if ( function_exists( 'generate_typography_default_fonts' ) ) {
 			$not_google = str_replace( ' ', '+', generate_typography_default_fonts() );
 		} else {
@@ -405,51 +425,50 @@ if ( ! function_exists( 'generate_display_secondary_google_fonts' ) ) {
 				'Palatino+Linotype',
 				'Tahoma,+Geneva,+sans-serif',
 				'Trebuchet+MS,+Helvetica,+sans-serif',
-				'Verdana,+Geneva,+sans-serif'
+				'Verdana,+Geneva,+sans-serif',
 			);
 		}
 
-		// Create our Google Fonts array
 		$secondary_google_fonts = array();
 
 		if ( function_exists( 'generate_get_google_font_variants' ) ) {
 
-			// If our value is still using the old format, fix it
-			if ( strpos( $generate_secondary_nav_settings[ 'font_secondary_navigation' ], ':' ) !== false ) {
-				$generate_secondary_nav_settings[ 'font_secondary_navigation' ] = current( explode( ':', $generate_secondary_nav_settings[ 'font_secondary_navigation' ] ) );
+			// If our value is still using the old format, fix it.
+			if ( strpos( $generate_secondary_nav_settings['font_secondary_navigation'], ':' ) !== false ) {
+				$generate_secondary_nav_settings['font_secondary_navigation'] = current( explode( ':', $generate_secondary_nav_settings['font_secondary_navigation'] ) );
 			}
 
-			// Grab the variants using the plain name
-			$variants = generate_get_google_font_variants( $generate_secondary_nav_settings[ 'font_secondary_navigation' ], 'font_secondary_navigation', generate_secondary_nav_get_defaults() );
+			// Grab the variants using the plain name.
+			$variants = generate_get_google_font_variants( $generate_secondary_nav_settings['font_secondary_navigation'], 'font_secondary_navigation', generate_secondary_nav_get_defaults() );
 
 		} else {
 			$variants = '';
 		}
 
-		// Replace the spaces in the names with a plus
-		$value = str_replace( ' ', '+', $generate_secondary_nav_settings[ 'font_secondary_navigation' ] );
+		// Replace the spaces in the names with a plus.
+		$value = str_replace( ' ', '+', $generate_secondary_nav_settings['font_secondary_navigation'] );
 
-		// If we have variants, add them to our value
+		// If we have variants, add them to our value.
 		$value = ! empty( $variants ) ? $value . ':' . $variants : $value;
 
-		// Add our value to the array
+		// Add our value to the array.
 		$secondary_google_fonts[] = $value;
 
-		// Ignore any non-Google fonts
-		$secondary_google_fonts = array_diff($secondary_google_fonts, $not_google);
+		// Ignore any non-Google fonts.
+		$secondary_google_fonts = array_diff( $secondary_google_fonts, $not_google );
 
-		// Separate each different font with a bar
-		$secondary_google_fonts = implode('|', $secondary_google_fonts);
+		// Separate each different font with a bar.
+		$secondary_google_fonts = implode( '|', $secondary_google_fonts );
 
-		if ( !empty( $secondary_google_fonts ) ) {
+		if ( ! empty( $secondary_google_fonts ) ) {
 			$print_secondary_fonts = '|' . $secondary_google_fonts;
 		} else {
 			$print_secondary_fonts = '';
 		}
 
-		// Remove any duplicates
+		// Remove any duplicates.
 		$return = $google_fonts . $print_secondary_fonts;
-		$return = implode('|',array_unique(explode('|', $return)));
+		$return = implode( '|', array_unique( explode( '|', $return ) ) );
 		return $return;
 
 	}
@@ -468,7 +487,7 @@ if ( ! function_exists( 'generate_add_secondary_navigation_after_header' ) ) {
 			generate_secondary_nav_get_defaults()
 		);
 
-		if ( 'secondary-nav-below-header' == $generate_settings['secondary_nav_position_setting'] ) {
+		if ( 'secondary-nav-below-header' === $generate_settings['secondary_nav_position_setting'] ) {
 			generate_secondary_navigation_position();
 		}
 
@@ -488,7 +507,7 @@ if ( ! function_exists( 'generate_add_secondary_navigation_before_header' ) ) {
 			generate_secondary_nav_get_defaults()
 		);
 
-		if ( 'secondary-nav-above-header' == $generate_settings['secondary_nav_position_setting'] ) {
+		if ( 'secondary-nav-above-header' === $generate_settings['secondary_nav_position_setting'] ) {
 			generate_secondary_navigation_position();
 		}
 
@@ -503,15 +522,124 @@ if ( ! function_exists( 'generate_add_secondary_navigation_float_right' ) ) {
 	 * @since 0.1
 	 */
 	function generate_add_secondary_navigation_float_right() {
+		if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+			return;
+		}
+
 		$generate_settings = wp_parse_args(
 			get_option( 'generate_secondary_nav_settings', array() ),
 			generate_secondary_nav_get_defaults()
 		);
 
-		if ( 'secondary-nav-float-right' == $generate_settings['secondary_nav_position_setting'] || 'secondary-nav-float-left' == $generate_settings['secondary_nav_position_setting'] ) {
+		if ( 'secondary-nav-float-right' === $generate_settings['secondary_nav_position_setting'] || 'secondary-nav-float-left' === $generate_settings['secondary_nav_position_setting'] ) {
 			generate_secondary_navigation_position();
 		}
 
+	}
+}
+
+add_action( 'generate_after_header_content', 'generate_do_secondary_navigation_float_right', 7 );
+/**
+ * Add the navigation inside the header so it can float right.
+ *
+ * @since 1.11.0
+ */
+function generate_do_secondary_navigation_float_right() {
+	if ( ! function_exists( 'generate_is_using_flexbox' ) ) {
+		return;
+	}
+
+	if ( ! generate_is_using_flexbox() ) {
+		return;
+	}
+
+	$generate_settings = wp_parse_args(
+		get_option( 'generate_secondary_nav_settings', array() ),
+		generate_secondary_nav_get_defaults()
+	);
+
+	if ( 'secondary-nav-float-right' === $generate_settings['secondary_nav_position_setting'] || 'secondary-nav-float-left' === $generate_settings['secondary_nav_position_setting'] ) {
+		generate_secondary_navigation_position();
+	}
+
+}
+
+add_action( 'generate_before_navigation', 'generate_do_multi_navigation_wrapper_open', 11 );
+/**
+ * Open our wrapper that puts both navigations inside one element.
+ *
+ * @since 1.11.0
+ */
+function generate_do_multi_navigation_wrapper_open() {
+	if ( ! function_exists( 'generate_is_using_flexbox' ) ) {
+		return;
+	}
+
+	if ( ! generate_is_using_flexbox() ) {
+		return;
+	}
+
+	if ( ! function_exists( 'generate_get_option' ) ) {
+		return;
+	}
+
+	if ( ! has_nav_menu( 'secondary' ) ) {
+		return;
+	}
+
+	if ( function_exists( 'generate_menu_plus_get_defaults' ) ) {
+		$menu_settings = wp_parse_args(
+			get_option( 'generate_menu_plus_settings', array() ),
+			generate_menu_plus_get_defaults()
+		);
+
+		if ( $menu_settings['navigation_as_header'] ) {
+			return;
+		}
+	}
+
+	$generate_settings = wp_parse_args(
+		get_option( 'generate_secondary_nav_settings', array() ),
+		generate_secondary_nav_get_defaults()
+	);
+
+	if (
+		( 'secondary-nav-float-right' === $generate_settings['secondary_nav_position_setting'] && 'nav-float-right' === generate_get_option( 'nav_position_setting' ) ) ||
+		( 'secondary-nav-float-left' === $generate_settings['secondary_nav_position_setting'] && 'nav-float-left' === generate_get_option( 'nav_position_setting' ) )
+	) {
+		echo '<div class="multi-navigation-wrapper">';
+	}
+}
+
+add_action( 'generate_after_secondary_navigation', 'generate_do_multi_navigation_wrapper_close', 7 );
+/**
+ * Close our wrapper that puts both navigations inside one element.
+ *
+ * @since 1.11.0
+ */
+function generate_do_multi_navigation_wrapper_close() {
+	if ( ! function_exists( 'generate_is_using_flexbox' ) ) {
+		return;
+	}
+
+	if ( ! generate_is_using_flexbox() ) {
+		return;
+	}
+
+	if ( ! function_exists( 'generate_get_option' ) ) {
+		return;
+	}
+
+	$generate_settings = wp_parse_args(
+		get_option( 'generate_secondary_nav_settings', array() ),
+		generate_secondary_nav_get_defaults()
+	);
+
+	if (
+		( 'secondary-nav-float-right' === $generate_settings['secondary_nav_position_setting'] && 'nav-float-right' === generate_get_option( 'nav_position_setting' ) ) ||
+		( 'secondary-nav-float-left' === $generate_settings['secondary_nav_position_setting'] && 'nav-float-left' === generate_get_option( 'nav_position_setting' ) )
+	) {
+		echo '</div>';
 	}
 }
 
@@ -528,7 +656,7 @@ if ( ! function_exists( 'generate_add_secondary_navigation_before_right_sidebar'
 			generate_secondary_nav_get_defaults()
 		);
 
-		if ( 'secondary-nav-right-sidebar' == $generate_settings['secondary_nav_position_setting'] ) {
+		if ( 'secondary-nav-right-sidebar' === $generate_settings['secondary_nav_position_setting'] ) {
 			echo '<div class="gen-sidebar-secondary-nav">';
 				generate_secondary_navigation_position();
 			echo '</div><!-- .gen-sidebar-secondary-nav -->';
@@ -550,7 +678,7 @@ if ( ! function_exists( 'generate_add_secondary_navigation_before_left_sidebar' 
 			generate_secondary_nav_get_defaults()
 		);
 
-		if ( 'secondary-nav-left-sidebar' == $generate_settings['secondary_nav_position_setting'] ) {
+		if ( 'secondary-nav-left-sidebar' === $generate_settings['secondary_nav_position_setting'] ) {
 			echo '<div class="gen-sidebar-secondary-nav">';
 				generate_secondary_navigation_position();
 			echo '</div><!-- .gen-sidebar-secondary-nav -->';
@@ -572,8 +700,15 @@ if ( ! function_exists( 'generate_secondary_navigation_position' ) ) {
 			generate_secondary_nav_get_defaults()
 		);
 		if ( has_nav_menu( 'secondary' ) ) :
+			do_action( 'generate_before_secondary_navigation' );
+
+			$microdata = ' itemtype="https://schema.org/SiteNavigationElement" itemscope="itemscope"';
+
+			if ( function_exists( 'generate_get_schema_type' ) && 'microdata' !== generate_get_schema_type() ) {
+				$microdata = '';
+			}
 			?>
-			<nav itemtype="http://schema.org/SiteNavigationElement" itemscope="itemscope" id="secondary-navigation" <?php generate_secondary_navigation_class(); ?>>
+			<nav id="secondary-navigation" <?php generate_secondary_navigation_class(); ?><?php echo $microdata; // phpcs:ignore -- No escaping needed. ?>>
 				<div <?php generate_inside_secondary_navigation_class(); ?>>
 					<?php do_action( 'generate_inside_secondary_navigation' ); ?>
 					<button class="menu-toggle secondary-menu-toggle">
@@ -583,26 +718,52 @@ if ( ! function_exists( 'generate_secondary_navigation_position' ) ) {
 						if ( function_exists( 'generate_do_svg_icon' ) ) {
 							generate_do_svg_icon( 'menu-bars', true );
 						}
+
+						$mobile_menu_label = $generate_settings['secondary_nav_mobile_label'];
+
+						if ( $mobile_menu_label ) {
+							printf(
+								'<span class="mobile-menu">%s</span>',
+								$mobile_menu_label // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- HTML allowed in filter.
+							);
+						} else {
+							printf(
+								'<span class="screen-reader-text">%s</span>',
+								esc_html__( 'Menu', 'gp-premium' )
+							);
+						}
 						?>
-						<span class="mobile-menu"><?php echo $generate_settings['secondary_nav_mobile_label']; ?></span>
 					</button>
 					<?php
+					/**
+					 * generate_after_mobile_menu_button hook
+					 *
+					 * @since 1.11.0
+					 */
+					do_action( 'generate_after_secondary_mobile_menu_button' );
 
-						wp_nav_menu(
-							array(
-								'theme_location' => 'secondary',
-								'container' => 'div',
-								'container_class' => 'main-nav',
-								'menu_class' => '',
-								'fallback_cb' => 'generate_secondary_menu_fallback',
-								'items_wrap' => '<ul id="%1$s" class="%2$s ' . join( ' ', generate_get_secondary_menu_class() ) . '">%3$s</ul>'
-							)
-						);
+					wp_nav_menu(
+						array(
+							'theme_location' => 'secondary',
+							'container' => 'div',
+							'container_class' => 'main-nav',
+							'menu_class' => '',
+							'fallback_cb' => 'generate_secondary_menu_fallback',
+							'items_wrap' => '<ul id="%1$s" class="%2$s ' . join( ' ', generate_get_secondary_menu_class() ) . '">%3$s</ul>',
+						)
+					);
 
+					/**
+					 * generate_after_secondary_menu hook.
+					 *
+					 * @since 1.11.0
+					 */
+					do_action( 'generate_after_secondary_menu' );
 					?>
 				</div><!-- .inside-navigation -->
 			</nav><!-- #secondary-navigation -->
 			<?php
+			do_action( 'generate_after_secondary_navigation' );
 		endif;
 	}
 }
@@ -611,18 +772,33 @@ if ( ! function_exists( 'generate_secondary_menu_fallback' ) ) {
 	/**
 	 * Menu fallback.
 	 *
-	 * @param  array $args
-	 * @return string
+	 * @param array $args Menu args.
 	 * @since 1.1.4
 	 */
 	function generate_secondary_menu_fallback( $args ) {
-	?>
+		?>
 		<div class="main-nav">
 			<ul <?php generate_secondary_menu_class(); ?>>
-				<?php wp_list_pages('sort_column=menu_order&title_li='); ?>
+				<?php wp_list_pages( 'sort_column=menu_order&title_li=' ); ?>
 			</ul>
 		</div><!-- .main-nav -->
-	<?php
+		<?php
+	}
+}
+
+add_action( 'generate_after_secondary_menu', 'generate_do_secondary_menu_bar_item_container' );
+/**
+ * Add a container for menu bar items.
+ *
+ * @since 1.11.0
+ */
+function generate_do_secondary_menu_bar_item_container() {
+	if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+		if ( generate_secondary_nav_has_menu_bar_items() ) {
+			echo '<div class="secondary-menu-bar-items">';
+				do_action( 'generate_secondary_menu_bar_items' );
+			echo '</div>';
+		}
 	}
 }
 
@@ -632,15 +808,13 @@ if ( ! function_exists( 'generate_secondary_nav_body_classes' ) ) {
 	 * Adds custom classes to the array of body classes.
 	 *
 	 * @since 0.1
+	 * @param array $classes Existing body classes.
 	 */
 	function generate_secondary_nav_body_classes( $classes ) {
-
-		// Bail if no Secondary menu is set
 		if ( ! has_nav_menu( 'secondary' ) ) {
 			return $classes;
 		}
 
-		// Get theme options
 		$generate_settings = wp_parse_args(
 			get_option( 'generate_secondary_nav_settings', array() ),
 			generate_secondary_nav_get_defaults()
@@ -648,12 +822,11 @@ if ( ! function_exists( 'generate_secondary_nav_body_classes' ) ) {
 
 		$classes[] = ( $generate_settings['secondary_nav_position_setting'] ) ? $generate_settings['secondary_nav_position_setting'] : 'secondary-nav-below-header';
 
-		// Navigation alignment class
-		if ( $generate_settings['secondary_nav_alignment'] == 'left' ) {
+		if ( 'left' === $generate_settings['secondary_nav_alignment'] ) {
 			$classes[] = 'secondary-nav-aligned-left';
-		} elseif ( $generate_settings['secondary_nav_alignment'] == 'center' ) {
+		} elseif ( 'center' === $generate_settings['secondary_nav_alignment'] ) {
 			$classes[] = 'secondary-nav-aligned-center';
-		} elseif ( $generate_settings['secondary_nav_alignment'] == 'right' ) {
+		} elseif ( 'right' === $generate_settings['secondary_nav_alignment'] ) {
 			$classes[] = 'secondary-nav-aligned-right';
 		} else {
 			$classes[] = 'secondary-nav-aligned-left';
@@ -669,6 +842,7 @@ if ( ! function_exists( 'generate_secondary_menu_classes' ) ) {
 	 * Adds custom classes to the menu.
 	 *
 	 * @since 0.1
+	 * @param array $classes Existing classes.
 	 */
 	function generate_secondary_menu_classes( $classes ) {
 
@@ -686,12 +860,11 @@ if ( ! function_exists( 'generate_secondary_navigation_classes' ) ) {
 	 * Adds custom classes to the navigation.
 	 *
 	 * @since 0.1
+	 * @param array $classes Existing classes.
 	 */
 	function generate_secondary_navigation_classes( $classes ) {
-
 		$classes[] = 'secondary-navigation';
 
-		// Get theme options
 		$generate_settings = wp_parse_args(
 			get_option( 'generate_secondary_nav_settings', array() ),
 			generate_secondary_nav_get_defaults()
@@ -699,9 +872,17 @@ if ( ! function_exists( 'generate_secondary_navigation_classes' ) ) {
 
 		$nav_layout = $generate_settings['secondary_nav_layout_setting'];
 
-		if ( $nav_layout == 'secondary-contained-nav' ) {
-			$classes[] = 'grid-container';
-			$classes[] = 'grid-parent';
+		if ( 'secondary-contained-nav' === $nav_layout ) {
+			if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+				$navigation_location = $generate_settings['secondary_nav_position_setting'];
+
+				if ( 'secondary-nav-float-right' !== $navigation_location && 'secondary-nav-float-left' !== $navigation_location ) {
+					$classes[] = 'grid-container';
+				}
+			} else {
+				$classes[] = 'grid-container';
+				$classes[] = 'grid-parent';
+			}
 		}
 
 		if ( 'left' === $generate_settings['secondary_nav_dropdown_direction'] ) {
@@ -713,8 +894,16 @@ if ( ! function_exists( 'generate_secondary_navigation_classes' ) ) {
 				case 'secondary-nav-float-right':
 				case 'secondary-nav-float-left':
 					$classes[] = 'sub-menu-left';
-				break;
+					break;
 			}
+		}
+
+		if ( $generate_settings['merge_top_bar'] && is_active_sidebar( 'top-bar' ) ) {
+			$classes[] = 'has-top-bar';
+		}
+
+		if ( generate_secondary_nav_has_menu_bar_items() ) {
+			$classes[] = 'has-menu-bar-items';
 		}
 
 		return $classes;
@@ -726,18 +915,21 @@ if ( ! function_exists( 'generate_inside_secondary_navigation_classes' ) ) {
 	add_filter( 'generate_inside_secondary_navigation_class', 'generate_inside_secondary_navigation_classes' );
 	/**
 	 * Adds custom classes to the inner navigation
+	 *
 	 * @since 1.3.41
+	 * @param array $classes Existing classes.
 	 */
 	function generate_inside_secondary_navigation_classes( $classes ) {
 		$classes[] = 'inside-navigation';
-		// Get theme options
+
 		$generate_settings = wp_parse_args(
 			get_option( 'generate_secondary_nav_settings', array() ),
 			generate_secondary_nav_get_defaults()
 		);
+
 		$inner_nav_width = $generate_settings['secondary_nav_inner_width'];
 
-		if ( $inner_nav_width !== 'full-width' ) {
+		if ( 'full-width' !== $inner_nav_width ) {
 			$classes[] = 'grid-container';
 			$classes[] = 'grid-parent';
 		}
@@ -765,7 +957,7 @@ if ( ! function_exists( 'generate_secondary_nav_css' ) ) {
 				get_option( 'generate_spacing_settings', array() ),
 				generate_spacing_get_defaults()
 			);
-			$separator = $spacing_settings[ 'separator' ];
+			$separator = $spacing_settings['separator'];
 		} else {
 			$separator = 20;
 		}
@@ -776,130 +968,160 @@ if ( ! function_exists( 'generate_secondary_nav_css' ) ) {
 			$secondary_nav_family = current( explode( ':', $generate_settings['font_secondary_navigation'] ) );
 		}
 
-		if ( '""' == $secondary_nav_family ) {
+		if ( '""' === $secondary_nav_family ) {
 			$secondary_nav_family = 'inherit';
 		}
 
-		// Get our untouched defaults
+		// Get our untouched defaults.
 		$og_defaults = generate_secondary_nav_get_defaults( false );
 
-		// Initiate our CSS class
-		$css = new GeneratePress_Secondary_Nav_CSS;
+		$css = new GeneratePress_Secondary_Nav_CSS();
 
-		// Navigation background
+		// Check if we're using our legacy typography system.
+		$using_dynamic_typography = function_exists( 'generate_is_using_dynamic_typography' ) && generate_is_using_dynamic_typography();
+
 		$css->set_selector( '.secondary-navigation' );
-		$css->add_property( 'background-color', esc_attr( $generate_settings[ 'navigation_background_color' ] ) );
-		$css->add_property( 'background-image', !empty( $generate_settings['nav_image'] ) ? 'url(' . esc_url( $generate_settings['nav_image'] )	. ')' : '' );
+		$css->add_property( 'background-color', esc_attr( $generate_settings['navigation_background_color'] ) );
+		$css->add_property( 'background-image', ! empty( $generate_settings['nav_image'] ) ? 'url(' . esc_url( $generate_settings['nav_image'] ) . ')' : '' );
 		$css->add_property( 'background-repeat', esc_attr( $generate_settings['nav_repeat'] ) );
 
-		// Top bar
-		if ( 'secondary-nav-above-header' == $generate_settings[ 'secondary_nav_position_setting' ] && has_nav_menu( 'secondary' ) && is_active_sidebar( 'top-bar' ) ) {
-			$css->set_selector( '.secondary-navigation .top-bar' );
-			$css->add_property( 'color', esc_attr( $generate_settings[ 'navigation_text_color' ] ) );
-			$css->add_property( 'line-height', absint( $generate_settings[ 'secondary_menu_item_height' ] ), false, 'px' );
-			$css->add_property( 'font-family', $secondary_nav_family );
-			$css->add_property( 'font-weight', esc_attr( $generate_settings[ 'secondary_navigation_font_weight' ] ) );
-			$css->add_property( 'text-transform', esc_attr( $generate_settings[ 'secondary_navigation_font_transform' ] ) );
-			$css->add_property( 'font-size', absint( $generate_settings[ 'secondary_navigation_font_size' ] ), false, 'px' );
+		if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+			if ( function_exists( 'generate_spacing_get_defaults' ) && function_exists( 'generate_get_option' ) && 'text' === generate_get_option( 'container_alignment' ) ) {
+				$spacing_settings = wp_parse_args(
+					get_option( 'generate_spacing_settings', array() ),
+					generate_spacing_get_defaults()
+				);
 
-			$css->set_selector( '.secondary-navigation .top-bar a' );
-			$css->add_property( 'color', esc_attr( $generate_settings[ 'navigation_text_color' ] ) );
+				$navigation_left_padding = absint( $spacing_settings['header_left'] ) - absint( $generate_settings['secondary_menu_item'] );
+				$navigation_right_padding = absint( $spacing_settings['header_right'] ) - absint( $generate_settings['secondary_menu_item'] );
 
-			$css->set_selector( '.secondary-navigation .top-bar a:hover, .secondary-navigation .top-bar a:focus' );
-			$css->add_property( 'color', esc_attr( $generate_settings[ 'navigation_background_hover_color' ] ) );
+				$css->set_selector( '.secondary-nav-below-header .secondary-navigation .inside-navigation.grid-container, .secondary-nav-above-header .secondary-navigation .inside-navigation.grid-container' );
+				$css->add_property( 'padding', generate_padding_css( 0, $navigation_right_padding, 0, $navigation_left_padding ) );
+			}
 		}
 
-		// Navigation text
-		$css->set_selector( '.secondary-navigation .main-nav ul li a,.secondary-navigation .menu-toggle' );
-		$css->add_property( 'color', esc_attr( $generate_settings[ 'navigation_text_color' ] ) );
-		$css->add_property( 'font-family', ( 'inherit' !== $secondary_nav_family ) ? $secondary_nav_family : null );
-		$css->add_property( 'font-weight', esc_attr( $generate_settings[ 'secondary_navigation_font_weight' ] ), $og_defaults[ 'secondary_navigation_font_weight' ] );
-		$css->add_property( 'text-transform', esc_attr( $generate_settings[ 'secondary_navigation_font_transform' ] ), $og_defaults[ 'secondary_navigation_font_transform' ] );
-		$css->add_property( 'font-size', absint( $generate_settings[ 'secondary_navigation_font_size' ] ), $og_defaults[ 'secondary_navigation_font_size' ], 'px' );
-		$css->add_property( 'padding-left', absint( $generate_settings[ 'secondary_menu_item' ] ), $og_defaults[ 'secondary_menu_item' ], 'px' );
-		$css->add_property( 'padding-right', absint( $generate_settings[ 'secondary_menu_item' ] ), $og_defaults[ 'secondary_menu_item' ], 'px' );
-		$css->add_property( 'line-height', absint( $generate_settings[ 'secondary_menu_item_height' ] ), $og_defaults[ 'secondary_menu_item_height' ], 'px' );
-		$css->add_property( 'background-image', !empty( $generate_settings['nav_item_image'] ) ? 'url(' . esc_url( $generate_settings['nav_item_image'] ) . ')' : '' );
+		if ( 'secondary-nav-above-header' === $generate_settings['secondary_nav_position_setting'] && has_nav_menu( 'secondary' ) && is_active_sidebar( 'top-bar' ) ) {
+			$css->set_selector( '.secondary-navigation .top-bar' );
+			$css->add_property( 'color', esc_attr( $generate_settings['navigation_text_color'] ) );
+			$css->add_property( 'line-height', absint( $generate_settings['secondary_menu_item_height'] ), false, 'px' );
+			$css->add_property( 'font-family', $secondary_nav_family );
+			$css->add_property( 'font-weight', esc_attr( $generate_settings['secondary_navigation_font_weight'] ) );
+			$css->add_property( 'text-transform', esc_attr( $generate_settings['secondary_navigation_font_transform'] ) );
+			$css->add_property( 'font-size', absint( $generate_settings['secondary_navigation_font_size'] ), false, 'px' );
+
+			$css->set_selector( '.secondary-navigation .top-bar a' );
+			$css->add_property( 'color', esc_attr( $generate_settings['navigation_text_color'] ) );
+
+			$css->set_selector( '.secondary-navigation .top-bar a:hover, .secondary-navigation .top-bar a:focus' );
+			$css->add_property( 'color', esc_attr( $generate_settings['navigation_background_hover_color'] ) );
+		}
+
+		// Navigation text.
+		$css->set_selector( '.secondary-navigation .main-nav ul li a,.secondary-navigation .menu-toggle,.secondary-menu-bar-items .menu-bar-item > a' );
+		$css->add_property( 'color', esc_attr( $generate_settings['navigation_text_color'] ) );
+
+		if ( ! $using_dynamic_typography ) {
+			$css->add_property( 'font-family', ( 'inherit' !== $secondary_nav_family ) ? $secondary_nav_family : null );
+			$css->add_property( 'font-weight', esc_attr( $generate_settings['secondary_navigation_font_weight'] ), $og_defaults['secondary_navigation_font_weight'] );
+			$css->add_property( 'text-transform', esc_attr( $generate_settings['secondary_navigation_font_transform'] ), $og_defaults['secondary_navigation_font_transform'] );
+			$css->add_property( 'font-size', absint( $generate_settings['secondary_navigation_font_size'] ), $og_defaults['secondary_navigation_font_size'], 'px' );
+		}
+
+		$css->add_property( 'padding-left', absint( $generate_settings['secondary_menu_item'] ), $og_defaults['secondary_menu_item'], 'px' );
+		$css->add_property( 'padding-right', absint( $generate_settings['secondary_menu_item'] ), $og_defaults['secondary_menu_item'], 'px' );
+		$css->add_property( 'line-height', absint( $generate_settings['secondary_menu_item_height'] ), $og_defaults['secondary_menu_item_height'], 'px' );
+		$css->add_property( 'background-image', ! empty( $generate_settings['nav_item_image'] ) ? 'url(' . esc_url( $generate_settings['nav_item_image'] ) . ')' : '' );
 		$css->add_property( 'background-repeat', esc_attr( $generate_settings['nav_item_repeat'] ) );
 
-		// Mobile menu text on hover
-		$css->set_selector( 'button.secondary-menu-toggle:hover,button.secondary-menu-toggle:focus' );
-		$css->add_property( 'color', esc_attr( $generate_settings[ 'navigation_text_color' ] ) );
+		$css->set_selector( '.secondary-navigation .secondary-menu-bar-items' );
+		$css->add_property( 'color', $generate_settings['navigation_text_color'] );
 
-		// Widget area navigation
+		if ( ! $using_dynamic_typography ) {
+			$css->add_property( 'font-size', absint( $generate_settings['secondary_navigation_font_size'] ), $og_defaults['secondary_navigation_font_size'], 'px' );
+		}
+
+		// Mobile menu text on hover.
+		$css->set_selector( 'button.secondary-menu-toggle:hover,button.secondary-menu-toggle:focus' );
+		$css->add_property( 'color', esc_attr( $generate_settings['navigation_text_color'] ) );
+
+		// Widget area navigation.
 		$css->set_selector( '.widget-area .secondary-navigation' );
 		$css->add_property( 'margin-bottom', absint( $separator ), false, 'px' );
 
-		// Sub-navigation background
+		// Sub-navigation background.
 		$css->set_selector( '.secondary-navigation ul ul' );
-		$css->add_property( 'background-color', esc_attr( $generate_settings[ 'subnavigation_background_color' ] ) );
-		$css->add_property( 'top', 'auto' ); // Added for compatibility purposes on 22/12/2016
+		$css->add_property( 'background-color', esc_attr( $generate_settings['subnavigation_background_color'] ) );
+		$css->add_property( 'top', 'auto' ); // Added for compatibility purposes on 22/12/2016.
 
-		// Sub-navigation text
+		// Sub-navigation text.
 		$css->set_selector( '.secondary-navigation .main-nav ul ul li a' );
-		$css->add_property( 'color', esc_attr( $generate_settings[ 'subnavigation_text_color' ] ) );
-		$css->add_property( 'font-size', absint( $generate_settings[ 'secondary_navigation_font_size' ] - 1 ), absint( $og_defaults[ 'secondary_navigation_font_size' ] - 1 ), 'px' );
-		$css->add_property( 'padding-left', absint( $generate_settings[ 'secondary_menu_item' ] ), $og_defaults[ 'secondary_menu_item' ], 'px' );
-		$css->add_property( 'padding-right', absint( $generate_settings[ 'secondary_menu_item' ] ), $og_defaults[ 'secondary_menu_item' ], 'px' );
-		$css->add_property( 'padding-top', absint( $generate_settings[ 'secondary_sub_menu_item_height' ] ), $og_defaults[ 'secondary_sub_menu_item_height' ], 'px' );
-		$css->add_property( 'padding-bottom', absint( $generate_settings[ 'secondary_sub_menu_item_height' ] ), $og_defaults[ 'secondary_sub_menu_item_height' ], 'px' );
-		$css->add_property( 'background-image', !empty( $generate_settings['sub_nav_item_image'] ) ? 'url(' . esc_url( $generate_settings['sub_nav_item_image'] ) . ')' : '' );
-		$css->add_property( 'background-repeat', esc_attr( $generate_settings['sub_nav_item_repeat'] ) );
+		$css->add_property( 'color', esc_attr( $generate_settings['subnavigation_text_color'] ) );
 
-		// Menu item padding on RTL
-		if ( is_rtl() ) {
-			$css->set_selector( 'nav.secondary-navigation .main-nav ul li.menu-item-has-children > a' );
-			$css->add_property( 'padding-right', absint( $generate_settings[ 'secondary_menu_item' ] ), $og_defaults[ 'secondary_menu_item' ], 'px' );
+		if ( ! $using_dynamic_typography ) {
+			$css->add_property( 'font-size', absint( $generate_settings['secondary_navigation_font_size'] - 1 ), absint( $og_defaults['secondary_navigation_font_size'] - 1 ), 'px' );
 		}
 
-		// Dropdown arrow
-		$css->set_selector( '.secondary-navigation .menu-item-has-children ul .dropdown-menu-toggle' );
-		$css->add_property( 'padding-top', absint( $generate_settings[ 'secondary_sub_menu_item_height' ] ), $og_defaults[ 'secondary_sub_menu_item_height' ], 'px' );
-		$css->add_property( 'padding-bottom', absint( $generate_settings[ 'secondary_sub_menu_item_height' ] ), $og_defaults[ 'secondary_sub_menu_item_height' ], 'px' );
-		$css->add_property( 'margin-top', '-' . absint( $generate_settings[ 'secondary_sub_menu_item_height' ] ), '-' . absint( $og_defaults[ 'secondary_sub_menu_item_height' ] ), 'px' );
+		$css->add_property( 'padding-left', absint( $generate_settings['secondary_menu_item'] ), $og_defaults['secondary_menu_item'], 'px' );
+		$css->add_property( 'padding-right', absint( $generate_settings['secondary_menu_item'] ), $og_defaults['secondary_menu_item'], 'px' );
+		$css->add_property( 'padding-top', absint( $generate_settings['secondary_sub_menu_item_height'] ), $og_defaults['secondary_sub_menu_item_height'], 'px' );
+		$css->add_property( 'padding-bottom', absint( $generate_settings['secondary_sub_menu_item_height'] ), $og_defaults['secondary_sub_menu_item_height'], 'px' );
+		$css->add_property( 'background-image', ! empty( $generate_settings['sub_nav_item_image'] ) ? 'url(' . esc_url( $generate_settings['sub_nav_item_image'] ) . ')' : '' );
+		$css->add_property( 'background-repeat', esc_attr( $generate_settings['sub_nav_item_repeat'] ) );
 
-		// Dropdown arrow
+		// Menu item padding on RTL.
+		if ( is_rtl() ) {
+			$css->set_selector( 'nav.secondary-navigation .main-nav ul li.menu-item-has-children > a' );
+			$css->add_property( 'padding-right', absint( $generate_settings['secondary_menu_item'] ), $og_defaults['secondary_menu_item'], 'px' );
+		}
+
+		// Dropdown arrow.
+		$css->set_selector( '.secondary-navigation .menu-item-has-children ul .dropdown-menu-toggle' );
+		$css->add_property( 'padding-top', absint( $generate_settings['secondary_sub_menu_item_height'] ), $og_defaults['secondary_sub_menu_item_height'], 'px' );
+		$css->add_property( 'padding-bottom', absint( $generate_settings['secondary_sub_menu_item_height'] ), $og_defaults['secondary_sub_menu_item_height'], 'px' );
+		$css->add_property( 'margin-top', '-' . absint( $generate_settings['secondary_sub_menu_item_height'] ), '-' . absint( $og_defaults['secondary_sub_menu_item_height'] ), 'px' );
+
+		// Dropdown arrow.
 		$css->set_selector( '.secondary-navigation .menu-item-has-children .dropdown-menu-toggle' );
-		$css->add_property( 'padding-right', absint( $generate_settings[ 'secondary_menu_item' ] ), $og_defaults[ 'secondary_menu_item' ], 'px' );
+		$css->add_property( 'padding-right', absint( $generate_settings['secondary_menu_item'] ), $og_defaults['secondary_menu_item'], 'px' );
 
-		// Sub-navigation dropdown arrow
+		// Sub-navigation dropdown arrow.
 		$css->set_selector( '.secondary-navigation .menu-item-has-children ul .dropdown-menu-toggle' );
-		$css->add_property( 'padding-top', absint( $generate_settings[ 'secondary_sub_menu_item_height' ] ), $og_defaults[ 'secondary_sub_menu_item_height' ], 'px' );
-		$css->add_property( 'padding-bottom', absint( $generate_settings[ 'secondary_sub_menu_item_height' ] ), $og_defaults[ 'secondary_sub_menu_item_height' ], 'px' );
-		$css->add_property( 'margin-top', '-' . absint( $generate_settings[ 'secondary_sub_menu_item_height' ] ), '-' . absint( $og_defaults[ 'secondary_sub_menu_item_height' ] ), 'px' );
+		$css->add_property( 'padding-top', absint( $generate_settings['secondary_sub_menu_item_height'] ), $og_defaults['secondary_sub_menu_item_height'], 'px' );
+		$css->add_property( 'padding-bottom', absint( $generate_settings['secondary_sub_menu_item_height'] ), $og_defaults['secondary_sub_menu_item_height'], 'px' );
+		$css->add_property( 'margin-top', '-' . absint( $generate_settings['secondary_sub_menu_item_height'] ), '-' . absint( $og_defaults['secondary_sub_menu_item_height'] ), 'px' );
 
-		// Navigation background/text on hover
-		$css->set_selector( '.secondary-navigation .main-nav ul li:hover > a,.secondary-navigation .main-nav ul li:focus > a,.secondary-navigation .main-nav ul li.sfHover > a' );
-		$css->add_property( 'color', esc_attr( $generate_settings[ 'navigation_text_hover_color' ] ) );
-		$css->add_property( 'background-color', esc_attr( $generate_settings[ 'navigation_background_hover_color' ] ) );
-		$css->add_property( 'background-image', !empty( $generate_settings[ 'nav_item_hover_image' ] ) ? 'url(' . esc_url( $generate_settings[ 'nav_item_hover_image' ] )	. ')' : '' );
+		// Navigation background/text on hover.
+		$css->set_selector( '.secondary-navigation .main-nav ul li:not([class*="current-menu-"]):hover > a, .secondary-navigation .main-nav ul li:not([class*="current-menu-"]):focus > a, .secondary-navigation .main-nav ul li.sfHover:not([class*="current-menu-"]) > a, .secondary-menu-bar-items .menu-bar-item:hover > a' );
+		$css->add_property( 'color', esc_attr( $generate_settings['navigation_text_hover_color'] ) );
+		$css->add_property( 'background-color', esc_attr( $generate_settings['navigation_background_hover_color'] ) );
+		$css->add_property( 'background-image', ! empty( $generate_settings['nav_item_hover_image'] ) ? 'url(' . esc_url( $generate_settings['nav_item_hover_image'] ) . ')' : '' );
 		$css->add_property( 'background-repeat', esc_attr( $generate_settings['nav_item_hover_repeat'] ) );
 
-		// Sub-Navigation background/text on hover
-		$css->set_selector( '.secondary-navigation .main-nav ul ul li:hover > a,.secondary-navigation .main-nav ul ul li:focus > a,.secondary-navigation .main-nav ul ul li.sfHover > a' );
-		$css->add_property( 'color', esc_attr( $generate_settings[ 'subnavigation_text_hover_color' ] ) );
-		$css->add_property( 'background-color', esc_attr( $generate_settings[ 'subnavigation_background_hover_color' ] ) );
-		$css->add_property( 'background-image', !empty( $generate_settings[ 'sub_nav_item_hover_image' ] ) ? 'url(' . esc_url( $generate_settings[ 'sub_nav_item_hover_image' ] )	. ')' : '' );
+		// Sub-Navigation background/text on hover.
+		$css->set_selector( '.secondary-navigation .main-nav ul ul li:not([class*="current-menu-"]):hover > a,.secondary-navigation .main-nav ul ul li:not([class*="current-menu-"]):focus > a,.secondary-navigation .main-nav ul ul li.sfHover:not([class*="current-menu-"]) > a' );
+		$css->add_property( 'color', esc_attr( $generate_settings['subnavigation_text_hover_color'] ) );
+		$css->add_property( 'background-color', esc_attr( $generate_settings['subnavigation_background_hover_color'] ) );
+		$css->add_property( 'background-image', ! empty( $generate_settings['sub_nav_item_hover_image'] ) ? 'url(' . esc_url( $generate_settings['sub_nav_item_hover_image'] ) . ')' : '' );
 		$css->add_property( 'background-repeat', esc_attr( $generate_settings['sub_nav_item_hover_repeat'] ) );
 
-		// Navigation background / text current + hover
-		$css->set_selector( '.secondary-navigation .main-nav ul li[class*="current-menu-"] > a, .secondary-navigation .main-nav ul li[class*="current-menu-"] > a:hover,.secondary-navigation .main-nav ul li[class*="current-menu-"].sfHover > a' );
-		$css->add_property( 'color', esc_attr( $generate_settings[ 'navigation_text_current_color' ] ) );
-		$css->add_property( 'background-color', esc_attr( $generate_settings[ 'navigation_background_current_color' ] ) );
-		$css->add_property( 'background-image', !empty( $generate_settings[ 'nav_item_current_image' ] ) ? 'url(' . esc_url( $generate_settings[ 'nav_item_current_image' ] )	. ')' : '' );
+		// Navigation background / text current + hover.
+		$css->set_selector( '.secondary-navigation .main-nav ul li[class*="current-menu-"] > a' );
+		$css->add_property( 'color', esc_attr( $generate_settings['navigation_text_current_color'] ) );
+		$css->add_property( 'background-color', esc_attr( $generate_settings['navigation_background_current_color'] ) );
+		$css->add_property( 'background-image', ! empty( $generate_settings['nav_item_current_image'] ) ? 'url(' . esc_url( $generate_settings['nav_item_current_image'] ) . ')' : '' );
 		$css->add_property( 'background-repeat', esc_attr( $generate_settings['nav_item_current_repeat'] ) );
 
-		// Sub-Navigation background / text current + hover
-		$css->set_selector( '.secondary-navigation .main-nav ul ul li[class*="current-menu-"] > a,.secondary-navigation .main-nav ul ul li[class*="current-menu-"] > a:hover,.secondary-navigation .main-nav ul ul li[class*="current-menu-"].sfHover > a' );
-		$css->add_property( 'color', esc_attr( $generate_settings[ 'subnavigation_text_current_color' ] ) );
-		$css->add_property( 'background-color', esc_attr( $generate_settings[ 'subnavigation_background_current_color' ] ) );
-		$css->add_property( 'background-image', !empty( $generate_settings[ 'sub_nav_item_current_image' ] ) ? 'url(' . esc_url( $generate_settings[ 'sub_nav_item_current_image' ] )	. ')' : '' );
+		// Sub-Navigation background / text current + hover.
+		$css->set_selector( '.secondary-navigation .main-nav ul ul li[class*="current-menu-"] > a' );
+		$css->add_property( 'color', esc_attr( $generate_settings['subnavigation_text_current_color'] ) );
+		$css->add_property( 'background-color', esc_attr( $generate_settings['subnavigation_background_current_color'] ) );
+		$css->add_property( 'background-image', ! empty( $generate_settings['sub_nav_item_current_image'] ) ? 'url(' . esc_url( $generate_settings['sub_nav_item_current_image'] ) . ')' : '' );
 		$css->add_property( 'background-repeat', esc_attr( $generate_settings['sub_nav_item_current_repeat'] ) );
 
-		// RTL menu item padding
+		// RTL menu item padding.
 		if ( is_rtl() ) {
 			$css->set_selector( '.secondary-navigation .main-nav ul li.menu-item-has-children > a' );
-			$css->add_property( 'padding-right', absint( $generate_settings[ 'secondary_menu_item' ] ), false, 'px' );
+			$css->add_property( 'padding-right', absint( $generate_settings['secondary_menu_item'] ), false, 'px' );
 		}
 
 		if ( function_exists( 'generate_get_option' ) && function_exists( 'generate_get_defaults' ) ) {
@@ -913,8 +1135,10 @@ if ( ! function_exists( 'generate_secondary_nav_css' ) ) {
 			}
 		}
 
-		// Return our dynamic CSS
-		return $css->css_output();
+		$mobile_css = '@media ' . generate_premium_get_media_query( 'mobile-menu' ) . ' {.secondary-menu-bar-items .menu-bar-item:hover > a{background: none;color: ' . $generate_settings['navigation_text_color'] . ';}}';
+
+		// Return our dynamic CSS.
+		return $css->css_output() . $mobile_css;
 	}
 }
 
@@ -924,12 +1148,16 @@ if ( ! function_exists( 'generate_secondary_color_scripts' ) ) {
 	 * Enqueue scripts and styles
 	 */
 	function generate_secondary_color_scripts() {
-		// Bail if no Secondary menu is set
+		// Bail if no Secondary menu is set.
 		if ( ! has_nav_menu( 'secondary' ) ) {
 			return;
 		}
 
 		wp_add_inline_style( 'generate-secondary-nav', generate_secondary_nav_css() );
+
+		if ( class_exists( 'GeneratePress_Typography' ) ) {
+			wp_add_inline_style( 'generate-secondary-nav', GeneratePress_Typography::get_css( 'secondary-nav' ) );
+		}
 	}
 }
 
@@ -941,8 +1169,8 @@ if ( ! function_exists( 'generate_secondary_navigation_class' ) ) {
 	 * @param string|array $class One or more classes to add to the class list.
 	 */
 	function generate_secondary_navigation_class( $class = '' ) {
-		// Separates classes with a single space, collates classes for post DIV
-		echo 'class="' . join( ' ', generate_get_secondary_navigation_class( $class ) ) . '"';
+		// Separates classes with a single space, collates classes for post DIV.
+		echo 'class="' . join( ' ', generate_get_secondary_navigation_class( $class ) ) . '"'; // phpcs:ignore -- Escaped in generate_get_secondary_navigation_class.
 	}
 }
 
@@ -955,18 +1183,19 @@ if ( ! function_exists( 'generate_get_secondary_navigation_class' ) ) {
 	 * @return array Array of classes.
 	 */
 	function generate_get_secondary_navigation_class( $class = '' ) {
-
 		$classes = array();
 
-		if ( !empty($class) ) {
-			if ( !is_array( $class ) )
-				$class = preg_split('#\s+#', $class);
-			$classes = array_merge($classes, $class);
+		if ( ! empty( $class ) ) {
+			if ( ! is_array( $class ) ) {
+				$class = preg_split( '#\s+#', $class );
+			}
+
+			$classes = array_merge( $classes, $class );
 		}
 
-		$classes = array_map('esc_attr', $classes);
+		$classes = array_map( 'esc_attr', $classes );
 
-		return apply_filters('generate_secondary_navigation_class', $classes, $class);
+		return apply_filters( 'generate_secondary_navigation_class', $classes, $class );
 	}
 }
 
@@ -978,8 +1207,8 @@ if ( ! function_exists( 'generate_secondary_menu_class' ) ) {
 	 * @param string|array $class One or more classes to add to the class list.
 	 */
 	function generate_secondary_menu_class( $class = '' ) {
-		// Separates classes with a single space, collates classes for post DIV
-		echo 'class="' . join( ' ', generate_get_secondary_menu_class( $class ) ) . '"';
+		// Separates classes with a single space, collates classes for post DIV.
+		echo 'class="' . join( ' ', generate_get_secondary_menu_class( $class ) ) . '"'; // phpcs:ignore -- Escaped in generate_get_secondary_menu_class.
 	}
 }
 
@@ -992,18 +1221,19 @@ if ( ! function_exists( 'generate_get_secondary_menu_class' ) ) {
 	 * @return array Array of classes.
 	 */
 	function generate_get_secondary_menu_class( $class = '' ) {
-
 		$classes = array();
 
-		if ( !empty($class) ) {
-			if ( !is_array( $class ) )
-				$class = preg_split('#\s+#', $class);
-			$classes = array_merge($classes, $class);
+		if ( ! empty( $class ) ) {
+			if ( ! is_array( $class ) ) {
+				$class = preg_split( '#\s+#', $class );
+			}
+
+			$classes = array_merge( $classes, $class );
 		}
 
-		$classes = array_map('esc_attr', $classes);
+		$classes = array_map( 'esc_attr', $classes );
 
-		return apply_filters('generate_secondary_menu_class', $classes, $class);
+		return apply_filters( 'generate_secondary_menu_class', $classes, $class );
 	}
 }
 
@@ -1017,37 +1247,20 @@ if ( ! function_exists( 'generate_inside_secondary_navigation_class' ) ) {
 	function generate_inside_secondary_navigation_class( $class = '' ) {
 		$classes = array();
 
-		if ( ! empty($class) ) {
+		if ( ! empty( $class ) ) {
 			if ( ! is_array( $class ) ) {
-				$class = preg_split('#\s+#', $class);
+				$class = preg_split( '#\s+#', $class );
 			}
 
-			$classes = array_merge($classes, $class);
+			$classes = array_merge( $classes, $class );
 		}
 
-		$classes = array_map('esc_attr', $classes);
+		$classes = array_map( 'esc_attr', $classes );
 
-		$return = apply_filters('generate_inside_secondary_navigation_class', $classes, $class);
+		$return = apply_filters( 'generate_inside_secondary_navigation_class', $classes, $class );
 
-		// Separates classes with a single space, collates classes for post DIV
-		echo 'class="' . join( ' ', $return ) . '"';
-	}
-}
-
-if ( ! function_exists( 'generate_hidden_secondary_navigation' ) && function_exists( 'is_customize_preview' ) ) {
-	add_action( 'wp_footer', 'generate_hidden_secondary_navigation' );
-	/**
-	 * Adds a hidden navigation if no navigation is set
-	 * This allows us to use postMessage to position the navigation when it doesn't exist
-	 */
-	function generate_hidden_secondary_navigation() {
-		if ( is_customize_preview() && function_exists( 'generate_secondary_navigation_position' ) ) {
-			?>
-			<div style="display:none;">
-				<?php generate_secondary_navigation_position(); ?>
-			</div>
-			<?php
-		}
+		// Separates classes with a single space, collates classes for post DIV.
+		echo 'class="' . join( ' ', $return ) . '"'; // phpcs:ignore -- Escaped above.
 	}
 }
 
@@ -1062,9 +1275,9 @@ if ( ! function_exists( 'generate_secondary_nav_remove_top_bar' ) ) {
 			generate_secondary_nav_get_defaults()
 		);
 
-		if ( $generate_settings[ 'merge_top_bar' ] && 'secondary-nav-above-header' == $generate_settings[ 'secondary_nav_position_setting' ] && has_nav_menu( 'secondary' ) && is_active_sidebar( 'top-bar' ) ) {
-			remove_action( 'generate_before_header','generate_top_bar', 5 );
-			add_action( 'generate_inside_secondary_navigation','generate_secondary_nav_top_bar_widget', 5 );
+		if ( $generate_settings['merge_top_bar'] && 'secondary-nav-above-header' === $generate_settings['secondary_nav_position_setting'] && has_nav_menu( 'secondary' ) && is_active_sidebar( 'top-bar' ) ) {
+			remove_action( 'generate_before_header', 'generate_top_bar', 5 );
+			add_action( 'generate_inside_secondary_navigation', 'generate_secondary_nav_top_bar_widget', 5 );
 			add_filter( 'generate_is_top_bar_active', '__return_false' );
 		}
 	}
@@ -1087,4 +1300,51 @@ if ( ! function_exists( 'generate_secondary_nav_top_bar_widget' ) ) {
 		</div>
 		<?php
 	}
+}
+
+/**
+ * Check if we have any menu bar items.
+ */
+function generate_secondary_nav_has_menu_bar_items() {
+	return has_action( 'generate_secondary_menu_bar_items' );
+}
+
+add_filter( 'generate_has_active_menu', 'generate_secondary_nav_set_active_menu' );
+/**
+ * Tell GP about our active menus.
+ *
+ * @since 2.1.0
+ * @param boolean $has_active_menu Whether we have an active menu.
+ */
+function generate_secondary_nav_set_active_menu( $has_active_menu ) {
+	if ( has_nav_menu( 'secondary' ) ) {
+		return true;
+	}
+
+	return $has_active_menu;
+}
+
+add_filter( 'generate_typography_css_selector', 'generate_secondary_nav_typography_selectors' );
+/**
+ * Add the Secondary Nav typography CSS selectors.
+ *
+ * @since 2.1.0
+ * @param string $selector The selector we're targeting.
+ */
+function generate_secondary_nav_typography_selectors( $selector ) {
+	switch ( $selector ) {
+		case 'secondary-nav-menu-items':
+			$selector = '.secondary-navigation .main-nav ul li a, .secondary-navigation .menu-toggle, .secondary-navigation .menu-bar-items';
+			break;
+
+		case 'secondary-nav-sub-menu-items':
+			$selector = '.secondary-navigation .main-nav ul ul li a';
+			break;
+
+		case 'secondary-nav-menu-toggle':
+			$selector = '.secondary-navigation .menu-toggle';
+			break;
+	}
+
+	return $selector;
 }

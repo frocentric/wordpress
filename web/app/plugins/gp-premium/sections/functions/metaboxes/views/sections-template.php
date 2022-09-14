@@ -221,7 +221,7 @@ function generate_sections_print_templates() {
 					<h3><?php _e( 'Colors', 'gp-premium' ); ?></h3>
 					<label for="background_color"><?php _e( 'Background Color', 'gp-premium' );?></label>
 					<p>
-						<input class="generate-sections-color" type="text" data-alpha="true" name="background_color" id="background_color" value="{{{ data.background_color }}}"/>
+						<input class="generate-sections-color" type="text" class="color-picker" data-alpha-enabled="true" data-alpha-color-type="hex" name="background_color" id="background_color" value="{{{ data.background_color }}}"/>
 					</p>
 
 					<label for="text_color"><?php _e( 'Text Color', 'gp-premium' );?></label>

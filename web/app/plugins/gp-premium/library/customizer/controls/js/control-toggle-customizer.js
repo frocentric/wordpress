@@ -1,4 +1,4 @@
-jQuery( document ).ready( function($) {
+jQuery( function( $ ) {
 	$( '.generatepress-control-toggles' ).each( function() {
 		$( this ).find( 'button' ).first().addClass( 'active' );
 	} );
@@ -7,7 +7,7 @@ jQuery( document ).ready( function($) {
 		e.preventDefault();
 		var button = $( this ),
 			target = button.data( 'target' ),
-			other_targets = button.siblings();
+			otherTargets = button.siblings();
 
 		button.addClass( 'active' );
 		button.siblings().removeClass( 'active' );
@@ -16,17 +16,20 @@ jQuery( document ).ready( function($) {
 			visibility: 'visible',
 			height: '',
 			width: '',
-			margin: ''
+			margin: '',
+			overflow: '',
 		} );
 
-		$.each( other_targets, function( index, value ) {
-			var other_target = $( this ).data( 'target' );
-			$( 'li[data-control-section="' + other_target + '"]' ).css( {
+		$.each( otherTargets, function() {
+			var otherTarget = $( this ).data( 'target' );
+
+			$( 'li[data-control-section="' + otherTarget + '"]' ).css( {
 				visibility: 'hidden',
 				height: '0',
 				width: '0',
-				margin: '0'
+				margin: '0',
+				overflow: 'hidden',
 			} );
 		} );
 	} );
-});
+} );

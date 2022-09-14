@@ -1,0 +1,19 @@
+button[data-type="regenerate_external_css"]:before {
+	font: normal 20px/.5 dashicons;
+    display: inline-block;
+    padding: 0;
+    top: 9px;
+    left: -4px;
+    position: relative;
+    vertical-align: top;
+    content: "\f463";
+}
+
+button[data-type="regenerate_external_css"].loading:before {
+	animation: rotation 1s infinite linear;
+}
+
+button[data-type="regenerate_external_css"].success:before {
+    content: "\f147";
+    color: #46b450;
+}

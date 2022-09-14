@@ -11,6 +11,7 @@
     </key>
     <key name="generate_menu_plus_settings">
       <key name="mobile_menu_label"/>
+      <key name="off_canvas_desktop_toggle_label"/>
     </key>
     <key name="generate_hooks">
       <key name="generate_wp_head"/>

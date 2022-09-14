@@ -27,6 +27,7 @@
 			'display': 'none'
 		}).attr({
 			id: 'sticky-placeholder',
+			'aria-hidden': true,
 			itemtype: null,
 			itemscope: null,
 		}),
@@ -45,7 +46,7 @@
             topMargin: "auto",
             keepInWrapper: false,
             wrapperSelector: '',
-            zIndex: 100,
+            zIndex: 10000,
 			namespaceClass: "stuckElement",
 			fixedClass: "isStuck",
             disableOn:function(){
@@ -72,7 +73,7 @@
 
         unStick = function() {
             void 0;
-			$placeholder.hide().removeClass( options.fixedClass ).removeClass( 'sticky-navigation-transition' );
+			$placeholder.remove();
 
             $element.removeClass(options.fixedClass)
             .css({
@@ -95,10 +96,12 @@
 				'-webkit-transition': '',
 				'-ms-transition': '',
 				'transition': '',
-				'visibility': ''
+				'visibility': '',
+				'z-index': '',
             })
 			.removeClass( 'sticky-navigation-transition' )
-			.removeClass( 'navigation-transition' );
+			.removeClass( 'navigation-transition' )
+			.removeClass( 'sticky-nav-scrolling-up' );
 
 			if ( 'sticky-navigation' === $element.attr( 'id' ) ) {
 				$element.attr( 'id', 'site-navigation' );
@@ -113,7 +116,9 @@
 
 		holdIt = function( forceBottom ) {
 			void 0;
-			$placeholder.show().addClass( options.fixedClass );
+
+			$( $placeholder ).insertAfter( $element ).show().addClass( options.fixedClass );
+
 			var offsetParent = $placeholder.offsetParent();
 
 			if ( forceBottom ) {
@@ -143,6 +148,10 @@
             void 0;
             active = true;
 
+			if ( options.zIndex ) {
+                $element.css( 'z-index', options.zIndex );
+			}
+
 			if ( 'fade' == options.transition ) {
 				$element.hide();
 			}
@@ -155,11 +164,15 @@
 				});
 			}
 
-			$placeholder.show().addClass( options.fixedClass );
+			$( $placeholder ).insertAfter( $element ).show().addClass( options.fixedClass );
+
+			if ( $( '.gen-sidebar-nav' ).length ) {
+				$placeholder.css( 'height', $element.outerHeight() );
+			}
 
 			if ( 'left' == $element.css( 'float' ) || 'right' == $element.css( 'float' ) ) {
 				$placeholder.css( 'float', $element.css( 'float' ) );
-				$placeholder.attr( 'style', $placeholder.attr( 'style' ) + 'width:auto !important' );
+				$placeholder.attr( 'style', $placeholder.attr( 'style' ) + 'width:auto !important;' );
 			}
 
 			if ( 'slide' == options.transition && 'block' == $placeholder.css( 'display' ) ) {
@@ -224,7 +237,7 @@
         },
 
 		syncWidth = function() {
-			if( $placeholder.width() !== $element.outerWidth() ) {
+			if ( $placeholder && $placeholder.width() !== $element.outerWidth() ) {
 				$element.outerWidth( $placeholder.outerWidth() );
 			}
         },
@@ -324,9 +337,11 @@
 				if ( scrollDir === 'up' && topValue !== 0 ) {
 					var newTopValue = scrollDistance > -topValue ? 0 : topValue + scrollDistance;
 					$element.css( 'top', newTopValue + 'px' );
+					$element.addClass( 'sticky-nav-scrolling-up' );
 				} else if ( scrollDir === "down" && topValue > -offset ) {
 					var newTopValue = scrollDistance > offset + topValue ? -offset : topValue - scrollDistance;
 					$element.css( 'top', newTopValue + 'px' );
+					$element.removeClass( 'sticky-nav-scrolling-up' );
 				}
 			}
 
@@ -357,13 +372,6 @@
         var initialize = function( elem, opts ) {
             $element = $( elem );
 
-			$placeholder.remove();
-			$element.after( $placeholder );
-
-			if ( $( '.gen-sidebar-nav' ).length ) {
-				$placeholder.css( 'height', $element.outerHeight() );
-			}
-
             // adding a class to users div
             $element.addClass( options.namespaceClass );
 
@@ -390,10 +398,6 @@
             } else {
                 $parent = $body;
             }
-
-            if( options.zIndex ) {
-                $element.css( 'z-index',options.zIndex );
-			}
 
             $( window ).on( 'scroll.stickUp', stickUpScrollHandlerFn );
             $( window ).on( 'resize.stickUp', stickUpResponsiveHandlerFn );
@@ -513,7 +517,7 @@ function generateStickyDebounce(func, wait, immediate) {
 	};
 };
 
-jQuery( document ).ready( function($) {
+jQuery( function( $ ) {
 	var resizeEvent = 'onorientationchange' in window ? 'orientationchange' : 'resize',
 		body = $( 'body' ),
 		transition = 'none';
@@ -573,7 +577,7 @@ jQuery( document ).ready( function($) {
 		var mobileHeader = $( '#mobile-header' );
 
 		mobileHeader.GenerateSimpleSticky({
-			scrollHide: ( mobileHeader.data( 'auto-hide-sticky' ) ) ? true : false,
+			scrollHide: ( mobileHeader.data( 'auto-hide-sticky' ) || '' === mobileHeader.data( 'auto-hide-sticky' ) ) ? true : false,
 			disableOn: function() {
 				if ( ! mobileHeader.is( ':visible' ) ) {
 					return false;
@@ -603,7 +607,7 @@ jQuery( document ).ready( function($) {
 		}
 	}, 250);
 
-	if ( sidebarNavClone.length ) {
+	if ( $( 'body' ).hasClass( 'sticky-enabled' ) && sidebarNavClone.length ) {
 		window.addEventListener( 'resize', checkSidebarNav );
 		window.addEventListener( 'orientationchange', checkSidebarNav );
 	}

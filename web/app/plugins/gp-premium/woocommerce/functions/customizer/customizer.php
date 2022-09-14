@@ -85,7 +85,7 @@ function generatepress_woocommerce_customize_register( $wp_customize ) {
 			array(
 				'section'     => 'generate_woocommerce_layout',
 				'type'        => 'generatepress-customizer-title',
-				'title'			=> __( 'General','generate-woocommerce' ),
+				'title'			=> __( 'General', 'gp-premium' ),
 				'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname'
 			)
 		)
@@ -205,7 +205,7 @@ function generatepress_woocommerce_customize_register( $wp_customize ) {
 			array(
 				'section'     => 'generate_woocommerce_layout',
 				'type'        => 'generatepress-customizer-title',
-				'title'			=> __( 'Shop','generate-woocommerce' ),
+				'title'			=> __( 'Shop', 'gp-premium' ),
 				'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname'
 			)
 		)
@@ -691,7 +691,7 @@ function generatepress_woocommerce_customize_register( $wp_customize ) {
 			array(
 				'section'     => 'generate_woocommerce_layout',
 				'type'        => 'generatepress-customizer-title',
-				'title'			=> __( 'Single Product','generate-woocommerce' ),
+				'title'			=> __( 'Single Product', 'gp-premium' ),
 				'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname'
 			)
 		)
@@ -713,7 +713,7 @@ function generatepress_woocommerce_customize_register( $wp_customize ) {
 			'label' => __( 'Sidebar Layout', 'gp-premium' ),
 			'section' => 'generate_woocommerce_layout',
 			'choices' => array(
-				'inherit' => __( 'Inherit','generate-woocommerce' ),
+				'inherit' => __( 'Inherit', 'gp-premium' ),
 				'left-sidebar' => __( 'Sidebar / Content', 'gp-premium' ),
 				'right-sidebar' => __( 'Content / Sidebar', 'gp-premium' ),
 				'no-sidebar' => __( 'Content (no sidebars)', 'gp-premium' ),
@@ -1002,7 +1002,7 @@ function generatepress_woocommerce_customize_register( $wp_customize ) {
 			array(
 				'section'     => 'generate_woocommerce_layout',
 				'type'        => 'generatepress-customizer-title',
-				'title'			=> __( 'Checkout','generate-woocommerce' ),
+				'title'			=> __( 'Checkout', 'gp-premium' ),
 				'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname'
 			)
 		)
@@ -1022,7 +1022,7 @@ function generatepress_woocommerce_customize_register( $wp_customize ) {
 		array(
 			'type' => 'checkbox',
 			'label' => __( 'Distraction-free mode', 'gp-premium' ),
-			'description' => __( 'Remove unnecessary distractions like sidebars, footer widgets and sticky menus.','generate-woocommerce' ),
+			'description' => __( 'Remove unnecessary distractions like sidebars, footer widgets and sticky menus.', 'gp-premium' ),
 			'section' => 'generate_woocommerce_layout',
 			'settings' => 'generate_woocommerce_settings[distraction_free]',
 		)
