@@ -9,6 +9,8 @@ use EAddonsForElementor\Core\Utils;
 use EAddonsForElementor\Core\Utils\Query as Query_Utils;
 use EAddonsForElementor\Modules\Query\Base\Query as Base_Query;
 
+use EAddonsDev\Core\Managers\Databases;
+
 if (!defined('ABSPATH'))
     exit; // Exit if accessed directly
 
@@ -19,10 +21,10 @@ if (!defined('ABSPATH'))
  *
  */
 class Query_Db extends Base_Query {
-    public static $db = [];
-
+   
     public static $e_submissions_fields = array('id', 'type', 'hash_id', 'main_meta_id', 'post_id', 'referer', 'referer_title', 'element_id', 'form_name', 'campaign_id', 'user_id', 'user_ip', 'user_agent', 'actions_count', 'actions_succeeded_count', 'status', 'is_read', 'meta', 'created_at_gmt', 'updated_at_gmt', 'created_at', 'updated_at');
-
+    public $prefix = 'wp_';
+    
     use Traits\Common;
 
     public function get_pid() {
@@ -144,7 +146,38 @@ class Query_Db extends Base_Query {
             'description' => esc_html__('Add all Object Meta values to current row. Working for "posts", "users", "terms" and "comments".'),
             'condition' => [
                 'query_type' => ['table'],
-                'query_db_table!' => '',
+                //'query_db_table!' => '',
+                'query_db_table' => ['posts','terms','users','comments'],
+            ],
+                ]
+        );
+        
+        $this->add_control(
+                'query_db_conn', [
+            'label' => esc_html__('DB Connection', 'e-addons'),
+            'type' => Controls_Manager::SELECT,
+            'options' => [
+                '' => esc_html__('Default', 'e-addons'),
+                'mysql' => esc_html__('Custom MySQL', 'e-addons'),
+                'pdo' => esc_html__('PDO', 'e-addons'),
+                'db' => esc_html__('Elementor DB', 'e-addons'),
+            ],
+                'default' => 'mysql',
+            'condition' => [
+                'query_type' => ['table', ''],
+            ],
+                ]
+        );
+        
+        $this->add_control(
+                'query_db_dns', [
+            'label' => esc_html__('DNS'),
+            'type' => Controls_Manager::TEXT,
+            'default' => '',
+            'placeholder' => 'mysql:host=my_hostname;dbname=my_dbname',
+            'condition' => [
+                'query_type' => ['table', ''],
+                'query_db_conn' => 'pdo',
             ],
                 ]
         );
@@ -155,6 +188,7 @@ class Query_Db extends Base_Query {
             'type' => Controls_Manager::TEXT,
             'condition' => [
                 'query_type' => ['table', ''],
+                'query_db_conn' => ['pdo', 'mysql'],
             ],
                 ]
         );
@@ -164,6 +198,7 @@ class Query_Db extends Base_Query {
             'type' => Controls_Manager::TEXT,
             'condition' => [
                 'query_db_user!' => '',
+                'query_db_conn' => ['pdo', 'mysql'],
             ],
                 ]
         );
@@ -173,6 +208,7 @@ class Query_Db extends Base_Query {
             'type' => Controls_Manager::TEXT,
             'condition' => [
                 'query_db_user!' => '',
+                'query_db_conn' => 'mysql',
             ],
                 ]
         );
@@ -184,6 +220,7 @@ class Query_Db extends Base_Query {
             'type' => Controls_Manager::TEXT,
             'condition' => [
                 'query_db_user!' => '',
+                'query_db_conn' => 'mysql',
             ],
                 ]
         );
@@ -299,7 +336,7 @@ class Query_Db extends Base_Query {
     }
     
     public function get_table($settings) {
-        $table = $settings['query_db_table'];
+        $table = trim($settings['query_db_table']);
         if ($settings['query_db_table_prefix']) {
             global $wpdb;
             $table = $wpdb->prefix . $table;
@@ -307,58 +344,12 @@ class Query_Db extends Base_Query {
         return $table;
     }
 
-    public static function get_db($settings = []) {
-        /*
-        if ($skin) {
-            $settings = $skin->parent->get_settings_for_display();
-        } else {
-            $settings = $this->get_settings_for_display();
-        }
-        */
-        if (!empty($settings['query_db_user'])) {
-            $db_name = $settings['query_db_name'] ? $settings['query_db_name'] : DB_NAME;
-            $db_host = $settings['query_db_host'] ? $settings['query_db_host'] : DB_HOST;
-            $mydb = new \wpdb(DB_USER, DB_PASSWORD, DB_NAME, DB_HOST); // prevent the critical error
-            $mydb->dbuser = $settings['query_db_user'];
-            $mydb->dbpassword = $settings['query_db_password'];
-            $mydb->dbname = $db_name;
-            $mydb->dbhost = $db_host;
-            
-            $db_key = $settings['query_db_user'].'-'.$settings['query_db_password'].'-'.$db_name.'-'.$db_host;
-            if (!empty(self::$db[$db_key])) {
-                return self::$db[$db_key];
-            }
-            //$mydb = new \wpdb($settings['query_db_user'], $settings['query_db_password'], $db_name, $db_host);
-            //var_dump($mydb); die();
-            if ($mydb->db_connect(false)) {
-                //$mydb = new \wpdb($settings['query_db_user'], $settings['query_db_password'], $db_name, $db_host);
-                self::$db[$db_key] = $mydb;
-                return $mydb;
-            } else {
-                echo esc_html__('Error establishing a database connection') . ', ' . esc_html__('This either means that the username and password information is incorrect or we can&#8217;t contact the database server at '.$db_host.'. This could mean your host&#8217;s database server is down.');
-            }
-            /*
-            try {
-                $conn = new \PDO("mysql:host=".$db_host.";dbname=myDB", $settings['query_db_user'], $settings['query_db_password']);
-                // set the PDO error mode to exception
-                $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-                return $conn;
-            } catch(\PDOException $e) {
-                echo "Connection failed: " . $e->getMessage();
-            }
-            */
-        }
-
-        global $wpdb;
-        return $wpdb;
-    }
-
     // La QUERY
     public function query_the_elements() {
 
         $settings = $this->get_settings_for_display();
 
-        $wpdb = self::get_db($settings);
+        $wpdb = Databases::get_db($settings);
 
         switch ($settings['query_type']) {
             case 'table':
@@ -476,8 +467,12 @@ class Query_Db extends Base_Query {
         //var_dump($sql);
         //do_action('elementor/query/query_results', $query, $this);         
         // secure 
-        if (stripos($sql, 'update ') !== false || stripos($sql, 'delete ') !== false || stripos($sql, 'insert ') !== false) {
+        if (!Databases::is_read_only($sql)) {
             return false;
+        }
+        
+        if (!empty($settings['query_db_conn'])) {
+            //$wpdb->close(); // maybe I will reuse it on another widget instance
         }
         
         $this->query = $sql;
@@ -490,10 +485,18 @@ class Query_Db extends Base_Query {
             return;
         }
 
-        $wpdb = self::get_db($settings);
-        $results = $wpdb->get_results($query, 'ARRAY_A');
-        // use mysql
+        
+        $wpdb = Databases::get_db($settings);
+        
+        $results = $this->get_results($wpdb, $query);
         //var_dump($results);
+        if (is_string($results)) {
+            if (Utils::is_preview() && WP_DEBUG) {
+                echo $results;
+            }
+            $results = [];
+            //return;
+        }
 
         $offset = intval($settings['offset']);
         $limit = count($results);
@@ -561,8 +564,7 @@ class Query_Db extends Base_Query {
                     }
                     if ($table_meta) {
                         $sql = 'SELECT * FROM `' . $table_meta . '` WHERE `'.$obj_key.'` = ' . $obj_id;
-                        //var_dump($sql);
-                        $values = $wpdb->get_results($sql, 'ARRAY_A');
+                        $values = $this->get_results($wpdb, $sql);
                         //var_dump($values);
                         foreach ($values as $avalue) {
                             if (empty($row[$avalue['meta_key']])) {
@@ -580,13 +582,37 @@ class Query_Db extends Base_Query {
             }
         }
     }
+    
+    public function get_results($wpdb, $query) {
+        $error = false;
+        $results = [];
+        //var_dump($query);
+        if (is_a($wpdb, 'wpdb')) {
+            $results = $wpdb->get_results($query, ARRAY_A);
+            if (empty($results)) {
+                $error = $wpdb->last_error;
+            }
+        } else {
+            $sth = $wpdb->prepare($query);
+            if ($sth && $sth->execute()) {
+                $results = $sth->fetchAll(\PDO::FETCH_ASSOC);
+            }
+            if (empty($results)) {
+                $error = $wpdb->errorInfo();
+            }
+        }
+        if ($error) {
+            return $error;
+        }
+        return $results;
+    }
 
     public function should_render($render, $skin, $query) {
         $settings = $skin->parent->get_settings_for_display();
-        $wpdb = self::get_db($settings);
-        $results = $wpdb->get_results($query);
+        $wpdb = Databases::get_db($settings);
+        $results = $results = $this->get_results($wpdb, $query);
         //var_dump($results); 
-        if (empty($results)) { //->num_rows)) {
+        if (empty($results) || is_string($results)) { //->num_rows)) {
             $render = false;
         }
         return $render;
@@ -595,11 +621,11 @@ class Query_Db extends Base_Query {
     public function pagination__page_limit($page_limit, $skin, $query, $settings) {
         $no = $settings['rows_per_page'];
         if ($no) {
-            $mydb = self::get_db($settings);
+            $wpdb = Databases::get_db($settings);
             if (strpos($query, 'LIMIT') !== false) {
                 list($query, $where) = explode('LIMIT', $query, 2);
             }
-            $results = $mydb->get_results($query);
+            $results = $results = $this->get_results($wpdb, $query);
             //var_dump($results); die();
             //$total_rows = $results->num_rows;
             $total_rows = count($results);

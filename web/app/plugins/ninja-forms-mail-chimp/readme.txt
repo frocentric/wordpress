@@ -1,9 +1,9 @@
 === Ninja Forms - MailChimp ===
 Contributors: wpninjasllc, kbjohnson90, pippinsplugins, klhall1987
 Tags: form, forms, ninja forms, mailpoet, wysija, newsletters, email
-Requires at least: 4.7
-Tested up to: 4.9
-Stable tag: 3.1.9
+Requires at least: 5.3
+Tested up to: 6.0.1
+Stable tag: 3.3.2
 License: GPLv2 or later
 
 == Description ==
@@ -22,6 +22,45 @@ This section describes how to install the plugin.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+= 3.3.2 (10 August 2022)
+* Bug Fixes *
+* Enable address field structure
+* Prevent shared library conflicts with internalized library
+* Prevent blank fields overwriting existing data
+* Remove `mixed` type declaration error in PHP <8.0
+
+= 3.3.1 (25 October 2021)
+* Bug Fixes *
+* Prevent PHP return type error in library field
+
+= 3.3.0 (11 October 2021) =
+* Bug Fixes *
+* prevent PHP 8 return type error
+* ensure tag type 'saved' is recognized
+* ensure radio option in MC translates in autogenerator
+* ensure duplicated forms don't carry 'ghost' pre-selected interests that cannot be removed
+
+= 3.2.2 (December 2020) =
+* Fix type hint mismatch error
+* Fix WP_Error code string causing exception
+
+= 3.2.1 (November 2020)
+* Add autogenerator popup modal functionality with coordinated change in Ninja Forms core
+
+= 3.2.0 (October 2020) =
+* Add support for Mailchimp Tags, user-selected Merge Fields
+* Add Mailchimp automatic form generator that builds form from Audience for you
+* Add per-submission diagnostics
+* Add automatic form generator
+
+
+= 3.1.11 (12 June 2019) =
+
+* Timeout errors should no longer occur as frequently when validating API keys.
+
+= 3.1.10 (15 May 2019) =
+
+* An error should now be thrown if cUrl is not installed on the site.
 
 = 3.1.9 (27 November 2018) =
 

@@ -18,11 +18,10 @@ use EAddonsForElementor\Core\Utils\Query as Query_Utils;
  * @author fra
  */
 trait Cache {
-    
+
     public static $headers = [];
     public static $cache = [];
-    
-    
+
     public function add_cache_options() {
         $this->add_control(
                 'data_cache', [
@@ -44,7 +43,7 @@ trait Cache {
                 ]
         );
     }
-    
+
     public function add_remote_options() {
         $this->add_control(
                 'require_authorization', [
@@ -70,7 +69,7 @@ trait Cache {
             'label_block' => true,
             'condition' => [
                 'require_authorization!' => '',
-            ],            
+            ],
                 ]
         );
         $this->add_control(
@@ -85,7 +84,7 @@ trait Cache {
             'separator' => 'after',
                 ]
         );
-        
+
         $repeater_headers = new \Elementor\Repeater();
         $repeater_headers->add_control(
                 'header_key', [
@@ -118,7 +117,7 @@ trait Cache {
             'placeholder' => '80',
                 ]
         );
-        
+
         $this->add_control(
                 'connect_timeout', [
             'label' => esc_html__('Connection Timeout', 'e-addons'),
@@ -126,7 +125,7 @@ trait Cache {
             'description' => esc_html__('Maximum time in seconds that your server waits for a response from the destination server', 'e-addons'),
                 ]
         );
-        
+
         $this->add_control(
                 'disable_sslverify', [
             'label' => esc_html__('Ignore SSL Certificate', 'e-addons'),
@@ -138,9 +137,9 @@ trait Cache {
     public function maybe_get_cache() {
         $settings = $this->get_settings_for_display();
         //$settings['_id'] = $this->get_id();
-        
+
         $cache = false;
-                
+
         $current_post_id = get_the_ID();
         if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
             if (!$settings['data_cache']) {
@@ -187,21 +186,21 @@ trait Cache {
         //var_dump($settings['url']);
         //$settings['url'] = '"'.$settings['url'].'"';
         //$settings['url'] = str_replace('&', '\&', $settings['url']);
-        
+
         /*
-        // create curl resource
-        $ch = curl_init();
-        // set url
-        curl_setopt($ch, CURLOPT_URL, $url);
-        //return the transfer as a string
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        // $output contains the output string
-        $output = curl_exec($ch);
-        var_dump($output);
-        // close curl resource to free up system resources
-        curl_close($ch); 
-        */
-        
+          // create curl resource
+          $ch = curl_init();
+          // set url
+          curl_setopt($ch, CURLOPT_URL, $url);
+          //return the transfer as a string
+          curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+          // $output contains the output string
+          $output = curl_exec($ch);
+          var_dump($output);
+          // close curl resource to free up system resources
+          curl_close($ch);
+         */
+
         /* $tmp = explode('?', $url);
           if (count($tmp) > 1) {
           $url = reset($tmp);
@@ -221,19 +220,19 @@ trait Cache {
 
         if (!empty($settings['data_dsl'])) {
             $parsed = self::parse_dsl($settings['data_dsl']);
-            
+
             if (!empty($parsed['command'])) {
                 $args['method'] = $parsed['method'];
                 //var_dump($command);
-                $url .= (substr($url, -1) == '/') ? $parsed['command'] : '/' . $parsed['command'];  
-                
-                /*if (empty($parsed['json']) && !empty($settings['pagination_enable'])) {                    
-                    $parsed['json'] = '{}';
-                }*/
-                
+                $url .= (substr($url, -1) == '/') ? $parsed['command'] : '/' . $parsed['command'];
+
+                /* if (empty($parsed['json']) && !empty($settings['pagination_enable'])) {                    
+                  $parsed['json'] = '{}';
+                  } */
+
                 if (!empty($parsed['json'])) {
-                    $args['method'] = 'POST';                    
-                    
+                    $args['method'] = 'POST';
+
                     //$keys = array_keys($data);
                     //$first_key = reset($keys);
                     //var_dump($first_key);
@@ -258,7 +257,7 @@ trait Cache {
                 }
             }
         }
-        
+
         //$args['headers']['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:100.0) Gecko/20100101 Firefox/100.0';
         //$args['headers']['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8';
         //$args['headers']['Accept-Language'] = 'en-US,en;q=0.5';
@@ -270,7 +269,6 @@ trait Cache {
         //$args['headers']['Sec-Fetch-Mode'] = 'navigate';
         //$args['headers']['Sec-Fetch-Site'] = 'none';
         //$args['headers']['Sec-Fetch-User'] = '?1';
-        
         //var_dump($args); die();
 
         if (empty($settings['data_post'])) {
@@ -290,7 +288,7 @@ trait Cache {
                     }
                     $args['body'][$api_post['data_post_key']] = $pvalue;
                 }
-            }            
+            }
             if ($args['headers']['Content-Type'] == 'application/json') {
                 if (!empty($args['body'])) {
                     $args['body'] = json_encode($args['body']);
@@ -298,17 +296,17 @@ trait Cache {
             }
             $response = wp_remote_post($url, $args);
         }
-        
+
         /*
-        echo $url;
-        echo '<pre>';var_dump($args);echo '</pre>';
-        echo '<pre>';var_dump($response);echo '</pre>';
+          echo $url;
+          echo '<pre>';var_dump($args);echo '</pre>';
+          echo '<pre>';var_dump($response);echo '</pre>';
         */
-        
+
         $cache = false;
         if ($response !== false && !is_wp_error($response)) {
             self::$headers[$settings['url']] = wp_remote_retrieve_headers($response);
-            
+
             $cache = wp_remote_retrieve_body($response);
             $code = wp_remote_retrieve_response_code($response);
             //echo '<pre>';var_dump($cache);echo '</pre>';
@@ -327,7 +325,7 @@ trait Cache {
                     }
                     $cache = json_encode($data);
                 }
-                
+
                 if (!empty($settings['data_wp_load_fields'])) {
                     $data = json_decode($cache, true);
                     $data = self::replace_wp_ids($data, $settings); //, $settings['archive_path']);
@@ -340,7 +338,7 @@ trait Cache {
 
         return $cache;
     }
-    
+
     public static function parse_dsl($dsl) {
         $dsl = Utils::get_dynamic_data($dsl);
         $parsed = array('command' => '/_search', 'method' => 'GET', 'json' => '');
@@ -375,49 +373,47 @@ trait Cache {
         }
 
         if (!empty($settings['method'])) {
-            
+
             if ($settings['method'] == 'WP') {
-            
+
                 if (!empty($settings['data_wp_post_type'])) {
                     $url = self::get_wp_json_url($url, $settings['data_wp_post_type']);
                 }
-                
+
                 $rows_per_page = empty($settings['rows_per_page']) ? get_option('posts_per_page') : intval($settings['rows_per_page']);
                 if (!empty($rows_per_page)) {
                     if (strpos($url, 'per_page=') === false) {
                         $url = add_query_arg('per_page', $rows_per_page, $url);
                     }
                 }
-                
+
                 $page = Utils::get_current_page_num();
                 if ($page > 1) {
                     $url = add_query_arg('page', $page, $url);
                 }
-
             }
-            
-            if (!empty($settings['data_get'])) {
-                if (!$settings['method'] || in_array($settings['method'], array('WP'))) {
-                    foreach ($settings['data_get'] as $api_get) {
-                        if ($api_get['data_get_key']) {
-                            $url = add_query_arg($api_get['data_get_key'], $api_get['data_get_value'], $url);
-                        }
+        }
+
+        if (!empty($settings['data_get'])) {
+            if (empty($settings['method']) || in_array($settings['method'], array('WP'))) {
+                foreach ($settings['data_get'] as $api_get) {
+                    if ($api_get['data_get_key']) {
+                        $url = add_query_arg($api_get['data_get_key'], $api_get['data_get_value'], $url);
                     }
                 }
             }
-            
         }
-        
+
         $url = trim($url);
-        
+        //var_dump($url);
         return $url;
     }
-    
+
     public static function replace_wp_ids($cache = '', $settings = array()) {
         if (!empty($cache)) {
             if (is_array($cache)) {
                 foreach ($cache as $key => $sub) {
-                    if ($key && in_array($key, $settings['data_wp_load_fields']) && self::is_document_id($sub)) {                              
+                    if ($key && in_array($key, $settings['data_wp_load_fields']) && self::is_document_id($sub)) {
                         $cache[$key] = self::get_wp_obj_by_id($sub, $settings, $key);
                     } else {
                         if (is_array($sub)) {
@@ -455,7 +451,7 @@ trait Cache {
                 }
             }
         }
-        
+
         return $args;
     }
 
@@ -469,10 +465,10 @@ trait Cache {
                         $keys = Utils::explode(reset($keys));
                     }
                     $skey = $pkey;
-                    
+
                     if (!empty($settings['archive_path'])) {
-                        $archive_path = $settings['archive_path'].'.';
-                        if (substr($pkey, 0, strlen($archive_path)) == $archive_path) {                    
+                        $archive_path = $settings['archive_path'] . '.';
+                        if (substr($pkey, 0, strlen($archive_path)) == $archive_path) {
                             $skey = substr($pkey, strlen($archive_path));
                             $tmp = explode('.', $skey);
                             if (is_numeric(reset($tmp))) {
@@ -485,12 +481,12 @@ trait Cache {
                     //if (in_array($pkey, $keys)) {
                     $match = false;
                     foreach ($keys as $akey) {
-                        /*if (str_ends_with($pkey, $akey)) {
-                            $match = true;
-                            break;
-                        }*/
+                        /* if (str_ends_with($pkey, $akey)) {
+                          $match = true;
+                          break;
+                          } */
                         //var_dump($skey);
-                        if ($skey == $akey) {                            
+                        if ($skey == $akey) {
                             $match = true;
                         } else {
                             $tmp = explode('.', $skey);
@@ -531,21 +527,21 @@ trait Cache {
         }
         return true;
     }
-    
+
     public static function get_wp_json_url($url, $type = '') {
         if (!empty($type)) {
             $jbase = '/wp-json/wp/v2/';
             if (strpos($url, $jbase) === false) {
                 $tmp = explode('?', $url);
-                $url = array_shift($tmp).$jbase.$type;
+                $url = array_shift($tmp) . $jbase . $type;
             } else {
                 $tmp = explode('?', $url);
                 $tmp2 = explode($jbase, array_shift($tmp));
-                $url = reset($tmp2).$jbase.$type;
+                $url = reset($tmp2) . $jbase . $type;
             }
             if (!empty($tmp)) {
-                $url .= '?'.reset($tmp);
-            }  
+                $url .= '?' . reset($tmp);
+            }
         }
         return $url;
     }
@@ -556,11 +552,11 @@ trait Cache {
             foreach ($id as $skey => $aid) {
                 $id[$skey] = self::get_wp_obj_by_id($aid, $settings, $key);
             }
-        } else {          
+        } else {
             if (intval($id)) {
                 $args = self::set_headers($settings);
-                $type = false;            
-                switch($key) {
+                $type = false;
+                switch ($key) {
                     case 'author':
                         $type = 'users';
                         break;
@@ -579,12 +575,12 @@ trait Cache {
                 }
                 if ($type) {
                     $base_url = self::get_wp_json_url($settings['url'], $type);
-                    $url = $base_url.'/'.$id;
+                    $url = $base_url . '/' . $id;
                     //var_dump($url);
                     $cache = false;
                     if (empty(self::$cache[$url])) {
                         $response = wp_remote_get($url, $args);
-                        if ($response && wp_remote_retrieve_response_code($response) == 200) {                
+                        if ($response && wp_remote_retrieve_response_code($response) == 200) {
                             $cache = wp_remote_retrieve_body($response);
                             self::$cache[$url] = $cache;
                         }
@@ -599,15 +595,14 @@ trait Cache {
         }
         return $id;
     }
-    
-    
+
     public static function get_document_by_id($id, $settings = array()) {
         // fill all document _id reference
-        if (is_array($id)) {            
+        if (is_array($id)) {
             foreach ($id as $key => $aid) {
                 $id[$key] = self::get_document_by_id($aid, $settings);
             }
-        } else {            
+        } else {
             $dsl = self::get_archive_index($settings) . '/_doc/' . $id;
             $args = self::set_headers($settings);
             $url = self::get_url($settings);
@@ -616,11 +611,11 @@ trait Cache {
             $cache = false;
             if (empty(self::$cache[$id])) {
                 $response = wp_remote_get($url, $args);
-                if ($response && wp_remote_retrieve_response_code($response) == 200) {                
+                if ($response && wp_remote_retrieve_response_code($response) == 200) {
                     $cache = wp_remote_retrieve_body($response);
                     self::$cache[$id] = $cache;
                 }
-            }  else {
+            } else {
                 $cache = self::$cache[$id];
             }
             if ($cache) {
@@ -645,7 +640,5 @@ trait Cache {
         }
         return $archive;
     }
-    
-    
 
 }

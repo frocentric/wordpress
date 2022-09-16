@@ -281,7 +281,7 @@ trait Elementor {
         if (!$post_id) {
             $post_id = get_the_ID();
         }
-        if (\Elementor\Plugin::instance()->db->is_built_with_elementor($post_id)) {
+        if (\Elementor\Plugin::instance()->documents->get( $post_id )->is_built_with_elementor()) {
             return $post_id;
         } else {
             if (\EAddonsForElementor\Core\Utils::is_plugin_active('elementor-pro')) {

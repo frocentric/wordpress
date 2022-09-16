@@ -1,3 +1,11 @@
+##### [Version 2.0.3](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.0.2...v2.0.3) (2022-09-09)
+
+#### Fixes
+- Fix paraphrasing on very long titles.
+- Fix the forbidden icon on some Agency features.
+- Fix spintax support on the personal plan
+- Update dependencies
+
 ##### [Version 2.0.2](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.0.1...v2.0.2) (2022-07-22)
 
 * Fix WordAI & SpinnerChief connection issue.

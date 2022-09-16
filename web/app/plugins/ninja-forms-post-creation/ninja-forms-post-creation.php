@@ -4,7 +4,7 @@
  * Plugin Name: Ninja Forms - Post Creation
  * Plugin URI: https://ninjaforms.com/extensions/
  * Description: Create posts, pages, or any custom post type from the front-end.
- * Version: 3.0.9
+ * Version: 3.0.10
  * Author: The WP Ninjas
  * Author URI: http://ninjaforms.com
  * Text Domain: ninja-forms-create-post
@@ -26,7 +26,7 @@ if( version_compare( get_option( 'ninja_forms_version', '0.0.0' ), '3', '<' ) ||
 
     define("NINJA_FORMS_POST_DIR", WP_PLUGIN_DIR."/".basename( dirname( __FILE__ ) )."/deprecated" );
     define("NINJA_FORMS_POST_URL", plugins_url()."/".basename( dirname( __FILE__ ) )."/deprecated" );
-    define("NINJA_FORMS_POST_VERSION", "3.0.9");
+    define("NINJA_FORMS_POST_VERSION", "3.0.10");
 
     include 'deprecated/post-creation.php';
 
@@ -37,7 +37,7 @@ if( version_compare( get_option( 'ninja_forms_version', '0.0.0' ), '3', '<' ) ||
      */
     final class NF_CreatePost
     {
-        const VERSION = '3.0.9';
+        const VERSION = '3.0.10';
         const SLUG = 'create-post';
         const NAME = 'Create Post';
         const AUTHOR = 'The WP Ninjas';

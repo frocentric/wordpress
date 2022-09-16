@@ -21,7 +21,8 @@ define( [
 	'controllers/getDrawerHeader',
 	'controllers/trackKeyChanges',
 	'controllers/maybeConvertConditions',
-	'controllers/filters'
+	'controllers/filters',
+	'controllers/fieldDate'
 
 	], function(
 
@@ -40,7 +41,8 @@ define( [
 	GetDrawerHeader,
 	TrackKeyChanges,
 	MaybeConvertConditions,
-	Filters
+	Filters,
+	FieldDate
 	) {
 	var controller = Marionette.Object.extend( {
 		initialize: function() {
@@ -58,6 +60,7 @@ define( [
 			new TrackKeyChanges();
 			new MaybeConvertConditions();
 			new Filters();
+			new FieldDate();
 		}
 	});
 

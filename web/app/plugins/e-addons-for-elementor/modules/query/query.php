@@ -65,7 +65,7 @@ class Query extends Module_Base {
         if (is_singular() && !empty($wp_query->post)) {
 
             // Single Post built_with_elementor
-            if (\Elementor\Plugin::instance()->db->is_built_with_elementor($wp_query->post->ID) || Utils::is_plugin_active('elementor-pro')) {
+            if (\Elementor\Plugin::instance()->documents->get( $wp_query->post->ID )->is_built_with_elementor() || Utils::is_plugin_active('elementor-pro')) {
                 $document = \Elementor\Plugin::instance()->documents->get($wp_query->post->ID);
                 if ($this->is_valid_pagination($document, $page)) {
                     return true;

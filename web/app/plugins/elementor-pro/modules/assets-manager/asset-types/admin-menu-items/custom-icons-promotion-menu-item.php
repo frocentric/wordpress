@@ -25,7 +25,7 @@ class Custom_Icons_Promotion_Menu_Item extends Base_Promotion_Item {
 	}
 
 	public function get_position() {
-		return 2;
+		return null;
 	}
 
 	public function get_cta_text() {

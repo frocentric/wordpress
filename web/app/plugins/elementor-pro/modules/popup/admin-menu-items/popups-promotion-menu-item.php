@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Popups_Promotion_Menu_Item extends Base_Promotion_Item {
 
 	public function get_position() {
-		return 1;
+		return null;
 	}
 
 	public function get_cta_text() {

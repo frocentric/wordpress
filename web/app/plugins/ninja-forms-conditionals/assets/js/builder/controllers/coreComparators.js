@@ -15,6 +15,7 @@ define( [], function() {
 			nfRadio.channel( 'conditions-listradio' ).reply( 'get:comparators', this.getListSingleComparators );
 			nfRadio.channel( 'conditions-listselect' ).reply( 'get:comparators', this.getListSingleComparators );
 			nfRadio.channel( 'conditions-list' ).reply( 'get:comparators', this.getListComparators );
+			nfRadio.channel( 'conditions-date' ).reply( 'get:comparators', this.getDateComparators );
 		},
 
 		getCheckboxComparators: function( defaultComparators ) {
@@ -80,6 +81,34 @@ define( [], function() {
 				}	
 		},
 
+		getDateComparators: function( defaultComparators ) {
+			return {
+				before: {
+					label: nfcli18n.coreComparatorsBefore,
+					value: 'less'
+				},
+
+				onorbefore: {
+					label: nfcli18n.coreComparatorsOnOrBefore,
+					value: 'lessequal'
+				},
+
+				equal: {
+					label: nfcli18n.coreComparatorsIs,
+					value: 'equal'
+				},
+
+				onorafter: {
+					label: nfcli18n.coreComparatorsOnOrAfter,
+					value: 'greaterequal'
+				},
+
+				after: {
+					label: nfcli18n.coreComparatorsAfter,
+					value: 'greater'
+				}
+			}
+		},
 
 	});
 

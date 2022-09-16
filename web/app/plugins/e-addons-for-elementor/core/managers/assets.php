@@ -21,9 +21,34 @@ final class Assets {
         add_action('wp_footer', [$this, 'print_styles'], 100);
         add_action('wp_footer', [$this, 'print_scripts'], 100);
         do_action('e_addons/assets');
+        
+        add_action( 'elementor/core/files/clear_cache', [ $this, '_clear_cache' ] );
+        $addon = \EAddonsForElementor\Plugin::instance()->get_addon('e-addons-for-elementor');
+        if (!empty($addon['Version'])) {
+            $version = $addon['Version'];
+            //var_dump($version); die();
+            $assets_version = get_option('e_addons_version');
+            //var_dump($assets_version); die();
+            if ((!$assets_version && $version) || ($assets_version != $version) || (version_compare($assets_version, $version, '<'))) {
+                $this->_clear_cache();
+                $this->_clear_cache('css');
+                update_option('e_addons_version', $version);
+                //var_dump($assets_version); die();
+            }
+        }
 
         if (DIRECTORY_SEPARATOR == '\\') {
             add_filter('_wp_relative_upload_path', [$this, '_wp_relative_upload_path'], 10, 2); // fix Windows path
+        }
+    }
+    
+    public function _clear_cache($ext = 'js') {
+        // delete all js
+        $path = \Elementor\Core\Files\Base::get_base_uploads_dir() . $ext . DIRECTORY_SEPARATOR . '*.'.$ext;
+        $path = str_replace('/', DIRECTORY_SEPARATOR, $path);
+        //var_dump($path); die();
+        foreach ( glob( $path ) as $file_path ) {
+            unlink( $file_path );
         }
     }
 
@@ -89,6 +114,12 @@ final class Assets {
 
     public static function register_assets($assets_path = '', $assets = '') {
 
+        $wp_upload_dir = wp_upload_dir();
+        //var_dump($wp_upload_dir); die();
+        //$elementor_uploads_path = $wp_upload_dir['basedir'] .DIRECTORY_SEPARATOR.'elementor' .DIRECTORY_SEPARATOR;
+        $elementor_uploads_path = \Elementor\Core\Files\Base::get_base_uploads_dir();         
+        $elementor_uploads_path = str_replace('/', DIRECTORY_SEPARATOR, $elementor_uploads_path);
+        
         if (empty($assets) || $assets == 'css') {
             // CSS
             $css = self::find_assets($assets_path, 'css');
@@ -100,9 +131,31 @@ final class Assets {
                         list($path, $url) = $tmp;
                         //var_dump(DIRECTORY_SEPARATOR.PLUGINDIR.DIRECTORY_SEPARATOR.$url); die();
                         $url = str_replace('/-', '/', $url);
+                        
+                        if (SCRIPT_DEBUG) {
+                            $url = plugins_url($url);
+                        } else {
+                            // minimize it
+                            $folder = str_replace('.css','.min.css', $url);
+                            $tmp = explode(DIRECTORY_SEPARATOR.'css'.DIRECTORY_SEPARATOR, $folder, 2);
+                            if (count($tmp) == 2) {
+                                $folder = $tmp[1];
+                            }
+                            $path = $elementor_uploads_path.'css';
+                            wp_mkdir_p($path);
+                            $min = $path.DIRECTORY_SEPARATOR.$folder;
+                            $min_path = str_replace('/',DIRECTORY_SEPARATOR, $min);
+                            if (!file_exists($min_path)) {
+                                $minifier = new \MatthiasMullie\Minify\CSS($acss);
+                                $minifier->minify($min_path);
+                            }
+                            $min_url = Utils::path_to_url($min_path);
+                            $url = $min_url;
+                        }
+                        //var_dump($url);
                         // Register styles
                         wp_register_style(
-                                pathinfo($acss, PATHINFO_FILENAME), plugins_url($url)
+                            pathinfo($acss, PATHINFO_FILENAME), $url
                         );
                     }
                 }
@@ -119,11 +172,33 @@ final class Assets {
                     if (count($tmp) == 2) {
                         list($path, $url) = $tmp;
                         $url = str_replace('/-', '/', $url);
+                        
+                        if (SCRIPT_DEBUG) {
+                            $url = plugins_url($url);
+                        } else {
+                            // minimize it
+                            $folder = str_replace('.js','.min.js', $url);
+                            $tmp = explode(DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR, $folder, 2);
+                            if (count($tmp) == 2) {
+                                $folder = $tmp[1];
+                            }
+                            $path = $elementor_uploads_path.'js';
+                            wp_mkdir_p($path);
+                            $min = $path.DIRECTORY_SEPARATOR.$folder;
+                            $min_path = str_replace('/',DIRECTORY_SEPARATOR, $min);
+                            if (!file_exists($min_path)) {
+                                $minifier = new \MatthiasMullie\Minify\JS($ajs);
+                                $minifier->minify($min_path);
+                            }
+                            $min_url = Utils::path_to_url($min_path);
+                            $url = $min_url;
+                        }
+                        
                         $handle = pathinfo($ajs, PATHINFO_FILENAME);
                         if (!wp_script_is($handle, 'registered')) {
                             // Register scripts
                             wp_register_script(
-                                    $handle, plugins_url($url), ['jquery'], null, true
+                                    $handle, $url, ['jquery'], null, true
                             );
                         } else {
                             //echo 'WARNING - Script already registered: '.$handle;

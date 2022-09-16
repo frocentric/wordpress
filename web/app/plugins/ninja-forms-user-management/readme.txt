@@ -3,8 +3,8 @@ Contributors: klhall1987, kbjohnson90
 Donate link: http://ninjaforms.com
 Tags: form, forms
 Requires at least: 4.7
-Tested up to: 4.9
-Stable tag: 3.0.12
+Tested up to: 6.0.2
+Stable tag: 3.2.0
 
 License: GPLv2 or later
 
@@ -30,6 +30,17 @@ This section describes how to install the plugin and get it working.
 For help and video tutorials, please visit our website: [Ninja Forms Documentation](http://docs.ninjaforms.com/)
 
 == Changelog ==
+= 3.2.0 (06 September 2022)
+* Enhancements *
+* Enable Admin to set role permissions to view/edit submissions
+* Enable filter usage to change action timing
+
+= 3.1.0 (11 October 2021)
+*Enhancements:*
+* Enable the use of email fields for mapping to username
+
+*Other:*
+* Add automated testing and build
 
 = 3.0.12 (30 September 2019) =
 
