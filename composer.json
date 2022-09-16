@@ -71,6 +71,21 @@
     {
       "type": "package",
       "package": {
+        "name": "modern-tribe/events-tickets-plus",
+        "version": "5.6.0",
+        "type": "wordpress-plugin",
+        "dist": {
+          "url": "https://pue.tri.be/api/plugins/v2/download?plugin=event-tickets-plus&version={%VERSION}&key={%TEC_ETP_LICENSE}",
+          "type": "zip"
+        }
+      },
+      "require": {
+        "ffraenz/private-composer-installer": "~5.0"
+      }
+    },
+    {
+      "type": "package",
+      "package": {
         "name": "modern-tribe/the-events-calendar-community-events",
         "version": "4.10.0",
         "type": "wordpress-plugin",
@@ -116,6 +131,7 @@
     "johnpbloch/wordpress": "~6.0",
     "koodimonni-language/en_gb": "*",
     "modern-tribe/events-calendar-pro": "*",
+    "modern-tribe/events-tickets-plus": "*",
     "modern-tribe/the-events-calendar-community-events": "*",
     "modern-tribe/the-events-calendar-filterbar": "*",
     "oscarotero/env": "^2.1.0",
@@ -135,6 +151,7 @@
     "wpackagist-plugin/ele-custom-skin": "~3.0",
     "wpackagist-plugin/elementor": "~3.0",
     "wpackagist-plugin/enable-media-replace": "~4.0",
+    "wpackagist-plugin/event-tickets": "~4.0",
     "wpackagist-plugin/essential-addons-for-elementor-lite": "~5.0",
     "wpackagist-plugin/feedzy-rss-feeds": "~4.0",
     "wpackagist-plugin/granular-controls-for-elementor": "~1.0",
