@@ -54,10 +54,48 @@ define( [], function() {
             } else if( 'listcheckbox' == fieldModel.get( 'type' ) ) {
 				// This field isn't a single element, so we need to reference the fieldModel, instead of the DOM.
                 var fieldValue = fieldModel.get( 'value' ).join();
-            } else {
+            } else if ( 'date' == fieldModel.get ('type' ) ) {
+				var fieldValue = fieldModel.get( 'value' );
+
+				if ( _.isEmpty( fieldValue ) ) {
+					fieldValue = '1970/01/01';
+				}
+
+				let date_mode = fieldModel.get( 'date_mode' );
+				if ( 'undefined' == typeof date_mode ) { // If 'date_mode' is undefined, then we assume it's date_only.
+					date_mode = 'date_only';
+				}
+				let date = 0;
+				// If we're in time_only mode, then we need to use 1970-01-01 as our date.
+				if ( 'time_only' == fieldModel.get( 'date_mode' ) ) {
+					date = '1970/01/01';
+				} else {
+					date = fieldValue;
+				}
+
+				// Convert field value into a timestamp
+				let hour = fieldModel.get( 'selected_hour' );
+				if ( 'undefined' == typeof hour ) {
+					hour = '00';
+				}
+
+				let minute = fieldModel.get( 'selected_minute' );
+				if ( 'undefined' == typeof minute ) {
+					minute = '00';
+				}
+
+				// If we have a date_and_time field, but we haven't selected a date yet, we don't need to compare.
+				if ( 'date_and_time' == date_mode && '1970/01/01' == date ) {
+					fieldValue = false;
+				} else {
+					fieldValue = date + ' ' + hour + ':' + minute + ' UT';
+
+					let dateObject = new Date( fieldValue );
+					fieldValue = Math.floor( dateObject.getTime() / 1000 );					
+				}
+			} else {
 				var fieldValue = jQuery( el ).val();
 			}
-
 
 			this.updateFieldCompare( fieldModel, null, fieldValue );
 		},
@@ -87,7 +125,55 @@ define( [], function() {
 				} else {
 					fieldValue = 'checked';
 				}
+			} else if ( 'date' == fieldModel.get( 'type' ) ) {
+				if ( _.isEmpty( fieldValue ) ) {
+					fieldValue = '1970/01/01';
+				}
+
+				let date_mode = fieldModel.get( 'date_mode' );
+				if ( 'undefined' == typeof date_mode ) { // If 'date_mode' is undefined, then we assume it's date_only.
+					date_mode = 'date_only';
+				}
+				let date = 0;
+				// If we're in time_only mode, then we need to use 1970-01-01 as our date.
+				if ( 'time_only' == fieldModel.get( 'date_mode' ) ) {
+					date = '1970/01/01';
+				} else {
+					date = fieldValue;
+				}
+
+				// Convert field value into a timestamp
+				let hour = fieldModel.get( 'selected_hour' );
+				if ( 'undefined' == typeof hour ) {
+					hour = '00';
+				}
+
+				let ampm = fieldModel.get( 'selected_ampm' );
+				if ( 'undefined' != typeof ampm ) {
+					// Convert our hour into 24 hr format.
+					if ( 'pm' == ampm && '12' != hour ) {
+						hour = parseInt( hour ) + 12;
+					} else if ( 'am' == ampm && '12' == hour ) {
+						hour = '00';
+					}
+				}
+
+				let minute = fieldModel.get( 'selected_minute' );
+				if ( 'undefined' == typeof minute ) {
+					minute = '00';
+				}
+
+				// If we have a date_and_time field, but we haven't selected a date yet, we don't need to compare.
+				if ( 'date_and_time' == date_mode && '1970/01/01' == date ) {
+					fieldValue = false;
+				} else {
+					fieldValue = date + ' ' + hour + ':' + minute + ' UT';
+
+					let dateObject = new Date( fieldValue );
+					fieldValue = Math.floor( dateObject.getTime() / 1000 );					
+				}
 			}
+
 			this.updateCompare( fieldValue );
 
 			/*

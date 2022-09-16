@@ -46,6 +46,7 @@ class Field extends Base_Tag {
                 'text', //\Elementor\Modules\DynamicTags\Module::TEXT_CATEGORY,
                 'url', //\Elementor\Modules\DynamicTags\Module::URL_CATEGORY
                 'image', //\Elementor\Modules\DynamicTags\Module::IMAGE_CATEGORY,
+                'gallery', //\Elementor\Modules\DynamicTags\Module::GALLERY_CATEGORY,
                 'number', //\Elementor\Modules\DynamicTags\Module::NUMBER_CATEGORY,
                 'post_meta', //\Elementor\Modules\DynamicTags\Module::POST_META_CATEGORY,
             ];
@@ -137,6 +138,7 @@ class Field extends Base_Tag {
                         'placeholder' => esc_html__('Placeholder', 'e-addons'),
                         'type' => esc_html__('Type', 'e-addons'),
                         'media' => esc_html__('Image', 'e-addons'),
+                        'gallery' => esc_html__('Gallery', 'e-addons'),
                     ],
                     'condition' => [
                         'form_field' => '',
@@ -205,6 +207,18 @@ class Field extends Base_Tag {
                             'url' => Utils::get_placeholder_image_src(),
                         ];
                         break;
+                    case 'gallery':
+                        return [
+                            [
+                                'id' => '',
+                                'url' => Utils::get_placeholder_image_src(),
+                            ],
+                            [
+                                'id' => '',
+                                'url' => Utils::get_placeholder_image_src(),
+                            ],
+                        ];
+                        break;
                     default:
                         echo $field;
                 }
@@ -269,6 +283,19 @@ class Field extends Base_Tag {
                                 'id' => $id,
                                 'url' => $url,
                             ];
+                        }
+                        break;
+                    case 'media':
+                        if (isset($e_form[$field])) {
+                            $imgs = Utils::explode($e_form[$field]);
+                            $gallery = [];
+                            foreach ($imgs as $img) {
+                                $img = Utils::get_image($img);
+                                if (!empty($img)) {
+                                    $gallery[] = $img;
+                                }
+                            }                        
+                            return $gallery;
                         }
                         break;
                     default:

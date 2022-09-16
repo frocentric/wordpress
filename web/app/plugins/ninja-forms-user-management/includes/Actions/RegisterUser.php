@@ -34,12 +34,46 @@ final class NF_UserManagement_Actions_RegisterUser extends NF_Abstracts_Action
 
         $this->_nicename = __( 'Register User', 'ninja-forms-user-management' );
 
+        $this->filterTimingPriority();
+
         add_action( 'admin_init', array( $this, 'init_settings' ) );
 
         add_action( 'ninja_forms_builder_templates', array( $this, 'builder_templates' ) );
 
         // Halts form rendering and shows logout message.
         add_filter( 'ninja_forms_display_show_form', array( $this, 'logout_message' ), 10, 3 );
+    }
+
+    /**
+     * Change action timing per applied filters
+     * 
+     * Only use allowed timing and priorities
+     *
+     * @return void
+     */
+    protected function filterTimingPriority()
+    {
+
+        $defaultTiming = 'normal';
+
+        $filteredTiming = apply_filters('nf_user_management_register_user_timing', $defaultTiming);
+
+        // Ensure only valid timing values are used
+        // If not, then fallback to default
+        if (in_array($filteredTiming, ['early', 'normal', 'late'])) {
+            $this->_timing = $filteredTiming;
+        }
+
+        $defaultPriority = '10';
+
+        $filteredPriority = apply_filters('nf_user_management_register_user_priority', $defaultPriority);
+
+        // Ensure only valid priority values are used
+        // If not, then fallback to default
+        // must be string value of an integer
+        if (is_string($filteredPriority) && (int)$filteredPriority == (string)$filteredPriority) {
+            $this->_priority = $filteredPriority;
+        }
     }
 
     /*
@@ -190,7 +224,7 @@ final class NF_UserManagement_Actions_RegisterUser extends NF_Abstracts_Action
 		        }
 
 		        //Error handling for email address being taken.
-	        } elseif ( email_exists( $user_data['user_email'] ) || username_exists( $user_data['user_login'] ) ) {
+	        } elseif ( $user_email ) {
 		        $data['errors']['fields'][ $field_id['email'] ] = array(
 			        'message' => __( 'This email address is already in use, please use a different email.', 'ninja-forms-user-management' ),
 			        'slug'    => 'user-management',
@@ -199,7 +233,7 @@ final class NF_UserManagement_Actions_RegisterUser extends NF_Abstracts_Action
 		        return $data;
 
 		        //Error handling for username being taken.
-	        } elseif ( username_exists( $user_data['user_login'] ) ) {
+	        } elseif ( $user_name ) {
 		        $data['errors']['fields'][ $field_id['username'] ] = array(
 			        'message' => __( 'This username is taken, please use another.', 'ninja-forms-user-management' ),
 			        'slug'    => 'user-management',

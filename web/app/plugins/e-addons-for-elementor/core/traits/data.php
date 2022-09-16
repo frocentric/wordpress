@@ -24,6 +24,9 @@ trait Data {
         /*if ($limit == PHP_INT_MAX) {
             $limit = -1;
         }*/
+        if (empty($delimiter) || !is_string($delimiter)) {
+            return $string;
+        }
         if (is_null($string)) {
             $string = [];
         }
@@ -414,6 +417,7 @@ trait Data {
 
     public static function apply_filters($value = false, $filters_string = '') {
         if (is_string($filters_string)) {
+            $filters_string = self::get_dynamic_data($filters_string, 'value', $value);
             $filters_raw = explode(PHP_EOL, $filters_string);
         }
         if (is_array($filters_string)) {

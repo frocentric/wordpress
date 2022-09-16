@@ -15,16 +15,43 @@ final class NF_ConditionalLogic_Submission
 
     public function parse_fields( $data )
     {
-        if( ! isset( $data[ 'settings' ][ 'conditions' ] ) ) return $data;
+        // If we don't have a form ID, return early.
+        if ( ! isset ( $data[ 'id' ] ) || empty( $data[ 'id' ] ) ) {
+            return $data;
+        }
 
-        $this->fieldsCollection = new NF_ConditionalLogic_FieldsCollection( $data[ 'fields' ], $data[ 'id' ] );
+        if ( ( isset( $data[ 'settings' ][ 'is_preview' ] ) && ! empty( $data[ 'settings' ][ 'is_preview' ] ) )
+            && current_user_can( apply_filters( 'ninja_forms_admin_all_forms_capabilities', 'manage_options' ) ) 
+        ) {
+            $is_preview = true;
+        } else {
+            $is_preview = false;
+        }
+
+        // If the user is in Preview Mode, grab conditions from the submitted data. Otherwise, pull data from the DB.
+        if ( $is_preview ) {
+            $form_id = esc_html( $data[ 'id' ] );
+            $form_settings = $data[ 'settings' ];
+        } else {
+            $form_id = absint( $data[ 'id' ] );
+            // Grab conditions from form settings rather than relying on $data, as that's merged with user submitted data.
+            $form_settings = Ninja_Forms()->form( $form_id )->get_settings();
+        }
+
+        // Make sure we build the fieldsCollection, in case there are conditionally triggered Actions.
+        $this->fieldsCollection = new NF_ConditionalLogic_FieldsCollection( $data[ 'fields' ], $data[ 'id' ], $is_preview );
+
+        // If we don't have any conditions set on this form, return $data.
+        if( ! isset( $form_settings[ 'conditions' ] ) || empty( $form_settings[ 'conditions' ] ) ) {
+            return $data;
+        }
 
         foreach( $data[ 'settings' ][ 'conditions' ] as $condition ){
             $condition = new NF_ConditionalLogic_ConditionModel( $condition, $this->fieldsCollection, $data );
             $condition->process();
         }
 
-        $this->fieldsCollection = apply_filters( 'ninja_forms_conditional_logic_parse_fields', $this->fieldsCollection );
+        $this->fieldsCollection = apply_filters( 'ninja_forms_conditional_logic_parse_fields', $this->fieldsCollection );   
         $data[ 'fields' ] = $this->fieldsCollection->to_array();
 
         return $data;

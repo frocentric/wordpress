@@ -888,126 +888,8 @@ class Query_Posts extends Base_Query {
                 ]
         );
 
-        // ****************** Meta key
-        $this->add_control(
-                'heading_query_filter_metakey',
-                [
-                    'type' => Controls_Manager::RAW_HTML,
-                    'show_label' => false,
-                    'raw' => '<i class="fa fa-key" aria-hidden="true"></i> ' . esc_html__(' Metakey Filters', 'e-addons'),
-                    'content_classes' => 'e-add-icon-heading',
-                    'condition' => [
-                        'query_filter' => 'metakey'
-                    ],
-                ]
-        );
-
-        // [Post Meta]
-        $repeater_metakeys = new Repeater();
-
-        $repeater_metakeys->add_control(
-                'metakey_field_meta',
-                [
-                    'label' => esc_html__('Post Field') . ' <b>' . esc_html__('custom meta key', 'e-addons') . '</b>',
-                    'type' => 'e-query',
-                    'select2options' => ['tags' => true],
-                    'placeholder' => esc_html__('Meta key or Name', 'e-addons'),
-                    'label_block' => true,
-                    'query_type' => 'metas',
-                    'object_type' => 'post',
-                    'description' => esc_html__('Selected Post Meta value. Il meta deve restituire un\'elemento di tipo array o stringa separata da virgola che contiene gli ID di tipo metakey. (es: array[5,27,88] o 5,27,88)', 'e-addons'),
-                ]
-        );
-        $repeater_metakeys->add_control(
-                'metakey_field_meta_type', [
-            'label' => esc_html__('Value Type', 'elementor'),
-            'description' => esc_html__('Custom field type. Default value is (CHAR)', 'e-addons'),
-            'type' => Controls_Manager::SELECT,
-            'options' => Query_Utils::get_meta_comparetype(),
-            'default' => 'CHAR',
-            'label_block' => true
-                ]
-        );
-        $repeater_metakeys->add_control(
-                'metakey_field_meta_compare', [
-            'label' => esc_html__('Compare Operator', 'elementor'),
-            'description' => esc_html__('Comparison operator. Default value is (=)', 'e-addons'),
-            'type' => Controls_Manager::SELECT,
-            'options' => Query_Utils::get_meta_compare(),
-            'default' => '=',
-            'label_block' => true
-                ]
-        );
-
-        $repeater_metakeys->add_control(
-                'metakey_field_meta_value', [
-            'label' => esc_html__('Post Field Value', 'elementor'),
-            'type' => Controls_Manager::TEXT,
-            'description' => esc_html__('The specific value of the Post Field', 'elementor'),
-            'label_block' => true,
-            'condition' => [
-                'metakey_field_meta_compare!' => ['EXISTS', 'NOT EXISTS']
-            ]
-                ]
-        );
-        // il metakey REPEATER
-        $this->add_control(
-                'metakey_list',
-                [
-                    'label' => esc_html__('Metakeys', 'e-addons'),
-                    'type' => Controls_Manager::REPEATER,
-                    'fields' => $repeater_metakeys->get_controls(),
-                    'title_field' => '{{{ metakey_field_meta }}}',
-                    'prevent_empty' => false,
-                    'condition' => [
-                        'query_filter' => 'metakey',
-                    ]
-                ]
-        );
-
-        $this->add_control(
-                'metakey_combination',
-                [
-                    'label' => '<b>' . esc_html__('Metakey') . '</b> ' . esc_html__('Combination', 'e-addons'),
-                    'type' => Controls_Manager::CHOOSE,
-                    'options' => [
-                        'OR' => [
-                            'title' => esc_html__('OR', 'e-addons'),
-                            'icon' => 'eicon-circle-o',
-                        ],
-                        'AND' => [
-                            'title' => esc_html__('AND', 'e-addons'),
-                            'icon' => 'eicon-circle',
-                        ]
-                    ],
-                    'toggle' => false,
-                    'default' => 'OR',
-                    'conditions' => [
-                        'terms' => [
-                            [
-                                'name' => 'query_filter',
-                                'operator' => 'contains',
-                                'value' => 'metakey',
-                            ],
-                            [
-                                'name' => 'query_filter',
-                                'operator' => '!=',
-                                'value' => [],
-                            ],
-                            [
-                                'name' => 'metakey_list',
-                                'operator' => '!=',
-                                'value' => '',
-                            ],
-                            [
-                                'name' => 'metakey_list',
-                                'operator' => '!=',
-                                'value' => [],
-                            ]
-                        ]
-                    ]
-                ]
-        );
+        $this->add_controls_metaquery();
+        
         $this->end_controls_section();
     }
 
@@ -1741,52 +1623,6 @@ class Query_Posts extends Base_Query {
         return $author_args;
     }
 
-    protected function get_metakey_filter($settings) {
-        /*
-          -------- META KEY -------
-          'metakey_list' [REPEATER]
-          'metakey_field_meta'
-          'metakey_field_meta_compare'
-          'metakey_field_meta_type'
-          'metakey_field_meta_value'
-          //'metakey_field_meta_value_num'
-
-          'metakey_combination'
-         */
-        $metakey_args = array();
-        $keysquery = array();
-
-        $metakey_list = $settings['metakey_list'];
-        foreach ($metakey_list as $item) {
-            $_id = $item['_id'];
-
-            $metakey_field_meta = $item['metakey_field_meta'];
-            $metakey_field_meta_type = $item['metakey_field_meta_type'];
-            $metakey_field_meta_compare = $item['metakey_field_meta_compare'];
-
-            $metakey_field_meta_value = $item['metakey_field_meta_value'];
-            //$metakey_field_meta_value_num = $item['metakey_field_meta_value_num'];
-            if (in_array($metakey_field_meta_compare, array('IN', 'NOT IN', 'BETWEEN', 'NOT BETWEEN'))) {
-                $metakey_field_meta_value = Utils::explode($metakey_field_meta_value);
-            }
-
-            array_push($keysquery, array(
-                'key' => $metakey_field_meta,
-                'value' => $metakey_field_meta_value,
-                'type' => $metakey_field_meta_type,
-                'compare' => $metakey_field_meta_compare
-            ));
-        }
-
-        if (!empty($keysquery)) {
-            $keysquery['relation'] = $settings['metakey_combination'];
-            $metakey_args['meta_query'] = $keysquery;
-        }
-        //var_dump($taxquery);
-        //
-        return $metakey_args;
-    }
-
     protected function get_terms_filter($settings) {
         /*
           -------- TERMS TAX -------
@@ -1883,7 +1719,7 @@ class Query_Posts extends Base_Query {
                 foreach ($terms_excluded as $te_key => $te_id) {
                     $te_term = get_term($te_id);
                     if ($te_term) {
-                        $terms_excluded[$te_key] = apply_filters('wpml_object_id', $te_key, $te_term->taxonomy, true);
+                        $terms_excluded[$te_key] = apply_filters('wpml_object_id', $te_id, $te_term->taxonomy, true);
                     }
                 }
             }

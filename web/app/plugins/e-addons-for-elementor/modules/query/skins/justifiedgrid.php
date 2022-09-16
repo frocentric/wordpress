@@ -124,7 +124,7 @@ class Justifiedgrid extends Base {
                 'default' => '',
                 'separator' => 'before',
                 'min' => 0,
-                'max' => 12,
+                //'max' => 12,
                 'step' => 1,
             ]
         );

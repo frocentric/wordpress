@@ -79,6 +79,7 @@
     width: 100% !important;
 }
 /*.elementor-control-type-e-query .elementor-control-dynamic-switcher + .elementor-control-dynamic-switcher, */
+.elementor-control-dynamic-switcher-wrapper > .elementor-dynamic-cover + .select2,
 .elementor-control-type-e-query .elementor-control-dynamic-switcher {
     display: none;
 }

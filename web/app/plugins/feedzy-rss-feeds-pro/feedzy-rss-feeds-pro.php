@@ -15,7 +15,7 @@
  * Plugin Name:     Feedzy RSS Feeds Premium
  * Plugin URI:      http://themeisle.com/plugins/feedzy-rss-feeds/
  * Description:     FEEDZY RSS Feeds Premium extends the functionality of FEEDZY RSS Feeds.
- * Version:         2.0.2
+ * Version:         2.0.3
  * Author:          Themeisle
  * Author URI:      https://themeisle.com
  * Text Domain:     feedzy-rss-feeds
@@ -115,25 +115,35 @@ function run_feedzy_rss_feeds_pro() {
 	define( 'FEEDZY_PRO_ABSURL', plugins_url( '/', __FILE__ ) );
 	define( 'FEEDZY_PRO_BASE', plugin_basename( __FILE__ ) );
 	define( 'FEEDZY_PRO_ABSPATH', dirname( __FILE__ ) );
+	define( 'FEEDZY_PRO_DIRNAME', basename( FEEDZY_PRO_ABSPATH ) );
 	define( 'FEEDZY_ROOT_API', 'https://feedzy.themeisle.com' );
 	define( 'FEEDZY_PRO_FULL_CONTENT_URL', FEEDZY_ROOT_API . '/api/feedzyfp/v0/rss/' );
 	define( 'FEEDZY_PRO_FETCH_ITEM_IMG_URL', FEEDZY_ROOT_API . '/api/feedzyfp/v1/item/image/' );
 	define( 'FEEDZY_PRO_REWRITE_CONTENT_API', FEEDZY_ROOT_API . '/api/feedzyfp/v1/item/content-writers/' );
 	define( 'FEEDZY_PRO_AUTO_TRANSLATE_CONTENT', FEEDZY_ROOT_API . '/api/feedzyfp/v1/item/auto-translate/' );
-	define( 'FEEDZY_PRO_VERSION', '2.0.2' );
+	define( 'FEEDZY_PRO_VERSION', '2.0.3' );
 
 	// this hook will indicate to free that pro is aware of import feeds being shifted to free.
 	// avoids doing this by comparing versions.
 	add_filter( 'feedzy_free_has_import', '__return_true' );
-
-	$plugin = new Feedzy_Rss_Feeds_Pro();
-	$plugin->run();
 	$vendor_file = FEEDZY_PRO_ABSPATH . '/vendor/autoload.php';
 	if ( is_readable( $vendor_file ) ) {
 		include_once $vendor_file;
 	}
-	add_filter( 'themeisle_sdk_products', 'feedzy_pro_register_sdk', 10, 1 );
+	$plugin = new Feedzy_Rss_Feeds_Pro();
+	$plugin->run();
 
+	add_filter( 'themeisle_sdk_products', 'feedzy_pro_register_sdk', 10, 1 );
+	add_filter(
+		'themeisle_sdk_compatibilities/' . FEEDZY_PRO_DIRNAME, function ( $compatibilities ) {
+			$compatibilities['FeedzyLite'] = array(
+				'basefile'  => defined( 'FEEDZY_BASEFILE' ) ? FEEDZY_BASEFILE : '',
+				'required'  => '3.7',
+				'tested_up' => '4.1',
+			);
+			return $compatibilities;
+		}
+	);
 	add_filter(
 		'themesle_sdk_namespace_' . md5( __FILE__ ), function ( $namespace ) {
 			return 'feedzy';

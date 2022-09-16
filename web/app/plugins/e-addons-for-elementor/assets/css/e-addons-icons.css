@@ -131,8 +131,8 @@
 .eadd-queryviews-cards:before { content: '\e8e7'; } /* '' */
 .eadd-queryviews-accordion:before { content: '\e8ef'; } /* '' */
 .eadd-queryviews-rapidimages:before { content: '\e8f4'; } /* '' */
-.eadd-queryviews-softscroll-1:before { content: '\e845'; } /* '' */
 .eadd-queryviews-softscroll:before { content: '\e90e'; } /* '' */
+.eadd-softscroll:before { content: '\e91b'; } /* '' */
 .eadd-queryviews-expander:before { content: '\e90f'; } /* '' */
 .eadd-queryviews-sync:before { content: '\e90c'; } /* '' */
 .eadd-queryviews-sliding:before { content: '\e90d'; } /* '' */
@@ -372,3 +372,15 @@
 .eadd-animations-extension:before { content: '\e906'; } /* '' */
 
 .eadd-editor-relative-link:before { content: '\e907'; } /* '' */
+
+.eadd-query-button-export:before { content: '\e917'; } /* '' */
+
+.eadd-threed-postprocessing:before { content: '\e918'; } /* '' */
+.eadd-threed-mesh:before { content: '\e919'; } /* '' */
+.eadd-threed-point:before { content: '\e91a'; } /* '' */
+.eadd-threed-scene:before { content: '\e91e'; } /* '' */
+.eadd-threed-geometry:before { content: '\e91f'; } /* '' */
+.eadd-threed-light:before { content: '\e920'; } /* '' */
+.eadd-threed-particles:before { content: '\e921'; } /* '' */
+.eadd-threed-plane:before { content: '\e922'; } /* '' */
+.eadd-threed-object:before { content: '\e924'; } /* '' */

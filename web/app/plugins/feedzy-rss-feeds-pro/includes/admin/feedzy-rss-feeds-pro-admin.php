@@ -894,6 +894,11 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 			return $content;
 		}
 
+		// only allow this for business plan.
+		if ( ! $this->feedzy_is_business() && $this->feedzy_is_personal() ) {
+			return $content;
+		}
+
 		$has_custom_tags = strpos( $content, '#item_custom_' ) !== false || strpos( $content, '#feed_custom_' ) !== false;
 
 		if ( ! $has_custom_tags ) {
@@ -1457,6 +1462,16 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 		return apply_filters( 'feedzy_is_license_of_type', false, 'agency' );
 	}
 
+	/**
+	 * Method to return if licence is agency.
+	 *
+	 * @return bool
+	 * @since   1.3.2
+	 * @access  private
+	 */
+	private function feedzy_is_personal() {
+		return apply_filters( 'feedzy_is_license_of_type', false, 'pro' );
+	}
 
 	/**
 	 * Method for updating settings page via AJAX.
@@ -1829,7 +1844,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 			$default['title_wordai:disabled']       = __( '🚫 Title from WordAI', 'feedzy-rss-feeds' );
 		}
 		if ( $this->feedzy_is_agency() ) {
-			$default['translated_title'] = __( '🚫 Translated Title', 'feedzy-rss-feeds' );
+			$default['translated_title'] = __( 'Translated Title', 'feedzy-rss-feeds' );
 		} else {
 			$default['translated_title:disabled'] = __( '🚫 Translated Title', 'feedzy-rss-feeds' );
 		}
@@ -2058,6 +2073,16 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 					$content = $response_data['rewrite_content'];
 					if ( $auto_format ) {
 						$content = wpautop( $content, true );
+					} elseif ( ! $auto_format ) {
+						$content = preg_split( '/\.\s*?(?=[A-Z])|(\r\n|\n|\r)/', $content );
+						$content = array_map(
+							function( $s ) {
+								return ! is_numeric( $s ) && strlen( $s ) > 60 ? $s : false;
+							},
+							$content
+						);
+						$content = array_filter( $content );
+						$content = reset( $content );
 					}
 				}
 			} else {

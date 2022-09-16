@@ -2,9 +2,9 @@
 Contributors: kbjohnson90, kstover, jameslaws
 Donate link: http://ninjaforms.com
 Tags: form, forms
-Requires at least: 5.0
-Tested up to: 5.2
-Stable tag: 3.0.9
+Requires at least: 5.2
+Tested up to: 5.4
+Stable tag: 3.0.10
 
 License: GPLv2 or later
 
@@ -25,6 +25,12 @@ This section describes how to install the plugin and get it working.
 For help and video tutorials, please visit our website: [NinjaForms.com](http://ninjaforms.com)
 
 == Changelog ==
+
+= 3.0.10 (4 August 2020) =
+
+*Bugs:*
+
+* Cleaned up a few older functions that were slowing down the admin dashboard on some sites.
 
 = 3.0.9 (15 August 2019) =
 

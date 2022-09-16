@@ -5,7 +5,7 @@ Tags: elementor, addons, extension, dynamic, template, code, widget, module, des
 Requires at least: 5.0
 Tested up to: 6.1
 Elementor tested up to: 3.7.0
-Stable tag: 3.1.3
+Stable tag: 3.2
 Requires PHP: 7.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -97,6 +97,17 @@ Absolutely not! But for an advanced use it's better to understand Wordpress logi
 3. **More e-addons** enable only wanted and really needed features
 
 == Changelog ==
+
+= 3.2 - 14-09-2022 =
+* Optimization: all assets are now minimized
+* New: Select2 Control support Dynamic Tag
+* New: Query Widgtes support Meta Filter Combination Expression
+* Add: Dynamic Tag Form support for Gallery
+* Add: Query Image Item support Alt text
+* Add: Query Media support for Video and Documents
+* Fix: Dynamic Tag Background Gallery compatibility with Jet Engine 3.x
+* Fix: Dynamic Tag Term with WPML
+* Fix: various minor fix
 
 = 3.1.3 - 14-07-2022 =
 * Add: framework support to Elementor Elements base objects 

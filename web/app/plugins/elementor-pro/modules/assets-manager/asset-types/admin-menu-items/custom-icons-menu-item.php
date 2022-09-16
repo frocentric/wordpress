@@ -23,7 +23,7 @@ class Custom_Icons_Menu_Item implements Admin_Menu_Item {
 	}
 
 	public function get_position() {
-		return 2;
+		return null;
 	}
 
 	public function is_visible() {

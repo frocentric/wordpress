@@ -22,7 +22,7 @@ define( [], function() {
 			var oldKey = keyModel._previousAttributes[ 'key' ];
             var newKey = keyModel.get( 'key' );
             
-            if( this.get( 'key' ) == oldKey && this.cid === keyModel.cid ) {
+            if( this.get( 'key' ) == oldKey ) {
                 this.set( 'key', newKey );
             }
 		}

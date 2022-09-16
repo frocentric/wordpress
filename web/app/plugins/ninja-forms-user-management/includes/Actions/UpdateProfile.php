@@ -46,6 +46,8 @@ final class NF_UserManagement_Actions_UpdateProfile extends NF_Abstracts_Action
     {
         parent::__construct();
 
+        $this->filterTimingPriority();
+
         $this->_nicename = __( 'Update Profile', 'ninja-forms-user-management' );
 
         add_action( 'admin_init', array( $this, 'init_settings' ) );
@@ -54,6 +56,38 @@ final class NF_UserManagement_Actions_UpdateProfile extends NF_Abstracts_Action
 
         //Stops for display if user isn't logged in.
         add_filter( 'ninja_forms_display_show_form', array( $this, 'login_message' ), 10, 3 );
+    }
+
+    /**
+     * Change action timing per applied filters
+     * 
+     * Only use allowed timing and priorities
+     *
+     * @return void
+     */
+    protected function filterTimingPriority()
+    {
+
+        $defaultTiming = 'normal';
+
+        $filteredTiming = apply_filters('nf_user_management_update_profile_timing', $defaultTiming);
+
+        // Ensure only valid timing values are used
+        // If not, then fallback to default
+        if (in_array($filteredTiming, ['early', 'normal', 'late'])) {
+            $this->_timing = $filteredTiming;
+        }
+
+        $defaultPriority = '10';
+
+        $filteredPriority = apply_filters('nf_user_management_update_profile_priority', $defaultPriority);
+
+        // Ensure only valid priority values are used
+        // If not, then fallback to default
+        // must be string value of an integer
+        if (is_string($filteredPriority) && (int)$filteredPriority==(string)$filteredPriority) {
+            $this->_priority = $filteredPriority;
+        } 
     }
 
     /*
@@ -144,7 +178,7 @@ final class NF_UserManagement_Actions_UpdateProfile extends NF_Abstracts_Action
         //Builds an array of the user meta based off the look up table property.
         $user_meta = array();
         foreach( $this->_lookup as $key => $value ) {
-            if( $action_settings[ $value ] ) {
+            if( isset($action_settings[ $value ]) ) {
                 $user_meta[ $key ] = $action_settings[ $value ];
             }
         }
@@ -170,7 +204,7 @@ final class NF_UserManagement_Actions_UpdateProfile extends NF_Abstracts_Action
          *
          * Check to see if email address is in use, if it is throw an error on the field the setting is mapped to.
          */
-        if( email_exists( $user_meta[ 'user_email' ] ) && $user_meta[ 'user_email' ] != $user_data->user_email ) {
+        if(isset($user_meta[ 'user_email' ] )&& email_exists( $user_meta[ 'user_email' ] ) && $user_meta[ 'user_email' ] != $user_data->user_email ) {
             //If email address is used in as nickname setting and the email address is take throw error.
             if( isset( $field_id[ 'username_nickname' ] ) ) {
                 $data[ 'errors' ][ 'fields' ][ $field_id[ 'username_nickname' ] ] = array(
@@ -221,7 +255,7 @@ final class NF_UserManagement_Actions_UpdateProfile extends NF_Abstracts_Action
     {
         //loops over and updates custom meta.
         foreach( $user_meta as $key => $value ) {
-            if( $key[ 'user_email' ] && ! empty( $value ) ) {
+            if( isset($key[ 'user_email' ] ) && $key[ 'user_email' ] && ! empty( $value ) ) {
                 wp_update_user( array(
                     'ID' => $user_id,
                     $key => $value,

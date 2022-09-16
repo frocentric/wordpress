@@ -106,7 +106,7 @@ class Template {
         
         return $content;
     }
-
+ 
     public function ajax_template() {
         if (!empty($_POST['template_id']) && is_numeric($_POST['template_id'])) {
             $tpl_id = absint($_POST['template_id']);
@@ -114,6 +114,8 @@ class Template {
             if (!empty($_POST['post_id']) && is_numeric($_POST['post_id'])) {
                 $args['post_id'] = absint($_POST['post_id']);
             }
+
+
             if (!empty($_POST['user_id']) && is_numeric($_POST['user_id'])) {
                 $args['user_id'] = absint($_POST['user_id']);
             }
