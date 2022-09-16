@@ -77,13 +77,12 @@ class Plugin {
         spl_autoload_register([$this, 'autoload']);
 
         $this->setup_hooks();
-
+        $this->maybe_vendor_autoload();
         if (empty(self::$instance)) {
             // core plugin
             $this->licenses_manager = new License();
         } else {
             // extra plugin
-            $this->maybe_vendor_autoload();
             self::instance()->add_addon($this);
             self::instance()->licenses_manager->init_license($this);
             do_action('e_addons/init_license', $this);

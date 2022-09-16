@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.7.5 - 31-08-2022 */
+/*! elementor-pro - v3.7.6 - 14-09-2022 */
 "use strict";
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["woocommerce-menu-cart"],{
 

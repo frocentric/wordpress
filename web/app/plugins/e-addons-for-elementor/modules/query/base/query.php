@@ -1014,6 +1014,295 @@ class Query extends Base_Widget {
         return '';
     }
     
+    protected function add_controls_metaquery() {
+        
+        $querytype = $this->get_querytype();
+        
+        // ****************** Meta key
+        $this->add_control(
+                'heading_query_filter_metakey',
+                [
+                    'type' => Controls_Manager::RAW_HTML,
+                    'show_label' => false,
+                    'raw' => '<i class="fa fa-key" aria-hidden="true"></i> ' . esc_html__(' Metakey Filters', 'e-addons'),
+                    'content_classes' => 'e-add-icon-heading',
+                    'condition' => [
+                        'query_filter' => 'metakey'
+                    ],
+                ]
+        );
+
+        // [Post Meta]
+        $repeater_metakeys = new Repeater();
+
+        $repeater_metakeys->add_control(
+                'metakey_field_meta',
+                [
+                    'label' => $querytype.esc_html__(' Field') . ' <b>' . esc_html__('custom meta key', 'e-addons') . '</b>',
+                    'type' => 'e-query',
+                    'select2options' => ['tags' => true],
+                    'placeholder' => esc_html__('Meta key or Name', 'e-addons'),
+                    'label_block' => true,
+                    'query_type' => 'metas',
+                    'object_type' => $querytype,
+                    'description' => esc_html__('Selected '.$querytype.' Meta value.', 'e-addons'),
+                ]
+        );
+        $repeater_metakeys->add_control(
+                'metakey_field_meta_type', [
+            'label' => esc_html__('Value Type', 'elementor'),
+            'description' => esc_html__('Custom field type. Default value is (CHAR)', 'e-addons'),
+            'type' => Controls_Manager::SELECT,
+            'options' => Query_Utils::get_meta_comparetype(),
+            'default' => 'CHAR',
+            'label_block' => true
+                ]
+        );
+        $repeater_metakeys->add_control(
+                'metakey_field_meta_compare', [
+            'label' => esc_html__('Compare Operator', 'elementor'),
+            'description' => esc_html__('Comparison operator. Default value is (=)', 'e-addons'),
+            'type' => Controls_Manager::SELECT,
+            'options' => Query_Utils::get_meta_compare(),
+            'default' => '=',
+            'label_block' => true
+                ]
+        );
+
+        $repeater_metakeys->add_control(
+                'metakey_field_meta_value', [
+            'label' => esc_html__('Post Field Value', 'elementor'),
+            'type' => Controls_Manager::TEXT,
+            'description' => esc_html__('The specific value of the Post Field', 'elementor'),
+            'label_block' => true,
+            'condition' => [
+                'metakey_field_meta_compare!' => ['EXISTS', 'NOT EXISTS']
+            ]
+                ]
+        );
+        // il metakey REPEATER
+        $this->add_control(
+                'metakey_list',
+                [
+                    'label' => esc_html__('Custom Meta Fields', 'e-addons'),
+                    'type' => Controls_Manager::REPEATER,
+                    'fields' => $repeater_metakeys->get_controls(),
+                    'title_field' => '{{{ metakey_field_meta }}}',
+                    'prevent_empty' => false,
+                    'condition' => [
+                        'query_filter' => 'metakey',
+                    ]
+                ]
+        );
+
+        $this->add_control(
+                'metakey_combination',
+                [
+                    'label' => '<b>' . esc_html__('Metakey') . '</b> ' . esc_html__('Combination', 'e-addons'),
+                    'type' => Controls_Manager::CHOOSE,
+                    'options' => [
+                        'OR' => [
+                            'title' => esc_html__('OR', 'e-addons'),
+                            'icon' => 'eicon-circle-o',
+                        ],
+                        'AND' => [
+                            'title' => esc_html__('AND', 'e-addons'),
+                            'icon' => 'eicon-circle',
+                        ],
+                        'XPR' => [
+                            'title' => esc_html__('Expression', 'e-addons'),
+                            'icon' => 'eicon-edit',
+                        ],
+                    ],
+                    'toggle' => false,
+                    'default' => 'OR',
+                    'conditions' => [
+                        'terms' => [
+                            [
+                                'name' => 'query_filter',
+                                'operator' => 'contains',
+                                'value' => 'metakey',
+                            ],
+                            [
+                                'name' => 'query_filter',
+                                'operator' => '!=',
+                                'value' => [],
+                            ],
+                            [
+                                'name' => 'metakey_list',
+                                'operator' => '!=',
+                                'value' => '',
+                            ],
+                            [
+                                'name' => 'metakey_list',
+                                'operator' => '!=',
+                                'value' => [],
+                            ]
+                        ]
+                    ]
+                ]
+        );
+        $this->add_control(
+                'metakey_combination_xpr', [
+            'label' => esc_html__('Combination Expression', 'elementor'),
+            'type' => Controls_Manager::TEXT,
+            'placeholder' => '( 1 AND 2 ) OR ( ( 3 OR 4 ) AND ( 5 AND 6 ) )',
+            'description' => __('The custom expression of meta field combination.', 'elementor'),
+            'label_block' => true,
+            'condition' => [
+                'metakey_combination' => ['XPR']
+            ]
+                ]
+        );
+        $this->add_control(
+                'metakey_combination_xpr_rule', [
+            'type' => Controls_Manager::RAW_HTML,
+            'content_classes' => 'elementor-control-field-description',
+            'raw' => 'Use the number of the previous Repeater Meta filters Row (starting by 1). // Use round brackets // Separate every character by a space // Max 2 conditions per level are accepted, for example "1 AND 2 OR 3" is not valid, write "( 1 AND 2 ) OR 3" instead',
+            'condition' => [
+                'metakey_combination' => ['XPR']
+            ]
+                ]
+        );
+        
+        
+    }
+    
+    protected function get_metakey_filter($settings) {
+        /*
+          -------- META KEY -------
+          'metakey_list' [REPEATER]
+          'metakey_field_meta'
+          'metakey_field_meta_compare'
+          'metakey_field_meta_type'
+          'metakey_field_meta_value'
+          //'metakey_field_meta_value_num'
+
+          'metakey_combination'
+         */
+        $metakey_args = array();
+        $keysquery = array();
+
+        $metakey_list = $settings['metakey_list'];
+        foreach ($metakey_list as $item) {
+            $_id = $item['_id'];
+            if (!empty($item['metakey_field_meta'])) {
+                $metakey_field_meta = $item['metakey_field_meta'];
+                $metakey_field_meta_type = $item['metakey_field_meta_type'];
+                $metakey_field_meta_compare = $item['metakey_field_meta_compare'];
+                $metakey_field_meta_value = $item['metakey_field_meta_value'];
+                //$metakey_field_meta_value_num = $item['metakey_field_meta_value_num'];
+                if (in_array($metakey_field_meta_compare, array('IN', 'NOT IN', 'BETWEEN', 'NOT BETWEEN'))) {
+                    $metakey_field_meta_value = Utils::explode($metakey_field_meta_value);
+                }
+                $metakey_query = array(
+                    'key' => $metakey_field_meta,
+                    //'value' => $metakey_field_meta_value,
+                    'type' => $metakey_field_meta_type,
+                    'compare' => $metakey_field_meta_compare
+                );
+                if (!in_array($metakey_field_meta_compare, array('EXISTS', 'NOT EXISTS'))) {
+                    $metakey_query['value'] = $metakey_field_meta_value;
+                }
+                if ($metakey_field_meta_compare == '!=') {
+                    // include also not set
+                    array_push($keysquery, [
+                        'relation' => 'OR',
+                        [
+                            'key' => $metakey_field_meta,
+                            'compare' => 'NOT EXISTS'
+                        ],
+                        $metakey_query,
+                    ]);
+                } else {
+                    array_push($keysquery, $metakey_query);
+                }
+            }
+        }
+
+        if (!empty($keysquery)) {
+            $keysquery['relation'] = $settings['metakey_combination'];
+            if ($settings['metakey_combination'] == 'XPR' && !empty($settings['metakey_combination_xpr'])) {
+                //$expr = "( 1 AND 2 ) OR ( ( 3 OR 4 ) AND ( 5 AND 6 ) )";
+                $expr = $settings['metakey_combination_xpr'];
+                $pieces = Utils::explode($expr, ' ');
+                $cond = [];
+                $comb = [];
+                $keys = [];
+                $level = 0;
+                foreach ($pieces as $pkey => $piece) {
+                    if ($piece == '(') {
+                        // add level
+                        $val = Utils::get_array_value($cond, $keys);
+                        $keys[] = empty($val) ? 0 : count($val);
+                        $level++;
+                    }
+                    if ($piece == 'AND' || $piece == 'OR') {
+                        // set level comb
+                        $comb[$level] = $piece;
+                        //$comb = Utils::set_array_value($conb, $keys, $piece);;
+                    }
+                    if (is_numeric($piece)) {
+                        $index = intval($piece)-1;
+                        if (isset($keysquery[$index])) {
+                            //$cond[$level][] = $keysquery[$index];
+                            $keys[] = $index;
+                            $cond = Utils::set_array_value($cond, $keys, $keysquery[$index]);
+                            array_pop($keys);
+                            //var_dump($keys);
+                            //echo '<pre>';var_dump($cond);echo '</pre>';
+                        }
+                    }
+                    if ($piece == ')') {
+                        // close level
+                        $keys[] = 'relation';
+                        //$cnb = Utils::get_array_value($conb, $keys);
+                        $cnb = $comb[$level];
+                        $cond = Utils::set_array_value($cond, $keys, $cnb);
+                        $level--;
+                        array_pop($keys);
+                        array_pop($keys);
+                        //echo '<pre>';var_dump($cond);echo '</pre>';
+                    }
+                    if ($pkey == count($pieces)-1 && !$level) {
+                        //var_dump($comb);
+                        $keys = ['relation'];
+                        $cond = Utils::set_array_value($cond, $keys, $comb[0]);
+                    }
+                    
+                }
+                /*[
+                    [
+                        1,
+                        2,
+                        AND,
+                    ],
+                    [
+                        [
+                            3,
+                            4,
+                            OR,
+                        ],
+                        [
+                            
+                            5,
+                            6,
+                            AND,
+                        ],
+                        AND,
+                    ],
+                    OR,
+                ]*/
+                //echo '<pre>';var_dump(json_encode($cond));echo '</pre>';
+                $keysquery = $cond;
+            }
+            $metakey_args['meta_query'] = $keysquery;
+        }
+        //var_dump($taxquery);
+        //
+        return $metakey_args;
+    }
+    
 
     public function render_svg_mask($mask_shape_type) {
         $widgetId = $this->get_id();

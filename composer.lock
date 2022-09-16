@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "21c7acb2040646ad7249431bada6d6c0",
+    "content-hash": "9a6a5a548c48c45c7f060436d122150f",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.235.7",
+            "version": "3.235.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "0f5d86c0dbed9b413cae6b77c4b5811bb857c9cb"
+                "reference": "103d38254ef7fc6659ecb08f4b18bc1299011f8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0f5d86c0dbed9b413cae6b77c4b5811bb857c9cb",
-                "reference": "0f5d86c0dbed9b413cae6b77c4b5811bb857c9cb",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/103d38254ef7fc6659ecb08f4b18bc1299011f8a",
+                "reference": "103d38254ef7fc6659ecb08f4b18bc1299011f8a",
                 "shasum": ""
             },
             "require": {
@@ -146,9 +146,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.235.7"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.235.9"
             },
-            "time": "2022-09-13T18:19:11+00:00"
+            "time": "2022-09-15T18:22:15+00:00"
         },
         {
             "name": "composer/installers",
@@ -1265,10 +1265,10 @@
         },
         {
             "name": "koodimonni-plugin-language/woocommerce-en_gb",
-            "version": "6.8.2",
+            "version": "6.9.2",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/6.8.2/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/6.9.2/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1636,7 +1636,7 @@
         },
         {
             "name": "modern-tribe/events-calendar-pro",
-            "version": "5.14.4",
+            "version": "6.0.0",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}"
@@ -1644,8 +1644,17 @@
             "type": "wordpress-plugin"
         },
         {
+            "name": "modern-tribe/events-tickets-plus",
+            "version": "5.6.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://pue.tri.be/api/plugins/v2/download?plugin=event-tickets-plus&version={%VERSION}&key={%TEC_ETP_LICENSE}"
+            },
+            "type": "wordpress-plugin"
+        },
+        {
             "name": "modern-tribe/the-events-calendar-community-events",
-            "version": "4.9.2.1",
+            "version": "4.10.0",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community&version={%VERSION}&key={%TEC_CE_LICENSE}"
@@ -1654,7 +1663,7 @@
         },
         {
             "name": "modern-tribe/the-events-calendar-filterbar",
-            "version": "5.3.1",
+            "version": "5.4.0",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=tribe-filterbar&version={%VERSION}&key={%TEC_FB_LICENSE}"
@@ -2804,16 +2813,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.12.0.5",
+            "version": "v3.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "301916893739f108e87b181b52485a917df7abe2"
+                "reference": "3584bcca26fdee58f81269708218b48dfc9ddad8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/301916893739f108e87b181b52485a917df7abe2",
-                "reference": "301916893739f108e87b181b52485a917df7abe2",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/3584bcca26fdee58f81269708218b48dfc9ddad8",
+                "reference": "3584bcca26fdee58f81269708218b48dfc9ddad8",
                 "shasum": ""
             },
             "require": {
@@ -2917,7 +2926,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2022-09-01T18:14:59+00:00"
+            "time": "2022-09-15T18:03:42+00:00"
         },
         {
             "name": "wpackagist-plugin/authors-list",
@@ -3083,15 +3092,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "3.7.4",
+            "version": "3.7.6",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/3.7.4"
+                "reference": "tags/3.7.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.3.7.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/elementor.3.7.6.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3101,15 +3110,15 @@
         },
         {
             "name": "wpackagist-plugin/enable-media-replace",
-            "version": "3.6.3",
+            "version": "4.0.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/enable-media-replace/",
-                "reference": "tags/3.6.3"
+                "reference": "tags/4.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/enable-media-replace.3.6.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/enable-media-replace.4.0.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3134,6 +3143,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/essential-addons-for-elementor-lite/"
+        },
+        {
+            "name": "wpackagist-plugin/event-tickets",
+            "version": "5.5.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/event-tickets/",
+                "reference": "tags/5.5.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/event-tickets.5.5.0.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/event-tickets/"
         },
         {
             "name": "wpackagist-plugin/feedzy-rss-feeds",
@@ -3389,15 +3416,15 @@
         },
         {
             "name": "wpackagist-plugin/the-events-calendar",
-            "version": "5.16.4",
+            "version": "6.0.0.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/the-events-calendar/",
-                "reference": "tags/5.16.4"
+                "reference": "tags/6.0.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.5.16.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.6.0.0.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3494,24 +3521,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-mail-smtp/"
-        },
-        {
-            "name": "wpackagist-plugin/wp-show-posts",
-            "version": "1.1.3",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wp-show-posts/",
-                "reference": "tags/1.1.3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-show-posts.1.1.3.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/wp-show-posts/"
         },
         {
             "name": "wpackagist-plugin/wpm-user-sync",

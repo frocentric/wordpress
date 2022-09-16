@@ -131,9 +131,9 @@ trait Pagination {
     }
     
     static public function fix_ajax_pagination($content, $element, $fields = array()) {
-        
         $pagination = false;
         if ($element) {
+            //var_dump($element->get_name());
             switch ($element->get_name()) {
                 case 'posts':
                 case 'archive-posts':
@@ -179,8 +179,21 @@ trait Pagination {
             $base_url = Utils::get_current_url(true);
 
             if (wp_doing_ajax()) {
-                $current_url = admin_url('admin-ajax.php');                    
-                if (empty($_POST['url'])) {
+                $current_url = $ajax_url = admin_url('admin-ajax.php');
+                if (strpos($content, $current_url) === false) {
+                    list($archive, $navigation) = explode($nav_start, $content, 2);
+                    list($pre, $href) = explode('href="', $navigation, 2);
+                    list($current_url, $more) = explode('"', $href, 2);
+                    $tmp = explode('?', $current_url, 2);
+                    if (count($tmp) > 1) {
+                        $tmp2 = explode('/', end($tmp));
+                        if (count($tmp2) > 1) {
+                            $current_url = reset($tmp).'?'.reset($tmp2);
+                        }
+                    }
+                    //var_dump('Current: '.$current_url);
+                }
+                if (empty($_POST['url']) && empty($_POST['referrer'])) {
                     self::set_wp_query();
                     $queried_id = empty($_POST['queried_id']) ? get_queried_object_id() : $_POST['queried_id'];
                     $queried_object = get_queried_object();
@@ -191,12 +204,17 @@ trait Pagination {
                     }
                     
                 } else {
-                    $base_url = esc_url_raw($_POST['url']);
+                    if (!empty($_POST['url'])) {
+                        $base_url = esc_url_raw($_POST['url']);
+                    } else {
+                        $base_url = esc_url_raw($_POST['referrer']);
+                        $tmp = explode('?', $base_url, 2);
+                        $base_url = reset($tmp);
+                    }
                     //var_dump(Utils::get_current_page_num());
                     if (Utils::get_current_page_num() > 1) {
                         $base_url = remove_query_arg('page', $base_url);
                         $base_url = remove_query_arg('paged', $base_url);
-                        
                         $tmpp = explode('?', $base_url);
                         $tmp = explode('/page/', $base_url);
                         if (count($tmp) > 1) {
@@ -206,10 +224,12 @@ trait Pagination {
                             }
                         }
                     }
+                    
                 }
-                
-                $content = str_replace($current_url . '/', $base_url, $content);
-                $content = str_replace($current_url, $base_url, $content);
+                if ($ajax_url == $current_url || strpos($current_url, $base_url) === false) {
+                    $content = str_replace($current_url . '/', $base_url, $content);
+                    $content = str_replace($current_url, $base_url, $content);
+                }
             }
             //var_dump($_POST);
             //var_dump('Current: '.$current_url);
@@ -218,7 +238,7 @@ trait Pagination {
 
                 
             $tmp = explode($nav_start, $content);
-            //
+            // fix pagination link
             if (count($tmp) == 2) {
                 $pre = reset($tmp);
                 $nav = end($tmp);
@@ -236,7 +256,22 @@ trait Pagination {
                     $contentmp = '';
                     foreach ($tmp as $key => $href) {
                         if ($key) {
-                            list($get, $other) = explode($quote, $href, 2);                                
+                            list($get, $other) = explode($quote, $href, 2);
+                            
+                            // in some cases is mypage/2, so I add the mypage/page/2
+                            $tmp = explode('/', $get);
+                            $get2 = '';
+                            foreach($tmp as $hkey => $value) {
+                                if (intval($value)) {
+                                    if ($tmp[$hkey-1] != 'page') {
+                                        $value = 'page/'.$value;
+                                    }
+                                }
+                                $get2 = $get2 ? $get2.'/'.$value : $get2.$value;
+                            }
+                            $get = $get2;
+                            
+                            // add extra form parameters
                             if (strpos($get, 'form_id=') === false) {
                                 if (strpos($get, '?') === false) {
                                     $contentmp .= $base_href . $get . $params . $quote . $other;

@@ -290,9 +290,20 @@ if ( ! version_compare( get_option( 'ninja_forms_version', '0' ), '3.0', '>' ) )
     </label>
 </script>
 
-<script id="tmpl-nf-cl-value-date" type="text/template">
-    <!-- Date Value Template -->
-    <input type="text" data-id="value" class="setting setting-date" value="{{{ data.value }}}" placeholder="date">
+<script id="tmpl-nf-cl-value-date-date_only" type="text/template">
+    <input type="text" data-id="value" class="setting" value="{{{ data.value }}}" style="display:none;" />
+    <input type="text" data-type="date" class="extra" value="{{{ data.date }}}" placeholder="YYYY-MM-DD" />
+</script>
+
+<script id="tmpl-nf-cl-value-date-date_and_time" type="text/template">
+    <input type="text" data-id="value" class="setting" value="{{{ data.value }}}" style="display:none;" />
+    <input type="text" data-type="date" class="extra" value="{{{ data.date }}}" placeholder="YYYY-MM-DD" />
+    {{{ data.hourSelect }}}:{{{ data.minuteSelect }}}
+</script>
+
+<script id="tmpl-nf-cl-value-date-time_only" type="text/template">
+    <input type="text" data-id="value" class="setting" value="{{{ data.value }}}" style="display:none;" />
+    {{{ data.hourSelect }}}:{{{ data.minuteSelect }}}
 </script>
 
 <script id="tmpl-nf-cl-triggers" type="text/template">

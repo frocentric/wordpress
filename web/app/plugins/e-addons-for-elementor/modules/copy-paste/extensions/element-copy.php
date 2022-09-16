@@ -410,7 +410,7 @@ class Element_Copy extends Base_Extension {
                     ],
                 ]
         );
-
+        
         $element->add_control(
                 'e_frontend_copy_button_hover_border_color',
                 [

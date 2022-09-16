@@ -236,3 +236,12 @@ i.ruotato {
 .elementor-control-type-ui_selector.elementor-label-inline > .elementor-control-content > .elementor-control-field > .elementor-control-input-wrapper{
     width: 70%;
 }
+
+/* better Dynamic Tag popup */
+.dialog-message {
+    max-height: 80vh;
+    overflow: auto;
+}
+.dialog-message .elementor-control {
+  padding-bottom: 5px;
+}

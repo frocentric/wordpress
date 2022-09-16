@@ -1003,6 +1003,7 @@ class Base extends Base_Skin {
                         $link = $settings['templatemode_linkable_link']['url'];
                     }
                     if (!empty($settings['shortcode_link'])) {
+                        $link = $settings['shortcode_link'];
                         $raw_settings = $this->parent->get_settings('list_items');
                         foreach ($raw_settings as $raw_setting) {
                             if ($raw_setting['_id'] == $settings['_id']) {

@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Custom_Fonts_Promotion_Menu_Item extends Base_Promotion_Item {
 	public function get_position() {
-		return 1;
+		return null;
 	}
 
 	public function get_cta_url() {

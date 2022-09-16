@@ -13,12 +13,22 @@ define( [], function( ) {
 			this.listenTo( this.model, 'change', this.render );
 		},
 
+		onRender: function() {
+			let el = jQuery( this.el ).find( '[data-type="date"]' );
+			jQuery( el ).mask( '9999-99-99' );
+		},
+
 		events: {
-			'change .setting': 'changeSetting'
+			'change .setting': 'changeSetting',
+			'change .extra': 'changeExtra',
 		},
 
 		changeSetting: function( e ) {
-			nfRadio.channel( 'conditions' ).trigger( 'change:setting', e, this.model )
+			nfRadio.channel( 'conditions' ).trigger( 'change:setting', e, this.model );
+		},
+
+		changeExtra: function( e ) {
+			nfRadio.channel( 'conditions' ).trigger( 'change:extra', e, this.model );
 		}
 	});
 
