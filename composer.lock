@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b47fd94d42064c726f760c0f32509977",
+    "content-hash": "f82535536ba4327c8852699dc506f167",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1644,6 +1644,15 @@
             "type": "wordpress-plugin"
         },
         {
+            "name": "modern-tribe/events-tickets-plus",
+            "version": "5.6.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://pue.tri.be/api/plugins/v2/download?plugin=event-tickets-plus&version={%VERSION}&key={%TEC_ETP_LICENSE}"
+            },
+            "type": "wordpress-plugin"
+        },
+        {
             "name": "modern-tribe/the-events-calendar-community-events",
             "version": "4.10.0",
             "dist": {
@@ -3134,6 +3143,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/essential-addons-for-elementor-lite/"
+        },
+        {
+            "name": "wpackagist-plugin/event-tickets",
+            "version": "4.12.3.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/event-tickets/",
+                "reference": "tags/4.12.3.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/event-tickets.4.12.3.1.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/event-tickets/"
         },
         {
             "name": "wpackagist-plugin/feedzy-rss-feeds",
