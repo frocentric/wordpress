@@ -138,7 +138,7 @@ define( [], function() {
 			 * Once we know we've dropped, reset dropping to false.
 			 * We only want to receive if we didn't drop on a gutter/divider.
 			 */
-			if ( this.dropping ) {
+			if ( this.dropping || typeof jQuery(ui.helper) !== "undefined" && jQuery(ui.helper).hasClass('nf-over-repeater') ) {
 				nfRadio.channel( 'layouts' ).trigger( 'set:dropping', false );
 				return false;
 			}

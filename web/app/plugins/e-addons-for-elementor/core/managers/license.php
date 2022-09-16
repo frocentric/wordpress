@@ -34,7 +34,9 @@ class License {
         if (is_admin()) {
             if (!$plugin->is_free()) {
                 $addon = $plugin->get_addon();
-                $this->updaters[$addon['TextDomain']] = new \EAddonsForElementor\Modules\Update\Edd\Edd($addon);
+                if (!empty($addon['TextDomain'])) {
+                    $this->updaters[$addon['TextDomain']] = new \EAddonsForElementor\Modules\Update\Edd\Edd($addon);
+                }
             }
         }
     }

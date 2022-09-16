@@ -1,3 +1,6 @@
+html.e-add-modal-open, body.e-add-modal-open{
+    overflow: hidden;
+  }
 /* in caso di item vuoti li nascondo */
 .e-add-posts-container .e-add-post-item .e-add-item:not(td):empty,
 .e-add-posts-container .e-add-post-item .e-add-item:not(td) span:empty,
@@ -45,6 +48,7 @@
     position: relative;
     display: block; /* <---- @p è da impazzirci*/
 }
+
 .e-add-posts-container .e-add-post-image.e-add-post-overlayimage:after,
 .e-add-posts-container .e-add-post-block.e-add-post-overlayhover:before,
 .e-add-posts-container .e-add-post-image.e-add-post-overlayhover:before{
@@ -52,6 +56,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    
     width: 100%;
     height: 100%;
 
@@ -62,6 +67,7 @@
 
     pointer-events: none;
 }
+
 .e-add-posts-container .e-add-post-block.e-add-post-overlayhover:before,
 .e-add-posts-container .e-add-post-image.e-add-post-overlayhover:before{
     z-index: 3;

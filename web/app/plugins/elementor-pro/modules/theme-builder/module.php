@@ -3,12 +3,14 @@ namespace ElementorPro\Modules\ThemeBuilder;
 
 use Elementor\Controls_Manager;
 use Elementor\Core\Admin\Admin_Notices;
+use Elementor\Core\Admin\Menu\Admin_Menu_Manager;
 use Elementor\Core\Admin\Menu\Main as MainMenu;
 use Elementor\Core\App\App;
 use Elementor\Core\Base\Document;
 use Elementor\TemplateLibrary\Source_Local;
 use ElementorPro\Base\Module_Base;
 use ElementorPro\Core\Utils;
+use ElementorPro\Modules\ThemeBuilder\AdminMenuItems\Theme_Builder_Menu_Item;
 use ElementorPro\Modules\ThemeBuilder\Classes;
 use ElementorPro\Modules\ThemeBuilder\Documents\Single;
 use ElementorPro\Modules\ThemeBuilder\Documents\Theme_Document;
@@ -21,6 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Module extends Module_Base {
 
 	const ADMIN_LIBRARY_TAB_GROUP = 'theme';
+
+	const ADMIN_MENU_PRIORITY = 15;
 
 	public static function is_preview() {
 		return Plugin::elementor()->preview->is_preview_mode() || is_preview();
@@ -330,14 +334,8 @@ class Module extends Module_Base {
 	 * @since 3.6.0
 	 * @access private
 	 */
-	private function register_admin_menu_legacy() {
-		add_submenu_page(
-			Source_Local::ADMIN_MENU_SLUG,
-			'',
-			esc_html__( 'Theme Builder', 'elementor-pro' ),
-			'publish_posts',
-			$this->get_admin_templates_url( true )
-		);
+	private function register_admin_menu_legacy( Admin_Menu_Manager $admin_menu ) {
+		$admin_menu->register( $this->get_admin_templates_url( true ), new Theme_Builder_Menu_Item() );
 	}
 
 	public function print_new_theme_builder_promotion( $views ) {
@@ -430,8 +428,23 @@ class Module extends Module_Base {
 				$this->register_admin_menu( $menu );
 			} );
 		} else {
-			add_action( 'admin_menu', function() {
-				$this->register_admin_menu_legacy();
+			add_action( 'elementor/admin/menu/register', function ( Admin_Menu_Manager $admin_menu ) {
+				$this->register_admin_menu_legacy( $admin_menu );
+			}, static::ADMIN_MENU_PRIORITY /* After "Popups" */ );
+
+			// TODO: BC - Remove after `Admin_Menu_Manager` will be the standard.
+			add_action( 'admin_menu', function () {
+				if ( did_action( 'elementor/admin/menu/register' ) ) {
+					return;
+				}
+
+				add_submenu_page(
+					Source_Local::ADMIN_MENU_SLUG,
+					'',
+					esc_html__( 'Theme Builder', 'elementor-pro' ),
+					'publish_posts',
+					$this->get_admin_templates_url( true )
+				);
 			}, 22 /* After core promotion menu */ );
 		}
 

@@ -115,7 +115,11 @@ class API {
 	private static function get_transient( $cache_key ) {
 		$cache = get_option( $cache_key );
 
-		if ( empty( $cache['timeout'] ) || current_time( 'timestamp' ) > $cache['timeout'] ) {
+		if ( empty( $cache['timeout'] ) ) {
+			return false;
+		}
+
+		if ( current_time( 'timestamp' ) > $cache['timeout'] && is_user_logged_in() ) {
 			return false;
 		}
 

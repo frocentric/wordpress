@@ -161,6 +161,7 @@ class Acf {
         $id_target = self::get_target($obj_id, $type);            
         $repeater = get_field_object($selector, $id_target, false);
         if (!$repeater) $repeater = self::get_acf_field($selector);        
+        //var_dump($repeater); die();
         if (!empty($repeater['type']) && $repeater['type'] == 'repeater') {
             // https://www.advancedcustomfields.com/resources/delete_row/
             $rows = get_metadata($type, $obj_id, $selector);
@@ -171,15 +172,37 @@ class Acf {
             // https://www.advancedcustomfields.com/resources/update_sub_field/
             // Update "caption" within the first row of "repeater".                            
             if (!empty($data)) {
+                //var_dump($data); die();
                 foreach($data as $row => $sub_fields) {
                     $row++; // start from 1 (not 0)
                     foreach($sub_fields as $sub => $sub_field) {
+                        $field = self::get_sub_field_object($sub, $repeater, $id_target);
+                        if (!empty($field['type']) && $field['type'] == 'gallery') {
+                            $sub_field = Utils::explode($sub_field);
+                        }
+                        //var_dump($sub); var_dump($repeater); die();
                         update_sub_field( array($selector, $row, $sub), $sub_field, $id_target );
                     }
                 }
                 update_metadata($type, $obj_id, $selector, $row);
                 update_metadata($type, $obj_id, '_'.$selector, $repeater['key']);
                 return true;
+            }
+        }
+        return false;
+    }
+    
+    public static function get_sub_field_object($sub, $repeater, $id_target = '') {
+        if (!empty($repeater['sub_fields'])) {
+            foreach ($repeater['sub_fields'] as $sub_field) {
+                if ($sub_field['name'] == $sub) {
+                    return $sub_field;
+                }
+            }
+        } else {
+            $sub_field = self::get_acf_field($sub);
+            if ($sub_field) {
+                return $sub_field;
             }
         }
         return false;
