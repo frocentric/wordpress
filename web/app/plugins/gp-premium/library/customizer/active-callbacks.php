@@ -582,3 +582,20 @@ function generate_premium_wc_menu_item_active() {
 
 	return true;
 }
+
+/**
+ * Checks to see if we're using external CSS file.
+ *
+ * @since 1.11.0
+ */
+function generate_is_using_external_css_file_callback() {
+	if ( ! function_exists( 'generate_get_option' ) ) {
+		return false;
+	}
+
+	if ( 'file' === generate_get_option( 'css_print_method' ) ) {
+		return true;
+	}
+
+	return false;
+}

@@ -365,6 +365,25 @@ if ( ! function_exists( 'generate_slideout_navigation_classes' ) ) {
 	}
 }
 
+if ( ! function_exists( 'generate_menu_plus_init' ) ) {
+	function generate_menu_plus_init() {
+		load_plugin_textdomain( 'menu-plus', false, 'gp-premium/langs/menu-plus/' );
+	}
+}
+
+if ( ! function_exists( 'generate_slideout_menu_fallback' ) ) {
+	/**
+	 * Menu fallback.
+	 *
+	 * @param  array $args
+	 * @return string
+	 * @since 1.1.4
+	 */
+	function generate_slideout_menu_fallback( $args ) {
+
+	}
+}
+
 /**
  * Page header module.
  */
@@ -433,6 +452,12 @@ if ( ! function_exists( 'generate_page_header_single' ) ) {
 		if ( 'inside-content' == generate_get_page_header_location() ) {
 			generate_page_header_area( $image_class, $content_class );
 		}
+	}
+}
+
+if ( ! function_exists( 'generate_page_header_init' ) ) {
+	function generate_page_header_init() {
+		load_plugin_textdomain( 'page-header', false, 'gp-premium/langs/page-header/' );
 	}
 }
 
@@ -595,6 +620,20 @@ function generate_sites_refresh_link() {
 	);
 }
 
+/**
+ * Delete our sites transient if the Refresh sites link is clicked.
+ *
+ * @since 1.6
+ * @deprecated 1.12.0
+ */
+function generate_sites_refresh_list() {
+	if ( ! isset( $_GET['refresh_sites_nonce'] ) || ! wp_verify_nonce( $_GET['refresh_sites_nonce'], 'refresh_sites' ) ) {
+		return;
+	}
+
+	delete_transient( 'generatepress_sites' );
+}
+
 if ( ! function_exists( 'generate_insert_import_export' ) ) {
 	/**
 	* @deprecated 1.7
@@ -660,4 +699,20 @@ function generate_menu_plus_make_css() {
  */
 function generate_menu_plus_enqueue_dynamic_css() {
 	// No longer needed.
+}
+
+if ( ! function_exists( 'generate_hidden_secondary_navigation' ) && function_exists( 'is_customize_preview' ) ) {
+	/**
+	 * Adds a hidden navigation if no navigation is set
+	 * This allows us to use postMessage to position the navigation when it doesn't exist
+	 */
+	function generate_hidden_secondary_navigation() {
+		if ( is_customize_preview() && function_exists( 'generate_secondary_navigation_position' ) ) {
+			?>
+			<div style="display:none;">
+				<?php generate_secondary_navigation_position(); ?>
+			</div>
+			<?php
+		}
+	}
 }

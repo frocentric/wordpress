@@ -1,10 +1,10 @@
 === e-addons DEV ===
 Contributors: nerdsfarm, poglie, frapesce
 Donate link: https://e-addons.com/
-Tags: developer, php, include, api, rss, json, feed, rest
+Tags: developer, php, sql, api, rss, json, feed, rest, pdo
 Requires at least: 4.7
-Tested up to: 6.0
-Stable tag: 2.2
+Tested up to: 6.1
+Stable tag: 2.3
 Requires PHP: 7.1
 
 The must have Elementor suite for Devs
@@ -24,6 +24,13 @@ Yes, but with great power comes great responsibility!
 No, this is only for coders
 
 == Changelog ==
+
+= 2.3 =
+* New: Dynamic Tag DB Field
+* New: Elementor Custom DB in Elementor Settings
+* New: Support for PDO database (like SQLite)
+* Optimization: multiple instance of same External DB use the same connection
+* Fix: Remote Get arguments
 
 = 2.2 =
 * New: Skin Export (JSON, XML, RSS, CSV, XLS, XLSX, ODS)

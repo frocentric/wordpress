@@ -129,7 +129,8 @@ generate_colors_live_update( 'navigation_text_color',
 	button.menu-toggle:focus,\
 	.main-navigation .mobile-bar-items a,\
 	.main-navigation .mobile-bar-items a:hover,\
-	.main-navigation .mobile-bar-items a:focus',
+	.main-navigation .mobile-bar-items a:focus,\
+	.main-navigation .menu-bar-items',
 		'color', '', 'link_color'
 );
 
@@ -143,7 +144,8 @@ generate_colors_live_update( 'navigation_text_hover_color',
 	.navigation-search input[type="search"]:focus,\
 	.main-navigation .main-nav ul li:hover > a,\
 	.main-navigation .main-nav ul li:focus > a,\
-	.main-navigation .main-nav ul li.sfHover > a',
+	.main-navigation .main-nav ul li.sfHover > a,\
+	.main-navigation .menu-bar-item:hover a',
 		'color', '', 'link_color_hover'
 );
 
@@ -156,7 +158,8 @@ generate_colors_live_update( 'navigation_background_hover_color',
 	.navigation-search input[type="search"]:focus,\
 	.main-navigation .main-nav ul li:hover > a,\
 	.main-navigation .main-nav ul li:focus > a,\
-	.main-navigation .main-nav ul li.sfHover > a',
+	.main-navigation .main-nav ul li.sfHover > a,\
+	.main-navigation .menu-bar-item:hover a',
 		'background-color', 'transparent'
 );
 
@@ -245,7 +248,9 @@ generate_colors_live_update( 'navigation_text_color',
 	button.secondary-menu-toggle:hover,\
 	button.secondary-menu-toggle:focus, \
 	.secondary-navigation .top-bar, \
-	.secondary-navigation .top-bar a',
+	.secondary-navigation .top-bar a,\
+	.secondary-menu-bar-items,\
+	.secondary-menu-bar-items .menu-bar-item > a',
 		'color', '', 'link_color', 'generate_secondary_nav_settings'
 );
 
@@ -255,9 +260,9 @@ generate_colors_live_update( 'navigation_text_color',
 wp.customize( 'generate_settings[navigation_search_background_color]', function( value ) {
 	value.bind( function( newval ) {
 		if ( jQuery( 'style#navigation_search_background_color' ).length ) {
-			jQuery( 'style#navigation_search_background_color' ).html( '.navigation-search input[type="search"],.navigation-search input[type="search"]:active, .navigation-search input[type="search"]:focus, .main-navigation .main-nav ul li.search-item.active > a{background-color:' + newval + ';}' );
+			jQuery( 'style#navigation_search_background_color' ).html( '.navigation-search input[type="search"],.navigation-search input[type="search"]:active, .navigation-search input[type="search"]:focus, .main-navigation .main-nav ul li.search-item.active > a, .main-navigation .menu-bar-items .search-item.active > a{background-color:' + newval + ';}' );
 		} else {
-			jQuery( 'head' ).append( '<style id="navigation_search_background_color">.navigation-search input[type="search"],.navigation-search input[type="search"]:active, .navigation-search input[type="search"]:focus, .main-navigation .main-nav ul li.search-item.active > a{background-color:' + newval + ';}</style>' );
+			jQuery( 'head' ).append( '<style id="navigation_search_background_color">.navigation-search input[type="search"],.navigation-search input[type="search"]:active, .navigation-search input[type="search"]:focus, .main-navigation .main-nav ul li.search-item.active > a, .main-navigation .menu-bar-items .search-item.active > a{background-color:' + newval + ';}</style>' );
 			setTimeout(function() {
 				jQuery( 'style#navigation_search_background_color' ).not( ':last' ).remove();
 			}, 1000);
@@ -281,7 +286,7 @@ wp.customize( 'generate_settings[navigation_search_background_color]', function(
 	} );
 } );
 
-generate_colors_live_update( 'navigation_search_text_color', '.navigation-search input[type="search"],.navigation-search input[type="search"]:active, .navigation-search input[type="search"]:focus, .main-navigation .main-nav ul li.search-item.active > a', 'color', '' );
+generate_colors_live_update( 'navigation_search_text_color', '.navigation-search input[type="search"],.navigation-search input[type="search"]:active, .navigation-search input[type="search"]:focus, .main-navigation .main-nav ul li.search-item.active > a, .main-navigation .menu-bar-items .search-item.active > a', 'color', '' );
 
 /**
  * Secondary navigation text color hover
@@ -290,7 +295,8 @@ generate_colors_live_update( 'navigation_search_text_color', '.navigation-search
 generate_colors_live_update( 'navigation_text_hover_color',
 	'.secondary-navigation .main-nav ul li:hover > a, \
 	.secondary-navigation .main-nav ul li:focus > a, \
-	.secondary-navigation .main-nav ul li.sfHover > a',
+	.secondary-navigation .main-nav ul li.sfHover > a,\
+	.secondary-menu-bar-items .menu-bar-item:hover > a',
 		'color', '', 'link_color_hover', 'generate_secondary_nav_settings'
 );
 
@@ -301,7 +307,8 @@ generate_colors_live_update( 'navigation_text_hover_color',
 generate_colors_live_update( 'navigation_background_hover_color',
 	'.secondary-navigation .main-nav ul li:hover > a, \
 	.secondary-navigation .main-nav ul li:focus > a, \
-	.secondary-navigation .main-nav ul li.sfHover > a',
+	.secondary-navigation .main-nav ul li.sfHover > a, \
+	.secondary-menu-bar-items .menu-bar-item:hover > a',
 		'background-color', 'transparent', '', 'generate_secondary_nav_settings'
 );
 
@@ -592,22 +599,22 @@ generate_colors_live_update( 'form_button_text_color_hover', button_hover, 'colo
  * Back to top background color
  * Empty: transparent
  */
-generate_colors_live_update( 'back_to_top_background_color', '.generate-back-to-top,.generate-back-to-top:visited', 'background-color', 'transparent' );
+generate_colors_live_update( 'back_to_top_background_color', 'a.generate-back-to-top', 'background-color', 'transparent' );
 
 /**
  * Back to top text color
  * Empty: text_color
  */
-generate_colors_live_update( 'back_to_top_text_color', '.generate-back-to-top,.generate-back-to-top:visited', 'color', '', 'text_color' );
+generate_colors_live_update( 'back_to_top_text_color', 'a.generate-back-to-top', 'color', '', 'text_color' );
 
 /**
  * Back to top background color hover
  * Empty: transparent
  */
-generate_colors_live_update( 'back_to_top_background_color_hover', '.generate-back-to-top:hover,.generate-back-to-top:focus', 'background-color', 'transparent' );
+generate_colors_live_update( 'back_to_top_background_color_hover', 'a.generate-back-to-top:hover,a.generate-back-to-top:focus', 'background-color', 'transparent' );
 
 /**
  * Back to top text color hover
  * Empty: text_color
  */
-generate_colors_live_update( 'back_to_top_text_color_hover', '.generate-back-to-top:hover,.generate-back-to-top:focus', 'color', '', 'text_color' );
+generate_colors_live_update( 'back_to_top_text_color_hover', 'a.generate-back-to-top:hover,a.generate-back-to-top:focus', 'color', '', 'text_color' );

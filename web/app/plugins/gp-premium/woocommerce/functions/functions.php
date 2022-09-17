@@ -202,9 +202,21 @@ function generatepress_wc_scripts() {
 	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 	wp_enqueue_style( 'generate-woocommerce', plugin_dir_url( __FILE__ ) . "css/woocommerce{$suffix}.css", array(), GENERATE_WOOCOMMERCE_VERSION );
 	wp_enqueue_style( 'generate-woocommerce-mobile', plugin_dir_url( __FILE__ ) . "css/woocommerce-mobile{$suffix}.css", array(), GENERATE_WOOCOMMERCE_VERSION, generate_premium_get_media_query( 'mobile' ) );
-	//wp_enqueue_style( 'generate-woocommerce-tablet', plugin_dir_url( __FILE__ ) . "css/woocommerce-tablet{$suffix}.css", array(), GENERATE_WOOCOMMERCE_VERSION, apply_filters( 'generate_tablet_media_query', '(min-width: 769px) and (max-width: 1024px)' ) );
 
-	wp_enqueue_script( 'generate-woocommerce', plugin_dir_url( __FILE__ ) . "js/woocommerce{$suffix}.js", array( 'jquery' ), GENERATE_WOOCOMMERCE_VERSION, true );
+	if (
+		generatepress_wc_get_setting( 'cart_menu_item' ) ||
+		generatepress_wc_get_setting( 'off_canvas_panel_on_add_to_cart' ) ||
+		generatepress_wc_show_sticky_add_to_cart() ||
+		generatepress_wc_get_setting( 'quantity_buttons' )
+	) {
+		wp_enqueue_script( 'generate-woocommerce', plugin_dir_url( __FILE__ ) . "js/woocommerce{$suffix}.js", array( 'jquery' ), GENERATE_WOOCOMMERCE_VERSION, true );
+	}
+
+	$show_add_to_cart_panel = false;
+
+	if ( ! is_singular() && generatepress_wc_get_setting( 'off_canvas_panel_on_add_to_cart' ) ) {
+		$show_add_to_cart_panel = true;
+	}
 
 	wp_localize_script(
 		'generate-woocommerce',
@@ -212,7 +224,7 @@ function generatepress_wc_scripts() {
 		array(
 			'quantityButtons' => generatepress_wc_get_setting( 'quantity_buttons' ),
 			'stickyAddToCart' => generatepress_wc_show_sticky_add_to_cart(),
-			'addToCartPanel' => ! is_singular() && generatepress_wc_get_setting( 'off_canvas_panel_on_add_to_cart' ),
+			'addToCartPanel' => apply_filters( 'generate_woocommerce_show_add_to_cart_panel', $show_add_to_cart_panel ),
 		)
 	);
 
@@ -261,7 +273,7 @@ add_filter( 'generate_sidebar_layout', 'generatepress_wc_sidebar_layout' );
  * @return string New layout
  */
 function generatepress_wc_sidebar_layout( $layout ) {
-	if ( is_woocommerce() ) {
+	if ( function_exists( 'is_woocommerce' ) && is_woocommerce() ) {
 		$layout = generatepress_wc_get_setting( 'sidebar_layout' );
 
 		if ( is_single() ) {
@@ -270,7 +282,7 @@ function generatepress_wc_sidebar_layout( $layout ) {
 			}
 
 			if ( get_post_meta( get_the_ID(), '_generate-sidebar-layout-meta', true ) ) {
-			 	$layout = get_post_meta( get_the_ID(), '_generate-sidebar-layout-meta', true );
+				$layout = get_post_meta( get_the_ID(), '_generate-sidebar-layout-meta', true );
 			}
 		}
 	}
@@ -311,15 +323,15 @@ function generatepress_wc_setup() {
 	add_theme_support( 'wc-product-gallery-lightbox' );
 	add_theme_support( 'wc-product-gallery-slider' );
 
-	remove_action( 'wp_enqueue_scripts','generate_woocommerce_css', 100 );
+	remove_action( 'wp_enqueue_scripts', 'generate_woocommerce_css', 100 );
 
-	remove_action( 'woocommerce_before_shop_loop',    'woocommerce_catalog_ordering', 30 );
-	add_action( 'woocommerce_before_shop_loop',       'woocommerce_catalog_ordering', 10 );
+	remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+	add_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 10 );
 
-	add_action( 'woocommerce_before_shop_loop_item_title' , 'generatepress_wc_image_wrapper_open', 8 );
-	add_action( 'woocommerce_before_subcategory_title' , 'generatepress_wc_image_wrapper_open', 8 );
-	add_action( 'woocommerce_shop_loop_item_title' , 'generatepress_wc_image_wrapper_close', 8 );
-	add_action( 'woocommerce_before_subcategory_title' , 'generatepress_wc_image_wrapper_close', 20 );
+	add_action( 'woocommerce_before_shop_loop_item_title', 'generatepress_wc_image_wrapper_open', 8 );
+	add_action( 'woocommerce_before_subcategory_title', 'generatepress_wc_image_wrapper_open', 8 );
+	add_action( 'woocommerce_shop_loop_item_title', 'generatepress_wc_image_wrapper_close', 8 );
+	add_action( 'woocommerce_before_subcategory_title', 'generatepress_wc_image_wrapper_close', 20 );
 
 	$archive_results_count       = generatepress_wc_get_setting( 'product_results_count' );
 	$archive_sorting             = generatepress_wc_get_setting( 'product_sorting' );
@@ -329,20 +341,20 @@ function generatepress_wc_setup() {
 	$archive_rating              = generatepress_wc_get_setting( 'product_archive_rating' );
 	$archive_price               = generatepress_wc_get_setting( 'product_archive_price' );
 	$archive_add_to_cart         = generatepress_wc_get_setting( 'product_archive_add_to_cart' );
-	$archive_title		         = generatepress_wc_get_setting( 'product_archive_title' );
+	$archive_title               = generatepress_wc_get_setting( 'product_archive_title' );
 	$single_product_sale_flash   = generatepress_wc_get_setting( 'single_product_sale_flash' );
-	$product_tabs		         = generatepress_wc_get_setting( 'product_tabs' );
-	$product_related	         = generatepress_wc_get_setting( 'product_related' );
-	$product_upsells	         = generatepress_wc_get_setting( 'product_upsells' );
-	$product_meta		         = generatepress_wc_get_setting( 'product_meta' );
+	$product_tabs                = generatepress_wc_get_setting( 'product_tabs' );
+	$product_related             = generatepress_wc_get_setting( 'product_related' );
+	$product_upsells             = generatepress_wc_get_setting( 'product_upsells' );
+	$product_meta                = generatepress_wc_get_setting( 'product_meta' );
 	$product_description         = generatepress_wc_get_setting( 'product_description' );
-	$breadcrumbs		         = generatepress_wc_get_setting( 'breadcrumbs' );
-	$page_title			         = generatepress_wc_get_setting( 'shop_page_title' );
-	$distraction_free			 = generatepress_wc_get_setting( 'distraction_free' );
-	$archive_description		 = generatepress_wc_get_setting( 'product_archive_description' );
+	$breadcrumbs                 = generatepress_wc_get_setting( 'breadcrumbs' );
+	$page_title                  = generatepress_wc_get_setting( 'shop_page_title' );
+	$distraction_free            = generatepress_wc_get_setting( 'distraction_free' );
+	$archive_description         = generatepress_wc_get_setting( 'product_archive_description' );
 
 	if ( false === $page_title ) {
-		add_filter( 'woocommerce_show_page_title' , '__return_false' );
+		add_filter( 'woocommerce_show_page_title', '__return_false' );
 	}
 
 	if ( false === $archive_results_count ) {
@@ -359,15 +371,15 @@ function generatepress_wc_setup() {
 	}
 
 	if ( false === $archive_sale_flash_overlay ) {
-		remove_action( 'woocommerce_before_shop_loop_item_title',  'woocommerce_show_product_loop_sale_flash', 10 );
-		add_action( 'woocommerce_after_shop_loop_item_title',      'woocommerce_show_product_loop_sale_flash', 6 );
+		remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10 );
+		add_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 6 );
 	}
 
 	if ( false === $archive_sale_flash ) {
 		if ( false === $archive_sale_flash_overlay ) {
 			remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 6 );
 		} else {
-			remove_action( 'woocommerce_before_shop_loop_item_title',  'woocommerce_show_product_loop_sale_flash', 10 );
+			remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10 );
 		}
 	}
 
@@ -412,12 +424,12 @@ function generatepress_wc_setup() {
 	}
 
 	if ( false === $breadcrumbs ) {
-		remove_action( 'woocommerce_before_main_content','woocommerce_breadcrumb', 20, 0);
+		remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0);
 	}
 
 	if ( true === $distraction_free ) {
-		add_filter( 'generate_sidebar_layout','generatepress_wc_checkout_sidebar_layout' );
-		add_filter( 'generate_footer_widgets','generatepress_wc_checkout_footer_widgets' );
+		add_filter( 'generate_sidebar_layout', 'generatepress_wc_checkout_sidebar_layout' );
+		add_filter( 'generate_footer_widgets', 'generatepress_wc_checkout_footer_widgets' );
 	}
 
 	if ( true === $archive_description && ! is_single() && ! is_cart() ) {
@@ -469,8 +481,20 @@ add_filter( 'wp_nav_menu_items', 'generatepress_wc_menu_cart', 10, 2 );
  * @return string The search icon menu item.
  */
 function generatepress_wc_menu_cart( $nav, $args ) {
-	// If our primary menu is set, add the search icon
-	if ( $args->theme_location == apply_filters( 'generate_woocommerce_menu_item_location', 'primary' ) && generatepress_wc_get_setting( 'cart_menu_item' ) ) {
+	if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+		return $nav;
+	}
+
+	// If our primary menu is set, add the search icon.
+	if ( apply_filters( 'generate_woocommerce_menu_item_location', 'primary' ) === $args->theme_location && generatepress_wc_get_setting( 'cart_menu_item' ) ) {
+		if ( ! class_exists( 'WooCommerce' ) ) {
+			return;
+		}
+
+		if ( ! isset( WC()->cart ) ) {
+			return;
+		}
+
 		$has_items = false;
 
 		if ( ! WC()->cart->is_empty() ) {
@@ -489,8 +513,92 @@ function generatepress_wc_menu_cart( $nav, $args ) {
 		);
 	}
 
-	// Our primary menu isn't set, return the regular nav
-    return $nav;
+	// Our primary menu isn't set, return the regular nav.
+	return $nav;
+}
+
+add_action( 'wp', 'generatepress_wc_add_menu_bar_items' );
+/**
+ * Add to the menu bar items.
+ *
+ * @since 1.11.0
+ */
+function generatepress_wc_add_menu_bar_items() {
+	if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+		if ( 'secondary' === apply_filters( 'generate_woocommerce_menu_item_location', 'primary' ) && generatepress_wc_get_setting( 'cart_menu_item' ) ) {
+			add_action( 'generate_secondary_menu_bar_items', 'generate_wc_do_cart_secondary_menu_item', 5 );
+		}
+
+		if ( 'primary' === apply_filters( 'generate_woocommerce_menu_item_location', 'primary' ) && generatepress_wc_get_setting( 'cart_menu_item' ) ) {
+			add_action( 'generate_menu_bar_items', 'generate_wc_do_cart_menu_item', 5 );
+		}
+	}
+}
+
+/**
+ * Add the cart menu item to the secondary navigation.
+ */
+function generate_wc_do_cart_secondary_menu_item() {
+	if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+		if ( 'secondary' === apply_filters( 'generate_woocommerce_menu_item_location', 'primary' ) && generatepress_wc_get_setting( 'cart_menu_item' ) ) {
+			if ( ! class_exists( 'WooCommerce' ) ) {
+				return;
+			}
+
+			if ( ! isset( WC()->cart ) ) {
+				return;
+			}
+
+			$has_items = false;
+
+			if ( ! WC()->cart->is_empty() ) {
+				$has_items = 'has-items';
+			}
+
+			printf(
+				'<span class="menu-bar-item wc-menu-item %2$s %3$s">
+					%1$s
+				</span>',
+				generatepress_wc_cart_link(),
+				is_cart() ? 'current-menu-item' : '',
+				$has_items
+			);
+		}
+	}
+}
+
+/**
+ * Add the cart menu item to the navigation.
+ *
+ * @since 1.11.0
+ */
+function generate_wc_do_cart_menu_item() {
+	if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+		if ( 'primary' === apply_filters( 'generate_woocommerce_menu_item_location', 'primary' ) && generatepress_wc_get_setting( 'cart_menu_item' ) ) {
+			if ( ! class_exists( 'WooCommerce' ) ) {
+				return;
+			}
+
+			if ( ! isset( WC()->cart ) ) {
+				return;
+			}
+
+			$has_items = false;
+
+			if ( ! WC()->cart->is_empty() ) {
+				$has_items = 'has-items';
+			}
+
+			printf(
+				'<span class="menu-bar-item wc-menu-item %2$s %3$s">
+					%1$s
+				</span>',
+				generatepress_wc_cart_link(),
+				is_cart() ? 'current-menu-item' : '',
+				$has_items
+			);
+		}
+	}
 }
 
 /**
@@ -513,6 +621,14 @@ function generatepress_wc_cart_link() {
 
 	ob_start();
 
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		return;
+	}
+
+	if ( ! isset( WC()->cart ) ) {
+		return;
+	}
+
 	$no_items = '';
 
 	if ( ! WC()->cart->get_cart_contents_count() > 0 ) {
@@ -526,12 +642,9 @@ function generatepress_wc_cart_link() {
 		$icon ? 'has-svg-icon' : '',
 		esc_attr__( 'View your shopping cart', 'gp-premium' ),
 		$icon,
-		sprintf (
-			_n(
-				'<span class="number-of-items ' . $no_items . '">%d</span>',
-				'<span class="number-of-items ' . $no_items . '">%d</span>',
-				WC()->cart->get_cart_contents_count()
-			),
+		sprintf(
+			'<span class="number-of-items %1$s">%2$s</span>',
+			$no_items,
 			WC()->cart->get_cart_contents_count()
 		),
 		$legacy_icon,
@@ -562,21 +675,33 @@ add_filter( 'woocommerce_add_to_cart_fragments', 'generatepress_wc_cart_link_fra
 function generatepress_wc_cart_link_fragment( $fragments ) {
 	global $woocommerce;
 
-	$fragments['.cart-contents span.amount'] = ( WC()->cart->subtotal > 0 ) ? '<span class="amount">' . wp_kses_data( WC()->cart->get_cart_subtotal() ) . '</span>' : '<span class="amount"></span>';
-	$fragments['.cart-contents span.number-of-items'] = ( WC()->cart->get_cart_contents_count() > 0 ) ? '<span class="number-of-items">' . wp_kses_data( WC()->cart->get_cart_contents_count() ) . '</span>' : '<span class="number-of-items no-items"></span>';
+	if ( isset( WC()->cart ) ) {
+		$fragments['.cart-contents span.amount'] = ( WC()->cart->subtotal > 0 ) ? '<span class="amount">' . wp_kses_data( WC()->cart->get_cart_subtotal() ) . '</span>' : '<span class="amount"></span>';
+		$fragments['.cart-contents span.number-of-items'] = ( WC()->cart->get_cart_contents_count() > 0 ) ? '<span class="number-of-items">' . wp_kses_data( WC()->cart->get_cart_contents_count() ) . '</span>' : '<span class="number-of-items no-items"></span>';
+	}
 
 	return $fragments;
 }
 
-add_action( 'generate_inside_navigation', 'generatepress_wc_mobile_cart_link' );
-add_action( 'generate_inside_mobile_header', 'generatepress_wc_mobile_cart_link' );
 /**
  * Add the cart icon in the mobile menu.
  *
  * @since 1.3
  */
 function generatepress_wc_mobile_cart_link() {
+	if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+		return;
+	}
+
 	if ( ! generatepress_wc_get_setting( 'cart_menu_item' ) || 'primary' !== apply_filters( 'generate_woocommerce_menu_item_location', 'primary' ) ) {
+		return;
+	}
+
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		return;
+	}
+
+	if ( ! isset( WC()->cart ) ) {
 		return;
 	}
 
@@ -589,9 +714,22 @@ function generatepress_wc_mobile_cart_link() {
 	<div class="mobile-bar-items wc-mobile-cart-items<?php echo $has_items; ?>">
 		<?php do_action( 'generate_mobile_cart_items' ); ?>
 		<?php echo generatepress_wc_cart_link(); ?>
-	</div><!-- .mobile-bar-items -->
+	</div>
 	<?php
+}
 
+add_action( 'wp', 'generate_woocommerce_do_mobile_cart_link' );
+/**
+ * Add the mobile cart link to the menus.
+ */
+function generate_woocommerce_do_mobile_cart_link() {
+	if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+		add_action( 'generate_after_mobile_menu_button', 'generatepress_wc_mobile_cart_link' );
+		add_action( 'generate_after_mobile_header_menu_button', 'generatepress_wc_mobile_cart_link' );
+	} else {
+		add_action( 'generate_inside_navigation', 'generatepress_wc_mobile_cart_link' );
+		add_action( 'generate_inside_mobile_header', 'generatepress_wc_mobile_cart_link' );
+	}
 }
 
 add_filter( 'woocommerce_output_related_products_args', 'generatepress_wc_related_products_count' );
@@ -604,9 +742,9 @@ add_filter( 'woocommerce_output_related_products_args', 'generatepress_wc_relate
  * @return array
  */
 function generatepress_wc_related_products_count( $args ) {
-    $args['posts_per_page'] = generatepress_wc_get_setting( 'related_upsell_columns' );
-    $args['columns'] = generatepress_wc_get_setting( 'related_upsell_columns' );
-    return $args;
+	$args['posts_per_page'] = generatepress_wc_get_setting( 'related_upsell_columns' );
+	$args['columns'] = generatepress_wc_get_setting( 'related_upsell_columns' );
+	return $args;
 }
 
 /**
@@ -621,115 +759,150 @@ function generatepress_wc_css() {
 
 	$defaults = array_merge( generate_get_color_defaults(), generate_get_defaults(), generate_get_default_fonts() );
 
-	// Get our color settings
 	$settings = wp_parse_args(
 		get_option( 'generate_settings', array() ),
 		$defaults
 	);
 
-	// Initiate our CSS class
 	require_once GP_LIBRARY_DIRECTORY . 'class-make-css.php';
-	$css = new GeneratePress_Pro_CSS;
+	$css = new GeneratePress_Pro_CSS();
 
-	// Product title color
+	// Check if we're using our legacy typography system.
+	$using_dynamic_typography = function_exists( 'generate_is_using_dynamic_typography' ) && generate_is_using_dynamic_typography();
+
+	// Product title color.
 	$css->set_selector( '.woocommerce ul.products li.product .woocommerce-LoopProduct-link' );
-	$css->add_property( 'color', esc_attr( $settings[ 'wc_product_title_color' ] ) );
+	$css->add_property( 'color', esc_attr( $settings['wc_product_title_color'] ) );
 
-	// Product title color hover
+	// Product title color hover.
 	$css->set_selector( '.woocommerce ul.products li.product .woocommerce-LoopProduct-link:hover' );
-	$css->add_property( 'color', esc_attr( $settings[ 'wc_product_title_color_hover' ] ) );
+	$css->add_property( 'color', esc_attr( $settings['wc_product_title_color_hover'] ) );
 
-	// Product title font size
-	$css->set_selector( '.woocommerce ul.products li.product .woocommerce-LoopProduct-link h2, .woocommerce ul.products li.product .woocommerce-loop-category__title' );
-	$css->add_property( 'font-weight', esc_attr( $settings[ 'wc_product_title_font_weight' ] ) );
-	$css->add_property( 'text-transform', esc_attr( $settings[ 'wc_product_title_font_transform' ] ) );
-	$css->add_property( 'font-size', esc_attr( $settings[ 'wc_product_title_font_size' ] ), false, 'px' );
+	if ( ! $using_dynamic_typography ) {
+		// Product title font size.
+		$css->set_selector( '.woocommerce ul.products li.product .woocommerce-LoopProduct-link h2, .woocommerce ul.products li.product .woocommerce-loop-category__title' );
+		$css->add_property( 'font-weight', esc_attr( $settings['wc_product_title_font_weight'] ) );
+		$css->add_property( 'text-transform', esc_attr( $settings['wc_product_title_font_transform'] ) );
+		$css->add_property( 'font-size', esc_attr( $settings['wc_product_title_font_size'] ), false, 'px' );
 
-	$css->set_selector( '.woocommerce .up-sells ul.products li.product .woocommerce-LoopProduct-link h2, .woocommerce .cross-sells ul.products li.product .woocommerce-LoopProduct-link h2, .woocommerce .related ul.products li.product .woocommerce-LoopProduct-link h2' );
-	if ( '' !== $settings[ 'wc_related_product_title_font_size' ] ) {
-		$css->add_property( 'font-size', esc_attr( $settings[ 'wc_related_product_title_font_size' ] ), false, 'px' );
-	}
-
-	// Primary button
-	$css->set_selector( '.woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button' );
-	$css->add_property( 'color', esc_attr( $settings[ 'form_button_text_color' ] ) );
-	$css->add_property( 'background-color', esc_attr( $settings[ 'form_button_background_color' ] ) );
-
-	if ( isset( $settings[ 'buttons_font_size' ] ) ) {
-		$css->add_property( 'font-weight', esc_attr( $settings[ 'buttons_font_weight' ] ) );
-		$css->add_property( 'text-transform', esc_attr( $settings[ 'buttons_font_transform' ] ) );
-
-		if ( '' !== $settings[ 'buttons_font_size' ] ) {
-			$css->add_property( 'font-size', absint( $settings[ 'buttons_font_size' ] ), false, 'px' );
+		$css->set_selector( '.woocommerce .up-sells ul.products li.product .woocommerce-LoopProduct-link h2, .woocommerce .cross-sells ul.products li.product .woocommerce-LoopProduct-link h2, .woocommerce .related ul.products li.product .woocommerce-LoopProduct-link h2' );
+		if ( '' !== $settings['wc_related_product_title_font_size'] ) {
+			$css->add_property( 'font-size', esc_attr( $settings['wc_related_product_title_font_size'] ), false, 'px' );
 		}
 	}
 
-	// Primary button hover
+	// Primary button.
+	$css->set_selector( '.woocommerce #respond input#submit, .woocommerce a.button, .woocommerce button.button, .woocommerce input.button' );
+	$css->add_property( 'color', esc_attr( $settings['form_button_text_color'] ) );
+	$css->add_property( 'background-color', esc_attr( $settings['form_button_background_color'] ) );
+
+	if ( ! $using_dynamic_typography && isset( $settings['buttons_font_size'] ) ) {
+		$css->add_property( 'font-weight', esc_attr( $settings['buttons_font_weight'] ) );
+		$css->add_property( 'text-transform', esc_attr( $settings['buttons_font_transform'] ) );
+
+		if ( '' !== $settings['buttons_font_size'] ) {
+			$css->add_property( 'font-size', absint( $settings['buttons_font_size'] ), false, 'px' );
+		}
+	}
+
+	if ( $using_dynamic_typography && class_exists( 'GeneratePress_Typography' ) ) {
+		$typography = generate_get_option( 'typography' );
+
+		foreach ( (array) $typography as $key => $data ) {
+			if ( 'buttons' === $data['selector'] ) {
+				if ( ! empty( $data['fontSize'] ) ) {
+					$css->add_property( 'font-size', absint( $data['fontSize'] ), false, 'px' );
+				}
+
+				if ( ! empty( $data['fontWeight'] ) ) {
+					$css->add_property( 'font-weight', absint( $data['fontWeight'] ) );
+				}
+
+				if ( ! empty( $data['textTransform'] ) ) {
+					$css->add_property( 'text-transform', absint( $data['textTransform'] ) );
+				}
+
+				if ( ! empty( $data['fontSizeTablet'] ) ) {
+					$css->start_media_query( generate_premium_get_media_query( 'tablet' ) );
+					$css->add_property( 'font-size', absint( $data['fontSizeTablet'] ), false, 'px' );
+					$css->stop_media_query();
+				}
+
+				if ( ! empty( $data['fontSizeMobile'] ) ) {
+					$css->start_media_query( generate_premium_get_media_query( 'mobile' ) );
+					$css->add_property( 'font-size', absint( $data['fontSizeMobile'] ), false, 'px' );
+					$css->stop_media_query();
+				}
+			}
+		}
+	}
+
+	// Primary button hover.
 	$css->set_selector( '.woocommerce #respond input#submit:hover, .woocommerce a.button:hover, .woocommerce button.button:hover, .woocommerce input.button:hover' );
-	$css->add_property( 'color', esc_attr( $settings[ 'form_button_text_color_hover' ] ) );
-	$css->add_property( 'background-color', esc_attr( $settings[ 'form_button_background_color_hover' ] ) );
+	$css->add_property( 'color', esc_attr( $settings['form_button_text_color_hover'] ) );
+	$css->add_property( 'background-color', esc_attr( $settings['form_button_background_color_hover'] ) );
 
-	// Alt button
+	// Alt button.
 	$css->set_selector( '.woocommerce #respond input#submit.alt, .woocommerce a.button.alt, .woocommerce button.button.alt, .woocommerce input.button.alt, .woocommerce #respond input#submit.alt.disabled, .woocommerce #respond input#submit.alt.disabled:hover, .woocommerce #respond input#submit.alt:disabled, .woocommerce #respond input#submit.alt:disabled:hover, .woocommerce #respond input#submit.alt:disabled[disabled], .woocommerce #respond input#submit.alt:disabled[disabled]:hover, .woocommerce a.button.alt.disabled, .woocommerce a.button.alt.disabled:hover, .woocommerce a.button.alt:disabled, .woocommerce a.button.alt:disabled:hover, .woocommerce a.button.alt:disabled[disabled], .woocommerce a.button.alt:disabled[disabled]:hover, .woocommerce button.button.alt.disabled, .woocommerce button.button.alt.disabled:hover, .woocommerce button.button.alt:disabled, .woocommerce button.button.alt:disabled:hover, .woocommerce button.button.alt:disabled[disabled], .woocommerce button.button.alt:disabled[disabled]:hover, .woocommerce input.button.alt.disabled, .woocommerce input.button.alt.disabled:hover, .woocommerce input.button.alt:disabled, .woocommerce input.button.alt:disabled:hover, .woocommerce input.button.alt:disabled[disabled], .woocommerce input.button.alt:disabled[disabled]:hover' );
-	$css->add_property( 'color', esc_attr( $settings[ 'wc_alt_button_text' ] ) );
-	$css->add_property( 'background-color', esc_attr( $settings[ 'wc_alt_button_background' ] ) );
+	$css->add_property( 'color', esc_attr( $settings['wc_alt_button_text'] ) );
+	$css->add_property( 'background-color', esc_attr( $settings['wc_alt_button_background'] ) );
 
-	// Alt button hover
+	// Alt button hover.
 	$css->set_selector( '.woocommerce #respond input#submit.alt:hover, .woocommerce a.button.alt:hover, .woocommerce button.button.alt:hover, .woocommerce input.button.alt:hover' );
-	$css->add_property( 'color', esc_attr( $settings[ 'wc_alt_button_text_hover' ] ) );
-	$css->add_property( 'background-color', esc_attr( $settings[ 'wc_alt_button_background_hover' ] ) );
+	$css->add_property( 'color', esc_attr( $settings['wc_alt_button_text_hover'] ) );
+	$css->add_property( 'background-color', esc_attr( $settings['wc_alt_button_background_hover'] ) );
 
-	// Star rating
+	// Star rating.
 	$css->set_selector( '.woocommerce .star-rating span:before, .woocommerce p.stars:hover a::before' );
-	$css->add_property( 'color', esc_attr( $settings[ 'wc_rating_stars' ] ) );
+	$css->add_property( 'color', esc_attr( $settings['wc_rating_stars'] ) );
 
-	// Sale sticker
+	// Sale sticker.
 	$css->set_selector( '.woocommerce span.onsale' );
-	$css->add_property( 'background-color', esc_attr( $settings[ 'wc_sale_sticker_background' ] ) );
-	$css->add_property( 'color', esc_attr( $settings[ 'wc_sale_sticker_text' ] ) );
+	$css->add_property( 'background-color', esc_attr( $settings['wc_sale_sticker_background'] ) );
+	$css->add_property( 'color', esc_attr( $settings['wc_sale_sticker_text'] ) );
 
-	// Price
+	// Price.
 	$css->set_selector( '.woocommerce ul.products li.product .price, .woocommerce div.product p.price' );
-	$css->add_property( 'color', esc_attr( $settings[ 'wc_price_color' ] ) );
+	$css->add_property( 'color', esc_attr( $settings['wc_price_color'] ) );
 
-	// Product tab
+	// Product tab.
 	$css->set_selector( '.woocommerce div.product .woocommerce-tabs ul.tabs li a' );
-	$css->add_property( 'color', esc_attr( $settings[ 'wc_product_tab' ] ) );
+	$css->add_property( 'color', esc_attr( $settings['wc_product_tab'] ) );
 
-	// Highlight product tab
+	// Highlight product tab.
 	$css->set_selector( '.woocommerce div.product .woocommerce-tabs ul.tabs li a:hover, .woocommerce div.product .woocommerce-tabs ul.tabs li.active a' );
-	$css->add_property( 'color', esc_attr( $settings[ 'wc_product_tab_highlight' ] ) );
+	$css->add_property( 'color', esc_attr( $settings['wc_product_tab_highlight'] ) );
 
-	// Success message
+	// Success message.
 	$css->set_selector( '.woocommerce-message' );
-	$css->add_property( 'background-color', esc_attr( $settings[ 'wc_success_message_background' ] ) );
-	$css->add_property( 'color', esc_attr( $settings[ 'wc_success_message_text' ] ) );
+	$css->add_property( 'background-color', esc_attr( $settings['wc_success_message_background'] ) );
+	$css->add_property( 'color', esc_attr( $settings['wc_success_message_text'] ) );
 
 	$css->set_selector( 'div.woocommerce-message a.button, div.woocommerce-message a.button:focus, div.woocommerce-message a.button:hover, div.woocommerce-message a, div.woocommerce-message a:focus, div.woocommerce-message a:hover' );
-	$css->add_property( 'color', esc_attr( $settings[ 'wc_success_message_text' ] ) );
+	$css->add_property( 'color', esc_attr( $settings['wc_success_message_text'] ) );
 
-	// Info message
+	// Info message.
 	$css->set_selector( '.woocommerce-info' );
-	$css->add_property( 'background-color', esc_attr( $settings[ 'wc_info_message_background' ] ) );
-	$css->add_property( 'color', esc_attr( $settings[ 'wc_info_message_text' ] ) );
+	$css->add_property( 'background-color', esc_attr( $settings['wc_info_message_background'] ) );
+	$css->add_property( 'color', esc_attr( $settings['wc_info_message_text'] ) );
 
 	$css->set_selector( 'div.woocommerce-info a.button, div.woocommerce-info a.button:focus, div.woocommerce-info a.button:hover, div.woocommerce-info a, div.woocommerce-info a:focus, div.woocommerce-info a:hover' );
-	$css->add_property( 'color', esc_attr( $settings[ 'wc_info_message_text' ] ) );
+	$css->add_property( 'color', esc_attr( $settings['wc_info_message_text'] ) );
 
-	// Info message
+	// Info message.
 	$css->set_selector( '.woocommerce-error' );
-	$css->add_property( 'background-color', esc_attr( $settings[ 'wc_error_message_background' ] ) );
-	$css->add_property( 'color', esc_attr( $settings[ 'wc_error_message_text' ] ) );
+	$css->add_property( 'background-color', esc_attr( $settings['wc_error_message_background'] ) );
+	$css->add_property( 'color', esc_attr( $settings['wc_error_message_text'] ) );
 
 	$css->set_selector( 'div.woocommerce-error a.button, div.woocommerce-error a.button:focus, div.woocommerce-error a.button:hover, div.woocommerce-error a, div.woocommerce-error a:focus, div.woocommerce-error a:hover' );
-	$css->add_property( 'color', esc_attr( $settings[ 'wc_error_message_text' ] ) );
+	$css->add_property( 'color', esc_attr( $settings['wc_error_message_text'] ) );
 
-	// Archive short description
+	// Archive short description.
 	$css->set_selector( '.woocommerce-product-details__short-description' );
-	if ( '' !== $settings[ 'content_text_color' ] ) {
-		$css->add_property( 'color', esc_attr( $settings[ 'content_text_color' ] ) );
+	if ( '' !== $settings['content_text_color'] ) {
+		$css->add_property( 'color', esc_attr( $settings['content_text_color'] ) );
 	} else {
-		$css->add_property( 'color', esc_attr( $settings[ 'text_color' ] ) );
+		$css->add_property( 'color', esc_attr( $settings['text_color'] ) );
 	}
 
 	$css->set_selector( '#wc-mini-cart' );
@@ -762,7 +935,7 @@ function generatepress_wc_css() {
 	$css->set_selector( '.woocommerce #content div.product div.images, .woocommerce div.product div.images, .woocommerce-page #content div.product div.images, .woocommerce-page div.product div.images' );
 	$css->add_property( 'width', absint( generatepress_wc_get_setting( 'single_product_image_width' ) ), false, '%' );
 
-	if ( function_exists( 'generate_get_font_family_css' ) ) {
+	if ( ! $using_dynamic_typography && function_exists( 'generate_get_font_family_css' ) ) {
 		$buttons_family = generate_get_font_family_css( 'font_buttons', 'generate_settings', generate_get_default_fonts() );
 		$css->set_selector( '.woocommerce.widget_shopping_cart .woocommerce-mini-cart__buttons a' );
 		$css->add_property( 'font-family', $buttons_family );
@@ -907,9 +1080,11 @@ function generatepress_wc_css() {
 	$css->stop_media_query();
 
 	$css->start_media_query( generate_premium_get_media_query( 'mobile' ) );
-		$css->set_selector( '.woocommerce ul.products li.product .woocommerce-LoopProduct-link h2, .woocommerce ul.products li.product .woocommerce-loop-category__title' );
-		if ( '' !== $settings[ 'mobile_wc_product_title_font_size' ] ) {
-			$css->add_property( 'font-size', esc_attr( $settings[ 'mobile_wc_product_title_font_size' ] ), false, 'px' );
+		if ( ! $using_dynamic_typography ) {
+			$css->set_selector( '.woocommerce ul.products li.product .woocommerce-LoopProduct-link h2, .woocommerce ul.products li.product .woocommerce-loop-category__title' );
+			if ( '' !== $settings[ 'mobile_wc_product_title_font_size' ] ) {
+				$css->add_property( 'font-size', esc_attr( $settings[ 'mobile_wc_product_title_font_size' ] ), false, 'px' );
+			}
 		}
 
 		$css->set_selector( '.add-to-cart-panel .continue-shopping' );
@@ -920,22 +1095,35 @@ function generatepress_wc_css() {
 		if ( '' !== generatepress_wc_get_setting( 'mobile_columns_gap' ) ) {
 			$css->add_property( 'grid-gap', generatepress_wc_get_setting( 'mobile_columns_gap' ), false, 'px' );
 		}
+
+		$css->set_selector( '.woocommerce #content div.product div.images,.woocommerce div.product div.images,.woocommerce-page #content div.product div.images,.woocommerce-page div.product div.images' );
+		$css->add_property( 'width', '100%' );
 	$css->stop_media_query();
 
+	$using_flex = false;
+
+	if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+		$using_flex = true;
+	}
+
 	$css->start_media_query( generate_premium_get_media_query( 'mobile-menu' ) );
-		$css->set_selector( '.mobile-bar-items + .menu-toggle' );
-		$css->add_property( 'text-align', 'left' );
+		if ( ! $using_flex ) {
+			$css->set_selector( '.mobile-bar-items + .menu-toggle' );
+			$css->add_property( 'text-align', 'left' );
+		}
 
 		$css->set_selector( 'nav.toggled .main-nav li.wc-menu-item' );
 		$css->add_property( 'display', 'none !important' );
 
-		$css->set_selector( 'body.nav-search-enabled .wc-menu-cart-activated:not(#mobile-header) .mobile-bar-items' );
-		$css->add_property( 'float', 'right' );
-		$css->add_property( 'position', 'relative' );
+		if ( ! $using_flex ) {
+			$css->set_selector( 'body.nav-search-enabled .wc-menu-cart-activated:not(#mobile-header) .mobile-bar-items' );
+			$css->add_property( 'float', 'right' );
+			$css->add_property( 'position', 'relative' );
 
-		$css->set_selector( '.nav-search-enabled .wc-menu-cart-activated:not(#mobile-header) .menu-toggle' );
-		$css->add_property( 'float', 'left' );
-		$css->add_property( 'width', 'auto' );
+			$css->set_selector( '.nav-search-enabled .wc-menu-cart-activated:not(#mobile-header) .menu-toggle' );
+			$css->add_property( 'float', 'left' );
+			$css->add_property( 'width', 'auto' );
+		}
 
 		$css->set_selector( '.mobile-bar-items.wc-mobile-cart-items' );
 		$css->add_property( 'z-index', '1' );
@@ -952,6 +1140,10 @@ add_action( 'wp_enqueue_scripts', 'generatepress_wc_enqueue_css', 100 );
  */
 function generatepress_wc_enqueue_css() {
 	wp_add_inline_style( 'generate-woocommerce', generatepress_wc_css() );
+
+	if ( class_exists( 'GeneratePress_Typography' ) ) {
+		wp_add_inline_style( 'generate-woocommerce', GeneratePress_Typography::get_css( 'woocommerce' ) );
+	}
 }
 
 /**
@@ -990,9 +1182,8 @@ function generatepress_wc_product_has_gallery( $classes ) {
 
 	$post_type = get_post_type( get_the_ID() );
 
-	if ( 'product' == $post_type && method_exists( 'WC_Product', 'get_gallery_image_ids' ) ) {
-
-		$product = new WC_Product( get_the_ID() );
+	if ( 'product' === $post_type && method_exists( 'WC_Product', 'get_gallery_image_ids' ) ) {
+		$product = wc_get_product( get_the_ID() );
 		$attachment_ids = $product->get_gallery_image_ids();
 
 		if ( $attachment_ids && generatepress_wc_get_setting( 'product_secondary_image' ) && generatepress_wc_get_setting( 'product_archive_image' ) && has_post_thumbnail() ) {
@@ -1012,8 +1203,8 @@ add_action( 'woocommerce_before_shop_loop_item_title', 'generatepress_wc_seconda
 function generatepress_wc_secondary_product_image() {
 	$post_type = get_post_type( get_the_ID() );
 
-	if ( 'product' == $post_type && method_exists( 'WC_Product', 'get_gallery_image_ids' ) ) {
-		$product = new WC_Product( get_the_ID() );
+	if ( 'product' === $post_type && method_exists( 'WC_Product', 'get_gallery_image_ids' ) ) {
+		$product = wc_get_product( get_the_ID() );
 		$attachment_ids = $product->get_gallery_image_ids();
 
 		if ( $attachment_ids && generatepress_wc_get_setting( 'product_secondary_image' ) && generatepress_wc_get_setting( 'product_archive_image' ) && has_post_thumbnail() ) {
@@ -1023,7 +1214,7 @@ function generatepress_wc_secondary_product_image() {
 	}
 }
 
-add_filter('woocommerce_product_get_rating_html', 'generatepress_wc_rating_html', 10, 2);
+add_filter( 'woocommerce_product_get_rating_html', 'generatepress_wc_rating_html', 10, 2 );
 /**
  * Always show ratings area to make sure products are similar heights.
  *
@@ -1037,13 +1228,14 @@ function generatepress_wc_rating_html( $rating_html, $rating ) {
 	if ( $rating > 0 ) {
 		$title = sprintf( __( 'Rated %s out of 5', 'gp-premium' ), $rating );
 	} else {
-		$title = __( 'Not yet rated','generate-woocommerce' );
+		$title = __( 'Not yet rated', 'gp-premium' );
 		$rating = 0;
 	}
 
 	$rating_html  = '<div class="star-rating" title="' . esc_attr( $title ) . '">';
 	$rating_html .= '<span style="width:' . ( ( $rating / 5 ) * 100 ) . '%"><strong class="rating">' . $rating . '</strong> ' . __( 'out of 5', 'gp-premium' ) . '</span>';
 	$rating_html .= '</div>';
+
 	return $rating_html;
 }
 
@@ -1103,7 +1295,7 @@ function generatepress_wc_add_to_cart_helper() {
 					?>
 						<div class="continue-shopping <?php echo $svg_icon ? 'has-svg-icon' : ''; ?>">
 							<?php echo $svg_icon; ?>
-							<a href="#"><span class="continue-shopping-text"><?php _e( 'Continue Shopping', 'gp-premium' ); ?> &rarr;</span></a>
+							<a href="#" class="continue-shopping-link"><span class="continue-shopping-text"><?php _e( 'Continue Shopping', 'gp-premium' ); ?> &rarr;</span></a>
 						</div>
 
 						<div class="cart-info">
@@ -1112,13 +1304,27 @@ function generatepress_wc_add_to_cart_helper() {
 							</div>
 
 							<div class="cart-data">
-								<?php echo sprintf ( _n( '%d item', '%d items', WC()->cart->get_cart_contents_count() ), WC()->cart->get_cart_contents_count() ); ?> - <?php echo WC()->cart->get_cart_total(); ?>
+								<?php
+								if ( isset( WC()->cart ) ) {
+									echo sprintf( _n( '%d item', '%d items', WC()->cart->get_cart_contents_count(), 'gp-premium' ), WC()->cart->get_cart_contents_count() ); ?> - <?php echo WC()->cart->get_cart_total();
+								}
+								?>
 							</div>
 						</div>
 
-						<div class="checkout">
-							<a href="<?php echo wc_get_checkout_url(); ?>" class="button"><?php _e( 'Checkout', 'gp-premium' ); ?></a>
-						</div>
+						<?php
+							// phpcs:ignore -- No need to escape full thing.
+							echo apply_filters(
+								'generate_wc_cart_panel_checkout_button_output',
+								sprintf(
+									'<div class="checkout">
+										<a href="%s" class="button">%s</a>
+									</div>',
+									esc_url( wc_get_checkout_url() ),
+									esc_html__( 'Checkout', 'gp-premium' )
+								)
+							);
+						?>
 					<?php
 				endif;
 
@@ -1142,31 +1348,46 @@ function generatepress_wc_add_to_cart_helper() {
 							<div class="product-price">
 								<?php echo $product->get_price_html(); ?>
 							</div>
-						<?php endif; ?>
-
-						<?php if ( $product->is_type( 'simple' ) ) : ?>
-							<form action="<?php echo esc_url( $product->add_to_cart_url() ); ?>" class="cart<?php echo $quantity_buttons; ?>" method="post" enctype="multipart/form-data">
-								<?php
-								$args = array(
-									'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
-									'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
-								);
-
-								echo woocommerce_quantity_input( $args, $product, false );
-								?>
-								<button type="submit" class="button alt"><?php echo esc_html( $product->add_to_cart_text() ); ?></button>
-							</form>
 						<?php endif;
 
-						if ( $product->is_type( 'variable' ) ) : ?>
-							<button type="submit" class="button alt go-to-variables"><?php echo esc_html( $product->add_to_cart_text() ); ?></button>
-						<?php endif;
+						$action = '';
 
-						if ( $product->is_type( 'external' ) ) : ?>
-							<form action="<?php echo esc_url( $product->add_to_cart_url() ); ?>" class="cart" method="post" enctype="multipart/form-data">
-								<button type="submit" class="button alt"><?php echo esc_html( $product->add_to_cart_text() ); ?></button>
-							</form>
-						<?php endif;
+						if ( $product->is_type( 'simple' ) ) {
+							$args = array(
+								'min_value' => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
+								'max_value' => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
+							);
+
+							$action = sprintf(
+								'<form action="%1$s" class="cart%2$s" method="post" enctype="multipart/form-data">
+									%3$s
+									<button type="submit" class="button alt">%4$s</button>
+								</form>',
+								esc_url( $product->add_to_cart_url() ),
+								$quantity_buttons,
+								woocommerce_quantity_input( $args, $product, false ),
+								esc_html( $product->add_to_cart_text() )
+							);
+						}
+
+						if ( $product->is_type( 'variable' ) ) {
+							$action = sprintf(
+								'<button type="submit" class="button alt go-to-variables">%s</button>',
+								esc_html( $product->add_to_cart_text() )
+							);
+						}
+
+						if ( $product->is_type( 'external' ) ) {
+							$action = sprintf(
+								'<form action="%1$s" class="cart" method="post" enctype="multipart/form-data">
+									<button type="submit" class="button alt">%2$s</button>
+								</form>',
+								esc_url( $product->add_to_cart_url() ),
+								esc_html( $product->add_to_cart_text() )
+							);
+						}
+
+						echo apply_filters( 'generate_wc_sticky_add_to_cart_action', $action, $product ); // phpcs:ignore -- No escaping needed.
 				endif;
 				?>
 
@@ -1182,7 +1403,9 @@ add_filter( 'woocommerce_add_to_cart_fragments', 'generatepress_add_to_cart_pane
  * @since 1.8
  */
 function generatepress_add_to_cart_panel_fragments( $fragments ) {
-    $fragments['.add-to-cart-panel .cart-data'] = '<div class="cart-data">' . sprintf ( _n( '%d item', '%d items', WC()->cart->get_cart_contents_count(), 'gp-premium' ), WC()->cart->get_cart_contents_count() ) . ' - ' .  WC()->cart->get_cart_total() . '</div>';
+	if ( isset( WC()->cart ) ) {
+		$fragments['.add-to-cart-panel .cart-data'] = '<div class="cart-data">' . sprintf( _n( '%d item', '%d items', WC()->cart->get_cart_contents_count(), 'gp-premium' ), WC()->cart->get_cart_contents_count() ) . ' - ' .  WC()->cart->get_cart_total() . '</div>';
+	}
 
 	return $fragments;
 }
@@ -1200,7 +1423,7 @@ function generatepress_wc_show_sticky_add_to_cart() {
 		return false;
 	}
 
-	if ( ( $product->is_type( 'simple' ) || $product->is_type( 'variable' ) ) && $product->is_purchasable() && $product->is_in_stock() && ! $product->is_sold_individually() ) {
+	if ( ( $product->is_type( 'simple' ) || $product->is_type( 'variable' ) ) && $product->is_purchasable() && $product->is_in_stock() ) {
 		$show = true;
 	}
 
@@ -1208,22 +1431,64 @@ function generatepress_wc_show_sticky_add_to_cart() {
 		$show = true;
 	}
 
-	return $show;
+	return apply_filters( 'generate_wc_show_sticky_add_to_cart', $show );
 }
 
 /**
  * Checks if a color is light or dark.
  *
  * @since 1.8
- *
- * @param string $color
- * @return string
+ * @param string $color The color to check.
  */
 function generate_premium_check_text_color( $color ) {
-    $r = hexdec( substr( $color, 1, 2 ) );
-    $g = hexdec( substr( $color, 3, 2 ) );
-    $b = hexdec( substr( $color, 5, 2 ) );
-    $yiq = ( ( $r * 299 ) + ( $g * 587 ) + ( $b * 114 ) ) / 1000;
+	// Get the hex value if we're using variables.
+	if ( function_exists( 'generate_get_option' ) && strpos( $color, 'var(' ) !== false ) {
+		$global_colors = generate_get_option( 'global_colors' );
+		$found_color = false;
 
-    return ( $yiq >= 128 ) ? 'light' : 'dark';
+		// Remove whitespace if it's been added.
+		$color = str_replace( ' ', '', $color );
+
+		foreach ( (array) $global_colors as $key => $data ) {
+			// Check for the full variable - var(--color) - or a variable with a fallback - var(--color,#fff).
+			if ( 'var(--' . $data['slug'] . ')' === $color || strpos( $color, 'var(--' . $data['slug'] . ',' ) !== false ) {
+				$color = $data['color'];
+				$found_color = true;
+				break;
+			}
+		}
+
+		// If we didn't find the hex value, bail.
+		if ( ! $found_color ) {
+			return;
+		}
+	}
+
+	$r = hexdec( substr( $color, 1, 2 ) );
+	$g = hexdec( substr( $color, 3, 2 ) );
+	$b = hexdec( substr( $color, 5, 2 ) );
+	$yiq = ( ( $r * 299 ) + ( $g * 587 ) + ( $b * 114 ) ) / 1000;
+
+	return ( $yiq >= 128 ) ? 'light' : 'dark';
+}
+
+add_filter( 'generate_typography_css_selector', 'generate_woocommerce_typography_selectors' );
+/**
+ * Add the WooCommerce typography CSS selectors.
+ *
+ * @since 2.1.0
+ * @param string $selector The selector we're targeting.
+ */
+function generate_woocommerce_typography_selectors( $selector ) {
+	switch ( $selector ) {
+		case 'woocommerce-catalog-product-titles':
+			$selector = '.woocommerce ul.products li.product .woocommerce-LoopProduct-link h2, .woocommerce ul.products li.product .woocommerce-loop-category__title';
+			break;
+
+		case 'woocommerce-related-product-titles':
+			$selector = '.woocommerce .up-sells ul.products li.product .woocommerce-LoopProduct-link h2, .woocommerce .cross-sells ul.products li.product .woocommerce-LoopProduct-link h2, .woocommerce .related ul.products li.product .woocommerce-LoopProduct-link h2';
+			break;
+	}
+
+	return $selector;
 }

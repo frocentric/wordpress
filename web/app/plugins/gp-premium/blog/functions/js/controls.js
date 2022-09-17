@@ -1,61 +1,64 @@
-jQuery( document ).ready( function($) {
+jQuery( function( $ ) {
 	// Featured image controls
-	var featured_image_archive_controls = [
+	var featuredImageArchiveControls = [
 		'generate_blog_settings-post_image',
 		'generate_blog_settings-post_image_padding',
 		'generate_blog_settings-post_image_position',
 		'generate_blog_settings-post_image_alignment',
+		'generate_blog_settings-post_image_size',
 		'generate_blog_settings-post_image_width',
 		'generate_blog_settings-post_image_height',
-		'post_image_apply_sizes',
+		'generate_regenerate_images_notice',
 	];
 
-	$.each( featured_image_archive_controls, function( index, value ) {
+	$.each( featuredImageArchiveControls, function( index, value ) {
 		$( '#customize-control-' + value ).attr( 'data-control-section', 'featured-image-archives' );
 	} );
 
-	var featured_image_single_controls = [
+	var featuredImageSingleControls = [
 		'generate_blog_settings-single_post_image',
 		'generate_blog_settings-single_post_image_padding',
 		'generate_blog_settings-single_post_image_position',
 		'generate_blog_settings-single_post_image_alignment',
+		'generate_blog_settings-single_post_image_size',
 		'generate_blog_settings-single_post_image_width',
 		'generate_blog_settings-single_post_image_height',
-		'single_post_image_apply_sizes',
+		'generate_regenerate_single_post_images_notice',
 	];
 
-	$.each( featured_image_single_controls, function( index, value ) {
+	$.each( featuredImageSingleControls, function( index, value ) {
 		$( '#customize-control-' + value ).attr( 'data-control-section', 'featured-image-single' ).css( {
 			visibility: 'hidden',
 			height: '0',
 			width: '0',
 			margin: '0',
-			overflow: 'hidden'
+			overflow: 'hidden',
 		} );
 	} );
 
-	var featured_image_page_controls = [
+	var featuredImagePageControls = [
 		'generate_blog_settings-page_post_image',
 		'generate_blog_settings-page_post_image_padding',
 		'generate_blog_settings-page_post_image_position',
 		'generate_blog_settings-page_post_image_alignment',
+		'generate_blog_settings-page_post_image_size',
 		'generate_blog_settings-page_post_image_width',
 		'generate_blog_settings-page_post_image_height',
-		'page_post_image_apply_sizes',
+		'generate_regenerate_page_images_notice',
 	];
 
-	$.each( featured_image_page_controls, function( index, value ) {
+	$.each( featuredImagePageControls, function( index, value ) {
 		$( '#customize-control-' + value ).attr( 'data-control-section', 'featured-image-page' ).css( {
 			visibility: 'hidden',
 			height: '0',
 			width: '0',
 			margin: '0',
-			overflow: 'hidden'
+			overflow: 'hidden',
 		} );
 	} );
 
 	// Post meta controls
-	var post_meta_archive_controls = [
+	var postMetaArchiveControls = [
 		'generate_settings-post_content',
 		'generate_blog_settings-excerpt_length',
 		'generate_blog_settings-read_more',
@@ -71,11 +74,11 @@ jQuery( document ).ready( function($) {
 		'blog_masonry_loading_control',
 	];
 
-	$.each( post_meta_archive_controls, function( index, value ) {
+	$.each( postMetaArchiveControls, function( index, value ) {
 		$( '#customize-control-' + value ).attr( 'data-control-section', 'post-meta-archives' );
 	} );
 
-	var post_meta_single_controls = [
+	var postMetaSingleControls = [
 		'generate_blog_settings-single_date',
 		'generate_blog_settings-single_author',
 		'generate_blog_settings-single_categories',
@@ -83,13 +86,13 @@ jQuery( document ).ready( function($) {
 		'generate_blog_settings-single_post_navigation',
 	];
 
-	$.each( post_meta_single_controls, function( index, value ) {
+	$.each( postMetaSingleControls, function( index, value ) {
 		$( '#customize-control-' + value ).attr( 'data-control-section', 'post-meta-single' ).css( {
 			visibility: 'hidden',
 			height: '0',
 			width: '0',
 			margin: '0',
-			overflow: 'hidden'
+			overflow: 'hidden',
 		} );
 	} );
-});
+} );

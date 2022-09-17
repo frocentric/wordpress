@@ -31,7 +31,8 @@ class Form {
         //var_dump($_POST);
         if (!empty($_POST['form_fields'])) {
             foreach ($_POST['form_fields'] as $id => $field) {
-                if (!isset($fields[$id])) {
+                $ide = str_replace('e-', '', $id);
+                if (!isset($fields[$id]) && !isset($fields[$ide])) {                    
                     $fields[$id] = $field;
                 }
             }
@@ -68,10 +69,11 @@ class Form {
             $_POST[$key] = $value;
         }
 
-        $post_id = !empty($_POST['queried_id']) ? absint($_POST['queried_id']) : absint($_POST['post_id']);
-        if ($post_id) {
-            // force post for Dynamic Tags and Widgets
-            global $post, $wp_query;
+        //$post_id = !empty($_POST['queried_id']) ? absint($_POST['queried_id']) : absint($_POST['post_id']);
+        // force post for Dynamic Tags and Widgets
+        global $post, $wp_query;
+        $post_id = absint($_POST['post_id']);
+        if ($post_id && empty($wp_query->queried_object)) {
             $post = get_post($post_id);
             if ($post) {
                 $wp_query->queried_object = $post;
@@ -218,11 +220,15 @@ class Form {
         return $arr;
     }
     
-    public static function array_to_options($arr = [], $val = 'pro', $format = '') {
+    public static function array_to_options($arr = [], $val = 'pro', $format = '', $assoc = 'auto') {
         $arr = Utils::explode($arr, PHP_EOL);
         $string = '';
         if (!empty($arr)) {
-            $has_values = array_keys($arr) !== range(0, count($arr) - 1);
+            if ($assoc == 'auto') {
+                $has_values = array_keys($arr) !== range(0, count($arr) - 1);
+            } else {
+                $has_values = $assoc;
+            }
             $i = 1;
             foreach ($arr as $akey => $item) {
                 $label = Utils::to_string($item);
@@ -537,7 +543,8 @@ class Form {
                 $afield = self::get_field($akey, $settings);
                 if ($afield) {
                     if (in_array($afield['field_type'], array('upload', 'media', 'signature'))) {
-                        $files = Utils::explode($adatas);                    
+                        $files = Utils::explode($adatas); 
+                        //var_dump($files);
                         if (!empty($files)) {
                             $fields[$akey] = '';
                             foreach ($files as $adata) {
@@ -594,6 +601,7 @@ class Form {
                                 }
                             }
                         }
+                        //var_dump($fields); die();
                     }
                 }
             }
@@ -689,7 +697,7 @@ class Form {
                         update_option($akey, $adata);
                     }
                 } else {
-                    //var_dump($akey); var_dump($adata);
+                    //var_dump($akey); var_dump($adata); die();
                     update_metadata($type, $obj_id, $akey, $adata);
                 }
             }

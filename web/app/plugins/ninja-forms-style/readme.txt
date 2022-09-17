@@ -2,9 +2,9 @@
 Contributors: kstover, jameslaws, kbjohnson90
 Donate link: http://ninjaforms.com
 Tags: form, forms, CSS
-Requires at least: 5.0
-Tested up to: 5.2
-Stable tag: 3.0.28
+Requires at least: 5.4
+Tested up to: 5.6
+Stable tag: 3.0.29
 
 License: GPLv2 or later
 
@@ -23,6 +23,12 @@ This section describes how to install the plugin and get it working.
 For help and video tutorials, please visit our website: [NinjaForms.com](http://ninjaforms.com)
 
 == Changelog ==
+
+= 3.0.29 (15 February 2021) =
+
+*Bugs:*
+
+* Resolved an issue that caused fields being dragged into a repeatable fieldset to visually duplicate in the form builder.
 
 = 3.0.28 (9 October 2019) =
 

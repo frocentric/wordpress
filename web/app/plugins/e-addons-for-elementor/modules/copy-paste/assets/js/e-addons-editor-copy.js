@@ -345,6 +345,24 @@ function eCanJsPaste() {
     return navigator.clipboard && typeof navigator.clipboard.readText === "function" && (location.protocol == 'https:' || location.hostname == 'localhost' || location.hostname == '127.0.0.1');
 }
 
+/**
+ * ASCII to Unicode (decode Base64 to original data)
+ * @param {string} b64
+ * @return {string}
+ */
+function atou(b64) {
+  return decodeURIComponent(escape(atob(b64)));
+}
+
+/**
+ * Unicode to ASCII (encode data to Base64)
+ * @param {string} data
+ * @return {string}
+ */
+function utoa(data) {
+  return btoa(unescape(encodeURIComponent(data)));
+}
+
 function eReadTemplate(file) {
     // Check if the file is a json.
     if (file.type && file.type.indexOf('json') === -1) {
@@ -357,8 +375,11 @@ function eReadTemplate(file) {
     reader.addEventListener('load', (event) => {
         //console.log(event);
         let tmp = event.target.result.split(';base64,');
+        //console.log(tmp);
         let base64 = tmp.pop();
-        let fileContent = atob(base64);
+        //console.log(base64);
+        let fileContent = atou(base64);
+        //console.log(fileContent);
         jQuery('#e_copy_paste__textarea').val(fileContent);
     });
     reader.readAsDataURL(file);

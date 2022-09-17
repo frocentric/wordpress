@@ -307,6 +307,8 @@ jQuery(window).on('elementor/frontend/init', () => {
                 }
 
             }
+            
+            //INSTANT LOAD AJAX
         }
 
         onElementChange(propertyName) {

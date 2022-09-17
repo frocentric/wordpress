@@ -75,7 +75,6 @@ if ( ! function_exists( 'generate_typography_convert_secondary_nav_values' ) ) {
 	 * @since 1.3.0
 	 */
 	function generate_typography_convert_secondary_nav_values() {
-
 		// Bail if Secondary Nav isn't active
 		if ( ! function_exists( 'generate_secondary_nav_get_defaults' ) ) {
 			return;

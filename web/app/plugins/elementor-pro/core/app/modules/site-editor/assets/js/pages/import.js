@@ -9,12 +9,10 @@ export default function Import() {
 		isUploading = React.useMemo( () => isImport && action.loading, [ action ] ),
 		hasError = React.useMemo( () => isImport && action.error, [ action ] );
 
-	const upload = React.useCallback( ( files ) => {
+	const upload = React.useCallback( ( file ) => {
 		if ( isUploading ) {
 			return;
 		}
-
-		const file = files[ 0 ];
 
 		readFile( file )
 			.then( ( fileData ) => importTemplates( { fileName: file.name, fileData } ) )
@@ -29,7 +27,7 @@ export default function Import() {
 			{
 				importedTemplate &&
 					<Dialog
-						title={ __( 'Your templates was imported.', 'elementor-pro' ) }
+						title={ __( 'Your template was imported', 'elementor-pro' ) }
 						approveButtonText={ __( 'Preview', 'elementor-pro' ) }
 						approveButtonUrl={ importedTemplate.url }
 						approveButtonTarget="_blank"
@@ -52,13 +50,14 @@ export default function Import() {
 						onClose={ resetActionState }
 					/>
 			}
-			<BackButton/>
+			<BackButton />
 			<DropZone
 				heading={ __( 'Import Template To Your Library', 'elementor-pro' ) }
 				text={ __( 'Drag & Drop your .JSON or .zip template file', 'elementor-pro' ) }
 				secondaryText={ __( 'or', 'elementor-pro' ) }
 				onFileSelect={ upload }
 				isLoading={ isUploading }
+				filetypes={ [ 'zip', 'json' ] }
 			/>
 		</section>
 	);

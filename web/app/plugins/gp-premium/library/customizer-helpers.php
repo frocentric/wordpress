@@ -31,7 +31,9 @@ add_action( 'customize_controls_enqueue_scripts', 'generate_premium_control_inli
  * @since 1.4
  */
 function generate_premium_control_inline_scripts() {
-	if ( function_exists( 'generate_typography_default_fonts' ) ) {
+	$is_using_dynamic_typography = function_exists( 'generate_is_using_dynamic_typography' ) && generate_is_using_dynamic_typography();
+
+	if ( function_exists( 'generate_typography_default_fonts' ) && ! $is_using_dynamic_typography ) {
 		$number_of_fonts = apply_filters( 'generate_number_of_fonts', 200 );
 
 		wp_localize_script( 'generatepress-pro-typography-customizer', 'gp_customize', array( 'nonce' => wp_create_nonce( 'gp_customize_nonce' ) ) );
@@ -85,7 +87,7 @@ function generate_premium_control_inline_scripts() {
 		$color_defaults = generate_get_color_defaults();
 
 		$controls_a11y['navigationTextColor'] = $color_defaults['navigation_text_color'];
-		$controls_a11y['headerTextColor'] = $color_defaults['header_text_color'];
+		$controls_a11y['siteTitleTextColor'] = $color_defaults['site_title_color'];
 	}
 
 	if ( function_exists( 'generate_get_defaults' ) ) {
@@ -98,6 +100,28 @@ function generate_premium_control_inline_scripts() {
 		'generatepress-pro-customizer-controls',
 		'gpControls',
 		$controls_a11y
+	);
+
+	wp_enqueue_script(
+		'generate-pro-customizer-controls',
+		GP_PREMIUM_DIR_URL . 'dist/customizer.js',
+		array( 'customize-controls', 'wp-i18n', 'wp-element', 'customize-base' ),
+		GP_PREMIUM_VERSION,
+		true
+	);
+
+	if ( function_exists( 'wp_set_script_translations' ) ) {
+		wp_set_script_translations( 'generate-pro-customizer-controls', 'gp-premium' );
+	}
+
+	wp_localize_script(
+		'generate-pro-customizer-controls',
+		'gpCustomizerControls',
+		array(
+			'hasSecondaryNav' => generatepress_is_module_active( 'generate_package_secondary_nav', 'GENERATE_SECONDARY_NAV' ),
+			'hasMenuPlus' => generatepress_is_module_active( 'generate_package_menu_plus', 'GENERATE_MENU_PLUS' ),
+			'hasWooCommerce' => class_exists( 'WooCommerce' ) && generatepress_is_module_active( 'generate_package_woocommerce', 'GENERATE_WOOCOMMERCE' ),
+		)
 	);
 }
 
@@ -213,6 +237,255 @@ function generate_premium_customizer_shortcut_controls( $wp_customize ) {
 			)
 		)
 	);
+
+	$wp_customize->add_control(
+		new GeneratePress_Section_Shortcut_Control(
+			$wp_customize,
+			'generate_colors_shortcuts',
+			array(
+				'section' => 'generate_colors_section',
+				'element' => __( 'Colors', 'gp-premium' ),
+				'shortcuts' => array(),
+				'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
+				'priority' => 1,
+			)
+		)
+	);
+
+	$wp_customize->add_control(
+		new GeneratePress_Section_Shortcut_Control(
+			$wp_customize,
+			'generate_typography_shortcuts',
+			array(
+				'section' => 'generate_typography_section',
+				'element' => __( 'Typography', 'gp-premium' ),
+				'shortcuts' => array(),
+				'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
+				'priority' => 1,
+			)
+		)
+	);
+}
+
+add_action( 'customize_register', 'generate_premium_layout_block_element_messages', 1000 );
+/**
+ * Add shortcuts to sections we don't control in this plugin.
+ *
+ * @since 1.8
+ */
+function generate_premium_layout_block_element_messages( $wp_customize ) {
+	if ( ! class_exists( 'WP_Customize_Panel' ) ) {
+		return;
+	}
+
+	if ( method_exists( $wp_customize, 'register_control_type' ) ) {
+		$wp_customize->register_control_type( 'GeneratePress_Information_Customize_Control' );
+	}
+
+	if ( version_compare( PHP_VERSION, '5.6', '>=' ) ) {
+		$footer_sections = array(
+			'generate_layout_footer',
+			'footer_color_section',
+			'font_footer_section',
+			'generate_backgrounds_footer',
+		);
+
+		foreach ( $footer_sections as $section ) {
+			if ( $wp_customize->get_section( $section ) ) {
+				$wp_customize->add_control(
+					new GeneratePress_Information_Customize_Control(
+						$wp_customize,
+						'generate_using_site_footer_element_' . $section,
+						array(
+							'section'     => $section,
+							'description' => sprintf(
+								/* translators: URL to the Elements dashboard. */
+								__( 'This page is using a <a href="%s">Site Footer Element</a>. Some of the options below may not apply.', 'gp-premium' ),
+								admin_url( 'edit.php?post_type=gp_elements' )
+							),
+							'notice' => true,
+							'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
+							'active_callback' => function() {
+								$has_block_element = generate_has_active_element( 'site-footer', true );
+
+								if ( $has_block_element ) {
+									return true;
+								}
+
+								return false;
+							},
+							'priority' => 0,
+						)
+					)
+				);
+			}
+		}
+
+		$header_sections = array(
+			'generate_layout_header',
+			'header_color_section',
+			'font_header_section',
+			'generate_backgrounds_header',
+		);
+
+		foreach ( $header_sections as $section ) {
+			if ( $wp_customize->get_section( $section ) ) {
+				$wp_customize->add_control(
+					new GeneratePress_Information_Customize_Control(
+						$wp_customize,
+						'generate_using_site_header_element_' . $section,
+						array(
+							'section'     => $section,
+							'description' => sprintf(
+								/* translators: URL to the Elements dashboard. */
+								__( 'This page is using a <a href="%s">Site Header Element</a>. Some of the options below may not apply.', 'gp-premium' ),
+								admin_url( 'edit.php?post_type=gp_elements' )
+							),
+							'notice' => true,
+							'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
+							'active_callback' => function() {
+								$has_block_element = generate_has_active_element( 'site-header', true );
+
+								if ( $has_block_element ) {
+									return true;
+								}
+
+								return false;
+							},
+							'priority' => 0,
+						)
+					)
+				);
+			}
+		}
+
+		$sidebar_sections = array(
+			'generate_layout_sidebars',
+			'sidebar_widget_color_section',
+			'font_widget_section',
+			'generate_backgrounds_sidebars',
+		);
+
+		foreach ( $sidebar_sections as $section ) {
+			if ( $wp_customize->get_section( $section ) ) {
+				$wp_customize->add_control(
+					new GeneratePress_Information_Customize_Control(
+						$wp_customize,
+						'generate_using_sidebar_element_' . $section,
+						array(
+							'section'     => $section,
+							'description' => sprintf(
+								/* translators: URL to the Elements dashboard. */
+								__( 'This page is using a <a href="%s">Sidebar Element</a>. Some of the options below may not apply.', 'gp-premium' ),
+								admin_url( 'edit.php?post_type=gp_elements' )
+							),
+							'notice' => true,
+							'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
+							'active_callback' => function() {
+								$has_right_sidebar_block_element = generate_has_active_element( 'right-sidebar', true );
+
+								if ( $has_right_sidebar_block_element ) {
+									return true;
+								}
+
+								$has_left_sidebar_block_element = generate_has_active_element( 'left-sidebar', true );
+
+								if ( $has_left_sidebar_block_element ) {
+									return true;
+								}
+
+								return false;
+							},
+							'priority' => 0,
+						)
+					)
+				);
+			}
+		}
+
+		if ( $wp_customize->get_section( 'generate_blog_section' ) ) {
+			$wp_customize->add_control(
+				new GeneratePress_Information_Customize_Control(
+					$wp_customize,
+					'generate_using_post_loop_item_element',
+					array(
+						'section'     => 'generate_blog_section',
+						'description' => sprintf(
+							/* translators: URL to the Elements dashboard. */
+							__( 'This page is using a <a href="%s">Content Template Element</a>. Some of the options below may not apply.', 'gp-premium' ),
+							admin_url( 'edit.php?post_type=gp_elements' )
+						),
+						'notice' => true,
+						'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
+						'active_callback' => function() {
+							$has_block_element = generate_has_active_element( 'content-template', true );
+
+							if ( $has_block_element ) {
+								return true;
+							}
+
+							return false;
+						},
+						'priority' => 0,
+					)
+				)
+			);
+
+			$wp_customize->add_control(
+				new GeneratePress_Information_Customize_Control(
+					$wp_customize,
+					'generate_using_page_hero_element',
+					array(
+						'section'     => 'generate_blog_section',
+						'description' => sprintf(
+							/* translators: URL to the Elements dashboard. */
+							__( 'This page is using a <a href="%s">Page Hero Element</a>. Some of the options below may not apply.', 'gp-premium' ),
+							admin_url( 'edit.php?post_type=gp_elements' )
+						),
+						'notice' => true,
+						'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
+						'active_callback' => function() {
+							$has_block_element = generate_has_active_element( 'page-hero', true );
+
+							if ( $has_block_element ) {
+								return true;
+							}
+
+							return false;
+						},
+						'priority' => 0,
+					)
+				)
+			);
+
+			$wp_customize->add_control(
+				new GeneratePress_Information_Customize_Control(
+					$wp_customize,
+					'generate_using_post_meta_area_element',
+					array(
+						'section'     => 'generate_blog_section',
+						'description' => sprintf(
+							/* translators: URL to the Elements dashboard. */
+							__( 'This page is using a <a href="%s">Post Meta Template Element</a>. Some of the options below may not apply.', 'gp-premium' ),
+							admin_url( 'edit.php?post_type=gp_elements' )
+						),
+						'notice' => true,
+						'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
+						'active_callback' => function() {
+							$has_block_element = generate_has_active_element( 'post-meta-template', true );
+
+							if ( $has_block_element ) {
+								return true;
+							}
+
+							return false;
+						},
+						'priority' => 0,
+					)
+				)
+			);
+		}
+	}
 }
 
 add_action( 'customize_controls_print_styles', 'generate_premium_customize_print_styles' );
@@ -223,14 +496,16 @@ add_action( 'customize_controls_print_styles', 'generate_premium_customize_print
  */
 function generate_premium_customize_print_styles() {
 	$sizes = apply_filters( 'generate_customizer_device_preview_sizes', array(
-		'tablet' => 900,
-		'mobile' => 640,
+		'tablet' => 800,
+		'mobile' => 411,
+		'mobile_height' => 731,
 	) );
     ?>
 	    <style>
 			.wp-customizer .preview-tablet .wp-full-overlay-main {
 				width: <?php echo absint( $sizes['tablet'] ); ?>px;
-				margin: 0 auto;
+				margin-left: 0;
+				margin-right: 0;
 				left: 50%;
 				-webkit-transform: translateX(-50%);
 				transform: translateX(-50%);
@@ -238,11 +513,18 @@ function generate_premium_customize_print_styles() {
 
 			.wp-customizer .preview-mobile .wp-full-overlay-main {
 				width: <?php echo absint( $sizes['mobile'] ); ?>px;
-				margin: 0 auto;
+				height: <?php echo absint( $sizes['mobile_height'] ); ?>px;
+				margin-left: 0;
+				margin-right: 0;
 				left: 50%;
 				-webkit-transform: translateX(-50%);
 				transform: translateX(-50%);
-				height: 100%;
+			}
+
+			.rtl.wp-customizer .preview-tablet .wp-full-overlay-main,
+			.rtl.wp-customizer .preview-mobile .wp-full-overlay-main {
+				-webkit-transform: translateX(50%);
+				transform: translateX(50%);
 			}
 	    </style>
     <?php

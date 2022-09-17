@@ -73,6 +73,36 @@ final class NF_ConditionalLogic_ConditionModel
                     } else {
                         $value = 'checked';
                     }
+                } else if ( 'date' == $fieldModel->get_setting( 'type' ) ) {
+                    /*
+                     * Turn our date into a timestamp.
+                     */
+                    if ( is_array( $value ) ) { // If $value is an array, we have either date_and_time or time_only.
+                        if ( empty( $value[ 'date' ] ) ) {
+                            $date = '1970/01/01';
+                        } else {
+                            $date = $value[ 'date' ];
+                        }
+
+                        if ( empty( $value[ 'hour' ] ) ) {
+                            $hour = '00';
+                        } else {
+                            $hour = $value[ 'hour' ];
+                        }
+
+                        if ( empty ( $value[ 'minute' ] ) ) {
+                            $minute = '00';
+                        } else {
+                            $minute = $value[ 'minute' ];
+                        }
+                    } else { // If $value is a string, we have date_only.
+                        $date = $value;
+                        $hour = '00';
+                        $minute = '00';
+                    }
+
+                    $date_string = $date. ' ' . $hour . ':' . $minute;
+                    $value = strtotime( $date_string );
                 }
                 break;
             case 'calc':

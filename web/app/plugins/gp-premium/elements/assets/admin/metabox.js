@@ -1,46 +1,33 @@
-jQuery(document).ready(function( $ ) {
+jQuery( function( $ ) {
 	if ( $( '.element-settings' ).hasClass( 'header' ) || $( '.element-settings' ).hasClass( 'hook' ) ) {
 		$( function() {
-			if ( elements.settings) {
-				wp.codeEditor.initialize( "generate-element-content", elements.settings );
+			if ( elements.settings ) {
+				wp.codeEditor.initialize( 'generate-element-content', elements.settings );
 			}
 		} );
 	}
 
-	if ( $( '.choose-element-type-parent' ).is( ':visible' ) ) {
-		$( '.select-type' ).focus();
-	}
+	$( '#_generate_block_type' ).on( 'change', function() {
+		var _this = $( this ).val();
 
-	$( 'select[name="_generate_element_type"]' ).on( 'change', function() {
-		var _this = $( this ),
-			element = _this.val();
-
-		if ( '' == element ) {
-			return;
+		if ( 'hook' === _this ) {
+			$( '.hook-row' ).removeClass( 'hide-hook-row' );
+		} else {
+			$( '.hook-row' ).addClass( 'hide-hook-row' );
 		}
 
-		$( '.element-settings' ).addClass( element ).removeClass( 'no-element-type' ).css( 'opacity', '' );
-		$( 'body' ).removeClass( 'no-element-type' );
+		$( 'body' ).removeClass( 'right-sidebar-block-type' );
+		$( 'body' ).removeClass( 'left-sidebar-block-type' );
+		$( 'body' ).removeClass( 'header-block-type' );
+		$( 'body' ).removeClass( 'footer-block-type' );
 
-		var active_tab = $( '.element-metabox-tabs' ).find( 'li:visible:first' );
-		active_tab.addClass( 'is-selected' );
-		$( '.generate-elements-settings[data-tab="' + active_tab.attr( 'data-tab' ) + '"]' ).show();
+		$( 'body' ).addClass( _this + '-block-type' );
 
-		if ( 'layout' === element ) {
-			$( '#generate-element-content' ).hide();
+		if ( 'left-sidebar' === _this || 'right-sidebar' === _this ) {
+			$( '.sidebar-notice' ).show();
+		} else {
+			$( '.sidebar-notice' ).hide();
 		}
-
-		if ( 'header' === element ) {
-			$( 'body' ).addClass( 'header-element-type' );
-		}
-
-		if ( elements.settings && 'layout' !== element ) {
-			$( function() {
-				wp.codeEditor.initialize( "generate-element-content", elements.settings );
-			} );
-		}
-
-		_this.closest( '.choose-element-type-parent' ).hide();
 	} );
 
 	$( '#_generate_hook' ).on( 'change', function() {
@@ -64,7 +51,7 @@ jQuery(document).ready(function( $ ) {
 	} );
 
 	$( '#_generate_hook' ).select2( {
-		width: '100%'
+		width: '100%',
 	} );
 
 	$( '.element-metabox-tabs li' ).on( 'click', function() {
@@ -76,11 +63,17 @@ jQuery(document).ready(function( $ ) {
 		$( '.generate-elements-settings' ).hide();
 		$( '.generate-elements-settings[data-tab="' + tab + '"]' ).show();
 
+		if ( $( '.element-settings' ).hasClass( 'block' ) && 'hook-settings' === tab ) {
+			$( '.generate-elements-settings[data-tab="display-rules"]' ).show();
+		}
+
 		if ( $( '.element-settings' ).hasClass( 'header' ) ) {
 			if ( 'hero' !== tab ) {
-				$( '#generate-element-content' ).next( '.CodeMirror' ).hide();
+				$( '#generate-element-content' ).next( '.CodeMirror' ).removeClass( 'gpp-elements-show-codemirror' );
+				$( '#generate_page_hero_template_tags' ).css( 'display', '' );
 			} else {
-				$( '#generate-element-content' ).next( '.CodeMirror' ).show();
+				$( '#generate-element-content' ).next( '.CodeMirror' ).addClass( 'gpp-elements-show-codemirror' );
+				$( '#generate_page_hero_template_tags' ).css( 'display', 'block' );
 			}
 		}
 	} );
@@ -91,7 +84,7 @@ jQuery(document).ready(function( $ ) {
 		selects.each( function() {
 			var select = $( this ),
 				config = {
-					width: 'style'
+					width: 'style',
 				};
 
 			select.select2( config );
@@ -104,82 +97,70 @@ jQuery(document).ready(function( $ ) {
 	$( '.add-condition' ).on( 'click', function() {
 		var _this = $( this );
 
-		var row = _this.closest( '.generate-element-row-content' ).find( '.condition.hidden.screen-reader-text' ).clone(true);
+		var row = _this.closest( '.generate-element-row-content' ).find( '.condition.hidden.screen-reader-text' ).clone( true );
 		row.removeClass( 'hidden screen-reader-text' );
 		row.insertBefore( _this.closest( '.generate-element-row-content' ).find( '.condition:last' ) );
 
 		select2Init();
 
 		return false;
-	});
+	} );
 
-	$( '.remove-condition' ).on('click', function() {
-		$(this).parents('.condition').remove();
+	$( '.remove-condition' ).on( 'click', function() {
+		$( this ).parents( '.condition' ).remove();
 
 		select2Init();
 
 		return false;
-	});
+	} );
 
-	var get_location_objects = function( _this, onload = false ) {
-		var select         = _this,
-			parent         = select.parent(),
-			location       = select.val(),
-			object_select  = parent.find( '.condition-object-select' ),
-			locationString = '',
-			actionType     = 'terms';
+	var getLocationObjects = function( _this, onload = false, data = '' ) {
+		var select = _this,
+			parent = select.parent(),
+			location = select.val(),
+			objectSelect = parent.find( '.condition-object-select' ),
+			locationType = '',
+			actionType = 'terms';
 
-		if ( '' == location ) {
-
+		if ( '' === location ) {
 			parent.removeClass( 'generate-elements-rule-objects-visible' );
 			select.closest( '.generate-element-row-content' ).find( '.generate-element-row-loading' ).remove();
-
 		} else {
 			if ( location.indexOf( ':taxonomy:' ) > 0 ) {
-				var locationType = 'taxonomy';
+				locationType = 'taxonomy';
 			} else {
-				var locationType = location.substr( 0, location.indexOf( ':' ) );
+				locationType = location.substr( 0, location.indexOf( ':' ) );
 			}
 
 			var locationID = location.substr( location.lastIndexOf( ':' ) + 1 );
 
-			locationString = location;
-
-			if ( 'taxonomy' == locationType || 'post' == locationType ) {
-
+			if ( 'taxonomy' === locationType || 'post' === locationType ) {
 				if ( ! ( '.generate-element-row-loading' ).length ) {
 					select.closest( '.generate-element-row-content' ).prepend( '<div class="generate-element-row-loading"></div>' );
 				}
 
-				if ( 'post' == locationType ) {
-					if ( 'taxonomy' == locationType ) {
-						actionType  = 'terms';
-					} else {
-						actionType  = 'posts';
-					}
-				}
-
-				$.post( ajaxurl, {
-					action : 'generate_elements_get_location_' + actionType,
-					id     : locationID,
-					nonce  : elements.nonce
-				}, function( response ) {
-					response = $.parseJSON( response );
-					var objects = response.objects;
+				var fillObjects = function( response ) {
+					var objects = response[ locationID ].objects;
 
 					var blank = {
-						'id': '',
-						'name': 'All ' + response.label,
+						id: '',
+						name: 'All ' + response[ locationID ].label,
 					};
 
 					if ( location.indexOf( ':taxonomy:' ) > 0 ) {
 						blank.name = elements.choose;
 					}
 
-					objects.unshift( blank );
-					object_select.empty();
+					objectSelect.empty();
+
+					objectSelect.append( $( '<option>', {
+						value: blank.id,
+						label: blank.name,
+						text: blank.name,
+					} ) );
+
 					$.each( objects, function( key, value ) {
-						object_select.append( $( '<option>', {
+						objectSelect.append( $( '<option>', {
 							value: value.id,
 							label: elements.showID && value.id ? value.name + ': ' + value.id : value.name,
 							text: elements.showID && value.id ? value.name + ': ' + value.id : value.name,
@@ -189,35 +170,92 @@ jQuery(document).ready(function( $ ) {
 					parent.addClass( 'generate-elements-rule-objects-visible' );
 
 					if ( onload ) {
-						object_select.val( object_select.attr( 'data-saved-value' ) );
+						objectSelect.val( objectSelect.attr( 'data-saved-value' ) );
 					}
 
 					select.closest( '.generate-element-row-content' ).find( '.generate-element-row-loading' ).remove();
-				} );
+				};
 
+				if ( data && onload ) {
+					// Use pre-fetched data if we just loaded the page.
+					fillObjects( data );
+				} else {
+					if ( 'post' === locationType ) {
+						if ( 'taxonomy' === locationType ) {
+							actionType = 'terms';
+						} else {
+							actionType = 'posts';
+						}
+					}
+
+					$.post( ajaxurl, {
+						action: 'generate_elements_get_location_' + actionType,
+						id: locationID,
+						nonce: elements.nonce,
+					}, function( response ) {
+						response = JSON.parse( response );
+						fillObjects( response );
+					} );
+				}
 			} else {
 				parent.removeClass( 'generate-elements-rule-objects-visible' );
 				select.closest( '.generate-element-row-content' ).find( '.generate-element-row-loading' ).remove();
-				object_select.empty().append( '<option value="0"></option>' );
-				object_select.val( '0' );
+				objectSelect.empty().append( '<option value="0"></option>' );
+				objectSelect.val( '0' );
 			}
-
-			//remove.show();
 		}
 	};
 
 	$( '.condition select.condition-select' ).on( 'change', function() {
-		get_location_objects( $( this ) );
+		getLocationObjects( $( this ) );
+
+		$( '.elements-no-location-error' ).hide();
 	} );
+
+	var postObjects = [];
+	var termObjects = [];
 
 	$( '.generate-elements-rule-objects-visible' ).each( function() {
 		var _this = $( this ),
-			select = _this.find( 'select.condition-select' );
+			select = _this.find( 'select.condition-select' ),
+			location = select.val(),
+			locationID = location.substr( location.lastIndexOf( ':' ) + 1 ),
+			locationType = '';
 
-		$( '<div class="generate-element-row-loading"></div>' ).insertBefore( _this );
+		if ( location.indexOf( ':taxonomy:' ) > 0 ) {
+			locationType = 'taxonomy';
+		} else {
+			locationType = location.substr( 0, location.indexOf( ':' ) );
+		}
 
-		get_location_objects( select, true );
+		if ( 'post' === locationType ) {
+			if ( ! postObjects.includes( locationID ) ) {
+				postObjects.push( locationID );
+			}
+		} else if ( 'taxonomy' === locationType && ! termObjects.includes( locationID ) ) {
+			termObjects.push( locationID );
+		}
 	} );
+
+	if ( postObjects.length > 0 || termObjects.length > 0 ) {
+		$.post( ajaxurl, {
+			action: 'generate_elements_get_location_objects',
+			posts: postObjects,
+			terms: termObjects,
+			nonce: elements.nonce,
+		}, function( response ) {
+			response = JSON.parse( response );
+
+			$( '.generate-elements-rule-objects-visible' ).each( function() {
+				var _this = $( this ),
+					select = _this.find( 'select.condition-select' );
+
+				$( '<div class="generate-element-row-loading"></div>' ).insertBefore( _this );
+
+				getLocationObjects( select, true, response );
+			} );
+		} );
+	}
 
 	$( '.set-featured-image a, .change-featured-image a:not(.remove-image)' ).on( 'click', function( event ) {
 		event.preventDefault();
@@ -244,7 +282,7 @@ jQuery(document).ready(function( $ ) {
 		$( '.change-featured-image' ).hide();
 		$( '.image-preview' ).empty();
 		return false;
-	});
+	} );
 
 	$( '.remove-image' ).on( 'click', function( e ) {
 		e.preventDefault();
@@ -264,12 +302,12 @@ jQuery(document).ready(function( $ ) {
 		var frame = wp.media( {
 			title: _this.data( 'title' ),
 			multiple: false,
-			library: { type : _this.data( 'type' ) },
-			button: { text : _this.data( 'insert' ) }
+			library: { type: _this.data( 'type' ) },
+			button: { text: _this.data( 'insert' ) },
 		} );
 
 		frame.on( 'select', function() {
-			var attachment = frame.state().get('selection').first().toJSON();
+			var attachment = frame.state().get( 'selection' ).first().toJSON();
 
 			container.find( '.media-field' ).val( attachment.id );
 			container.find( '.remove-field' ).show();
@@ -300,11 +338,11 @@ jQuery(document).ready(function( $ ) {
 			$( '.requires-background-image' ).hide();
 		}
 
-		if ( 'featured-image' == _this.val() ) {
+		if ( 'featured-image' === _this.val() ) {
 			$( '.image-text' ).text( elements.fallback_image );
 		}
 
-		if ( 'custom-image' == _this.val() ) {
+		if ( 'custom-image' === _this.val() ) {
 			$( '.image-text' ).text( elements.custom_image );
 		}
 	} );
@@ -315,10 +353,10 @@ jQuery(document).ready(function( $ ) {
 
 		var _this = $( this ),
 			control = _this.attr( 'data-control' ),
-			control_area = _this.closest( '.generate-element-row-content' );
+			controlArea = _this.closest( '.generate-element-row-content' );
 
-		control_area.find( '.padding-container' ).hide();
-		control_area.find( '.padding-container.' + control ).show();
+		controlArea.find( '.padding-container' ).hide();
+		controlArea.find( '.padding-container.' + control ).show();
 		_this.siblings().removeClass( 'is-selected' );
 		_this.addClass( 'is-selected' );
 	} );

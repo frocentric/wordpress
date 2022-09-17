@@ -19,6 +19,7 @@ abstract class Module_Base extends Module {
     public static $fields = [];
     public static $items = [];
     public static $dynamic_tags = [];
+    public static $script_attrs = [];
 
     public function __construct() {
         
@@ -48,9 +49,9 @@ abstract class Module_Base extends Module {
         
         if ($this->has_elements('tags')) {
             if (version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {
-                add_action('elementor/dynamic_tags/register_tags', [$this, 'init_tags'], 20); // < 3.5.0 - TODO: REMOVE IT SHORTLY
+                add_action('elementor/dynamic_tags/register_tags', [$this, 'init_tags'], 10); // < 3.5.0 - TODO: REMOVE IT SHORTLY
             } else {
-                add_action('elementor/dynamic_tags/register', [$this, 'init_tags'], 20); // >= 3.5.0
+                add_action('elementor/dynamic_tags/register', [$this, 'init_tags'], 10); // >= 3.5.0
             }
         }
 
@@ -60,6 +61,7 @@ abstract class Module_Base extends Module {
         add_action('elementor/frontend/before_enqueue_styles', [$this, 'init_assets']);
         add_action('elementor/editor/before_enqueue_scripts', [$this, 'init_assets']);
         add_action('elementor/preview/enqueue_styles', [$this, 'init_assets']);
+        add_filter('script_loader_tag', [$this, 'add_attrs_to_script'], 10, 3 );
         
         //add_action('elementor/frontend/after_register_styles', [$this, 'init_styles']);
         //add_action('elementor/frontend/after_register_scripts', [$this, 'init_scripts']);
@@ -190,8 +192,11 @@ abstract class Module_Base extends Module {
         foreach ($this->get_elements('controls') as $control) {
             $class_name = $this->get_reflection()->getNamespaceName() . '\Controls\\' . $control;
             $control_obj = new $class_name();
-            $controls_manager->register($control_obj);
-            //$controls_manager->register_control($control_obj->get_type(), $control_obj);
+            if (version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {
+                $controls_manager->register_control($control_obj->get_type(), $control_obj);
+            } else {
+                $controls_manager->register($control_obj);
+            }
         }
         foreach ($this->get_elements('controls'. DIRECTORY_SEPARATOR .'groups') as $group) {
             $class_name = $this->get_reflection()->getNamespaceName() . '\Controls\Groups\\' . $group;
@@ -232,7 +237,11 @@ abstract class Module_Base extends Module {
                 self::$widgets[$class_name] = new $class_name();
             }
             $widget = self::$widgets[$class_name];    
-            $widget_manager->register($widget);
+            if (version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {    
+                $widget_manager->register_widget_type($widget);
+            } else {
+                $widget_manager->register($widget);
+            }
         }
         //var_dump(array_keys($widget_manager->get_widget_types()));
     }
@@ -286,8 +295,11 @@ abstract class Module_Base extends Module {
             if (!property_exists($class_name, 'ignore')) {
                 if (empty(self::$dynamic_tags[$class_name])) {
                     self::$dynamic_tags[$class_name] = $tag = new $class_name();
-                    //$module->register_tag($class_name);
-                    $module->register($tag);
+                    if (version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {    
+                        $module->register_tag($class_name);
+                    } else {
+                        $module->register($tag);
+                    }
                 }
             }
         }
@@ -418,17 +430,7 @@ abstract class Module_Base extends Module {
         //var_dump(array_keys(\ElementorPro\Plugin::instance()->modules_manager->get_modules('forms')->get_form_actions()));
     }
 
-    public function register_script($hanlde, $path, $deps = [], $version = '', $footer = true) {
-        $assets_name = $this->get_reflection()->getNamespaceName();
-        $tmp = explode('\\', $assets_name);
-        $module = implode('/', $tmp);
-        $module = Utils::camel_to_slug($module);
-		$url = WP_PLUGIN_URL . '/' . $module . '/' . $path;
-		$url = str_replace('/-', '/', $url);
-        wp_register_script($hanlde, $url, $deps, $version, $footer);
-    }
-	
-    public function register_style($hanlde, $path, $deps = [], $version = '', $media = 'all') {
+    public function register_style($handle, $path, $deps = [], $version = '', $media = 'all') {
         $assets_name = $this->get_reflection()->getNamespaceName();
         //var_dump($assets_name);var_dump(get_class($this));
         $tmp = explode('\\', $assets_name);
@@ -436,7 +438,30 @@ abstract class Module_Base extends Module {
         $module = Utils::camel_to_slug($module);
 		$url = WP_PLUGIN_URL . '/' . $module . '/' . $path;
 		$url = str_replace('/-', '/', $url);
-        wp_register_style($hanlde, $url, $deps, $version, $media);
+        wp_register_style($handle, $url, $deps, $version, $media);
+    }
+    
+    public function register_script($handle, $path, $deps = [], $version = '', $footer = true, $attrs = []) {
+        $assets_name = $this->get_reflection()->getNamespaceName();
+        $tmp = explode('\\', $assets_name);
+        $module = implode('/', $tmp);
+        $module = Utils::camel_to_slug($module);
+		$url = WP_PLUGIN_URL . '/' . $module . '/' . $path;
+		$url = str_replace('/-', '/', $url);
+        wp_register_script($handle, $url, $deps, $version, $footer);
+        if (!empty($attrs)) {
+            self::$script_attrs[$handle] = $attrs;
+        }
+    }
+    public function add_attrs_to_script( $tag, $handle, $src ) {
+        if (!empty(self::$script_attrs[$handle])) {
+            $attrs = '';
+            foreach(self::$script_attrs[$handle] as $key => $value) {
+                $attrs .= $key.'="'.$value.'" ';
+            }
+            $tag = str_replace('<script ', '<script '.$attrs, $tag);
+        }
+        return $tag;
     }
 
 }

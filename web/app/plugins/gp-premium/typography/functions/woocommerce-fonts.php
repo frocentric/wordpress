@@ -10,7 +10,6 @@ if ( ! function_exists( 'generate_typography_wc_customizer' ) ) {
 	 * Adds our WooCommerce color options
 	 */
 	function generate_typography_wc_customizer( $wp_customize ) {
-
 		// Bail if we don't have our defaults function
 		if ( ! function_exists( 'generate_get_default_fonts' ) ) {
 			return;

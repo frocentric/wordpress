@@ -1,10 +1,6 @@
 <?php
 defined( 'WPINC' ) or die;
 
-if ( ! defined( 'GP_IMAGE_RESIZER' ) ) {
-	require_once GP_LIBRARY_DIRECTORY . 'image-processing-queue/image-processing-queue.php';
-}
-
 require plugin_dir_path( __FILE__ ) . 'post-type.php';
 require plugin_dir_path( __FILE__ ) . 'global-locations.php';
 require plugin_dir_path( __FILE__ ) . 'metabox.php';
@@ -23,6 +19,11 @@ function generate_page_header_do_setup() {
 	}
 
 	$options = generate_page_header_get_options();
+
+	if ( ! $options ) {
+		return;
+	}
+
 	$global_locations = wp_parse_args( get_option( 'generate_page_header_global_locations', array() ), '' );
 
 	// Remove elements if they're being added as a template tag
@@ -293,6 +294,11 @@ function generate_page_header_get_image( $type = 'URL', $id = '' ) {
 	}
 
 	$options = generate_page_header_get_options();
+
+	if ( ! $options ) {
+		return;
+	}
+
 	$image_id = $options[ 'image_id' ];
 	$image_url = $options[ 'image_url' ];
 
@@ -339,6 +345,11 @@ function generate_page_header_get_image( $type = 'URL', $id = '' ) {
  */
 function generate_page_header_get_image_output() {
 	$options = generate_page_header_get_options();
+
+	if ( ! $options ) {
+		return;
+	}
+
 	$image_url = generate_page_header_get_image( 'URL' );
 	$image_id = generate_page_header_get_image( 'ID' );
 
@@ -370,8 +381,14 @@ function generate_page_header_get_image_output() {
 		}
 	}
 
-	if ( ! empty( $image_atts ) && 'enable' == $options[ 'image_resize' ] && function_exists( 'ipq_get_theme_image' ) ) {
-		return ipq_get_theme_image( $image_id, array( array( $image_atts[ 'width' ], $image_atts[ 'height' ], $image_atts[ 'crop' ] ) ) );
+	if ( ! empty( $image_atts ) && 'enable' == $options[ 'image_resize' ] ) {
+		return apply_filters( 'post_thumbnail_html',
+			wp_get_attachment_image( $image_id, array( $image_atts['width'], $image_atts['height'], $image_atts['crop'] ), '', array( 'itemprop' => 'image' ) ),
+			get_the_ID(),
+			$image_id,
+			apply_filters( 'generate_page_header_default_size', 'full' ),
+			''
+		);
 	} else {
 		return apply_filters( 'post_thumbnail_html',
 			wp_get_attachment_image( $image_id, apply_filters( 'generate_page_header_default_size', 'full' ), '', array( 'itemprop' => 'image' ) ),
@@ -394,6 +411,10 @@ if ( ! function_exists( 'generate_combined_page_header_start' ) ) {
 	function generate_combined_page_header_start() {
 		$options = generate_page_header_get_options();
 
+		if ( ! $options ) {
+			return;
+		}
+
 		if ( '' == $options[ 'merge' ] || '' == $options[ 'content' ] || '' == $options[ 'absolute' ] ) {
 			return;
 		}
@@ -409,6 +430,10 @@ if ( ! function_exists( 'generate_combined_page_header_end' ) ) {
 	 */
 	function generate_combined_page_header_end() {
 		$options = generate_page_header_get_options();
+
+		if ( ! $options ) {
+			return;
+		}
 
 		if ( '' == $options[ 'merge' ] || '' == $options[ 'content' ] || '' == $options[ 'absolute' ] ) {
 			return;
@@ -426,6 +451,10 @@ if ( ! function_exists( 'generate_page_header_enqueue' ) ) {
 	function generate_page_header_enqueue() {
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		$options = generate_page_header_get_options();
+
+		if ( ! $options ) {
+			return;
+		}
 
 		if ( ! empty( $options[ 'full_screen' ] ) && '' !== $options[ 'content' ] ) {
 			wp_enqueue_script( 'generate-page-header-full-height', plugin_dir_url( __FILE__ ) . "js/full-height{$suffix}.js", array('jquery'), GENERATE_PAGE_HEADER_VERSION, true );
@@ -644,6 +673,10 @@ add_filter( 'generate_page_header_location','generate_page_header_force_above_co
 function generate_page_header_force_above_content( $location ) {
 	$options = generate_page_header_get_options();
 
+	if ( ! $options ) {
+		return $location;
+	}
+
 	if ( '' !== $options[ 'merge' ] && '' !== $options[ 'content' ] ) {
 		$location = 'above-content';
 	}
@@ -670,6 +703,10 @@ if ( ! function_exists( 'generate_page_header_combined' ) ) {
 	function generate_page_header_combined() {
 		// Get our options
 		$options = generate_page_header_get_options();
+
+		if ( ! $options ) {
+			return;
+		}
 
 		// Bail if merge isn't activated
 		if ( '' == $options[ 'merge' ] ) {
@@ -941,6 +978,11 @@ if ( ! function_exists( 'generate_page_header_replace_logo' ) ) {
 	function generate_page_header_replace_logo( $logo ) {
 		if ( generate_page_header_logo_exists() ) {
 			$options = generate_page_header_get_options();
+
+			if ( ! $options ) {
+				return $logo;
+			}
+
 			return $options[ 'logo_url' ];
 		}
 
@@ -956,6 +998,11 @@ if ( ! function_exists( 'generate_page_header_replace_navigation_logo' ) ) {
 	function generate_page_header_replace_navigation_logo( $logo ) {
 		if ( generate_page_header_navigation_logo_exists() ) {
 			$options = generate_page_header_get_options();
+
+			if ( ! $options ) {
+				return $logo;
+			}
+
 			return $options[ 'navigation_logo_url' ];
 		}
 

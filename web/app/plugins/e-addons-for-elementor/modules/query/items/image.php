@@ -156,6 +156,23 @@ class Image extends Base_Item {
             ]
                 ]
         );
+        
+        $target->add_control(
+                    'image_alt', [
+                'label' => esc_html__('Image Custom Alt', 'e-addons'),
+                'type' => Controls_Manager::TEXT,
+                'conditions' => [
+                    'terms' => [
+                        [
+                            'name' => 'item_type',
+                            'operator' => 'in',
+                            'value' => ['item_avatar', 'item_image']
+                        ]
+                    ]
+                ]
+                    ]
+            );
+        
         $target->add_group_control(
                 Group_Control_Image_Size::get_type(), [
             'name' => 'thumbnail_size',
@@ -421,7 +438,11 @@ class Image extends Base_Item {
                     if ($meta_value == 'null' || $meta_value == 'NULL') {
                         $meta_value = false;
                     }
-                    $image_url = $meta_value;
+                    if (intval($meta_value)) {
+                        $image_id = $meta_value;
+                    } else {
+                        $image_url = $meta_value;
+                    }
                 }
             }
         } else {
@@ -485,7 +506,7 @@ class Image extends Base_Item {
 
         // ---------------------------------------
         // @p preparo il dato in base a 'thumbnail_size'
-        $setting_key = empty($settings['thumbnail_size_size']) ? 'full' : $settings['thumbnail_size_size'];
+        $image_size = empty($settings['thumbnail_size_size']) ? 'full' : $settings['thumbnail_size_size'];
 
         $image_attr = [
             'class' => $skin->get_image_class()
@@ -498,6 +519,13 @@ class Image extends Base_Item {
         if ($image_url) {
             $thumbnail_html = '<img class="' . $skin->get_image_class() . '" src="' . $image_url . '">';
         }
+        
+        if ($image_id) {
+            $media_thumb = get_post_meta($image_id, '_thumbnail_id', true);
+            if ($media_thumb) {
+                $image_id = $media_thumb;
+            }
+        }
 
         if (!$image_id && !$thumbnail_html) {
             //var_dump($settings['use_fallback_img']);
@@ -505,13 +533,15 @@ class Image extends Base_Item {
                 $image_id = $settings['use_fallback_img']['id'];
             }
         }
+        
+        
 
         if ($image_id && !$thumbnail_html) {
             // @p questa è l'mmagine via HTML
             /* switch ($querytype) {
               case 'attachment':
               //$use_link = !empty($settings['gallery_link']) ? $skin->get_item_link($settings, $image_id) : '';
-              $thumbnail_html = wp_get_attachment_image($image_id, $setting_key, true, $image_attr);
+              $thumbnail_html = wp_get_attachment_image($image_id, $image_size, true, $image_attr);
               //if ($use_link) {
               //    $thumbnail_html = '<a href="'.$use_link.'" class="e-media-link'.((!empty($settings['open_lightbox']) && $settings['open_lightbox'] != 'no') ? ' elementor-clickable' : '').'">'.$thumbnail_html.'</a>';
               //}
@@ -519,14 +549,14 @@ class Image extends Base_Item {
               break;
               default:
               //se mi trovo in post
-              $thumbnail_html = wp_get_attachment_image($image_id, $setting_key, false, $image_attr);
+              $thumbnail_html = wp_get_attachment_image($image_id, $image_size, false, $image_attr);
               break;
               } */
 
             $settings_fake = array(
                 'image' => array('id' => $image_id),
                 //'thumbnail_size' => $settings['thumbnail_size'],
-                'thumbnail_size_size' => $setting_key,
+                'thumbnail_size_size' => $image_size,
                 'thumbnail_size_custom_dimension' => empty($settings['thumbnail_size_custom_dimension']) ? false : $settings['thumbnail_size_custom_dimension'],
             );
             $thumbnail_html = wp_kses_post(\Elementor\Group_Control_Image_Size::get_attachment_image_html($settings_fake, 'thumbnail_size', 'image'));
@@ -537,27 +567,44 @@ class Image extends Base_Item {
                 $_wp_attachment_metadata = get_post_meta($image_id, '_wp_attachment_metadata', true);
                 if (!empty($_wp_attachment_metadata['mime_type']) && strpos($_wp_attachment_metadata['mime_type'],'video') !== false) {
                     $video_url = get_the_guid($image_id);
+                    /*switch ($settings['thumbnail_size_size']) {
+                        case 'large':
+                            $vwidth = 800;
+                            $vheight = 600;
+                            // width="'.$vwidth.'" height="'.$vheight.'"
+                    }*/
                     $thumbnail_html = '<video class="elementor-video ' . $skin->get_image_class() . '" src="'. esc_attr( $video_url ).'" controls></video>';
-                } else {
-                    $media_thumb = get_post_meta($image_id, '_thumbnail_id', true);
-                    if ($media_thumb) {
-                        $image_id = $media_thumb;
-                    }  
                 }
             }
             
             if (empty($thumbnail_html)) {
-                $image_url = wp_get_attachment_image_src($image_id, 'full'); // $setting_key);
+                $image_url = wp_get_attachment_image_src($image_id, $settings['thumbnail_size_size']); // $image_size);
                 if (!empty($image_url)) {
                     $thumbnail_html = '<img class="' . $skin->get_image_class() . '" src="' . $image_url[0] . '" width="' . $image_url[1] . '" heigth="' . $image_url[1] . '">';
                 }
             }
             
+            if (in_array($querytype, array('post', 'product')) && $image_id) {
+                $thumbnail_html = apply_filters( 'post_thumbnail_html', $thumbnail_html, $skin->current_id, $image_id, $image_size, ['class' => $skin->get_image_class()] );
+            }
+            
             // @p [lo lascio come appunto storico.] sarò scemo io ma dopo 3 ore che provo questo in tutti i modi, non funziona, ipotizzo perché il size è un control nel repeater quindi nidificato.
-            //$thumbnail_html = Group_Control_Image_Size::get_attachment_image_html( $settings, $setting_key );
+            //$thumbnail_html = Group_Control_Image_Size::get_attachment_image_html( $settings, $image_size );
         }/* else {
           return;
           } */
+        
+        if ($thumbnail_html && !empty($settings['image_alt'])) {
+            $alt = $skin->get_dynamic_data($settings['image_alt'], $widget);
+            $alt = 'alt="'.$alt.'" ';
+            if (strpos($thumbnail_html, ' alt="')) {
+                list($pre, $more) = explode(' alt="', $thumbnail_html, 2);
+                list($alt_old, $next) = explode('"', $more, 2);
+                $thumbnail_html = $pre.$alt.$next;
+            } else {
+                $thumbnail_html = str_replace('<img ', '<img '.$alt , $thumbnail_html);
+            }
+        }
 
         $html_tag = 'div';
 
@@ -587,7 +634,7 @@ class Image extends Base_Item {
             // @p questa è l'mmagine via URL
             //$image_url = Group_Control_Image_Size::get_attachment_image_src($image_id, 'thumbnail_size', $settings);
             if (!$image_url) {
-                $urls = wp_get_attachment_image_src($image_id, $setting_key, true);
+                $urls = wp_get_attachment_image_src($image_id, $image_size, true);
                 $image_url = reset($urls);
             }
             echo '<figure class="e-add-img e-add-bgimage" style="background: url(' . $image_url . ') no-repeat center; background-size: cover; display: block;"></figure>';

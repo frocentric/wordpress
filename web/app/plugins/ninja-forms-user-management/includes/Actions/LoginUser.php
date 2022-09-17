@@ -32,6 +32,8 @@ final class NF_UserManagement_Actions_LoginUser extends NF_Abstracts_Action
     {
         parent::__construct();
 
+        $this->filterTimingPriority();
+
         $this->_nicename = __( 'Login User', 'ninja-forms-user-management' );
 
         //Build out settings for Username and Password Fields.
@@ -42,7 +44,7 @@ final class NF_UserManagement_Actions_LoginUser extends NF_Abstracts_Action
             'width' => 'full',
             'group' => 'primary',
             'field_types' => array(
-                'textbox'
+                'textbox','email'
             ),
         );
 
@@ -60,6 +62,40 @@ final class NF_UserManagement_Actions_LoginUser extends NF_Abstracts_Action
         //Halts form display if user is logged in.
         add_filter( 'ninja_forms_display_show_form', array( $this, 'nf_logout_message' ), 10, 3 );
     }
+
+    
+    /**
+     * Change action timing per applied filters
+     * 
+     * Only use allowed timing and priorities
+     *
+     * @return void
+     */
+    protected function filterTimingPriority()
+    {
+
+        $defaultTiming = 'normal';
+
+        $filteredTiming = apply_filters('nf_user_management_login_user_timing', $defaultTiming);
+
+        // Ensure only valid timing values are used
+        // If not, then fallback to default
+        if (in_array($filteredTiming, ['early', 'normal', 'late'])) {
+            $this->_timing = $filteredTiming;
+        }
+
+        $defaultPriority = '10';
+
+        $filteredPriority = apply_filters('nf_user_management_login_user_priority', $defaultPriority);
+
+        // Ensure only valid priority values are used
+        // If not, then fallback to default
+        // must be string value of an integer
+        if (is_string($filteredPriority) && (int)$filteredPriority == (string)$filteredPriority) {
+            $this->_priority = $filteredPriority;
+        }
+    }
+
 
     /*
     * PUBLIC METHODS

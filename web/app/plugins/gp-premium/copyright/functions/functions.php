@@ -1,24 +1,30 @@
 <?php
-// No direct access, please
+/**
+ * This file handles the Copyright functionality.
+ *
+ * @package GP Premium
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // No direct access, please.
 }
 
 if ( ! function_exists( 'generate_copyright_customize_register' ) ) {
 	add_action( 'customize_register', 'generate_copyright_customize_register' );
 	/**
-	 * Add our copyright options to the Customizer
+	 * Add our copyright options to the Customizer.
+	 *
+	 * @param object $wp_customize The Customizer object.
 	 */
 	function generate_copyright_customize_register( $wp_customize ) {
-		// Get our custom control
+		// Get our custom control.
 		require_once GP_LIBRARY_DIRECTORY . 'customizer-helpers.php';
 
-		// Register our custom control
-		if ( method_exists( $wp_customize,'register_control_type' ) ) {
+		// Register our custom control.
+		if ( method_exists( $wp_customize, 'register_control_type' ) ) {
 			$wp_customize->register_control_type( 'GeneratePress_Copyright_Customize_Control' );
 		}
 
-		// Copyright
 		$wp_customize->add_setting(
 			'generate_copyright',
 			array(
@@ -31,23 +37,27 @@ if ( ! function_exists( 'generate_copyright_customize_register' ) ) {
 
 		$wp_customize->add_control(
 			new GeneratePress_Copyright_Customize_Control(
-			$wp_customize,
-			'generate_copyright',
-			array(
-				'label'      => __( 'Copyright', 'gp-premium' ),
-				'section'    => 'generate_layout_footer',
-				'settings'   => 'generate_copyright',
-				'priority' => 500,
-			) )
+				$wp_customize,
+				'generate_copyright',
+				array(
+					'label'      => __( 'Copyright', 'gp-premium' ),
+					'section'    => 'generate_layout_footer',
+					'settings'   => 'generate_copyright',
+					'priority' => 500,
+				)
+			)
 		);
 
-		// Initiate selective refresh
+		// Initiate selective refresh.
 		if ( isset( $wp_customize->selective_refresh ) ) {
-			$wp_customize->selective_refresh->add_partial( 'generate_copyright', array(
-				'selector' => '.copyright-bar',
-				'settings' => array( 'generate_copyright' ),
-				'render_callback' => 'generate_copyright_selective_refresh',
-			) );
+			$wp_customize->selective_refresh->add_partial(
+				'generate_copyright',
+				array(
+					'selector' => '.copyright-bar',
+					'settings' => array( 'generate_copyright' ),
+					'render_callback' => 'generate_copyright_selective_refresh',
+				)
+			);
 		}
 	}
 }
@@ -59,12 +69,12 @@ if ( ! function_exists( 'generate_copyright_selective_refresh' ) ) {
 	function generate_copyright_selective_refresh() {
 		$options = array(
 			'%current_year%',
-			'%copy%'
+			'%copy%',
 		);
 
 		$replace = array(
-			date('Y'),
-			'&copy;'
+			date( 'Y' ), // phpcs:ignore -- prefer date().
+			'&copy;',
 		);
 
 		$new_copyright = get_theme_mod( 'generate_copyright' );
@@ -77,20 +87,21 @@ if ( ! function_exists( 'generate_copyright_selective_refresh' ) ) {
 if ( ! function_exists( 'generate_copyright_remove_default' ) ) {
 	add_action( 'wp', 'generate_copyright_remove_default' );
 	/**
-	 * Remove the default copyright
+	 * Remove the default copyright.
+	 *
 	 * @since 0.1
 	 * @deprecated GP 1.3.42
 	 */
 	function generate_copyright_remove_default() {
-		// As of 1.3.42, we no longer need to do this
-		// We use a nice little filter instead
+		// As of 1.3.42, we no longer need to do this.
+		// We use a nice little filter instead.
 		if ( ! function_exists( 'generate_add_login_attribution' ) ) {
 			return;
 		}
 
 		if ( get_theme_mod( 'generate_copyright' ) && '' !== get_theme_mod( 'generate_copyright' ) ) {
 			remove_action( 'generate_credits', 'generate_add_footer_info' );
-			remove_action( 'generate_copyright_line','generate_add_login_attribution' );
+			remove_action( 'generate_copyright_line', 'generate_add_login_attribution' );
 		}
 	}
 }
@@ -98,25 +109,26 @@ if ( ! function_exists( 'generate_copyright_remove_default' ) ) {
 if ( ! function_exists( 'generate_copyright_add_custom' ) ) {
 	add_action( 'generate_credits', 'generate_copyright_add_custom' );
 	/**
-	 * Add the custom copyright
+	 * Add the custom copyright.
+	 *
 	 * @since 0.1
 	 * @deprecated GP 1.3.42
 	 */
 	function generate_copyright_add_custom() {
-		// As of 1.3.42, we no longer need to do this
-		// We use a nice little filter instead
+		// As of 1.3.42, we no longer need to do this.
+		// We use a nice little filter instead.
 		if ( ! function_exists( 'generate_add_login_attribution' ) ) {
 			return;
 		}
 
 		$options = array(
 			'%current_year%',
-			'%copy%'
+			'%copy%',
 		);
 
 		$replace = array(
-			date('Y'),
-			'&copy;'
+			date( 'Y' ), // phpcs:ignore -- prefer date().
+			'&copy;',
 		);
 
 		$new_copyright = get_theme_mod( 'generate_copyright' );
@@ -134,21 +146,22 @@ if ( ! function_exists( 'generate_apply_custom_copyright' ) ) {
 	 * Add the custom copyright
 	 *
 	 * @since 1.2.92
+	 * @param string $copyright The copyright value.
 	 */
 	function generate_apply_custom_copyright( $copyright ) {
-		// This will only work if GP >= 1.3.42 and the below function doesn't exist
+		// This will only work if GP >= 1.3.42 and the below function doesn't exist.
 		if ( function_exists( 'generate_add_login_attribution' ) ) {
 			return;
 		}
 
 		$options = array(
 			'%current_year%',
-			'%copy%'
+			'%copy%',
 		);
 
 		$replace = array(
-			date('Y'),
-			'&copy;'
+			date( 'Y' ), // phpcs:ignore -- prefer date().
+			'&copy;',
 		);
 
 		$new_copyright = get_theme_mod( 'generate_copyright' );
@@ -170,11 +183,11 @@ if ( ! function_exists( 'generate_copyright_customizer_live_preview' ) ) {
 	 */
 	function generate_copyright_customizer_live_preview() {
 		wp_enqueue_script(
-			  'generate-copyright-customizer',
-			  plugin_dir_url( __FILE__ ) . 'js/customizer.js',
-			  array( 'jquery','customize-preview' ),
-			  GENERATE_COPYRIGHT_VERSION,
-			  true
+			'generate-copyright-customizer',
+			plugin_dir_url( __FILE__ ) . 'js/customizer.js',
+			array( 'jquery', 'customize-preview' ),
+			GENERATE_COPYRIGHT_VERSION,
+			true
 		);
 	}
 }
@@ -202,7 +215,7 @@ if ( ! function_exists( 'generate_update_copyright' ) ) {
 		// Now let's update the new logo setting with our ID.
 		set_theme_mod( 'generate_copyright', $old_value );
 
-		// Got our custom logo? Time to delete the old value
+		// Got our custom logo? Time to delete the old value.
 		if ( get_theme_mod( 'generate_copyright' ) ) {
 			delete_option( 'gen_custom_copyright' );
 		}
