@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.14.0](https://github.com/frocentric/wordpress/compare/v1.13.0...v1.14.0) (2022-09-17)
+
+
+### Features
+
+* improve event submission message ([308b0dd](https://github.com/frocentric/wordpress/commit/308b0ddfd26a5f473beb82821a4060fe78de76ed))
+
+
+### Bug Fixes
+
+* adds missing vendor directories ([cede4dd](https://github.com/frocentric/wordpress/commit/cede4ddd6955bc22e52b0c8cb7286cbdda529d09))
+* fixes imported event status ([e437576](https://github.com/frocentric/wordpress/commit/e4375765ad4b527531a6570ce022b34b71cebe8a)), closes [#513](https://github.com/frocentric/wordpress/issues/513)
+
 ## [1.13.0](https://github.com/frocentric/wordpress/compare/v1.12.0...v1.13.0) (2022-08-19)
 
 
