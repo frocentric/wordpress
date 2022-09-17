@@ -47,8 +47,9 @@ web/.htaccess
 !.env.example
 
 # Composer
-vendor
+**/vendor/*
 !vendor/.gitkeep
+!web/app/plugins/*/vendor/**/*
 
 # Local install
 clean-backup
