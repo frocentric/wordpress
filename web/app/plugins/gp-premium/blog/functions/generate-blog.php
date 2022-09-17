@@ -14,6 +14,8 @@ if ( ! function_exists( 'generate_blog_scripts' ) ) {
 	 * Enqueue scripts and styles
 	 */
 	function generate_blog_scripts() {
+		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
 		$settings = wp_parse_args(
 			get_option( 'generate_blog_settings', array() ),
 			generate_blog_get_defaults()
@@ -25,13 +27,13 @@ if ( ! function_exists( 'generate_blog_scripts' ) ) {
 		$deps = array();
 
 		if ( 'true' == generate_blog_get_masonry() && generate_blog_get_columns() ) {
-			$deps[] = 'jquery-masonry';
+			$deps[] = 'masonry';
 			$deps[] = 'imagesloaded';
 		}
 
-		if ( $settings[ 'infinite_scroll' ] && ! is_singular() && ! is_404() ) {
-			$deps[] = 'infinitescroll';
-			wp_enqueue_script( 'infinitescroll', plugin_dir_url( __FILE__ ) . 'js/infinite-scroll.pkgd.min.js', array( 'jquery' ), '3.0.1', true );
+		if ( $settings[ 'infinite_scroll' ] && ! is_singular() && ! is_404() && ! is_post_type_archive( 'product' ) ) {
+			$deps[] = 'infinite-scroll';
+			wp_enqueue_script( 'infinite-scroll', plugin_dir_url( __FILE__ ) . 'js/infinite-scroll.pkgd.min.js', array(), '3.0.6', true );
 
 			$font_icons = true;
 
@@ -46,16 +48,81 @@ if ( ! function_exists( 'generate_blog_scripts' ) ) {
 			}
 		}
 
-		if ( ( 'true' == generate_blog_get_masonry() && generate_blog_get_columns() ) || ( $settings[ 'infinite_scroll' ] && ! is_singular() && ! is_404() ) ) {
-			wp_enqueue_script( 'generate-blog', plugin_dir_url( __FILE__ ) . 'js/scripts.min.js', $deps, GENERATE_BLOG_VERSION, true );
-			wp_localize_script( 'generate-blog', 'blog', array(
-				'more'  => $settings['masonry_load_more'],
-				'loading' => $settings['masonry_loading'],
-				'icon' => function_exists( 'generate_get_svg_icon' ) ? generate_get_svg_icon( 'spinner' ) : '',
-			) );
+		if ( ( 'true' == generate_blog_get_masonry() && generate_blog_get_columns() ) || ( $settings[ 'infinite_scroll' ] && ! is_singular() && ! is_404() && ! is_post_type_archive( 'product' ) ) ) {
+			wp_enqueue_script( 'generate-blog', plugin_dir_url( __FILE__ ) . "js/scripts{$suffix}.js", $deps, GENERATE_BLOG_VERSION, true );
+
+			wp_localize_script(
+				'generate-blog',
+				'generateBlog',
+				array(
+					'more'  => $settings['masonry_load_more'],
+					'loading' => $settings['masonry_loading'],
+					'icon' => function_exists( 'generate_get_svg_icon' ) ? generate_get_svg_icon( 'spinner' ) : '',
+					'masonryInit' => apply_filters(
+						'generate_blog_masonry_init',
+						array(
+							'columnWidth' => '.grid-sizer',
+							'itemSelector' => '.masonry-post',
+							'stamp' => '.page-header',
+							'percentPosition' => true,
+							'stagger' => 30,
+							'visibleStyle' => array(
+								'transform' => 'translateY(0)',
+								'opacity' => 1,
+							),
+							'hiddenStyle' => array(
+								'transform' => 'translateY(5px)',
+								'opacity' => 0,
+							),
+						)
+					),
+					'infiniteScrollInit' => apply_filters(
+						'generate_blog_infinite_scroll_init',
+						array(
+							'path' => '.infinite-scroll-path a',
+							'append' => '#main .infinite-scroll-item',
+							'history' => false,
+							'loadOnScroll' => $settings['infinite_scroll_button'] ? false : true,
+							'button' => $settings['infinite_scroll_button'] ? '.load-more a' : null,
+							'scrollThreshold' => $settings['infinite_scroll_button'] ? false : 600,
+						)
+					),
+				)
+			);
 		}
 
-		wp_enqueue_style( 'generate-blog', plugin_dir_url( __FILE__ ) . 'css/style-min.css', array(), GENERATE_BLOG_VERSION );
+		$needs_columns_css = false;
+		$needs_featured_image_css = false;
+
+		if ( generate_blog_get_columns() || $settings['infinite_scroll'] ) {
+			$needs_columns_css = true;
+		}
+
+		if ( ! is_singular() ) {
+			if ( $settings['post_image'] ) {
+				$needs_featured_image_css = true;
+			}
+		}
+
+		if ( is_page() && has_post_thumbnail() ) {
+			if ( $settings['page_post_image'] ) {
+				$needs_featured_image_css = true;
+			}
+		}
+
+		if ( is_single() && has_post_thumbnail() ) {
+			if ( $settings['single_post_image'] ) {
+				$needs_featured_image_css = true;
+			}
+		}
+
+		if ( $needs_columns_css && $needs_featured_image_css ) {
+			wp_enqueue_style( 'generate-blog', plugin_dir_url( __FILE__ ) . "css/style{$suffix}.css", array(), GENERATE_BLOG_VERSION );
+		} elseif ( $needs_columns_css ) {
+			wp_enqueue_style( 'generate-blog-columns', plugin_dir_url( __FILE__ ) . "css/columns{$suffix}.css", array(), GENERATE_BLOG_VERSION );
+		} elseif ( $needs_featured_image_css ) {
+			wp_enqueue_style( 'generate-blog-images', plugin_dir_url( __FILE__ ) . "css/featured-images{$suffix}.css", array(), GENERATE_BLOG_VERSION );
+		}
 	}
 }
 
@@ -76,6 +143,10 @@ if ( ! function_exists( 'generate_blog_post_classes' ) ) {
 			get_option( 'generate_blog_settings', array() ),
 			generate_blog_get_defaults()
 		);
+
+		if ( $settings['infinite_scroll'] ) {
+			$classes[] = 'infinite-scroll-item';
+		}
 
 		// Set our masonry class
 		if ( 'true' == generate_blog_get_masonry() && generate_blog_get_columns() ) {
@@ -120,6 +191,22 @@ if ( ! function_exists( 'generate_blog_post_classes' ) ) {
 
 		if ( ! $settings[$location . '_post_image_padding'] && is_singular() ) {
 			$classes[] = 'no-featured-image-padding';
+		}
+
+		$atts = generate_get_blog_image_attributes();
+
+		if ( ! is_singular() && has_post_thumbnail() && ! empty( $atts ) ) {
+			$values = array(
+				$atts['width'],
+				$atts['height'],
+				$atts['crop'],
+			);
+
+			$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID(), 'full' ), $values );
+
+			if ( $image_src && ( ! $image_src[3] || ! apply_filters( 'generate_use_featured_image_size_match', true ) ) ) {
+				$classes[] = 'resize-featured-image';
+			}
 		}
 
 		return $classes;
@@ -204,31 +291,37 @@ if ( ! function_exists( 'generate_blog_css' ) ) {
 			generate_blog_get_defaults()
 		);
 
-		// Get disable headline meta
-		$disable_headline = ( isset( $post ) ) ? get_post_meta( $post->ID, '_generate-disable-headline', true ) : '';
-
-		if ( ! $settings['categories'] && ! $settings['comments'] && ! $settings['tags'] && ! is_singular() ) {
-			$return .= '.blog footer.entry-meta, .archive footer.entry-meta {display:none;}';
+		if ( ! defined( 'GENERATE_VERSION' ) ) {
+			return;
 		}
 
-		if ( ! $settings['single_date'] && ! $settings['single_author'] && $disable_headline && is_singular() ) {
-			$return .= '.single .entry-header{display:none;}.single .entry-content {margin-top:0;}';
-		}
+		if ( version_compare( GENERATE_VERSION, '3.0.0-alpha.1', '<' ) ) {
+			// Get disable headline meta.
+			$disable_headline = ( isset( $post ) ) ? get_post_meta( $post->ID, '_generate-disable-headline', true ) : '';
 
-		if ( ! $settings['date'] && ! $settings['author'] && ! is_singular() ) {
-			$return .= '.entry-header .entry-meta {display:none;}';
-		}
+			if ( ! $settings['categories'] && ! $settings['comments'] && ! $settings['tags'] && ! is_singular() ) {
+				$return .= '.blog footer.entry-meta, .archive footer.entry-meta {display:none;}';
+			}
 
-		if ( ! $settings['single_date'] && ! $settings['single_author'] && is_singular() ) {
-			$return .= '.entry-header .entry-meta {display:none;}';
-		}
+			if ( ! $settings['single_date'] && ! $settings['single_author'] && $disable_headline && is_singular() ) {
+				$return .= '.single .entry-header{display:none;}.single .entry-content {margin-top:0;}';
+			}
 
-		if ( ! $settings['single_post_navigation'] && is_singular() ) {
-			$return .= '.post-navigation {display:none;}';
-		}
+			if ( ! $settings['date'] && ! $settings['author'] && ! is_singular() ) {
+				$return .= '.entry-header .entry-meta {display:none;}';
+			}
 
-		if ( ! $settings['single_categories'] && ! $settings['single_post_navigation'] && ! $settings['single_tags'] && is_singular() ) {
-			$return .= '.single footer.entry-meta {display:none;}';
+			if ( ! $settings['single_date'] && ! $settings['single_author'] && is_singular() ) {
+				$return .= '.entry-header .entry-meta {display:none;}';
+			}
+
+			if ( ! $settings['single_post_navigation'] && is_singular() ) {
+				$return .= '.post-navigation {display:none;}';
+			}
+
+			if ( ! $settings['single_categories'] && ! $settings['single_post_navigation'] && ! $settings['single_tags'] && is_singular() ) {
+				$return .= '.single footer.entry-meta {display:none;}';
+			}
 		}
 
 		$separator = 20;
@@ -288,6 +381,36 @@ if ( ! function_exists( 'generate_blog_css' ) ) {
 			$return .= '}';
 		}
 
+		$atts = generate_get_blog_image_attributes();
+
+		if ( ! empty( $atts ) ) {
+			$image_width = $atts['width'] && 9999 !== $atts['width'] ? 'width: ' . $atts['width'] . 'px;' : '';
+			$image_height = $atts['height'] && 9999 !== $atts['height'] ? 'height: ' . $atts['height'] . 'px;' : '';
+			$image_crop = $atts['crop'] ? '-o-object-fit: cover;object-fit: cover;' : '';
+
+			if ( ! $image_width && $image_height ) {
+				$image_crop = '-o-object-fit: cover;object-fit: cover;';
+			}
+
+			if ( ! is_singular() ) {
+				$return .= '.resize-featured-image .post-image img {' . $image_width . $image_height . $image_crop . '}';
+			}
+
+			if ( is_single() || is_page() ) {
+				$values = array(
+					$atts['width'],
+					$atts['height'],
+					$atts['crop'],
+				);
+
+				$image_src = wp_get_attachment_image_src( get_post_thumbnail_id( get_the_ID(), 'full' ), $values );
+
+				if ( $image_src && ( ! $image_src[3] || ! apply_filters( 'generate_use_featured_image_size_match', true ) ) ) {
+					$return .= '.featured-image img {' . $image_width . $image_height . $image_crop . '}';
+				}
+			}
+		}
+
 		return $return;
 	}
 }
@@ -303,16 +426,24 @@ if ( ! function_exists( 'generate_blog_excerpt_more' ) ) {
 			generate_blog_get_defaults()
 		);
 
-		// If empty, return
 		if ( '' == $generate_settings['read_more'] ) {
 			return '';
 		}
 
-		return apply_filters( 'generate_excerpt_more_output', sprintf( ' ... <a title="%1$s" class="read-more" href="%2$s">%3$s</a>',
-			the_title_attribute( 'echo=0' ),
-			esc_url( get_permalink( get_the_ID() ) ),
-			wp_kses_post( $generate_settings['read_more'] )
-		) );
+		return apply_filters(
+			'generate_excerpt_more_output',
+			sprintf(
+				' ... <a title="%1$s" class="read-more" href="%2$s" aria-label="%4$s">%3$s</a>',
+				the_title_attribute( 'echo=0' ),
+				esc_url( get_permalink( get_the_ID() ) ),
+				wp_kses_post( $generate_settings['read_more'] ),
+				sprintf(
+					/* translators: Aria-label describing the read more button */
+					_x( 'More on %s', 'more on post title', 'gp-premium' ),
+					the_title_attribute( 'echo=0' )
+				)
+			)
+		);
 	}
 }
 
@@ -327,17 +458,24 @@ if ( ! function_exists( 'generate_blog_content_more' ) ) {
 			generate_blog_get_defaults()
 		);
 
-		// If empty, return
 		if ( '' == $generate_settings['read_more'] ) {
 			return '';
 		}
 
-		return apply_filters( 'generate_content_more_link_output', sprintf( '<p class="read-more-container"><a title="%1$s" class="read-more content-read-more" href="%2$s">%3$s%4$s</a></p>',
-			the_title_attribute( 'echo=0' ),
-			esc_url( get_permalink( get_the_ID() ) . apply_filters( 'generate_more_jump','#more-' . get_the_ID() ) ),
-			wp_kses_post( $generate_settings['read_more'] ),
-			'<span class="screen-reader-text">' . get_the_title() . '</span>'
-		) );
+		return apply_filters(
+			'generate_content_more_link_output',
+			sprintf(
+				'<p class="read-more-container"><a title="%1$s" class="read-more content-read-more" href="%2$s" aria-label="%4$s">%3$s</a></p>',
+				the_title_attribute( 'echo=0' ),
+				esc_url( get_permalink( get_the_ID() ) . apply_filters( 'generate_more_jump', '#more-' . get_the_ID() ) ),
+				wp_kses_post( $generate_settings['read_more'] ),
+				sprintf(
+					/* translators: Aria-label describing the read more button */
+					_x( 'More on %s', 'more on post title', 'gp-premium' ),
+					the_title_attribute( 'echo=0' )
+				)
+			)
+		);
 	}
 }
 
@@ -439,15 +577,18 @@ if ( ! function_exists( 'generate_disable_post_comments_link' ) ) {
 	}
 }
 
-add_filter( 'next_post_link', 'generate_disable_post_navigation' );
-add_filter( 'previous_post_link', 'generate_disable_post_navigation' );
+add_filter( 'generate_show_post_navigation', 'generate_disable_post_navigation' );
 /**
  * Remove the single post navigation
  *
  * @since 1.5
  */
 function generate_disable_post_navigation( $navigation ) {
-	return generate_disable_post_thing( $navigation, 'single_post_navigation' );
+	if ( is_singular() ) {
+		return generate_disable_post_thing( $navigation, 'single_post_navigation' );
+	} else {
+		return $navigation;
+	}
 }
 
 add_filter( 'generate_excerpt_more_output', 'generate_blog_read_more_button' );
@@ -457,7 +598,7 @@ add_filter( 'generate_content_more_link_output', 'generate_blog_read_more_button
  *
  * @since 1.5
  *
- * @param string Our existing read more link.
+ * @param string $output Our existing read more link.
  */
 function generate_blog_read_more_button( $output ) {
 	$settings = wp_parse_args(
@@ -465,16 +606,21 @@ function generate_blog_read_more_button( $output ) {
 		generate_blog_get_defaults()
 	);
 
-	if ( ! $settings[ 'read_more_button' ] ) {
+	if ( ! $settings['read_more_button'] ) {
 		return $output;
 	}
 
-	return sprintf( '%5$s<p class="read-more-container"><a title="%1$s" class="read-more button" href="%2$s">%3$s%4$s</a></p>',
+	return sprintf(
+		'%5$s<p class="read-more-container"><a title="%1$s" class="read-more button" href="%2$s" aria-label="%4$s">%3$s</a></p>',
 		the_title_attribute( 'echo=0' ),
-		esc_url( get_permalink( get_the_ID() ) . apply_filters( 'generate_more_jump','#more-' . get_the_ID() ) ),
+		esc_url( get_permalink( get_the_ID() ) . apply_filters( 'generate_more_jump', '#more-' . get_the_ID() ) ),
 		wp_kses_post( $settings['read_more'] ),
-		'<span class="screen-reader-text">' . get_the_title() . '</span>',
-		'generate_excerpt_more_output' == current_filter() ? ' ... ' : ''
+		sprintf(
+			/* translators: Aria-label describing the read more button */
+			_x( 'More on %s', 'more on post title', 'gp-premium' ),
+			the_title_attribute( 'echo=0' )
+		),
+		'generate_excerpt_more_output' === current_filter() ? ' ... ' : ''
 	);
 }
 
@@ -537,4 +683,28 @@ function generate_blog_get_singular_template() {
 	}
 
 	return $template;
+}
+
+add_action( 'generate_after_footer', 'generate_blog_do_infinite_scroll_path', 500 );
+/**
+ * Add a next page of posts link for infinite scroll.
+ *
+ * @since 2.0.0
+ */
+function generate_blog_do_infinite_scroll_path() {
+	if ( function_exists( 'is_woocommerce' ) && is_woocommerce() ) {
+		return;
+	}
+
+	$settings = wp_parse_args(
+		get_option( 'generate_blog_settings', array() ),
+		generate_blog_get_defaults()
+	);
+
+	if ( $settings['infinite_scroll'] && ! is_singular() && ! is_404() ) {
+		printf(
+			'<div class="infinite-scroll-path" aria-hidden="true" style="display: none;">%s</div>',
+			get_next_posts_link()
+		);
+	}
 }

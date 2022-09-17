@@ -2,9 +2,9 @@
 Contributors: kstover, jameslaws, kbjohnson, klhall1987, Much2tall, deckerweb
 Donate link: http://ninjaforms.com
 Tags: form, forms
-Requires at least: 5.0
-Tested up to: 5.2
-Stable tag: 3.0.26
+Requires at least: 5.2
+Tested up to: 5.4
+Stable tag: 3.1
 
 License: GPLv2 or later
 
@@ -29,6 +29,37 @@ This section describes how to install the plugin and get it working.
 For help and video tutorials, please visit our website: [Ninja Forms Documentation](http://ninjaforms.com/documentation/intro/)
 
 == Changelog ==
+
+= 3.1 (21 April 2021) =
+
+*Changes:*
+
+* Conditions can now compare date fields. This allows users to create conditions that trigger when someone selects or enters a specific date or range.
+
+= 3.0.28 (4 August 2020) =
+
+*Bugs:*
+
+* Resolved an issue that was preventing file uploads from being saved properly upon submission.
+* Conditions should no longer lose reference to fields that have been renamed in the form builder.
+
+= 3.0.27 (23 July 2020) =
+
+*Bugs:*
+
+* Resolved an issue that was causing conditions on actions to be ignored.
+
+= 3.0.26.2 (21 July 2020) =
+
+*Bugs:*
+
+* Resolved an issue with the plugin auto-updater.
+
+= 3.0.26.1 (20 July 2020) =
+
+*Security:*
+
+* Patched a data spoofing vulnerability that allowed required fields to be bypassed.
 
 = 3.0.26 (25 September 2019) =
 

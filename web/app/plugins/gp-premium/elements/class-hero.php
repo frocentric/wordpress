@@ -1,10 +1,23 @@
 <?php
+/**
+ * This file handles the Header Element type.
+ *
+ * @package GP Premium
+ */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // No direct access, please.
+}
+
+/**
+ * The Header Element type.
+ */
 class GeneratePress_Hero {
 	/**
 	 * Our conditionals for this header.
 	 *
 	 * @since 1.7
+	 * @var array Conditions.
 	 */
 	protected $conditional = array();
 
@@ -12,6 +25,7 @@ class GeneratePress_Hero {
 	 * Our exclusions for this header.
 	 *
 	 * @since 1.7
+	 * @var array Exclusions.
 	 */
 	protected $exclude = array();
 
@@ -19,6 +33,7 @@ class GeneratePress_Hero {
 	 * Our user conditionals for this header.
 	 *
 	 * @since 1.7
+	 * @var array Users.
 	 */
 	protected $users = array();
 
@@ -26,6 +41,7 @@ class GeneratePress_Hero {
 	 * Our array of available options.
 	 *
 	 * @since 1.7
+	 * @var array Options.
 	 */
 	protected static $options = array();
 
@@ -33,6 +49,7 @@ class GeneratePress_Hero {
 	 * The element ID.
 	 *
 	 * @since 1.7
+	 * @var int Post ID.
 	 */
 	protected static $post_id = '';
 
@@ -40,6 +57,7 @@ class GeneratePress_Hero {
 	 * How many times this class has been called per page.
 	 *
 	 * @since 1.7
+	 * @var int Instances.
 	 */
 	public static $instances = 0;
 
@@ -47,6 +65,7 @@ class GeneratePress_Hero {
 	 * Get our current instance.
 	 *
 	 * @since 1.7
+	 * @var instance This hero.
 	 */
 	protected static $hero = '';
 
@@ -54,10 +73,9 @@ class GeneratePress_Hero {
 	 * Kicks it all off.
 	 *
 	 * @since 1.7
-	 *
-	 * @param int The element post ID.
+	 * @param int $post_id The element post ID.
 	 */
-	function __construct( $post_id ) {
+	public function __construct( $post_id ) {
 
 		self::$post_id = $post_id;
 
@@ -78,12 +96,31 @@ class GeneratePress_Hero {
 
 		$display = apply_filters( 'generate_header_element_display', GeneratePress_Conditions::show_data( $this->conditional, $this->exclude, $this->users ), $post_id );
 
+		/**
+		 * Simplify filter name.
+		 *
+		 * @since 2.0.0
+		 */
+		$display = apply_filters(
+			'generate_element_display',
+			$display,
+			$post_id
+		);
+
 		if ( $display ) {
+			global $generate_elements;
+
+			$generate_elements[ $post_id ] = array(
+				'is_block_element' => false,
+				'type' => 'header',
+				'id' => $post_id,
+			);
+
 			$location = apply_filters( 'generate_page_hero_location', 'generate_after_header', $post_id );
 
-			add_action( $location,					array( $this, 'build_hero' ), 9 );
-			add_action( 'wp_enqueue_scripts', 		array( $this, 'enqueue' ), 100 );
-			add_action( 'wp', 						array( $this, 'after_setup' ), 100 );
+			add_action( $location, array( $this, 'build_hero' ), 9 );
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ), 100 );
+			add_action( 'wp', array( $this, 'after_setup' ), 100 );
 
 			self::$instances++;
 		}
@@ -101,10 +138,14 @@ class GeneratePress_Hero {
 		wp_add_inline_style( 'generate-style', self::build_css() );
 
 		if ( $options['parallax'] ) {
-			wp_enqueue_script( 'generate-hero-parallax', plugin_dir_url( __FILE__ ) . '/assets/js/parallax.min.js', array(), GP_PREMIUM_VERSION, true );
-			wp_localize_script( 'generate-hero-parallax', 'hero', array(
-				'parallax' => apply_filters( 'generate_hero_parallax_speed', 2 ),
-			) );
+			wp_enqueue_script( 'generate-hero-parallax', plugin_dir_url( __FILE__ ) . 'assets/js/parallax.min.js', array(), GP_PREMIUM_VERSION, true );
+			wp_localize_script(
+				'generate-hero-parallax',
+				'hero',
+				array(
+					'parallax' => apply_filters( 'generate_hero_parallax_speed', 2 ),
+				)
+			);
 		}
 	}
 
@@ -120,30 +161,41 @@ class GeneratePress_Hero {
 			return;
 		}
 
-		$options['container_classes'] = implode( ' ', array(
-			'page-hero',
-			'contained' === $options['container'] ? 'grid-container grid-parent' : '',
-			$options['classes'],
-		) );
+		$options['container_classes'] = implode(
+			' ',
+			array(
+				'page-hero',
+				'contained' === $options['container'] ? 'grid-container grid-parent' : '',
+				$options['classes'],
+			)
+		);
 
-		$options['inner_container_classes'] = implode( ' ', array(
-			'inside-page-hero',
-			'full-width' !== $options['inner_container'] ? 'grid-container grid-parent' : '',
-		) );
+		$options['inner_container_classes'] = implode(
+			' ',
+			array(
+				'inside-page-hero',
+				'full-width' !== $options['inner_container'] ? 'grid-container grid-parent' : '',
+			)
+		);
 
 		$options['content'] = self::template_tags( $options['content'] );
 		$options['content'] = do_shortcode( $options['content'] );
 
-		echo apply_filters( 'generate_page_hero_output', sprintf(
-			'<div class="%1$s">
-				<div class="%2$s">
-					%3$s
-				</div>
-			</div>',
-			trim( $options['container_classes'] ),
-			trim( $options['inner_container_classes'] ),
-			$options['content']
-		), $options );
+		// phpcs:ignore -- No escaping needed.
+		echo apply_filters(
+			'generate_page_hero_output',
+			sprintf(
+				'<div class="%1$s">
+					<div class="%2$s">
+						%3$s
+					</div>
+				</div>',
+				trim( $options['container_classes'] ),
+				trim( $options['inner_container_classes'] ),
+				$options['content']
+			),
+			$options
+		);
 	}
 
 	/**
@@ -156,9 +208,9 @@ class GeneratePress_Hero {
 	public static function build_css() {
 		$options = self::get_options();
 
-		// Initiate our CSS class
+		// Initiate our CSS class.
 		require_once GP_LIBRARY_DIRECTORY . 'class-make-css.php';
-		$css = new GeneratePress_Pro_CSS;
+		$css = new GeneratePress_Pro_CSS();
 
 		$image_url = false;
 		if ( $options['background_image'] && function_exists( 'get_the_post_thumbnail_url' ) ) {
@@ -180,16 +232,27 @@ class GeneratePress_Hero {
 		$image_url = apply_filters( 'generate_page_hero_background_image_url', $image_url, $options );
 
 		// Figure out desktop units.
-		$options['padding_top_unit'] 	= $options['padding_top_unit'] ? $options['padding_top_unit'] : 'px';
-		$options['padding_right_unit'] 	= $options['padding_right_unit'] ? $options['padding_right_unit'] : 'px';
+		$options['padding_top_unit']    = $options['padding_top_unit'] ? $options['padding_top_unit'] : 'px';
+		$options['padding_right_unit']  = $options['padding_right_unit'] ? $options['padding_right_unit'] : 'px';
 		$options['padding_bottom_unit'] = $options['padding_bottom_unit'] ? $options['padding_bottom_unit'] : 'px';
-		$options['padding_left_unit'] 	= $options['padding_left_unit'] ? $options['padding_left_unit'] : 'px';
+		$options['padding_left_unit']   = $options['padding_left_unit'] ? $options['padding_left_unit'] : 'px';
 
 		// Figure out mobile units.
-		$options['padding_top_unit_mobile'] 	= $options['padding_top_unit_mobile'] ? $options['padding_top_unit_mobile'] : 'px';
-		$options['padding_right_unit_mobile'] 	= $options['padding_right_unit_mobile'] ? $options['padding_right_unit_mobile'] : 'px';
-		$options['padding_bottom_unit_mobile'] 	= $options['padding_bottom_unit_mobile'] ? $options['padding_bottom_unit_mobile'] : 'px';
-		$options['padding_left_unit_mobile'] 	= $options['padding_left_unit_mobile'] ? $options['padding_left_unit_mobile'] : 'px';
+		$options['padding_top_unit_mobile']    = $options['padding_top_unit_mobile'] ? $options['padding_top_unit_mobile'] : 'px';
+		$options['padding_right_unit_mobile']  = $options['padding_right_unit_mobile'] ? $options['padding_right_unit_mobile'] : 'px';
+		$options['padding_bottom_unit_mobile'] = $options['padding_bottom_unit_mobile'] ? $options['padding_bottom_unit_mobile'] : 'px';
+		$options['padding_left_unit_mobile']   = $options['padding_left_unit_mobile'] ? $options['padding_left_unit_mobile'] : 'px';
+
+		$padding_inside = false;
+		$using_flexbox = false;
+
+		if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+			$using_flexbox = true;
+
+			if ( function_exists( 'generate_get_option' ) && 'text' === generate_get_option( 'container_alignment' ) ) {
+				$padding_inside = true;
+			}
+		}
 
 		$css->set_selector( '.page-hero' );
 
@@ -236,7 +299,9 @@ class GeneratePress_Hero {
 			$css->add_property( 'text-align', esc_html( $options['horizontal_alignment'] ) );
 		}
 
-		$css->add_property( 'box-sizing', 'border-box' );
+		if ( ! $using_flexbox ) {
+			$css->add_property( 'box-sizing', 'border-box' );
+		}
 
 		if ( $options['site_header_merge'] && $options['full_screen'] ) {
 			$css->add_property( 'min-height', '100vh' );
@@ -264,6 +329,32 @@ class GeneratePress_Hero {
 				$css->set_selector( '.page-hero .inside-page-hero' );
 				$css->add_property( 'width', '100%' );
 			}
+		}
+
+		if ( $padding_inside && function_exists( 'generate_get_option' ) ) {
+			$container_width = generate_get_option( 'container_width' );
+			$padding_right = '0px';
+			$padding_left = '0px';
+
+			if ( $options['padding_right'] ) {
+				$padding_right = absint( $options['padding_right'] ) . $options['padding_right_unit'];
+			}
+
+			if ( $options['padding_left'] ) {
+				$padding_left = absint( $options['padding_left'] ) . $options['padding_left_unit'];
+			}
+
+			$css->set_selector( '.page-hero .inside-page-hero.grid-container' );
+
+			$css->add_property(
+				'max-width',
+				sprintf(
+					'calc(%1$s - %2$s - %3$s)',
+					$container_width . 'px',
+					$padding_right,
+					$padding_left
+				)
+			);
 		}
 
 		$css->set_selector( '.page-hero h1, .page-hero h2, .page-hero h3, .page-hero h4, .page-hero h5, .page-hero h6' );
@@ -345,28 +436,38 @@ class GeneratePress_Hero {
 				$navigation_background_hover = $options['navigation_background_color_hover'] ? $options['navigation_background_color_hover'] : 'transparent';
 				$navigation_background_current = $options['navigation_background_color_current'] ? $options['navigation_background_color_current'] : 'transparent';
 
-				$css->set_selector( '.header-wrap #site-navigation:not(.toggled), .header-wrap #mobile-header:not(.toggled):not(.navigation-stick)' );
+				$css->set_selector( '.header-wrap #site-navigation:not(.toggled), .header-wrap #mobile-header:not(.toggled):not(.navigation-stick), .has-inline-mobile-toggle .mobile-menu-control-wrapper' );
 				$css->add_property( 'background', $navigation_background );
 
-				$css->set_selector( '.header-wrap #site-navigation:not(.toggled) .main-nav > ul > li > a, .header-wrap #mobile-header:not(.toggled):not(.navigation-stick) .main-nav > ul > li > a, .header-wrap .main-navigation:not(.toggled):not(.navigation-stick) .menu-toggle, .header-wrap .main-navigation:not(.toggled):not(.navigation-stick) .menu-toggle:hover, .main-navigation:not(.toggled):not(.navigation-stick) .mobile-bar-items a, .main-navigation:not(.toggled):not(.navigation-stick) .mobile-bar-items a:hover, .main-navigation:not(.toggled):not(.navigation-stick) .mobile-bar-items a:focus' );
-				$css->add_property( 'color', esc_attr( $options['navigation_text_color' ] ) );
+				if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+					$css->set_selector( '.header-wrap #site-navigation:not(.toggled) .main-nav > ul > li > a, .header-wrap #mobile-header:not(.toggled):not(.navigation-stick) .main-nav > ul > li > a, .header-wrap .main-navigation:not(.toggled):not(.navigation-stick) .menu-toggle, .header-wrap .main-navigation:not(.toggled):not(.navigation-stick) .menu-toggle:hover, .main-navigation:not(.toggled):not(.navigation-stick) .menu-bar-item:not(.close-search) > a' );
+				} else {
+					$css->set_selector( '.header-wrap #site-navigation:not(.toggled) .main-nav > ul > li > a, .header-wrap #mobile-header:not(.toggled):not(.navigation-stick) .main-nav > ul > li > a, .header-wrap .main-navigation:not(.toggled):not(.navigation-stick) .menu-toggle, .header-wrap .main-navigation:not(.toggled):not(.navigation-stick) .menu-toggle:hover, .main-navigation:not(.toggled):not(.navigation-stick) .mobile-bar-items a, .main-navigation:not(.toggled):not(.navigation-stick) .mobile-bar-items a:hover, .main-navigation:not(.toggled):not(.navigation-stick) .mobile-bar-items a:focus' );
+				}
 
-				$css->set_selector( '.header-wrap #site-navigation:not(.toggled) .main-nav > ul > li:hover > a, .header-wrap #site-navigation:not(.toggled) .main-nav > ul > li:focus > a, .header-wrap #site-navigation:not(.toggled) .main-nav > ul > li.sfHover > a, .header-wrap #mobile-header:not(.toggled) .main-nav > ul > li:hover > a' );
+				$css->add_property( 'color', esc_attr( $options['navigation_text_color'] ) );
+
+				if ( function_exists( 'generate_is_using_flexbox' ) && generate_is_using_flexbox() ) {
+					$css->set_selector( '.header-wrap #site-navigation:not(.toggled) .main-nav > ul > li:hover > a, .header-wrap #site-navigation:not(.toggled) .main-nav > ul > li:focus > a, .header-wrap #site-navigation:not(.toggled) .main-nav > ul > li.sfHover > a, .header-wrap #mobile-header:not(.toggled) .main-nav > ul > li:hover > a, .header-wrap #site-navigation:not(.toggled) .menu-bar-item:not(.close-search):hover > a, .header-wrap #mobile-header:not(.toggled) .menu-bar-item:not(.close-search):hover > a, .header-wrap #site-navigation:not(.toggled) .menu-bar-item:not(.close-search).sfHover > a, .header-wrap #mobile-header:not(.toggled) .menu-bar-item:not(.close-search).sfHover > a' );
+				} else {
+					$css->set_selector( '.header-wrap #site-navigation:not(.toggled) .main-nav > ul > li:hover > a, .header-wrap #site-navigation:not(.toggled) .main-nav > ul > li:focus > a, .header-wrap #site-navigation:not(.toggled) .main-nav > ul > li.sfHover > a, .header-wrap #mobile-header:not(.toggled) .main-nav > ul > li:hover > a' );
+				}
+
 				$css->add_property( 'background', $navigation_background_hover );
 
-				if ( '' !== $options[ 'navigation_text_color_hover' ] ) {
-					$css->add_property( 'color', esc_attr( $options[ 'navigation_text_color_hover' ] ) );
+				if ( '' !== $options['navigation_text_color_hover'] ) {
+					$css->add_property( 'color', esc_attr( $options['navigation_text_color_hover'] ) );
 				} else {
-					$css->add_property( 'color', esc_attr( $options[ 'navigation_text_color' ] ) );
+					$css->add_property( 'color', esc_attr( $options['navigation_text_color'] ) );
 				}
 
 				$css->set_selector( '.header-wrap #site-navigation:not(.toggled) .main-nav > ul > li[class*="current-menu-"] > a, .header-wrap #mobile-header:not(.toggled) .main-nav > ul > li[class*="current-menu-"] > a, .header-wrap #site-navigation:not(.toggled) .main-nav > ul > li[class*="current-menu-"]:hover > a, .header-wrap #mobile-header:not(.toggled) .main-nav > ul > li[class*="current-menu-"]:hover > a' );
 				$css->add_property( 'background', $navigation_background_current );
 
-				if ( '' !== $options[ 'navigation_text_color_current' ] ) {
-					$css->add_property( 'color', esc_attr( $options[ 'navigation_text_color_current' ] ) );
+				if ( '' !== $options['navigation_text_color_current'] ) {
+					$css->add_property( 'color', esc_attr( $options['navigation_text_color_current'] ) );
 				} else {
-					$css->add_property( 'color', esc_attr( $options[ 'navigation_text_color' ] ) );
+					$css->add_property( 'color', esc_attr( $options['navigation_text_color'] ) );
 				}
 			}
 
@@ -467,59 +568,62 @@ class GeneratePress_Hero {
 	public static function get_options() {
 		$post_id = self::$post_id;
 
-		return apply_filters( 'generate_hero_options', array(
-			'element_id'							=> $post_id,
-			'content' 								=> get_post_meta( $post_id, '_generate_element_content', true ),
-			'classes'								=> get_post_meta( $post_id, '_generate_hero_custom_classes', true ),
-			'container' 							=> get_post_meta( $post_id, '_generate_hero_container', true ),
-			'inner_container'						=> get_post_meta( $post_id, '_generate_hero_inner_container', true ),
-			'horizontal_alignment'					=> get_post_meta( $post_id, '_generate_hero_horizontal_alignment', true ),
-			'full_screen'							=> get_post_meta( $post_id, '_generate_hero_full_screen', true ),
-			'vertical_alignment' 					=> get_post_meta( $post_id, '_generate_hero_vertical_alignment', true ),
-			'padding_top' 							=> get_post_meta( $post_id, '_generate_hero_padding_top', true ),
-			'padding_top_unit' 						=> get_post_meta( $post_id, '_generate_hero_padding_top_unit', true ),
-			'padding_right' 						=> get_post_meta( $post_id, '_generate_hero_padding_right', true ),
-			'padding_right_unit' 					=> get_post_meta( $post_id, '_generate_hero_padding_right_unit', true ),
-			'padding_bottom' 						=> get_post_meta( $post_id, '_generate_hero_padding_bottom', true ),
-			'padding_bottom_unit' 					=> get_post_meta( $post_id, '_generate_hero_padding_bottom_unit', true ),
-			'padding_left' 							=> get_post_meta( $post_id, '_generate_hero_padding_left', true ),
-			'padding_left_unit' 					=> get_post_meta( $post_id, '_generate_hero_padding_left_unit', true ),
-			'padding_top_mobile' 					=> get_post_meta( $post_id, '_generate_hero_padding_top_mobile', true ),
-			'padding_top_unit_mobile' 				=> get_post_meta( $post_id, '_generate_hero_padding_top_unit_mobile', true ),
-			'padding_right_mobile' 					=> get_post_meta( $post_id, '_generate_hero_padding_right_mobile', true ),
-			'padding_right_unit_mobile' 			=> get_post_meta( $post_id, '_generate_hero_padding_right_unit_mobile', true ),
-			'padding_bottom_mobile' 				=> get_post_meta( $post_id, '_generate_hero_padding_bottom_mobile', true ),
-			'padding_bottom_unit_mobile' 			=> get_post_meta( $post_id, '_generate_hero_padding_bottom_unit_mobile', true ),
-			'padding_left_mobile' 					=> get_post_meta( $post_id, '_generate_hero_padding_left_mobile', true ),
-			'padding_left_unit_mobile' 				=> get_post_meta( $post_id, '_generate_hero_padding_left_unit_mobile', true ),
-			'background_image' 						=> get_post_meta( $post_id, '_generate_hero_background_image', true ),
-			'disable_featured_image'				=> get_post_meta( $post_id, '_generate_hero_disable_featured_image', true ),
-			'background_overlay' 					=> get_post_meta( $post_id, '_generate_hero_background_overlay', true ),
-			'background_position' 					=> get_post_meta( $post_id, '_generate_hero_background_position', true ),
-			'parallax' 								=> get_post_meta( $post_id, '_generate_hero_background_parallax', true ),
-			'background_color' 						=> get_post_meta( $post_id, '_generate_hero_background_color', true ),
-			'text_color' 							=> get_post_meta( $post_id, '_generate_hero_text_color', true ),
-			'link_color' 							=> get_post_meta( $post_id, '_generate_hero_link_color', true ),
-			'link_color_hover' 						=> get_post_meta( $post_id, '_generate_hero_background_link_color_hover', true ),
-			'site_header_merge' 					=> get_post_meta( $post_id, '_generate_site_header_merge', true ),
-			'site_header_height' 					=> get_post_meta( $post_id, '_generate_site_header_height', true ),
-			'site_header_height_mobile' 			=> get_post_meta( $post_id, '_generate_site_header_height_mobile', true ),
-			'site_logo' 							=> get_post_meta( $post_id, '_generate_site_logo', true ),
-			'retina_logo' 							=> get_post_meta( $post_id, '_generate_retina_logo', true ),
-			'navigation_logo'						=> get_post_meta( $post_id, '_generate_navigation_logo', true ),
-			'mobile_logo'							=> get_post_meta( $post_id, '_generate_mobile_logo', true ),
-			'navigation_location'					=> get_post_meta( $post_id, '_generate_navigation_location', true ),
-			'header_background_color'				=> get_post_meta( $post_id, '_generate_site_header_background_color', true ),
-			'header_title_color'					=> get_post_meta( $post_id, '_generate_site_header_title_color', true ),
-			'header_tagline_color'					=> get_post_meta( $post_id, '_generate_site_header_tagline_color', true ),
-			'navigation_colors'						=> get_post_meta( $post_id, '_generate_navigation_colors', true ),
-			'navigation_background_color'			=> get_post_meta( $post_id, '_generate_navigation_background_color', true ),
-			'navigation_text_color'					=> get_post_meta( $post_id, '_generate_navigation_text_color', true ),
-			'navigation_background_color_hover'		=> get_post_meta( $post_id, '_generate_navigation_background_color_hover', true ),
-			'navigation_text_color_hover'			=> get_post_meta( $post_id, '_generate_navigation_text_color_hover', true ),
-			'navigation_background_color_current'	=> get_post_meta( $post_id, '_generate_navigation_background_color_current', true ),
-			'navigation_text_color_current'			=> get_post_meta( $post_id, '_generate_navigation_text_color_current', true ),
-		) );
+		return apply_filters(
+			'generate_hero_options',
+			array(
+				'element_id'                          => $post_id,
+				'content'                             => get_post_meta( $post_id, '_generate_element_content', true ),
+				'classes'                             => get_post_meta( $post_id, '_generate_hero_custom_classes', true ),
+				'container'                           => get_post_meta( $post_id, '_generate_hero_container', true ),
+				'inner_container'                     => get_post_meta( $post_id, '_generate_hero_inner_container', true ),
+				'horizontal_alignment'                => get_post_meta( $post_id, '_generate_hero_horizontal_alignment', true ),
+				'full_screen'                         => get_post_meta( $post_id, '_generate_hero_full_screen', true ),
+				'vertical_alignment'                  => get_post_meta( $post_id, '_generate_hero_vertical_alignment', true ),
+				'padding_top'                         => get_post_meta( $post_id, '_generate_hero_padding_top', true ),
+				'padding_top_unit'                    => get_post_meta( $post_id, '_generate_hero_padding_top_unit', true ),
+				'padding_right'                       => get_post_meta( $post_id, '_generate_hero_padding_right', true ),
+				'padding_right_unit'                  => get_post_meta( $post_id, '_generate_hero_padding_right_unit', true ),
+				'padding_bottom'                      => get_post_meta( $post_id, '_generate_hero_padding_bottom', true ),
+				'padding_bottom_unit'                 => get_post_meta( $post_id, '_generate_hero_padding_bottom_unit', true ),
+				'padding_left'                        => get_post_meta( $post_id, '_generate_hero_padding_left', true ),
+				'padding_left_unit'                   => get_post_meta( $post_id, '_generate_hero_padding_left_unit', true ),
+				'padding_top_mobile'                  => get_post_meta( $post_id, '_generate_hero_padding_top_mobile', true ),
+				'padding_top_unit_mobile'             => get_post_meta( $post_id, '_generate_hero_padding_top_unit_mobile', true ),
+				'padding_right_mobile'                => get_post_meta( $post_id, '_generate_hero_padding_right_mobile', true ),
+				'padding_right_unit_mobile'           => get_post_meta( $post_id, '_generate_hero_padding_right_unit_mobile', true ),
+				'padding_bottom_mobile'               => get_post_meta( $post_id, '_generate_hero_padding_bottom_mobile', true ),
+				'padding_bottom_unit_mobile'          => get_post_meta( $post_id, '_generate_hero_padding_bottom_unit_mobile', true ),
+				'padding_left_mobile'                 => get_post_meta( $post_id, '_generate_hero_padding_left_mobile', true ),
+				'padding_left_unit_mobile'            => get_post_meta( $post_id, '_generate_hero_padding_left_unit_mobile', true ),
+				'background_image'                    => get_post_meta( $post_id, '_generate_hero_background_image', true ),
+				'disable_featured_image'              => get_post_meta( $post_id, '_generate_hero_disable_featured_image', true ),
+				'background_overlay'                  => get_post_meta( $post_id, '_generate_hero_background_overlay', true ),
+				'background_position'                 => get_post_meta( $post_id, '_generate_hero_background_position', true ),
+				'parallax'                            => get_post_meta( $post_id, '_generate_hero_background_parallax', true ),
+				'background_color'                    => get_post_meta( $post_id, '_generate_hero_background_color', true ),
+				'text_color'                          => get_post_meta( $post_id, '_generate_hero_text_color', true ),
+				'link_color'                          => get_post_meta( $post_id, '_generate_hero_link_color', true ),
+				'link_color_hover'                    => get_post_meta( $post_id, '_generate_hero_background_link_color_hover', true ),
+				'site_header_merge'                   => get_post_meta( $post_id, '_generate_site_header_merge', true ),
+				'site_header_height'                  => get_post_meta( $post_id, '_generate_site_header_height', true ),
+				'site_header_height_mobile'           => get_post_meta( $post_id, '_generate_site_header_height_mobile', true ),
+				'site_logo'                           => get_post_meta( $post_id, '_generate_site_logo', true ),
+				'retina_logo'                         => get_post_meta( $post_id, '_generate_retina_logo', true ),
+				'navigation_logo'                     => get_post_meta( $post_id, '_generate_navigation_logo', true ),
+				'mobile_logo'                         => get_post_meta( $post_id, '_generate_mobile_logo', true ),
+				'navigation_location'                 => get_post_meta( $post_id, '_generate_navigation_location', true ),
+				'header_background_color'             => get_post_meta( $post_id, '_generate_site_header_background_color', true ),
+				'header_title_color'                  => get_post_meta( $post_id, '_generate_site_header_title_color', true ),
+				'header_tagline_color'                => get_post_meta( $post_id, '_generate_site_header_tagline_color', true ),
+				'navigation_colors'                   => get_post_meta( $post_id, '_generate_navigation_colors', true ),
+				'navigation_background_color'         => get_post_meta( $post_id, '_generate_navigation_background_color', true ),
+				'navigation_text_color'               => get_post_meta( $post_id, '_generate_navigation_text_color', true ),
+				'navigation_background_color_hover'   => get_post_meta( $post_id, '_generate_navigation_background_color_hover', true ),
+				'navigation_text_color_hover'         => get_post_meta( $post_id, '_generate_navigation_text_color_hover', true ),
+				'navigation_background_color_current' => get_post_meta( $post_id, '_generate_navigation_background_color_current', true ),
+				'navigation_text_color_current'       => get_post_meta( $post_id, '_generate_navigation_text_color_current', true ),
+			)
+		);
 	}
 
 	/**
@@ -627,12 +731,15 @@ class GeneratePress_Hero {
 			return;
 		}
 
-		$attr = apply_filters( 'generate_page_hero_logo_attributes', array(
-			'class' => 'header-image',
-			'alt'	=> esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
-			'src'	=> $logo_url,
-			'title'	=> esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
-		) );
+		$attr = apply_filters(
+			'generate_page_hero_logo_attributes',
+			array(
+				'class' => 'header-image is-logo-image',
+				'alt'   => esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
+				'src'   => $logo_url,
+				'title' => esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
+			)
+		);
 
 		if ( '' !== $retina_logo_url ) {
 			$attr['srcset'] = $logo_url . ' 1x, ' . $retina_logo_url . ' 2x';
@@ -653,16 +760,22 @@ class GeneratePress_Hero {
 			$html_attr .= " $name=" . '"' . $value . '"';
 		}
 
-		echo apply_filters( 'generate_page_hero_logo_output', sprintf( // WPCS: XSS ok, sanitization ok.
-			'<div class="site-logo page-hero-logo">
-				<a href="%1$s" title="%2$s" rel="home">
-					<img %3$s />
-				</a>
-			</div>',
-			esc_url( apply_filters( 'generate_logo_href' , home_url( '/' ) ) ),
-			esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
+		// phpcs:ignore -- Escaping not needed.
+		echo apply_filters(
+			'generate_page_hero_logo_output',
+			sprintf(
+				'<div class="site-logo page-hero-logo">
+					<a href="%1$s" title="%2$s" rel="home">
+						<img %3$s />
+					</a>
+				</div>',
+				esc_url( apply_filters( 'generate_logo_href', home_url( '/' ) ) ),
+				esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
+				$html_attr
+			),
+			$logo_url,
 			$html_attr
-		), $logo_url, $html_attr );
+		);
 	}
 
 	/**
@@ -677,10 +790,10 @@ class GeneratePress_Hero {
 		printf(
 			'<div class="site-logo sticky-logo navigation-logo page-hero-navigation-logo">
 				<a href="%1$s" title="%2$s" rel="home">
-					<img class="header-image" src="%3$s" alt="%4$s" />
+					<img class="header-image is-logo-image" src="%3$s" alt="%4$s" />
 				</a>
 			</div>',
-			esc_url( apply_filters( 'generate_logo_href' , home_url( '/' ) ) ),
+			esc_url( apply_filters( 'generate_logo_href', home_url( '/' ) ) ),
 			esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
 			esc_url( wp_get_attachment_url( $options['navigation_logo'] ) ),
 			esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) )
@@ -703,10 +816,10 @@ class GeneratePress_Hero {
 		printf(
 			'<div class="site-logo mobile-header-logo page-hero-mobile-logo">
 				<a href="%1$s" title="%2$s" rel="home">
-					<img class="header-image" src="%3$s" alt="%4$s" />
+					<img class="header-image is-logo-image" src="%3$s" alt="%4$s" />
 				</a>
 			</div>',
-			esc_url( apply_filters( 'generate_logo_href' , home_url( '/' ) ) ),
+			esc_url( apply_filters( 'generate_logo_href', home_url( '/' ) ) ),
 			esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) ),
 			esc_url( wp_get_attachment_url( $options['mobile_logo'] ) ),
 			esc_attr( apply_filters( 'generate_logo_title', get_bloginfo( 'name', 'display' ) ) )
@@ -753,7 +866,7 @@ class GeneratePress_Hero {
 	 *
 	 * @since 1.7
 	 *
-	 * @param $classes Existing classes.
+	 * @param array $classes Existing classes.
 	 * @return array New classes.
 	 */
 	public static function site_header_classes( $classes ) {
@@ -771,27 +884,30 @@ class GeneratePress_Hero {
 	public static function remove_template_elements() {
 		$options = self::get_options();
 
-		if ( strpos( $options[ 'content' ], '{{post_title}}' ) !== false ) {
-			add_filter( 'generate_show_title', '__return_false' );
+		if ( strpos( $options['content'], '{{post_title}}' ) !== false ) {
+			if ( is_singular() ) {
+				add_filter( 'generate_show_title', '__return_false' );
+			}
+
 			remove_action( 'generate_archive_title', 'generate_archive_title' );
 			add_filter( 'post_class', array( self::$hero, 'remove_hentry' ) );
 		}
 
-		if ( strpos( $options[ 'content' ], '{{post_date}}' ) !== false ) {
+		if ( strpos( $options['content'], '{{post_date}}' ) !== false ) {
 			add_filter( 'generate_post_date', '__return_false' );
 			add_filter( 'post_class', array( self::$hero, 'remove_hentry' ) );
 		}
 
-		if ( strpos( $options[ 'content' ], '{{post_author}}' ) !== false ) {
+		if ( strpos( $options['content'], '{{post_author}}' ) !== false ) {
 			add_filter( 'generate_post_author', '__return_false' );
 			add_filter( 'post_class', array( self::$hero, 'remove_hentry' ) );
 		}
 
-		if ( strpos( $options[ 'content' ], '{{post_terms.category}}' ) !== false ) {
+		if ( strpos( $options['content'], '{{post_terms.category}}' ) !== false ) {
 			add_filter( 'generate_show_categories', '__return_false' );
 		}
 
-		if ( strpos( $options[ 'content' ], '{{post_terms.post_tag}}' ) !== false ) {
+		if ( strpos( $options['content'], '{{post_terms.post_tag}}' ) !== false ) {
 			add_filter( 'generate_show_tags', '__return_false' );
 		}
 	}
@@ -801,7 +917,7 @@ class GeneratePress_Hero {
 	 *
 	 * @since 1.7
 	 *
-	 * @param $content The content to check.
+	 * @param string $content The content to check.
 	 * @return mixed The content with the template tags replaced.
 	 */
 	public static function template_tags( $content ) {
@@ -831,7 +947,8 @@ class GeneratePress_Hero {
 				$time_string = '<time class="updated" datetime="%3$s" itemprop="dateModified">%4$s</time>' . $time_string;
 			}
 
-			$time_string = sprintf( $time_string,
+			$time_string = sprintf(
+				$time_string,
 				esc_attr( get_the_date( 'c' ) ),
 				esc_html( get_the_date() ),
 				esc_attr( get_the_modified_date( 'c' ) ),
@@ -841,12 +958,14 @@ class GeneratePress_Hero {
 			$search[] = '{{post_date}}';
 			$replace[] = apply_filters( 'generate_page_hero_post_date', $time_string );
 
-			// Author
+			// Author.
 			global $post;
 			$author_id = $post->post_author;
 
-			$author = sprintf( '<span class="author vcard" itemtype="http://schema.org/Person" itemscope="itemscope" itemprop="author"><a class="url fn n" href="%1$s" title="%2$s" rel="author" itemprop="url"><span class="author-name" itemprop="name">%3$s</span></a></span>',
+			$author = sprintf(
+				'<span class="author vcard" itemtype="http://schema.org/Person" itemscope="itemscope" itemprop="author"><a class="url fn n" href="%1$s" title="%2$s" rel="author" itemprop="url"><span class="author-name" itemprop="name">%3$s</span></a></span>',
 				esc_url( get_author_posts_url( $author_id ) ),
+				/* translators: author name */
 				esc_attr( sprintf( __( 'View all posts by %s', 'gp-premium' ), get_the_author_meta( 'display_name', $author_id ) ) ),
 				esc_html( get_the_author_meta( 'display_name', $author_id ) )
 			);
@@ -854,7 +973,7 @@ class GeneratePress_Hero {
 			$search[] = '{{post_author}}';
 			$replace[] = apply_filters( 'generate_page_hero_post_author', $author );
 
-			// Post terms
+			// Post terms.
 			if ( strpos( $content, '{{post_terms' ) !== false ) {
 				$data = preg_match_all( '/{{post_terms.([^}]*)}}/', $content, $matches );
 				foreach ( $matches[1] as $match ) {
@@ -867,7 +986,7 @@ class GeneratePress_Hero {
 				}
 			}
 
-			// Custom field
+			// Custom field.
 			if ( strpos( $content, '{{custom_field' ) !== false ) {
 				$data = preg_match_all( '/{{custom_field.([^}]*)}}/', $content, $matches );
 				foreach ( $matches[1] as $match ) {
@@ -885,7 +1004,7 @@ class GeneratePress_Hero {
 			}
 		}
 
-		// Taxonomy description
+		// Taxonomy description.
 		if ( is_tax() || is_category() || is_tag() ) {
 			if ( strpos( $content, '{{custom_field' ) !== false ) {
 				$search[] = '{{custom_field.description}}';
@@ -902,7 +1021,7 @@ class GeneratePress_Hero {
 	 *
 	 * @since 1.7
 	 *
-	 * @param array $classes
+	 * @param array $classes Existing classes.
 	 * @return array
 	 */
 	public function remove_hentry( $classes ) {

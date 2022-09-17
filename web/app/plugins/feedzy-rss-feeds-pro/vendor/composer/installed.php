@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'name' => 'codeinwp/feedzy-rss-feeds-pro',
+        'pretty_version' => 'v2.0.3',
+        'version' => '2.0.3.0',
+        'reference' => '87cbe9a45eec47653d966c72db534b921b4f8696',
+        'type' => 'wordpress-plugin',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => false,
+    ),
+    'versions' => array(
+        'bjoernffm/spintax' => array(
+            'pretty_version' => 'v0.1.1',
+            'version' => '0.1.1.0',
+            'reference' => 'fb1f5b9023dc8c8111e4e05e80752b98b4f8fcae',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../bjoernffm/spintax',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'codeinwp/feedzy-rss-feeds-pro' => array(
+            'pretty_version' => 'v2.0.3',
+            'version' => '2.0.3.0',
+            'reference' => '87cbe9a45eec47653d966c72db534b921b4f8696',
+            'type' => 'wordpress-plugin',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'codeinwp/themeisle-sdk' => array(
+            'pretty_version' => '3.2.29',
+            'version' => '3.2.29.0',
+            'reference' => '9456fb0944ec69c3975de04aaf56233ddc2f828c',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../codeinwp/themeisle-sdk',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+    ),
+);

@@ -60,13 +60,15 @@ trait Terms {
         
         $term_id = $this->get_module()->get_term_id();
         
-        if ($settings['source']) {             
-            if ($settings['source'] == 'other') {
-                if ($settings['term_id']) {                    
-                    return $settings['term_id'];
+        if ($settings['source']) {      
+            switch ($settings['source']) {
+            case 'other':
+                if ($settings['term_id']) {    
+                    $term_id = $settings['term_id'];
+                    //return $term_id;
                 }
-            }
-            if ($settings['source'] == 'post') {                
+                break;
+            case 'post':                
                 //$post_id = get_the_ID();
                 $post_type = get_post_type();                
                 $taxonomy = 'category';
@@ -80,21 +82,27 @@ trait Terms {
                 $terms = get_the_terms(get_the_ID(), $taxonomy);
                 if (!empty($terms)) {
                     $term = reset($terms);
-                    return $term->term_id;
+                    $term_id = $term->term_id;
+                    //return $term_id;
                 }
-            }
-            if ($term_id) {
-                do {
-                    $term = Utils::get_term($term_id);
-                    $parent_id = $term->parent;
-                    if ($settings['source'] == 'parent') {
-                        return $parent_id;
-                    }
-                    if ($parent_id) {
-                        $term_id = $parent_id;
-                    }
-                } while($parent_id);
-                return $term_id;
+                break;
+            case 'root':
+            case 'parent':
+                if ($term_id) { 
+                    do {
+                        $term = Utils::get_term($term_id);
+                        $parent_id = $term->parent;
+                        if ($settings['source'] == 'parent') {
+                            //return $parent_id;
+                            $term_id = $parent_id;
+                            break;
+                        }
+                        if ($parent_id) {
+                            $term_id = $parent_id;
+                        }
+                    } while($parent_id);
+                    //return $term_id;
+                }
             }
         }
         

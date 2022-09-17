@@ -1,4 +1,4 @@
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 	$( '.generatepress-shortcuts a' ).on( 'click', function( e ) {
 		e.preventDefault();
 		var section = $( this ).attr( 'data-section' ),
@@ -14,7 +14,7 @@ jQuery( document ).ready( function( $ ) {
 		}
 	} );
 
-	$( '.return-shortcut .dashicons' ).on( 'click', function( e ) {
+	$( '.return-shortcut .dashicons' ).on( 'click', function() {
 		var container = $( this ).closest( '.generatepress-shortcuts' );
 
 		container.find( '.show-shortcuts' ).show();

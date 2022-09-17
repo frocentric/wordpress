@@ -34,8 +34,8 @@ class GeneratePress_Spacing_Control extends WP_Customize_Control {
 		}
 
 		$this->json[ 'element' ] = $this->element;
-		$this->json[ 'title' ] = __( 'Link values','generate-spacing' );
-		$this->json[ 'unlink_title' ] = __( 'Un-link values','generate-spacing' );
+		$this->json[ 'title' ] = __( 'Link values', 'gp-premium' );
+		$this->json[ 'unlink_title' ] = __( 'Un-link values', 'gp-premium' );
 
 		$this->json['label_top'] = esc_html__( 'Top', 'gp-premium' );
 		$this->json['label_right'] = esc_html__( 'Right', 'gp-premium' );

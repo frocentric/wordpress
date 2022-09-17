@@ -1,7 +1,12 @@
 <?php
-// No direct access, please
+/**
+ * This file handles the secondary navigation spacing Customizer options.
+ *
+ * @package GP Premium
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // No direct access, please.
 }
 
 if ( ! function_exists( 'generate_spacing_secondary_nav_customizer' ) ) {
@@ -16,37 +21,42 @@ if ( ! function_exists( 'generate_spacing_secondary_nav_customizer' ) ) {
 	 * as we check to see if the layout control exists.
 	 *
 	 * Secondary Nav now uses 100 as a priority.
+	 *
+	 * @param object $wp_customize The Customizer object.
 	 */
 	function generate_spacing_secondary_nav_customizer( $wp_customize ) {
 
-		// Bail if we don't have our defaults
+		// Bail if we don't have our defaults.
 		if ( ! function_exists( 'generate_secondary_nav_get_defaults' ) ) {
 			return;
 		}
 
-		// Make sure Secondary Nav is activated
+		// Make sure Secondary Nav is activated.
 		if ( ! $wp_customize->get_section( 'secondary_nav_section' ) ) {
 			return;
 		}
 
-		// Get our controls
+		// Get our controls.
 		require_once GP_LIBRARY_DIRECTORY . 'customizer-helpers.php';
 
-		// Get our defaults
+		// Get our defaults.
 		$defaults = generate_secondary_nav_get_defaults();
 
-		// Remove our old label control if it exists
-		// It only would if the user is using an old Secondary Nav add-on version
-		if ( $wp_customize->get_control( 'generate_secondary_navigation_spacing_title' ) ) $wp_customize->remove_control( 'generate_secondary_navigation_spacing_title' );
+		// Remove our old label control if it exists.
+		// It only would if the user is using an old Secondary Nav add-on version.
+		if ( $wp_customize->get_control( 'generate_secondary_navigation_spacing_title' ) ) {
+			$wp_customize->remove_control( 'generate_secondary_navigation_spacing_title' );
+		}
 
-		// Menu item width
+		// Menu item width.
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[secondary_menu_item]', array(
+			'generate_secondary_nav_settings[secondary_menu_item]',
+			array(
 				'default' => $defaults['secondary_menu_item'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
 				'sanitize_callback' => 'absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -74,14 +84,15 @@ if ( ! function_exists( 'generate_spacing_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Menu item height
+		// Menu item height.
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[secondary_menu_item_height]', array(
+			'generate_secondary_nav_settings[secondary_menu_item_height]',
+			array(
 				'default' => $defaults['secondary_menu_item_height'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
 				'sanitize_callback' => 'absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 
@@ -109,14 +120,15 @@ if ( ! function_exists( 'generate_spacing_secondary_nav_customizer' ) ) {
 			)
 		);
 
-		// Sub-menu height
+		// Sub-menu height.
 		$wp_customize->add_setting(
-			'generate_secondary_nav_settings[secondary_sub_menu_item_height]', array(
+			'generate_secondary_nav_settings[secondary_sub_menu_item_height]',
+			array(
 				'default' => $defaults['secondary_sub_menu_item_height'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
 				'sanitize_callback' => 'absint',
-				'transport' => 'postMessage'
+				'transport' => 'postMessage',
 			)
 		);
 

@@ -59,8 +59,11 @@ final class Controls {
         foreach ($controls as $control) {
             $class_name = $namespace.'\\Controls\\' . $control;
             $control_obj = new $class_name();
-            //$controls_manager->register_control($control_obj->get_type(), $control_obj);
-            $controls_manager->register($control_obj);//, $control_obj->get_type());
+            if (version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {
+                $controls_manager->register_control($control_obj->get_type(), $control_obj);
+            } else {
+                $controls_manager->register($control_obj);//, $control_obj->get_type());
+            }
             $this->controls[$control_obj->get_type()] = $control_obj;
         }
         

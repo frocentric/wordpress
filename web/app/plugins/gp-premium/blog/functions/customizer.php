@@ -5,30 +5,30 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 	add_action( 'customize_register', 'generate_blog_customize_register', 99 );
 
 	function generate_blog_customize_register( $wp_customize ) {
-		// Get our defaults
+		// Get our defaults.
 		$defaults = generate_blog_get_defaults();
 
-		// Get our controls
+		// Get our controls.
 		require_once GP_LIBRARY_DIRECTORY . 'customizer-helpers.php';
 
-		// Add control types so controls can be built using JS
+		// Add control types so controls can be built using JS.
 		if ( method_exists( $wp_customize, 'register_control_type' ) ) {
 			$wp_customize->register_control_type( 'GeneratePress_Title_Customize_Control' );
 		}
 
-		// Remove our blog control from the free theme
+		// Remove our blog control from the free theme.
 		if ( $wp_customize->get_control( 'blog_content_control' ) ) {
 			$wp_customize->remove_control( 'blog_content_control' );
 		}
 
-		// Register our custom controls
-		if ( method_exists( $wp_customize,'register_control_type' ) ) {
+		// Register our custom controls.
+		if ( method_exists( $wp_customize, 'register_control_type' ) ) {
 			$wp_customize->register_control_type( 'GeneratePress_Refresh_Button_Customize_Control' );
 			$wp_customize->register_control_type( 'GeneratePress_Information_Customize_Control' );
 			$wp_customize->register_control_type( 'Generate_Control_Toggle_Customize_Control' );
 		}
 
-		// Blog content section
+		// Blog content section.
 		$wp_customize->add_section(
 			'generate_blog_section',
 			array(
@@ -48,7 +48,7 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 					'type' => 'generatepress-customizer-title',
 					'title' => __( 'Content', 'gp-premium' ),
 					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
-					'priority' => 0,
+					'priority' => 1,
 				)
 			)
 		);
@@ -64,7 +64,7 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 						'post-meta-single' => __( 'Single', 'gp-premium' ),
 					),
 					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
-					'priority' => 0,
+					'priority' => 1,
 				)
 			)
 		);
@@ -537,13 +537,33 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 			)
 		);
 
+		$wp_customize->add_setting(
+			'generate_blog_settings[post_image_size]',
+			array(
+				'default' => $defaults['post_image_size'],
+				'type' => 'option',
+				'sanitize_callback' => 'generate_premium_sanitize_choices',
+			)
+		);
+
+		$wp_customize->add_control(
+			'generate_blog_settings[post_image_size]',
+			array(
+				'type' => 'select',
+				'label' => __( 'Media Attachment Size', 'gp-premium' ),
+				'section' => 'generate_blog_section',
+				'choices' => generate_blog_get_image_sizes(),
+				'settings' => 'generate_blog_settings[post_image_size]',
+				'active_callback' => 'generate_premium_featured_image_active',
+			)
+		);
+
 		// Width
 		$wp_customize->add_setting(
 			'generate_blog_settings[post_image_width]', array(
 				'default' => $defaults['post_image_width'],
 				'capability' => 'edit_theme_options',
 				'type' => 'option',
-				'transport' => 'postMessage',
 				'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
 			)
 		);
@@ -554,11 +574,6 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 				'type' => 'number',
 				'label' => __( 'Width', 'gp-premium' ),
 				'section' => 'generate_blog_section',
-				'input_attrs' => array(
-					'style' => 'text-align:center;',
-					'placeholder' => __( 'Auto', 'gp-premium' ),
-					'min' => 5,
-				),
 				'settings' => 'generate_blog_settings[post_image_width]',
 				'active_callback' => 'generate_premium_featured_image_active',
 			)
@@ -570,7 +585,6 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 				'default' => $defaults['post_image_height'],
 				'capability' => 'edit_theme_options',
 				'type' => 'option',
-				'transport' => 'postMessage',
 				'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
 			)
 		);
@@ -581,24 +595,21 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 				'type' => 'number',
 				'label' => __( 'Height', 'gp-premium' ),
 				'section' => 'generate_blog_section',
-				'input_attrs' => array(
-					'style' => 'text-align:center;',
-					'placeholder' => __( 'Auto', 'gp-premium' ),
-					'min' => 5,
-				),
 				'settings' => 'generate_blog_settings[post_image_height]',
 				'active_callback' => 'generate_premium_featured_image_active',
 			)
 		);
 
-		// Save dimensions
 		$wp_customize->add_control(
-			new GeneratePress_Refresh_Button_Customize_Control(
+			new GeneratePress_Information_Customize_Control(
 				$wp_customize,
-				'post_image_apply_sizes',
+				'generate_regenerate_images_notice',
 				array(
-					'section' => 'generate_blog_section',
-					'label'	=> __( 'Apply', 'gp-premium' ),
+					'section'     => 'generate_blog_section',
+					'description' => sprintf(
+						__( 'We will attempt to serve exact image sizes based on your width/height settings. If that is not possible, we will resize your images using CSS. Learn more about featured image sizing %s.', 'gp-premium' ),
+						'<a href="https://docs.generatepress.com/article/adjusting-the-featured-images/" target="_blank" rel="noopener noreferrer">' . __( 'here', 'gp-premium' ) . '</a>'
+					),
 					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
 					'active_callback' => 'generate_premium_featured_image_active',
 				)
@@ -701,13 +712,33 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 			)
 		);
 
+		$wp_customize->add_setting(
+			'generate_blog_settings[single_post_image_size]',
+			array(
+				'default' => $defaults['single_post_image_size'],
+				'type' => 'option',
+				'sanitize_callback' => 'generate_premium_sanitize_choices',
+			)
+		);
+
+		$wp_customize->add_control(
+			'generate_blog_settings[single_post_image_size]',
+			array(
+				'type' => 'select',
+				'label' => __( 'Media Attachment Size', 'gp-premium' ),
+				'section' => 'generate_blog_section',
+				'choices' => generate_blog_get_image_sizes(),
+				'settings' => 'generate_blog_settings[single_post_image_size]',
+				'active_callback' => 'generate_premium_single_featured_image_active',
+			)
+		);
+
 		// Width
 		$wp_customize->add_setting(
 			'generate_blog_settings[single_post_image_width]', array(
 				'default' => $defaults['single_post_image_width'],
 				'capability' => 'edit_theme_options',
 				'type' => 'option',
-				'transport' => 'postMessage',
 				'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
 			)
 		);
@@ -718,11 +749,6 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 				'type' => 'number',
 				'label' => __( 'Width', 'gp-premium' ),
 				'section' => 'generate_blog_section',
-				'input_attrs' => array(
-					'style' => 'text-align:center;',
-					'placeholder' => __( 'Auto', 'gp-premium' ),
-					'min' => 5,
-				),
 				'settings' => 'generate_blog_settings[single_post_image_width]',
 				'active_callback' => 'generate_premium_single_featured_image_active',
 			)
@@ -734,7 +760,6 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 				'default' => $defaults['single_post_image_height'],
 				'capability' => 'edit_theme_options',
 				'type' => 'option',
-				'transport' => 'postMessage',
 				'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
 			)
 		);
@@ -745,24 +770,21 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 				'type' => 'number',
 				'label' => __( 'Height', 'gp-premium' ),
 				'section' => 'generate_blog_section',
-				'input_attrs' => array(
-					'style' => 'text-align:center;',
-					'placeholder' => __( 'Auto', 'gp-premium' ),
-					'min' => 5,
-				),
 				'settings' => 'generate_blog_settings[single_post_image_height]',
 				'active_callback' => 'generate_premium_single_featured_image_active',
 			)
 		);
 
-		// Save dimensions
 		$wp_customize->add_control(
-			new GeneratePress_Refresh_Button_Customize_Control(
+			new GeneratePress_Information_Customize_Control(
 				$wp_customize,
-				'single_post_image_apply_sizes',
+				'generate_regenerate_single_post_images_notice',
 				array(
-					'section' => 'generate_blog_section',
-					'label'	=> __( 'Apply', 'gp-premium' ),
+					'section'     => 'generate_blog_section',
+					'description' => sprintf(
+						__( 'We will attempt to serve exact image sizes based on your width/height settings. If that is not possible, we will resize your images using CSS. Learn more about featured image sizing %s.', 'gp-premium' ),
+						'<a href="https://docs.generatepress.com/article/adjusting-the-featured-images/" target="_blank" rel="noopener noreferrer">' . __( 'here', 'gp-premium' ) . '</a>'
+					),
 					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
 					'active_callback' => 'generate_premium_single_featured_image_active',
 				)
@@ -865,13 +887,33 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 			)
 		);
 
+		$wp_customize->add_setting(
+			'generate_blog_settings[page_post_image_size]',
+			array(
+				'default' => $defaults['page_post_image_size'],
+				'type' => 'option',
+				'sanitize_callback' => 'generate_premium_sanitize_choices',
+			)
+		);
+
+		$wp_customize->add_control(
+			'generate_blog_settings[page_post_image_size]',
+			array(
+				'type' => 'select',
+				'label' => __( 'Media Attachment Size', 'gp-premium' ),
+				'section' => 'generate_blog_section',
+				'choices' => generate_blog_get_image_sizes(),
+				'settings' => 'generate_blog_settings[page_post_image_size]',
+				'active_callback' => 'generate_premium_single_page_featured_image_active',
+			)
+		);
+
 		// Width
 		$wp_customize->add_setting(
 			'generate_blog_settings[page_post_image_width]', array(
 				'default' => $defaults['page_post_image_width'],
 				'capability' => 'edit_theme_options',
 				'type' => 'option',
-				'transport' => 'postMessage',
 				'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
 			)
 		);
@@ -882,11 +924,6 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 				'type' => 'number',
 				'label' => __( 'Width', 'gp-premium' ),
 				'section' => 'generate_blog_section',
-				'input_attrs' => array(
-					'style' => 'text-align:center;',
-					'placeholder' => __( 'Auto', 'gp-premium' ),
-					'min' => 5,
-				),
 				'settings' => 'generate_blog_settings[page_post_image_width]',
 				'active_callback' => 'generate_premium_single_page_featured_image_active',
 			)
@@ -898,7 +935,6 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 				'default' => $defaults['page_post_image_height'],
 				'capability' => 'edit_theme_options',
 				'type' => 'option',
-				'transport' => 'postMessage',
 				'sanitize_callback' => 'generate_premium_sanitize_empty_absint',
 			)
 		);
@@ -909,24 +945,21 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 				'type' => 'number',
 				'label' => __( 'Height', 'gp-premium' ),
 				'section' => 'generate_blog_section',
-				'input_attrs' => array(
-					'style' => 'text-align:center;',
-					'placeholder' => __( 'Auto', 'gp-premium' ),
-					'min' => 5,
-				),
 				'settings' => 'generate_blog_settings[page_post_image_height]',
 				'active_callback' => 'generate_premium_single_page_featured_image_active',
 			)
 		);
 
-		// Save dimensions
 		$wp_customize->add_control(
-			new GeneratePress_Refresh_Button_Customize_Control(
+			new GeneratePress_Information_Customize_Control(
 				$wp_customize,
-				'page_post_image_apply_sizes',
+				'generate_regenerate_page_images_notice',
 				array(
-					'section' => 'generate_blog_section',
-					'label'	=> __( 'Apply', 'gp-premium' ),
+					'section'     => 'generate_blog_section',
+					'description' => sprintf(
+						__( 'We will attempt to serve exact image sizes based on your width/height settings. If that is not possible, we will resize your images using CSS. Learn more about featured image sizing %s.', 'gp-premium' ),
+						'<a href="https://docs.generatepress.com/article/adjusting-the-featured-images/" target="_blank" rel="noopener noreferrer">' . __( 'here', 'gp-premium' ) . '</a>'
+					),
 					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
 					'active_callback' => 'generate_premium_single_page_featured_image_active',
 				)
@@ -1042,34 +1075,6 @@ add_action( 'customize_controls_print_styles', 'generate_blog_customizer_control
 function generate_blog_customizer_controls_css() {
 	?>
 	<style>
-		#customize-control-generate_blog_settings-post_image_width:not([style*="display: none;"]),
-		#customize-control-generate_blog_settings-post_image_height:not([style*="display: none;"]),
-		#customize-control-post_image_apply_sizes:not([style*="display: none;"]),
-		#customize-control-generate_blog_settings-single_post_image_width:not([style*="display: none;"]),
-		#customize-control-generate_blog_settings-single_post_image_height:not([style*="display: none;"]),
-		#customize-control-single_post_image_apply_sizes:not([style*="display: none;"]),
-		#customize-control-generate_blog_settings-page_post_image_width:not([style*="display: none;"]),
-		#customize-control-generate_blog_settings-page_post_image_height:not([style*="display: none;"]),
-		#customize-control-page_post_image_apply_sizes:not([style*="display: none;"]) {
-			display: inline-block !important;
-			width: 30%;
-			clear: none;
-			vertical-align: bottom;
-			float: none;
-		}
-
-		#customize-control-post_image_apply_sizes,
-		#customize-control-single_post_image_apply_sizes,
-		#customize-control-page_post_image_apply_sizes {
-			margin-left: 1%;
-		}
-
-		#customize-control-generate_blog_settings-post_image_width,
-		#customize-control-generate_blog_settings-single_post_image_width,
-		#customize-control-generate_blog_settings-page_post_image_width {
-		    margin-right: 2px;
-		}
-
 		#customize-control-generate_blog_settings-post_image_width .customize-control-title:after,
 		#customize-control-generate_blog_settings-post_image_height .customize-control-title:after,
 		#customize-control-generate_blog_settings-single_post_image_width .customize-control-title:after,
@@ -1087,6 +1092,12 @@ function generate_blog_customizer_controls_css() {
 			font-size: 10px;
 			line-height: 18px;
 			margin-left: 5px
+		}
+
+		#customize-control-generate_regenerate_images_notice p,
+		#customize-control-generate_regenerate_single_post_images_notice p,
+		#customize-control-generate_regenerate_page_images_notice p {
+			margin-top: 0;
 		}
 	</style>
 	<?php
@@ -1107,7 +1118,7 @@ if ( ! function_exists( 'generate_blog_customizer_live_preview' ) ) {
 		wp_enqueue_script(
 			'generate-blog-themecustomizer',
 			trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/customizer.js',
-			array( 'jquery', 'customize-preview', 'gp-premium' ),
+			array( 'jquery', 'customize-preview', 'generate-blog' ),
 			GENERATE_BLOG_VERSION,
 			true
 		);

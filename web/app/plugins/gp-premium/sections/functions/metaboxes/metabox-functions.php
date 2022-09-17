@@ -172,7 +172,12 @@ if ( ! function_exists( 'generate_sections_metabox_scripts' ) ) {
 				wp_enqueue_script( 'media-upload' );
 				wp_enqueue_script( 'wp-color-picker' );
 				wp_enqueue_style( 'wp-color-picker' );
-				wp_enqueue_script( 'wp-color-picker-alpha', plugin_dir_url( __FILE__ ) . 'js/wp-color-picker-alpha.min.js', array( 'wp-color-picker' ), GENERATE_SECTIONS_VERSION );
+				wp_enqueue_script( 'wp-color-picker-alpha', GP_LIBRARY_DIRECTORY_URL . 'alpha-color-picker/wp-color-picker-alpha.min.js', array( 'wp-color-picker' ), '3.0.0', true );
+
+				wp_add_inline_script(
+					'wp-color-picker-alpha',
+					'jQuery( function() { jQuery( ".color-picker" ).wpColorPicker(); } );'
+				);
 
 				wp_enqueue_media();
 

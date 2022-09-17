@@ -178,6 +178,12 @@ final class NF_CreatePost_Actions_CreatePost extends NF_Abstracts_Action
 
     public function init_settings()
     {
+        if( ! isset( $_GET['page'] ) ||
+            'ninja-forms' !== $_GET['page'] ||
+            ! isset( $_GET['form_id'] ) ||
+            empty( $_GET['form_id'] ) ) {
+            return false;
+        }
         $settings = NF_CreatePost::config( 'ActionCreatePostSettings' );
         $settings = $this->add_post_type_settings( $settings );
         $settings = $this->add_post_status_settings( $settings );

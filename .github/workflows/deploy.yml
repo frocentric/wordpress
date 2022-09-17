@@ -33,6 +33,7 @@ jobs:
           envkey_TEC_PRO_LICENSE: ${{ secrets.TEC_PRO_LICENSE }}
           envkey_TEC_CE_LICENSE: ${{ secrets.TEC_CE_LICENSE }}
           envkey_TEC_FB_LICENSE: ${{ secrets.TEC_FB_LICENSE }}
+          envkey_TEC_ETP_LICENSE: ${{ secrets.TEC_ETP_LICENSE }}
 
       - name: Install dependencies
         uses: php-actions/composer@v5

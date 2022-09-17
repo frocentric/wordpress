@@ -4,6 +4,7 @@ namespace ElementorPro\Modules\ThemeBuilder\Classes;
 use Elementor\TemplateLibrary\Source_Local;
 use ElementorPro\Modules\ThemeBuilder\Documents\Theme_Document;
 use ElementorPro\Modules\ThemeBuilder\Module;
+use ElementorPro\Plugin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -93,12 +94,38 @@ class Conditions_Cache {
 	public function regenerate() {
 		$this->clear();
 
-		$query = new \WP_Query( [
+		$document_types = Plugin::elementor()->documents->get_document_types();
+
+		$post_types = [
+			Source_Local::CPT,
+		];
+
+		foreach ( $document_types as $document_type ) {
+			if ( $document_type::get_property( 'support_conditions' ) && $document_type::get_property( 'cpt' ) ) {
+				$post_types = array_merge( $post_types, $document_type::get_property( 'cpt' ) );
+			}
+		}
+
+		$query_args = [
 			'posts_per_page' => -1,
-			'post_type' => Source_Local::CPT,
+			'post_type' => $post_types,
 			'fields' => 'ids',
 			'meta_key' => '_elementor_conditions',
-		] );
+		];
+
+		/**
+		 * Query args for regenerating conditions cache.
+		 *
+		 * Filters the query arguments used for regenerating conditions cache. This hook
+		 * allows developers to alter those arguments.
+		 *
+		 * @since 3.7.0
+		 *
+		 * @param array $query_args An array of WordPress query arguments.
+		 */
+		$query_args = apply_filters( 'elementor/theme/conditions/cache/regenerate/query_args', $query_args );
+
+		$query = new \WP_Query( $query_args );
 
 		foreach ( $query->posts as $post_id ) {
 			$document = Module::instance()->get_document( $post_id );

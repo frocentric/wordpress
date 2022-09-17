@@ -14,6 +14,7 @@ define( [], function() {
 			nfRadio.channel( 'conditions-checkbox' ).reply( 'get:valueInput', this.getCheckboxValue );
 			nfRadio.channel( 'conditions-list' ).reply( 'get:valueInput', this.getListValue );
 			nfRadio.channel( 'conditions-listcountry' ).reply( 'get:valueInput', this.getListCountryValue );
+			nfRadio.channel( 'conditions-date' ).reply( 'get:valueInput', this.getDateValue );
 		},
 
 		getCheckboxValue: function( key, trigger, value ) {
@@ -51,7 +52,63 @@ define( [], function() {
 			});
 
 			return template( { options: options, value: value } );
-		}
+		},
+
+		getDateValue: function( key, trigger, value ) {
+			let fieldModel = nfRadio.channel( 'fields' ).request( 'get:field', key );
+			let dateMode = fieldModel.get( 'date_mode' );
+
+			if ( 'undefined' == typeof dateMode ) {
+				dateMode = 'date_only';
+			}
+
+			let timestamp = value * 1000;
+			let dateObject = new Date( timestamp );
+			dateObject = new Date( dateObject.getUTCFullYear(), dateObject.getUTCMonth(), dateObject.getUTCDate(), dateObject.getUTCHours(), dateObject.getUTCMinutes() );
+
+			let selectedHour = dateObject.getHours();
+			let selectedMinute = dateObject.getMinutes(); 
+
+			let hourSelect = '<select class="extra" data-type="hour">';
+			for (var i = 0; i < 24; i++) {
+				let formattedOption = i;
+				let selected = '';
+				if ( i < 10 ) {
+					formattedOption = '0' + formattedOption;
+				}
+
+				if ( selectedHour == formattedOption ) {
+					selected = 'selected="selected"';
+				}
+				
+				hourSelect += '<option value="' + formattedOption + '" ' + selected + '>' + formattedOption + '</option>';
+			}
+			hourSelect += '</select>';
+
+			let minuteSelect = '<select class="extra" data-type="minute">';
+			for (var i = 0; i < 60; i++) {
+				let formattedOption = i;
+				let selected = '';
+				if ( i < 10 ) {
+					formattedOption = '0' + formattedOption;
+				}
+
+				if ( selectedMinute == formattedOption ) {
+					selected = 'selected="selected"';
+				}
+				
+				minuteSelect += '<option value="' + formattedOption + '" ' + selected + '>' + formattedOption + '</option>';
+			}
+			minuteSelect += '</select>';
+
+			let date = moment( dateObject.toUTCString() ).format( 'YYYY-MM-DD' );
+			if ( '1970-01-01' == date ) {
+				date = '';
+			}
+
+			let template = Backbone.Radio.channel( 'app' ).request( 'get:template', '#tmpl-nf-cl-value-date-' + dateMode );
+			return template( { value: value, date: date, hourSelect: hourSelect, minuteSelect: minuteSelect  } );
+		},
 
 
 	});

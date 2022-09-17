@@ -687,12 +687,13 @@ class Froware_Public {
 	}
 
 	protected function send_response( $origin, $matches ) {
+		$default_status = tribe( 'community.main' )->getOption( 'defaultStatus', 'pending' );
 		$event_id                         = $matches[1];
 		$response                         = new stdClass();
 		$response->action                 = 'import_event';
 		$response->eventbrite_import_by   = 'event_id';
 		$response->event_plugin           = 'tec';
-		$response->event_status           = 'draft';
+		$response->event_status           = $default_status;
 		$response->import_frequency       = 'daily';
 		$response->import_origin          = $origin;
 		$response->import_type            = 'onetime';
@@ -707,9 +708,6 @@ class Froware_Public {
 	 * Renders the event import form
 	 */
 	public function event_import_form() {
-		$action       = '';
-		$tribe_id     = '';
-		$tribe_events = new Tribe__Events__Community__Main();
 		$post_id      = get_the_ID();
 
 		if ( class_exists( 'WP_Event_Aggregator_Pro_Manage_Import' ) && ( ! $post_id || ! tribe_is_event( $post_id ) ) ) {
@@ -749,6 +747,24 @@ class Froware_Public {
 		} else {
 			wp_send_json_error( __( 'Unrecognised event format.', 'froware' ) );
 		}
+	}
+
+	/**
+	 * Edits the event submission message to be more friendly
+	 */
+	public function tribe_events_filter_submission_message( $message, $type ) {
+		if ( 'update' === $type ) {
+			$events_label_singular = tribe_get_event_label_singular();
+			$events_label_singular_lowercase = tribe_get_event_label_singular_lowercase();
+
+			// translators: %s is the singular event label.
+			if ( strpos( $message, sprintf( __( '%s updated.', 'tribe-events-community' ), $events_label_singular ) ) === 0 ) {
+				// translators: %s is the lower-case singular event label.
+				$message = sprintf( __( 'Your %s has been submitted and is awaiting review before being published. Thank you for contributing, we truly appreciate it!', 'tribe-events-community' ), $events_label_singular_lowercase );
+			}
+		}
+
+		return $message;
 	}
 
 	protected function send_status( $imported_event ) {

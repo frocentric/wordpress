@@ -1,80 +1,100 @@
-jQuery( document ).ready( function( $ ) {
-	var $masonry_container = $( '.masonry-container' );
-	var msnry = false;
+document.addEventListener( 'DOMContentLoaded', function() {
+	var msnryContainer = document.querySelector( '.masonry-container' );
 
-	if ( $masonry_container.length ) {
-		var $grid = $masonry_container.masonry({
-			columnWidth: '.grid-sizer',
-			itemSelector: 'none',
-			stamp: '.page-header',
-			percentPosition: true,
-			stagger: 30,
-			visibleStyle: { transform: 'translateY(0)', opacity: 1 },
-			hiddenStyle: { transform: 'translateY(5px)', opacity: 0 },
+	if ( msnryContainer ) {
+		// eslint-disable-next-line no-undef -- Masonry is a dependency.
+		var msnry = new Masonry( msnryContainer, generateBlog.masonryInit ),
+			navBelow = document.querySelector( '#nav-below' ),
+			loadMore = document.querySelector( '.load-more' );
+
+		// eslint-disable-next-line no-undef -- imagesLoaded is a dependency.
+		imagesLoaded( msnryContainer, function() {
+			msnry.layout();
+			msnryContainer.classList.remove( 'are-images-unloaded' );
+
+			if ( loadMore ) {
+				loadMore.classList.remove( 'are-images-unloaded' );
+			}
+
+			if ( navBelow ) {
+				navBelow.style.opacity = 1;
+			}
 		} );
 
-		msnry = $grid.data( 'masonry' );
+		if ( navBelow ) {
+			msnryContainer.parentNode.insertBefore( navBelow, msnryContainer.nextSibling );
+		}
 
-		$grid.imagesLoaded( function() {
-			$grid.masonry( 'layout' );
-			$grid.removeClass( 'are-images-unloaded' );
-			$( '.load-more' ).removeClass( 'are-images-unloaded' );
-			$( '#nav-below' ).css( 'opacity', '1' );
-			$grid.masonry( 'option', { itemSelector: '.masonry-post' });
-			var $items = $grid.find( '.masonry-post' );
-			$grid.masonry( 'appended', $items );
-		} );
-
-		$( '#nav-below' ).insertAfter( '.masonry-container' );
-
-		$( window ).on( "orientationchange", function( event ) {
-			$grid.masonry( 'layout' );
+		window.addEventListener( 'orientationchange', function() {
+			msnry.layout();
 		} );
 	}
 
-	if ( $( '.infinite-scroll' ).length && $( '.nav-links .next' ).length ) {
-		var $container = $( '#main article' ).first().parent();
-		var $button = $( '.load-more a' );
-		var svgIcon = '';
+	var hasInfiniteScroll = document.querySelector( '.infinite-scroll' ),
+		nextLink = document.querySelector( '.infinite-scroll-path a' );
 
-		if ( blog.icon ) {
-			svgIcon = blog.icon;
+	if ( hasInfiniteScroll && nextLink ) {
+		var infiniteItems = document.querySelectorAll( '.infinite-scroll-item' ),
+			container = infiniteItems[ 0 ].parentNode,
+			button = document.querySelector( '.load-more a' ),
+			svgIcon = '';
+
+		if ( generateBlog.icon ) {
+			svgIcon = generateBlog.icon;
 		}
 
-		$container.infiniteScroll( {
-			path: '.nav-links .next',
-			append: '#main article',
-			history: false,
-			outlayer: msnry,
-			loadOnScroll: $button.length ? false : true,
-			button: $button.length ? '.load-more a' : null,
-			scrollThreshold: $button.length ? false : 600,
-		} );
+		var infiniteScrollInit = generateBlog.infiniteScrollInit;
 
-		$button.on( 'click', function( e ) {
-			$( this ).html( svgIcon + blog.loading ).addClass( 'loading' );
-		} );
+		infiniteScrollInit.outlayer = msnry;
 
-		$container.on( 'append.infiniteScroll', function( event, response, path, items ) {
-			if ( ! $( '.generate-columns-container' ).length ) {
-				$container.append( $button.parent() );
+		// eslint-disable-next-line no-undef -- InfiniteScroll is a dependency.
+		var infiniteScroll = new InfiniteScroll( container, infiniteScrollInit );
+
+		if ( button ) {
+			button.addEventListener( 'click', function( e ) {
+				document.activeElement.blur();
+				e.target.innerHTML = svgIcon + generateBlog.loading;
+				e.target.classList.add( 'loading' );
+			} );
+		}
+
+		infiniteScroll.on( 'append', function( response, path, items ) {
+			if ( button && ! document.querySelector( '.generate-columns-container' ) ) {
+				container.appendChild( button.parentNode );
 			}
 
-			$( items ).find( 'img' ).each( function( index, img ) {
-				img.outerHTML = img.outerHTML;
+			items.forEach( function( element ) {
+				var images = element.querySelectorAll( 'img' );
+
+				if ( images ) {
+					images.forEach( function( image ) {
+						var imgOuterHTML = image.outerHTML;
+						image.outerHTML = imgOuterHTML;
+					} );
+				}
 			} );
 
-			if ( $grid ) {
-				$grid.imagesLoaded( function() {
-					$grid.masonry( 'layout' );
+			if ( msnryContainer && msnry ) {
+				// eslint-disable-next-line no-undef -- ImagesLoaded is a dependency.
+				imagesLoaded( msnryContainer, function() {
+					msnry.layout();
 				} );
 			}
 
-			$button.html( svgIcon + blog.more ).removeClass( 'loading' );
+			if ( button ) {
+				button.innerHTML = svgIcon + generateBlog.more;
+				button.classList.remove( 'loading' );
+			}
+
+			document.body.dispatchEvent( new Event( 'post-load' ) );
 		} );
 
-		$container.on( 'last.infiniteScroll', function() {
-			$( '.load-more' ).hide();
+		infiniteScroll.on( 'last', function() {
+			var loadMoreElement = document.querySelector( '.load-more' );
+
+			if ( loadMoreElement ) {
+				loadMoreElement.style.display = 'none';
+			}
 		} );
 	}
 } );

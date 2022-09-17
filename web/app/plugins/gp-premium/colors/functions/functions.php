@@ -1,51 +1,60 @@
 <?php
+/**
+ * This file handles most of our Colors functionality.
+ *
+ * @package GP Premium
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // No direct access, please
+	exit; // No direct access, please.
 }
 
-// Add necessary files
-require_once trailingslashit( dirname(__FILE__) ) . 'secondary-nav-colors.php';
-require_once trailingslashit( dirname(__FILE__) ) . 'woocommerce-colors.php';
-require_once trailingslashit( dirname(__FILE__) ) . 'slideout-nav-colors.php';
+// Add necessary files.
+require_once trailingslashit( dirname( __FILE__ ) ) . 'secondary-nav-colors.php';
+require_once trailingslashit( dirname( __FILE__ ) ) . 'woocommerce-colors.php';
+require_once trailingslashit( dirname( __FILE__ ) ) . 'slideout-nav-colors.php';
 
 if ( ! function_exists( 'generate_colors_customize_register' ) ) {
-	add_action( 'customize_register', 'generate_colors_customize_register' );
+	add_action( 'customize_register', 'generate_colors_customize_register', 5 );
 	/**
 	 * Add our Customizer options.
 	 *
 	 * @since 0.1
+	 * @param object $wp_customize The Customizer object.
 	 */
 	function generate_colors_customize_register( $wp_customize ) {
-
-		// Bail if we don't have our color defaults
+		// Bail if we don't have our color defaults.
 		if ( ! function_exists( 'generate_get_color_defaults' ) ) {
 			return;
 		}
 
-		// Add our controls
+		// Add our controls.
 		require_once GP_LIBRARY_DIRECTORY . 'customizer-helpers.php';
 
-		// Get our defaults
+		// Get our defaults.
 		$defaults = generate_get_color_defaults();
 
-		// Add control types so controls can be built using JS
+		// Add control types so controls can be built using JS.
 		if ( method_exists( $wp_customize, 'register_control_type' ) ) {
 			$wp_customize->register_control_type( 'GeneratePress_Alpha_Color_Customize_Control' );
 			$wp_customize->register_control_type( 'GeneratePress_Title_Customize_Control' );
 			$wp_customize->register_control_type( 'GeneratePress_Section_Shortcut_Control' );
 		}
 
-		// Get our palettes
+		// Get our palettes.
 		$palettes = generate_get_default_color_palettes();
 
-		// Add our Colors panel
+		// Add our Colors panel.
 		if ( class_exists( 'WP_Customize_Panel' ) ) {
-			$wp_customize->add_panel( 'generate_colors_panel', array(
-				'priority'       => 30,
-				'theme_supports' => '',
-				'title'          => __( 'Colors', 'gp-premium' ),
-				'description'    => '',
-			) );
+			$wp_customize->add_panel(
+				'generate_colors_panel',
+				array(
+					'priority'       => 30,
+					'theme_supports' => '',
+					'title'          => __( 'Colors', 'gp-premium' ),
+					'description'    => '',
+				)
+			);
 		}
 
 		$wp_customize->add_control(
@@ -64,8 +73,8 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			)
 		);
 
-		// Add Top Bar Colors section
-		if ( isset( $defaults[ 'top_bar_background_color' ] ) && function_exists( 'generate_is_top_bar_active' ) ) {
+		// Add Top Bar Colors section.
+		if ( isset( $defaults['top_bar_background_color'] ) && function_exists( 'generate_is_top_bar_active' ) ) {
 			$wp_customize->add_section(
 				'generate_top_bar_colors',
 				array(
@@ -101,7 +110,7 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 				)
 			);
 
-			// Add color settings
+			// Add color settings.
 			$top_bar_colors = array();
 			$top_bar_colors[] = array(
 				'slug' => 'top_bar_text_color',
@@ -122,13 +131,14 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 				'priority' => 4,
 			);
 
-			foreach( $top_bar_colors as $color ) {
+			foreach ( $top_bar_colors as $color ) {
 				$wp_customize->add_setting(
-					'generate_settings[' . $color['slug'] . ']', array(
+					'generate_settings[' . $color['slug'] . ']',
+					array(
 						'default' => $color['default'],
 						'type' => 'option',
 						'sanitize_callback' => 'generate_premium_sanitize_hex_color',
-						'transport' => 'postMessage'
+						'transport' => 'postMessage',
 					)
 				);
 
@@ -142,14 +152,14 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 							'settings' => 'generate_settings[' . $color['slug'] . ']',
 							'priority' => $color['priority'],
 							'palette'   => $palettes,
-							'active_callback' => 'generate_is_top_bar_active'
+							'active_callback' => 'generate_is_top_bar_active',
 						)
 					)
 				);
 			}
 		}
 
-		// Add Header Colors section
+		// Add Header Colors section.
 		$wp_customize->add_section(
 			'header_color_section',
 			array(
@@ -202,7 +212,7 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			)
 		);
 
-		// Add color settings
+		// Add color settings.
 		$header_colors = array();
 		$header_colors[] = array(
 			'slug' => 'header_text_color',
@@ -235,13 +245,14 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			'priority' => 6,
 		);
 
-		foreach( $header_colors as $color ) {
+		foreach ( $header_colors as $color ) {
 			$wp_customize->add_setting(
-				'generate_settings[' . $color['slug'] . ']', array(
+				'generate_settings[' . $color['slug'] . ']',
+				array(
 					'default' => $color['default'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_hex_color',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -260,7 +271,7 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			);
 		}
 
-		// Add Navigation section
+		// Add Navigation section.
 		$wp_customize->add_section(
 			'navigation_color_section',
 			array(
@@ -293,11 +304,11 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 				$wp_customize,
 				'generate_primary_navigation_parent_items',
 				array(
-					'section'     => 'navigation_color_section',
-					'type'        => 'generatepress-customizer-title',
-					'title'			=> __( 'Parent Items', 'gp-premium' ),
+					'section'  => 'navigation_color_section',
+					'type'     => 'generatepress-customizer-title',
+					'title'    => __( 'Parent Items', 'gp-premium' ),
 					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
-					'priority'	=> 1,
+					'priority' => 1,
 				)
 			)
 		);
@@ -374,34 +385,35 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			)
 		);
 
-		// Add color settings
+		// Add color settings.
 		$navigation_colors = array();
 		$navigation_colors[] = array(
-			'slug'=>'navigation_text_color',
+			'slug' => 'navigation_text_color',
 			'default' => $defaults['navigation_text_color'],
 			'label' => __( 'Text', 'gp-premium' ),
 			'priority' => 2,
 		);
 		$navigation_colors[] = array(
-			'slug'=>'navigation_text_hover_color',
+			'slug' => 'navigation_text_hover_color',
 			'default' => $defaults['navigation_text_hover_color'],
 			'label' => __( 'Text Hover', 'gp-premium' ),
 			'priority' => 4,
 		);
 		$navigation_colors[] = array(
-			'slug'=>'navigation_text_current_color',
+			'slug' => 'navigation_text_current_color',
 			'default' => $defaults['navigation_text_current_color'],
 			'label' => __( 'Text Current', 'gp-premium' ),
 			'priority' => 6,
 		);
 
-		foreach( $navigation_colors as $color ) {
+		foreach ( $navigation_colors as $color ) {
 			$wp_customize->add_setting(
-				'generate_settings[' . $color['slug'] . ']', array(
+				'generate_settings[' . $color['slug'] . ']',
+				array(
 					'default' => $color['default'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_hex_color',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -413,7 +425,7 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 						'label' => $color['label'],
 						'section' => 'navigation_color_section',
 						'settings' => 'generate_settings[' . $color['slug'] . ']',
-						'priority' => $color['priority']
+						'priority' => $color['priority'],
 					)
 				)
 			);
@@ -424,9 +436,9 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 				$wp_customize,
 				'generate_primary_navigation_sub_menu_items',
 				array(
-					'section'     => 'navigation_color_section',
-					'type'        => 'generatepress-customizer-title',
-					'title'			=> __( 'Sub-Menu Items', 'gp-premium' ),
+					'section'  => 'navigation_color_section',
+					'type'     => 'generatepress-customizer-title',
+					'title'    => __( 'Sub-Menu Items', 'gp-premium' ),
 					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
 					'priority' => 7,
 				)
@@ -505,29 +517,31 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			)
 		);
 
-		// Add color settings
+		// Add color settings.
 		$subnavigation_colors = array();
 		$subnavigation_colors[] = array(
-			'slug'=>'subnavigation_text_color',
+			'slug' => 'subnavigation_text_color',
 			'default' => $defaults['subnavigation_text_color'],
 			'label' => __( 'Text', 'gp-premium' ),
 			'priority' => 9,
 		);
 		$subnavigation_colors[] = array(
-			'slug'=>'subnavigation_text_hover_color',
+			'slug' => 'subnavigation_text_hover_color',
 			'default' => $defaults['subnavigation_text_hover_color'],
 			'label' => __( 'Text Hover', 'gp-premium' ),
 			'priority' => 11,
 		);
 		$subnavigation_colors[] = array(
-			'slug'=>'subnavigation_text_current_color',
+			'slug' => 'subnavigation_text_current_color',
 			'default' => $defaults['subnavigation_text_current_color'],
 			'label' => __( 'Text Current', 'gp-premium' ),
 			'priority' => 13,
 		);
-		foreach( $subnavigation_colors as $color ) {
+
+		foreach ( $subnavigation_colors as $color ) {
 			$wp_customize->add_setting(
-				'generate_settings[' . $color['slug'] . ']', array(
+				'generate_settings[' . $color['slug'] . ']',
+				array(
 					'default' => $color['default'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_hex_color',
@@ -555,9 +569,9 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 					$wp_customize,
 					'generate_primary_navigation_search',
 					array(
-						'section'     => 'navigation_color_section',
-						'type'        => 'generatepress-customizer-title',
-						'title'			=> __( 'Navigation Search', 'gp-premium' ),
+						'section'  => 'navigation_color_section',
+						'type'     => 'generatepress-customizer-title',
+						'title'    => __( 'Navigation Search', 'gp-premium' ),
 						'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
 						'priority' => 15,
 					)
@@ -589,11 +603,12 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			);
 
 			$wp_customize->add_setting(
-				'generate_settings[navigation_search_text_color]', array(
+				'generate_settings[navigation_search_text_color]',
+				array(
 					'default' => $defaults['navigation_search_text_color'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_hex_color',
-					'transport' => 'postMessage'
+					'transport' => 'postMessage',
 				)
 			);
 
@@ -660,7 +675,8 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[form_button_text_color]', array(
+			'generate_settings[form_button_text_color]',
+			array(
 				'default' => $defaults['form_button_text_color'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_hex_color',
@@ -704,7 +720,8 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_settings[form_button_text_color_hover]', array(
+			'generate_settings[form_button_text_color_hover]',
+			array(
 				'default' => $defaults['form_button_text_color_hover'],
 				'type' => 'option',
 				'sanitize_callback' => 'generate_premium_sanitize_hex_color',
@@ -724,7 +741,7 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			)
 		);
 
-		// Add Content Colors section
+		// Add Content Colors section.
 		$wp_customize->add_section(
 			'content_color_section',
 			array(
@@ -776,7 +793,7 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			)
 		);
 
-		// Add color settings
+		// Add color settings.
 		$content_colors = array();
 		$content_colors[] = array(
 			'slug' => 'content_text_color',
@@ -869,9 +886,10 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			);
 		}
 
-		foreach( $content_colors as $color ) {
+		foreach ( $content_colors as $color ) {
 			$wp_customize->add_setting(
-				'generate_settings[' . $color['slug'] . ']', array(
+				'generate_settings[' . $color['slug'] . ']',
+				array(
 					'default' => $color['default'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_hex_color',
@@ -893,7 +911,7 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			);
 		}
 
-		// Add Sidebar Widget colors
+		// Add Sidebar Widget colors.
 		$wp_customize->add_section(
 			'sidebar_widget_color_section',
 			array(
@@ -945,7 +963,7 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			)
 		);
 
-		// Add color settings
+		// Add color settings.
 		$sidebar_widget_colors = array();
 		$sidebar_widget_colors[] = array(
 			'slug' => 'sidebar_widget_text_color',
@@ -972,9 +990,10 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			'priority' => 5,
 		);
 
-		foreach( $sidebar_widget_colors as $color ) {
+		foreach ( $sidebar_widget_colors as $color ) {
 			$wp_customize->add_setting(
-				'generate_settings[' . $color['slug'] . ']', array(
+				'generate_settings[' . $color['slug'] . ']',
+				array(
 					'default' => $color['default'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_hex_color',
@@ -996,7 +1015,7 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			);
 		}
 
-		// Add Form colors
+		// Add Form colors.
 		$wp_customize->add_section(
 			'form_color_section',
 			array(
@@ -1102,7 +1121,7 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			)
 		);
 
-		// Add color settings
+		// Add color settings.
 		$form_colors = array();
 		$form_colors[] = array(
 			'slug' => 'form_text_color',
@@ -1117,9 +1136,10 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			'priority' => 4,
 		);
 
-		foreach( $form_colors as $color ) {
+		foreach ( $form_colors as $color ) {
 			$wp_customize->add_setting(
-				'generate_settings[' . $color['slug'] . ']', array(
+				'generate_settings[' . $color['slug'] . ']',
+				array(
 					'default' => $color['default'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_hex_color',
@@ -1141,7 +1161,7 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			);
 		}
 
-		// Add Footer colors
+		// Add Footer colors.
 		$wp_customize->add_section(
 			'footer_color_section',
 			array(
@@ -1205,7 +1225,7 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			)
 		);
 
-		// Add color settings
+		// Add color settings.
 		$footer_widget_colors = array();
 		$footer_widget_colors[] = array(
 			'slug' => 'footer_widget_text_color',
@@ -1228,9 +1248,10 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			'label' => __( 'Widget Title', 'gp-premium' ),
 		);
 
-		foreach( $footer_widget_colors as $color ) {
+		foreach ( $footer_widget_colors as $color ) {
 			$wp_customize->add_setting(
-				'generate_settings[' . $color['slug'] . ']', array(
+				'generate_settings[' . $color['slug'] . ']',
+				array(
 					'default' => $color['default'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_hex_color',
@@ -1287,7 +1308,7 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			)
 		);
 
-		// Add color settings
+		// Add color settings.
 		$footer_colors = array();
 		$footer_colors[] = array(
 			'slug' => 'footer_text_color',
@@ -1305,9 +1326,10 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			'label' => __( 'Link Hover', 'gp-premium' ),
 		);
 
-		foreach( $footer_colors as $color ) {
+		foreach ( $footer_colors as $color ) {
 			$wp_customize->add_setting(
-				'generate_settings[' . $color['slug'] . ']', array(
+				'generate_settings[' . $color['slug'] . ']',
+				array(
 					'default' => $color['default'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_hex_color',
@@ -1343,7 +1365,8 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			);
 
 			$wp_customize->add_setting(
-				'generate_settings[back_to_top_background_color]', array(
+				'generate_settings[back_to_top_background_color]',
+				array(
 					'default' => $defaults['back_to_top_background_color'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_rgba',
@@ -1365,7 +1388,8 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			);
 
 			$wp_customize->add_setting(
-				'generate_settings[back_to_top_text_color]', array(
+				'generate_settings[back_to_top_text_color]',
+				array(
 					'default' => $defaults['back_to_top_text_color'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_rgba',
@@ -1386,7 +1410,8 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			);
 
 			$wp_customize->add_setting(
-				'generate_settings[back_to_top_background_color_hover]', array(
+				'generate_settings[back_to_top_background_color_hover]',
+				array(
 					'default' => $defaults['back_to_top_background_color_hover'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_rgba',
@@ -1408,7 +1433,8 @@ if ( ! function_exists( 'generate_colors_customize_register' ) ) {
 			);
 
 			$wp_customize->add_setting(
-				'generate_settings[back_to_top_text_color_hover]', array(
+				'generate_settings[back_to_top_text_color_hover]',
+				array(
 					'default' => $defaults['back_to_top_text_color_hover'],
 					'type' => 'option',
 					'sanitize_callback' => 'generate_premium_sanitize_rgba',
@@ -1436,16 +1462,17 @@ if ( ! function_exists( 'generate_get_color_setting' ) ) {
 	 * Wrapper function to get our settings
 	 *
 	 * @since 1.3.42
+	 * @param string $setting The setting to check.
 	 */
 	function generate_get_color_setting( $setting ) {
 
-		// Bail if we don't have our color defaults
+		// Bail if we don't have our color defaults.
 		if ( ! function_exists( 'generate_get_color_defaults' ) ) {
 			return;
 		}
 
 		if ( function_exists( 'generate_get_defaults' ) ) {
-			$defaults = array_merge( generate_get_defaults(), generate_get_color_defaults()  );
+			$defaults = array_merge( generate_get_defaults(), generate_get_color_defaults() );
 		} else {
 			$defaults = generate_get_color_defaults();
 		}
@@ -1462,10 +1489,12 @@ if ( ! function_exists( 'generate_get_color_setting' ) ) {
 if ( ! function_exists( 'generate_colors_rgba_to_hex' ) ) {
 	/**
 	 * Convert RGBA to hex if necessary
+	 *
 	 * @since 1.3.42
+	 * @param string $rgba The string to convert to hex.
 	 */
 	function generate_colors_rgba_to_hex( $rgba ) {
-		// If it's not rgba, return it
+		// If it's not rgba, return it.
 		if ( false === strpos( $rgba, 'rgba' ) ) {
 			return $rgba;
 		}
@@ -1489,7 +1518,7 @@ if ( ! function_exists( 'generate_get_default_color_palettes' ) ) {
 			'#F1C40F',
 			'#1e72bd',
 			'#1ABC9C',
-			'#3498DB'
+			'#3498DB',
 		);
 
 		return apply_filters( 'generate_default_color_palettes', $palettes );
@@ -1505,16 +1534,16 @@ if ( ! function_exists( 'generate_enqueue_color_palettes' ) ) {
 	 * @since 1.3.42
 	 */
 	function generate_enqueue_color_palettes() {
-		// Old versions of WP don't get nice things
+		// Old versions of WP don't get nice things.
 		if ( ! function_exists( 'wp_add_inline_script' ) ) {
 			return;
 		}
 
-		// Grab our palette array and turn it into JS
-		$palettes = json_encode( generate_get_default_color_palettes() );
+		// Grab our palette array and turn it into JS.
+		$palettes = wp_json_encode( generate_get_default_color_palettes() );
 
-		// Add our custom palettes
-		// json_encode takes care of escaping
+		// Add our custom palettes.
+		// json_encode takes care of escaping.
 		wp_add_inline_script( 'wp-color-picker', 'jQuery.wp.wpColorPicker.prototype.options.palettes = ' . $palettes . ';' );
 	}
 }
@@ -1528,27 +1557,27 @@ if ( ! function_exists( 'generate_colors_customizer_live_preview' ) ) {
 	 */
 	function generate_colors_customizer_live_preview() {
 		wp_enqueue_script(
-			  'generate-colors-customizer',
-			  trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/customizer.js',
-			  array( 'jquery','customize-preview' ),
-			  GENERATE_COLORS_VERSION,
-			  true
+			'generate-colors-customizer',
+			trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/customizer.js',
+			array( 'jquery', 'customize-preview' ),
+			GENERATE_COLORS_VERSION,
+			true
 		);
 
 		wp_register_script(
-			  'generate-wc-colors-customizer',
-			  trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/wc-customizer.js',
-			  array( 'jquery','customize-preview', 'generate-colors-customizer' ),
-			  GENERATE_COLORS_VERSION,
-			  true
+			'generate-wc-colors-customizer',
+			trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/wc-customizer.js',
+			array( 'jquery', 'customize-preview', 'generate-colors-customizer' ),
+			GENERATE_COLORS_VERSION,
+			true
 		);
 
 		wp_register_script(
-			  'generate-menu-plus-colors-customizer',
-			  trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/menu-plus-customizer.js',
-			  array( 'jquery','customize-preview', 'generate-colors-customizer' ),
-			  GENERATE_COLORS_VERSION,
-			  true
+			'generate-menu-plus-colors-customizer',
+			trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/menu-plus-customizer.js',
+			array( 'jquery', 'customize-preview', 'generate-colors-customizer' ),
+			GENERATE_COLORS_VERSION,
+			true
 		);
 	}
 }

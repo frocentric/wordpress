@@ -1,13 +1,21 @@
 <?php
-// No direct access, please
+/**
+ * This file handles the legacy hook system.
+ *
+ * @package GP Premium
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // No direct access, please.
 }
 
-// Add any necessary files
+// Add any necessary files.
 require plugin_dir_path( __FILE__ ) . 'hooks.php';
 
 if ( ! function_exists( 'generate_hooks_get_hooks' ) ) {
+	/**
+	 * Get our list of hooks.
+	 */
 	function generate_hooks_get_hooks() {
 		$hooks = array(
 			'generate_wp_head_php',
@@ -45,7 +53,7 @@ if ( ! function_exists( 'generate_hooks_get_hooks' ) ) {
 			'generate_after_footer_content_php',
 			'generate_after_footer_content',
 			'generate_wp_footer_php',
-			'generate_wp_footer'
+			'generate_wp_footer',
 		);
 
 		return $hooks;
@@ -407,7 +415,7 @@ if ( ! class_exists( 'Generate_Hooks_Settings' ) ) {
 									}
 								$html .= '</select>';
 								$html .= '<p style="padding:0;margin:13px 0 0 0;" class="submit">';
-									$html .= '<input name="Submit" type="submit" class="button-primary" value="' . esc_attr( __( 'Save Hooks' , 'generate-hooks' ) ) . '" />';
+									$html .= '<input name="Submit" type="submit" class="button-primary" value="' . esc_attr( __( 'Save Hooks', 'gp-premium' ) ) . '" />';
 								$html .= '</p>';
 							$html .= '</div>';
 						$html .= '</div>';
@@ -525,7 +533,7 @@ function generate_hooks_add_legacy_button() {
 	if ( 'gp_elements' === $screen->post_type && 'edit' === $screen->base ) :
 		?>
 		<script>
-			jQuery( document ).ready( function( $ ) {
+			jQuery( function( $ ) {
 				$( '<a href="<?php echo admin_url(); ?>themes.php?page=gp_hooks_settings" class="page-title-action legacy-button"><?php esc_html_e( "Legacy Hooks", "gp-premium" ); ?></a>' ).insertAfter( '.page-title-action:not(.legacy-button)' );
 			} );
 		</script>

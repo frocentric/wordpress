@@ -1,8 +1,14 @@
 <?php
-// No direct access, please
-if ( ! defined( 'ABSPATH' ) ) exit;
+/**
+ * The functions for our Backgrounds module.
+ *
+ * @package GP Premium
+ */
 
-// Add necessary files
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // No direct access, please.
+}
+
 require_once plugin_dir_path( __FILE__ ) . 'secondary-nav-backgrounds.php';
 require_once plugin_dir_path( __FILE__ ) . 'css.php';
 
@@ -77,29 +83,30 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 	 * Build our Customizer options
 	 *
 	 * @since 0.1
+	 *
+	 * @param object $wp_customize The Customizer object.
 	 */
 	function generate_backgrounds_customize( $wp_customize ) {
-		// Get our defaults
 		$defaults = generate_get_background_defaults();
 
-		// Get our controls
 		require_once GP_LIBRARY_DIRECTORY . 'customizer-helpers.php';
 
-		// Register our custom control
-		if ( method_exists( $wp_customize,'register_control_type' ) ) {
+		if ( method_exists( $wp_customize, 'register_control_type' ) ) {
 			$wp_customize->register_control_type( 'GeneratePress_Background_Images_Customize_Control' );
 			$wp_customize->register_control_type( 'GeneratePress_Section_Shortcut_Control' );
 		}
 
-		// Add our panel
 		if ( class_exists( 'WP_Customize_Panel' ) ) {
 			if ( ! $wp_customize->get_panel( 'generate_backgrounds_panel' ) ) {
-				$wp_customize->add_panel( 'generate_backgrounds_panel', array(
-					'capability'     => 'edit_theme_options',
-					'theme_supports' => '',
-					'title'          => __( 'Background Images', 'gp-premium' ),
-					'priority'		 => 55
-				) );
+				$wp_customize->add_panel(
+					'generate_backgrounds_panel',
+					array(
+						'capability'     => 'edit_theme_options',
+						'theme_supports' => '',
+						'title'          => __( 'Background Images', 'gp-premium' ),
+						'priority'       => 55,
+					)
+				);
 			}
 		}
 
@@ -143,7 +150,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		 * Body background
 		 */
 		$wp_customize->add_setting(
-			'generate_background_settings[body_image]', array(
+			'generate_background_settings[body_image]',
+			array(
 				'default' => $defaults['body_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -191,7 +199,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_background_settings[body_position]', array(
+			'generate_background_settings[body_position]',
+			array(
 				'default' => $defaults['body_position'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -230,7 +239,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_background_settings[top_bar_image]', array(
+			'generate_background_settings[top_bar_image]',
+			array(
 				'default' => $defaults['top_bar_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -278,7 +288,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_background_settings[top_bar_position]', array(
+			'generate_background_settings[top_bar_position]',
+			array(
 				'default' => $defaults['top_bar_position'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -334,7 +345,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_background_settings[header_image]', array(
+			'generate_background_settings[header_image]',
+			array(
 				'default' => $defaults['header_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -382,7 +394,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_background_settings[header_position]', array(
+			'generate_background_settings[header_position]',
+			array(
 				'default' => $defaults['header_position'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -438,7 +451,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		 * Navigation background
 		 */
 		$wp_customize->add_setting(
-			'generate_background_settings[nav_image]', array(
+			'generate_background_settings[nav_image]',
+			array(
 				'default' => $defaults['nav_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -488,7 +502,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		 * Navigation item background
 		 */
 		$wp_customize->add_setting(
-			'generate_background_settings[nav_item_image]', array(
+			'generate_background_settings[nav_item_image]',
+			array(
 				'default' => $defaults['nav_item_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -538,7 +553,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		 * Navigation item hover background
 		 */
 		$wp_customize->add_setting(
-			'generate_background_settings[nav_item_hover_image]', array(
+			'generate_background_settings[nav_item_hover_image]',
+			array(
 				'default' => $defaults['nav_item_hover_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -588,7 +604,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		 * Navigation item current background
 		 */
 		$wp_customize->add_setting(
-			'generate_background_settings[nav_item_current_image]', array(
+			'generate_background_settings[nav_item_current_image]',
+			array(
 				'default' => $defaults['nav_item_current_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -648,7 +665,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		 * Sub-Navigation item background
 		 */
 		$wp_customize->add_setting(
-			'generate_background_settings[sub_nav_item_image]', array(
+			'generate_background_settings[sub_nav_item_image]',
+			array(
 				'default' => $defaults['sub_nav_item_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -698,7 +716,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		 * Sub-Navigation item hover background
 		 */
 		$wp_customize->add_setting(
-			'generate_background_settings[sub_nav_item_hover_image]', array(
+			'generate_background_settings[sub_nav_item_hover_image]',
+			array(
 				'default' => $defaults['sub_nav_item_hover_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -748,7 +767,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		 * Sub-Navigation item current background
 		 */
 		$wp_customize->add_setting(
-			'generate_background_settings[sub_nav_item_current_image]', array(
+			'generate_background_settings[sub_nav_item_current_image]',
+			array(
 				'default' => $defaults['sub_nav_item_current_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -790,7 +810,7 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 					'no-repeat' => __( 'No Repeat', 'gp-premium' ),
 				),
 				'settings' => 'generate_background_settings[sub_nav_item_current_repeat]',
-				'priority' => 2400
+				'priority' => 2400,
 			)
 		);
 
@@ -825,7 +845,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		 * Content background
 		 */
 		$wp_customize->add_setting(
-			'generate_background_settings[content_image]', array(
+			'generate_background_settings[content_image]',
+			array(
 				'default' => $defaults['content_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -873,7 +894,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_background_settings[content_position]', array(
+			'generate_background_settings[content_position]',
+			array(
 				'default' => $defaults['content_position'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -897,7 +919,6 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 			)
 		);
 
-		// Sidebars
 		$wp_customize->add_section(
 			'generate_backgrounds_sidebars',
 			array(
@@ -927,7 +948,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_background_settings[sidebar_widget_image]', array(
+			'generate_background_settings[sidebar_widget_image]',
+			array(
 				'default' => $defaults['sidebar_widget_image'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -975,7 +997,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_background_settings[sidebar_widget_position]', array(
+			'generate_background_settings[sidebar_widget_position]',
+			array(
 				'default' => $defaults['sidebar_widget_position'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -999,7 +1022,6 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 			)
 		);
 
-		// Footer widgets
 		$wp_customize->add_section(
 			'generate_backgrounds_footer',
 			array(
@@ -1078,7 +1100,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_background_settings[footer_widget_position]', array(
+			'generate_background_settings[footer_widget_position]',
+			array(
 				'default' => $defaults['footer_widget_position'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -1102,7 +1125,6 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 			)
 		);
 
-		// Footer
 		$wp_customize->add_setting(
 			'generate_background_settings[footer_image]',
 			array(
@@ -1153,7 +1175,8 @@ if ( ! function_exists( 'generate_backgrounds_customize' ) ) {
 		);
 
 		$wp_customize->add_setting(
-			'generate_background_settings[footer_position]', array(
+			'generate_background_settings[footer_position]',
+			array(
 				'default' => $defaults['footer_position'],
 				'type' => 'option',
 				'capability' => 'edit_theme_options',
@@ -1191,113 +1214,97 @@ if ( ! function_exists( 'generate_backgrounds_css' ) ) {
 			generate_get_background_defaults()
 		);
 
-		// Fix size values
-		// Spaces and % are stripped by sanitize_key
-		$generate_settings[ 'body_size' ] = ( '100' == $generate_settings[ 'body_size' ] ) ? '100% auto' : esc_attr( $generate_settings[ 'body_size' ] );
-		$generate_settings[ 'top_bar_size' ] = ( '100' == $generate_settings[ 'top_bar_size' ] ) ? '100% auto' : esc_attr( $generate_settings[ 'top_bar_size' ] );
-		$generate_settings[ 'header_size' ] = ( '100' == $generate_settings[ 'header_size' ] ) ? '100% auto' : esc_attr( $generate_settings[ 'header_size' ] );
-		$generate_settings[ 'content_size' ] = ( '100' == $generate_settings[ 'content_size' ] ) ? '100% auto' : esc_attr( $generate_settings[ 'content_size' ] );
-		$generate_settings[ 'sidebar_widget_size' ] = ( '100' == $generate_settings[ 'sidebar_widget_size' ] ) ? '100% auto' : esc_attr( $generate_settings[ 'sidebar_widget_size' ] );
-		$generate_settings[ 'footer_widget_size' ] = ( '100' == $generate_settings[ 'footer_widget_size' ] ) ? '100% auto' : esc_attr( $generate_settings[ 'footer_widget_size' ] );
-		$generate_settings[ 'footer_size' ] = ( '100' == $generate_settings[ 'footer_size' ] ) ? '100% auto' : esc_attr( $generate_settings[ 'footer_size' ] );
+		// Fix size values.
+		// Spaces and % are stripped by sanitize_key.
+		$generate_settings['body_size'] = ( '100' == $generate_settings['body_size'] ) ? '100% auto' : esc_attr( $generate_settings['body_size'] ); // phpcs:ignore -- Non-strict comparison ok.
+		$generate_settings['top_bar_size'] = ( '100' == $generate_settings['top_bar_size'] ) ? '100% auto' : esc_attr( $generate_settings['top_bar_size'] ); // phpcs:ignore -- Non-strict comparison ok.
+		$generate_settings['header_size'] = ( '100' == $generate_settings['header_size'] ) ? '100% auto' : esc_attr( $generate_settings['header_size'] ); // phpcs:ignore -- Non-strict comparison ok.
+		$generate_settings['content_size'] = ( '100' == $generate_settings['content_size'] ) ? '100% auto' : esc_attr( $generate_settings['content_size'] ); // phpcs:ignore -- Non-strict comparison ok.
+		$generate_settings['sidebar_widget_size'] = ( '100' == $generate_settings['sidebar_widget_size'] ) ? '100% auto' : esc_attr( $generate_settings['sidebar_widget_size'] ); // phpcs:ignore -- Non-strict comparison ok.
+		$generate_settings['footer_widget_size'] = ( '100' == $generate_settings['footer_widget_size'] ) ? '100% auto' : esc_attr( $generate_settings['footer_widget_size'] ); // phpcs:ignore -- Non-strict comparison ok.
+		$generate_settings['footer_size'] = ( '100' == $generate_settings['footer_size'] ) ? '100% auto' : esc_attr( $generate_settings['footer_size'] ); // phpcs:ignore -- Non-strict comparison ok.
 
-		// Initiate our CSS class
-		$css = new GeneratePress_Backgrounds_CSS;
+		$css = new GeneratePress_Backgrounds_CSS();
 
-		// Body
 		$css->set_selector( 'body' );
-		$css->add_property( 'background-image', esc_url( $generate_settings[ 'body_image' ] ), 'url' );
-		$css->add_property( 'background-repeat', esc_attr( $generate_settings[ 'body_repeat' ] ) );
-		$css->add_property( 'background-size', esc_attr( $generate_settings[ 'body_size' ] ) );
-		$css->add_property( 'background-attachment', esc_attr( $generate_settings[ 'body_attachment' ] ) );
-		$css->add_property( 'background-position', esc_attr( $generate_settings[ 'body_position' ] ) );
+		$css->add_property( 'background-image', esc_url( $generate_settings['body_image'] ), 'url' );
+		$css->add_property( 'background-repeat', esc_attr( $generate_settings['body_repeat'] ) );
+		$css->add_property( 'background-size', esc_attr( $generate_settings['body_size'] ) );
+		$css->add_property( 'background-attachment', esc_attr( $generate_settings['body_attachment'] ) );
+		$css->add_property( 'background-position', esc_attr( $generate_settings['body_position'] ) );
 
-		// Top bar
 		if ( is_active_sidebar( 'top-bar' ) ) {
 			$css->set_selector( '.top-bar' );
-			$css->add_property( 'background-image', esc_url( $generate_settings[ 'top_bar_image' ] ), 'url' );
-			$css->add_property( 'background-repeat', esc_attr( $generate_settings[ 'top_bar_repeat' ] ) );
-			$css->add_property( 'background-size', esc_attr( $generate_settings[ 'top_bar_size' ] ) );
-			$css->add_property( 'background-attachment', esc_attr( $generate_settings[ 'top_bar_attachment' ] ) );
-			$css->add_property( 'background-position', esc_attr( $generate_settings[ 'top_bar_position' ] ) );
+			$css->add_property( 'background-image', esc_url( $generate_settings['top_bar_image'] ), 'url' );
+			$css->add_property( 'background-repeat', esc_attr( $generate_settings['top_bar_repeat'] ) );
+			$css->add_property( 'background-size', esc_attr( $generate_settings['top_bar_size'] ) );
+			$css->add_property( 'background-attachment', esc_attr( $generate_settings['top_bar_attachment'] ) );
+			$css->add_property( 'background-position', esc_attr( $generate_settings['top_bar_position'] ) );
 		}
 
-		// Header
 		$css->set_selector( '.site-header' );
-		$css->add_property( 'background-image', esc_url( $generate_settings[ 'header_image' ] ), 'url' );
-		$css->add_property( 'background-repeat', esc_attr( $generate_settings[ 'header_repeat' ] ) );
-		$css->add_property( 'background-size', esc_attr( $generate_settings[ 'header_size' ] ) );
-		$css->add_property( 'background-attachment', esc_attr( $generate_settings[ 'header_attachment' ] ) );
-		$css->add_property( 'background-position', esc_attr( $generate_settings[ 'header_position' ] ) );
+		$css->add_property( 'background-image', esc_url( $generate_settings['header_image'] ), 'url' );
+		$css->add_property( 'background-repeat', esc_attr( $generate_settings['header_repeat'] ) );
+		$css->add_property( 'background-size', esc_attr( $generate_settings['header_size'] ) );
+		$css->add_property( 'background-attachment', esc_attr( $generate_settings['header_attachment'] ) );
+		$css->add_property( 'background-position', esc_attr( $generate_settings['header_position'] ) );
 
-		// Navigation background
 		$css->set_selector( '.main-navigation,.menu-toggle' );
-		$css->add_property( 'background-image', esc_url( $generate_settings[ 'nav_image' ] ), 'url' );
-		$css->add_property( 'background-repeat', esc_attr( $generate_settings[ 'nav_repeat' ] ) );
+		$css->add_property( 'background-image', esc_url( $generate_settings['nav_image'] ), 'url' );
+		$css->add_property( 'background-repeat', esc_attr( $generate_settings['nav_repeat'] ) );
 
-		// Navigation item background
 		$css->set_selector( '.main-navigation .main-nav > ul > li > a' );
-		$css->add_property( 'background-image', esc_url( $generate_settings[ 'nav_item_image' ] ), 'url' );
-		$css->add_property( 'background-repeat', esc_attr( $generate_settings[ 'nav_item_repeat' ] ) );
+		$css->add_property( 'background-image', esc_url( $generate_settings['nav_item_image'] ), 'url' );
+		$css->add_property( 'background-repeat', esc_attr( $generate_settings['nav_item_repeat'] ) );
 
-		// Navigation background/text on hover
 		$css->set_selector( '.main-navigation .main-nav > ul > li > a:hover,.main-navigation .main-nav > ul > li.sfHover > a' );
-		$css->add_property( 'background-image', esc_url( $generate_settings[ 'nav_item_hover_image' ] ), 'url' );
-		$css->add_property( 'background-repeat', esc_attr( $generate_settings[ 'nav_item_hover_repeat' ] ) );
+		$css->add_property( 'background-image', esc_url( $generate_settings['nav_item_hover_image'] ), 'url' );
+		$css->add_property( 'background-repeat', esc_attr( $generate_settings['nav_item_hover_repeat'] ) );
 
-		// Navigation background/text current
 		$css->set_selector( '.main-navigation .main-nav > ul > li[class*="current-menu-"] > a,.main-navigation .main-nav > ul > li[class*="current-menu-"] > a:hover,.main-navigation .main-nav > ul > li[class*="current-menu-"].sfHover > a' );
-		$css->add_property( 'background-image', esc_url( $generate_settings[ 'nav_item_current_image' ] ), 'url' );
-		$css->add_property( 'background-repeat', esc_attr( $generate_settings[ 'nav_item_current_repeat' ] ) );
+		$css->add_property( 'background-image', esc_url( $generate_settings['nav_item_current_image'] ), 'url' );
+		$css->add_property( 'background-repeat', esc_attr( $generate_settings['nav_item_current_repeat'] ) );
 
-		// Sub-Navigation text
 		$css->set_selector( '.main-navigation ul ul li a' );
-		$css->add_property( 'background-image', esc_url( $generate_settings[ 'sub_nav_item_image' ] ), 'url' );
-		$css->add_property( 'background-repeat', esc_attr( $generate_settings[ 'sub_nav_item_repeat' ] ) );
+		$css->add_property( 'background-image', esc_url( $generate_settings['sub_nav_item_image'] ), 'url' );
+		$css->add_property( 'background-repeat', esc_attr( $generate_settings['sub_nav_item_repeat'] ) );
 
-		// Sub-Navigation background/text on hover
 		$css->set_selector( '.main-navigation ul ul li > a:hover,.main-navigation ul ul li.sfHover > a' );
-		$css->add_property( 'background-image', esc_url( $generate_settings[ 'sub_nav_item_hover_image' ] ), 'url' );
-		$css->add_property( 'background-repeat', esc_attr( $generate_settings[ 'sub_nav_item_hover_repeat' ] ) );
+		$css->add_property( 'background-image', esc_url( $generate_settings['sub_nav_item_hover_image'] ), 'url' );
+		$css->add_property( 'background-repeat', esc_attr( $generate_settings['sub_nav_item_hover_repeat'] ) );
 
-		// Sub-Navigation background / text current
 		$css->set_selector( '.main-navigation ul ul li[class*="current-menu-"] > a,.main-navigation ul ul li[class*="current-menu-"] > a:hover,.main-navigation ul ul li[class*="current-menu-"].sfHover > a' );
-		$css->add_property( 'background-image', esc_url( $generate_settings[ 'sub_nav_item_current_image' ] ), 'url' );
-		$css->add_property( 'background-repeat', esc_attr( $generate_settings[ 'sub_nav_item_current_repeat' ] ) );
+		$css->add_property( 'background-image', esc_url( $generate_settings['sub_nav_item_current_image'] ), 'url' );
+		$css->add_property( 'background-repeat', esc_attr( $generate_settings['sub_nav_item_current_repeat'] ) );
 
-		// Content
 		$css->set_selector( '.separate-containers .inside-article,.separate-containers .comments-area,.separate-containers .page-header,.one-container .container,.separate-containers .paging-navigation,.separate-containers .inside-page-header' );
-		$css->add_property( 'background-image', esc_url( $generate_settings[ 'content_image' ] ), 'url' );
-		$css->add_property( 'background-repeat', esc_attr( $generate_settings[ 'content_repeat' ] ) );
-		$css->add_property( 'background-size', esc_attr( $generate_settings[ 'content_size' ] ) );
-		$css->add_property( 'background-attachment', esc_attr( $generate_settings[ 'content_attachment' ] ) );
-		$css->add_property( 'background-position', esc_attr( $generate_settings[ 'content_position' ] ) );
+		$css->add_property( 'background-image', esc_url( $generate_settings['content_image'] ), 'url' );
+		$css->add_property( 'background-repeat', esc_attr( $generate_settings['content_repeat'] ) );
+		$css->add_property( 'background-size', esc_attr( $generate_settings['content_size'] ) );
+		$css->add_property( 'background-attachment', esc_attr( $generate_settings['content_attachment'] ) );
+		$css->add_property( 'background-position', esc_attr( $generate_settings['content_position'] ) );
 
-		// Sidebar widget
 		$css->set_selector( '.sidebar .widget' );
-		$css->add_property( 'background-image', esc_url( $generate_settings[ 'sidebar_widget_image' ] ), 'url' );
-		$css->add_property( 'background-repeat', esc_attr( $generate_settings[ 'sidebar_widget_repeat' ] ) );
-		$css->add_property( 'background-size', esc_attr( $generate_settings[ 'sidebar_widget_size' ] ) );
-		$css->add_property( 'background-attachment', esc_attr( $generate_settings[ 'sidebar_widget_attachment' ] ) );
-		$css->add_property( 'background-position', esc_attr( $generate_settings[ 'sidebar_widget_position' ] ) );
+		$css->add_property( 'background-image', esc_url( $generate_settings['sidebar_widget_image'] ), 'url' );
+		$css->add_property( 'background-repeat', esc_attr( $generate_settings['sidebar_widget_repeat'] ) );
+		$css->add_property( 'background-size', esc_attr( $generate_settings['sidebar_widget_size'] ) );
+		$css->add_property( 'background-attachment', esc_attr( $generate_settings['sidebar_widget_attachment'] ) );
+		$css->add_property( 'background-position', esc_attr( $generate_settings['sidebar_widget_position'] ) );
 
-		// Footer widget
 		$css->set_selector( '.footer-widgets' );
-		$css->add_property( 'background-image', esc_url( $generate_settings[ 'footer_widget_image' ] ), 'url' );
-		$css->add_property( 'background-repeat', esc_attr( $generate_settings[ 'footer_widget_repeat' ] ) );
-		$css->add_property( 'background-size', esc_attr( $generate_settings[ 'footer_widget_size' ] ) );
-		$css->add_property( 'background-attachment', esc_attr( $generate_settings[ 'footer_widget_attachment' ] ) );
-		$css->add_property( 'background-position', esc_attr( $generate_settings[ 'footer_widget_position' ] ) );
+		$css->add_property( 'background-image', esc_url( $generate_settings['footer_widget_image'] ), 'url' );
+		$css->add_property( 'background-repeat', esc_attr( $generate_settings['footer_widget_repeat'] ) );
+		$css->add_property( 'background-size', esc_attr( $generate_settings['footer_widget_size'] ) );
+		$css->add_property( 'background-attachment', esc_attr( $generate_settings['footer_widget_attachment'] ) );
+		$css->add_property( 'background-position', esc_attr( $generate_settings['footer_widget_position'] ) );
 
-		// Footer
 		$css->set_selector( '.site-info' );
-		$css->add_property( 'background-image', esc_url( $generate_settings[ 'footer_image' ] ), 'url' );
-		$css->add_property( 'background-repeat', esc_attr( $generate_settings[ 'footer_repeat' ] ) );
-		$css->add_property( 'background-size', esc_attr( $generate_settings[ 'footer_size' ] ) );
-		$css->add_property( 'background-attachment', esc_attr( $generate_settings[ 'footer_attachment' ] ) );
-		$css->add_property( 'background-position', esc_attr( $generate_settings[ 'footer_position' ] ) );
+		$css->add_property( 'background-image', esc_url( $generate_settings['footer_image'] ), 'url' );
+		$css->add_property( 'background-repeat', esc_attr( $generate_settings['footer_repeat'] ) );
+		$css->add_property( 'background-size', esc_attr( $generate_settings['footer_size'] ) );
+		$css->add_property( 'background-attachment', esc_attr( $generate_settings['footer_attachment'] ) );
+		$css->add_property( 'background-position', esc_attr( $generate_settings['footer_position'] ) );
 
-		// Return our dynamic CSS
 		return apply_filters( 'generate_backgrounds_css_output', $css->css_output() );
 	}
 }
@@ -1310,6 +1317,26 @@ if ( ! function_exists( 'generate_background_scripts' ) ) {
 	 * @since 0.1
 	 */
 	function generate_background_scripts() {
-		wp_add_inline_style( 'generate-style', generate_backgrounds_css() );
+		if ( 'inline' === generate_get_css_print_method() ) {
+			wp_add_inline_style( 'generate-style', generate_backgrounds_css() );
+		}
 	}
+}
+
+add_filter( 'generate_external_dynamic_css_output', 'generate_backgrounds_add_external_css' );
+/**
+ * Add to external stylesheet.
+ *
+ * @since 1.11.0
+ *
+ * @param string $css Existing CSS.
+ */
+function generate_backgrounds_add_external_css( $css ) {
+	if ( 'inline' === generate_get_css_print_method() ) {
+		return $css;
+	}
+
+	$css .= generate_backgrounds_css();
+
+	return $css;
 }
