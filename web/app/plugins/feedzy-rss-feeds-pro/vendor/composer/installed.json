@@ -1,0 +1,114 @@
+{
+    "packages": [
+        {
+            "name": "bjoernffm/spintax",
+            "version": "v0.1.1",
+            "version_normalized": "0.1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bjoernffm/spintax.git",
+                "reference": "fb1f5b9023dc8c8111e4e05e80752b98b4f8fcae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bjoernffm/spintax/zipball/fb1f5b9023dc8c8111e4e05e80752b98b4f8fcae",
+                "reference": "fb1f5b9023dc8c8111e4e05e80752b98b4f8fcae",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "ext-xsl": "*",
+                "phpmd/phpmd": "^2.6",
+                "phpunit/phpunit": "^8",
+                "sebastian/phpcpd": "^4.1",
+                "squizlabs/php_codesniffer": "^3.4"
+            },
+            "time": "2019-07-18T10:06:19+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "bjoernffm\\Spintax\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rafał Wrzeszcz",
+                    "email": "rafal.wrzeszcz@wrzasq.pl",
+                    "homepage": "http://wrzasq.pl/",
+                    "role": "creator,manager,architect,developer"
+                },
+                {
+                    "name": "Chillout Development",
+                    "email": "biuro@chilldev.pl",
+                    "homepage": "http://chilldev.pl/",
+                    "role": "owner"
+                }
+            ],
+            "description": "Spintax {parsing|processing} library.",
+            "homepage": "https://github.com/bjoernffm/spintax",
+            "keywords": [
+                "chilldev",
+                "content generator",
+                "seo",
+                "spintax"
+            ],
+            "support": {
+                "issues": "https://github.com/bjoernffm/spintax/issues",
+                "source": "https://github.com/bjoernffm/spintax"
+            },
+            "install-path": "../bjoernffm/spintax"
+        },
+        {
+            "name": "codeinwp/themeisle-sdk",
+            "version": "3.2.29",
+            "version_normalized": "3.2.29.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Codeinwp/themeisle-sdk.git",
+                "reference": "9456fb0944ec69c3975de04aaf56233ddc2f828c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Codeinwp/themeisle-sdk/zipball/9456fb0944ec69c3975de04aaf56233ddc2f828c",
+                "reference": "9456fb0944ec69c3975de04aaf56233ddc2f828c",
+                "shasum": ""
+            },
+            "require-dev": {
+                "codeinwp/phpcs-ruleset": "dev-main"
+            },
+            "time": "2022-09-08T15:34:21+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "ThemeIsle team",
+                    "email": "friends@themeisle.com",
+                    "homepage": "https://themeisle.com"
+                }
+            ],
+            "description": "ThemeIsle SDK",
+            "homepage": "https://github.com/Codeinwp/themeisle-sdk",
+            "keywords": [
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/Codeinwp/themeisle-sdk/issues",
+                "source": "https://github.com/Codeinwp/themeisle-sdk/tree/v3.2.29"
+            },
+            "install-path": "../codeinwp/themeisle-sdk"
+        }
+    ],
+    "dev": false,
+    "dev-package-names": []
+}
