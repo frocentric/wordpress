@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.15.0](https://github.com/frocentric/wordpress/compare/v1.14.0...v1.15.0) (2022-09-18)
+
+
+### Features
+
+* adds ability to limit RSVP/ticket guests ([d352703](https://github.com/frocentric/wordpress/commit/d3527034197e822aa2155f8a50292cbf9ccdfd28))
+
+
+### Bug Fixes
+
+* prevent PHPCS errors ([81e5256](https://github.com/frocentric/wordpress/commit/81e52567f10247a2578d993ca3d22202aeff3a98))
+
 ## [1.14.0](https://github.com/frocentric/wordpress/compare/v1.13.0...v1.14.0) (2022-09-17)
 
 
