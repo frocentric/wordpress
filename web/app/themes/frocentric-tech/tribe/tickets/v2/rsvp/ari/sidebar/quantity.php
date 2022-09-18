@@ -27,17 +27,28 @@
 	</span>
 
 	<div class="tribe-tickets__rsvp-ar-quantity-input">
-		<?php $this->template( 'v2/rsvp/ari/sidebar/quantity/minus' ); ?>
+		<?php
+		// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+		$this->template( 'v2/rsvp/ari/sidebar/quantity/minus' );
+		?>
 
-		<?php $this->template( 'v2/rsvp/ari/sidebar/quantity/input', [ 'rsvp' => $rsvp ] ); ?>
+		<?php
+		// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+		$this->template( 'v2/rsvp/ari/sidebar/quantity/input', [ 'rsvp' => $rsvp ] );
+		?>
 
-		<?php $this->template( 'v2/rsvp/ari/sidebar/quantity/plus' ); ?>
+		<?php
+		// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
+		$this->template( 'v2/rsvp/ari/sidebar/quantity/plus' );
+		?>
 	</div>
 	<?php
 	/** @var Tribe__Tickets__Tickets_Handler $tickets_handler */
 	$tickets_handler = tribe( 'tickets.handler' );
+	// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
 	$max_at_a_time = $tickets_handler->get_ticket_max_purchase( $rsvp->ID );
 
+	// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
 	if ( $max_at_a_time < $rsvp->remaining() ) :
 		?>
 	<div class="tribe-common-b3 tribe-tickets__form-field-description">
