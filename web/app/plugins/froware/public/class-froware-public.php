@@ -767,6 +767,29 @@ class Froware_Public {
 		return $message;
 	}
 
+	/**
+	 * Allows filtering the quantity available displayed below the ticket
+	 * quantity input for purchase of this one ticket.
+	 *
+	 * If less than the maximum quantity available, will restrict that as well.
+	 *
+	 * @since 4.8.1
+	 *
+	 * @param int                           $available_at_a_time Max purchase quantity, as restricted by Max At A Time.
+	 * @param Tribe__Tickets__Ticket_Object $ticket              Ticket object.
+	 * @param WP_Post                       $event               Event post.
+	 */
+	public function tribe_tickets_set_ticket_max_purchase( $available_at_a_time, $ticket, $event ) {
+		$key = 'ticket_max_purchase';
+		$values = get_post_custom_values( $key, $event->ID );
+
+		if ( is_array( $values ) && is_numeric( $values[0] ) ) {
+			 $available_at_a_time = intval( $values[0] );
+		}
+
+		return $available_at_a_time;
+	}
+
 	protected function send_status( $imported_event ) {
 		global $wpea_success_msg;
 
