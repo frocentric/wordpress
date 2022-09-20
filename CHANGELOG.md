@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+### [1.15.1](https://github.com/frocentric/wordpress/compare/v1.15.0...v1.15.1) (2022-09-20)
+
+
+### Bug Fixes
+
+* resolves PHPCS errors ([7d9aebc](https://github.com/frocentric/wordpress/commit/7d9aebcf16c7ee8524184fec1785f577b382cfc6))
+
 ## [1.15.0](https://github.com/frocentric/wordpress/compare/v1.14.0...v1.15.0) (2022-09-18)
 
 
