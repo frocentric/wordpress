@@ -222,6 +222,22 @@ body.page-template-default .site.grid-container {
   text-align: center;
 }
 
+/**
+Event Calendar styles
+*/
+#tribe-events-pg-template {
+	padding-top: 0;
+}
+.tribe-common--breakpoint-medium.tribe-events .tribe-events-l-container {
+	padding-top: 0;
+}
+
+@media (min-width: 768px) {
+  .tribe-events-back {
+    margin-bottom: 0;
+  }
+}
+
 @media screen and (min-width: 430px) {
   .ltag-github-body {
     max-height: calc(20vw + 153px);
