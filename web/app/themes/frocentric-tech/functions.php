@@ -13,14 +13,12 @@ if ( ! function_exists( 'enqueue_parent_styles' ) ) {
 	 */
 	function enqueue_parent_styles() {
 		wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css', null, wp_get_theme()->get( 'Version' ) );
-		wp_enqueue_style( 'theme-fonts', get_theme_file_uri( 'css/fonts.css' ), [ 'generate-child' ], filemtime( get_theme_file_path( 'css/fonts.css' ) ), 'all' );
+		wp_enqueue_style( 'theme-variables', get_theme_file_uri( 'css/variables.css' ), [ 'generate-child' ], filemtime( get_theme_file_path( 'css/variables.css' ) ), 'all' );
+		wp_enqueue_style( 'theme-fonts', get_theme_file_uri( 'css/fonts.css' ), [ 'theme-variables' ], filemtime( get_theme_file_path( 'css/fonts.css' ) ), 'all' );
 		wp_enqueue_style( 'theme-elements', get_theme_file_uri( 'css/elements.css' ), [ 'theme-fonts' ], filemtime( get_theme_file_path( 'css/elements.css' ) ), 'all' );
 		wp_enqueue_style( 'theme-elementor', get_theme_file_uri( 'css/elementor.css' ), [ 'theme-elements' ], filemtime( get_theme_file_path( 'css/elementor.css' ) ), 'all' );
 		wp_enqueue_style( 'theme-forms', get_theme_file_uri( 'css/ninja-forms.css' ), [ 'theme-elements' ], filemtime( get_theme_file_path( 'css/ninja-forms.css' ) ), 'all' );
 		wp_enqueue_style( 'theme-tech', get_theme_file_uri( 'css/tech.css' ), [ 'theme-forms' ], filemtime( get_theme_file_path( 'css/tech.css' ) ), 'all' );
-		wp_enqueue_style( 'theme-tec-variables', get_theme_file_uri( 'css/tec-variables.css' ), [ 'theme-tech' ], filemtime( get_theme_file_path( 'css/tec-variables.css' ) ), 'all' );
-		wp_enqueue_style( 'theme-tec-common', get_theme_file_uri( 'css/tec-common.css' ), [ 'theme-tec-variables' ], filemtime( get_theme_file_path( 'css/tec-common.css' ) ), 'all' );
-		wp_enqueue_style( 'theme-tec-views', get_theme_file_uri( 'css/tec-views.css' ), [ 'theme-tec-common' ], filemtime( get_theme_file_path( 'css/tec-views.css' ) ), 'all' );
 	}
 }
 
