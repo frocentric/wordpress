@@ -25,6 +25,7 @@
  * @var array    $container_data       An additional set of container `data` attributes.
  * @var string   $breakpoint_pointer   String we use as pointer to the current view we are setting up with breakpoints.
  */
+//phpcs:disable VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
 ?>
 <div
 	<?php tribe_classes( $container_classes ); ?>
@@ -34,7 +35,7 @@
 	data-view-rest-method="<?php echo esc_attr( $rest_method ); ?>"
 	data-view-manage-url="<?php echo esc_attr( $should_manage_url ); ?>"
 	<?php foreach ( $container_data as $key => $value ) : ?>
-		data-view-<?php echo esc_attr( $key ) ?>="<?php echo esc_attr( $value ) ?>"
+		data-view-<?php echo esc_attr( $key ); ?>="<?php echo esc_attr( $value ); ?>"
 	<?php endforeach; ?>
 	<?php if ( ! empty( $breakpoint_pointer ) ) : ?>
 		data-view-breakpoint-pointer="<?php echo esc_attr( $breakpoint_pointer ); ?>"
