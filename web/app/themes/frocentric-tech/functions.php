@@ -5,7 +5,7 @@
  * @package Frocentric: Tech theme
  */
 
-add_action( 'wp_enqueue_scripts', 'enqueue_parent_styles' );
+add_action( 'wp_enqueue_scripts', 'enqueue_parent_styles', 999 );
 
 if ( ! function_exists( 'enqueue_parent_styles' ) ) {
 	/**
