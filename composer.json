@@ -57,7 +57,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-calendar-pro",
-        "version": "6.0.0",
+        "version": "6.0.1",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}",
@@ -72,7 +72,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-tickets-plus",
-        "version": "5.6.0",
+        "version": "5.6.1",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=event-tickets-plus&version={%VERSION}&key={%TEC_ETP_LICENSE}",
@@ -87,7 +87,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/the-events-calendar-community-events",
-        "version": "4.10.0",
+        "version": "4.10.1",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community&version={%VERSION}&key={%TEC_CE_LICENSE}",
