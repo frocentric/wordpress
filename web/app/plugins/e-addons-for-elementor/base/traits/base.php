@@ -128,9 +128,11 @@ trait Base {
                 return empty($field);
                 break;
             case 'empty':
+                if (is_string($field) && $field == 'null') return true;
                 return Utils::empty($field);
                 break;
             case 'not_empty':
+                if (is_string($field) && $field == 'null') return false;
                 return !Utils::empty($field);
                 break;
             case 'between':

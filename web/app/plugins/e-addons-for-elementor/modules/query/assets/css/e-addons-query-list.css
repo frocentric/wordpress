@@ -38,7 +38,7 @@
     align-items: center;
 }
 
-.e-add-list-type-icon li .e-add-item > *:not(.e-add-icon-list){
+.e-add-list-type-icon li .e-add-item > *:not(.e-add-icon-list):not(style):not(script) {
     display: inline-block;
 }
 .e-add-list-type-icon.e-add-list-type-icon-square li{

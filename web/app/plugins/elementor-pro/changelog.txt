@@ -1,5 +1,8 @@
 # Elementor Pro - by Elementor.com
 
+#### 3.7.7 - 2022-09-20
+* Fix: Default Flex Grow affects the layout when the container is set to direction Column in various widgets
+
 #### 3.7.6 - 2022-09-14
 * Fix: Submissions menu item appears at the bottom of Elementor section in WordPress dashboard
 

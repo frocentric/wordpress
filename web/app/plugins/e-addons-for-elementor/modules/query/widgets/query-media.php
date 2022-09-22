@@ -1349,8 +1349,12 @@ class Query_Media extends Query_Posts {
 
         $search_args = array();
 
-        if (!empty($settings['post_parent']))
+        if (!empty($settings['post_parent'])) {
             $search_args['post_parent__in'] = Utils::explode($settings['post_parent'], null, null, 'intval');
+            if (empty($search_args['post_parent__in'])) {
+                unset($search_args['post_parent__in']);
+            }
+        }
 
         return $search_args;
     }
