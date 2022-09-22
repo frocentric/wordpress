@@ -1158,7 +1158,7 @@ class Query extends Base_Widget {
                 'metakey_combination_xpr_rule', [
             'type' => Controls_Manager::RAW_HTML,
             'content_classes' => 'elementor-control-field-description',
-            'raw' => 'Use the number of the previous Repeater Meta filters Row (starting by 1). // Use round brackets // Separate every character by a space // Max 2 conditions per level are accepted, for example "1 AND 2 OR 3" is not valid, write "( 1 AND 2 ) OR 3" instead',
+            'raw' => 'Use the number of the previous Repeater Meta filters Row (starting by 1). // Use only round brackets // Separate every character by a space // Max 2 conditions per level are accepted, for example "1 AND 2 OR 3" is not valid, write "( 1 AND 2 ) OR 3" instead',
             'condition' => [
                 'metakey_combination' => ['XPR']
             ]
