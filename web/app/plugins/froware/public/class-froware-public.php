@@ -308,11 +308,15 @@ class Froware_Public {
 		}
 
 		$parent_classes = [ 'current-menu-item', 'page_item', 'current_page_item', 'current_page_parent' ];
-		$events_class   = 'events';
+		$event_prefixes   = [ 'events', 'event', 'organiser', 'venue', 'series' ];
+		$page_segments = $this->explode_path( wp_make_link_relative( get_permalink() ) );
+		$item_segments = $this->explode_path( $item->url );
+		$events_root = $this->get_events_root();
+		$is_events_item = count( $item_segments ) > 0 && $item_segments[ count( $item_segments ) - 1 ] === $events_root;
+		$is_events_page = count( $page_segments ) > 0 && in_array( $page_segments[0], $event_prefixes, true );
 
 		// Highlight Events page link for any event-related page.
-		if ( substr( wp_make_link_relative( get_permalink() ), 0, strlen( $events_class ) + 1 ) === "/$events_class" &&
-				in_array( $events_class, $classes, true ) ) {
+		if ( $is_events_page && $is_events_item ) {
 			$classes = array_merge( $classes, $parent_classes );
 		} else {
 			$posts_page = get_option( 'page_for_posts' );
@@ -333,6 +337,14 @@ class Froware_Public {
 
 		// Filter out duplicate classes.
 		return array_unique( $classes );
+	}
+
+	protected function get_events_root() {
+		return function_exists( 'tribe_get_option' ) ? tribe_get_option( 'eventsSlug', 'events' ) : 'events';
+	}
+
+	protected function explode_path( $path ) {
+		return preg_split( '@/@', $path, -1, PREG_SPLIT_NO_EMPTY );
 	}
 
 	protected function get_category_slug() {
