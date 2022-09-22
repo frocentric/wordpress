@@ -22,7 +22,7 @@ html.e-add-modal-open, body.e-add-modal-open{
 /*--------------------------------------*/
 /*font-awesome*/
 .e-add-query-icon.fa, .e-add-query-icon.fas, .e-add-query-icon.far{
-    font-family: "Font Awesome 5 Free";
+    font-family: "Font Awesome 5 Free" !important;
     font-weight: 900;
 }
 /*--------------------------------------*/

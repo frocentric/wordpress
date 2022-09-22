@@ -228,13 +228,18 @@ Event Calendar styles
 #tribe-events-pg-template {
 	padding-top: 0;
 }
-.tribe-common--breakpoint-medium.tribe-events .tribe-events-l-container {
+.tribe-common.tribe-events.tribe-events-view .tribe-events-l-container {
   min-height: auto;
   padding-bottom: 0;
   padding-top: 0;
 }
-.tribe-common.event-tickets .tribe-tickets__rsvp-wrapper {
+.tribe-common.event-tickets .tribe-tickets__rsvp-wrapper,
+.tribe-community-events .tribe-section,
+.tribe-community-events-list {
   border-radius: 4px;
+}
+.event-tickets .tribe-tickets__rsvp {
+  padding: var(--tec-grid-gutter-small-half);
 }
 
 @media (min-width: 768px) {

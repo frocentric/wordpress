@@ -4874,10 +4874,9 @@ body.elementor-editor-active .elementor-posts--show-thumbnail .elementor-post__t
   list-style-type: none;
 }
 
-.e-container .elementor-widget-portfolio {
-  --flex-grow: 1;
-}
-.e-container > .elementor-widget-portfolio {
+.e-container > .elementor-widget-portfolio,
+.e-container__inner > .elementor-widget-portfolio {
+  --flex-grow: var( --container-widget-flex-grow, 0 );
   width: var(--container-widget-width, 100%);
 }
 
@@ -5398,7 +5397,8 @@ the source property is coming from element/dev/scss...
   background-color: #f7f7f7;
 }
 
-.e-container > .elementor-widget-price-list {
+.e-container > .elementor-widget-price-list,
+.e-container__inner > .elementor-widget-price-list {
   width: var(--container-widget-width, 100%);
 }
 
@@ -5612,10 +5612,9 @@ the source property is coming from element/dev/scss...
   opacity: 1;
 }
 
-.e-container .elementor-widget-flip-box {
-  flex-grow: 1;
-}
-.e-container > .elementor-widget-flip-box {
+.e-container > .elementor-widget-flip-box,
+.e-container__inner > .elementor-widget-flip-box {
+  --flex-grow: var( --container-widget-flex-grow, 0 );
   width: var(--container-widget-width, 100%);
 }
 
@@ -9030,10 +9029,9 @@ a.elementor-item.elementor-gallery-title.elementor-item-active {
   color: var(--gallery-title-color-active);
 }
 
-.e-container .elementor-widget-gallery {
-  flex-grow: 1;
-}
-.e-container > .elementor-widget-gallery {
+.e-container > .elementor-widget-gallery,
+.e-container__inner > .elementor-widget-gallery {
+  --flex-grow: var( --container-widget-flex-grow, 0 );
   width: var(--container-widget-width, 100%);
 }
 
