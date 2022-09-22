@@ -1,6 +1,7 @@
 :root{
 	--tec-border-radius-default: 100px;
 	--tec-color-accent-primary: #1995a7;
+	--tec-color-accent-primary-hover: rgba(20, 24, 39, 0.8);
 	--tec-color-link-accent: #1995a7;
 	--tec-color-link-accent-hover: #1995a7;
 	--tec-font-family-sans-serif: "Nunito Sans", -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;

@@ -47,11 +47,12 @@ abstract class Module_Base extends Module {
             add_filter('elementor/document/config', [$this, 'add_configuration'], 10, 2 );
         }
         
+        $priority = Utils::is_plugin_active('acf') ? 20 : 10;
         if ($this->has_elements('tags')) {
             if (version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {
-                add_action('elementor/dynamic_tags/register_tags', [$this, 'init_tags'], 10); // < 3.5.0 - TODO: REMOVE IT SHORTLY
+                add_action('elementor/dynamic_tags/register_tags', [$this, 'init_tags'], $priority); // < 3.5.0 - TODO: REMOVE IT SHORTLY
             } else {
-                add_action('elementor/dynamic_tags/register', [$this, 'init_tags'], 10); // >= 3.5.0
+                add_action('elementor/dynamic_tags/register', [$this, 'init_tags'], $priority); // >= 3.5.0
             }
         }
 

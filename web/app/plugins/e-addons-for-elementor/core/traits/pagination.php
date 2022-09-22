@@ -116,17 +116,38 @@ trait Pagination {
             }
         }
         
-        if ($wp_query->is_archive && ($wp_query->is_tax || $wp_query->is_category || $wp_query->is_tag)) {
-            if (!empty($wp_query->queried_object_id)) {
-                // force $term in ajax
-                $queried_id = absint($wp_query->queried_object_id);                    
-                $term = get_term($queried_id);
-                $wp_query->queried_object = $term;
+        if ($wp_query->is_archive) {
+            if ($wp_query->is_tax || $wp_query->is_category || $wp_query->is_tag) {
+                if (!empty($wp_query->queried_object_id)) {
+                    // force $term in ajax
+                    $queried_id = absint($wp_query->queried_object_id);                    
+                    $term = get_term($queried_id);
+                    $wp_query->queried_object = $term;
+                }
+            }
+            // post type
+            if (is_array($wp_query->queried_object)) {
+                if (!empty($wp_query->posts)) {
+                    $post_id = reset($wp_query->posts);
+                    $wp_query->queried_object = get_post($post_id);
+                    $wp_query->queried_object_id = $post_id;
+                }
             }
         }
         
+        if ($wp_query->is_home || $wp_query->is_front_page) {
+            //var_dump($wp_query);
+            //var_dump($wp_query->posts); die();
+            $wp_query->is_tax = false; // fix wp_query
+            $post_id = absint($wp_query->queried_object_id);   
+            // fix Elementor
+            $document = \Elementor\Plugin::instance()->documents->get_doc_for_frontend( $post_id );
+            \Elementor\Plugin::instance()->documents->switch_to_document($document);
+        }
+        
+        
         $wp_query->get_posts();
-        //var_dump($wp_query);
+        
   
     }
     
@@ -180,7 +201,7 @@ trait Pagination {
 
             if (wp_doing_ajax()) {
                 $current_url = $ajax_url = admin_url('admin-ajax.php');
-                if (strpos($content, $current_url) === false) {
+                if (strpos($content, $current_url) === false && strpos($content, $nav_start) !== false) {
                     list($archive, $navigation) = explode($nav_start, $content, 2);
                     list($pre, $href) = explode('href="', $navigation, 2);
                     list($current_url, $more) = explode('"', $href, 2);
