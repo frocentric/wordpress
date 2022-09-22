@@ -25,7 +25,7 @@ trait Data {
             $limit = -1;
         }*/
         if (empty($delimiter) || !is_string($delimiter)) {
-            return $string;
+            $delimiter = ',';
         }
         if (is_null($string)) {
             $string = [];

@@ -19,12 +19,12 @@ class Acf {
         }
         return array("text", "textarea", "number", "range", "email", "url", "password", "image", "file", "wysiwyg", "oembed", "gallery", "select", "checkbox", "radio", "button_group", "true_false", "link", "post_object", "page_link", "relationship", "taxonomy", "user", "google_map", "date_picker", "date_time_picker", "time_picker", "color_picker", "message", "accordion", "tab", "group", "repeater", "flexible_content", "clone");
     }
-    
+
     public static function get_post_meta_name($meta_key) {
         $acf = get_field_object($meta_key);
         if ($acf) {
             return $acf['label'];
-        }        
+        }
         return $meta_key;
     }
 
@@ -49,17 +49,18 @@ class Acf {
         }
         return false;
     }
-    
+
     public static function get_acf_field($key = '') {
         if ($key) {
+
             global $wpdb;
             $sql = 'SELECT * FROM ' . $wpdb->prefix . "posts WHERE post_excerpt = '" . esc_sql($key) . "' AND post_type = 'acf-field'";
-            $acf_fields = (array)$wpdb->get_row($sql);
+            $acf_fields = (array) $wpdb->get_row($sql);
             if (!empty($acf_fields)) {
                 if (!empty($acf_fields['post_content'])) {
                     $acf_field = maybe_unserialize($acf_fields['post_content']);
                     if ($acf_field && is_array($acf_field) && isset($acf_field['type'])) {
-                        foreach($acf_field as $acf_key => $acf_val) {
+                        foreach ($acf_field as $acf_key => $acf_val) {
                             $acf_fields[$acf_key] = $acf_val;
                         }
                     }
@@ -83,13 +84,13 @@ class Acf {
         if (!empty($acf_fields)) {
             foreach ($acf_fields as $acf_field) {
                 $acf_field_parent = false;
-                if ($acf_field->post_parent) {   
+                if ($acf_field->post_parent) {
                     $acf_field_parent = get_post($acf_field->post_parent);
                     $acf_field_parent_settings = acf_get_raw_field($acf_field->post_parent);
                 }
                 $acf_field_settings = maybe_unserialize($acf_field->post_content);
                 if (!empty($acf_field_settings['type'])) {
-                    $acf_field_type = $acf_field_settings['type'];                    
+                    $acf_field_type = $acf_field_settings['type'];
                     if (empty($types) || in_array($acf_field_type, $types)) {
                         if ($acf_field_parent) {
                             if (isset($acf_field_parent_settings['type']) && $acf_field_parent_settings['type'] == 'group') {
@@ -97,7 +98,7 @@ class Acf {
                             } else {
                                 $acf_list[$acf_field->post_excerpt] = $acf_field_parent->post_title . ' > ' . $acf_field->post_title . ' [' . $acf_field->post_excerpt . '] (' . $acf_field_type . ')'; //.$acf_field->post_content; //post_name,
                             }
-                        }                        
+                        }
                     }
                     if ($acf_field_type == 'repeater' && in_array('sub_field', $types)) {
                         $acf_sub_fields = get_posts(array('post_parent' => $acf_field->ID, 'post_type' => 'acf-field', 'numberposts' => -1, 'post_status' => 'publish', 'orderby' => 'title', 'suppress_filters' => false));
@@ -114,22 +115,62 @@ class Acf {
                 }
             }
         }
-        
+
+        if (function_exists('acf_get_field_groups')) {
+            $field_groups = acf_get_field_groups();
+            //var_dump($field_groups); die();
+            if (!empty($field_groups)) {
+                foreach ($field_groups as $group) {
+                    $fields = false;
+                    if (!empty($group['fields'])) {
+                        $fields = $group['fields'];
+                    } else {
+                        if (function_exists('acf_get_fields')) {
+                            if (!empty($group['ID'])) {
+                                // db storage group (already listed)
+                                //$fields = acf_get_fields($group['ID']);
+                            } else {
+                                // only for local groups
+                                $fields = acf_get_fields( $group );
+                            }
+                        }
+                    }
+                    if (!empty($fields)) {
+                        //var_dump($fields); die();
+                        foreach ($fields as $field) {
+                            if (empty($types) || in_array($field['type'], $types)) {
+                                $acf_list[$field['name']] = $field['label'] . ' [' . $field['name'] . '] (' . $field['type'] . ')';
+                            }
+                            if ($field['type'] == 'repeater' && in_array('sub_field', $types)) {
+                                if (!empty($field['fields'])) {
+                                    foreach ($field['fields'] as $acf_sub_field) {
+                                        if (!empty($acf_sub_field['type'])) {
+                                            $acf_list[$acf_sub_field['name']] = $field['title'] . ' > ' . $acf_sub_field['title'] . ' [' . $acf_sub_field['name'] . '] (' . $acf_sub_field['type'] . ')'; //.$acf_field->post_content; //post_name,
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
         if ($filter) {
-            foreach($acf_list as $key => $acf_field) {
+            foreach ($acf_list as $key => $acf_field) {
                 if (strpos($filter, $key) === false && strpos($filter, $acf_field) === false) {
                     unset($acf_list[$key]);
                 }
             }
         }
-        
+
         return $acf_list;
     }
 
     public static function get_acf_field_id($key, $multi = false) {
         if (isset(self::$acf_fields[$key]['ID'])) {
             return self::$acf_fields[$key]['ID'];
-        }        
+        }
         $post = acf_get_field_post($key);
         if ($post) {
             self::$acf_fields[$key]['ID'] = $post->ID;
@@ -137,12 +178,12 @@ class Acf {
         }
         return false;
     }
-    
+
     public static function get_target($id_target, $customfields_type = 'post') {
         switch ($customfields_type) {
             case 'attachment':
             case 'post':
-                $id_target = (string)$id_target;
+                $id_target = (string) $id_target;
                 break;
             case 'term':
                 $id_target = 'term_' . $id_target;
@@ -156,42 +197,43 @@ class Acf {
         }
         return $id_target;
     }
-    
+
     public static function set_repeater($selector, $data, $obj_id, $type = 'post') {
-        $id_target = self::get_target($obj_id, $type);            
+        $id_target = self::get_target($obj_id, $type);
         $repeater = get_field_object($selector, $id_target, false);
-        if (!$repeater) $repeater = self::get_acf_field($selector);        
+        if (!$repeater)
+            $repeater = self::get_acf_field($selector);
         //var_dump($repeater); die();
         if (!empty($repeater['type']) && $repeater['type'] == 'repeater') {
             // https://www.advancedcustomfields.com/resources/delete_row/
             $rows = get_metadata($type, $obj_id, $selector);
             $rows = intval($rows);
-            for ($i=1; $i<=$rows; $i++) {
+            for ($i = 1; $i <= $rows; $i++) {
                 delete_row($selector, $i, $id_target);
             }
             // https://www.advancedcustomfields.com/resources/update_sub_field/
             // Update "caption" within the first row of "repeater".                            
             if (!empty($data)) {
                 //var_dump($data); die();
-                foreach($data as $row => $sub_fields) {
+                foreach ($data as $row => $sub_fields) {
                     $row++; // start from 1 (not 0)
-                    foreach($sub_fields as $sub => $sub_field) {
+                    foreach ($sub_fields as $sub => $sub_field) {
                         $field = self::get_sub_field_object($sub, $repeater, $id_target);
                         if (!empty($field['type']) && $field['type'] == 'gallery') {
                             $sub_field = Utils::explode($sub_field);
                         }
                         //var_dump($sub); var_dump($repeater); die();
-                        update_sub_field( array($selector, $row, $sub), $sub_field, $id_target );
+                        update_sub_field(array($selector, $row, $sub), $sub_field, $id_target);
                     }
                 }
                 update_metadata($type, $obj_id, $selector, $row);
-                update_metadata($type, $obj_id, '_'.$selector, $repeater['key']);
+                update_metadata($type, $obj_id, '_' . $selector, $repeater['key']);
                 return true;
             }
         }
         return false;
     }
-    
+
     public static function get_sub_field_object($sub, $repeater, $id_target = '') {
         if (!empty($repeater['sub_fields'])) {
             foreach ($repeater['sub_fields'] as $sub_field) {
@@ -208,9 +250,5 @@ class Acf {
         return false;
     }
 
-
-    /* *********************************************************************** */
-    
-    
-
+    /*     * ********************************************************************** */
 }
