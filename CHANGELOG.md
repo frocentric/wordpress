@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+### [1.15.2](https://github.com/frocentric/wordpress/compare/v1.15.1...v1.15.2) (2022-09-22)
+
+
+### Bug Fixes
+
+* cleans up event form styling ([be72008](https://github.com/frocentric/wordpress/commit/be72008e0579d33aba0fd600e5848fb7a205ebda))
+* fixes RSVP styling ([947da9f](https://github.com/frocentric/wordpress/commit/947da9f30796f00b99803a0df6ba50a821b6275c))
+
 ### [1.15.1](https://github.com/frocentric/wordpress/compare/v1.15.0...v1.15.1) (2022-09-20)
 
 
