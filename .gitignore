@@ -2,6 +2,7 @@
 web/app/languages
 web/app/plugins/*
 !web/app/plugins/e-addons*
+web/app/e-backup/*
 !web/app/plugins/elementor-pro
 !web/app/plugins/feedzy-rss-feeds-pro
 !web/app/plugins/frocentric-elementor-extension
