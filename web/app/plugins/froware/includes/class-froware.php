@@ -181,6 +181,7 @@ class Froware {
 		$this->loader->add_action( 'pre_get_posts', $plugin_public, 'elementor_pre_get_posts', 100 );
 		$this->loader->add_action( 'set_object_terms', $plugin_public, 'discourse_update_post_meta', 10, 4 );
 		$this->loader->add_action( 'tribe_events_community_form_before_template', $plugin_public, 'event_import_form' );
+		$this->loader->add_action( 'tribe_events_filters_create_filters', $plugin_public, 'tribe_filterbar_create_filters' );
 		$this->loader->add_action( 'wpdc_after_sso_client_user_update', $plugin_public, 'discourse_sso_update_user_meta', 10, 2 );
 		$this->loader->add_action( 'wpdc_webhook_before_update_user_data', $plugin_public, 'discourse_webhook_before_update_user_meta', 10, 3 );
 		$this->loader->add_action( 'wpea_after_create_tec_eventbrite_event', $plugin_public, 'track_new_event', 10, 3 );
@@ -214,8 +215,10 @@ class Froware {
 		$this->loader->add_filter( 'the_content', $plugin_public, 'append_copyright_notice', 999, 1 );
 		$this->loader->add_filter( 'the_content_feed', $plugin_public, 'filter_content_feed', 999, 1 );
 		$this->loader->add_filter( 'the_excerpt_rss', $plugin_public, 'filter_content_feed', 999, 1 );
+		$this->loader->add_filter( 'tribe_context_locations', $plugin_public, 'tribe_filterbar_filter_context_locations' );
 		$this->loader->add_filter( 'tribe_events_community_submission_message', $plugin_public, 'tribe_events_filter_submission_message', 10, 2 );
 		// $this->loader->add_filter( 'tribe_events_event_insert_args', $plugin_public, 'tribe_events_update_event_args', 10, 1 );
+		$this->loader->add_filter( 'tribe_events_filter_bar_context_to_filter_map', $plugin_public, 'tribe_filterbar_filter_map' );
 		$this->loader->add_filter( 'tribe_tickets_get_ticket_max_purchase', $plugin_public, 'tribe_tickets_set_ticket_max_purchase', 10, 3 );
 		$this->loader->add_filter( 'twig_anything_request_args', $plugin_public, 'twig_anything_request_args', 10, 2 );
 		$this->loader->add_filter( 'wpdc_use_discourse_user_webhook', $plugin_public, 'discourse_enable_user_webhook', 10, 1 );
