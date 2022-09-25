@@ -26,7 +26,7 @@ abstract class Filterbar_Filter_Taxonomy extends Tribe__Events__Filterbar__Filte
 		$terms = [];
 
 		// Load all available event categories
-		$source = get_terms( $this->taxonomy, [ 'orderby' => 'name', 'order' => 'ASC' ] );
+		$source = $this->get_taxonomy_terms();
 		if ( empty( $source ) || is_wp_error( $source ) ) {
 			return [];
 		}
@@ -57,6 +57,27 @@ abstract class Filterbar_Filter_Taxonomy extends Tribe__Events__Filterbar__Filte
 
 		// Finally flatten out and return
 		return parent::flattened_term_list( $ordered_terms );
+	}
+
+	protected function get_taxonomy_terms() {
+		$args = [
+			'fields' => 'ids',
+			'post_type' => Tribe__Events__Main::POSTTYPE,
+			'posts_per_page' => 100,
+			'start_date' => 'now',
+		];
+		// build an array of post IDs
+		$postids = tribe_get_events( $args );
+		$key = sprintf( '%1$s_%2$s', $this->taxonomy, md5( implode( ',', $postids ) ) );
+		// get taxonomy values based on array of IDs
+		$terms = get_transient( $key );
+
+		if ( $terms === false ) {
+			$terms = wp_get_object_terms( $postids, $this->taxonomy, [ 'orderby' => 'name', 'order' => 'ASC' ] );
+			set_transient( $key, $terms, 300 );
+		}
+
+		return $terms;
 	}
 
 	/**
