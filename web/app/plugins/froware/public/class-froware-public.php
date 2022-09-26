@@ -802,6 +802,97 @@ class Froware_Public {
 		return $available_at_a_time;
 	}
 
+	const EVENT_TAXONOMIES = [
+		'community' => 'Filterbar_Filter_Community',
+		'discipline' => 'Filterbar_Filter_Discipline',
+		'interest' => 'Filterbar_Filter_Interest',
+	];
+
+	/**
+	 * Includes the custom taxonomy filter classes and creates instances of them.
+	 */
+	public function tribe_filterbar_create_filters() {
+		if ( ! class_exists( 'Tribe__Events__Filterbar__Filter' ) ) {
+			return;
+		}
+
+		$this->include_filter_classes();
+
+		// Instantiate custom taxonomy filter classes
+		foreach ( self::EVENT_TAXONOMIES as $taxonomy => $class_name ) {
+			$ref = new ReflectionClass( $class_name );
+			$obj = $ref->newInstanceArgs( [ ucfirst( $taxonomy ), ( 'filterbar_' . $taxonomy ) ] );
+		}
+	}
+
+	/**
+	 * Filters the map of filters available on the front-end to include the custom one.
+	 *
+	 * @param array<string,string> $map A map relating the filter slugs to their respective classes.
+	 *
+	 * @return array<string,string> The filtered slug to filter class map.
+	 */
+	public function tribe_filterbar_filter_map( array $map ) {
+		if ( ! class_exists( 'Tribe__Events__Filterbar__Filter' ) ) {
+			// This would not make much sense, but let's be cautious.
+			return $map;
+		}
+
+		$this->include_filter_classes();
+
+		// Add the filter classes to our filters map.
+		foreach ( self::EVENT_TAXONOMIES as $taxonomy => $class_name ) {
+			$map[ ( 'filterbar_' . $taxonomy ) ] = $class_name;
+		}
+
+		// Return the modified $map.
+		return $map;
+	}
+
+	/**
+	 * Filters the Context locations to let the Context know how to fetch the value of the filter from a request.
+	 *
+	 * Here we add the taxonomy filters as read-only Context locations: we'll not need to write it.
+	 *
+	 * @param array<string,array> $locations A map of the locations the Context supports and is able to read from and write
+	 *                                                                              to.
+	 *
+	 * @return array<string,array> The filtered map of Context locations, with the one required from the filter added to it.
+	 */
+	public function tribe_filterbar_filter_context_locations( array $locations ) {
+		$get_fb_val_from_view_data = static function ( $key ) {
+			return static function ( $view_data ) use ( $key ) {
+				return ! empty( $view_data[ 'tribe_filterbar_' . $key ] ) ? $view_data[ 'tribe_filterbar_' . $key ] : null;
+			};
+		};
+
+		$taxonomy_locations = [];
+
+		foreach ( array_keys( self::EVENT_TAXONOMIES ) as $taxonomy ) {
+			$taxonomy_locations[ 'filterbar_' . $taxonomy ] = [
+				'read' => [
+					\Tribe__Context::QUERY_VAR     => [ ( 'tribe_filterbar_' . $taxonomy ) ],
+					\Tribe__Context::REQUEST_VAR   => [ ( 'tribe_filterbar_' . $taxonomy ) ],
+					\Tribe__Context::LOCATION_FUNC => [ 'view_data', $get_fb_val_from_view_data( $taxonomy ) ],
+				],
+			];
+		}
+		// Read the filter selected values, if any, from the URL request vars.
+		$locations = array_merge( $locations, $taxonomy_locations );
+
+		// Return the modified $locations.
+		return $locations;
+	}
+
+	protected function include_filter_classes() {
+		// TODO: implement class autoloading for custom filters
+		include_once __DIR__ . '/class-filterbar-filter-taxonomy.php';
+
+		foreach ( array_keys( self::EVENT_TAXONOMIES ) as $taxonomy ) {
+			include_once __DIR__ . '/class-filterbar-filter-' . $taxonomy . '.php';
+		}
+	}
+
 	protected function send_status( $imported_event ) {
 		global $wpea_success_msg;
 
