@@ -802,6 +802,12 @@ class Froware_Public {
 		return $available_at_a_time;
 	}
 
+	const EVENT_TAXONOMIES = [
+		'community' => 'Filterbar_Filter_Community',
+		'discipline' => 'Filterbar_Filter_Discipline',
+		'interest' => 'Filterbar_Filter_Interest',
+	];
+
 	/**
 	 * Includes the custom taxonomy filter classes and creates instances of them.
 	 */
@@ -811,19 +817,12 @@ class Froware_Public {
 		}
 
 		$this->include_filter_classes();
-		error_log( 'Creating filters' );
-		new \Filterbar_Filter_Community(
-			__( 'Community', 'froware' ),
-			'filterbar_community'
-		);
-		new \Filterbar_Filter_Discipline(
-			__( 'Discipline', 'froware' ),
-			'filterbar_discipline'
-		);
-		new \Filterbar_Filter_Interest(
-			__( 'Interest', 'froware' ),
-			'filterbar_interest'
-		);
+
+		// Instantiate custom taxonomy filter classes
+		foreach ( self::EVENT_TAXONOMIES as $taxonomy => $class_name ) {
+			$ref = new ReflectionClass( $class_name );
+			$obj = $ref->newInstanceArgs( [ ucfirst( $taxonomy ), ( 'filterbar_' . $taxonomy ) ] );
+		}
 	}
 
 	/**
@@ -842,9 +841,9 @@ class Froware_Public {
 		$this->include_filter_classes();
 
 		// Add the filter classes to our filters map.
-		$map['filterbar_community'] = 'Filterbar_Filter_Community';
-		$map['filterbar_discipline'] = 'Filterbar_Filter_Discipline';
-		$map['filterbar_interest'] = 'Filterbar_Filter_Interest';
+		foreach ( self::EVENT_TAXONOMIES as $taxonomy => $class_name ) {
+			$map[ ( 'filterbar_' . $taxonomy ) ] = $class_name;
+		}
 
 		// Return the modified $map.
 		return $map;
@@ -867,32 +866,19 @@ class Froware_Public {
 			};
 		};
 
+		$taxonomy_locations = [];
+
+		foreach ( array_keys( self::EVENT_TAXONOMIES ) as $taxonomy ) {
+			$taxonomy_locations[ 'filterbar_' . $taxonomy ] = [
+				'read' => [
+					\Tribe__Context::QUERY_VAR     => [ ( 'tribe_filterbar_' . $taxonomy ) ],
+					\Tribe__Context::REQUEST_VAR   => [ ( 'tribe_filterbar_' . $taxonomy ) ],
+					\Tribe__Context::LOCATION_FUNC => [ 'view_data', $get_fb_val_from_view_data( $taxonomy ) ],
+				],
+			];
+		}
 		// Read the filter selected values, if any, from the URL request vars.
-		$locations = array_merge(
-			$locations, [
-				'filterbar_community'      => [
-					'read' => [
-						\Tribe__Context::QUERY_VAR     => [ 'tribe_filterbar_community' ],
-						\Tribe__Context::REQUEST_VAR   => [ 'tribe_filterbar_community' ],
-						\Tribe__Context::LOCATION_FUNC => [ 'view_data', $get_fb_val_from_view_data( 'community' ) ],
-					],
-				],
-				'filterbar_discipline'     => [
-					'read' => [
-						\Tribe__Context::QUERY_VAR     => [ 'tribe_filterbar_discipline' ],
-						\Tribe__Context::REQUEST_VAR   => [ 'tribe_filterbar_discipline' ],
-						\Tribe__Context::LOCATION_FUNC => [ 'view_data', $get_fb_val_from_view_data( 'discipline' ) ],
-					],
-				],
-				'filterbar_interest'       => [
-					'read' => [
-						\Tribe__Context::QUERY_VAR     => [ 'tribe_filterbar_interest' ],
-						\Tribe__Context::REQUEST_VAR   => [ 'tribe_filterbar_interest' ],
-						\Tribe__Context::LOCATION_FUNC => [ 'view_data', $get_fb_val_from_view_data( 'interest' ) ],
-					],
-				],
-			]
-		);
+		$locations = array_merge( $locations, $taxonomy_locations );
 
 		// Return the modified $locations.
 		return $locations;
@@ -901,9 +887,10 @@ class Froware_Public {
 	protected function include_filter_classes() {
 		// TODO: implement class autoloading for custom filters
 		include_once __DIR__ . '/class-filterbar-filter-taxonomy.php';
-		include_once __DIR__ . '/class-filterbar-filter-community.php';
-		include_once __DIR__ . '/class-filterbar-filter-discipline.php';
-		include_once __DIR__ . '/class-filterbar-filter-interest.php';
+
+		foreach ( array_keys( self::EVENT_TAXONOMIES ) as $taxonomy ) {
+			include_once __DIR__ . '/class-filterbar-filter-' . $taxonomy . '.php';
+		}
 	}
 
 	protected function send_status( $imported_event ) {
