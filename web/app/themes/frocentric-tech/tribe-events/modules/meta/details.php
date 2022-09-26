@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable Generic.WhiteSpace.ScopeIndent
 /**
  * Single Event Meta (Details) Template
  *
@@ -12,6 +13,72 @@
  * @version 4.6.19
  */
 
+if ( ! function_exists( 'fro_meta_event_archive_taxonomy' ) ) {
+	/**
+	 * Display the event tags in a list with links to the event tag archive.
+	 *
+	 * @since 5.16.0
+	 *
+	 * @param null|string $label     The label for the term list.
+	 * @param string      $separator The separator of each term.
+	 * @param bool        $echo      , Whether to echo or return the list.
+	 *
+	 * @return string|void The html list of tags or void if no terms.
+	 */
+	function fro_meta_event_archive_taxonomy( $label = null, $separator = ', ', $echo = true ) {
+		/**
+		 * Filter whether to use the WordPress tag archive urls, default false.
+		 *
+		 * @since 5.16.0
+		 *
+		 * @param boolean Whether to use the WordPress tag archive urls.
+		 */
+		$use_wp_tag = apply_filters( 'tec_events_use_wordpress_tag_archive_url', false );
+		if ( $use_wp_tag ) {
+			return tribe_meta_event_tags( $label, $separator, $echo );
+		}
+
+		if ( ! $label ) {
+			$label = esc_html__( 'Tags:', 'the-events-calendar' );
+		}
+
+		$terms = [];
+		$custom_taxonomies = array_intersect( array_keys( Froware_Public::EVENT_TAXONOMIES ), get_post_taxonomies( get_the_ID() ) );
+
+		foreach ( $custom_taxonomies as $taxonomy ) {
+			$taxonomy_terms = get_the_terms( get_the_ID(), $taxonomy );
+
+			if ( is_array( $taxonomy_terms ) ) {
+				$terms = array_merge( $terms, $taxonomy_terms );
+			}
+		}
+
+		if ( is_wp_error( $terms ) ) {
+			return;
+		}
+
+		if ( empty( $terms ) ) {
+			return;
+		}
+
+		$term_links = [];
+		foreach ( $terms as $term ) {
+			$term_links[] = '<span class="tag">' . $term->name . '</span>';
+		}
+
+		$before = '<dt class="tribe-event-tags-label">' . $label . '</dt><dd class="tribe-event-tags">';
+		$after  = '</dd>';
+		$list   = $before . implode( $separator, $term_links ) . $after;
+
+		if ( $echo ) {
+			echo $list;
+
+			return;
+		}
+
+		return $list;
+	}
+}
 
 $event_id             = Tribe__Main::post_id_helper();
 $time_format          = get_option( 'time_format', Tribe__Date_Utils::TIMEFORMAT );
@@ -31,7 +98,7 @@ $end_time = tribe_get_end_date( null, false, $time_format );
 $end_ts = tribe_get_end_date( null, false, Tribe__Date_Utils::DBDATEFORMAT );
 
 $time_formatted = null;
-if ( $start_time == $end_time ) {
+if ( $start_time === $end_time ) {
 	$time_formatted = esc_html( $start_time );
 } else {
 	$time_formatted = esc_html( $start_time . $time_range_separator . $end_time );
@@ -81,8 +148,8 @@ $website_title = tribe_events_get_event_website_title();
 
 		<?php
 		// All day (single day) events
-		elseif ( tribe_event_is_all_day() ):
-			?>
+		elseif ( tribe_event_is_all_day() ) :
+		?>
 
 			<dt class="tribe-events-start-date-label"> <?php esc_html_e( 'Date:', 'the-events-calendar' ); ?> </dt>
 			<dd>
@@ -92,7 +159,7 @@ $website_title = tribe_events_get_event_website_title();
 		<?php
 		// Multiday events
 		elseif ( tribe_event_is_multiday() ) :
-			?>
+		?>
 
 			<dt class="tribe-events-start-datetime-label"> <?php esc_html_e( 'Start:', 'the-events-calendar' ); ?> </dt>
 			<dd>
@@ -143,7 +210,8 @@ $website_title = tribe_events_get_event_website_title();
 
 		<?php
 		// Event Cost
-		if ( ! empty( $cost ) ) : ?>
+		if ( ! empty( $cost ) ) :
+		?>
 
 			<dt class="tribe-events-event-cost-label"> <?php esc_html_e( 'Cost:', 'the-events-calendar' ); ?> </dt>
 			<dd class="tribe-events-event-cost"> <?php echo esc_html( $cost ); ?> </dd>
@@ -166,12 +234,8 @@ $website_title = tribe_events_get_event_website_title();
 		?>
 
 		<?php
-		tribe_meta_event_archive_tags(
-			/* Translators: %s: Event (singular) */
-			sprintf(
-				esc_html__( '%s Tags:', 'the-events-calendar' ),
-				tribe_get_event_label_singular()
-			),
+		fro_meta_event_archive_taxonomy(
+			esc_html__( 'Labels:', 'the-events-calendar' ),
 			', ',
 			true
 		);
@@ -179,8 +243,9 @@ $website_title = tribe_events_get_event_website_title();
 
 		<?php
 		// Event Website
-		if ( ! empty( $website ) ) : ?>
-			<?php if ( ! empty( $website_title ) ): ?>
+		if ( ! empty( $website ) ) :
+		?>
+			<?php if ( ! empty( $website_title ) ) : ?>
 				<dt class="tribe-events-event-url-label"> <?php echo esc_html( $website_title ); ?> </dt>
 			<?php endif; ?>
 			<dd class="tribe-events-event-url"> <?php echo $website; ?> </dd>
