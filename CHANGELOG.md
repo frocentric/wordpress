@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.16.0](https://github.com/frocentric/wordpress/compare/v1.15.2...v1.16.0) (2022-09-26)
+
+
+### Features
+
+* **events:** adds custom taxonomies to details ([3499772](https://github.com/frocentric/wordpress/commit/349977265d1080cfc5d049f2b9674eb215d01834))
+* **events:** adds custom taxonomy filters ([ac90134](https://github.com/frocentric/wordpress/commit/ac90134dc0d5ee37521a4abf503be7b80a9e3119))
+
+
+### Bug Fixes
+
+* **events:** only returns terms for future events ([2b56ba8](https://github.com/frocentric/wordpress/commit/2b56ba8370ec1bae4886a4b7b6d214fa50681494))
+
 ### [1.15.2](https://github.com/frocentric/wordpress/compare/v1.15.1...v1.15.2) (2022-09-22)
 
 
