@@ -25,6 +25,7 @@ if ( ! function_exists( 'fro_meta_event_archive_taxonomy' ) ) {
 	 *
 	 * @return string|void The html list of tags or void if no terms.
 	 */
+	// phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 	function fro_meta_event_archive_taxonomy( $label = null, $separator = ', ', $echo = true ) {
 		/**
 		 * Filter whether to use the WordPress tag archive urls, default false.
