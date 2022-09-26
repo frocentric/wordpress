@@ -39,7 +39,7 @@ if ( ! function_exists( 'fro_meta_event_archive_taxonomy' ) ) {
 		}
 
 		if ( ! $label ) {
-			$label = esc_html__( 'Tags:', 'the-events-calendar' );
+			$label = esc_html__( 'Labels:', 'froware' );
 		}
 
 		$terms = [];
