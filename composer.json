@@ -31,9 +31,7 @@
   },
   "config": {
     "preferred-install": "dist",
-	"allow-plugins": {
-		"ffraenz/private-composer-installer": true
-	}
+	"allow-plugins": true
   },
   "repositories": [
     {
