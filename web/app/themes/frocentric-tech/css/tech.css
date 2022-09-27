@@ -239,7 +239,7 @@ Event Calendar styles
 .tribe-events .datepicker {
   border-radius: var(--fro-border-radius-default);
 }
-.tribe-dropdown .select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple,
+.select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple,
 .tribe-events-admin__recent-log-filters-select-wrapper .select2-container--default.select2-container--open.select2-container--below .select2-selection--single {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
