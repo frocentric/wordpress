@@ -30,7 +30,10 @@
     "forum": "https://discourse.roots.io/category/bedrock"
   },
   "config": {
-    "preferred-install": "dist"
+    "preferred-install": "dist",
+	"allow-plugins": {
+		"ffraenz/private-composer-installer": true
+	}
   },
   "repositories": [
     {
