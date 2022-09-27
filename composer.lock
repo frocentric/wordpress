@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.235.14",
+            "version": "3.236.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "d6a696800e1eceec47e8f84ded88a88f4790d016"
+                "reference": "bff1f1ade00c758ea27f498baee1fa16901e5bfd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d6a696800e1eceec47e8f84ded88a88f4790d016",
-                "reference": "d6a696800e1eceec47e8f84ded88a88f4790d016",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/bff1f1ade00c758ea27f498baee1fa16901e5bfd",
+                "reference": "bff1f1ade00c758ea27f498baee1fa16901e5bfd",
                 "shasum": ""
             },
             "require": {
@@ -146,9 +146,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.235.14"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.236.0"
             },
-            "time": "2022-09-22T18:16:42+00:00"
+            "time": "2022-09-26T18:13:07+00:00"
         },
         {
             "name": "composer/installers",
@@ -1265,10 +1265,10 @@
         },
         {
             "name": "koodimonni-plugin-language/woocommerce-en_gb",
-            "version": "6.9.3",
+            "version": "6.9.4",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/6.9.3/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/6.9.4/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -2813,16 +2813,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.12.1",
+            "version": "v3.12.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "3584bcca26fdee58f81269708218b48dfc9ddad8"
+                "reference": "c417af78b06be599a0be626fa4586a04c105133c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/3584bcca26fdee58f81269708218b48dfc9ddad8",
-                "reference": "3584bcca26fdee58f81269708218b48dfc9ddad8",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/c417af78b06be599a0be626fa4586a04c105133c",
+                "reference": "c417af78b06be599a0be626fa4586a04c105133c",
                 "shasum": ""
             },
             "require": {
@@ -2926,7 +2926,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2022-09-15T18:03:42+00:00"
+            "time": "2022-09-26T13:48:10+00:00"
         },
         {
             "name": "wpackagist-plugin/authors-list",
@@ -4112,5 +4112,5 @@
         "php": ">=5.6"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.0.0"
 }
