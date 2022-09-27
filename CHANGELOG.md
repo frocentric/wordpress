@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+### [1.16.1](https://github.com/frocentric/wordpress/compare/v1.16.0...v1.16.1) (2022-09-27)
+
+
+### Bug Fixes
+
+* **events:** fixes admin form styling ([a66da27](https://github.com/frocentric/wordpress/commit/a66da274a62aa7fe2477755f20a7d444c61a8609))
+* **events:** fixes datepicker styling ([092080a](https://github.com/frocentric/wordpress/commit/092080a275e62c770525ff7a0bd763d43bc14fc8))
+
 ## [1.16.0](https://github.com/frocentric/wordpress/compare/v1.15.2...v1.16.0) (2022-09-26)
 
 
