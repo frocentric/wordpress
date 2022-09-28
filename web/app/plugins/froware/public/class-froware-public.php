@@ -803,7 +803,7 @@ class Froware_Public {
 	}
 
 	const EVENT_TAXONOMIES = [
-		'community' => 'Filterbar_Filter_Community',
+		'audience' => 'Filterbar_Filter_Audience',
 		'discipline' => 'Filterbar_Filter_Discipline',
 		'interest' => 'Filterbar_Filter_Interest',
 	];
