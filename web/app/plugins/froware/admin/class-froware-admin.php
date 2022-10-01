@@ -123,4 +123,48 @@ class Froware_Admin {
 			remove_action( 'admin_enqueue_scripts', [ Elementor\Plugin::instance()->common, 'register_scripts' ] );
 		}
 	}
+
+	/**
+	 * Removes default WPEA hook when importing from community submission page
+	 */
+	public function remove_wpea_hook() {
+		if ( isset( $_POST['wpea_action'] ) && $_POST['wpea_action'] === 'wpea_import_submit' && check_admin_referer( 'wpea_import_form_nonce_action', 'wpea_import_form_nonce' ) ) {
+
+			if ( ! isset( $_POST['import_source'] ) || $_POST['import_source'] !== 'tec_community_submission' ) {
+				return;
+			}
+
+			if ( function_exists( 'run_wp_event_aggregator' ) ) {
+				$manage_import = run_wp_event_aggregator()->manage_import;
+				remove_action( 'admin_init', [ $manage_import, 'handle_import_form_submit' ], 99 );
+			}
+		}
+	}
+
+	/**
+	 * Renders stylesheet to hide admin bar on profile page
+	 */
+	public function hide_admin_bar_prefs() { ?>
+		<style type="text/css">
+			.show-admin-bar {display: none;}
+		</style>
+		<?php
+	}
+
+	/**
+	 * Restricts wp-admin access if user can't create/edit posts.
+	 */
+	public function restrict_wpadmin_access() {
+		if ( wp_doing_ajax() || current_user_can( 'edit_posts' ) ) {
+			return;
+		} else {
+			global $wp_query;
+			$wp_query->set_404();
+			http_response_code( 404 );
+			nocache_headers();
+			get_template_part( 'content', '404' );
+
+			die();
+		}
+	}
 }
