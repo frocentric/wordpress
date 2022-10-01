@@ -309,7 +309,8 @@ class Froware_Public {
 
 		$parent_classes = [ 'current-menu-item', 'page_item', 'current_page_item', 'current_page_parent' ];
 		$event_prefixes   = [ 'events', 'event', 'organiser', 'venue', 'series' ];
-		$page_segments = $this->explode_path( wp_make_link_relative( get_permalink() ) );
+		$page_path = wp_make_link_relative( get_permalink() );
+		$page_segments = $this->explode_path( $page_path );
 		$item_segments = $this->explode_path( $item->url );
 		$events_root = $this->get_events_root();
 		$is_events_item = count( $item_segments ) > 0 && $item_segments[ count( $item_segments ) - 1 ] === $events_root;
@@ -328,7 +329,18 @@ class Froware_Public {
 			}
 
 			// Highlight Content page link for any content post or category page.
-			if ( ( ( is_single() && get_post_type() === 'post' && $slug !== 'news' ) || is_author() || is_category() || is_tag() || is_tax() || is_search() ) && strpos( parse_url( $item->url, PHP_URL_PATH ), '/content' ) === 0 ) {
+			if (
+				(
+					( is_single() && get_post_type() === 'post' && $slug !== 'news' )
+					|| is_author()
+					|| is_category()
+					|| is_tag()
+					|| is_tax()
+					|| is_search()
+					|| strpos( $page_path, '/authors' ) === 0
+				)
+				&& strpos( parse_url( $item->url, PHP_URL_PATH ), '/content' ) === 0
+			) {
 				$classes = array_merge( $classes, $parent_classes );
 			} elseif ( is_page() && $post->post_parent === (int) $item->object_id ) {
 				$classes = array_merge( $classes, $parent_classes );
