@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+### [1.16.3](https://github.com/frocentric/wordpress/compare/v1.16.2...v1.16.3) (2022-10-01)
+
+
+### Bug Fixes
+
+* **events:** prevents duplicate event creation ([f555082](https://github.com/frocentric/wordpress/commit/f5550820b9642a5d58a961e24dec1853786fe5ef)), closes [#573](https://github.com/frocentric/wordpress/issues/573)
+* highlights Content menu item for Authors page ([8c7c57f](https://github.com/frocentric/wordpress/commit/8c7c57fd31238099ee35cdd83a37079f67433a3a))
+
 ### [1.16.2](https://github.com/frocentric/wordpress/compare/v1.16.1...v1.16.2) (2022-09-28)
 
 ### [1.16.1](https://github.com/frocentric/wordpress/compare/v1.16.0...v1.16.1) (2022-09-27)
