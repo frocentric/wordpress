@@ -309,7 +309,8 @@ class Froware_Public {
 
 		$parent_classes = [ 'current-menu-item', 'page_item', 'current_page_item', 'current_page_parent' ];
 		$event_prefixes   = [ 'events', 'event', 'organiser', 'venue', 'series' ];
-		$page_segments = $this->explode_path( wp_make_link_relative( get_permalink() ) );
+		$page_path = wp_make_link_relative( get_permalink() );
+		$page_segments = $this->explode_path( $page_path );
 		$item_segments = $this->explode_path( $item->url );
 		$events_root = $this->get_events_root();
 		$is_events_item = count( $item_segments ) > 0 && $item_segments[ count( $item_segments ) - 1 ] === $events_root;
@@ -328,7 +329,18 @@ class Froware_Public {
 			}
 
 			// Highlight Content page link for any content post or category page.
-			if ( ( ( is_single() && get_post_type() === 'post' && $slug !== 'news' ) || is_author() || is_category() || is_tag() || is_tax() || is_search() ) && strpos( parse_url( $item->url, PHP_URL_PATH ), '/content' ) === 0 ) {
+			if (
+				(
+					( is_single() && get_post_type() === 'post' && $slug !== 'news' )
+					|| is_author()
+					|| is_category()
+					|| is_tag()
+					|| is_tax()
+					|| is_search()
+					|| strpos( $page_path, '/authors' ) === 0
+				)
+				&& strpos( parse_url( $item->url, PHP_URL_PATH ), '/content' ) === 0
+			) {
 				$classes = array_merge( $classes, $parent_classes );
 			} elseif ( is_page() && $post->post_parent === (int) $item->object_id ) {
 				$classes = array_merge( $classes, $parent_classes );
@@ -674,16 +686,13 @@ class Froware_Public {
 	}
 
 	protected function parse_url( $url, $matches ) {
-		// TODO: replace with regex test
-		switch ( $matches[1] ) {
-			case 'eventbrite.com':
-			case 'eventbrite.co.uk':
-			case 'www.eventbrite.com':
-			case 'www.eventbrite.co.uk':
-				$this->parse_eventbrite_url( $url, $matches );
-				break;
+		$regex = '/^(?:www\.)?eventbrite(?:\.[a-z]{2,3}){1,2}$/';
+
+		if ( preg_match( $regex, $matches[1] ) ) {
+			$this->parse_eventbrite_url( $url, $matches );
+		} else {
+			wp_send_json_error( __( 'Unsupported domain, please try again', 'froware' ) );
 		}
-		wp_send_json_error( __( 'Unsupported domain, please try again', 'froware' ) );
 	}
 
 	protected function parse_eventbrite_url( $url, $matches ) {
@@ -712,6 +721,7 @@ class Froware_Public {
 		$response->wpea_action            = 'wpea_import_submit';
 		$response->wpea_eventbrite_id     = $event_id;
 		$response->wpea_import_form_nonce = wp_create_nonce( 'wpea_import_form_nonce_action' );
+		$response->import_source          = 'tec_community_submission';
 
 		wp_send_json_success( $response );
 	}
@@ -745,9 +755,7 @@ class Froware_Public {
 		// TODO: Validate fields (type, frequency, status, categories).
 
 		if ( class_exists( 'WP_Event_Aggregator_Pro_Manage_Import' ) ) {
-			$importer = new WP_Event_Aggregator_Pro_Manage_Import();
-
-			$importer->handle_import_form_submit();
+			run_wp_event_aggregator()->manage_import->handle_import_form_submit();
 
 			if ( count( $wpea_success_msg ) > 0 ) {
 				$imported_event = tribe_get_event( $this->imported_event_id );
@@ -1271,32 +1279,5 @@ class Froware_Public {
 	 */
 	public function toggle_admin_bar( $show_admin_bar ) {
 		return current_user_can( 'edit_posts' ) ? $show_admin_bar : false;
-	}
-
-	/**
-	 * Renders stylesheet to hide admin bar on profile page
-	 */
-	public function hide_admin_bar_prefs() { ?>
-		<style type="text/css">
-			.show-admin-bar {display: none;}
-		</style>
-		<?php
-	}
-
-	/**
-	 * Restricts wp-admin access if user can't create/edit posts.
-	 */
-	public function restrict_wpadmin_access() {
-		if ( wp_doing_ajax() || current_user_can( 'edit_posts' ) ) {
-			return;
-		} else {
-			global $wp_query;
-			$wp_query->set_404();
-			http_response_code( 404 );
-			nocache_headers();
-			get_template_part( 'content', '404' );
-
-			die();
-		}
 	}
 }
