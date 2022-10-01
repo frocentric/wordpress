@@ -1280,31 +1280,4 @@ class Froware_Public {
 	public function toggle_admin_bar( $show_admin_bar ) {
 		return current_user_can( 'edit_posts' ) ? $show_admin_bar : false;
 	}
-
-	/**
-	 * Renders stylesheet to hide admin bar on profile page
-	 */
-	public function hide_admin_bar_prefs() { ?>
-		<style type="text/css">
-			.show-admin-bar {display: none;}
-		</style>
-		<?php
-	}
-
-	/**
-	 * Restricts wp-admin access if user can't create/edit posts.
-	 */
-	public function restrict_wpadmin_access() {
-		if ( wp_doing_ajax() || current_user_can( 'edit_posts' ) ) {
-			return;
-		} else {
-			global $wp_query;
-			$wp_query->set_404();
-			http_response_code( 404 );
-			nocache_headers();
-			get_template_part( 'content', '404' );
-
-			die();
-		}
-	}
 }
