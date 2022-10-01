@@ -686,16 +686,13 @@ class Froware_Public {
 	}
 
 	protected function parse_url( $url, $matches ) {
-		// TODO: replace with regex test
-		switch ( $matches[1] ) {
-			case 'eventbrite.com':
-			case 'eventbrite.co.uk':
-			case 'www.eventbrite.com':
-			case 'www.eventbrite.co.uk':
-				$this->parse_eventbrite_url( $url, $matches );
-				break;
+		$regex = '/^(?:www\.)?eventbrite(?:\.[a-z]{2,3}){1,2}$/';
+
+		if ( preg_match( $regex, $matches[1] ) ) {
+			$this->parse_eventbrite_url( $url, $matches );
+		} else {
+			wp_send_json_error( __( 'Unsupported domain, please try again', 'froware' ) );
 		}
-		wp_send_json_error( __( 'Unsupported domain, please try again', 'froware' ) );
 	}
 
 	protected function parse_eventbrite_url( $url, $matches ) {
