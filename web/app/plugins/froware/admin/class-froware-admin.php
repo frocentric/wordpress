@@ -123,4 +123,21 @@ class Froware_Admin {
 			remove_action( 'admin_enqueue_scripts', [ Elementor\Plugin::instance()->common, 'register_scripts' ] );
 		}
 	}
+
+	/**
+	 * Removes default WPEA hook when importing from community submission page
+	 */
+	public function remove_wpea_hook() {
+		if ( isset( $_POST['wpea_action'] ) && $_POST['wpea_action'] === 'wpea_import_submit' && check_admin_referer( 'wpea_import_form_nonce_action', 'wpea_import_form_nonce' ) ) {
+
+			if ( ! isset( $_POST['import_source'] ) || $_POST['import_source'] !== 'tec_community_submission' ) {
+				return;
+			}
+
+			if ( function_exists( 'run_wp_event_aggregator' ) ) {
+				$manage_import = run_wp_event_aggregator()->manage_import;
+				remove_action( 'admin_init', [ $manage_import, 'handle_import_form_submit' ], 99 );
+			}
+		}
+	}
 }

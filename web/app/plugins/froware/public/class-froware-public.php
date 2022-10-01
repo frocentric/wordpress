@@ -721,6 +721,7 @@ class Froware_Public {
 		$response->wpea_action            = 'wpea_import_submit';
 		$response->wpea_eventbrite_id     = $event_id;
 		$response->wpea_import_form_nonce = wp_create_nonce( 'wpea_import_form_nonce_action' );
+		$response->import_source          = 'tec_community_submission';
 
 		wp_send_json_success( $response );
 	}
@@ -754,9 +755,7 @@ class Froware_Public {
 		// TODO: Validate fields (type, frequency, status, categories).
 
 		if ( class_exists( 'WP_Event_Aggregator_Pro_Manage_Import' ) ) {
-			$importer = new WP_Event_Aggregator_Pro_Manage_Import();
-
-			$importer->handle_import_form_submit();
+			run_wp_event_aggregator()->manage_import->handle_import_form_submit();
 
 			if ( count( $wpea_success_msg ) > 0 ) {
 				$imported_event = tribe_get_event( $this->imported_event_id );
