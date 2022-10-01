@@ -157,6 +157,8 @@ class Froware {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'remove_wpea_hook' );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'restrict_wpadmin_access' );
+		$this->loader->add_action( 'admin_print_scripts-profile.php', $plugin_admin, 'hide_admin_bar_prefs' );
 		$this->loader->add_action( 'init', $plugin_admin, 'override_elementor_enqueue_scripts_hook', 20 );
 		$this->loader->add_filter( 'option_active_plugins', $plugin_admin, 'filter_active_plugins', 10, 2 );
 	}
@@ -173,8 +175,6 @@ class Froware {
 		$plugin_public = new Froware_Public( $this->get_plugin_name(), $this->get_version() );
 
 		// Actions.
-		$this->loader->add_action( 'admin_init', $plugin_public, 'restrict_wpadmin_access' );
-		$this->loader->add_action( 'admin_print_scripts-profile.php', $plugin_public, 'hide_admin_bar_prefs' );
 		$this->loader->add_action( 'after_setup_theme', $plugin_public, 'extend_theme_support', 100 );
 		$this->loader->add_action( 'init', $plugin_public, 'add_taxonomy_to_pages' );
 		$this->loader->add_action( 'login_enqueue_scripts', $plugin_public, 'enqueue_login_styles' );
