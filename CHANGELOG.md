@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.17.0](https://github.com/frocentric/wordpress/compare/v1.16.3...v1.17.0) (2022-10-02)
+
+
+### Features
+
+* enables sorting RSVP display order ([3a20690](https://github.com/frocentric/wordpress/commit/3a206901701e05805e2f62095f3bf3c2baef3ad8))
+
 ### [1.16.3](https://github.com/frocentric/wordpress/compare/v1.16.2...v1.16.3) (2022-10-01)
 
 
