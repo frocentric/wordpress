@@ -226,7 +226,7 @@ body.page-template-default .site.grid-container {
 Event Calendar styles
 */
 #tribe-events-pg-template {
-	padding-top: 0;
+	padding: 0;
 }
 .tribe-common.tribe-events.tribe-events-view .tribe-events-l-container {
   min-height: auto;
