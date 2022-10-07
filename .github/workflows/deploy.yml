@@ -30,10 +30,12 @@ jobs:
       - name: Make .env file
         uses: SpicyPizza/create-envfile@v1
         with:
-          envkey_TEC_PRO_LICENSE: ${{ secrets.TEC_PRO_LICENSE }}
-          envkey_TEC_CE_LICENSE: ${{ secrets.TEC_CE_LICENSE }}
+          envkey_TEC_CE_LICENSE: ${{ secrets.TEC_CE_LICENSE }}}}
+          envkey_TEC_CT_LICENSE: ${{ secrets.TEC_CT_LICENSE }}
+          envkey_TEC_ETP_LICENSE: ${{ secrets.TEC_ETP_LICENSE }}}}
           envkey_TEC_FB_LICENSE: ${{ secrets.TEC_FB_LICENSE }}
-          envkey_TEC_ETP_LICENSE: ${{ secrets.TEC_ETP_LICENSE }}
+          envkey_TEC_PRO_LICENSE: ${{ secrets.TEC_PRO_LICENSE }}
+          envkey_TEC_VE_LICENSE: ${{ secrets.TEC_VE_LICENSE }}
 
       - name: Install dependencies
         uses: php-actions/composer@v5
