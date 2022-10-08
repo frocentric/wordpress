@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+### [1.17.1](https://github.com/frocentric/wordpress/compare/v1.17.0...v1.17.1) (2022-10-08)
+
+
+### Bug Fixes
+
+* **events:** fixes calendar popup styling ([96df04f](https://github.com/frocentric/wordpress/commit/96df04f31761f9759428b04c28d96f8e7a3887cc))
+* **events:** fixes submit event page layout ([08978d9](https://github.com/frocentric/wordpress/commit/08978d983efc8dda927c1ef85d8c405791605f35))
+
 ## [1.17.0](https://github.com/frocentric/wordpress/compare/v1.16.3...v1.17.0) (2022-10-02)
 
 
