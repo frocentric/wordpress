@@ -226,7 +226,7 @@ body.page-template-default .site.grid-container {
 Event Calendar styles
 */
 #tribe-events-pg-template {
-	padding-top: 0;
+	padding: 0;
 }
 .tribe-common.tribe-events.tribe-events-view .tribe-events-l-container {
   min-height: auto;
@@ -236,7 +236,9 @@ Event Calendar styles
 .tribe-common.event-tickets .tribe-tickets__rsvp-wrapper,
 .tribe-community-events .tribe-section,
 .tribe-community-events-list,
-.tribe-events .datepicker {
+.tribe-events .datepicker,
+.tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list,
+.single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__list {
   border-radius: var(--fro-border-radius-default);
 }
 .select2-container--default.select2-container--open.select2-container--below .select2-selection--multiple,
