@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b3a9208e9a3cb062077ffcd1dc9d4a91",
+    "content-hash": "879fa5019b03bdf5577f5118f0188bf1",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1265,10 +1265,10 @@
         },
         {
             "name": "koodimonni-plugin-language/woocommerce-en_gb",
-            "version": "6.9.4",
+            "version": "7.0.0",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/6.9.4/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/7.0.0/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1654,7 +1654,7 @@
         },
         {
             "name": "modern-tribe/events-virtual",
-            "version": "1.13.1",
+            "version": "1.11.0",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-virtual&version={%VERSION}&key={%TEC_VE_LICENSE}"
