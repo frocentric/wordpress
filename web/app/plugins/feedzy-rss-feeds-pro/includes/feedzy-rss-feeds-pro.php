@@ -66,7 +66,7 @@ class Feedzy_Rss_Feeds_Pro {
 	 */
 	public function __construct() {
 		$this->plugin_name = 'feedzy-rss-feeds-pro';
-		$this->version     = '2.0.3';
+		$this->version     = '2.0.5';
 		$this->loader      = new Feedzy_Rss_Feeds_Pro_Loader();
 		$this->set_locale();
 		$this->define_admin_hooks();
@@ -153,7 +153,7 @@ class Feedzy_Rss_Feeds_Pro {
 		$this->loader->add_filter( 'feedzy_agency_magic_tags_content', $plugin_admin, 'agency_magic_tags_content', 12 );
 		$this->loader->add_filter( 'feedzy_agency_magic_tags_image', $plugin_admin, 'agency_magic_tags_image', 12 );
 		$this->loader->add_filter( 'feedzy_invoke_services', $plugin_admin, 'invoke_services', 10, 4 );
-		$this->loader->add_filter( 'feedzy_parse_custom_tags', $plugin_admin, 'parse_custom_tags', 10, 3 );
+		$this->loader->add_filter( 'feedzy_parse_custom_tags', $plugin_admin, 'parse_custom_tags', 10, 2 );
 		$this->loader->add_filter( 'feedzy_get_service_magic_tags', $plugin_admin, 'get_service_magic_tags', 10, 2 );
 		$this->loader->add_filter( 'feedzy_extract_from_custom_tag', $plugin_admin, 'extract_from_custom_tag', 10, 5 );
 		$this->loader->add_filter( 'feedzy_invoke_content_rewrite_services', $plugin_admin, 'invoke_content_rewrite_services', 10, 3 );
