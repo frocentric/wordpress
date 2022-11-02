@@ -59,9 +59,13 @@
 					</span>
 					<div class="<?php echo esc_attr( $item['item_content_class'] ); ?>"
 							style="<?php echo esc_attr( $item['item_content_style'] ); ?>">
-						<small class="meta"><?php echo wp_kses_post( feedzy_feed_item_meta( $item ) ); ?></small>
+						<?php if ( ! empty( $item['item_meta'] ) ) : ?>
+							<small class="meta"><?php echo wp_kses_post( feedzy_feed_item_meta( $item ) ); ?></small>
+						<?php endif; ?>
 
+						<?php if ( ! empty( $item['item_description'] ) ) : ?>
 						<p class="description"><?php echo wp_kses_post( feedzy_feed_item_desc( $item ) ); ?></p>
+						<?php endif; ?>
 
 						<?php
 							$allow_audio_tag = array(
