@@ -191,17 +191,14 @@ class Promotions extends Abstract_Module {
 	 * @access  public
 	 */
 	public function is_writeable() {
-		global $wp_filesystem;
+
 		include_once ABSPATH . 'wp-admin/includes/file.php';
-		WP_Filesystem();
+		$filesystem_method = get_filesystem_method();
 
-		if ( ! function_exists( 'WP_Filesystem' ) ) {
-			return false;
+		if ( 'direct' === $filesystem_method ) {
+			return true;
 		}
-
-		$writable = WP_Filesystem( false, ABSPATH . 'wp-content' );
-
-		return $writable && 'direct' === $wp_filesystem->method;
+		return false;
 	}
 
 	/**

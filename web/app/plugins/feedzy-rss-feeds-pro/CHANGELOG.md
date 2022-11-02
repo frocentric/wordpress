@@ -1,3 +1,13 @@
+##### [Version 2.0.5](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.0.4...v2.0.5) (2022-10-26)
+
+* Fix keyword filtering not working on the full content text. 
+* Fix full content filter is available as an option in Elementor's widget
+
+##### [Version 2.0.4](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.0.3...v2.0.4) (2022-09-27)
+
+- Fix custom tags that do not retrieve content if the Feedzy category is used instead of the URL of a feed
+- Update dependencies
+
 ##### [Version 2.0.3](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.0.2...v2.0.3) (2022-09-09)
 
 #### Fixes
