@@ -341,6 +341,14 @@ class GeneratePress_Site_Layout {
 			if ( $this->disable_content_title ) {
 				add_filter( 'generate_block_editor_show_content_title', '__return_false' );
 			}
+
+			if ( $this->content_area ) {
+				add_filter( 'generate_block_editor_content_area_type', array( $this, 'set_editor_content_area' ) );
+			}
+
+			if ( $this->content_width ) {
+				add_filter( 'generate_block_editor_container_width', array( $this, 'set_editor_content_width' ) );
+			}
 		}
 	}
 
@@ -355,20 +363,18 @@ class GeneratePress_Site_Layout {
 		if ( is_admin() ) {
 			$admin_css = '';
 
-			if ( 'full-width' === $this->content_area ) {
-				$admin_css .= 'html .editor-styles-wrapper .wp-block{max-width: 100%}';
+			if ( version_compare( generate_premium_get_theme_version(), '3.2.0-alpha.1', '<' ) ) {
+				if ( 'full-width' === $this->content_area ) {
+					$admin_css .= 'html .editor-styles-wrapper .wp-block{max-width: 100%}';
+				}
+
+				if ( $this->content_width ) {
+					$admin_css .= 'html .editor-styles-wrapper .wp-block{max-width: ' . absint( $this->content_width ) . 'px;}';
+				}
 			}
 
 			if ( $this->content_area ) {
 				$admin_css .= '#generate-layout-page-builder-container {opacity: 0.5;pointer-events: none;}';
-			}
-
-			if ( $this->disable_content_title ) {
-				$admin_css .= '.content-title-visibility{display: none !important;}label[for="meta-generate-disable-headline"] {opacity: 0.5;pointer-events: none;}';
-			}
-
-			if ( $this->content_width ) {
-				$admin_css .= 'html .editor-styles-wrapper .wp-block{max-width: ' . absint( $this->content_width ) . 'px;}';
 			}
 
 			if ( $admin_css ) {
@@ -458,6 +464,36 @@ class GeneratePress_Site_Layout {
 				return $this->footer_widgets;
 			}
 		}
+	}
+
+	/**
+	 * Set the content area type in the editor.
+	 *
+	 * @param string $area Content area type.
+	 */
+	public function set_editor_content_area( $area ) {
+		if ( 'full-width' === $this->content_area ) {
+			$area = 'true';
+		}
+
+		if ( 'contained-container' === $this->content_area ) {
+			$area = 'contained';
+		}
+
+		return $area;
+	}
+
+	/**
+	 * Set the content width in the editor.
+	 *
+	 * @param string $width Content width with unit.
+	 */
+	public function set_editor_content_width( $width ) {
+		if ( $this->content_width ) {
+			$width = absint( $this->content_width ) . 'px';
+		}
+
+		return $width;
 	}
 
 	/**

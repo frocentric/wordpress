@@ -53,8 +53,8 @@ jQuery(window).on('elementor/frontend/init', () => {
             //console.log(elementorFrontend.utils);
 
             // -------------------------------------------
-            if (this.elementSettings[this.skinPrefix + 'scrollreveal_effect_type']) {
-                var isLive = this.elementSettings[this.skinPrefix + 'scrollreveal_live'] ? false : true;
+            if (this.elementSettings['scrollreveal_effect_type']) {
+                var isLive = this.elementSettings['scrollreveal_live'] ? false : true;
                 this.elements.$animationReveal = new eadd_animationReveal(this.elements.$container, isLive);
             }
 

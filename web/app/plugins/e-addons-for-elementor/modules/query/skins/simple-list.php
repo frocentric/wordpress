@@ -24,13 +24,6 @@ if (!defined('ABSPATH')) {
  */
 class Simple_List extends Base {
 
-    public function _register_controls_actions() {
-        if ($this->parent) {
-            parent::_register_controls_actions();
-            add_action('elementor/element/' . $this->parent->get_name() . '/section_e_query/after_section_end', [$this, 'register_additional_controls'], 20);
-        }        
-    }
-
     public function get_id() {
         return 'list';
     }

@@ -59,6 +59,46 @@ class Rest_Api extends Base_Widget {
 
         $this->add_remote_options();
         
+        $this->add_control(
+                'method', [
+            'label' => esc_html__('Method', 'e-addons'),
+            'type' => Controls_Manager::SELECT,
+            'label_block' => true,
+            'options' => [
+                '' => esc_html__('Auto'),
+                'GET' => esc_html__('GET'),
+                'POST' => esc_html__('POST'),
+            ],
+                ]
+        );
+        
+        $repeater_fields = new \Elementor\Repeater();
+        $repeater_fields->add_control(
+                'data_get_key', [
+            'label' => esc_html__('Key', 'e-addons'),
+            'type' => Controls_Manager::TEXT,
+                ]
+        );
+        $repeater_fields->add_control(
+                'data_get_value', [
+            'label' => esc_html__('Value', 'e-addons'),
+            'type' => Controls_Manager::TEXT,
+                ]
+        );
+        $this->add_control(
+                'data_get', [
+            'label' => esc_html__('Get Arguments', 'e-addons'),
+            'type' => \Elementor\Controls_Manager::REPEATER,
+            'fields' => $repeater_fields->get_controls(),
+            'separator' => 'before',
+            'title_field' => '{{{ data_get_key }}} = {{{ data_get_value }}}',
+            'prevent_empty' => false,
+            'condition' => [
+                'method' => ['GET'],
+            ],
+                ]
+        );
+        
         $repeater_fields = new \Elementor\Repeater();
         $repeater_fields->add_control(
                 'data_post_key', [
@@ -80,6 +120,16 @@ class Rest_Api extends Base_Widget {
             'separator' => 'before',
             'title_field' => '{{{ data_post_key }}} = {{{ data_post_value }}}',
             'prevent_empty' => false,
+            'condition' => [
+                'method' => ['POST', ''],
+            ],
+                ]
+        );
+        
+        $this->add_control(
+                'query_debug', [
+            'label' => '<span style="color: #fff; background-color: #93003c; padding: 5px 10px; border-radius: 20px;">' . esc_html__('Show Remote data for DEBUG', 'e-addons') . '</span>',
+            'type' => Controls_Manager::SWITCHER,
                 ]
         );
 
@@ -99,6 +149,7 @@ class Rest_Api extends Base_Widget {
             'separator' => 'before',
                 ]
         );
+        
         $this->add_control(
                 'data_before', [
             'label' => esc_html__('Before the Archive', 'e-addons'),

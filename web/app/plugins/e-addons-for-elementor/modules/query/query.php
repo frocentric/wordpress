@@ -35,7 +35,7 @@ class Query extends Module_Base {
         }
         
         // No Widgets which require pagination
-        $query_widgets = $this->get_query_widgets();
+        $query_widgets = Utils::get_query_widgets();
         if (empty($query_widgets)) {
             return $handled;
         }
@@ -107,18 +107,6 @@ class Query extends Module_Base {
         return $theme_builder;
     }
 
-    public function get_query_widgets() {
-        // Get all widgets that may add pagination.
-        $widgets = \Elementor\Plugin::instance()->widgets_manager->get_widget_types();
-        $query_widgets = [];
-        foreach ($widgets as $widget) {
-            if ($widget instanceof \EAddonsForElementor\Modules\Query\Base\Query) {
-                $query_widgets[] = $widget->get_name();
-            }
-        }
-        return $query_widgets;
-    }
-
     /**
      * Checks a set of elements if there is a posts/archive widget that may be paginated to a specific page number.
      *
@@ -130,7 +118,7 @@ class Query extends Module_Base {
     public function is_valid_pagination($document, $current_page) {
         $is_valid = false;
         $elements = $document->get_elements_data();
-        $query_widgets = $this->get_query_widgets();
+        $query_widgets = Utils::get_query_widgets();
         \Elementor\Plugin::instance()->db->iterate_data($elements, function($element) use (&$is_valid, $query_widgets, $current_page) {
             if (isset($element['widgetType']) && in_array($element['widgetType'], $query_widgets, true)) {
                 // Has pagination.

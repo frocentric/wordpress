@@ -124,7 +124,7 @@ jQuery( window ).on( 'load', function() {
 	}
 } );
 
-generate_spacing_live_update( 'one_container_post_content_bottom', 'content_bottom', '.one-container.archive .post:not(:last-child),.one-container.blog .post:not(:last-child)', 'padding-bottom' );
+generate_spacing_live_update( 'one_container_post_content_bottom', 'content_bottom', '.one-container.archive .post:not(:last-child):not(.is-loop-template-item),.one-container.blog .post:not(:last-child):not(.is-loop-template-item)', 'padding-bottom' );
 
 /* Mobile content padding */
 generate_spacing_live_update( 'mobile_content_top', 'mobile_content_top', content_areas, 'padding-top', false, false, gp_spacing.mobile );

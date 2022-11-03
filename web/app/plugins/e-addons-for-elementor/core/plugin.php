@@ -31,7 +31,7 @@ class Plugin {
      * @var Plugin
      */
     public static $instance = null;
-
+    public static $plugins = [];
     /**
      * Modules manager.
      *
@@ -58,7 +58,7 @@ class Plugin {
      * @access public
      */
     public function __construct() {
-        
+        //return false;
         $plugin_class_name = get_class($this);
         //var_dump($plugin_class_name);
         switch ($plugin_class_name) {
@@ -70,14 +70,16 @@ class Plugin {
                 // disable addons
                 return false;
         }
-
-        require_once(E_ADDONS_PATH . 'core' . DIRECTORY_SEPARATOR . 'helper.php');
-        //require_once(E_ADDONS_PATH . 'core'.DIRECTORY_SEPARATOR.'dashboard'.DIRECTORY_SEPARATOR.'dashboard.php');
-
-        spl_autoload_register([$this, 'autoload']);
+        
+        if ($plugin_class_name == "EAddonsForElementor\Plugin") {
+            require_once(E_ADDONS_PATH . 'core' . DIRECTORY_SEPARATOR . 'helper.php');
+            //require_once(E_ADDONS_PATH . 'core'.DIRECTORY_SEPARATOR.'dashboard'.DIRECTORY_SEPARATOR.'dashboard.php');
+            spl_autoload_register([$this, 'autoload']);
+        }
 
         $this->setup_hooks();
         $this->maybe_vendor_autoload();
+        
         if (empty(self::$instance)) {
             // core plugin
             $this->licenses_manager = new License();
@@ -88,7 +90,7 @@ class Plugin {
             do_action('e_addons/init_license', $this);
         }
     }
-
+    
     /**
      * Instance.
      *
@@ -123,9 +125,11 @@ class Plugin {
         }
         if (!class_exists($class)) {
             $filename = \EAddonsForElementor\Core\Helper::class_to_path($class);
+            //var_dump($filename);
             if (is_readable($filename)) {
                 include_once( $filename );
             } else {
+                //var_dump($filename);
                 // fallback
                 $plugin_path = \EAddonsForElementor\Core\Helper::get_plugin_path($class);
                 $tmp = explode(DIRECTORY_SEPARATOR, $plugin_path);
@@ -145,13 +149,16 @@ class Plugin {
 
     public function setup_hooks() {
         // fire actions
+        if (is_admin()) {
+            add_filter("extra_plugin_headers", [$this, 'set_extra_plugin_headers'] );
+        }
         add_action('elementor/init', [$this, 'on_elementor_init'], 0); // 9
-
-        add_filter("extra_plugin_headers", function ($extra_headers) {
-            $extra_headers['Free'] = 'Free';
-            $extra_headers['Channel'] = 'Channel';
-            return $extra_headers;
-        });
+    }
+    
+    public function set_extra_plugin_headers($extra_headers) {
+        $extra_headers['Free'] = 'Free';
+        $extra_headers['Channel'] = 'Channel';
+        return $extra_headers;
     }
 
     /**
@@ -163,64 +170,52 @@ class Plugin {
      */
     public function on_elementor_init() {
 
-        $this->assets_manager = new Assets();
-        $this->controls_manager = new Controls();
-        $this->modules_manager = new Modules();
-        $this->template_manager = new Template();
+        if (get_class($this) == "EAddonsForElementor\Plugin") {
+            $this->assets_manager = new Assets();
+            $this->controls_manager = new Controls();
+            $this->modules_manager = new Modules();
+            $this->template_manager = new Template();
 
-        $this->ajax_manager = new \EAddonsForElementor\Core\Ajax\Actions();
+            $this->ajax_manager = new \EAddonsForElementor\Core\Ajax\Actions();
 
-        if (is_admin()) {
-            //$ajax = new \EAddonsForElementor\Core\Ajax\Actions();
-            add_action('admin_notices', '\EAddonsForElementor\Core\Utils::e_admin_notices');
-            $dash = new \EAddonsForElementor\Core\Dashboard\Dashboard();
-            
-        }
-
-        // Register Category fix
-        global $wp_filter;
-        $tag = 'elementor/init';
-        $tag_cat = 'elementor/elements/categories_registered';
-        if (!empty($wp_filter[$tag]->callbacks[10])) {
-            // remove_action( 'elementor/init', array( '\XXX', 'register_category' ) );
-            foreach ($wp_filter[$tag]->callbacks[10] as $ckey => $callb) {
-                if (strpos($ckey, 'register_category') !== false) {
-                    $wp_filter[$tag_cat]->callbacks[10][$ckey] = $callb;
-                    unset($wp_filter[$tag]->callbacks[10][$ckey]);
-                }
+            if (is_admin()) {
+                //$ajax = new \EAddonsForElementor\Core\Ajax\Actions();
+                add_action('admin_notices', '\EAddonsForElementor\Core\Utils::e_admin_notices');
+                $dash = new \EAddonsForElementor\Core\Dashboard\Dashboard();
             }
-            //echo '<pre>';var_dump($wp_filter[ $tag ]->callbacks[10]);echo '</pre>'; die();
         }
-
+        
         do_action('e_addons/init');
     }
 
     public function get_plugins() {
-        $plugins = array();
-        $wp_plugin_dir = Utils::get_wp_plugin_dir();
-        $e_addons_plugin = glob($wp_plugin_dir . DIRECTORY_SEPARATOR . 'e-addons*');
-        foreach ($e_addons_plugin as $e_plugin) {
-            if (is_dir($e_plugin)) {
-                $e_plugin_name = basename($e_plugin);
-                $e_plugin_file = $e_plugin . DIRECTORY_SEPARATOR . $e_plugin_name . '.php';
-                if (file_exists($e_plugin_file)) {
-                    $plugin = $e_plugin_name . '/' . $e_plugin_name . '.php';
-                    if (!is_callable('get_plugin_data') || !is_callable('is_plugin_active')) {
-                        include_once(ABSPATH . 'wp-admin' . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'plugin.php');
+        if (empty(self::$plugins)) {
+            $wp_plugin_dir = Utils::get_wp_plugin_dir();
+            $e_addons_plugin = glob($wp_plugin_dir . DIRECTORY_SEPARATOR . 'e-addons*');
+            foreach ($e_addons_plugin as $e_plugin) {
+                if (is_dir($e_plugin)) {
+                    $e_plugin_name = basename($e_plugin);
+                    $e_plugin_file = $e_plugin . DIRECTORY_SEPARATOR . $e_plugin_name . '.php';
+                    if (file_exists($e_plugin_file)) {
+                        $plugin = $e_plugin_name . '/' . $e_plugin_name . '.php';
+                        if (!is_callable('get_plugin_data') || !is_callable('is_plugin_active')) {
+                            include_once(ABSPATH . 'wp-admin' . DIRECTORY_SEPARATOR . 'includes' . DIRECTORY_SEPARATOR . 'plugin.php');
+                        }
+                        self::$plugins[$e_plugin_name] = get_plugin_data($e_plugin_file);
+                        self::$plugins[$e_plugin_name]['active'] = is_plugin_active($plugin);
+                        self::$plugins[$e_plugin_name]['plugin'] = $plugin;
+                        self::$plugins[$e_plugin_name]['file'] = $e_plugin_file;
+                        self::$plugins[$e_plugin_name]['path'] = $e_plugin;
                     }
-                    $plugins[$e_plugin_name] = get_plugin_data($e_plugin_file);
-                    $plugins[$e_plugin_name]['active'] = is_plugin_active($plugin);
-                    $plugins[$e_plugin_name]['plugin'] = $plugin;
-                    $plugins[$e_plugin_name]['file'] = $e_plugin_file;
-                    $plugins[$e_plugin_name]['path'] = $e_plugin;
                 }
             }
+            // Core in first position
+            if (!empty(self::$plugins['e-addons-for-elementor'])) {
+                self::$plugins = ['e-addons-for-elementor' => self::$plugins['e-addons-for-elementor']] + self::$plugins;
+            }
+            //var_dump(self::$plugins); die();
         }
-        // Core in first position
-        if (!empty($plugins['e-addons-for-elementor'])) {
-            $plugins = ['e-addons-for-elementor' => $plugins['e-addons-for-elementor']] + $plugins;
-        }
-        return $plugins;
+        return self::$plugins;
     }
 
     public function get_name() {

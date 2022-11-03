@@ -163,7 +163,7 @@ class Field extends Base_Tag {
             return;
 
         $user_id = $this->get_user_id();
-
+        if (!$user_id) return;
 
         if (!empty($settings['tag_field'])) {
             switch ($settings['tag_field']) {

@@ -23,14 +23,6 @@ if (!defined('ABSPATH')) {
  */
 class Table extends Base {
 
-    public function _register_controls_actions() {
-        if ($this->parent) {
-            parent::_register_controls_actions();
-            add_action('elementor/element/' . $this->parent->get_name() . '/section_e_query/after_section_end', [$this, 'register_additional_controls'], 20);
-            //add_action('elementor/element/' . $this->parent->get_name() . '/section_items/before_section_start', [$this, 'register_reveal_controls'], 20);
-        }
-    }
-
     public function get_script_depends() {
         return ['datatables-jquery', 'datatables-jszip', 'datatables-buttons', 'datatables-html5', 'datatables-responsive', 'datatables-fixedHeader', 'e-addons-query-table'];
     }

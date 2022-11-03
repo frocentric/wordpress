@@ -25,6 +25,8 @@ if (!defined('ABSPATH'))
  *
  */
 class Query_Media extends Query_Posts {
+    
+    public $list_items_default = [];
 
     public function __construct($data = [], $args = null) {
         parent::__construct($data, $args);
@@ -62,76 +64,7 @@ class Query_Media extends Query_Posts {
     protected function register_controls() {
         Base_Query::register_controls();
 
-        // ------------------------------------------------------------------ [SECTION ITEMS]
-        $this->start_controls_section(
-                'section_items', [
-            'label' => '<i class="eaddicon eicon-radio" aria-hidden="true"></i> ' . esc_html__('Media Items', 'e-addons'),
-            'condition' => [
-                '_skin!' => ['nextpost', 'mosaic'],
-                'style_items!' => 'template',
-            ],
-                ]
-        );
-
-        ////////////////////////////////////////////////////////////////////////////////
-        // -------- ORDERING & DISPLAY items
-        $repeater = new Repeater();
-        /*
-          //item_image
-          item_date
-          item_title
-          item_termstaxonomy
-          item_alternativetext
-          item_caption
-          item_content
-          item_author
-          item_readmore
-          item_custommeta
-          item_imagemeta
-          item_mimetype
-          item_label
-          //da valutare: uploaded_to ...
-
-         */
-        
-        $item_types = [];
-        $item_types = apply_filters( 'e_addons/query/item_types', $item_types );
-        $item_types = apply_filters( 'e_addons/query/post/item_types', $item_types );
-        $item_types = apply_filters( 'e_addons/query/'.$this->querytype.'/item_types', $item_types );
-        
-        $repeater->add_control(
-                'item_type', [
-            'label' => esc_html__('Item type', 'e-addons'),
-            'type' => Controls_Manager::SELECT,
-            'options' => $item_types,
-            'default' => 'item_image',
-                ]
-        );
-
-        $this->add_item_tabs($repeater);
-
-        $this->add_control(
-                'list_items',
-                [
-                    'label' => esc_html__('Items', 'e-addons'),
-                    'show_label' => false,
-                    'separator' => 'before',
-                    'type' => Controls_Manager::REPEATER,
-                    'fields' => $repeater->get_controls(),
-                    'prevent_empty' => false,
-                    'default' => [
-                    /* [
-                      'item_type' => 'item_image',
-                      ] */
-                    ],
-                    //item_type.replace("item_", "")
-                    'title_field' => '<# var etichetta = item_type; etichetta = etichetta.replace("item_", ""); #><b class="e-add-item-name"><i class="fa {{{ item_type+"-ic" }}}" aria-hidden="true"></i> {{{item_text_label}}} | {{{ etichetta }}}</b>',
-                ]
-        );
-
-        $this->controls_items_grid_debug($this);
-
-        $this->end_controls_section();
+        $this->add_section_items();
 
         //@p il TAB Query
         // ------------------------------------------------------------------ [SECTION - QUERY MEDIA]

@@ -21,7 +21,6 @@ class Grid extends Base {
         if ($this->parent) {
             parent::_register_controls_actions();
             add_action('elementor/element/' . $this->parent->get_name() . '/section_e_query/after_section_end', [$this, 'register_additional_grid_controls'], 20);
-            add_action('elementor/element/' . $this->parent->get_name() . '/section_items/before_section_start', [$this, 'register_reveal_controls'], 20);
         } 
     }
 
@@ -536,13 +535,19 @@ class Grid extends Base {
         $grid_type = $this->get_instance_value('grid_type');
 
         $this->render_item_start();
+        
         if (!$this->counter && $blog_template_id && $grid_type == 'blog') {
             $this->render_e_template($blog_template_id);
         } else {
-            if ($style_items == 'template') {
-                $this->render_template();
-            } else {
-                $this->render_items();
+            switch ($style_items) {
+                case 'template':
+                    $this->render_template();
+                    break;
+                case 'html':
+                    $this->render_custom_html();
+                    break;
+                default:
+                    $this->render_items();
             }
         }
         

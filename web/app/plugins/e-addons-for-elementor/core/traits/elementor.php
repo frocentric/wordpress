@@ -493,12 +493,12 @@ trait Elementor {
                 .elementor-column.elementor-col-12, .elementor-column[data-col="12"] { width: 12.5%; }
                 .elementor-column.elementor-col-14, .elementor-column[data-col="14"] { width: 14.285%; }
                 .elementor-column.elementor-col-16, .elementor-column[data-col="16"] { width: 16.666%; }
-                .elementor-column.elementor-col-20, .elementor-column[data-col="20"] { width: 20%; }
-                .elementor-column.elementor-col-25, .elementor-column[data-col="25"] { width: 25%; }
+                .elementor-column.elementor-col-20, .elementor-column[data-col="20"], .grid-col-desk-5 { width: 20%; }
+                .elementor-column.elementor-col-25, .elementor-column[data-col="25"], .grid-col-desk-4 { width: 25%; }
                 .elementor-column.elementor-col-30, .elementor-column[data-col="30"] { width: 30%; }
-                .elementor-column.elementor-col-33, .elementor-column[data-col="33"] { width: 33.333%; }
+                .elementor-column.elementor-col-33, .elementor-column[data-col="33"], .grid-col-desk-3 { width: 33.333%; }
                 .elementor-column.elementor-col-40, .elementor-column[data-col="40"] { width: 40%; }
-                .elementor-column.elementor-col-50, .elementor-column[data-col="50"] { width: 50%; }
+                .elementor-column.elementor-col-50, .elementor-column[data-col="50"], .grid-col-desk-2 { width: 50%; }
                 .elementor-column.elementor-col-60, .elementor-column[data-col="60"] { width: 60%; }
                 .elementor-column.elementor-col-66, .elementor-column[data-col="66"] { width: 66.666%; }
                 .elementor-column.elementor-col-70, .elementor-column[data-col="70"] { width: 70%; }
@@ -506,8 +506,8 @@ trait Elementor {
                 .elementor-column.elementor-col-80, .elementor-column[data-col="80"] { width: 80%; }
                 .elementor-column.elementor-col-83, .elementor-column[data-col="83"] { width: 83.333%; }
                 .elementor-column.elementor-col-90, .elementor-column[data-col="90"] { width: 90%; }
-                .elementor-column.elementor-col-100, .elementor-column[data-col="100"] { width: 100%; } }
-                .elementor-column { display:block; float:left; }
+                .elementor-column.elementor-col-100, .elementor-column[data-col="100"], .grid-col-desk-1 { width: 100%; } }
+                .elementor-column, .jet-woo-product-gallery__image-item { display:block; float:left; }
                 .elementor-section .elementor-container { display:block; }
                 .elementor-image-gallery .gallery-columns-1 .gallery-item { width: 100%; }
                 .elementor-image-gallery .gallery-columns-2 .gallery-item { width: 50%; }
@@ -527,6 +527,7 @@ trait Elementor {
         $styles['elementor-common'] = ELEMENTOR_ASSETS_PATH . 'css/common.min.css';
         $styles['elementor-custom-frontend'] = ELEMENTOR_ASSETS_PATH . 'css/custom-frontend.css';
         $styles['elementor-frontend'] = ELEMENTOR_ASSETS_PATH . 'css/frontend.min.css';
+        $styles['elementor-frontend-lite'] = ELEMENTOR_ASSETS_PATH . 'css/frontend-lite.min.css';
         //$styles['elementor-fontawesome'] = ELEMENTOR_ASSETS_PATH . 'lib/font-awesome/css/fontawesome.min.css';
         //$styles['elementor-font-awesome'] = ELEMENTOR_ASSETS_PATH . 'lib/font-awesome/css/all.min.css';             
         //$styles['e-addons-query'] = E_ADDONS_PATH . '/modules/query/assets/css/e-addons-common-query.css';
@@ -538,26 +539,26 @@ trait Elementor {
                 $styles['theme-assets-style'] = TEMPLATEPATH . '/assets/css/style.css';
             }
         }
-
-        // POST
-        if ($p_id) {
-            $styles['elementor-post-' . $p_id . '-css'] = $upload['basedir'] . '/elementor/css/post-' . $p_id . '.css';
-        }
-
+        
         // PRO
         if (self::is_plugin_active('elementor-pro')) {
             $styles['elementor-pro-frontend'] = ELEMENTOR_PRO_ASSETS_PATH . 'css/frontend.min.css';
         }
-
+        
         // KITs
         $query_kit = new \WP_Query(array('post_type' => 'elementor_library', 'meta_field' => '_elementor_template_type', 'meta_value' => 'kit'));
         //var_dump($query_kit); die();
         if ($query_kit->have_posts()) {
             $post_ids = wp_list_pluck($query_kit->posts, 'ID');
             //var_dump($post_ids); die();
-            foreach ($post_ids as $p_id) {
-                $styles['elementor-post-' . $p_id . '-css'] = $upload['basedir'] . '/elementor/css/post-' . $p_id . '.css';
+            foreach ($post_ids as $pid) {
+                $styles['elementor-post-' . $pid . '-css'] = $upload['basedir'] . '/elementor/css/post-' . $pid . '.css';
             }
+        }
+
+        // POST
+        if ($p_id) {
+            $styles['elementor-post-' . $p_id . '-css'] = $upload['basedir'] . '/elementor/css/post-' . $p_id . '.css';
         }
 
         //var_dump($styles); die();
@@ -571,25 +572,44 @@ trait Elementor {
 
         // fix global vars
         //$tmp = str_replace("{--", ";--", $css);
-        $vars = explode("--e-global-", $css);
-        foreach ($vars as $key => $tmp) {
-            if ($key) {
-                list($var, $tmp) = explode(':', $tmp, 2);
-                if (strpos($var, ')') === false && strpos($var, '}') === false) {
-                    list($val, $tmp) = explode(';', $tmp, 2);
-                    //var_dump($var); var_dump($val); die();
-                    $css = str_replace("var( --e-global-" . $var . " )", $val, $css);
+        $globals = ["--e-global-"];//, "--grid-", "--flex-"];
+        foreach ($globals as $global) {
+            $vars = explode($global, $css);
+            foreach ($vars as $key => $tmp) {
+                if ($key) {
+                    $tmp = explode(':', $tmp, 2);
+                    if (count($tmp) == 2) {
+                        list($var, $tmp) = $tmp;
+                        if (strpos($var, ')') === false && strpos($var, '}') === false) {
+                            $tmp = explode(';', $tmp, 2);
+                            if (count($tmp) == 2) {
+                                list($val, $tmp) = $tmp;
+                                //var_dump($var); var_dump($val); die();
+                                $css = str_replace("var( " . $global . $var . " )", $val, $css);
+                            }
+                        }
+                    }
                 }
             }
         }
+        
+        $css = str_replace('width:var(--width);', '', $css);
+        $css = str_replace('--width', 'width', $css);
 
         // fix calc values
         for ($i = 1; $i <= 12; $i++) {
             $size = 100 / $i;
             //$size = floor(100/$i);
+            $css = str_replace('calc(100%/' . $i . ')', $size . '%', $css);
             $css = str_replace('calc(100% / ' . $i . ')', $size . '%', $css);
+            $css = str_replace('calc( 100% / ' . $i . ' )', $size . '%', $css);
+            $css = str_replace('--columns:' . $i . ';', 'width:'.$size . '%; float: left;', $css);
+            $css = str_replace('--columns: ' . $i . ';', 'width: '.$size . '%; float: left;', $css);         
         }
-
+        $css .= '.elementor-gallery-item__overlay{display:none;}';
+        $css .= '.jet-woo-product-gallery-grid{width:100%;}';
+        
+        //var_dump($css); die();
         return $css;
     }
 
@@ -609,6 +629,18 @@ trait Elementor {
             }
         }
         return $can;
+    }
+    
+    public static function get_query_widgets() {
+        // Get all widgets that may add pagination.
+        $widgets = \Elementor\Plugin::instance()->widgets_manager->get_widget_types();
+        $query_widgets = [];
+        foreach ($widgets as $widget) {
+            if ($widget instanceof \EAddonsForElementor\Modules\Query\Base\Query) {
+                $query_widgets[] = $widget->get_name();
+            }
+        }
+        return $query_widgets;
     }
 
     public static function get_elementor_stats($post_id = 0, $widget = '') {
@@ -645,16 +677,37 @@ trait Elementor {
                                 }
                             }
                         }
+                        //var_dump(self::get_query_widgets()); die();
+                        if (in_array($element['widgetType'], self::get_query_widgets())) {
+                            if (!empty($element['settings']['list_items'])) {
+                                //var_dump($element['settings']['form_fields']);
+                                foreach ($element['settings']['list_items'] as $item) {
+                                    if (!empty($item['item_type'])) {
+                                        $type = $item['item_type'];
+                                        $used['items'][$type] = empty($used['items'][$type]) ? 1 : $used['items'][$type] + 1;
+                                    }
+                                }
+                            }
+                        }
                         if (!empty($element['settings']['_skin'])) {
                             $name = $element['settings']['_skin'];
                             $used['skins'][$name] = empty($used['skins'][$name]) ? 1 : $used['skins'][$name] + 1;
                         }
+                        if (!empty($used['skins']['list'])) $used['skins']['simple-list'] = $used['skins']['list'];
                     }
                     if (!empty($element['settings']['__dynamic__'])) {
                         foreach ($element['settings']['__dynamic__'] as $tag) {
                             list($pre, $next) = explode('name="', $tag, 2);
                             list($name, $more) = explode('"', $next, 2);
                             $used['tags'][$name] = empty($used['tags'][$name]) ? 1 : $used['tags'][$name] + 1;
+                        }
+                    }
+                    if (!empty($element['settings']['e_display_repeater'])) {
+                        foreach ($element['settings']['e_display_repeater'] as $trigger) {
+                            if (!empty($trigger['e_display_trigger'])) {
+                                $type = $trigger['e_display_trigger'];
+                                $used['triggers'][$type] = empty($used['triggers'][$type]) ? 1 : $used['triggers'][$type] + 1;
+                            }
                         }
                     }
                     if (!empty($element['settings'])) {

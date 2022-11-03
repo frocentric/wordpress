@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.7.7 - 20-09-2022 */
+/*! elementor-pro - v3.8.0 - 30-10-2022 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -6196,7 +6196,7 @@ var Screenshot = /*#__PURE__*/function (_elementorModules$Vie) {
       (0, _get2["default"])((0, _getPrototypeOf2["default"])(Screenshot.prototype), "onInit", this).call(this);
       this.log('Screenshot init', 'time');
       /**
-       * hold the timeout timer
+       * Hold the timeout timer
        *
        * @type {number|null}
        */

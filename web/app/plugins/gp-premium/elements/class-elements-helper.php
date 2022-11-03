@@ -148,6 +148,13 @@ class GeneratePress_Elements_Helper {
 			$block_element->post_content = str_replace( '{{current_year}}', date( 'Y' ), $block_element->post_content ); // phpcs:ignore -- Prefer date().
 		}
 
+		// Handle embeds for block elements.
+		global $wp_embed;
+
+		if ( is_object( $wp_embed ) && method_exists( $wp_embed, 'autoembed' ) ) {
+			$block_element->post_content = $wp_embed->autoembed( $block_element->post_content );
+		}
+
 		return apply_filters( 'generate_do_block_element_content', do_blocks( $block_element->post_content ) );
 	}
 

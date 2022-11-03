@@ -466,5 +466,44 @@ trait Wordpress {
         }
         return false;
     }
+    
+    public static function remove_filter($hook_name, $priority = 10, $callback = false, $secure = true) {
+        global $wp_filter;
+
+	$r = false;
+
+	if ( isset( $wp_filter[ $hook_name ] ) ) {
+		//var_dump($wp_filter[ $hook_name ]->callbacks); //die();
+                
+                if ($callback) {
+                    $r = $wp_filter[ $hook_name ]->remove_filter( $hook_name, $callback, $priority );
+                }
+                
+                if (isset($wp_filter[ $hook_name ]->callbacks[ $priority ])) {
+                    unset( $wp_filter[ $hook_name ]->callbacks[ $priority ] );
+                }
+                
+                if ($priority < 0 && $secure) {
+                    foreach ($wp_filter[ $hook_name ]->callbacks as $ckey => $cvalue) {
+                        foreach ($cvalue as $fkey => $fvalue) {
+                            if (is_numeric(substr($fkey, 0, 1))) { // non native should start with a random string with numbers
+                                unset($wp_filter[ $hook_name ]->callbacks[$ckey][$fkey]);
+                            }
+                        }
+                        if (empty($wp_filter[ $hook_name ]->callbacks[$ckey] )) {
+                            unset($wp_filter[ $hook_name ]->callbacks[$ckey]);
+                        }
+                    }
+                }
+                
+		if ( ($priority < 0 && !$secure) || empty($wp_filter[ $hook_name ]->callbacks) ) {
+			unset( $wp_filter[ $hook_name ] );
+		}
+                
+                //var_dump($wp_filter[ $hook_name ]->callbacks); //die();
+	}
+
+	return $r;
+    }
 
 }
