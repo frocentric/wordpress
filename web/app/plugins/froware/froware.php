@@ -15,7 +15,7 @@
  * Plugin Name:       froware.com site-specific plugin
  * Plugin URI:        https://froware.com
  * Description:       This plugin defines custom functionality for froware.com.
- * Version:           1.17.2
+ * Version:           1.17.3
  * Author:            Gary McPherson
  * Author URI:        https://ingenyus.com
  * License:           GPL-2.0+
@@ -34,7 +34,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'PLUGIN_NAME_VERSION', '1.17.2' );
+define( 'PLUGIN_NAME_VERSION', '1.17.3' );
 
 if ( ! function_exists( 'activate_froware' ) ) {
 	/**
