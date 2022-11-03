@@ -335,6 +335,10 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 			return $continue;
 		}
 
+		if ( ! empty( $sc['keywords_exc'] ) || ! empty( $sc['keywords_ban'] ) ) {
+			return $continue;
+		}
+
 		// Date filter.
 		if ( $continue && ! empty( $sc['from_datetime'] ) && ! empty( $sc['to_datetime'] ) ) {
 			$from_datetime = strtotime( $sc['from_datetime'] );
@@ -450,7 +454,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 		}
 
 		$tag    = $map[ $name ];
-		$result = $this->parse_custom_tags( $tag, $item->get_feed(), $index );
+		$result = $this->parse_custom_tags( $tag, $item );
 
 		return $result;
 	}
@@ -840,20 +844,18 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 * @param WP_Post $job The import job object.
 	 * @param array   $results The array that stores results.
 	 * @param int     $new_post_id The newly created import ID.
-	 * @param int     $index The item number (may not be the same as the item_index).
-	 * @param int     $item_index The real index of this items in the feed (maybe be different from $index if filters are used).
 	 * @param array   $import_errors The array that contains the import errors.
 	 * @param array   $import_info The array that contains the import info data.
 	 *
 	 * @since   ?
 	 * @access  public
 	 */
-	public function import_extra( $job, $results, $new_post_id, $index, $item_index = null, $import_errors = null, $import_info = null ) {
+	public function import_extra( $job, $results, $new_post_id, $import_errors = null, $import_info = null ) {
 		$import_custom_fields = get_post_meta( $job->ID, 'imports_custom_fields', true );
 		if ( ! empty( $import_custom_fields ) ) {
 			foreach ( $import_custom_fields as $key => $value ) {
 				if ( $value && $this->feedzy_is_business() ) {
-					$value = apply_filters( 'feedzy_parse_custom_tags', $value, $results['feed'], is_null( $item_index ) ? $index : $item_index );
+					$value = apply_filters( 'feedzy_parse_custom_tags', $value, $results );
 				}
 
 				if ( get_post_meta( $new_post_id, $key, false ) ) {
@@ -879,22 +881,15 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 * - [#feed_custom_y:x@z] will extract text from an attribute 'z' inside the feed-level element <y:x>.
 	 *
 	 * @param string    $content The content from where to extract the custom tags.
-	 * @param SimplePie $feed The SimplePie feed object.
-	 * @param int       $index The index of the element to fetch.
+	 * @param SimplePie $item_obj The SimplePie feed object.
 	 *
 	 * @return string
 	 * @since   ?
 	 * @access  public
 	 */
-	public function parse_custom_tags( $content, $feed, $index ) {
-		// only allow this for single feed.
-		if ( ! empty( $feed->multifeed_url ) ) {
-			do_action( 'themeisle_log_event', FEEDZY_NAME, 'This is only supported for single URL feeds. Skipping.', 'info', __FILE__, __LINE__ );
+	public function parse_custom_tags( $content, $item_obj ) {
 
-			return $content;
-		}
-
-		// only allow this for business plan.
+		// Allow only business plan.
 		if ( ! $this->feedzy_is_business() && $this->feedzy_is_personal() ) {
 			return $content;
 		}
@@ -952,19 +947,38 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 			$magic_tag = reset( $item_matches[0] );
 		}
 		$new_content = $content;
+		$feed        = null;
+		$item_title  = '';
+		if ( is_array( $item_obj ) && isset( $item_obj['item'] ) ) {
+			$feed       = $item_obj['item']->get_feed();
+			$item_title = $item_obj['item']->get_title();
+		} elseif ( method_exists( $item_obj, 'get_items' ) ) {
+			$feed       = $item_obj;
+			$item_title = $item_obj->get_item()->get_feed();
+		} elseif ( method_exists( $item_obj, 'get_feed' ) ) {
+			$feed       = $item_obj->get_feed();
+			$item_title = $item_obj->get_title();
+		}
+
+		if ( null === $feed ) {
+			return $new_content;
+		}
+
+		$item_title = html_entity_decode( $item_title );
+		$feed_url   = $feed->subscribe_url();
 
 		$sxe = null;
 		libxml_use_internal_errors( true );
 		try {
-			$sxe = new SimpleXMLElement( $feed->feed_url, LIBXML_NOCDATA, true );
+			$sxe = new SimpleXMLElement( $feed_url, LIBXML_NOCDATA, true );
 		} catch ( Exception $ex ) {
 			// if for some reason the URL is not being directly parsed
 			// we will fetch it manually.
-			$content = wp_remote_retrieve_body( wp_remote_get( $feed->feed_url ) );
+			$content = wp_remote_retrieve_body( wp_remote_get( $feed_url ) );
 			if ( ! empty( $content ) ) {
 				$sxe = new SimpleXMLElement( $content, LIBXML_NOCDATA, false );
 			} else {
-				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'Unable to fetch URL %s manually or automatically', $feed->feed_url ), 'error', __FILE__, __LINE__ );
+				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'Unable to fetch URL %s manually or automatically', $feed_url ), 'error', __FILE__, __LINE__ );
 			}
 		}
 
@@ -982,6 +996,8 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 			}
 			$sxe->registerXPathNamespace( $prefix, $ns );
 		}
+		// Get xml namespaces.
+		$namespaces = $sxe->getNamespaces( true );
 
 		// for ATOM feeds we have to prefix a tag, not so for RSS feeds.
 		$prefix    = 'themeisle:';
@@ -1009,90 +1025,37 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 					$element = $prefix . $element;
 				}
 
-				$evals      = array();
-				$item_count = 1;
-				// Create xpath values group for each item.
-				foreach ( $sxe->xpath( "//{$prefix}{$item_tag}" ) as $key => $item ) {
-					$xpath = empty( $attribute ) ? "//{$prefix}{$item_tag}[$item_count]//{$element}/text()" : "//{$prefix}{$item_tag}[$item_count]//{$element}/@{$attribute}";
-					$eval  = $sxe->xpath( $xpath );
-
-					if ( isset( $item_matches[3] ) && ! empty( $eval ) ) {
-						$eval = isset( $eval[ $item_matches[3] ] ) ? $eval[ $item_matches[3] ] : '';
-					} else {
-						$eval = reset( $eval );
-					}
-					$evals[] = array(
-						'xpath' => $xpath,
-						'eval'  => $eval,
-					);
-					$item_count ++;
+				$feed_namespace = explode( ':', $element );
+				$feed_namespace = reset( $feed_namespace );
+				if ( ! array_key_exists( $feed_namespace, $namespaces ) ) {
+					$namespaces = array_keys( $namespaces );
+					$namespaces = end( $namespaces );
+					$element    = str_replace( "$feed_namespace:", "$namespaces:", $element );
 				}
 
+				$title_tag   = 'title';
+				$item_titles = $sxe->xpath( "//{$prefix}{$item_tag}/$prefix$title_tag" );
+				$index       = $this->feedzy_find_index_by_title( $item_titles, $item_title );
+				$index       = false !== $index ? $index + 1 : $index;
+				$tag_index   = ! empty( $item_matches[3] ) ? $item_matches[3] : 1;
+
 				$eval  = false;
-				$xpath = array_column( $evals, 'xpath' );
-				$xpath = isset( $xpath[ $index ] ) ? $xpath[ $index ] : '';
-
-				$eval = array_column( $evals, 'eval' );
-				$eval = ! empty( $eval ) ? $eval : false;
-
+				$xpath = ! empty( $attribute ) ? "//{$prefix}{$item_tag}[$index]//{$element}[$tag_index]/@{$attribute}" : "//{$prefix}{$item_tag}[$index]//{$element}[$tag_index]/text()";
+				if ( false !== $index ) {
+					$eval = $sxe->xpath( $xpath );
+					$eval = is_array( $eval ) ? reset( $eval ) : false;
+				}
 				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( '%s: going to extract from %s for item %d', $magic_tag, $xpath, $index ), 'debug', __FILE__, __LINE__ );
 
 				if ( false === $eval ) {
 					do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'Nothing found corresponding to %s for item %d. Skipping.', $xpath, $index ), 'error', __FILE__, __LINE__ );
 					$new_content = str_replace( $tag, '', $new_content );
+					// Recursive get magic tag value.
+					$new_content = $this->parse_custom_tags( $new_content, $item_obj );
 					continue;
 				}
 
-				if ( $index > count( $eval ) - 1 ) {
-					do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'Number of elements extracted by xpath %s (%d) is less than the item being parsed in SimplePie (%d). Skipping this item.', $xpath, count( $eval ), $index ), 'error', __FILE__, __LINE__ );
-					$new_content = str_replace( $tag, '', $new_content );
-					continue;
-				}
-
-				if ( ! empty( $attribute ) ) {
-					$store_evals = array();
-					$count       = 1;
-					foreach ( $sxe->xpath( "//{$prefix}{$item_tag}" ) as $item ) {
-						$xpath         = "//{$prefix}{$item_tag}[$count]//{$element}/@{$attribute}";
-						$store_evals[] = $sxe->xpath( $xpath );
-						$count ++;
-					}
-					$store_evals = array_values(
-						array_filter(
-							$store_evals,
-							function ( $attr_val ) {
-								$attr_val = array_filter( $attr_val );
-
-								return $attr_val;
-							}
-						)
-					);
-
-					$merge_eval = array();
-					if ( ! empty( $store_evals ) ) {
-						if ( count( $store_evals ) > 1 ) {
-							foreach ( $store_evals as $key => $store_eval ) {
-								if ( ! empty( $store_eval ) ) {
-									foreach ( $store_eval as $data ) {
-										$merge_eval[ $key ][] = (string) $data;
-									}
-								}
-							}
-						} else {
-							$merge_eval = reset( $store_evals );
-						}
-					}
-					if ( is_array( $merge_eval[ $index ] ) ) {
-						if ( isset( $item_matches[3] ) ) {
-							$merge_eval[ $index ] = isset( $merge_eval[ $index ][ $item_matches[3] ] ) ? $merge_eval[ $index ][ $item_matches[3] ] : '';
-						} else {
-							$merge_eval[ $index ] = implode( ' ', $merge_eval[ $index ] );
-						}
-					}
-					$text = (string) $merge_eval[ $index ];
-				} else {
-					$text = (string) $eval[ $index ];
-				}
+				$text = (string) $eval;
 
 				if ( ! empty( $char_length ) ) {
 					$text = substr( $text, 0, $char_length );
@@ -1104,7 +1067,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 
 				$new_content = str_replace( $tag, $text, $new_content );
 				// Recursive get magic tag value.
-				$new_content = $this->parse_custom_tags( $new_content, $feed, $index );
+				$new_content = $this->parse_custom_tags( $new_content, $item_obj );
 			}
 		}
 
@@ -1125,19 +1088,37 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 					$element = $prefix . $element;
 				}
 
-				$xpath = empty( $attribute ) ? "//{$element}/text()" : "//{$element}/@{$attribute}";
+				$feed_namespace = explode( ':', $element );
+				$feed_namespace = reset( $feed_namespace );
+				if ( ! array_key_exists( $feed_namespace, $namespaces ) ) {
+					$namespaces = array_keys( $namespaces );
+					$namespaces = end( $namespaces );
+					$element    = str_replace( "$feed_namespace:", "$namespaces:", $element );
+				}
+
+				$title_tag   = 'title';
+				$item_titles = $sxe->xpath( "//{$prefix}{$item_tag}/$prefix$title_tag" );
+				$index       = $this->feedzy_find_index_by_title( $item_titles, $item_title );
+				$index       = false !== $index ? $index + 1 : false;
+
+				$eval  = false;
+				$xpath = empty( $attribute ) ? "//{$prefix}{$item_tag}[$index]//{$element}/text()" : "//{$prefix}{$item_tag}[$index]//{$element}/@{$attribute}";
+				if ( false !== $index ) {
+					$eval = $sxe->xpath( $xpath );
+					$eval = is_array( $eval ) ? reset( $eval ) : false;
+				}
 
 				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( '%s: going to extract from %s', $magic_tag, $xpath ), 'debug', __FILE__, __LINE__ );
 
-				$eval = $sxe->xpath( $xpath );
-
-				if ( false === $eval || 0 === count( $eval ) ) {
+				if ( false === $eval ) {
 					do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'Nothing found corresponding to attribute %s from feed element %s. Skipping.', $attribute, $element ), 'error', __FILE__, __LINE__ );
 					$new_content = str_replace( $tag, '', $new_content );
+					// Recursive get magic tag value.
+					$new_content = $this->parse_custom_tags( $new_content, $item_obj );
 					continue;
 				}
 
-				$text = (string) $eval[0];
+				$text = (string) $eval;
 
 				if ( ! empty( $char_length ) ) {
 					$text = substr( $text, 0, $char_length );
@@ -1148,6 +1129,8 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 				$text = apply_filters( 'feedzy_custom_magic_tag_format', $text, $magic_tag, $feed, $index );
 
 				$new_content = str_replace( $tag, $text, $new_content );
+				// Recursive get magic tag value.
+				$new_content = $this->parse_custom_tags( $new_content, $item_obj );
 			}
 		}
 
@@ -2130,5 +2113,27 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 		}
 
 		return $text;
+	}
+
+	/**
+	 * Find item index key by item title.
+	 *
+	 * @access @public
+	 * @param array  $data All item titles.
+	 * @param string $title Current item title.
+	 * @return false|int return item index key.
+	 */
+	public function feedzy_find_index_by_title( $data, $title ) {
+		$index = false;
+		if ( ! empty( $data ) ) {
+			foreach ( $data as $key => $item_title ) {
+				$item_title = reset( $item_title );
+				if ( $title === $item_title ) {
+					$index = $key;
+					break;
+				}
+			}
+		}
+		return $index;
 	}
 }
