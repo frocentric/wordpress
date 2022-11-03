@@ -22,7 +22,7 @@ final class Assets {
         add_action('wp_footer', [$this, 'print_scripts'], 100);
         do_action('e_addons/assets');
         
-        add_action( 'elementor/core/files/clear_cache', [ $this, '_clear_cache' ] );
+        add_action( 'elementor/core/files/clear_cache', [ $this, '_clear_all_cache' ] );
         $addon = \EAddonsForElementor\Plugin::instance()->get_addon('e-addons-for-elementor');
         if (!empty($addon['Version'])) {
             $version = $addon['Version'];
@@ -30,8 +30,7 @@ final class Assets {
             $assets_version = get_option('e_addons_version');
             //var_dump($assets_version); die();
             if ((!$assets_version && $version) || ($assets_version != $version) || (version_compare($assets_version, $version, '<'))) {
-                $this->_clear_cache();
-                $this->_clear_cache('css');
+                $this->_clear_all_cache();
                 update_option('e_addons_version', $version);
                 //var_dump($assets_version); die();
             }
@@ -42,13 +41,19 @@ final class Assets {
         }
     }
     
+    public function _clear_all_cache() {
+        $this->_clear_cache();
+        $this->_clear_cache('css');
+    }
     public function _clear_cache($ext = 'js') {
         // delete all js
         $path = \Elementor\Core\Files\Base::get_base_uploads_dir() . $ext . DIRECTORY_SEPARATOR . '*.'.$ext;
         $path = str_replace('/', DIRECTORY_SEPARATOR, $path);
         //var_dump($path); die();
         foreach ( glob( $path ) as $file_path ) {
-            unlink( $file_path );
+            if (substr(basename($file_path), 0, 5) != 'post-') { // preserve Elementor assets...
+                unlink( $file_path );
+            }
         }
     }
 

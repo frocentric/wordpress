@@ -34,14 +34,11 @@ class Title extends Base_Item {
         // Settings ------------------------------
         $html_tag = !empty($settings['html_tag']) ? $settings['html_tag'] : 'h3';
         //
-        $use_link = $skin->get_item_link($settings);
+        $use_link = $skin ? $skin->get_item_link($settings) : false;
         $querytype = $widget->get_querytype();
         // ---------------------------------------
-        echo sprintf('<%1$s class="e-add-post-title">', $html_tag);
 
-        
-        
-
+        $title = '';
         switch ($querytype) {
             case 'attachment':
             case 'product':
@@ -68,25 +65,25 @@ class Title extends Base_Item {
                 break;
         }
         
-        if ($use_link) {
-            $attribute_link = ' href="' . $use_link . '"';
+        if ($title) {
+            echo sprintf('<%1$s class="e-add-post-title">', $html_tag);
+            if ($use_link) {
+                $attribute_link = ' href="' . $use_link . '"';
 
-            $attribute_target = '';
-            if (!empty($settings['blanklink_enable']))
-                $attribute_target = ' target="_blank"';
+                $attribute_target = '';
+                if (!empty($settings['blanklink_enable']))
+                    $attribute_target = ' target="_blank"';
 
-            $atitle = str_replace('"', "''", $title);
-            echo '<a' . $attribute_link . $attribute_target . ' title="'.$atitle.'">';
+                $atitle = str_replace('"', "''", $title);
+                echo '<a' . $attribute_link . $attribute_target . ' title="'.$atitle.'">';
+            }
+            echo $title;
+            if ($use_link) {
+                echo '</a>';
+            }
+            echo sprintf('</%s>', $html_tag);
         }
-        echo $title;
-        if ($use_link) {
-            echo '</a>';
-        }
-        ?>
-        <?php
-        echo sprintf('</%s>', $html_tag);
-        ?>
-        <?php
+        
     }
 
 }

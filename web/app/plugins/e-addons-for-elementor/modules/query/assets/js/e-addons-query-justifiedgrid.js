@@ -49,8 +49,8 @@ jQuery(window).on('elementor/frontend/init', () => {
             //alert(elementSettings[this.skinPrefix + 'justified_rowHeight']['size']);
 
             // -------------------------------------------
-            if (elementSettings[this.skinPrefix + 'scrollreveal_effect_type']) {
-                var isLive = elementSettings[this.skinPrefix + 'scrollreveal_live'] ? false : true;
+            if (elementSettings['scrollreveal_effect_type']) {
+                var isLive = elementSettings['scrollreveal_live'] ? false : true;
                 this.elements.$animationReveal = new eadd_animationReveal(this.elements.$container, isLive);
             }
 

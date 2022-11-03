@@ -191,16 +191,16 @@ class GeneratePress_Site_Library_Rest extends WP_REST_Controller {
 			$data = wp_safe_remote_get( 'https://gpsites.co/wp-json/wp/v2/sites?per_page=100' );
 
 			if ( is_wp_error( $data ) ) {
-				update_option( 'generatepress_sites', 'no results' );
-				update_option( 'generatepress_sites_expiration', strtotime( '+5 minutes' ) );
+				update_option( 'generatepress_sites', 'no results', false );
+				update_option( 'generatepress_sites_expiration', strtotime( '+5 minutes' ), false );
 				return $this->failed( 'no results' );
 			}
 
 			$data = json_decode( wp_remote_retrieve_body( $data ), true );
 
 			if ( ! is_array( $data ) ) {
-				update_option( 'generatepress_sites', 'no results' );
-				update_option( 'generatepress_sites_expiration', strtotime( '+5 minutes' ) );
+				update_option( 'generatepress_sites', 'no results', false );
+				update_option( 'generatepress_sites_expiration', strtotime( '+5 minutes' ), false );
 				return $this->failed( 'no results' );
 			}
 
@@ -224,8 +224,8 @@ class GeneratePress_Site_Library_Rest extends WP_REST_Controller {
 				);
 			}
 
-			update_option( 'generatepress_sites', $sites );
-			update_option( 'generatepress_sites_expiration', strtotime( '+1 day' ) );
+			update_option( 'generatepress_sites', $sites, false );
+			update_option( 'generatepress_sites_expiration', strtotime( '+1 day' ), false );
 		}
 
 		$sites = apply_filters( 'generate_add_sites', $sites );

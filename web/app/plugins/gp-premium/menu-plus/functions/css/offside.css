@@ -16,6 +16,7 @@
     z-index: 9999;
     overflow: auto;
     -webkit-overflow-scrolling: touch; /* enables momentum scrolling in iOS overflow elements */
+	visibility: hidden;
 }
 
 /* Left off-canvas elements default status: out of the page */

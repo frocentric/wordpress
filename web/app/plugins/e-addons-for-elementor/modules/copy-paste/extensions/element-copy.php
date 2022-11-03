@@ -130,7 +130,7 @@ class Element_Copy extends Base_Extension {
                 [
                     'label' => __('Text Copy', 'elementor'),
                     'type' => Controls_Manager::TEXT,
-                    'default' => __('Copy', 'elementor'),
+                    //'default' => __('Copy', 'elementor'),
                     'placeholder' => __('Copy', 'elementor'),
                     'condition' => [
                         'e_frontend_copy!' => '',
@@ -162,7 +162,7 @@ class Element_Copy extends Base_Extension {
                 [
                     'label' => __('Text Download', 'elementor'),
                     'type' => Controls_Manager::TEXT,
-                    'default' => __('Download', 'elementor'),
+                    //'default' => __('Download', 'elementor'),
                     'placeholder' => __('Download', 'elementor'),
                     'condition' => [
                         'e_frontend_copy!' => '',

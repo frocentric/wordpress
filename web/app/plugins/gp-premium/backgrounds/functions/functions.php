@@ -1249,7 +1249,7 @@ if ( ! function_exists( 'generate_backgrounds_css' ) ) {
 		$css->add_property( 'background-attachment', esc_attr( $generate_settings['header_attachment'] ) );
 		$css->add_property( 'background-position', esc_attr( $generate_settings['header_position'] ) );
 
-		$css->set_selector( '.main-navigation,.menu-toggle' );
+		$css->set_selector( '.main-navigation, .main-navigation .menu-toggle' );
 		$css->add_property( 'background-image', esc_url( $generate_settings['nav_image'] ), 'url' );
 		$css->add_property( 'background-repeat', esc_attr( $generate_settings['nav_repeat'] ) );
 
