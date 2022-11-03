@@ -170,7 +170,10 @@ class GeneratePress_Pro_Rest extends WP_REST_Controller {
 		$new_beta_tester = $request->get_param( 'betaTester' );
 		$old_license = get_option( 'gen_premium_license_key', '' );
 		$old_status = get_option( 'gen_premium_license_key_status', 'deactivated' );
-		$new_license = trim( $new_license_key );
+		$new_license = strpos( $new_license_key, '***' ) !== false
+			? trim( $old_license )
+			: trim( $new_license_key );
+
 
 		if ( $new_license ) {
 			$api_params = array(

@@ -24,6 +24,8 @@ if (!defined('ABSPATH'))
  *
  */
 class Query_Posts extends Base_Query {
+    
+    public $list_items_default = ['item_image', 'item_title', 'item_date'];
 
     public function get_pid() {
         return 7574;
@@ -56,74 +58,8 @@ class Query_Posts extends Base_Query {
         parent::register_controls();
 
         $types = Utils::get_post_types();
-
-        // ------------------------------------------------------------------ [SECTION ITEMS]
-        $this->start_controls_section(
-                'section_items', [
-            'label' => '<i class="eaddicon eicon-radio" aria-hidden="true"></i> ' . esc_html__('Post Items', 'e-addons'),
-            'condition' => [
-                '_skin!' => ['nextpost'],
-                'style_items!' => 'template',
-            ],
-                ]
-        );
-
-        ////////////////////////////////////////////////////////////////////////////////
-        // -------- ORDERING & DISPLAY items
-        $repeater = new Repeater();
-
-        $item_types = [];
-        $item_types = apply_filters('e_addons/query/item_types', $item_types);
-        $item_types = apply_filters('e_addons/query/' . $this->querytype . '/item_types', $item_types);
-
-        $repeater->add_control(
-                'item_type', [
-            'label' => esc_html__('Item Type', 'e-addons'),
-            'type' => Controls_Manager::SELECT,
-            'options' => $item_types,
-            'default' => 'item_title',
-                ]
-        );
-        $this->add_item_tabs($repeater);
-
-        /*
-          item_image
-          item_date
-          item_title
-          item_termstaxonomy
-          item_content
-          item_author
-          item_readmore
-          item_posttype
-          item_custommeta
-         */
-        $this->add_control(
-                'list_items',
-                [
-                    'label' => esc_html__('Items', 'e-addons'),
-                    'show_label' => false,
-                    'separator' => 'before',
-                    'type' => Controls_Manager::REPEATER,
-                    'fields' => $repeater->get_controls(),
-                    'default' => [
-                        [
-                            'item_type' => 'item_image',
-                        ],
-                        [
-                            'item_type' => 'item_title',
-                        ],
-                        [
-                            'item_type' => 'item_date',
-                        ]
-                    ],
-                    //item_type.replace("item_", "")
-                    'title_field' => '<# var etichetta = item_type; etichetta = etichetta.replace("item_", ""); #><b class="e-add-item-name"><i class="fa {{{ item_type+"-ic" }}}" aria-hidden="true"></i> {{{item_text_label}}} | {{{ etichetta }}}</b>',
-                ]
-        );
-
-        $this->controls_items_grid_debug($this);
-
-        $this->end_controls_section();
+        
+        $this->add_section_items();
 
         //@p il TAB Query
         // ------------------------------------------------------------------ [SECTION - QUERY POSTS]
@@ -1007,7 +943,7 @@ class Query_Posts extends Base_Query {
             'default' => 'DESC',
             'condition' => [
                 //'query_type' => ['get_cpt','get_attachments',  'automatic_mode', 'custommeta_source', 'specific_posts'],
-                'orderby!' => ['', 'random', 'post__in'],
+                'orderby!' => ['', 'rand', 'post__in'],
             ],
                 ]
         );
@@ -1796,6 +1732,9 @@ class Query_Posts extends Base_Query {
             $skin->render_element_item();
         } else {
             global $post, $wp_query;
+            
+            //$queried_object = get_queried_object();
+            //$queried_object_id = get_queried_object_id();
             $current_post = get_post();
 
             $i = 0;
@@ -1820,9 +1759,13 @@ class Query_Posts extends Base_Query {
                     }
                 }
                 if (!$continue) {
+                    
                     $skin->current_permalink = get_permalink();
                     $skin->current_id = get_the_ID();
                     $skin->current_data = get_post(get_the_ID());
+                    //
+                    //$wp_query->queried_object = $wp_query->post = $skin->current_data;
+                    //$wp_query->queried_object_id = $skin->current_id;
                     //
                     $skin->render_element_item();
                 }
@@ -1833,12 +1776,12 @@ class Query_Posts extends Base_Query {
         if ($current_post) {
             $post = $current_post;
             if (isset($wp_query)) {
-                if (wp_doing_ajax()) {
-                    $wp_query->post = $post;
-                    $wp_query->queried_object = $post;
-                    $wp_query->queried_object_id = $post->ID;
+                /*if (wp_doing_ajax()) {
+                    $wp_query->post = $current_post;
+                    $wp_query->queried_object = $queried_object;
+                    $wp_query->queried_object_id = $queried_object_id;
                 }
-                $wp_query->setup_postdata($post);
+                $wp_query->setup_postdata($post);*/
             }
         }
     }

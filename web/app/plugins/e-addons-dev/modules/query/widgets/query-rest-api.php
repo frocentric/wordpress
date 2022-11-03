@@ -286,7 +286,7 @@ class Query_Rest_Api extends Base_Query {
         $response = $this->maybe_get_cache();
 
         // DEBUG
-        if (\Elementor\Plugin::$instance->editor->is_edit_mode()) {
+        if (Utils::is_preview()) {
             if (!empty($this->get_settings_for_display('query_debug'))) {
                 echo '<pre>';
                 $data = json_decode($response, true);

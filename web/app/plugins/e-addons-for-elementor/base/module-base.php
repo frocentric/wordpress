@@ -15,11 +15,19 @@ abstract class Module_Base extends Module {
     
     public static $elements = [];
     public static $widgets = [];
+    public static $extensions = [];
+    public static $globals = [];
+    public static $controls = [];
+    public static $shortcodes = [];
     public static $actions = [];
     public static $fields = [];
     public static $items = [];
+    public static $skins = [];
+    //public static $triggers = [];
+    public static $tabs = [];
     public static $dynamic_tags = [];
     public static $script_attrs = [];
+    
 
     public function __construct() {
         
@@ -38,8 +46,10 @@ abstract class Module_Base extends Module {
         }
         
         if ($this->has_elements('widgets')) {
-            add_action('elementor/elements/categories_registered', [$this, 'init_categories']);
-            add_action('elementor/widgets/widgets_registered', [$this, 'init_widgets']);
+            /*if (!defined('ELEMENTOR_PRO_VERSION')) {
+                add_action('elementor/elements/categories_registered', [$this, 'init_categories']);
+            }*/
+            add_action('elementor/widgets/widgets_registered', [$this, 'init_widgets'], 11);
         }
         
         if ($this->has_elements('elements')) {
@@ -192,17 +202,21 @@ abstract class Module_Base extends Module {
         $controls_manager = \Elementor\Plugin::$instance->controls_manager;
         foreach ($this->get_elements('controls') as $control) {
             $class_name = $this->get_reflection()->getNamespaceName() . '\Controls\\' . $control;
-            $control_obj = new $class_name();
-            if (version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {
-                $controls_manager->register_control($control_obj->get_type(), $control_obj);
-            } else {
-                $controls_manager->register($control_obj);
+            if (empty(self::$controls[$class_name])) {
+                self::$controls[$class_name] = $control_obj = new $class_name();
+                if (version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {
+                    $controls_manager->register_control($control_obj->get_type(), $control_obj);
+                } else {
+                    $controls_manager->register($control_obj);
+                }
             }
         }
         foreach ($this->get_elements('controls'. DIRECTORY_SEPARATOR .'groups') as $group) {
             $class_name = $this->get_reflection()->getNamespaceName() . '\Controls\Groups\\' . $group;
-            $control_obj = new $class_name();
-            $controls_manager->add_group_control($control_obj->get_type(), $control_obj);
+            if (empty(self::$controls[$class_name])) {
+                self::$controls[$class_name] = $control_obj = new $class_name();
+                $controls_manager->add_group_control($control_obj->get_type(), $control_obj);
+            }
         }
     }
     
@@ -231,23 +245,38 @@ abstract class Module_Base extends Module {
     }
 
     public function init_widgets() {
+        //$elements_manager = \Elementor\Plugin::instance()->elements_manager;
+        //$this->init_categories($elements_manager);
         $widget_manager = \Elementor\Plugin::instance()->widgets_manager;
         foreach ($this->get_elements('widgets') as $widget) {
             $class_name = $this->get_reflection()->getNamespaceName() . '\Widgets\\' . $widget;
             if (empty(self::$widgets[$class_name])) {
                 self::$widgets[$class_name] = new $class_name();
-            }
-            $widget = self::$widgets[$class_name];    
-            if (version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {    
-                $widget_manager->register_widget_type($widget);
-            } else {
-                $widget_manager->register($widget);
+                $widget = self::$widgets[$class_name];    
+                $this->add_category($widget);
+                if (version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {    
+                    $widget_manager->register_widget_type($widget);
+                } else {
+                    $widget_manager->register($widget);
+                }
             }
         }
         //var_dump(array_keys($widget_manager->get_widget_types()));
     }
+    
+    public function add_category($widget) {
+        $elements_manager = \Elementor\Plugin::instance()->elements_manager;
+        foreach ($widget->get_categories() as $category) {
+            $title = ucwords($category);
+            $title = str_replace('-', ' ', $title);
+            $elements_manager->add_category($category, array(
+                'title' => ucfirst($title),
+            ));
+        }
+    }
 
     public function init_categories($elements) {
+        $this->init_widgets();
         foreach ($this->get_elements('widgets') as $widget) {
             $class_name = $this->get_reflection()->getNamespaceName() . '\Widgets\\' . $widget;
             //var_dump($class_name);
@@ -260,9 +289,9 @@ abstract class Module_Base extends Module {
                     ));
                 }
             }
-            if (empty(self::$widgets[$class_name])) {
+            /*if (empty(self::$widgets[$class_name])) {
                 self::$widgets[$class_name] = new $class_name();
-            }
+            }*/
             $widget = self::$widgets[$class_name];            
             foreach ($widget->get_categories() as $category) {
                 $title = ucwords($category);
@@ -340,31 +369,39 @@ abstract class Module_Base extends Module {
         $control_manager = \Elementor\Plugin::instance()->controls_manager;
         foreach ($this->get_elements('tabs') as $ext) {
             $class_name = $this->get_reflection()->getNamespaceName() . '\Tabs\\' . $ext;
-            $tab_obj = new $class_name();
-            $tab_obj->_register_tab();
-            //$control_manager::add_tab($tab_obj->get_id(), $tab_obj->get_title());
+            if (empty(self::$tabs[$class_name])) {
+                self::$tabs[$class_name] = $tab_obj = new $class_name();
+                $tab_obj->_register_tab();
+                //$control_manager::add_tab($tab_obj->get_id(), $tab_obj->get_title());
+            }
         }
     }
     
     public function init_extensions() {        
         foreach ($this->get_elements('extensions') as $ext) {
             $class_name = $this->get_reflection()->getNamespaceName() . '\Extensions\\' . $ext;
-            $ext_obj = new $class_name();
+            if (empty(self::$extensions[$class_name])) {
+                self::$extensions[$class_name] = new $class_name();
+            }
         }
     }
 
     public function init_globals() {
         foreach ($this->get_elements('globals') as $ext) {
             $class_name = $this->get_reflection()->getNamespaceName() . '\Globals\\' . $ext;
-            $ext_obj = new $class_name();
+            if (empty(self::$globals[$class_name])) {
+                self::$globals[$class_name] = new $class_name();
+            }
         }
     }
 
     public function init_shortcodes() {
         foreach ($this->get_elements('shortcodes') as $short) {
             $class_name = $this->get_reflection()->getNamespaceName() . '\Shortcodes\\' . $short;
-            $short_obj = new $class_name();
-            add_shortcode($short_obj->get_name(), array($short_obj, 'do_shortcode'));
+            if (empty(self::$shortcodes[$class_name])) {
+                self::$shortcodes[$class_name] = $short_obj = new $class_name();
+                add_shortcode($short_obj->get_name(), array($short_obj, 'do_shortcode'));
+            }
         }
     }
 
@@ -372,15 +409,19 @@ abstract class Module_Base extends Module {
         foreach ($this->get_elements('triggers') as $short) {
             $class_name = $this->get_reflection()->getNamespaceName() . '\Triggers\\' . $short;
             $slug = Utils::camel_to_slug($short);
-            $display::$triggers[$slug] = new $class_name();
+            if (empty($display::$triggers[$slug])) {
+                $display::$triggers[$slug] = new $class_name();
+            }
         }
     }
     
     public function init_items() {
         foreach ($this->get_elements('items') as $short) {
             $class_name = $this->get_reflection()->getNamespaceName() . '\Items\\' . $short;
-            $slug = Utils::camel_to_slug($short);
-            self::$items[$slug] = new $class_name();
+            if (empty(self::$items[$class_name])) {
+                //$slug = Utils::camel_to_slug($short);
+                self::$items[$class_name] = new $class_name();
+            }
         }
     }
 
@@ -388,7 +429,9 @@ abstract class Module_Base extends Module {
         foreach ($this->get_elements('skins') as $skin) {
             $class_name = $this->get_reflection()->getNamespaceName() . '\Skins\\' . $skin;
             //var_dump($class_name);
-            $skin_obj = new $class_name();
+            if (empty(self::$skins[$class_name])) {
+                self::$skins[$class_name] = new $class_name();
+            }
         }
     }
 

@@ -123,6 +123,9 @@ class Image extends Base_Item {
                 );
                 break;
 
+            case 'repeater':
+                break;
+            
             default:
                 //var_dump($type); die();
                 $target->add_control(

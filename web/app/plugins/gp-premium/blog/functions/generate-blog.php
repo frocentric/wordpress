@@ -650,6 +650,10 @@ if ( ! function_exists( 'generate_blog_load_more' ) ) {
 			return;
 		}
 
+		if ( is_tax( 'product_cat' ) ) {
+			return;
+		}
+
 		$icon = '';
 
 		if ( function_exists( 'generate_get_svg_icon' ) ) {

@@ -28,6 +28,79 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 			$wp_customize->register_control_type( 'Generate_Control_Toggle_Customize_Control' );
 		}
 
+		$wp_customize->add_section(
+			'generate_blog_loop_template_section',
+			array(
+				'title' => __( 'Blog', 'gp-premium' ),
+				'capability' => 'edit_theme_options',
+				'panel' => 'generate_layout_panel',
+				'priority' => 40,
+				'active_callback' => function() {
+					return generate_has_active_element( 'loop-template', true );
+				},
+			)
+		);
+
+		$wp_customize->add_control(
+			new GeneratePress_Information_Customize_Control(
+				$wp_customize,
+				'generate_using_loop_template',
+				array(
+					'section'     => 'generate_blog_loop_template_section',
+					'description' => sprintf(
+						/* translators: URL to the Elements dashboard. */
+						__( 'This page is using a <a href="%s">Loop Template Element</a>. Other options can be found within that Element.', 'gp-premium' ),
+						admin_url( 'edit.php?post_type=gp_elements' )
+					),
+					'notice' => true,
+					'settings' => ( isset( $wp_customize->selective_refresh ) ) ? array() : 'blogname',
+					'active_callback' => function() {
+						return generate_has_active_element( 'loop-template', true );
+					},
+					'priority' => 0,
+				)
+			)
+		);
+
+		$wp_customize->add_setting(
+			'generate_blog_settings[excerpt_length]', array(
+				'default' => $defaults['excerpt_length'],
+				'capability' => 'edit_theme_options',
+				'type' => 'option',
+				'sanitize_callback' => 'absint',
+			)
+		);
+
+		$wp_customize->add_control(
+			'generate_loop_template_excerpt_length',
+			array(
+				'type' => 'number',
+				'label' => __( 'Excerpt word count', 'gp-premium' ),
+				'section' => 'generate_blog_loop_template_section',
+				'settings' => 'generate_blog_settings[excerpt_length]',
+			)
+		);
+
+		$wp_customize->add_setting(
+			'generate_blog_settings[read_more]',
+			array(
+				'default' => $defaults['read_more'],
+				'capability' => 'edit_theme_options',
+				'type' => 'option',
+				'sanitize_callback' => 'wp_kses_post',
+			)
+		);
+
+		$wp_customize->add_control(
+			'generate_loop_template_read_more',
+			array(
+				'type' => 'text',
+				'label' => __( 'Read more label', 'gp-premium' ),
+				'section' => 'generate_blog_loop_template_section',
+				'settings' => 'generate_blog_settings[read_more]',
+			)
+		);
+
 		// Blog content section.
 		$wp_customize->add_section(
 			'generate_blog_section',
@@ -36,6 +109,9 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 				'capability' => 'edit_theme_options',
 				'panel' => 'generate_layout_panel',
 				'priority' => 40,
+				'active_callback' => function() {
+					return ! generate_has_active_element( 'loop-template', true );
+				},
 			)
 		);
 
@@ -83,16 +159,6 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 			)
 		);
 
-		// Excerpt length
-		$wp_customize->add_setting(
-			'generate_blog_settings[excerpt_length]', array(
-				'default' => $defaults['excerpt_length'],
-				'capability' => 'edit_theme_options',
-				'type' => 'option',
-				'sanitize_callback' => 'absint',
-			)
-		);
-
 		$wp_customize->add_control(
 			'generate_blog_settings[excerpt_length]', array(
 				'type' => 'number',
@@ -100,16 +166,6 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 				'section' => 'generate_blog_section',
 				'settings' => 'generate_blog_settings[excerpt_length]',
 				'active_callback' => 'generate_premium_is_excerpt',
-			)
-		);
-
-		// Read more text
-		$wp_customize->add_setting(
-			'generate_blog_settings[read_more]', array(
-				'default' => $defaults['read_more'],
-				'capability' => 'edit_theme_options',
-				'type' => 'option',
-				'sanitize_callback' => 'wp_kses_post',
 			)
 		);
 
@@ -122,7 +178,6 @@ if ( ! function_exists( 'generate_blog_customize_register' ) ) {
 			)
 		);
 
-		// Read more button
 		$wp_customize->add_setting(
 			'generate_blog_settings[read_more_button]',
 			array(

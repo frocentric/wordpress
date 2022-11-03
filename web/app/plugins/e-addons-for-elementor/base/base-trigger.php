@@ -14,12 +14,22 @@ abstract class Base_Trigger extends Element_Base {
 
     use \EAddonsForElementor\Base\Traits\Base;
 
-    public function __construct($display) {
+    public function __construct($display = false) {
         parent::__construct();
-
-        $this->parent = $display;
+        if ($display) {
+            $this->parent = $display;
+        }
     }
-
+    
+    public function get_pid() {
+        return 210;
+    }
+    
+    /*public function get_name() {
+        $class_name = get_class($this);
+        var_dump($class_name); die();
+    }*/
+    
     public function get_trigger_controls($element) {
 
     }

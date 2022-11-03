@@ -27,6 +27,15 @@ class Template {
 
         add_action('elementor/editor/after_enqueue_scripts', [$this, 'enqueue_editor_assets']);
         
+        /*add_filter('elementor/frontend/builder_content_data', function($data, $post_id) {
+            //var_dump($post_id);
+            //var_dump(get_the_ID());
+            if ($post_id != get_the_ID()) {
+                $data['post_id'] = get_the_ID();
+            }
+            return $data;
+        }, 10, 2);*/
+        
         if (wp_doing_ajax()) {
             add_action( 'elementor/frontend/before_get_builder_content', [$this, 'restore_post'], 999, 2);
             add_action( "elementor/css-file/dynamic/enqueue", [$this, 'restore_post'], 999 );
@@ -78,6 +87,8 @@ class Template {
     }
     
     public static function get_builder_content_for_display($post_id, $with_css = false) {
+        //$document = \Elementor\Plugin::instance()->documents->get_current();
+        //var_dump($document);
         $content = '';
         $content = \Elementor\Plugin::instance()->frontend->get_builder_content_for_display($post_id, $with_css);
         if (empty($content)) {
