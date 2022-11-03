@@ -128,6 +128,10 @@ class GeneratePress_Block_Element {
 				case 'content-template':
 					$hook = 'generate_before_do_template_part';
 					break;
+
+				case 'loop-template':
+					$hook = 'generate_before_main_content';
+					break;
 			}
 
 			if ( 'custom' === $hook && $custom_hook ) {
@@ -168,6 +172,13 @@ class GeneratePress_Block_Element {
 
 			if ( 'content-template' === $this->type && ! $this->has_parent ) {
 				add_filter( 'generate_do_template_part', array( $this, 'do_template_part' ) );
+			}
+
+			if ( 'loop-template' === $this->type ) {
+				add_filter( 'generate_has_default_loop', '__return_false' );
+				add_filter( 'generate_blog_columns', '__return_false' );
+				add_filter( 'option_generate_blog_settings', array( $this, 'filter_blog_settings' ) );
+				add_filter( 'post_class', array( $this, 'post_classes' ) );
 			}
 
 			add_action( 'wp', array( $this, 'remove_elements' ), 100 );
@@ -229,6 +240,33 @@ class GeneratePress_Block_Element {
 		}
 
 		return $widgets;
+	}
+
+	/**
+	 * Filter some of our blog settings.
+	 *
+	 * @param array $settings Existing blog settings.
+	 */
+	public function filter_blog_settings( $settings ) {
+		if ( 'loop-template' === $this->type ) {
+			$settings['infinite_scroll'] = false;
+			$settings['read_more_button'] = false;
+		}
+
+		return $settings;
+	}
+
+	/**
+	 * Add class to our loop template item posts.
+	 *
+	 * @param array $classes Post classes.
+	 */
+	public function post_classes( $classes ) {
+		if ( 'loop-template' === $this->type && is_main_query() ) {
+			$classes[] = 'is-loop-template-item';
+		}
+
+		return $classes;
 	}
 
 	/**

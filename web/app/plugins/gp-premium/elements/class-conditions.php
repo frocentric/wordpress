@@ -53,6 +53,7 @@ class GeneratePress_Conditions {
 					'general:search'     => esc_attr__( 'Search Results', 'gp-premium' ),
 					'general:no_results' => esc_attr__( 'No Search Results', 'gp-premium' ),
 					'general:404'        => esc_attr__( '404 Template', 'gp-premium' ),
+					'general:is_paged'   => esc_attr__( 'Paginated Results', 'gp-premium' ),
 				),
 			),
 		);
@@ -249,7 +250,6 @@ class GeneratePress_Conditions {
 				}
 
 				if ( $post_id ) {
-
 					// Get the location string.
 					$front_page_id = get_option( 'page_on_front' );
 					$blog_id       = get_option( 'page_for_posts' );
@@ -265,6 +265,8 @@ class GeneratePress_Conditions {
 
 						$object = $post_id;
 					}
+				} elseif ( isset( $_GET['post_type'] ) ) { // phpcs:ignore -- Just checking if it's set.
+					$location = 'post:' . esc_attr( $_GET['post_type'] ); // phpcs:ignore -- No data processing going on.
 				}
 			}
 		}
@@ -339,6 +341,8 @@ class GeneratePress_Conditions {
 				} elseif ( is_front_page() && is_home() && ( in_array( 'general:blog', $conditional ) || in_array( 'general:front_page', $conditional ) ) ) {
 					// If the home page is the blog, both of general:blog and general:front_page apply.
 					$show = true;
+				} elseif ( in_array( 'general:is_paged', $conditional ) && is_paged() ) {
+					$show = true;
 				}
 			}
 		}
@@ -366,6 +370,8 @@ class GeneratePress_Conditions {
 					}
 				} elseif ( is_front_page() && is_home() && ( in_array( 'general:blog', $conditional ) || in_array( 'general:front_page', $conditional ) ) ) {
 					// If the home page is the blog, both of general:blog and general:front_page apply.
+					$show = false;
+				} elseif ( in_array( 'general:is_paged', $conditional ) && is_paged() ) {
 					$show = false;
 				}
 			}

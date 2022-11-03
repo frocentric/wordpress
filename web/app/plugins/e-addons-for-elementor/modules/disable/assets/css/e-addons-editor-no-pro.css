@@ -5,9 +5,12 @@
 #e-notice-bar, #elementor-notice-bar,
 .elementor-component-tab.elementor-panel-navigation-tab[data-tab="global"],
 .elementor-panel-menu-item.elementor-panel-menu-item-site-editor,
+.elementor-panel-menu-item.elementor-panel-menu-item-notes,
 .elementor-control.elementor-control-section_custom_attributes_pro,
 .elementor-control.elementor-control-section_custom_css_pro,
 #elementor-panel-page-settings .elementor-tab-control-advanced,
+.elementor-context-menu-list__group.elementor-context-menu-list__group-save,
+.elementor-context-menu-list__group.elementor-context-menu-list__group-notes,
 .elementor-element--promotion,
 .elementor-tags-list__teaser {
     display: none !important;

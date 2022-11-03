@@ -8,6 +8,8 @@ namespace EAddonsForElementor\Core;
  * @author fra
  */
 class Helper {
+    
+    public static $wp_plugin_dir;
 
     static public function get_plugin_path($file) {
         $wp_plugin_dir = self::get_wp_plugin_dir();
@@ -79,6 +81,7 @@ class Helper {
     }
     
     public static function get_wp_plugin_dir() {
+        if (self::$wp_plugin_dir) return self::$wp_plugin_dir;
         $wp_plugin_dir = str_replace('/', DIRECTORY_SEPARATOR, WP_PLUGIN_DIR);
         $wp_plugin_dir = str_replace('//', '/', $wp_plugin_dir);
         $e_addons_dir = $wp_plugin_dir.DIRECTORY_SEPARATOR.'e-addons-for-elementor'.DIRECTORY_SEPARATOR;        
@@ -86,6 +89,7 @@ class Helper {
             //var_dump($e_addons_dir);
             $wp_plugin_dir = str_replace(DIRECTORY_SEPARATOR.'opt'.DIRECTORY_SEPARATOR.'bitnami', DIRECTORY_SEPARATOR.'bitnami', $wp_plugin_dir);
         }
+        self::$wp_plugin_dir = $wp_plugin_dir;
         return $wp_plugin_dir;
     }
 

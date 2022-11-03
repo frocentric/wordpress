@@ -211,7 +211,8 @@ class Avatar extends Base_Tag {
             return;
         
         $user_id = $this->get_user_id();
-
+        if (!$user_id) return;
+        
         $id = '';
         $url = '';
         if ($user_id) {

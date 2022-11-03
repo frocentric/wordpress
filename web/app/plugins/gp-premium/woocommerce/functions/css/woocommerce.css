@@ -1273,3 +1273,12 @@ form.checkout:after {
 .wc-menu-cart-activated .menu-toggle {
 	text-align: left;
 }
+
+.woocommerce-order-received .woocommerce-customer-details .col2-set {
+	float: none;
+	width: auto;
+}
+
+.woocommerce-order-received .woocommerce-customer-details .col2-set .col-1 {
+	margin-bottom: 1.5em;
+}

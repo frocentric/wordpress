@@ -3,9 +3,9 @@ Contributors: edge22
 Donate link: https://generatepress.com
 Tags: generatepress
 Requires at least: 5.2
-Tested up to: 5.9
+Tested up to: 6.1
 Requires PHP: 5.6
-Stable tag: 2.1.2
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,6 +26,33 @@ To learn how to install GP Premium, check out our documentation [here](https://d
 In most cases, #1 will work fine and is way easier.
 
 == Changelog ==
+
+= 2.2.0 =
+* Feature: Allow block element autosave
+* Feature: Add revisions to block elements
+* Feature: Add Loop Template block element
+* Feature: Dont display the raw license key in the Dashboard
+* Feature: Add "Paginated Results" to Element Display Rules
+* Fix: Element post navigation template PHP warning when not using GB Pro
+* Fix: Remove unnecessary zoom CSS from featured images
+* Fix: Font icon CSS order
+* Fix: Load more button showing in product tax archives
+* Fix: Prevent tabbing in hidden off-canvas panel
+* Fix: Hide hidden off-canvas panel from screen readers
+* Fix: menu-toggle aria-controls when using off-canvas panel
+* Fix: Focus first focusable element when opening off-canvas panel
+* Fix: Focus slideout toggle when closing off-canvas panel
+* Fix: Off-Canvas Panel sub-menu a11y
+* Fix: Prevent secondary nav legacy typography CSS
+* Fix: Fix dynamic term meta link
+* Fix: Block margins in the block element editor
+* Fix: Embeds in Block Elements
+* Fix: Apply display rules to editor with no ID
+* Fix: Navigation background image applying to secondary nav
+* Fix: WooCommerce order received page float issue
+* Fix: Block element editor error in GenerateBlocks 1.7
+* Tweak: Remove jquery-migrate from sticky script
+* Tweak: Add message in Blog section about Loop Template
 
 = 2.1.2 =
 * Elements: Fix custom field value in dynamic container links

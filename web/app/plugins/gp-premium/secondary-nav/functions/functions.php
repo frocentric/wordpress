@@ -962,23 +962,26 @@ if ( ! function_exists( 'generate_secondary_nav_css' ) ) {
 			$separator = 20;
 		}
 
-		if ( function_exists( 'generate_get_font_family_css' ) ) {
-			$secondary_nav_family = generate_get_font_family_css( 'font_secondary_navigation', 'generate_secondary_nav_settings', generate_secondary_nav_get_defaults() );
-		} else {
-			$secondary_nav_family = current( explode( ':', $generate_settings['font_secondary_navigation'] ) );
-		}
+		// Check if we're using our legacy typography system.
+		$using_dynamic_typography = function_exists( 'generate_is_using_dynamic_typography' ) && generate_is_using_dynamic_typography();
+		$secondary_nav_family = '';
 
-		if ( '""' === $secondary_nav_family ) {
-			$secondary_nav_family = 'inherit';
+		if ( ! $using_dynamic_typography ) {
+			if ( function_exists( 'generate_get_font_family_css' ) ) {
+				$secondary_nav_family = generate_get_font_family_css( 'font_secondary_navigation', 'generate_secondary_nav_settings', generate_secondary_nav_get_defaults() );
+			} else {
+				$secondary_nav_family = current( explode( ':', $generate_settings['font_secondary_navigation'] ) );
+			}
+
+			if ( '""' === $secondary_nav_family ) {
+				$secondary_nav_family = 'inherit';
+			}
 		}
 
 		// Get our untouched defaults.
 		$og_defaults = generate_secondary_nav_get_defaults( false );
 
 		$css = new GeneratePress_Secondary_Nav_CSS();
-
-		// Check if we're using our legacy typography system.
-		$using_dynamic_typography = function_exists( 'generate_is_using_dynamic_typography' ) && generate_is_using_dynamic_typography();
 
 		$css->set_selector( '.secondary-navigation' );
 		$css->add_property( 'background-color', esc_attr( $generate_settings['navigation_background_color'] ) );
@@ -1004,10 +1007,13 @@ if ( ! function_exists( 'generate_secondary_nav_css' ) ) {
 			$css->set_selector( '.secondary-navigation .top-bar' );
 			$css->add_property( 'color', esc_attr( $generate_settings['navigation_text_color'] ) );
 			$css->add_property( 'line-height', absint( $generate_settings['secondary_menu_item_height'] ), false, 'px' );
-			$css->add_property( 'font-family', $secondary_nav_family );
-			$css->add_property( 'font-weight', esc_attr( $generate_settings['secondary_navigation_font_weight'] ) );
-			$css->add_property( 'text-transform', esc_attr( $generate_settings['secondary_navigation_font_transform'] ) );
-			$css->add_property( 'font-size', absint( $generate_settings['secondary_navigation_font_size'] ), false, 'px' );
+
+			if ( ! $using_dynamic_typography ) {
+				$css->add_property( 'font-family', $secondary_nav_family );
+				$css->add_property( 'font-weight', esc_attr( $generate_settings['secondary_navigation_font_weight'] ) );
+				$css->add_property( 'text-transform', esc_attr( $generate_settings['secondary_navigation_font_transform'] ) );
+				$css->add_property( 'font-size', absint( $generate_settings['secondary_navigation_font_size'] ), false, 'px' );
+			}
 
 			$css->set_selector( '.secondary-navigation .top-bar a' );
 			$css->add_property( 'color', esc_attr( $generate_settings['navigation_text_color'] ) );

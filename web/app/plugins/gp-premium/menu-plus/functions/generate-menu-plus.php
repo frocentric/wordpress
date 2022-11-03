@@ -800,7 +800,7 @@ if ( ! function_exists( 'generate_menu_plus_enqueue_js' ) ) {
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		if ( ( 'false' !== $settings['sticky_menu'] ) || ( 'enable' === $settings['mobile_header'] && 'enable' === $settings['mobile_header_sticky'] ) ) {
-			wp_enqueue_script( 'generate-sticky', plugin_dir_url( __FILE__ ) . "js/sticky{$suffix}.js", array( 'jquery' ), GENERATE_MENU_PLUS_VERSION, true );
+			wp_enqueue_script( 'generate-sticky', plugin_dir_url( __FILE__ ) . "js/sticky{$suffix}.js", array( 'jquery-core' ), GENERATE_MENU_PLUS_VERSION, true );
 		}
 
 		if ( 'false' !== $settings['slideout_menu'] ) {
@@ -1145,7 +1145,7 @@ if ( ! function_exists( 'generate_slideout_navigation' ) ) {
 		}
 
 		?>
-		<nav id="generate-slideout-menu" class="main-navigation slideout-navigation<?php echo esc_attr( $overlay ); ?>" <?php echo $microdata; // phpcs:ignore -- No escaping needed. ?> style="display: none;">
+		<nav id="generate-slideout-menu" class="main-navigation slideout-navigation<?php echo esc_attr( $overlay ); ?>" <?php echo $microdata; // phpcs:ignore -- No escaping needed. ?> style="display: none;" aria-hidden>
 			<div class="inside-navigation grid-container grid-parent">
 				<?php
 				do_action( 'generate_inside_slideout_navigation' );
@@ -2288,4 +2288,27 @@ function generate_menu_plus_typography_selectors( $selector ) {
 	}
 
 	return $selector;
+}
+
+add_filter( 'generate_parse_attr', 'generate_set_off_canvas_toggle_attributes', 20, 2 );
+/**
+ * Add attributes to our menu-toggle element when using the Off Canvas panel.
+ *
+ * @since 2.2.0
+ * @param array  $attributes The current attributes.
+ * @param string $context The context in which attributes are applied.
+ */
+function generate_set_off_canvas_toggle_attributes( $attributes, $context ) {
+	if ( 'menu-toggle' === $context ) {
+		$settings = wp_parse_args(
+			get_option( 'generate_menu_plus_settings', array() ),
+			generate_menu_plus_get_defaults()
+		);
+
+		if ( 'mobile' === $settings['slideout_menu'] || 'both' === $settings['slideout_menu'] ) {
+			$attributes['aria-controls'] = 'generate-slideout-menu';
+		}
+	}
+
+	return $attributes;
 }

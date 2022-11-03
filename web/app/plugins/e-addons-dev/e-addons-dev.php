@@ -6,7 +6,7 @@
  * Plugin Name:       e-addons DEVELOPER
  * Plugin URI:        https://e-addons.com
  * Description:       The must have Elementor suite for Devs
- * Version:           2.3
+ * Version:           2.3.1.1
  * Author:            Nerds Farm
  * Author URI:        https://nerds.farm
  * Text Domain:       e-addons-dev
