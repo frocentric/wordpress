@@ -4,8 +4,8 @@ Donate link: https://e-addons.com/donate/
 Tags: elementor, addons, extension, dynamic, template, code, widget, module, design
 Requires at least: 5.0
 Tested up to: 6.1
-Elementor tested up to: 3.7.0
-Stable tag: 3.2.0.1
+Elementor tested up to: 3.9.0
+Stable tag: 3.3
 Requires PHP: 7.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -97,6 +97,28 @@ Absolutely not! But for an advanced use it's better to understand Wordpress logi
 3. **More e-addons** enable only wanted and really needed features
 
 == Changelog ==
+
+= 3.3.0.2 - 15-10-2022 =
+* Compatibility: confirmed support to Elementor 3.9.x and Elementor PRO 3.9.x
+* Fix: license on Free addons
+
+= 3.3.0.1 - 14-10-2022 =
+* New: Form field Label shortcode (ex. '[label id="name"]')
+* Add: PDF and Email extra Css support for Containers and Galleries
+* Optimization: core and managers
+* Fix: Elementor PRO issue with other Elementor based plugin during Categories registration
+* Fix: Query Items minor fix
+
+= 3.3 - 04-10-2022 =
+* Compatibility: with Elementor 3.9.x and PRO 3.9.x
+* Optimization: Display Triggers managed from Settings
+* Optimization: Query Items managed from Settings
+* Optimization: base Skin controls moved to Widget (WARNING: some Query styles can be lost on update)
+* Add: more Query widgets block Hover styles
+* Fix: Remove all new PRO bloat with Elementor Free
+* Fix: Dynamic Tag User Fields for visitors
+* Fix: preserve Elementor assets on clean
+* Fix: refresh e-addons JS assets on clean
 
 = 3.2.0.1 - 20-09-2022 =
 * New: ACF local groups support

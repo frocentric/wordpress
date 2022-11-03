@@ -188,7 +188,7 @@ class Timeline extends Base {
     }
 
     public function register_style_controls() {
-        //parent::register_style_controls();
+        parent::register_style_controls();
 
         $this->start_controls_section(
                 'section_style_timeline',

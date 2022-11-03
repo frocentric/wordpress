@@ -21,7 +21,6 @@ class Justifiedgrid extends Base {
         if ($this->parent) {
             parent::_register_controls_actions();
             add_action( 'elementor/element/'.$this->parent->get_name().'/section_e_query/after_section_end', [ $this, 'register_additional_justifiedgrid_controls' ], 20 );
-            add_action( 'elementor/element/'.$this->parent->get_name().'/section_items/before_section_start', [ $this, 'register_reveal_controls' ], 20 );
         }
     }
     

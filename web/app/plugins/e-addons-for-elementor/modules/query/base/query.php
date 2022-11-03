@@ -31,7 +31,10 @@ class Query extends Base_Widget {
     use Traits\Pagination;
     use Traits\Infinite_Scroll;
     use Traits\Custommeta;
-    //use Traits\Label;
+
+//use Traits\Label;
+    use Traits\Hover;
+    use Traits\Reveal;
     use Traits\Items_Content;
     use Traits\Items_Style;
     use Traits\Items_Advanced;
@@ -43,19 +46,33 @@ class Query extends Base_Widget {
     protected $querytype = null;
     //@ questo serve a rimuovere lo skin default perché non voglio fare nessun render direttamente nel widget
     protected $_has_template_content = false;
-    
     //@ active skin
     public $skin = null;
     public $skins = [];
+    public $items = [];
+    public $list_items = [];
+    public $list_items_default = [];
     public $is_first_section = true;
+    public static $filters = [];
 
     public function __construct($data = [], $args = null) {
         $this->add_query_actions();
         parent::__construct($data, $args);
-        
+
+        $filters = [
+            'register_controls_hovereffects' => 'elementor/element/' . $this->get_name() . '/section_items/before_section_start',
+            'register_reveal_controls' => 'elementor/element/' . $this->get_name() . '/section_items/before_section_start',
+            'register_controls_layout' => 'elementor/element/' . $this->get_name() . '/section_items/after_section_end',
+        ];
+        foreach ($filters as $fnc => $filter) {
+            if (!has_action($filter, [$this, $fnc]) && (empty(self::$filters[$filter]) || !in_array($fnc, self::$filters[$filter]))) {
+                add_action($filter, [$this, $fnc]);
+                self::$filters[$filter][] = $fnc;
+            }
+        }
         //var_dump(get_class($this));
     }
-    
+
     public function add_query_actions() {
         if (!has_action('e_addons/query/' . $this->get_querytype())) { // TODO: check why istantiate multiple times
             add_action('e_addons/query/' . $this->get_querytype(), [$this, 'loop'], 10, 2);
@@ -94,10 +111,10 @@ class Query extends Base_Widget {
     //
     public function get_style_depends() {
         return [
-            /* 'font-awesome-5-all', 'font-awesome',*/ 'elementor-icons-fa-solid', 'animatecss',
+            /* 'font-awesome-5-all', 'font-awesome', */ 'elementor-icons-fa-solid', 'animatecss',
         ];
     }
-    
+
     function get_query_skins() {
         return $this->skins;
     }
@@ -108,9 +125,10 @@ class Query extends Base_Widget {
             if (class_exists($skin)) {
                 //var_dump($skin); var_dump(get_class($this));
                 //var_dump($disabled);
-                $tmp = explode('\\',$skin);
+                $tmp = explode('\\', $skin);
                 $name = end($tmp);
                 $name = strtolower($name);
+                $name = str_replace('_', '-', $name);
                 //var_dump($name);
                 $is_disabled = false;
                 if (!empty($disabled['skins'])) {
@@ -138,9 +156,8 @@ class Query extends Base_Widget {
     public function get_querytype() {
         return $this->querytype;
     }
-    
-    
-    /****************************** PHP 8.1 FIX *******************************/
+
+    /*     * **************************** PHP 8.1 FIX ****************************** */
 
     /**
      * Start widget controls section.
@@ -218,8 +235,8 @@ class Query extends Base_Widget {
             }
         }
     }
-    
-    /**************************************************************************/
+
+    /*     * *********************************************************************** */
 
     protected function register_controls() {
 
@@ -229,7 +246,7 @@ class Query extends Base_Widget {
             'tab' => Controls_Manager::TAB_CONTENT,
                 ]
         );
-        
+
         // skin: Template
         $this->add_control(
                 'skin_dis_customtemplate',
@@ -245,9 +262,9 @@ class Query extends Base_Widget {
                     ],
                 ]
         );
-        
+
         do_action('e_addons/query/skin_icon', $this);
-        
+
         // skin: pagination classic
         $this->add_control(
                 'skin_dis_pagination',
@@ -295,26 +312,37 @@ class Query extends Base_Widget {
                 'section_layout_blocks', [
             'label' => '<i class="eaddicon eicon-info-box" aria-hidden="true"></i> ' . esc_html__('Block Layout', 'e-addons'),
             'condition' => [
-                '_skin!' => ['justifiedgrid', 'timeline', 'nextpost', 'table', 'list', 'piling', 'mosaic', 'rapidimages', 'export'],
+                '_skin!' => ['justifiedgrid', 'accordion', 'timeline', 'nextpost', 'table', 'list', 'piling', 'mosaic', 'rapidimages', 'export'],
             ],
                 ]
         );
-        // ------------------------------------
-        $this->add_control(
-                'style_items', [
-            'label' => esc_html__('Items Style', 'e-addons'),
-            'type' => 'ui_selector',
-            'label_block' => true,
-            'toggle' => false,
-            'type_selector' => 'image',
-            'columns_grid' => 4,
-            'separator' => 'before',
-            'options' => [
-                /* '' => [
-                  'title' => esc_html__('Default','e-addons'),
-                  'return_val' => 'val',
-                  'image' => E_ADDONS_QUERY_URL . 'assets/img/layout/default.png',
-                  ], */
+
+        $item_types = [];
+        $item_types = apply_filters('e_addons/query/item_types', $item_types);
+        if (is_subclass_of($this, 'EAddonsForElementor\Modules\Query\Widgets\Query_Posts')) {
+            $item_types = apply_filters('e_addons/query/post/item_types', $item_types);
+        }
+        $item_types = apply_filters('e_addons/query/' . $this->get_querytype() . '/item_types', $item_types);
+
+        $this->items = $item_types;
+
+        $condition = [];
+        $default = 'template';
+        $columns_grid = 2;
+        $style_items = [
+            'html' => [
+                'title' => esc_html__('Custom HTML', 'e-addons'),
+                'return_val' => 'val',
+                'image' => E_ADDONS_URL . 'modules/query/assets/img/layout/html.png',
+            ],
+            'template' => [
+                'title' => esc_html__('Elementor Template', 'e-addons'),
+                'return_val' => 'val',
+                'image' => E_ADDONS_URL . 'modules/query/assets/img/layout/template.png',
+            ],
+        ];
+        if (!empty($item_types)) {
+            $style_items = [
                 'default' => [
                     'title' => esc_html__('Default', 'e-addons'),
                     'return_val' => 'val',
@@ -350,16 +378,26 @@ class Query extends Base_Widget {
                     'return_val' => 'val',
                     'image' => E_ADDONS_URL . 'modules/query/assets/img/layout/float.png',
                 ],
-                'template' => [
-                    'title' => esc_html__('Elementor Template', 'e-addons'),
-                    'return_val' => 'val',
-                    'image' => E_ADDONS_URL . 'modules/query/assets/img/layout/template.png',
-                ],
-            ],
+                    ] + $style_items;
+            $columns_grid = 3;
+            $default = 'default';
+        }
+
+        // ------------------------------------
+        $this->add_control(
+                'style_items', [
+            'label' => esc_html__('Block Style', 'e-addons'),
+            'type' => 'ui_selector',
+            'label_block' => true,
+            'toggle' => false,
+            'type_selector' => 'image',
+            'columns_grid' => $columns_grid,
+            'separator' => 'before',
+            'options' => $style_items,
             'toggle' => false,
             'render_type' => 'template',
             'prefix_class' => 'e-add-posts-layout-', // ....da cambiare ......
-            'default' => 'default',
+            'default' => $default,
             //'tablet_default' => '',
             //'mobile_default' => '',
             'condition' => [
@@ -367,408 +405,25 @@ class Query extends Base_Widget {
             ],
                 ]
         );
-        // +********************* Style: Left, Right, Alternate
-        $this->add_responsive_control(
-                'image_rate', [
-            'label' => esc_html__('Distribution (%)', 'e-addons'),
-            'type' => Controls_Manager::SLIDER,
-            'default' => [
-                'size' => '50',
-                'unit' => '%',
-            ],
-            'size_units' => ['%'],
-            'range' => [
-                '%' => [
-                    'min' => 1,
-                    'max' => 100,
-                ]
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .e-add-image-area' => 'width: {{SIZE}}%;',
-                '{{WRAPPER}} .e-add-content-area' => 'width: calc( 100% - {{SIZE}}% );',
-            ],
-            'condition' => [
-                '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion', 'softscroll', 'expander'],
-                'style_items' => ['left', 'right', 'alternate'],
-            ],
-                ]
-        );
 
-        // +********************* Float Hover style descripton:
+        if (!empty($item_types)) {
+            // +********************* Style: Items
+            $this->add_controls_block_style_items();
+        }
+
+        // +********************* Style: Custom HTML
         $this->add_control(
-                'float_hoverstyle_description',
+                'block_custom_html',
                 [
-                    'type' => Controls_Manager::RAW_HTML,
-                    'show_label' => false,
-                    'raw' => '<i class="eaddicon eicon-image-rollover" aria-hidden="true"></i> ' . esc_html__('Float style allows you to create animations between the content and the underlying image, from "Hover effect" Panel you can set the features.', 'e-addons'),
-                    'content_classes' => 'e-add-info-panel',
+                    'label' => esc_html__('Custom HTML', 'elementor'),
+                    'type' => Controls_Manager::CODE,
                     'condition' => [
-                        '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion', 'softscroll', 'expander'],
-                        'style_items' => ['float'],
+                        'style_items' => 'html',
                     ],
-                ]
-        );
-        // +********************* Image Zone Style:
-        $this->add_control(
-                'heading_imagezone',
-                [
-                    'type' => Controls_Manager::RAW_HTML,
-                    'show_label' => false,
-                    'raw' => '<i class="far fa-image"></i> &nbsp;' . esc_html__('IMAGE:', 'e-addons'),
-                    'content_classes' => 'e-add-icon-heading',
-                    'condition' => [
-                        '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion', 'softscroll'],
-                        'style_items!' => ['default', 'template'],
-                    ],
+                    'description' => esc_html__('Write here full Block HTML, you can insert Shortcodes or Twig (use "block" var)', 'e-addons'),
                 ]
         );
 
-        /*
-
-          // +********************* Image Zone: Mask
-          $this->add_control(
-          'imagemask_popover', [
-          'label' => esc_html__('Mask', 'e-addons'),
-          'type' => \Elementor\Controls_Manager::POPOVER_TOGGLE,
-          'label_off' => esc_html__('Default', 'e-addons'),
-          'label_on' => esc_html__('Custom', 'e-addons'),
-          'return_value' => 'yes',
-          'condition' => [
-          '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion','softscroll','expander'],
-          'style_items!' => ['default', 'template'],
-          ],
-          ]
-          );
-          $this->start_popover();
-          $this->add_control(
-          'mask_heading',
-          [
-          'label' => esc_html__('Mask', 'e-addons'),
-          'description' => esc_html__('Shape Parameters', 'e-addons'),
-          'type' => Controls_Manager::HEADING,
-          'separator' => 'before',
-          'condition' => [
-          '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion','softscroll','expander'],
-          'style_items!' => ['default', 'template'],
-          'imagemask_popover' => 'yes',
-          ],
-          ]
-          );
-          $this->add_group_control(
-          Masking::get_type(),
-          [
-          'name' => 'mask',
-          'label' => esc_html__('Mask', 'e-addons'),
-          'selector' => '{{WRAPPER}} .e-add-posts-container .e-add-post-image',
-          'condition' => [
-          '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion','softscroll','expander'],
-          'style_items!' => ['default', 'template'],
-          'imagemask_popover' => 'yes',
-          ],
-          ]
-          );
-          $this->end_popover();
-          // +********************* Image Zone: Transforms
-          $this->add_control(
-          'imagetransforms_popover',
-          [
-          'label' => esc_html__('Transforms', 'plugin-name'),
-          'type' => \Elementor\Controls_Manager::POPOVER_TOGGLE,
-          'return_value' => 'yes',
-          'render_type' => 'ui',
-          'condition' => [
-          '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion','softscroll','expander'],
-          'style_items!' => ['default', 'template'],
-          ],
-          ]
-          );
-          $this->start_popover();
-
-          $this->add_group_control(
-          Transform::get_type(),
-          [
-          'name' => 'transform_image',
-          'label' => 'Transform image',
-          'selector' => '{{WRAPPER}} .e-add-post-item .e-add-image-area',
-          'separator' => 'before',
-          'condition' => [
-          '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion','softscroll','expander'],
-          'style_items!' => ['default', 'template'],
-          'imagetransforms_popover' => 'yes',
-          ],
-          ]
-          );
-          $this->end_popover();
-
-         */
-
-        // +********************* Image Zone: Filters
-        $this->add_group_control(
-                Group_Control_Css_Filter::get_type(),
-                [
-                    'name' => 'imagezone_filters',
-                    'label' => 'Filters',
-                    'render_type' => 'ui',
-                    'selector' => '{{WRAPPER}} .e-add-post-block .e-add-post-image img',
-                    'condition' => [
-                        '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion', 'softscroll', 'expander'],
-                        'style_items!' => ['default', 'template'],
-                    ],
-                ]
-        );
-        // +********************* Content Zone Style:
-        $this->add_control(
-                'heading_contentzone',
-                [
-                    'type' => Controls_Manager::RAW_HTML,
-                    'show_label' => false,
-                    'raw' => '<i class="fas fa-align-left"></i> &nbsp;' . esc_html__('CONTENT:', 'e-addons'),
-                    'content_classes' => 'e-add-icon-heading',
-                    'condition' => [
-                        '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion', 'softscroll', 'expander'],
-                        'style_items!' => ['default', 'template'],
-                    ],
-                ]
-        );
-        // +********************* Content Zone: Style
-        $this->add_control(
-                'contentstyle_popover', [
-            'label' => esc_html__('Style', 'e-addons'),
-            'type' => \Elementor\Controls_Manager::POPOVER_TOGGLE,
-            'label_off' => esc_html__('Default', 'e-addons'),
-            'label_on' => esc_html__('Custom', 'e-addons'),
-            'return_value' => 'yes',
-            'render_type' => 'ui',
-            'condition' => [
-                '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion', 'softscroll', 'expander'],
-                'style_items!' => ['default', 'template'],
-            ],
-                ]
-        );
-        $this->start_popover();
-        $this->add_control(
-                'contentzone_bgcolor', [
-            'label' => esc_html__('Background Color', 'e-addons'),
-            'type' => Controls_Manager::COLOR,
-            'default' => '',
-            'separator' => 'before',
-            'selectors' => [
-                '{{WRAPPER}} .e-add-post-item .e-add-content-area' => 'background-color: {{VALUE}};'
-            ],
-            'condition' => [
-                '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion', 'softscroll', 'expander'],
-                'style_items!' => ['default', 'template'],
-                'contentstyle_popover' => 'yes',
-            ],
-                ]
-        );
-        $this->add_group_control(
-                Group_Control_Border::get_type(), [
-            'name' => 'contentzone_border',
-            'selector' => '{{WRAPPER}} .e-add-post-item .e-add-content-area',
-            'condition' => [
-                '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion', 'softscroll', 'expander'],
-                'style_items!' => ['default', 'template'],
-                'contentstyle_popover' => 'yes',
-            ],
-                ]
-        );
-        $this->add_responsive_control(
-                'contentzone_padding', [
-            'label' => esc_html__('Padding', 'e-addons'),
-            'type' => Controls_Manager::DIMENSIONS,
-            'size_units' => ['px', '%', 'em'],
-            'selectors' => [
-                '{{WRAPPER}} .e-add-post-item .e-add-content-area' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-            ],
-            'condition' => [
-                '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion', 'softscroll', 'expander'],
-                'style_items!' => ['default', 'template'],
-                'contentstyle_popover' => 'yes',
-            ],
-                ]
-        );
-        $this->add_control(
-                'contentzone_border_radius', [
-            'label' => esc_html__('Border Radius', 'e-addons'),
-            'type' => Controls_Manager::DIMENSIONS,
-            'size_units' => ['px', '%', 'em'],
-            //'default' => '',
-            'selectors' => [
-                '{{WRAPPER}} .e-add-post-item .e-add-content-area' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-            ],
-            'condition' => [
-                '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion', 'softscroll', 'expander'],
-                'style_items!' => ['default', 'template'],
-                'contentstyle_popover' => 'yes',
-            ],
-                ]
-        );
-
-        $this->end_popover();
-
-        // +********************* Content Zone Transform: Overlay, TextZone, Float
-        $this->add_control(
-                'contenttransform_popover', [
-            'label' => esc_html__('Transform', 'e-addons'),
-            'type' => \Elementor\Controls_Manager::POPOVER_TOGGLE,
-            'label_off' => esc_html__('Default', 'e-addons'),
-            'label_on' => esc_html__('Custom', 'e-addons'),
-            'return_value' => 'yes',
-            'render_type' => 'ui',
-            'condition' => [
-                '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion', 'softscroll', 'expander'],
-                'style_items' => ['overlay', 'textzone', 'float'],
-            ],
-                ]
-        );
-        $this->start_popover();
-        $this->add_responsive_control(
-                'contentzone_x', [
-            'label' => esc_html__('X', 'e-addons'),
-            'type' => Controls_Manager::SLIDER,
-            'size_units' => ['%'],
-            'default' => [
-                'size' => '',
-                'unit' => '%',
-            ],
-            'range' => [
-                '%' => [
-                    'min' => -100,
-                    'max' => 100,
-                    'step' => 0.1
-                ],
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .e-add-content-area' => 'margin-left: {{SIZE}}%;',
-            ],
-            'condition' => [
-                'contenttransform_popover' => 'yes',
-                '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion', 'softscroll', 'expander'],
-                'style_items' => ['overlay', 'textzone', 'float'],
-            ],
-                ]
-        );
-        $this->add_responsive_control(
-                'contentzone_y', [
-            'label' => esc_html__('Y', 'e-addons'),
-            'type' => Controls_Manager::SLIDER,
-            'default' => [
-                'size' => '',
-                'unit' => '%',
-            ],
-            'size_units' => ['%'],
-            'range' => [
-                '%' => [
-                    'min' => -100,
-                    'max' => 100,
-                    'step' => 0.1
-                ],
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .e-add-content-area' => 'margin-top: {{SIZE}}%;',
-            ],
-            'condition' => [
-                'contenttransform_popover' => 'yes',
-                '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion', 'softscroll', 'expander'],
-                'style_items' => ['overlay', 'textzone', 'float'],
-            ],
-                ]
-        );
-        $this->add_responsive_control(
-                'contentzone_width', [
-            'label' => esc_html__('Width (%)', 'e-addons'),
-            'type' => Controls_Manager::SLIDER,
-            'default' => [
-                'size' => '',
-                'unit' => '%',
-            ],
-            'size_units' => ['%'],
-            'range' => [
-                '%' => [
-                    'min' => 1,
-                    'max' => 100,
-                    'step' => 0.1
-                ],
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .e-add-content-area' => 'width: {{SIZE}}%;',
-            ],
-            'condition' => [
-                'contenttransform_popover' => 'yes',
-                '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion', 'softscroll', 'expander'],
-                'style_items' => ['overlay', 'textzone', 'float'],
-            ],
-                ]
-        );
-        $this->add_responsive_control(
-                'contentzone_height', [
-            'label' => esc_html__('Height (%)', 'e-addons'),
-            'type' => Controls_Manager::SLIDER,
-            'default' => [
-                'size' => '',
-                'unit' => '%',
-            ],
-            'size_units' => ['%'],
-            'range' => [
-                '%' => [
-                    'min' => 1,
-                    'max' => 100,
-                    'step' => 0.1
-                ],
-            ],
-            'selectors' => [
-                '{{WRAPPER}} .e-add-content-area' => 'height: {{SIZE}}%;',
-            ],
-            'condition' => [
-                'contenttransform_popover' => 'yes',
-                '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion', 'softscroll', 'expander'],
-                'style_items' => ['float'],
-            ],
-                ]
-        );
-        $this->end_popover();
-        // +********************* Content Zone: BoxShadow
-        $this->add_group_control(
-                Group_Control_Box_Shadow::get_type(), [
-            'name' => 'contentzone_box_shadow',
-            'selector' => '{{WRAPPER}} .e-add-post-item .e-add-content-area',
-            'condition' => [
-                '_skin' => ['', 'grid', 'carousel', 'filters', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion', 'softscroll', 'expander'],
-                'style_items!' => ['default', 'template'],
-            ],
-            'popover' => true
-                ]
-        );
-        // +********************* Content Zone: Float interaction
-        $this->add_control(
-                'float_interaction', [
-            'label' => '<i class="eaddicon fas fa-ban" aria-hidden="true"></i> ' . esc_html__('Stop interaction on content', 'e-addons'),
-            'type' => Controls_Manager::SWITCHER,
-            'default' => 'yes',
-            'separator' => 'before',
-            'prefix_class' => 'disable-float-interaction-',
-            'description' => esc_html__('This option allows you to stop the interactions on the content to give priority to the image lying behind.', 'e-addons'),
-            'condition' => [
-                '_skin' => ['', 'grid', 'filters', 'carousel', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion', 'softscroll', 'expander'],
-                'style_items' => 'float',
-            ],
-                ]
-        );
-
-        /* Responsive --------------- */
-        $this->add_control(
-                'force_layout_default', [
-            'label' => '<i class="eaddicon eicon-device-mobile" aria-hidden="true"></i> ' . esc_html__('Force default layout on mobile', 'e-addons'),
-            'type' => Controls_Manager::SWITCHER,
-            'separator' => 'before',
-            'prefix_class' => 'force-default-mobile-',
-            'condition' => [
-                '_skin' => ['', 'grid', 'filters', 'carousel', 'dualslider', 'horizontalscroll', 'cards', 'maps', 'circular', 'accordion', 'softscroll', 'expander'],
-                'style_items' => ['left', 'right', 'alternate']
-            ],
-                ]
-        );
         // +********************* Style: Elementor TEMPLATE
         $this->add_control(
                 'template_id',
@@ -874,6 +529,105 @@ class Query extends Base_Widget {
 
         $this->add_infinite_scroll_section();
     }
+    
+    
+    public function set_default_item_type($default = false, $options = []) {
+        if (!empty($options)) {
+            $items = array_keys($options);
+            $default = in_array($default, $items) ? $default : reset($items);
+        }
+        return $default;
+    }
+
+    public function add_section_items() {
+        
+        $item_types = [];
+        $item_types = apply_filters('e_addons/query/item_types', $item_types);
+        if (is_subclass_of($this, 'EAddonsForElementor\Modules\Query\Widgets\Query_Posts')) {
+            $item_types = apply_filters('e_addons/query/post/item_types', $item_types);
+        }
+        $item_types = apply_filters('e_addons/query/' . $this->get_querytype() . '/item_types', $item_types);
+
+        // limit available items
+        if (!empty($this->list_items)) {
+            foreach ($item_types as $ikey => $ivalue) {
+                if (!in_array($ikey, $this->list_items)) {
+                    unset($item_types[$ikey]);
+                }
+            }
+        }
+        
+        // set dafault items
+        $list_items_default = [];
+        if (!empty($this->list_items_default)) {
+            foreach ($this->list_items_default as $item) {
+                $list_items_default[] = [
+                    'item_type' => $item,
+                ];
+            }
+        }
+        //var_dump($item_types);
+        
+        $condition = [
+            '_skin' => '', // this section will be hidden if no items type available
+        ];
+        if (!empty($item_types)) {
+            $condition = [
+                '_skin!' => ['nextpost', 'mosaic'],
+                'style_items!' => ['template', 'html'],
+            ];
+        }
+
+        // ------------------------------------------------------------------ [SECTION ITEMS]
+        $this->start_controls_section(
+                'section_items', [
+            'label' => '<i class="eaddicon eicon-radio" aria-hidden="true"></i> ' . esc_html__('Block Items', 'e-addons'),
+            'condition' => $condition,
+                ]
+        );
+
+        if (!empty($item_types)) {
+            
+            $repeater = new Repeater();
+            $repeater->add_control(
+                    'item_type', [
+                'label' => esc_html__('Item Type', 'e-addons'),
+                'type' => Controls_Manager::SELECT,
+                'options' => $item_types,
+                'default' => $this->set_default_item_type('item_title', $item_types),
+                    ]
+            );
+            $this->add_item_tabs($repeater);
+            $this->add_control(
+                    'list_items',
+                    [
+                        'label' => esc_html__('Items', 'e-addons'),
+                        'show_label' => false,
+                        'separator' => 'before',
+                        'type' => Controls_Manager::REPEATER,
+                        'fields' => $repeater->get_controls(),
+                        'default' => $list_items_default,
+                        //item_type.replace("item_", "")
+                        'prevent_empty' => $this->get_querytype() != 'attachment',
+                        'title_field' => '<# var etichetta = item_type; etichetta = etichetta.replace("item_", ""); #><b class="e-add-item-name"><i class="fa {{{ item_type+"-ic" }}}" aria-hidden="true"></i> {{{item_text_label}}} | {{{ etichetta }}}</b>',
+                    ]
+            );
+
+            $this->controls_items_grid_debug($this);
+        }
+
+        $this->end_controls_section();
+    }
+
+    public function register_controls_layout() {
+        //$this->parent = $widget;
+        // BLOCKS generic style
+        $this->register_style_controls();
+        // PAGINATION style
+        $this->register_style_pagination_controls();
+        //INFINITE SCROLL style
+        $this->register_style_infinitescroll_controls();
+    }
 
     public function add_no_result_section() {
         //@p il TAB Query
@@ -914,13 +668,13 @@ class Query extends Base_Widget {
         $this->add_render_attribute('_wrapper', 'class', ['e-add-querytype-' . $querytype, 'e-add-queryskin-' . $queryskin]);
 
         /*
-        $is_imagemask = $this->get_settings('imagemask_popover');
-        if ($is_imagemask) {
-            $mask_shape_type = $this->get_settings('mask_shape_type');
-            //$this->render_svg_mask($mask_shape_type);
-        }
-        */
-        
+          $is_imagemask = $this->get_settings('imagemask_popover');
+          if ($is_imagemask) {
+          $mask_shape_type = $this->get_settings('mask_shape_type');
+          //$this->render_svg_mask($mask_shape_type);
+          }
+         */
+
         \Elementor\Icons_Manager::enqueue_shim();
     }
 
@@ -947,7 +701,7 @@ class Query extends Base_Widget {
         return $page_length;
     }
 
-    // -------------- Override Laghtbox (assurdo ... ma inevitabile .. da valutare) ---------
+    // -------------- Override Lightbox (assurdo ... ma inevitabile .. da valutare) ---------
     public function add_lightbox_data_attributes($element, $id = null, $lightbox_setting_key = null, $group_id = null, $overwrite = false) {
         $kit = \Elementor\Plugin::$instance->kits_manager->get_active_kit();
 
@@ -1003,21 +757,23 @@ class Query extends Base_Widget {
     public function query_the_elements() {
         
     }
-    
+
     public function get_item_class() {
         return '';
     }
+
     public function get_wrapper_class() {
         return '';
     }
+
     public function get_container_class() {
         return '';
     }
-    
+
     protected function add_controls_metaquery() {
-        
+
         $querytype = $this->get_querytype();
-        
+
         // ****************** Meta key
         $this->add_control(
                 'heading_query_filter_metakey',
@@ -1038,14 +794,14 @@ class Query extends Base_Widget {
         $repeater_metakeys->add_control(
                 'metakey_field_meta',
                 [
-                    'label' => $querytype.esc_html__(' Field') . ' <b>' . esc_html__('custom meta key', 'e-addons') . '</b>',
+                    'label' => $querytype . esc_html__(' Field') . ' <b>' . esc_html__('custom meta key', 'e-addons') . '</b>',
                     'type' => 'e-query',
                     'select2options' => ['tags' => true],
                     'placeholder' => esc_html__('Meta key or Name', 'e-addons'),
                     'label_block' => true,
                     'query_type' => 'metas',
                     'object_type' => $querytype,
-                    'description' => esc_html__('Selected '.$querytype.' Meta value.', 'e-addons'),
+                    'description' => esc_html__('Selected ' . $querytype . ' Meta value.', 'e-addons'),
                 ]
         );
         $repeater_metakeys->add_control(
@@ -1164,10 +920,8 @@ class Query extends Base_Widget {
             ]
                 ]
         );
-        
-        
     }
-    
+
     protected function get_metakey_filter($settings) {
         /*
           -------- META KEY -------
@@ -1243,7 +997,7 @@ class Query extends Base_Widget {
                         //$comb = Utils::set_array_value($conb, $keys, $piece);;
                     }
                     if (is_numeric($piece)) {
-                        $index = intval($piece)-1;
+                        $index = intval($piece) - 1;
                         if (isset($keysquery[$index])) {
                             //$cond[$level][] = $keysquery[$index];
                             $keys[] = $index;
@@ -1264,35 +1018,34 @@ class Query extends Base_Widget {
                         array_pop($keys);
                         //echo '<pre>';var_dump($cond);echo '</pre>';
                     }
-                    if ($pkey == count($pieces)-1 && !$level) {
+                    if ($pkey == count($pieces) - 1 && !$level) {
                         //var_dump($comb);
                         $keys = ['relation'];
                         $cond = Utils::set_array_value($cond, $keys, $comb[0]);
                     }
-                    
                 }
-                /*[
-                    [
-                        1,
-                        2,
-                        AND,
-                    ],
-                    [
-                        [
-                            3,
-                            4,
-                            OR,
-                        ],
-                        [
-                            
-                            5,
-                            6,
-                            AND,
-                        ],
-                        AND,
-                    ],
-                    OR,
-                ]*/
+                /* [
+                  [
+                  1,
+                  2,
+                  AND,
+                  ],
+                  [
+                  [
+                  3,
+                  4,
+                  OR,
+                  ],
+                  [
+
+                  5,
+                  6,
+                  AND,
+                  ],
+                  AND,
+                  ],
+                  OR,
+                  ] */
                 //echo '<pre>';var_dump(json_encode($cond));echo '</pre>';
                 $keysquery = $cond;
             }
@@ -1302,7 +1055,6 @@ class Query extends Base_Widget {
         //
         return $metakey_args;
     }
-    
 
     public function render_svg_mask($mask_shape_type) {
         $widgetId = $this->get_id();

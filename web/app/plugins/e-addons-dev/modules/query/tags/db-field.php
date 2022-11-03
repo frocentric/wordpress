@@ -18,11 +18,11 @@ class Db_Field extends Base_Tag {
     public function get_name() {
         return 'e-tag-db-field';
     }
-    /**
-    public function get_icon() {
-        return 'eadd-dynamic-tag-rowcustomfield';
-    }
     
+    public function get_icon() {
+        return 'eicon-database';
+    }
+    /*
     public function get_pid() {
         return 35123;
     }

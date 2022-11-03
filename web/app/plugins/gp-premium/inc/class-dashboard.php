@@ -291,6 +291,23 @@ class GeneratePress_Pro_Dashboard {
 	}
 
 	/**
+	 * Returns safely the license key.
+	 */
+	public static function get_license_key() {
+		$license_key = get_option( 'gen_premium_license_key', '' );
+
+		if ( $license_key && strlen( $license_key ) > 4 ) {
+			$hidden_length = strlen( $license_key ) - 4;
+			$safe_part = substr( $license_key, 0, 4 );
+			$hidden_part = implode('', array_fill( 0, $hidden_length, '*' ) );
+
+			return $safe_part . $hidden_part;
+		}
+
+		return $license_key;
+	}
+
+	/**
 	 * Add our scripts to the page.
 	 */
 	public function enqueue_scripts() {
@@ -329,7 +346,7 @@ class GeneratePress_Pro_Dashboard {
 						'siteLibraryUrl' => admin_url( 'themes.php?page=generatepress-library' ),
 						'elementsUrl' => admin_url( 'edit.php?post_type=gp_elements' ),
 						'hasWooCommerce' => class_exists( 'WooCommerce' ),
-						'licenseKey' => get_option( 'gen_premium_license_key', '' ),
+						'licenseKey' => self::get_license_key(),
 						'licenseKeyStatus' => get_option( 'gen_premium_license_key_status', 'deactivated' ),
 						'betaTester' => get_option( 'gp_premium_beta_testing', false ),
 					)

@@ -4,7 +4,7 @@ Donate link: https://e-addons.com/
 Tags: developer, php, sql, api, rss, json, feed, rest, pdo
 Requires at least: 4.7
 Tested up to: 6.1
-Stable tag: 2.3
+Stable tag: 2.3.1.1
 Requires PHP: 7.1
 
 The must have Elementor suite for Devs
@@ -24,6 +24,14 @@ Yes, but with great power comes great responsibility!
 No, this is only for coders
 
 == Changelog ==
+
+= 2.3.1.1 =
+* Fix: Query widget items
+
+= 2.3.1 =
+* Add: more Debug data information for Remote calls
+* Add: Rest API support Get params
+* Add: compatibility with new Core 3.3
 
 = 2.3 =
 * New: Dynamic Tag DB Field

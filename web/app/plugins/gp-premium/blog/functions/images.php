@@ -243,6 +243,10 @@ function generate_blog_single_featured_image() {
 		}
 	}
 
+	if ( function_exists( 'wp_get_loading_attr_default' ) ) {
+		$attrs['loading'] = wp_get_loading_attr_default( 'the_post_thumbnail' );
+	}
+
 	$image_html = apply_filters(
 		'post_thumbnail_html', // phpcs:ignore -- Core filter.
 		wp_get_attachment_image(

@@ -164,6 +164,11 @@ class Form {
                             $setting = str_replace('[option id="' . $fkey . '"]', $ovalue, $setting);
                             $setting = str_replace("[option id='" . $fkey . "']", $ovalue, $setting);
                             
+                            $lvalue = self::get_field_label($fkey);
+                            $setting = str_replace('[label id=”' . $fkey . '”]', $lvalue, $setting);
+                            $setting = str_replace('[label id="' . $fkey . '"]', $lvalue, $setting);
+                            $setting = str_replace("[label id='" . $fkey . "']", $lvalue, $setting);
+                            
                         }
                     }
                 }
