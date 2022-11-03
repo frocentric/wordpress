@@ -179,7 +179,8 @@ class Module extends Module_Base {
 					__( 'Custom code saved.', 'elementor-pro' ),
 					__( 'Custom code submitted.', 'elementor-pro' ),
 					sprintf(
-						__( 'Custom code scheduled for: %1$s.', 'elementor-pro' ),
+						/* translators: %s: The scheduled date. */
+						__( 'Custom code scheduled for %s.', 'elementor-pro' ),
 						'<strong>' . date_i18n( esc_html__( 'M j, Y @ G:i', 'elementor-pro' ), strtotime( $post->post_date ) ) . '</strong>'
 					),
 					__( 'Custom code draft updated.', 'elementor-pro' ),

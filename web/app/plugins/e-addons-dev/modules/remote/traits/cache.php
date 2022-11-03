@@ -297,11 +297,13 @@ trait Cache {
             $response = wp_remote_post($url, $args);
         }
 
-        /*
-          echo $url;
-          echo '<pre>';var_dump($args);echo '</pre>';
-          echo '<pre>';var_dump($response);echo '</pre>';
-        */
+        if (Utils::is_preview()) {
+            if (!empty($settings['query_debug'])) {
+              echo '<div style="background-color: #ffd; padding: 10px;"><b>URL:</b><br>'.$url;
+              echo '<br><br><b>REQUEST:</b><pre>';var_dump($args);echo '</pre>';
+              echo '<b>RESPONSE:</b><pre>';var_dump($response);echo '</pre></div>';
+            }
+        }
 
         $cache = false;
         if ($response !== false && !is_wp_error($response)) {
@@ -395,7 +397,7 @@ trait Cache {
         }
 
         if (!empty($settings['data_get'])) {
-            if (empty($settings['method']) || in_array($settings['method'], array('WP'))) {
+            if (empty($settings['method']) || in_array($settings['method'], array('WP', 'GET'))) {
                 foreach ($settings['data_get'] as $api_get) {
                     if ($api_get['data_get_key']) {
                         $url = add_query_arg($api_get['data_get_key'], $api_get['data_get_value'], $url);

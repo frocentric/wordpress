@@ -10,7 +10,7 @@ if (!current_user_can('manage_options')) {
 \EAddonsForElementor\Plugin::instance()->assets_manager->enqueue_icons();
 
 $modules_manager = \EAddonsForElementor\Plugin::instance()->modules_manager;
-$folders = array('widgets', 'extensions', 'tags', 'skins', 'globals', 'actions', 'shortcodes', 'tweaks', 'fields', 'controls', 'controls/groups');
+$folders = array('widgets', 'extensions', 'tags', 'skins', 'globals', 'actions', 'shortcodes', 'tweaks', 'fields', 'controls', 'controls/groups', 'items', 'triggers');
 $e_addons_plugins = \EAddonsForElementor\Plugin::instance()->get_addons(true);
 
 $widget_stats = Utils::get_elementor_stats();
@@ -266,7 +266,7 @@ $widget_stats = Utils::get_elementor_stats();
                                                                                     <li class="e-setting">
                                                                                         <input class="e-setting-input-checkbox" id="<?php echo $unique_feature; ?>" type="checkbox" name="settings[<?php echo $folder; ?>][<?php echo $amod; ?>][<?php echo $file_name; ?>]"<?php echo $checked; ?>>
                                                                                         <label class="e-setting-label" for="<?php echo $unique_feature; ?>"><i class="e-setting-icon <?php echo $element->get_icon(); ?>"></i><span class="e-settings-label"><?php echo $file_label; ?></span>
-                                                                                        <?php if (in_array($folder, [ 'widgets', 'actions', 'tags', 'skins', 'fields'] )) { 
+                                                                                        <?php if (in_array($folder, [ 'widgets', 'actions', 'tags', 'skins', 'fields', 'items', 'triggers'] )) { 
                                                                                             echo '<small>';
                                                                                             $count = 0;
                                                                                             switch($folder) {
@@ -274,12 +274,16 @@ $widget_stats = Utils::get_elementor_stats();
                                                                                                     if (!empty($widget_stats[$element->get_name()])) $count = $widget_stats[$element->get_name()];
                                                                                                     break;
                                                                                                 case 'skins':
+                                                                                                case 'items':
                                                                                                 case 'tags':
                                                                                                 case 'actions':
                                                                                                     if (!empty($widget_stats[$folder][$element->get_name()])) $count = $widget_stats[$folder][$element->get_name()];
                                                                                                     break;
                                                                                                 case 'fields':
                                                                                                     if (!empty($widget_stats[$folder][$element->get_type()])) $count = $widget_stats[$folder][$element->get_type()];
+                                                                                                    break;
+                                                                                                case 'triggers':
+                                                                                                    if (!empty($widget_stats[$folder][$file_name])) $count = $widget_stats[$folder][$file_name];
                                                                                                     break;
                                                                                             }
                                                                                             echo $count ? 'Used: <b>'.$count.'</b> times' : 'Never used';

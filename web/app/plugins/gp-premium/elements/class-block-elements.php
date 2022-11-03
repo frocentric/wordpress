@@ -41,7 +41,7 @@ class GeneratePress_Block_Elements {
 	public function __construct() {
 		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_assets' ), 8 );
 
-		if ( version_compare( $GLOBALS['wp_version'], '5.8-alpha-1', '<' ) ) {
+		if ( version_compare( $GLOBALS['wp_version'], '5.8', '<' ) ) {
 			add_filter( 'block_categories', array( $this, 'add_block_category' ) );
 		} else {
 			add_filter( 'block_categories_all', array( $this, 'add_block_category' ) );
@@ -586,16 +586,18 @@ class GeneratePress_Block_Elements {
 			$url = get_permalink( $id );
 		}
 
-		if ( 'post-meta' === $link_type ) {
-			$url = get_post_meta( $id, $block['attrs']['gpDynamicLinkCustomField'], true );
-		}
+		if ( isset( $block['attrs']['gpDynamicLinkCustomField'] ) ) {
+			if ( 'post-meta' === $link_type ) {
+				$url = get_post_meta( $id, $block['attrs']['gpDynamicLinkCustomField'], true );
+			}
 
-		if ( 'user-meta' === $link_type ) {
-			$url = $this->get_user_data( $author_id, $block['attrs']['gpDynamicLinkCustomField'] );
-		}
+			if ( 'user-meta' === $link_type ) {
+				$url = $this->get_user_data( $author_id, $block['attrs']['gpDynamicLinkCustomField'] );
+			}
 
-		if ( 'term-meta' === $link_type ) {
-			$url = get_term_meta( get_queried_object_id(), $block['attrs']['gpDynamicTextCustomField'], true );
+			if ( 'term-meta' === $link_type ) {
+				$url = get_term_meta( get_queried_object_id(), $block['attrs']['gpDynamicLinkCustomField'], true );
+			}
 		}
 
 		if ( 'author-archives' === $link_type ) {
@@ -1132,8 +1134,8 @@ class GeneratePress_Block_Elements {
 			}
 
 			if ( 'user-meta' === $settings['gpDynamicImageBg'] ) {
-				$author_id = $this->get_author_id( $source, $block['attrs'] );
-				$custom_field = $this->get_user_data( $author_id, $block['attrs']['gpDynamicImageCustomField'] );
+				$author_id = $this->get_author_id( $source, $settings );
+				$custom_field = $this->get_user_data( $author_id, $settings['gpDynamicImageCustomField'] );
 			}
 
 			if ( 'featured-image' === $settings['gpDynamicImageBg'] && has_post_thumbnail( $id ) ) {
@@ -1180,8 +1182,8 @@ class GeneratePress_Block_Elements {
 				}
 
 				if ( 'user-meta' === $settings['gpDynamicImageBg'] ) {
-					$author_id = $this->get_author_id( $source, $block['attrs'] );
-					$custom_field = $this->get_user_data( $author_id, $block['attrs']['gpDynamicImageCustomField'] );
+					$author_id = $this->get_author_id( $source, $settings );
+					$custom_field = $this->get_user_data( $author_id, $settings['gpDynamicImageCustomField'] );
 				}
 
 				if ( 'featured-image' === $settings['gpDynamicImageBg'] && has_post_thumbnail( $id ) ) {

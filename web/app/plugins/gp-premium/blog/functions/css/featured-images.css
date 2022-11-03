@@ -61,12 +61,6 @@
 	clear: both;
 }
 
-.post-image-aligned-left .inside-article,
-.post-image-aligned-right .inside-article {
-	zoom: 1;
-	/* For IE 6/7 (trigger hasLayout) */
-}
-
 .one-container.post-image-above-header .page-header + .no-featured-image-padding .inside-article .post-image,
 .one-container.post-image-above-header .no-featured-image-padding.generate-columns .inside-article .post-image {
 	margin-top: 0;

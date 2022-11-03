@@ -40,6 +40,7 @@
   <custom-fields>
 	  <custom-field action="translate">_generate_element_content</custom-field>
 	  <custom-field action="copy-once">_generate_element_type</custom-field>
+	  <custom-field action="copy-once">_generate_block_type</custom-field>
 	  <custom-field action="copy-once">_generate_element_display_conditions</custom-field>
 	  <custom-field action="copy-once">_generate_element_exclude_conditions</custom-field>
 	  <custom-field action="copy-once">_generate_element_user_conditions</custom-field>

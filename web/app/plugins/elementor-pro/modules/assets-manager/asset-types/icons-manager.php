@@ -105,7 +105,7 @@ class Icons_Manager {
 			2 => esc_html__( 'Custom field updated.', 'elementor-pro' ),
 			3 => esc_html__( 'Custom field deleted.', 'elementor-pro' ),
 			4 => esc_html__( 'Icon Set updated.', 'elementor-pro' ),
-			/* translators: %s: date and time of the revision */
+			/* translators: %s: Date and time of the revision. */
 			5 => isset( $_GET['revision'] ) ? sprintf( esc_html__( 'Icon Set restored to revision from %s', 'elementor-pro' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
 			6 => esc_html__( 'Icon Set saved.', 'elementor-pro' ),
 			7 => esc_html__( 'Icon Set saved.', 'elementor-pro' ),
