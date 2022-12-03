@@ -88,7 +88,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-virtual",
-        "version": "1.11.0",
+        "version": "1.13.3",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-virtual&version={%VERSION}&key={%TEC_VE_LICENSE}",
