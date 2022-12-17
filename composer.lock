@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "426237577648f86a4d5b892621dd830f",
+    "content-hash": "8bcec3cb91760efefa1d1cac1e4cb47a",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1006,6 +1006,15 @@
                 "source": "https://github.com/johnpbloch/wordpress-core-installer/tree/master"
             },
             "time": "2020-04-16T21:44:57+00:00"
+        },
+        {
+            "name": "kinsta/kinsta-mu-plugins",
+            "version": "3.0.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://kinsta.com/kinsta-tools/kinsta-mu-plugins.zip"
+            },
+            "type": "wordpress-muplugin"
         },
         {
             "name": "koodimonni-language/en_gb",
