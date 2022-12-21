@@ -47,7 +47,7 @@
       "package": {
         "name": "kinsta/kinsta-mu-plugins",
         "type": "wordpress-muplugin",
-        "version": "2.0.15",
+        "version": "3.0.0",
         "dist": {
           "url": "https://kinsta.com/kinsta-tools/kinsta-mu-plugins.zip",
           "type": "zip"
@@ -58,7 +58,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-calendar-pro",
-        "version": "6.0.2",
+        "version": "6.0.5.1",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}",
@@ -73,7 +73,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-tickets-plus",
-        "version": "5.6.2",
+        "version": "5.6.4",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=event-tickets-plus&version={%VERSION}&key={%TEC_ETP_LICENSE}",
@@ -103,7 +103,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/the-events-calendar-community-events",
-        "version": "4.10.1",
+        "version": "4.10.3",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community&version={%VERSION}&key={%TEC_CE_LICENSE}",
@@ -133,7 +133,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/the-events-calendar-filterbar",
-        "version": "5.4.0",
+        "version": "5.4.1",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=tribe-filterbar&version={%VERSION}&key={%TEC_FB_LICENSE}",
@@ -160,6 +160,7 @@
     "humanmade/s3-uploads": "~3.0",
     "ingenyus/configure-environment-plugins": "~1.0",
     "johnpbloch/wordpress": "~6.0",
+	"kinsta/kinsta-mu-plugins": "^3.0",
     "koodimonni-language/en_gb": "*",
     "modern-tribe/events-calendar-pro": "*",
     "modern-tribe/events-tickets-plus": "*",
@@ -250,6 +251,13 @@
     "post-root-package-install": [
       "php -r \"copy('.env.example', '.env');\""
     ],
+	"post-install-cmd": [
+		"@fix-kinsta"
+	],
+	"post-update-cmd": [
+		"@fix-kinsta"
+	],
+	"fix-kinsta": "[ -d \"web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins\" ] && find web/app/mu-plugins/kinsta-mu-plugins ! -name 'kinsta-mu-plugins' -type d -maxdepth 1 -exec rm -rf {} \\; && mv -f web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins.php web/app/mu-plugins && mv -f web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins/* web/app/mu-plugins/kinsta-mu-plugins && rm -rf web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins || true",
     "cs": "phpcs --standard=phpcs.xml ./web/app/plugins/froware ./web/app/plugins/frocentric-elementor-extension ./web/app/themes/frocentric ./web/app/themes/frocentric-tech",
     "cbf": "phpcbf --standard=phpcs.xml ./web/app/plugins/froware ./web/app/plugins/frocentric-elementor-extension ./web/app/themes/frocentric ./web/app/themes/frocentric-tech",
     "test": [
