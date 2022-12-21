@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.253.4",
+            "version": "3.254.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "da3b60b090b2070bd452d8b87737ea1e00d8002f"
+                "reference": "c020b283360bd802ee24959ffb63d70603f8b408"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/da3b60b090b2070bd452d8b87737ea1e00d8002f",
-                "reference": "da3b60b090b2070bd452d8b87737ea1e00d8002f",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c020b283360bd802ee24959ffb63d70603f8b408",
+                "reference": "c020b283360bd802ee24959ffb63d70603f8b408",
                 "shasum": ""
             },
             "require": {
@@ -146,9 +146,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.253.4"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.254.1"
             },
-            "time": "2022-12-16T19:23:03+00:00"
+            "time": "2022-12-20T19:28:05+00:00"
         },
         {
             "name": "composer/installers",
@@ -1334,10 +1334,10 @@
         },
         {
             "name": "koodimonni-plugin-language/woocommerce-en_gb",
-            "version": "7.2.0",
+            "version": "7.2.1",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/7.2.0/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/7.2.1/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -3179,15 +3179,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "3.9.1",
+            "version": "3.9.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/3.9.1"
+                "reference": "tags/3.9.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.3.9.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/elementor.3.9.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3359,15 +3359,15 @@
         },
         {
             "name": "wpackagist-plugin/meta-box",
-            "version": "5.6.14",
+            "version": "5.6.15",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/meta-box/",
-                "reference": "tags/5.6.14"
+                "reference": "tags/5.6.15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/meta-box.5.6.14.zip"
+                "url": "https://downloads.wordpress.org/plugin/meta-box.5.6.15.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3467,15 +3467,15 @@
         },
         {
             "name": "wpackagist-plugin/search-filter",
-            "version": "1.2.15",
+            "version": "1.2.16",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/search-filter/",
-                "reference": "tags/1.2.15"
+                "reference": "tags/1.2.16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/search-filter.1.2.15.zip"
+                "url": "https://downloads.wordpress.org/plugin/search-filter.1.2.16.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
