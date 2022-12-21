@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ed6e0eec44470052c75fa6baa30cc31",
+    "content-hash": "06703c2480da4475f0de333398d4db47",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.252.1",
+            "version": "3.254.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "5cc35b5f66d026d99ba843dba6fe1783571c20af"
+                "reference": "c020b283360bd802ee24959ffb63d70603f8b408"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5cc35b5f66d026d99ba843dba6fe1783571c20af",
-                "reference": "5cc35b5f66d026d99ba843dba6fe1783571c20af",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c020b283360bd802ee24959ffb63d70603f8b408",
+                "reference": "c020b283360bd802ee24959ffb63d70603f8b408",
                 "shasum": ""
             },
             "require": {
@@ -146,9 +146,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.252.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.254.1"
             },
-            "time": "2022-12-02T19:21:15+00:00"
+            "time": "2022-12-20T19:28:05+00:00"
         },
         {
             "name": "composer/installers",
@@ -1008,6 +1008,15 @@
             "time": "2020-04-16T21:44:57+00:00"
         },
         {
+            "name": "kinsta/kinsta-mu-plugins",
+            "version": "3.0.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://kinsta.com/kinsta-tools/kinsta-mu-plugins.zip"
+            },
+            "type": "wordpress-muplugin"
+        },
+        {
             "name": "koodimonni-language/en_gb",
             "version": "6.1.1",
             "dist": {
@@ -1025,6 +1034,9 @@
                 "koodimonni-plugin-language/hello-dolly-en_gb": "*",
                 "koodimonni-plugin-language/livejournal-importer-en_gb": "*",
                 "koodimonni-plugin-language/movabletype-importer-en_gb": "*",
+                "koodimonni-plugin-language/opml-importer-en_gb": "*",
+                "koodimonni-plugin-language/rss-importer-en_gb": "*",
+                "koodimonni-plugin-language/stp-importer-en_gb": "*",
                 "koodimonni-plugin-language/tumblr-importer-en_gb": "*",
                 "koodimonni-plugin-language/woocommerce-en_gb": "*",
                 "koodimonni-plugin-language/wordpress-importer-en_gb": "*",
@@ -1245,11 +1257,68 @@
             ]
         },
         {
-            "name": "koodimonni-plugin-language/tumblr-importer-en_gb",
-            "version": "0.8",
+            "name": "koodimonni-plugin-language/opml-importer-en_gb",
+            "version": "0.2",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/tumblr-importer/0.8/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/opml-importer/0.2/en_GB.zip"
+            },
+            "require": {
+                "koodimonni/composer-dropin-installer": ">=0.2.3"
+            },
+            "type": "wordpress-language",
+            "description": "WordPress opml-importer translations for English (UK) - en_gb",
+            "keywords": [
+                "Translation",
+                "WordPress",
+                "en_gb",
+                "opml-importer"
+            ]
+        },
+        {
+            "name": "koodimonni-plugin-language/rss-importer-en_gb",
+            "version": "0.3",
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/translation/plugin/rss-importer/0.3/en_GB.zip"
+            },
+            "require": {
+                "koodimonni/composer-dropin-installer": ">=0.2.3"
+            },
+            "type": "wordpress-language",
+            "description": "WordPress rss-importer translations for English (UK) - en_gb",
+            "keywords": [
+                "Translation",
+                "WordPress",
+                "en_gb",
+                "rss-importer"
+            ]
+        },
+        {
+            "name": "koodimonni-plugin-language/stp-importer-en_gb",
+            "version": "0.2",
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/translation/plugin/stp-importer/0.2/en_GB.zip"
+            },
+            "require": {
+                "koodimonni/composer-dropin-installer": ">=0.2.3"
+            },
+            "type": "wordpress-language",
+            "description": "WordPress stp-importer translations for English (UK) - en_gb",
+            "keywords": [
+                "Translation",
+                "WordPress",
+                "en_gb",
+                "stp-importer"
+            ]
+        },
+        {
+            "name": "koodimonni-plugin-language/tumblr-importer-en_gb",
+            "version": "1.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/translation/plugin/tumblr-importer/1.0/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1265,10 +1334,10 @@
         },
         {
             "name": "koodimonni-plugin-language/woocommerce-en_gb",
-            "version": "7.1.0",
+            "version": "7.2.1",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/7.1.0/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/7.2.1/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1341,10 +1410,10 @@
         },
         {
             "name": "koodimonni-plugin-language/wpcat2tag-importer-en_gb",
-            "version": "0.5",
+            "version": "0.6",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/wpcat2tag-importer/0.5/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/wpcat2tag-importer/0.6/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1636,7 +1705,7 @@
         },
         {
             "name": "modern-tribe/events-calendar-pro",
-            "version": "6.0.2",
+            "version": "6.0.5.1",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}"
@@ -1645,7 +1714,7 @@
         },
         {
             "name": "modern-tribe/events-tickets-plus",
-            "version": "5.6.2",
+            "version": "5.6.4",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=event-tickets-plus&version={%VERSION}&key={%TEC_ETP_LICENSE}"
@@ -1663,7 +1732,7 @@
         },
         {
             "name": "modern-tribe/the-events-calendar-community-events",
-            "version": "4.10.1",
+            "version": "4.10.3",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community&version={%VERSION}&key={%TEC_CE_LICENSE}"
@@ -1681,7 +1750,7 @@
         },
         {
             "name": "modern-tribe/the-events-calendar-filterbar",
-            "version": "5.4.0",
+            "version": "5.4.1",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=tribe-filterbar&version={%VERSION}&key={%TEC_FB_LICENSE}"
@@ -2835,16 +2904,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.12.3.2",
+            "version": "v3.12.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "65bab9e9a3beb2a6da80d379a8fb4410436290b1"
+                "reference": "36f4b69222ac01aba6e267b1d950f5fb639f53d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/65bab9e9a3beb2a6da80d379a8fb4410436290b1",
-                "reference": "65bab9e9a3beb2a6da80d379a8fb4410436290b1",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/36f4b69222ac01aba6e267b1d950f5fb639f53d7",
+                "reference": "36f4b69222ac01aba6e267b1d950f5fb639f53d7",
                 "shasum": ""
             },
             "require": {
@@ -2944,7 +3013,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2022-11-24T19:20:35+00:00"
+            "time": "2022-12-08T15:45:33+00:00"
         },
         {
             "name": "wpackagist-plugin/authors-list",
@@ -3110,15 +3179,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "3.8.1",
+            "version": "3.9.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/3.8.1"
+                "reference": "tags/3.9.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.3.8.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/elementor.3.9.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3146,15 +3215,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "5.4.4",
+            "version": "5.5.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/5.4.4"
+                "reference": "tags/5.5.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.5.4.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.5.5.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3164,15 +3233,15 @@
         },
         {
             "name": "wpackagist-plugin/event-tickets",
-            "version": "5.5.4",
+            "version": "5.5.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/event-tickets/",
-                "reference": "tags/5.5.4"
+                "reference": "tags/5.5.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/event-tickets.5.5.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/event-tickets.5.5.5.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3182,15 +3251,15 @@
         },
         {
             "name": "wpackagist-plugin/feedzy-rss-feeds",
-            "version": "4.0.5",
+            "version": "4.1.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/feedzy-rss-feeds/",
-                "reference": "tags/4.0.5"
+                "reference": "tags/4.1.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.4.0.5.zip"
+                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.4.1.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3218,15 +3287,15 @@
         },
         {
             "name": "wpackagist-plugin/imagify",
-            "version": "2.0",
+            "version": "2.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/imagify/",
-                "reference": "tags/2.0"
+                "reference": "tags/2.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/imagify.2.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/imagify.2.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3236,15 +3305,15 @@
         },
         {
             "name": "wpackagist-plugin/jetpack",
-            "version": "11.5.1",
+            "version": "11.6",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/jetpack/",
-                "reference": "tags/11.5.1"
+                "reference": "tags/11.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jetpack.11.5.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/jetpack.11.6.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3290,15 +3359,15 @@
         },
         {
             "name": "wpackagist-plugin/meta-box",
-            "version": "5.6.8",
+            "version": "5.6.15",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/meta-box/",
-                "reference": "tags/5.6.8"
+                "reference": "tags/5.6.15"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/meta-box.5.6.8.zip"
+                "url": "https://downloads.wordpress.org/plugin/meta-box.5.6.15.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3344,15 +3413,15 @@
         },
         {
             "name": "wpackagist-plugin/pods",
-            "version": "2.9.9",
+            "version": "2.9.10.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/pods/",
-                "reference": "tags/2.9.9"
+                "reference": "tags/2.9.10.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/pods.2.9.9.zip"
+                "url": "https://downloads.wordpress.org/plugin/pods.2.9.10.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3398,15 +3467,15 @@
         },
         {
             "name": "wpackagist-plugin/search-filter",
-            "version": "1.2.15",
+            "version": "1.2.16",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/search-filter/",
-                "reference": "tags/1.2.15"
+                "reference": "tags/1.2.16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/search-filter.1.2.15.zip"
+                "url": "https://downloads.wordpress.org/plugin/search-filter.1.2.16.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3416,15 +3485,15 @@
         },
         {
             "name": "wpackagist-plugin/svg-support",
-            "version": "2.5.4",
+            "version": "2.5.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/svg-support/",
-                "reference": "tags/2.5.4"
+                "reference": "tags/2.5.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/svg-support.2.5.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/svg-support.2.5.5.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3434,15 +3503,15 @@
         },
         {
             "name": "wpackagist-plugin/the-events-calendar",
-            "version": "6.0.5",
+            "version": "6.0.6.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/the-events-calendar/",
-                "reference": "tags/6.0.5"
+                "reference": "tags/6.0.6.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.6.0.5.zip"
+                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.6.0.6.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3524,15 +3593,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-mail-smtp",
-            "version": "3.6.1",
+            "version": "3.7.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-mail-smtp/",
-                "reference": "tags/3.6.1"
+                "reference": "tags/3.7.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-mail-smtp.3.6.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-mail-smtp.3.7.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
