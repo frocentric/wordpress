@@ -1,14 +1,3 @@
-#### [Version 2.1.0](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.0.5...v2.1.0) (2022-12-06)
-
-### Features
-- Add compatibility with Amazon Advertising API (https://docs.themeisle.com/article/1745-how-to-display-amazon-products-using-feedzy)
-- Adds support for lazy loaded images on import
-
-### Fixes
-- Parsing custom tags at feed level does not work - extracts from item node
-- Rephrasing full content does not consistently work
-- Filtering content in Feedzy Loop available with Elementor Pro
-
 ##### [Version 2.0.5](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.0.4...v2.0.5) (2022-10-26)
 
 * Fix keyword filtering not working on the full content text. 
