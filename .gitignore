@@ -24,7 +24,6 @@ web/app/e-backup/*
 !web/app/plugins/wpematico_fullcontent
 !web/app/plugins/wpematico_professional
 web/app/mu-plugins/*
-!web/app/mu-plugins/kinsta-mu-plugins
 !web/app/mu-plugins/s3-endpoint.php
 web/app/upgrade
 web/app/uploads
