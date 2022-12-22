@@ -74,7 +74,7 @@ class Feedzy_Rss_Feeds_Pro_Elementor {
 		if ( defined( 'ELEMENTOR_PATH' ) && class_exists( 'Elementor\Widget_Base' ) ) {
 			if ( class_exists( 'ElementorPro\Modules\QueryControl\Module' ) ) {
 				require_once FEEDZY_PRO_ABSPATH . '/includes/elementor/widgets/feedzy-rss-loop-widget.php';
-				\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widget_Feedzy_Loop() );
+				\Elementor\Plugin::instance()->widgets_manager->register( new Widget_Feedzy_Loop() );
 			}
 		}
 	}

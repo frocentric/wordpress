@@ -66,7 +66,7 @@ class Feedzy_Rss_Feeds_Pro {
 	 */
 	public function __construct() {
 		$this->plugin_name = 'feedzy-rss-feeds-pro';
-		$this->version     = '2.0.5';
+		$this->version     = '2.1.0';
 		$this->loader      = new Feedzy_Rss_Feeds_Pro_Loader();
 		$this->set_locale();
 		$this->define_admin_hooks();
@@ -100,6 +100,7 @@ class Feedzy_Rss_Feeds_Pro {
 	 */
 	private function define_public_hooks() {
 		include_once FEEDZY_PRO_ABSPATH . '/includes/public/template-functions.php';
+		include_once FEEDZY_PRO_ABSPATH . '/includes/public/amazon-api-functions.php';
 		$plugin = new Feedzy_Rss_Feeds_Pro_Public( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'wp', $plugin, 'wp' );
 		$this->loader->add_filter( 'the_author', $plugin, 'the_author' );
@@ -156,8 +157,8 @@ class Feedzy_Rss_Feeds_Pro {
 		$this->loader->add_filter( 'feedzy_parse_custom_tags', $plugin_admin, 'parse_custom_tags', 10, 2 );
 		$this->loader->add_filter( 'feedzy_get_service_magic_tags', $plugin_admin, 'get_service_magic_tags', 10, 2 );
 		$this->loader->add_filter( 'feedzy_extract_from_custom_tag', $plugin_admin, 'extract_from_custom_tag', 10, 5 );
-		$this->loader->add_filter( 'feedzy_invoke_content_rewrite_services', $plugin_admin, 'invoke_content_rewrite_services', 10, 3 );
-		$this->loader->add_filter( 'feedzy_invoke_auto_translate_services', $plugin_admin, 'invoke_auto_translate_services', 10, 5 );
+		$this->loader->add_filter( 'feedzy_invoke_content_rewrite_services', $plugin_admin, 'invoke_content_rewrite_services', 10, 4 );
+		$this->loader->add_filter( 'feedzy_invoke_auto_translate_services', $plugin_admin, 'invoke_auto_translate_services', 10, 6 );
 
 		// Text spinner.
 		$this->loader->add_filter( 'feedzy_parse_custom_tags', $plugin_admin, 'feedzy_text_spinner', 10, 1 );
@@ -171,7 +172,7 @@ class Feedzy_Rss_Feeds_Pro {
 		$plugin_elementor_widget = new Feedzy_Rss_Feeds_Pro_Elementor();
 		$this->loader->add_action( 'elementor/dynamic_tags/register_tags', $plugin_elementor_widget, 'feedzy_elementor_register_dynamic_tags' );
 		$this->loader->add_action( 'elementor/documents/register', $plugin_elementor_widget, 'feedzy_elementor_register_document' );
-		$this->loader->add_action( 'elementor/widgets/widgets_registered', $plugin_elementor_widget, 'feedzy_elementor_widgets_registered' );
+		$this->loader->add_action( 'elementor/widgets/register', $plugin_elementor_widget, 'feedzy_elementor_widgets_registered' );
 		$this->loader->add_filter( 'elementor/template-library/create_new_dialog_types', $plugin_elementor_widget, 'feedzy_elementor_dialog_types', 10, 2 );
 
 		if ( defined( 'TI_CYPRESS_TESTING' ) ) {
