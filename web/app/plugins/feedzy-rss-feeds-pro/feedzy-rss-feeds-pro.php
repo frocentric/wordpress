@@ -15,7 +15,7 @@
  * Plugin Name:     Feedzy RSS Feeds Premium
  * Plugin URI:      http://themeisle.com/plugins/feedzy-rss-feeds/
  * Description:     FEEDZY RSS Feeds Premium extends the functionality of FEEDZY RSS Feeds.
- * Version:         2.1.0
+ * Version:         2.0.5
  * Author:          Themeisle
  * Author URI:      https://themeisle.com
  * Text Domain:     feedzy-rss-feeds
@@ -121,8 +121,7 @@ function run_feedzy_rss_feeds_pro() {
 	define( 'FEEDZY_PRO_FETCH_ITEM_IMG_URL', FEEDZY_ROOT_API . '/api/feedzyfp/v1/item/image/' );
 	define( 'FEEDZY_PRO_REWRITE_CONTENT_API', FEEDZY_ROOT_API . '/api/feedzyfp/v1/item/content-writers/' );
 	define( 'FEEDZY_PRO_AUTO_TRANSLATE_CONTENT', FEEDZY_ROOT_API . '/api/feedzyfp/v1/item/auto-translate/' );
-	define( 'FEEDZY_PRO_AWS_PRODUCT_API', FEEDZY_ROOT_API . '/api/feedzyfp/v1/aws-product-advertising' );
-	define( 'FEEDZY_PRO_VERSION', '2.1.0' );
+	define( 'FEEDZY_PRO_VERSION', '2.0.5' );
 
 	// this hook will indicate to free that pro is aware of import feeds being shifted to free.
 	// avoids doing this by comparing versions.
