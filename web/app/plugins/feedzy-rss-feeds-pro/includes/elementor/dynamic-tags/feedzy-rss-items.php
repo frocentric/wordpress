@@ -57,7 +57,7 @@ class Feedzy_Feed_Items extends \Elementor\Core\DynamicTags\Tag {
 	/**
 	 * Register Controls.
 	 */
-	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 		$feed_tags = array(
 			'[#item_url]' => __( 'Item URL', 'feedzy-rss-feeds' ),
 			'[#item_title]' => __( 'Item title', 'feedzy-rss-feeds' ),
