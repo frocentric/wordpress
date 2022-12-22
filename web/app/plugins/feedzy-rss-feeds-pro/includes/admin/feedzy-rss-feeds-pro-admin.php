@@ -1101,25 +1101,36 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 				$index       = $this->feedzy_find_index_by_title( $item_titles, $item_title );
 				$index       = false !== $index ? $index + 1 : false;
 
-				$xpath = empty( $attribute ) ? "//{$element}/text()" : "//{$element}/@{$attribute}";
+				$eval  = false;
+				$xpath = empty( $attribute ) ? "//{$prefix}{$item_tag}[$index]//{$element}/text()" : "//{$prefix}{$item_tag}[$index]//{$element}/@{$attribute}";
+				if ( false !== $index ) {
+					$eval = $sxe->xpath( $xpath );
+					$eval = is_array( $eval ) ? reset( $eval ) : false;
+				}
 
-				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( '%s: going to extract from %s', $tag, $xpath ), 'debug', __FILE__, __LINE__ );
+				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( '%s: going to extract from %s', $magic_tag, $xpath ), 'debug', __FILE__, __LINE__ );
 
-				$eval = $sxe->xpath( $xpath );
-
-				if ( false === $eval || 0 === count( $eval ) ) {
+				if ( false === $eval ) {
 					do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'Nothing found corresponding to attribute %s from feed element %s. Skipping.', $attribute, $element ), 'error', __FILE__, __LINE__ );
 					$new_content = str_replace( $tag, '', $new_content );
+					// Recursive get magic tag value.
+					$new_content = $this->parse_custom_tags( $new_content, $item_obj );
 					continue;
 				}
 
-				$text = (string) $eval[0];
+				$text = (string) $eval;
 
-				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( '%s: extracted %s', $tag, $text ), 'debug', __FILE__, __LINE__ );
+				if ( ! empty( $char_length ) ) {
+					$text = substr( $text, 0, $char_length );
+				}
 
-				$text = apply_filters( 'feedzy_custom_magic_tag_format', $text, $tag, $feed, $index );
+				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( '%s: extracted %s', $magic_tag, $text ), 'debug', __FILE__, __LINE__ );
+
+				$text = apply_filters( 'feedzy_custom_magic_tag_format', $text, $magic_tag, $feed, $index );
 
 				$new_content = str_replace( $tag, $text, $new_content );
+				// Recursive get magic tag value.
+				$new_content = $this->parse_custom_tags( $new_content, $item_obj );
 			}
 		}
 
@@ -1164,7 +1175,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 *
 	 * @return string Translated content Default EN
 	 */
-	public function invoke_auto_translate_services( $field, $magic_tag, $lang_code, $job, $source_lang_code, $item ) {
+	public function invoke_auto_translate_services( $field, $magic_tag, $lang_code, $job, $source_lang_code ) {
 		if ( $this->feedzy_is_agency() ) {
 			switch ( $magic_tag ) {
 				case '[#translated_title]':
@@ -1175,10 +1186,6 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 					break;
 
 				case '[#translated_full_content]':
-					if ( ! empty( $item['item_full_content'] ) ) {
-						return $this->get_translated_content( $item['item_full_content'], $lang_code, $magic_tag, $source_lang_code );
-						break;
-					}
 					return $this->get_translated_content( $field, $lang_code, $magic_tag, $source_lang_code, true );
 					break;
 			}
@@ -1334,7 +1341,6 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 								array(
 									'count'    => $options['max'],
 									'language' => $language,
-									'lazy_load_attributes' => defined( 'FZ_FULL_CONTENT_LAZY_LOAD_ATTRIBUTES' ) ? FZ_FULL_CONTENT_LAZY_LOAD_ATTRIBUTES : array(),
 								),
 								$json['url']
 							);
@@ -1480,9 +1486,6 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 * @param string $slug Service slug used as settings prefix.
 	 */
 	private function check_status_of_service( $slug ) {
-		if ( ! isset( $this->settings[ "{$slug}_last_check" ] ) ) {
-			return null;
-		}
 		$last  = $this->settings[ "{$slug}_last_check" ];
 		$error = $this->settings[ "{$slug}_message" ];
 
@@ -1541,9 +1544,6 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 					$additional = array( 'lang' => get_post_meta( $job->ID, 'import_feed_language', true ) );
 					// we will apply strip_tags as a fail-safe (e.g. in case of full text content it contains HTML).
 					$spun = $addon->call_api( $this->settings, strip_tags( $text, '<br>' ), $type, $additional );
-					if ( $spun instanceof \Feedzy_Rss_Feeds_Pro_Amazon_Product_Advertising ) {
-						return null;
-					}
 					if ( is_null( $spun ) || is_wp_error( $spun ) ) {
 						// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 						do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'Error while calling service %s = %s', $name, print_r( $spun, true ) ), 'error', __FILE__, __LINE__ );
@@ -1849,9 +1849,6 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 			$addons = $this->get_services();
 			if ( $addons ) {
 				foreach ( $addons as $addon ) {
-					if ( $addon instanceof \Feedzy_Rss_Feeds_Pro_Amazon_Product_Advertising ) {
-						continue;
-					}
 					$default[ 'content_' . $addon->get_service_slug() ] = sprintf( __( 'Content from %s', 'feedzy-rss-feeds' ), $addon->get_service_name_proper() );
 					if ( $this->feedzy_is_business() ) {
 						$default[ 'full_content_' . $addon->get_service_slug() ] = sprintf( __( 'Full content from %s', 'feedzy-rss-feeds' ), $addon->get_service_name_proper() );
@@ -1996,7 +1993,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 *
 	 * @return string Content
 	 */
-	public function invoke_content_rewrite_services( $field, $tag, $job, $item ) {
+	public function invoke_content_rewrite_services( $field, $tag, $job ) {
 		if ( $this->feedzy_is_business() || $this->feedzy_is_agency() ) {
 			switch ( $tag ) {
 				case '[#title_feedzy_rewrite]':
@@ -2008,10 +2005,6 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 					break;
 
 				case '[#full_content_feedzy_rewrite]':
-					if ( ! empty( $item['item_full_content'] ) ) {
-						return $this->get_rewrite_content( $item['item_full_content'] );
-						break;
-					}
 					return $this->get_rewrite_content( $field, true, true );
 					break;
 			}
@@ -2046,7 +2039,6 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 			apply_filters(
 				'feedzy_rewrite_content_args',
 				array(
-					'timeout' => 100,
 					'body' => array_merge( $post_data, $this->get_additional_client_data() ),
 				)
 			)
