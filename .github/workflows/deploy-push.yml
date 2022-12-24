@@ -1,4 +1,4 @@
-# This is the deployment workflow for the Frocentric WordPress application
+# This workflow deploys the Frocentric WordPress application on a successful push or PR
 
 name: CI
 
