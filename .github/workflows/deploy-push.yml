@@ -1,4 +1,4 @@
-# This is the deployment workflow for the Frocentric WordPress application
+# This workflow deploys the Frocentric WordPress application on a successful push or PR
 
 name: CI
 
@@ -65,7 +65,7 @@ jobs:
           token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
 
       - id: step1
-        run: echo '::set-output name=executed::true'
+        run: echo 'executed=true' >> $GITHUB_OUTPUT
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
