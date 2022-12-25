@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+### [1.17.13](https://github.com/frocentric/wordpress/compare/v1.17.12...v1.17.13) (2022-12-25)
+
 ### [1.17.12](https://github.com/frocentric/wordpress/compare/v1.17.11...v1.17.12) (2022-12-25)
 
 ### [1.17.11](https://github.com/frocentric/wordpress/compare/v1.17.10...v1.17.11) (2022-12-25)
