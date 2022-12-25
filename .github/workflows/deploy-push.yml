@@ -95,7 +95,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: 'release-tag.yml',
-              ref: ${{ env.TAG }},
+              ref: '${{ env.TAG }}',
             })
 
   deploy:
