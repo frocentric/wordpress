@@ -84,7 +84,7 @@ jobs:
           git commit --amend -m "$message
           [skip ci]"
           tag=$(git describe --tags $(git rev-list --tags --max-count=1))
-          echo "tag=$tag" >> $GITHUB_OUTPUT
+          echo "TAG=$tag" >> $GITHUB_ENV
           git tag -f $tag
           git push --atomic --no-verify origin production $tag
       - name: Trigger release tag workflow
@@ -95,7 +95,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               workflow_id: 'release-tag.yml',
-              ref: steps.tag_release.outputs.tag,
+              ref: ${{ env.TAG }},
             })
 
   deploy:
