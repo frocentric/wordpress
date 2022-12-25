@@ -74,6 +74,7 @@ jobs:
 
       # Bumps version, updates changelog and creates tag. Adds [skip ci] to commit message to prevent infinite workflow loop
       - name: Tag release
+        id: tag_release
         run: |
           git fetch --unshallow --tags
           git config --global user.email "${{github.event.pusher.email}}"
@@ -83,8 +84,19 @@ jobs:
           git commit --amend -m "$message
           [skip ci]"
           tag=$(git describe --tags $(git rev-list --tags --max-count=1))
+          echo "tag=$tag" >> $GITHUB_OUTPUT
           git tag -f $tag
           git push --atomic --no-verify origin production $tag
+      - name: Trigger release tag workflow
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'release-tag.yml',
+              ref: steps.tag_release.outputs.tag,
+            })
 
   deploy:
     # Ensure execution for stage deployments, as dependent version job is skipped
