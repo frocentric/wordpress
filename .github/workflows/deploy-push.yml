@@ -19,10 +19,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Cache Composer dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: /tmp/composer-cache
           key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
@@ -60,7 +60,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
 
@@ -68,12 +68,13 @@ jobs:
         run: echo 'executed=true' >> $GITHUB_OUTPUT
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: '16.x'
 
       # Bumps version, updates changelog and creates tag. Adds [skip ci] to commit message to prevent infinite workflow loop
       - name: Tag release
+        id: tag_release
         run: |
           git fetch --unshallow --tags
           git config --global user.email "${{github.event.pusher.email}}"
@@ -83,8 +84,19 @@ jobs:
           git commit --amend -m "$message
           [skip ci]"
           tag=$(git describe --tags $(git rev-list --tags --max-count=1))
+          echo "tag=$tag" >> $GITHUB_OUTPUT
           git tag -f $tag
           git push --atomic --no-verify origin production $tag
+      - name: Trigger release tag workflow
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'release-tag.yml',
+              ref: steps.tag_release.outputs.tag,
+            })
 
   deploy:
     # Ensure execution for stage deployments, as dependent version job is skipped
@@ -96,7 +108,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       # Sets branch name as environment variable
       - uses: nelonoel/branch-name@v1.0.1
