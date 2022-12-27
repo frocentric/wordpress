@@ -137,7 +137,6 @@ jobs:
               workflow_id: '${{ env.WORKFLOW_ID }}',
               ref: '${{ github.ref }}',
               inputs: {
-                destinationBranch: 'main',
                 destinationEnvironment: 'staging',
                 sourceBranch: '${{ env.BRANCH_NAME }}',
               },
