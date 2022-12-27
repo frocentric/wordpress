@@ -87,20 +87,31 @@ jobs:
           echo "TAG=$tag" >> $GITHUB_ENV
           git tag -f $tag
           git push --atomic --no-verify origin production $tag
+
+      # Triggers release generation
       - name: Trigger release tag workflow
+        env:
+          WORKFLOW_ID: ${{ 'release-tag.yml' }}
         uses: actions/github-script@v6
         with:
-          script: |
-            github.rest.actions.createWorkflowDispatch({
+          script: |-
+            await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: 'release-tag.yml',
+              workflow_id: '${{ env.WORKFLOW_ID }}',
               ref: '${{ env.TAG }}',
+            })
+            .catch(error => error)
+            .then(response => {
+              core.debug(response);
+              if (response.status !== 204) {
+                core.setFailed(`createWorkflowDispatch to ${{ env.WORKFLOW_ID }} received status code ${response.status}`)
+              }
             })
 
   deploy:
     # Ensure execution for stage deployments, as dependent version job is skipped
-    if: ${{ github.event_name == 'push' && !failure() && (success() || !needs.job1.outputs.executed) }}
+    if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' && !failure() && (success() || !needs.job1.outputs.executed) }}
     needs: [ setup, version ]
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -113,24 +124,28 @@ jobs:
       # Sets branch name as environment variable
       - uses: nelonoel/branch-name@v1.0.1
 
-      # Enables branch-specific environment variables
-      - uses: iamtheyammer/branch-env-vars@v1.0.4
+      # Triggers release generation
+      - name: Deploy to hosting environment
+        env:
+          WORKFLOW_ID: ${{ 'deploy-application.yml' }}
+        uses: actions/github-script@v6
         with:
-          DESTINATION_REPO: |
-            production:${{ secrets.DESTINATION_REPO_PROD }}
-            main:${{ secrets.DESTINATION_REPO_STAGE }}
-
-      # Syncs the repository with destination
-      - name: Sync Repo
-        uses: wei/git-sync@v3
-        with:
-          # GitHub repo slug or full clone url
-          source_repo: "frocentric/wordpress"
-          # Branch name to sync from
-          source_branch: ${BRANCH_NAME}
-          # GitHub repo slug or full clone url
-          destination_repo: ${DESTINATION_REPO}
-          # Branch name to sync to
-          destination_branch: "main"
-          # SSH key used to authenticate with git clone urls provided (optional if public or https clone url with authentication)
-          destination_ssh_private_key: ${{ secrets.SSH_DESTINATION_PRIVATE_KEY }}
+          script: |-
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: '${{ env.WORKFLOW_ID }}',
+              ref: '${{ github.ref }}',
+              inputs: {
+                destinationBranch: 'main',
+                destinationEnvironment: 'staging',
+                sourceBranch: '${{ env.BRANCH_NAME }}',
+              },
+            })
+            .catch(error => error)
+            .then(response => {
+              core.debug(response);
+              if (response.status !== 204) {
+                core.setFailed(`createWorkflowDispatch to ${{ env.WORKFLOW_ID }} received status code ${response.status}`)
+              }
+            })
