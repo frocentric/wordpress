@@ -1,0 +1,54 @@
+# This workflow deploys the application to a specified environment
+
+name: Deploy application
+
+# Controls when the action will run. Triggers the workflow on release publish events
+on:
+  workflow_dispatch:
+    inputs:
+      destinationBranch:
+        description: 'The target branch'
+        required: true
+        default: 'main'
+      destinationEnvironment:
+        description: 'The target environment'
+        required: true
+      sourceBranch:
+        description: 'The source branch/commit'
+        required: true
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Configure deployment variables
+      - name: Configure deployment
+        run: |
+          if [ "${{ inputs.destinationEnvironment }}" = "production" ]; then
+            echo "DESTINATION_REPO=${{ secrets.DESTINATION_REPO_PROD }}" >> $GITHUB_ENV
+          else
+            echo "DESTINATION_REPO=${{ secrets.DESTINATION_REPO_STAGE }}" >> $GITHUB_ENV
+          fi
+        shell: bash
+
+      # Deploys specific branch/commit to target environment
+      - name: Deploy to target
+        uses: wei/git-sync@v3
+        env:
+          DESTINATION_BRANCH: ${{ inputs.destinationBranch }}
+          SOURCE_BRANCH: ${{ inputs.sourceBranch }}
+        with:
+          # GitHub repo slug or full clone url
+          source_repo: "frocentric/wordpress"
+          # Branch name to sync from
+          source_branch: ${SOURCE_BRANCH}
+          # GitHub repo slug or full clone url
+          destination_repo: ${DESTINATION_REPO}
+          # Branch name to sync to
+          destination_branch: ${DESTINATION_BRANCH}
+          # SSH key used to authenticate with git clone urls provided (optional if public or https clone url with authentication)
+          destination_ssh_private_key: ${{ secrets.SSH_DESTINATION_PRIVATE_KEY }}
