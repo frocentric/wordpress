@@ -39,6 +39,7 @@ jobs:
       - name: Trigger deployment workflow
         env:
           SOURCE_BRANCH: ${{ format('/refs/tags/{0}^{{commit}}', github.ref) }}
+          DESTINATION_BRANCH: ${{ '/refs/heads/main' }}
           WORKFLOW_ID: ${{ 'deploy-application.yml' }}
         if: ${{ env.DESTINATION_ENVIRONMENT && env.DESTINATION_ENVIRONMENT != '' }}
         uses: actions/github-script@v6
@@ -50,6 +51,7 @@ jobs:
               workflow_id: '${{ env.WORKFLOW_ID }}',
               ref: '${{ github.ref }}',
               inputs: {
+                destinationBranch: '${{ env.DESTINATION_BRANCH }}',
                 destinationEnvironment: '${{ env.DESTINATION_ENVIRONMENT }}',
                 sourceBranch: '${{ env.SOURCE_BRANCH }}',
               },
