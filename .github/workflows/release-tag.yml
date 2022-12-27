@@ -41,25 +41,25 @@ jobs:
           SOURCE_BRANCH: ${{ format('/refs/tags/{0}^{{commit}}', github.ref) }}
           DESTINATION_BRANCH: ${{ '/refs/heads/main' }}
           WORKFLOW_ID: ${{ 'deploy-application.yml' }}
-        if: ${{ DESTINATION_REPO && env.DESTINATION_REPO != '' }}
+        if: ${{ env.DESTINATION_REPO && env.DESTINATION_REPO != '' }}
         uses: actions/github-script@v6
         with:
           script: |
             await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: '${{ WORKFLOW_ID }}',
+              workflow_id: '${{ env.WORKFLOW_ID }}',
               ref: '${{ github.ref }}',
               inputs: {
-                destinationBranch: '${{ DESTINATION_BRANCH }}',
-                destinationRepo: '${{ DESTINATION_REPO }}',
-                sourceBranch: '${{ SOURCE_BRANCH }}',
+                destinationBranch: '${{ env.DESTINATION_BRANCH }}',
+                destinationRepo: '${{ env.DESTINATION_REPO }}',
+                sourceBranch: '${{ env.SOURCE_BRANCH }}',
               },
             })
             .catch(error => error)
             .then(response => {
               core.debug(response);
               if (response.status !== 204) {
-                core.setFailed(`createWorkflowDispatch to ${{ WORKFLOW_ID }} received status code ${response.status}`)
+                core.setFailed(`createWorkflowDispatch to ${{ env.WORKFLOW_ID }} received status code ${response.status}`)
               }
             })
