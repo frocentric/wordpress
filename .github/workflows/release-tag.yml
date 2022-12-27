@@ -1,6 +1,6 @@
 # This workflow publishes a release when a version tag is created
 
-name: Publish and deploy release for tag
+name: Publish and deploy release
 
 on:
   workflow_dispatch:
