@@ -1,6 +1,6 @@
 # This workflow publishes a release when a version tag is created
 
-name: Publish release for tag
+name: Publish and deploy release for tag
 
 on:
   workflow_dispatch:
@@ -14,7 +14,52 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      # Publish release for current tag
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           generate_release_notes: true
+
+      # Configure deployment variables
+      - run: |
+          # Final releases target production environment, e.g. v1.17.18
+          if [[ "${{ github.ref }}" =~ ^v([0-9]+\.)*[0-9]+$ ]]; then
+            echo "DESTINATION_REPO=${{ secrets.DESTINATION_REPO_PROD }}" >> $GITHUB_ENV
+          # Pre-releases target stage environment, e.g. v1.17.18-rc.1
+          elif [ ${{ github.ref }} =~ ^v([0-9]+\.)*[0-9]+\-[0-9a-zA-Z.]+$ ]] ]; then
+            echo "DESTINATION_REPO=${{ secrets.DESTINATION_REPO_STAGE }}" >> $GITHUB_ENV
+          # Otherwise, don't deploy
+          else
+            echo "DESTINATION_REPO=" >> $GITHUB_ENV
+          fi
+        shell: bash
+
+      # Deploy release
+      - name: Trigger deployment workflow
+        env:
+          SOURCE_BRANCH: ${{ format('/refs/tags/{0}^{{commit}}', github.ref) }}
+          DESTINATION_BRANCH: ${{ '/refs/heads/main' }}
+          WORKFLOW_ID: ${{ 'deploy-application.yml' }}
+        if: ${{ DESTINATION_REPO && env.DESTINATION_REPO != '' }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: '${{ WORKFLOW_ID }}',
+              ref: '${{ github.ref }}',
+              inputs: {
+                destinationBranch: '${{ DESTINATION_BRANCH }}',
+                destinationRepo: '${{ DESTINATION_REPO }}',
+                sourceBranch: '${{ SOURCE_BRANCH }}',
+              },
+            })
+            .catch(error => error)
+            .then(response => {
+              core.debug(response);
+              if (response.status !== 204) {
+                core.setFailed(`createWorkflowDispatch to ${{ WORKFLOW_ID }} received status code ${response.status}`)
+              }
+            })
