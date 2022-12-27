@@ -98,14 +98,14 @@ jobs:
             await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: '${{ WORKFLOW_ID }}',
+              workflow_id: '${{ env.WORKFLOW_ID }}',
               ref: '${{ env.TAG }}',
             })
             .catch(error => error)
             .then(response => {
               core.debug(response);
               if (response.status !== 204) {
-                core.setFailed(`createWorkflowDispatch to ${{ WORKFLOW_ID }} received status code ${response.status}`)
+                core.setFailed(`createWorkflowDispatch to ${{ env.WORKFLOW_ID }} received status code ${response.status}`)
               }
             })
 
@@ -134,18 +134,18 @@ jobs:
             await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: '${{ WORKFLOW_ID }}',
+              workflow_id: '${{ env.WORKFLOW_ID }}',
               ref: '${{ github.ref }}',
               inputs: {
                 destinationBranch: 'main',
                 destinationRepo: '${{ secrets.DESTINATION_REPO_STAGE }}',
-                sourceBranch: '${{ BRANCH_NAME }}',
+                sourceBranch: '${{ env.BRANCH_NAME }}',
               },
             })
             .catch(error => error)
             .then(response => {
               core.debug(response);
               if (response.status !== 204) {
-                core.setFailed(`createWorkflowDispatch to ${{ WORKFLOW_ID }} received status code ${response.status}`)
+                core.setFailed(`createWorkflowDispatch to ${{ env.WORKFLOW_ID }} received status code ${response.status}`)
               }
             })
