@@ -25,13 +25,13 @@ jobs:
       - run: |
           # Final releases target production environment, e.g. v1.17.18
           if [[ "${{ github.ref }}" =~ ^v([0-9]+\.)*[0-9]+$ ]]; then
-            echo "DESTINATION_REPO=${{ secrets.DESTINATION_REPO_PROD }}" >> $GITHUB_ENV
+            echo "DESTINATION_ENVIRONMENT=production" >> $GITHUB_ENV
           # Pre-releases target stage environment, e.g. v1.17.18-rc.1
           elif [ ${{ github.ref }} =~ ^v([0-9]+\.)*[0-9]+\-[0-9a-zA-Z.]+$ ]] ]; then
-            echo "DESTINATION_REPO=${{ secrets.DESTINATION_REPO_STAGE }}" >> $GITHUB_ENV
+            echo "DESTINATION_ENVIRONMENT=staging" >> $GITHUB_ENV
           # Otherwise, don't deploy
           else
-            echo "DESTINATION_REPO=" >> $GITHUB_ENV
+            echo "DESTINATION_ENVIRONMENT=" >> $GITHUB_ENV
           fi
         shell: bash
 
@@ -41,7 +41,7 @@ jobs:
           SOURCE_BRANCH: ${{ format('/refs/tags/{0}^{{commit}}', github.ref) }}
           DESTINATION_BRANCH: ${{ '/refs/heads/main' }}
           WORKFLOW_ID: ${{ 'deploy-application.yml' }}
-        if: ${{ env.DESTINATION_REPO && env.DESTINATION_REPO != '' }}
+        if: ${{ env.DESTINATION_ENVIRONMENT && env.DESTINATION_ENVIRONMENT != '' }}
         uses: actions/github-script@v6
         with:
           script: |
@@ -52,7 +52,7 @@ jobs:
               ref: '${{ github.ref }}',
               inputs: {
                 destinationBranch: '${{ env.DESTINATION_BRANCH }}',
-                destinationRepo: '${{ env.DESTINATION_REPO }}',
+                destinationEnvironment: '${{ env.DESTINATION_ENVIRONMENT }}',
                 sourceBranch: '${{ env.SOURCE_BRANCH }}',
               },
             })

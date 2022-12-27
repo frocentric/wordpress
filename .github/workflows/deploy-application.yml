@@ -10,8 +10,8 @@ on:
         description: 'The target branch'
         required: true
         default: 'main'
-      destinationRepo:
-        description: 'The target repo URL'
+      destinationEnvironment:
+        description: 'The target environment'
         required: true
       sourceBranch:
         description: 'The source branch/commit'
@@ -25,12 +25,21 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Configure deployment variables
+      - run: |
+          if [ "${{ inputs.destinationEnvironment }}" = "production" ]; then
+            echo "DESTINATION_REPO=${{ secrets.DESTINATION_REPO_PROD }}" >> $GITHUB_ENV
+          else
+            echo "DESTINATION_REPO=${{ secrets.DESTINATION_REPO_STAGE }}" >> $GITHUB_ENV
+          fi
+        shell: bash
+
       # Deploys specific branch/commit to target environment
       - name: Sync Repo
         uses: wei/git-sync@v3
         env:
           DESTINATION_BRANCH: ${{ inputs.destinationBranch }}
-          DESTINATION_REPO: ${{ inputs.destinationRepo }}
+          DESTINATION_REPO: ${{ inputs.destinationEnvironment }}
           SOURCE_BRANCH: ${{ inputs.sourceBranch }}
         with:
           # GitHub repo slug or full clone url

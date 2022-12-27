@@ -138,7 +138,7 @@ jobs:
               ref: '${{ github.ref }}',
               inputs: {
                 destinationBranch: 'main',
-                destinationRepo: '${{ secrets.DESTINATION_REPO_STAGE }}',
+                destinationEnvironment: 'staging',
                 sourceBranch: '${{ env.BRANCH_NAME }}',
               },
             })
