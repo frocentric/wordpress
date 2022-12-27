@@ -30,8 +30,10 @@ jobs:
         run: |
           if [ "${{ inputs.destinationEnvironment }}" = "production" ]; then
             echo "DESTINATION_REPO=${{ secrets.DESTINATION_REPO_PROD }}" >> $GITHUB_ENV
+            echo "URL=https://tech.frocentric.io" >> GITHUB_ENV
           else
             echo "DESTINATION_REPO=${{ secrets.DESTINATION_REPO_STAGE }}" >> $GITHUB_ENV
+            echo "URL=https://tech.staging.frocentric.io" >> GITHUB_ENV
           fi
         shell: bash
 
@@ -52,3 +54,21 @@ jobs:
           destination_branch: ${DESTINATION_BRANCH}
           # SSH key used to authenticate with git clone urls provided (optional if public or https clone url with authentication)
           destination_ssh_private_key: ${{ secrets.SSH_DESTINATION_PRIVATE_KEY }}
+
+  check:
+    needs: [ deploy ]
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Sets the Node version
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+      - name: Check site
+        uses: srt32/uptime@master
+        with:
+          url-to-hit: ${URL}
+          expected-statuses: "200"
