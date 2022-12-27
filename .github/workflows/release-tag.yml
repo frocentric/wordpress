@@ -27,7 +27,7 @@ jobs:
           if [[ "${{ github.ref }}" =~ ^v([0-9]+\.)*[0-9]+$ ]]; then
             echo "DESTINATION_ENVIRONMENT=production" >> $GITHUB_ENV
           # Pre-releases target stage environment, e.g. v1.17.18-rc.1
-          elif [ ${{ github.ref }} =~ ^v([0-9]+\.)*[0-9]+\-[0-9a-zA-Z.]+$ ]] ]; then
+          elif [[ "${{ github.ref }}" =~ ^v([0-9]+\.)*[0-9]+\-[0-9a-zA-Z.]+$ ]]; then
             echo "DESTINATION_ENVIRONMENT=staging" >> $GITHUB_ENV
           # Otherwise, don't deploy
           else
