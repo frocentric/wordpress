@@ -22,7 +22,8 @@ jobs:
           generate_release_notes: true
 
       # Configure deployment variables
-      - run: |
+      - name: Configure deployment variables
+        run: |
           # Final releases target production environment, e.g. v1.17.18
           if [[ "${{ github.ref }}" =~ ^refs/tags/v([0-9]+\.)*[0-9]+$ ]]; then
             echo "DESTINATION_ENVIRONMENT=production" >> $GITHUB_ENV
@@ -36,7 +37,7 @@ jobs:
         shell: bash
 
       # Deploy release
-      - name: Trigger deployment workflow
+      - name: Deploy to target
         env:
           SOURCE_BRANCH: ${{ format('{0}^{{commit}}', github.ref) }}
           DESTINATION_BRANCH: ${{ 'refs/heads/main' }}
