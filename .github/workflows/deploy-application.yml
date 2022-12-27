@@ -39,7 +39,6 @@ jobs:
         uses: wei/git-sync@v3
         env:
           DESTINATION_BRANCH: ${{ inputs.destinationBranch }}
-          DESTINATION_REPO: ${{ inputs.destinationEnvironment }}
           SOURCE_BRANCH: ${{ inputs.sourceBranch }}
         with:
           # GitHub repo slug or full clone url
