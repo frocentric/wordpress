@@ -84,7 +84,6 @@ jobs:
           tag=$(git describe --tags $(git rev-list --tags --max-count=1))
           git tag -f $tag
           git push --atomic --no-verify origin production $tag
-          echo "TAG=$tag" >> $GITHUB_ENV
           echo 'executed=true' >> $GITHUB_OUTPUT
 
   deploy:
