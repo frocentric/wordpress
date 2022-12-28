@@ -88,42 +88,15 @@ jobs:
           git tag -f $tag
           git push --atomic --no-verify origin production $tag
 
-      # Triggers release generation
-      - name: Trigger release tag workflow
-        env:
-          WORKFLOW_ID: ${{ 'release-tag.yml' }}
-        uses: actions/github-script@v6
-        with:
-          script: |-
-            await github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: '${{ env.WORKFLOW_ID }}',
-              ref: '${{ env.TAG }}',
-            })
-            .catch(error => error)
-            .then(response => {
-              core.debug(response);
-              if (response.status !== 204) {
-                core.setFailed(`createWorkflowDispatch to ${{ env.WORKFLOW_ID }} received status code ${response.status}`)
-              }
-            })
-
   deploy:
     # Ensure execution for stage deployments, as dependent version job is skipped
-    if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' && !failure() && (success() || !needs.version.outputs.executed) }}
+    if: ${{ github.event_name == 'push' && !failure() && (success() || !needs.version.outputs.executed) }}
     needs: [ setup, version ]
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      # Sets branch name as environment variable
-      - uses: nelonoel/branch-name@v1.0.1
-
       # Triggers release generation
       - name: Deploy to hosting environment
         env:
@@ -137,9 +110,8 @@ jobs:
               workflow_id: '${{ env.WORKFLOW_ID }}',
               ref: '${{ github.ref }}',
               inputs: {
-                destinationBranch: 'main',
-                destinationEnvironment: 'staging',
-                sourceBranch: '${{ env.BRANCH_NAME }}',
+                destinationEnvironment: '${{github.ref}}' === 'refs/heads/production' ? 'production' : 'staging',
+                sourceBranch: '${{ github.ref }}',
               },
             })
             .catch(error => error)
