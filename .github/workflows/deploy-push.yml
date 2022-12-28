@@ -55,17 +55,15 @@ jobs:
     runs-on: ubuntu-latest
     # Map a step output to a job output
     outputs:
-      executed: ${{ steps.step1.outputs.executed }}
+      executed: ${{ steps.tag_release.outputs.executed }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
-
-      - id: step1
-        run: echo 'executed=true' >> $GITHUB_OUTPUT
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -84,9 +82,9 @@ jobs:
           git commit --amend -m "$message
           [skip ci]"
           tag=$(git describe --tags $(git rev-list --tags --max-count=1))
-          echo "TAG=$tag" >> $GITHUB_ENV
           git tag -f $tag
           git push --atomic --no-verify origin production $tag
+          echo 'executed=true' >> $GITHUB_OUTPUT
 
   deploy:
     # Ensure execution for stage deployments, as dependent version job is skipped
