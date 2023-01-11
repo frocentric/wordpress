@@ -55,17 +55,15 @@ jobs:
     runs-on: ubuntu-latest
     # Map a step output to a job output
     outputs:
-      executed: ${{ steps.step1.outputs.executed }}
+      executed: ${{ steps.tag_release.outputs.executed }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
         with:
           token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
-
-      - id: step1
-        run: echo 'executed=true' >> $GITHUB_OUTPUT
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -84,46 +82,19 @@ jobs:
           git commit --amend -m "$message
           [skip ci]"
           tag=$(git describe --tags $(git rev-list --tags --max-count=1))
-          echo "TAG=$tag" >> $GITHUB_ENV
           git tag -f $tag
           git push --atomic --no-verify origin production $tag
-
-      # Triggers release generation
-      - name: Trigger release tag workflow
-        env:
-          WORKFLOW_ID: ${{ 'release-tag.yml' }}
-        uses: actions/github-script@v6
-        with:
-          script: |-
-            await github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: '${{ env.WORKFLOW_ID }}',
-              ref: '${{ env.TAG }}',
-            })
-            .catch(error => error)
-            .then(response => {
-              core.debug(response);
-              if (response.status !== 204) {
-                core.setFailed(`createWorkflowDispatch to ${{ env.WORKFLOW_ID }} received status code ${response.status}`)
-              }
-            })
+          echo 'executed=true' >> $GITHUB_OUTPUT
 
   deploy:
     # Ensure execution for stage deployments, as dependent version job is skipped
-    if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' && !failure() && (success() || !needs.version.outputs.executed) }}
+    if: ${{ github.event_name == 'push' && !failure() && (success() || !needs.version.outputs.executed) }}
     needs: [ setup, version ]
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-
-      # Sets branch name as environment variable
-      - uses: nelonoel/branch-name@v1.0.1
-
       # Triggers release generation
       - name: Deploy to hosting environment
         env:
@@ -137,9 +108,8 @@ jobs:
               workflow_id: '${{ env.WORKFLOW_ID }}',
               ref: '${{ github.ref }}',
               inputs: {
-                destinationBranch: 'main',
-                destinationEnvironment: 'staging',
-                sourceBranch: '${{ env.BRANCH_NAME }}',
+                destinationEnvironment: '${{github.ref}}' === 'refs/heads/production' ? 'production' : 'staging',
+                sourceBranch: '${{ github.ref }}',
               },
             })
             .catch(error => error)

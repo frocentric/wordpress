@@ -6,13 +6,13 @@ name: Deploy application
 on:
   workflow_dispatch:
     inputs:
-      destinationBranch:
-        description: 'The target branch'
-        required: true
-        default: 'main'
       destinationEnvironment:
         description: 'The target environment'
         required: true
+        type: choice
+        options:
+          - "staging"
+          - "production"
       sourceBranch:
         description: 'The source branch/commit'
         required: true
@@ -45,11 +45,12 @@ jobs:
       - name: Deploy to target
         uses: wei/git-sync@v3
         env:
-          DESTINATION_BRANCH: ${{ inputs.destinationBranch }}
+          DESTINATION_BRANCH: ${{ 'refs/heads/main' }}
           SOURCE_BRANCH: ${{ inputs.sourceBranch }}
+          SOURCE_REPO: ${{ 'frocentric/wordpress' }}
         with:
           # GitHub repo slug or full clone url
-          source_repo: "frocentric/wordpress"
+          source_repo: ${SOURCE_REPO}
           # Branch name to sync from
           source_branch: ${SOURCE_BRANCH}
           # GitHub repo slug or full clone url
