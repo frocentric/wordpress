@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8ddc6eafc939deb2d30840f2dea5abab",
+    "content-hash": "ac9c5e8d8ba409565b086bc5e60522ce",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3428,6 +3428,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/pods/"
+        },
+        {
+            "name": "wpackagist-plugin/pods-alternative-cache",
+            "version": "2.1.5",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/pods-alternative-cache/",
+                "reference": "tags/2.1.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/pods-alternative-cache.2.1.5.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/pods-alternative-cache/"
         },
         {
             "name": "wpackagist-plugin/publishpress",

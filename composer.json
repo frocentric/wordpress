@@ -197,6 +197,7 @@
     "wpackagist-plugin/ninja-forms": "~3.0",
     "wpackagist-plugin/ninja-forms-addon-manager": "~3.0",
     "wpackagist-plugin/pods": "~2.0",
+    "wpackagist-plugin/pods-alternative-cache": "~2.0",
     "wpackagist-plugin/publishpress": "~3.3",
     "wpackagist-plugin/query-monitor": "~3.0",
     "wpackagist-plugin/search-filter": "~1.2",
