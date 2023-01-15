@@ -1,0 +1,24 @@
+# This workflow deploys the Frocentric WordPress application on a successful push or PR
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request events
+on:
+  pull_request:
+    branches: [ main, production ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  merge:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+      - uses: ahmadnassri/action-dependabot-auto-merge@v2.6.6
+        with:
+          target: patch
+          token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
