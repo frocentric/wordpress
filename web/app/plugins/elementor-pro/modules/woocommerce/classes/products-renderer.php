@@ -67,6 +67,10 @@ class Products_Renderer extends Base_Products_Renderer {
 			$ordering_args = WC()->query->get_catalog_ordering_args( $query_args['orderby'], $query_args['order'] );
 		}
 
+		if ( in_array( $this->settings[ $this->settings_key_prefix . 'post_type' ], [ 'related_products', 'upsells', 'cross_sells' ], true ) ) {
+			$query_args['post_type'] = [ 'product', 'product_variation' ];
+		}
+
 		$query_args['orderby'] = $ordering_args['orderby'];
 		$query_args['order'] = $ordering_args['order'];
 		if ( $ordering_args['meta_key'] ) {
