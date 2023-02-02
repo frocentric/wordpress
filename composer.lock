@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8ddc6eafc939deb2d30840f2dea5abab",
+    "content-hash": "b40932579c199cea7200b454f701f6f6",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.258.0",
+            "version": "3.258.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "96ed88ca45e54f74a158002411966a92891e8ead"
+                "reference": "7d7c4f89d2d0bd77c36cb8f3c8cd20b5aa8c0e6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/96ed88ca45e54f74a158002411966a92891e8ead",
-                "reference": "96ed88ca45e54f74a158002411966a92891e8ead",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7d7c4f89d2d0bd77c36cb8f3c8cd20b5aa8c0e6d",
+                "reference": "7d7c4f89d2d0bd77c36cb8f3c8cd20b5aa8c0e6d",
                 "shasum": ""
             },
             "require": {
@@ -146,9 +146,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.258.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.258.1"
             },
-            "time": "2023-01-31T19:33:16+00:00"
+            "time": "2023-02-01T19:22:26+00:00"
         },
         {
             "name": "composer/installers",
@@ -1705,7 +1705,7 @@
         },
         {
             "name": "modern-tribe/events-calendar-pro",
-            "version": "6.0.5.1",
+            "version": "6.0.7",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}"
@@ -1714,7 +1714,7 @@
         },
         {
             "name": "modern-tribe/events-tickets-plus",
-            "version": "5.6.4",
+            "version": "5.6.5",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=event-tickets-plus&version={%VERSION}&key={%TEC_ETP_LICENSE}"
@@ -1741,7 +1741,7 @@
         },
         {
             "name": "modern-tribe/the-events-calendar-community-events-tickets",
-            "version": "4.8.1",
+            "version": "4.8.3",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community-tickets&version={%VERSION}&key={%TEC_CT_LICENSE}"
@@ -3287,15 +3287,15 @@
         },
         {
             "name": "wpackagist-plugin/imagify",
-            "version": "2.1",
+            "version": "2.1.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/imagify/",
-                "reference": "tags/2.1"
+                "reference": "tags/2.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/imagify.2.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/imagify.2.1.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
