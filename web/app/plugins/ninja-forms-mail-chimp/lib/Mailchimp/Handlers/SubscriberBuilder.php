@@ -142,11 +142,7 @@ class SubscriberBuilder
 	 */
 	public function addTag(string $tag): SubscriberBuilder
 	{
-		$hasTag = $this->audienceDefinition->hasTag($tag);
-
-		if ($hasTag) {
-			$this->subscriber->addTag($tag);
-		}
+		$this->subscriber->addTag($tag);
 
 		return $this;
 	}

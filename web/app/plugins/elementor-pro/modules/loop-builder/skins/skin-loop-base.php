@@ -68,11 +68,6 @@ class Skin_Loop_Base extends Skin_Base {
 			}
 
 			parent::render();
-
-			if ( $is_edit_mode ) {
-				// Render SVG symbols for any icons that are rendered outside of edit mode within the loop.
-				Icons_Manager::render_svg_symbols();
-			}
 		} else if ( $is_edit_mode ) {
 			$this->render_empty_view();
 		}
@@ -83,7 +78,7 @@ class Skin_Loop_Base extends Skin_Base {
 	}
 
 	protected function _register_controls_actions() {
-		add_action( 'elementor/element/loop-grid/section_query/after_section_start', [ $this, 'register_query_controls' ] );
+		add_action( 'elementor/element/' . $this->parent->get_name() . '/section_query/after_section_start', [ $this, 'register_query_controls' ] );
 	}
 
 	/**

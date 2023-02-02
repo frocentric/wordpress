@@ -23,4 +23,11 @@ interface ActionSettingsDataHandler
      * @return mixed
      */
     public function getValue(string $key, $default = '');
+
+    /**
+     * Return object as single level associative array
+     *
+     * @return array
+     */
+    public function toArray(): array;
 }

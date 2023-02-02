@@ -4,36 +4,23 @@ namespace  NFMailchimp\EmailCRM\NfBridge\DataHandlers;
 
 use NFMailchimp\EmailCRM\NfBridge\Contracts\ActionSettingsDataHandler as InterfacesActionSettingsDataHandler;
 
-// class ActionSettingsDataHandler implements InterfacesActionSettingsDataHandler, \Iterator
 class ActionSettingsDataHandler implements InterfacesActionSettingsDataHandler
 {
     /**
      * $action_settings from ->process()
      *
-     * @var [type]
+     * @var array
      */
     protected $actionSettings;
 
-    /**
-     * Set incoming NF action settings
-     *
-     * @param  array  $actionSettings  Incoming NF action settings
-     *
-     * @return  ActionSettingsDataHandler
-     */
+    /** @inheritDoc */
     public function setActionSettings(array $actionSettings): ActionSettingsDataHandler{
         $this->actionSettings = $actionSettings;
         return $this;
     }
 
 
-    /**
-     * Return keyed value from action settings
-     *
-     * @param string $key
-     * @param string $default
-     * @return mixed
-     */
+    /** @inheritDoc */
     public function getValue(string $key, $default = ''){
         $return = $default;
         if(isset($this->actionSettings[$key])){
@@ -42,4 +29,12 @@ class ActionSettingsDataHandler implements InterfacesActionSettingsDataHandler
 
         return $return;
     }
+
+    /** @inheritDoc */
+    public function toArray(): array{
+
+        return $this->actionSettings;
+    }
+
+
 }

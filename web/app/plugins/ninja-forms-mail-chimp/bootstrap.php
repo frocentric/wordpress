@@ -41,18 +41,20 @@ function ninjaFormsMailchimpBoostrap() {
 /**
  * Initialize required functionality for NinjaFormsMailchimp instance
  * 
- * - Add NF Bridge
- * - Initialize REST API endpoints
+ * - Add NF Bridge to provide NF functionality
+ * - Initialize WP REST API endpoints
  * - Add subscribe action
  * - register opt-in field
- * @since 4.0.0
+ * @since 3.2.1
  */
 add_action('nf_mailchimp_init', function (\NFMailchimp\NinjaForms\Mailchimp\NinjaFormsMailchimp $instance) {
 
-    // Set the NF Bridge
+    // Provide NF core functionality
     setNfBridge($instance);
+
     // Initialize WordPress REST API endpoints
     add_action('rest_api_init', [$instance, 'initApi']);
+    
     // Register the Subscribe to Mailchimp action
     $instance->addSubscribeAction();
     
@@ -60,7 +62,10 @@ add_action('nf_mailchimp_init', function (\NFMailchimp\NinjaForms\Mailchimp\Ninj
     add_filter('ninja_forms_new_form_templates', array($instance, 'registerAutogenerateModal'));
 
     add_filter( 'ninja_forms_register_fields', array( $instance, 'registerOptIn' ) );
+    
     add_action( 'ninja_forms_loaded', array( $instance, 'setupAdmin' ) );
+	        
+	add_filter('nf_react_table_extra_value_keys', array($instance, 'addMetabox'));
 
     (new DiagnosticScreen())->registerHooks();
 }, 2);

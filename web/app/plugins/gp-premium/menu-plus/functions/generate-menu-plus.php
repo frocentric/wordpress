@@ -1145,7 +1145,7 @@ if ( ! function_exists( 'generate_slideout_navigation' ) ) {
 		}
 
 		?>
-		<nav id="generate-slideout-menu" class="main-navigation slideout-navigation<?php echo esc_attr( $overlay ); ?>" <?php echo $microdata; // phpcs:ignore -- No escaping needed. ?> style="display: none;" aria-hidden>
+		<nav id="generate-slideout-menu" class="main-navigation slideout-navigation<?php echo esc_attr( $overlay ); ?>" <?php echo $microdata; // phpcs:ignore -- No escaping needed. ?> style="display: none;" aria-hidden="true">
 			<div class="inside-navigation grid-container grid-parent">
 				<?php
 				do_action( 'generate_inside_slideout_navigation' );
