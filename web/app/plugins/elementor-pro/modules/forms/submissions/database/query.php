@@ -100,7 +100,7 @@ class Query extends Base_Object {
 
 		$per_page = (int) $per_page;
 
-		$q = "SELECT t_submissions.* FROM `{$this->get_table_submissions()}` t_submissions {$where_sql} {$order_sql} LIMIT ${per_page} OFFSET {$offset}";
+		$q = "SELECT t_submissions.* FROM `{$this->get_table_submissions()}` t_submissions {$where_sql} {$order_sql} LIMIT {$per_page} OFFSET {$offset}";
 
 		$submissions = $this->wpdb->get_results( $q );// phpcs:ignore
 

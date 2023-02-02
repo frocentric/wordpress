@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b40932579c199cea7200b454f701f6f6",
+    "content-hash": "9fef9240de8185851f9591c6c435b0ad",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1723,7 +1723,7 @@
         },
         {
             "name": "modern-tribe/events-virtual",
-            "version": "1.13.3",
+            "version": "1.13.4",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-virtual&version={%VERSION}&key={%TEC_VE_LICENSE}"

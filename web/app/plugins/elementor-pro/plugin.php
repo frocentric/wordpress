@@ -4,6 +4,7 @@ namespace ElementorPro;
 use ElementorPro\Core\Admin\Admin;
 use ElementorPro\Core\App\App;
 use ElementorPro\Core\Connect;
+use ElementorPro\Core\Compatibility\Compatibility;
 use Elementor\Core\Responsive\Files\Frontend as FrontendFile;
 use Elementor\Utils;
 use ElementorPro\Core\Editor\Editor;
@@ -79,6 +80,11 @@ class Plugin {
 		'ElementorPro\Modules\PanelPostsControl\Controls\Group_Control_Posts' => 'ElementorPro\Modules\QueryControl\Controls\Group_Control_Posts',
 		'ElementorPro\Modules\PanelPostsControl\Controls\Query' => 'ElementorPro\Modules\QueryControl\Controls\Query',
 	];
+
+	/**
+	 * @var \ElementorPro\License\Updater
+	 */
+	public $updater;
 
 	/**
 	 * Throw error on object clone
@@ -461,6 +467,8 @@ class Plugin {
 	 */
 	private function __construct() {
 		spl_autoload_register( [ $this, 'autoload' ] );
+
+		Compatibility::register_actions();
 
 		new Connect\Manager();
 
