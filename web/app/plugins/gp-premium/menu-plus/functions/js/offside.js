@@ -526,6 +526,8 @@ var generateOffside = offside( '.slideout-navigation', {
 			}
 		}
 
+		document.querySelector( '.slideout-navigation' ).removeAttribute( 'aria-hidden' );
+
 		// Focus the first focusable element.
 		var focusable = document.querySelector( '.slideout-navigation' ).querySelectorAll( 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])' );
 
@@ -568,26 +570,8 @@ var generateOffside = offside( '.slideout-navigation', {
 		// Turn off visibility.
 		setTimeout( function() {
 			document.querySelector( '.slideout-navigation:not(.is-open)' ).style.visibility = '';
+			document.querySelector( '.slideout-navigation:not(.is-open)' ).setAttribute( 'aria-hidden', 'true' );
 		}, 500 );
-
-		// Focus our slideout toggle.
-		if ( window.document.documentElement.clientWidth <= 768 ) {
-			if ( body.classList.contains( 'slideout-mobile' ) || body.classList.contains( 'slideout-both' ) ) {
-				document.querySelectorAll( '.main-navigation:not(.slideout-navigation)' ).forEach( function( navigation ) {
-					if ( navigation && navigation.style.display !== 'none' ) {
-						navigation.querySelector( '.menu-toggle' ).focus();
-					}
-				} );
-			}
-		} else {
-			if ( body.classList.contains( 'slideout-desktop' ) || body.classList.contains( 'slideout-both' ) ) {
-				document.querySelectorAll( '.main-navigation:not(.slideout-navigation)' ).forEach( function( navigation ) {
-					if ( navigation && navigation.style.display !== 'none' ) {
-						navigation.querySelector( '.slideout-toggle a' ).focus();
-					}
-				} );
-			}
-		}
 	}
 } );
 
@@ -628,6 +612,27 @@ document.addEventListener( 'keyup', function( e ) {
 
 		if ( e.keyCode == 27 ) {
 			generateOffside.close();
+
+			var body = document.body;
+
+			// Focus our slideout toggle.
+			if ( window.document.documentElement.clientWidth <= 768 ) {
+				if ( body.classList.contains( 'slideout-mobile' ) || body.classList.contains( 'slideout-both' ) ) {
+					document.querySelectorAll( '.main-navigation:not(.slideout-navigation)' ).forEach( function( navigation ) {
+						if ( navigation && navigation.style.display !== 'none' ) {
+							navigation.querySelector( '.menu-toggle' ).focus();
+						}
+					} );
+				}
+			} else {
+				if ( body.classList.contains( 'slideout-desktop' ) || body.classList.contains( 'slideout-both' ) ) {
+					document.querySelectorAll( '.main-navigation:not(.slideout-navigation)' ).forEach( function( navigation ) {
+						if ( navigation && navigation.style.display !== 'none' ) {
+							navigation.querySelector( '.slideout-toggle a' ).focus();
+						}
+					} );
+				}
+			}
 		}
 	}
 } );

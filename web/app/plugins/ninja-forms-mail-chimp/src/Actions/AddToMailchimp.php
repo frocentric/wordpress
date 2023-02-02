@@ -7,8 +7,8 @@ use NFMailchimp\EmailCRM\Mailchimp\Interfaces\MailchimpApi;
 
 use NFMailchimp\EmailCRM\NfBridge\Actions\NewsletterAction;
 use NFMailchimp\NinjaForms\Mailchimp\Handlers\GetNfStructuredLists;
-use NFMailchimp\EmailCRM\Mailchimp\Handlers\AddOrUpdateMailchimp;
 
+use NFMailchimp\NinjaForms\Mailchimp\Handlers\AddOrUpdateMailchimp;
 
 /**
  * Action to subscribe form submission to Mailchimp
@@ -49,6 +49,15 @@ class AddToMailchimp extends NewsletterAction
             'name' => 'double_opt_in',
             'type' => 'toggle',
             'label' => __('Require subscribers to confirm their subscription', 'ninja-forms-mail-chimp'),
+            'group' => 'advanced',
+            'width' => 'full',
+            'value' => 0
+        ];
+
+        $this->_settings['enable_new_tags'] = [
+            'name' => 'enable_new_tags',
+            'type' => 'toggle',
+            'label' => __('Allow creation of NEW tags from submitted values', 'ninja-forms-mail-chimp'),
             'group' => 'advanced',
             'width' => 'full',
             'value' => 0

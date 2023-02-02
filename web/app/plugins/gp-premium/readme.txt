@@ -5,7 +5,7 @@ Tags: generatepress
 Requires at least: 5.2
 Tested up to: 6.1
 Requires PHP: 5.6
-Stable tag: 2.2.0
+Stable tag: 2.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,6 +26,13 @@ To learn how to install GP Premium, check out our documentation [here](https://d
 In most cases, #1 will work fine and is way easier.
 
 == Changelog ==
+
+= 2.2.2 =
+* Fix: Off Canvas anchor links not working
+
+= 2.2.1 =
+* Fix: Add value to off-canvas aria-hidden attribute
+* Tweak: Remove/add aria-hidden to off-canvas on toggle
 
 = 2.2.0 =
 * Feature: Allow block element autosave
