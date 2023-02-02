@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'ninja-forms/ninja-forms-mailchimp',
-        'pretty_version' => '3.3.2',
-        'version' => '3.3.2.0',
-        'reference' => '158f601b9b963af4dffedd75819c2395e9f5ad24',
+        'pretty_version' => '3.3.4',
+        'version' => '3.3.4.0',
+        'reference' => '1dba1db194414a220b52abae56321ac88e1f7c90',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'ninja-forms/ninja-forms-mailchimp' => array(
-            'pretty_version' => '3.3.2',
-            'version' => '3.3.2.0',
-            'reference' => '158f601b9b963af4dffedd75819c2395e9f5ad24',
+            'pretty_version' => '3.3.4',
+            'version' => '3.3.4.0',
+            'reference' => '1dba1db194414a220b52abae56321ac88e1f7c90',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

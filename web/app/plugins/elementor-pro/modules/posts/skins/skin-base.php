@@ -493,7 +493,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 			[
 				'label' => esc_html__( 'Border Radius', 'elementor-pro' ),
 				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
+				'size_units' => [ 'px', '%', 'em' ],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-post__thumbnail' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -1029,9 +1029,11 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 			$classes[] = 'elementor-grid';
 		}
 
-		$this->parent->add_render_attribute( 'container', [
+		$render_attributes = apply_filters( 'elementor/skin/loop_header_attributes', [
 			'class' => $classes,
 		] );
+
+		$this->parent->add_render_attribute( 'container', $render_attributes );
 
 		?>
 		<div <?php $this->parent->print_render_attribute_string( 'container' ); ?>>

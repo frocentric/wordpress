@@ -29,7 +29,7 @@ use NFMailchimp\NinjaForms\Mailchimp\Handlers\GetNfStructuredLists;
  */
 class NinjaFormsMailchimp implements NinjaFormsMailchimpContract
 {
-	const VERSION = '3.3.2';
+	const VERSION = '3.3.4';
 	const SLUG = 'mail-chimp';
 	const NAME = 'MailChimp';
 	const AUTHOR = 'The WP Ninjas';
@@ -76,16 +76,15 @@ class NinjaFormsMailchimp implements NinjaFormsMailchimpContract
 	}
 
 	/**
-	 * Initialize the REST API endpoints
+	 * Create Wordpress REST API endpoints
 	 *
-	 * @since 4.0.0
+	 * @since 3.2.1
 	 *
 	 * @uses "rest_api_init" hook.
 	 */
 	public function initApi(): void
 	{
 		$api = new CreateWordPressEndpoints('register_rest_route', self::RESTROUTE);
-
 
 		//Authorization for all REST API endpoints
 		$authorizer = new AuthorizeRequestWithWordPressUser('manage_options');
@@ -117,9 +116,7 @@ class NinjaFormsMailchimp implements NinjaFormsMailchimpContract
 	}
 
 	/**
-	 * Setup Admin
-	 *
-	 * Setup admin classes for Ninja Forms and WordPress.
+	 * Initialize submission metabox for NF core <3.6
 	 */
 	public function setupAdmin()
 	{
@@ -129,6 +126,8 @@ class NinjaFormsMailchimp implements NinjaFormsMailchimpContract
 
 	/**
 	 * Register the Subscribe action wtih Ninja Forms
+	 * 
+	 * API Key is set initially, but this can be re-set dynamically
 	 */
 	public function addSubscribeAction()
 	{
@@ -139,10 +138,10 @@ class NinjaFormsMailchimp implements NinjaFormsMailchimpContract
 		(new NinjaFormsRegisterActions())
 			->setMailchimpApi($this->mailchimpApi)
 			->registerHooks();
-			
+
+		// Add installtion-wide settings		
 		(new NinjaFormsPluginSettingsGroups())->addFilter();
 		(new NinjaFormsPluginSettings())->addFilter();
-
 	}
 
 	/**
@@ -166,6 +165,20 @@ class NinjaFormsMailchimp implements NinjaFormsMailchimpContract
 		}
 
 		return $templates;
+	}
+
+
+	/**
+	 * Add a metabox constructor to the react.js submissions page
+	 *
+	 * @param array $metaboxHandlers
+	 * @return array
+	 */
+	public function addMetabox(array $metaboxHandlers): array
+	{
+		$metaboxHandlers['mailchimp'] = 'NFMailchimp\NinjaForms\Mailchimp\Admin\SubmissionDiagnosticsMetabox';
+
+		return $metaboxHandlers;
 	}
 
 	/**

@@ -68,6 +68,22 @@ class Timing extends Base {
 		);
 
 		$this->add_settings_group_control(
+			'period',
+			[
+				'type' => Controls_Manager::SELECT,
+				'label' => esc_html__( 'Per', 'elementor-pro' ),
+				'default' => '', // Backward Compatibility - Persisting is old default value.
+				'options' => [
+					'' => esc_html__( 'Persisting', 'elementor-pro' ),
+					'session' => esc_html__( 'Session', 'elementor-pro' ),
+					'day' => esc_html__( 'Day', 'elementor-pro' ),
+					'week' => esc_html__( 'Week', 'elementor-pro' ),
+					'month' => esc_html__( 'Month', 'elementor-pro' ),
+				],
+			]
+		);
+
+		$this->add_settings_group_control(
 			'count',
 			[
 				'type' => Controls_Manager::SELECT,

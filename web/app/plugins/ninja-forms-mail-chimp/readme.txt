@@ -2,8 +2,9 @@
 Contributors: wpninjasllc, kbjohnson90, pippinsplugins, klhall1987
 Tags: form, forms, ninja forms, mailpoet, wysija, newsletters, email
 Requires at least: 5.3
-Tested up to: 6.0.1
-Stable tag: 3.3.2
+Tested up to: 6.1.1
+Stable tag: 3.3.4
+
 License: GPLv2 or later
 
 == Description ==
@@ -22,12 +23,27 @@ This section describes how to install the plugin.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
-= 3.3.2 (10 August 2022)
+= work-in-progress =
+*Bug Fixes*
+* Check for optin field before creating subscriber
+* Enables the creation of new tags with a form submission
+* Ensure action settings interest group selection is set
+* Display metabox with communication results on new Submissions page
+
+= 3.3.3 (16 January 2023)
+
 * Bug Fixes *
 * Enable address field structure
 * Prevent shared library conflicts with internalized library
 * Prevent blank fields overwriting existing data
 * Remove `mixed` type declaration error in PHP <8.0
+
+* Other *
+* Correct version number to release updates
+
+= 3.3.2 (10 August 2022)
+* Other *
+Mistagged, no changes released
 
 = 3.3.1 (25 October 2021)
 * Bug Fixes *

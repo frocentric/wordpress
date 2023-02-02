@@ -3,12 +3,12 @@
  * Plugin Name: Ninja Forms - Mailchimp 
  * Plugin URI: https://ninjaforms.com/extensions/mail-chimp/
  * Description: Sign up users for your Mailchimp newsletter when submitting Ninja Forms
- * Version: 3.3.2
+ * Version: 3.3.4
  * Author: Saturday Drive
  * Author URI: https://ninjaforms.com/
  * Text Domain: ninja-forms-mail-chimp
  *
- * Release Description: Merge branch 'release-3.3.2'
+ * Release Description: Merge branch 'upcoming-release'
  * Copyright 2016 The WP Ninjas.
  */
 /** IMPORTANT: This file MUST be PHP 5.2 compatible */
@@ -68,7 +68,7 @@ function nf_mailchimp_setupLicense() {
         return;
 
     $name = 'MailChimp';
-    $version = '3.3.2';
+    $version = '3.3.4';
     $author = 'The WP Ninjas';
     $file = __FILE__;
     $slug = 'mail-chimp';

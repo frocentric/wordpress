@@ -57,51 +57,6 @@
     {
       "type": "package",
       "package": {
-        "name": "modern-tribe/events-calendar-pro",
-        "version": "6.0.5.1",
-        "type": "wordpress-plugin",
-        "dist": {
-          "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}",
-          "type": "zip"
-        }
-      },
-      "require": {
-        "ffraenz/private-composer-installer": "~5.0"
-      }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "modern-tribe/events-tickets-plus",
-        "version": "5.6.4",
-        "type": "wordpress-plugin",
-        "dist": {
-          "url": "https://pue.tri.be/api/plugins/v2/download?plugin=event-tickets-plus&version={%VERSION}&key={%TEC_ETP_LICENSE}",
-          "type": "zip"
-        }
-      },
-      "require": {
-        "ffraenz/private-composer-installer": "~5.0"
-      }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "modern-tribe/events-virtual",
-        "version": "1.13.3",
-        "type": "wordpress-plugin",
-        "dist": {
-          "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-virtual&version={%VERSION}&key={%TEC_VE_LICENSE}",
-          "type": "zip"
-        }
-      },
-      "require": {
-        "ffraenz/private-composer-installer": "~5.0"
-      }
-    },
-    {
-      "type": "package",
-      "package": {
         "name": "modern-tribe/the-events-calendar-community-events",
         "version": "4.10.3",
         "type": "wordpress-plugin",
@@ -118,10 +73,55 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/the-events-calendar-community-events-tickets",
-        "version": "4.8.1",
+        "version": "4.8.3",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community-tickets&version={%VERSION}&key={%TEC_CT_LICENSE}",
+          "type": "zip"
+        }
+      },
+      "require": {
+        "ffraenz/private-composer-installer": "~5.0"
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "modern-tribe/events-tickets-plus",
+        "version": "5.6.5",
+        "type": "wordpress-plugin",
+        "dist": {
+          "url": "https://pue.tri.be/api/plugins/v2/download?plugin=event-tickets-plus&version={%VERSION}&key={%TEC_ETP_LICENSE}",
+          "type": "zip"
+        }
+      },
+      "require": {
+        "ffraenz/private-composer-installer": "~5.0"
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "modern-tribe/events-calendar-pro",
+        "version": "6.0.7",
+        "type": "wordpress-plugin",
+        "dist": {
+          "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}",
+          "type": "zip"
+        }
+      },
+      "require": {
+        "ffraenz/private-composer-installer": "~5.0"
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "modern-tribe/events-virtual",
+        "version": "1.13.4",
+        "type": "wordpress-plugin",
+        "dist": {
+          "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-virtual&version={%VERSION}&key={%TEC_VE_LICENSE}",
           "type": "zip"
         }
       },

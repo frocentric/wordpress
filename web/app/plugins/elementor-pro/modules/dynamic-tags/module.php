@@ -28,6 +28,9 @@ class Module extends TagsModule {
 
 	const WOOCOMMERCE_GROUP = 'woocommerce';
 
+	// TODO: Remove when Core 3.10.0 is released.
+	const DATETIME_CATEGORY = 'datetime';
+
 	public function __construct() {
 		parent::__construct();
 
