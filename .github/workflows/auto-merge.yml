@@ -1,8 +1,8 @@
 # This workflow deploys the Frocentric WordPress application on a successful push or PR
 
-name: CI
+name: PR Auto Merge
 
-# Controls when the action will run. Triggers the workflow on push or pull request events
+# Controls when the action will run. Triggers the workflow on pull request events
 on:
   pull_request:
     branches: [ main, production ]
@@ -15,7 +15,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
       - uses: ahmadnassri/action-dependabot-auto-merge@v2.6.6
