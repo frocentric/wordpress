@@ -45,7 +45,7 @@ abstract class Filterbar_Filter_Taxonomy extends Tribe__Events__Filterbar__Filte
 		// Re-order!
 		foreach ( $terms as $id => $term ) {
 			// Skip root elements
-			if ( 0 === $term->parent ) {
+			if ( 0 === $term->parent || ! isset( $terms[ $term->parent ] ) ) {
 				continue;
 			}
 
