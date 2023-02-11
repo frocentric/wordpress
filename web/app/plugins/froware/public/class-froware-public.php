@@ -587,7 +587,7 @@ class Froware_Public {
 				wp_send_json_error( __( 'Invalid URL, please try again', 'froware' ) );
 			}
 
-			$this->parse_url( $url, $matches );
+			$this->import_from_url( $url );
 		} else {
 			wp_send_json_error( __( 'URL not supplied, please try again', 'froware' ) );
 		}
@@ -685,45 +685,55 @@ class Froware_Public {
 		return $args;
 	}
 
-	protected function parse_url( $url, $matches ) {
-		$regex = '/^(?:www\.)?eventbrite(?:\.[a-z]{2,3}){1,2}$/';
+	protected function import_from_url( $url ) {
+		$regex = '/^https?:\/\/(?:www\.)?eventbrite(?:\.[a-z]{2,3}){1,2}$/';
 
-		if ( preg_match( $regex, $matches[1] ) ) {
-			$this->parse_eventbrite_url( $url, $matches );
-		} else {
-			wp_send_json_error( __( 'Unsupported domain, please try again', 'froware' ) );
+		if ( ! preg_match( $regex, $url ) ) {
+			wp_send_json_error( __( 'Unsupported domain, please create manually', 'froware' ) );
+
+			return;
 		}
+
+		// phpcs:ignore Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure
+		if ( ( $event_id = $this->get_eventbrite_event_id( $url ) ) !== false ) {
+			$response = $this->create_eventbrite_response( $event_id );
+		} else {
+			wp_send_json_error( __( 'Valid URL not supplied, please try again', 'froware' ) );
+
+			return;
+		}
+
+		wp_send_json_success( $response );
 	}
 
-	protected function parse_eventbrite_url( $url, $matches ) {
-		$regex = '/.*-(\d+)(?:\/|\?)?.*$/';
+	protected function get_eventbrite_event_id( $url ) {
+		$regex = '/^https?:\/\/(?:www\.)?eventbrite(?:\.[a-z]{2,3}){1,2}\/.*-(\d+)(?:\/|\?)?.*/';
+		$matches = [];
 		// Capture event ID from URL.
 		preg_match( $regex, $url, $matches );
 
 		if ( $matches && count( $matches ) > 1 ) {
-			$this->send_response( 'eventbrite', $matches );
-		} else {
-			wp_send_json_error( __( 'Valid URL not supplied, please try again', 'froware' ) );
+			return $matches[1];
 		}
+
+		return false;
 	}
 
-	protected function send_response( $origin, $matches ) {
-		$default_status = tribe( 'community.main' )->getOption( 'defaultStatus', 'pending' );
-		$event_id                         = $matches[1];
+	protected function create_eventbrite_response( $event_id ) {
 		$response                         = new stdClass();
 		$response->action                 = 'import_event';
 		$response->eventbrite_import_by   = 'event_id';
 		$response->event_plugin           = 'tec';
-		$response->event_status           = $default_status;
+		$response->event_status           = tribe( 'community.main' )->getOption( 'defaultStatus', 'pending' );
 		$response->import_frequency       = 'daily';
-		$response->import_origin          = $origin;
+		$response->import_origin          = 'eventbrite';
 		$response->import_type            = 'onetime';
 		$response->wpea_action            = 'wpea_import_submit';
 		$response->wpea_eventbrite_id     = $event_id;
 		$response->wpea_import_form_nonce = wp_create_nonce( 'wpea_import_form_nonce_action' );
 		$response->import_source          = 'tec_community_submission';
 
-		wp_send_json_success( $response );
+		return $response;
 	}
 
 	/**
@@ -808,6 +818,77 @@ class Froware_Public {
 		}
 
 		return $available_at_a_time;
+	}
+
+	/**
+	 * Get markup for Eventbrite (non-modal) checkout.
+	 * Adapted from WP Event Aggregator.
+	 *
+	 * @return string
+	 */
+	public function tribe_eventbrite_checkout_markup( $eventbrite_id ) {
+		ob_start();
+		?>
+	<div id="tec-eventbrite-checkout-widget"></div>
+	<?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
+	<script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
+	<script type="text/javascript">
+		window.EBWidgets.createWidget({
+			widgetType: "checkout",
+			eventId: "<?php echo $eventbrite_id; ?>",
+			iframeContainerId: "tec-eventbrite-checkout-widget",
+			iframeContainerHeight: <?php echo apply_filters( 'tec_embedded_checkout_height', 530 ); ?>,
+			onOrderComplete: () => {console.log("Order complete!");}
+		});
+	</script>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
+	 * Get ticket section markup for Eventbrite events.
+	 *
+	 * @since  1.1.0
+	 * @return html
+	 */
+	public function tribe_get_ticket_section( $eventbrite_id = 0 ) {
+		if ( $eventbrite_id > 0 ) {
+			ob_start();
+
+			if ( is_ssl() ) {
+				echo $this->tribe_eventbrite_checkout_markup( $eventbrite_id );
+			} else {
+				?>
+				<div class="eventbrite-ticket-section" style="width:100%; text-align:left;">
+					<iframe id="eventbrite-tickets-<?php echo $eventbrite_id; ?>" src="//www.eventbrite.com/tickets-external?eid=<?php echo $eventbrite_id; ?>" style="width:100%;height:300px; border: 0px;"></iframe>
+				</div>
+				<?php
+			}
+
+			$ticket = ob_get_clean();
+
+			return $ticket;
+		} else {
+			return '';
+		}
+
+	}
+
+	/**
+	 * Display Ticket Section after eventbrite events.
+	 *
+	 * @since 1.0.0
+	 */
+	public function tribe_add_eventbrite_ticket_section() {
+		global $importevents;
+		$event_id = get_the_ID();
+		$event_url = get_post_meta( $event_id, '_EventURL', true );
+		$eventbrite_event_id = $this->get_eventbrite_event_id( $event_url );
+
+		if ( $event_id > 0 && $eventbrite_event_id && is_numeric( $eventbrite_event_id ) && $eventbrite_event_id > 0 ) {
+			$ticket_section = $this->tribe_get_ticket_section( $eventbrite_event_id );
+			echo $ticket_section;
+		}
 	}
 
 	const EVENT_TAXONOMIES = [
