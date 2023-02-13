@@ -587,7 +587,7 @@ class Froware_Public {
 				wp_send_json_error( __( 'Invalid URL, please try again', 'froware' ) );
 			}
 
-			$this->parse_url( $url, $matches );
+			$this->import_from_url( $url );
 		} else {
 			wp_send_json_error( __( 'URL not supplied, please try again', 'froware' ) );
 		}
@@ -685,45 +685,55 @@ class Froware_Public {
 		return $args;
 	}
 
-	protected function parse_url( $url, $matches ) {
-		$regex = '/^(?:www\.)?eventbrite(?:\.[a-z]{2,3}){1,2}$/';
+	protected function import_from_url( $url ) {
+		$regex = '/^https?:\/\/(?:www\.)?eventbrite(?:\.[a-z]{2,3}){1,2}\/.*/';
 
-		if ( preg_match( $regex, $matches[1] ) ) {
-			$this->parse_eventbrite_url( $url, $matches );
-		} else {
-			wp_send_json_error( __( 'Unsupported domain, please try again', 'froware' ) );
+		if ( ! preg_match( $regex, $url ) ) {
+			wp_send_json_error( __( 'Unsupported domain, please create manually', 'froware' ) );
+
+			return;
 		}
+
+		// phpcs:ignore Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure
+		if ( ( $event_id = $this->get_eventbrite_event_id( $url ) ) !== false ) {
+			$response = $this->create_eventbrite_response( $event_id );
+		} else {
+			wp_send_json_error( __( 'Valid URL not supplied, please try again', 'froware' ) );
+
+			return;
+		}
+
+		wp_send_json_success( $response );
 	}
 
-	protected function parse_eventbrite_url( $url, $matches ) {
-		$regex = '/.*-(\d+)(?:\/|\?)?.*$/';
+	protected function get_eventbrite_event_id( $url ) {
+		$regex = '/^https?:\/\/(?:www\.)?eventbrite(?:\.[a-z]{2,3}){1,2}\/e\/.*-(\d+)(?:\/|\?)?.*/';
+		$matches = [];
 		// Capture event ID from URL.
 		preg_match( $regex, $url, $matches );
 
 		if ( $matches && count( $matches ) > 1 ) {
-			$this->send_response( 'eventbrite', $matches );
-		} else {
-			wp_send_json_error( __( 'Valid URL not supplied, please try again', 'froware' ) );
+			return $matches[1];
 		}
+
+		return false;
 	}
 
-	protected function send_response( $origin, $matches ) {
-		$default_status = tribe( 'community.main' )->getOption( 'defaultStatus', 'pending' );
-		$event_id                         = $matches[1];
+	protected function create_eventbrite_response( $event_id ) {
 		$response                         = new stdClass();
 		$response->action                 = 'import_event';
 		$response->eventbrite_import_by   = 'event_id';
 		$response->event_plugin           = 'tec';
-		$response->event_status           = $default_status;
+		$response->event_status           = tribe( 'community.main' )->getOption( 'defaultStatus', 'pending' );
 		$response->import_frequency       = 'daily';
-		$response->import_origin          = $origin;
+		$response->import_origin          = 'eventbrite';
 		$response->import_type            = 'onetime';
 		$response->wpea_action            = 'wpea_import_submit';
 		$response->wpea_eventbrite_id     = $event_id;
 		$response->wpea_import_form_nonce = wp_create_nonce( 'wpea_import_form_nonce_action' );
 		$response->import_source          = 'tec_community_submission';
 
-		wp_send_json_success( $response );
+		return $response;
 	}
 
 	/**
@@ -732,6 +742,7 @@ class Froware_Public {
 	public function event_import_form() {
 		$post_id      = get_the_ID();
 
+		// TODO: Remove WPEA dependency check
 		if ( class_exists( 'WP_Event_Aggregator_Pro_Manage_Import' ) && ( ! $post_id || ! tribe_is_event( $post_id ) ) ) {
 			require_once plugin_dir_path( __FILE__ ) . '../public/partials/froware-event-form.php';
 		}
@@ -767,6 +778,120 @@ class Froware_Public {
 		} else {
 			wp_send_json_error( __( 'Unrecognised event format.', 'froware' ) );
 		}
+	}
+
+	/**
+	 * Prints an error message and ensures that we don't hit bugs on Select2
+	 *
+	 * @since  4.6
+	 *
+	 * @param string $message
+	 *
+	 * @return void
+	 */
+	protected function ajax_error( $message ) {
+		$data = [
+			'message' => $message,
+			'results' => [],
+		];
+
+		wp_send_json_error( $data );
+	}
+
+	/**
+	 * Flattens the taxonomy array passed back to a Select2 dropdown
+	 *
+	 * @param array<object>              $data   Array of results.
+	 * @param string|array<string|mixed> $search Search string from Select2
+	 * @param int                        $page   When we deal with pagination
+	 * @param array<string|mixed>        $args   Which arguments we got from the Template
+	 * @param string                     $source What source it is
+	 *
+	 * @return array<string|mixed>
+	 */
+	// phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded, Generic.Metrics.NestingLevel.MaxExceeded
+	public function tribe_dropdown_search_terms( $data, $search, $page, $args, $source ) {
+		if ( empty( $args['taxonomy'] ) ) {
+			$this->ajax_error( esc_attr__( 'Cannot look for Terms without a taxonomy', 'tribe-common' ) );
+		}
+
+		// We always want all the fields so we overwrite it
+		$args['fields']     = isset( $args['fields'] ) ? $args['fields'] : 'all';
+		$args['hide_empty'] = isset( $args['hide_empty'] ) ? $args['hide_empty'] : false;
+
+		if ( ! empty( $search ) ) {
+			if ( ! is_array( $search ) ) {
+				// For older pieces that still use Select2 format.
+				$args['search'] = $search;
+			} else {
+				// Newer SelectWoo uses a new search format.
+				$args['search'] = $search['term'];
+			}
+		}
+
+		// On versions older than 4.5 taxonomy goes as an Param
+		if ( version_compare( $GLOBALS['wp_version'], '4.5', '<' ) ) {
+			$terms = get_terms( $args['taxonomy'], $args );
+		} else {
+			$terms = get_terms( $args );
+		}
+
+		$results = [];
+
+		if ( empty( $args['search'] ) ) {
+			foreach ( $terms as $i => $term ) {
+				// Prep for Select2
+				$term->id   = $term->term_id;
+				$term->text = $term->name;
+
+				$results[ $term->term_id ] = $term;
+				unset( $terms[ $i ] );
+			}
+		} else {
+			foreach ( $terms as $term ) {
+				// Prep for Select2
+				$term->id          = $term->term_id;
+				$term->text        = $term->name;
+				$term->breadcrumbs = [];
+
+				if ( 0 !== (int) $term->parent ) {
+					$ancestors = get_ancestors( $term->id, $term->taxonomy );
+					$ancestors = array_reverse( $ancestors );
+					foreach ( $ancestors as $ancestor ) {
+						$ancestor            = get_term( $ancestor );
+						$term->breadcrumbs[] = $ancestor->name;
+					}
+				}
+
+				$results[] = $term;
+			}
+		}
+
+		foreach ( $results as $result ) {
+			$result->text = wp_specialchars_decode( wp_kses( $result->text, [] ) );
+		}
+
+		$data['results']    = array_values( (array) $results );
+		$data['taxonomies'] = get_taxonomies();
+
+		return $data;
+	}
+	/**
+	 * Get an event's cost
+	 *
+	 * @param string   $cost                 Current cost value
+	 * @param null|int $post_id              (optional)
+	 * @param bool     $with_currency_symbol Include the currency symbol
+	 *
+	 * @return string Cost of the event.
+	 * @category Cost
+	 */
+	public function tribe_get_cost( $cost, $post_id, $with_currency_symbol ) {
+		if ( empty( $cost ) ) {
+			$cost = '0';
+		}
+
+		return $cost;
 	}
 
 	/**
@@ -808,6 +933,77 @@ class Froware_Public {
 		}
 
 		return $available_at_a_time;
+	}
+
+	/**
+	 * Get markup for Eventbrite (non-modal) checkout.
+	 * Adapted from WP Event Aggregator.
+	 *
+	 * @return string
+	 */
+	public function tribe_eventbrite_checkout_markup( $eventbrite_id ) {
+		ob_start();
+		?>
+	<div id="tec-eventbrite-checkout-widget"></div>
+	<?php // phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript ?>
+	<script src="https://www.eventbrite.com/static/widgets/eb_widgets.js"></script>
+	<script type="text/javascript">
+		window.EBWidgets.createWidget({
+			widgetType: "checkout",
+			eventId: "<?php echo $eventbrite_id; ?>",
+			iframeContainerId: "tec-eventbrite-checkout-widget",
+			iframeContainerHeight: <?php echo apply_filters( 'tec_embedded_checkout_height', 530 ); ?>,
+			onOrderComplete: () => {console.log("Order complete!");}
+		});
+	</script>
+		<?php
+		return ob_get_clean();
+	}
+
+	/**
+	 * Get ticket section markup for Eventbrite events.
+	 *
+	 * @since  1.1.0
+	 * @return html
+	 */
+	public function tribe_get_ticket_section( $eventbrite_id = 0 ) {
+		if ( $eventbrite_id > 0 ) {
+			ob_start();
+
+			if ( is_ssl() ) {
+				echo $this->tribe_eventbrite_checkout_markup( $eventbrite_id );
+			} else {
+				?>
+				<div class="eventbrite-ticket-section" style="width:100%; text-align:left;">
+					<iframe id="eventbrite-tickets-<?php echo $eventbrite_id; ?>" src="//www.eventbrite.com/tickets-external?eid=<?php echo $eventbrite_id; ?>" style="width:100%;height:300px; border: 0px;"></iframe>
+				</div>
+				<?php
+			}
+
+			$ticket = ob_get_clean();
+
+			return $ticket;
+		} else {
+			return '';
+		}
+
+	}
+
+	/**
+	 * Display Ticket Section after eventbrite events.
+	 *
+	 * @since 1.0.0
+	 */
+	public function tribe_add_eventbrite_ticket_section() {
+		global $importevents;
+		$event_id = get_the_ID();
+		$event_url = get_post_meta( $event_id, '_EventURL', true );
+		$eventbrite_event_id = $this->get_eventbrite_event_id( $event_url );
+
+		if ( $event_id > 0 && $eventbrite_event_id && is_numeric( $eventbrite_event_id ) && $eventbrite_event_id > 0 ) {
+			$ticket_section = $this->tribe_get_ticket_section( $eventbrite_event_id );
+			echo $ticket_section;
+		}
 	}
 
 	const EVENT_TAXONOMIES = [
@@ -946,6 +1142,16 @@ class Froware_Public {
 				add_action( 'wp_login', [ $this, 'wpmus_maybesync_newuser' ], 10, 1 );
 				add_action( 'social_connect_login', [ $this, 'wpmus_maybesync_newuser' ], 10, 1 );
 			}
+		}
+	}
+
+	/**
+	 * Prevents WP Event Aggregator plugin from rendering Eventbrite ticket form
+	 */
+	// TODO: Delete once WPEA dependencies are removed
+	public function override_wpea_event_tickets_form() {
+		if ( class_exists( 'WP_Event_Aggregator' ) ) {
+			remove_action( 'tribe_events_single_event_after_the_meta', [ WP_Event_Aggregator::instance()->common, 'wpea_add_tec_ticket_section' ], 10, 1 );
 		}
 	}
 
