@@ -179,6 +179,7 @@ class Froware {
 		$this->loader->add_action( 'init', $plugin_public, 'add_taxonomy_to_pages' );
 		$this->loader->add_action( 'login_enqueue_scripts', $plugin_public, 'enqueue_login_styles' );
 		$this->loader->add_action( 'plugins_loaded', $plugin_public, 'override_community_events_parse_request_hook' );
+		$this->loader->add_action( 'plugins_loaded', $plugin_public, 'override_wpea_event_tickets_form' );
 		$this->loader->add_action( 'pre_get_posts', $plugin_public, 'elementor_pre_get_posts', 100 );
 		$this->loader->add_action( 'set_object_terms', $plugin_public, 'discourse_update_post_meta', 10, 4 );
 		$this->loader->add_action( 'tribe_events_community_form_before_template', $plugin_public, 'event_import_form' );

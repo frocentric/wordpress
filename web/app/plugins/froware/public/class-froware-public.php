@@ -742,6 +742,7 @@ class Froware_Public {
 	public function event_import_form() {
 		$post_id      = get_the_ID();
 
+		// TODO: Remove WPEA dependency check
 		if ( class_exists( 'WP_Event_Aggregator_Pro_Manage_Import' ) && ( ! $post_id || ! tribe_is_event( $post_id ) ) ) {
 			require_once plugin_dir_path( __FILE__ ) . '../public/partials/froware-event-form.php';
 		}
@@ -1141,6 +1142,16 @@ class Froware_Public {
 				add_action( 'wp_login', [ $this, 'wpmus_maybesync_newuser' ], 10, 1 );
 				add_action( 'social_connect_login', [ $this, 'wpmus_maybesync_newuser' ], 10, 1 );
 			}
+		}
+	}
+
+	/**
+	 * Prevents WP Event Aggregator plugin from rendering Eventbrite ticket form
+	 */
+	// TODO: Delete once WPEA dependencies are removed
+	public function override_wpea_event_tickets_form() {
+		if ( class_exists( 'WP_Event_Aggregator' ) ) {
+			remove_action( 'tribe_events_single_event_after_the_meta', [ WP_Event_Aggregator::instance()->common, 'wpea_add_tec_ticket_section' ], 10, 1 );
 		}
 	}
 
