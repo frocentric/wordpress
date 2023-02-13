@@ -686,7 +686,7 @@ class Froware_Public {
 	}
 
 	protected function import_from_url( $url ) {
-		$regex = '/^https?:\/\/(?:www\.)?eventbrite(?:\.[a-z]{2,3}){1,2}$/';
+		$regex = '/^https?:\/\/(?:www\.)?eventbrite(?:\.[a-z]{2,3}){1,2}\/.*/';
 
 		if ( ! preg_match( $regex, $url ) ) {
 			wp_send_json_error( __( 'Unsupported domain, please create manually', 'froware' ) );
@@ -707,7 +707,7 @@ class Froware_Public {
 	}
 
 	protected function get_eventbrite_event_id( $url ) {
-		$regex = '/^https?:\/\/(?:www\.)?eventbrite(?:\.[a-z]{2,3}){1,2}\/.*-(\d+)(?:\/|\?)?.*/';
+		$regex = '/^https?:\/\/(?:www\.)?eventbrite(?:\.[a-z]{2,3}){1,2}\/e\/.*-(\d+)(?:\/|\?)?.*/';
 		$matches = [];
 		// Capture event ID from URL.
 		preg_match( $regex, $url, $matches );
