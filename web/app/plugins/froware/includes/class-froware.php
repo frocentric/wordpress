@@ -218,9 +218,11 @@ class Froware {
 		$this->loader->add_filter( 'the_content_feed', $plugin_public, 'filter_content_feed', 999, 1 );
 		$this->loader->add_filter( 'the_excerpt_rss', $plugin_public, 'filter_content_feed', 999, 1 );
 		$this->loader->add_filter( 'tribe_context_locations', $plugin_public, 'tribe_filterbar_filter_context_locations' );
+		$this->loader->add_filter( 'tribe_dropdown_search_terms', $plugin_public, 'tribe_dropdown_search_terms', 10, 5 );
 		$this->loader->add_filter( 'tribe_events_community_submission_message', $plugin_public, 'tribe_events_filter_submission_message', 10, 2 );
 		// $this->loader->add_filter( 'tribe_events_event_insert_args', $plugin_public, 'tribe_events_update_event_args', 10, 1 );
 		$this->loader->add_filter( 'tribe_events_filter_bar_context_to_filter_map', $plugin_public, 'tribe_filterbar_filter_map' );
+		$this->loader->add_filter( 'tribe_get_cost', $plugin_public, 'tribe_get_cost', 10, 3 );
 		$this->loader->add_filter( 'tribe_tickets_get_ticket_max_purchase', $plugin_public, 'tribe_tickets_set_ticket_max_purchase', 10, 3 );
 		$this->loader->add_filter( 'twig_anything_request_args', $plugin_public, 'twig_anything_request_args', 10, 2 );
 		$this->loader->add_filter( 'wpdc_use_discourse_user_webhook', $plugin_public, 'discourse_enable_user_webhook', 10, 1 );
