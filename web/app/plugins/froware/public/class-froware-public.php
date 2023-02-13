@@ -780,6 +780,120 @@ class Froware_Public {
 	}
 
 	/**
+	 * Prints an error message and ensures that we don't hit bugs on Select2
+	 *
+	 * @since  4.6
+	 *
+	 * @param string $message
+	 *
+	 * @return void
+	 */
+	protected function ajax_error( $message ) {
+		$data = [
+			'message' => $message,
+			'results' => [],
+		];
+
+		wp_send_json_error( $data );
+	}
+
+	/**
+	 * Flattens the taxonomy array passed back to a Select2 dropdown
+	 *
+	 * @param array<object>              $data   Array of results.
+	 * @param string|array<string|mixed> $search Search string from Select2
+	 * @param int                        $page   When we deal with pagination
+	 * @param array<string|mixed>        $args   Which arguments we got from the Template
+	 * @param string                     $source What source it is
+	 *
+	 * @return array<string|mixed>
+	 */
+	// phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded, Generic.Metrics.NestingLevel.MaxExceeded
+	public function tribe_dropdown_search_terms( $data, $search, $page, $args, $source ) {
+		if ( empty( $args['taxonomy'] ) ) {
+			$this->ajax_error( esc_attr__( 'Cannot look for Terms without a taxonomy', 'tribe-common' ) );
+		}
+
+		// We always want all the fields so we overwrite it
+		$args['fields']     = isset( $args['fields'] ) ? $args['fields'] : 'all';
+		$args['hide_empty'] = isset( $args['hide_empty'] ) ? $args['hide_empty'] : false;
+
+		if ( ! empty( $search ) ) {
+			if ( ! is_array( $search ) ) {
+				// For older pieces that still use Select2 format.
+				$args['search'] = $search;
+			} else {
+				// Newer SelectWoo uses a new search format.
+				$args['search'] = $search['term'];
+			}
+		}
+
+		// On versions older than 4.5 taxonomy goes as an Param
+		if ( version_compare( $GLOBALS['wp_version'], '4.5', '<' ) ) {
+			$terms = get_terms( $args['taxonomy'], $args );
+		} else {
+			$terms = get_terms( $args );
+		}
+
+		$results = [];
+
+		if ( empty( $args['search'] ) ) {
+			foreach ( $terms as $i => $term ) {
+				// Prep for Select2
+				$term->id   = $term->term_id;
+				$term->text = $term->name;
+
+				$results[ $term->term_id ] = $term;
+				unset( $terms[ $i ] );
+			}
+		} else {
+			foreach ( $terms as $term ) {
+				// Prep for Select2
+				$term->id          = $term->term_id;
+				$term->text        = $term->name;
+				$term->breadcrumbs = [];
+
+				if ( 0 !== (int) $term->parent ) {
+					$ancestors = get_ancestors( $term->id, $term->taxonomy );
+					$ancestors = array_reverse( $ancestors );
+					foreach ( $ancestors as $ancestor ) {
+						$ancestor            = get_term( $ancestor );
+						$term->breadcrumbs[] = $ancestor->name;
+					}
+				}
+
+				$results[] = $term;
+			}
+		}
+
+		foreach ( $results as $result ) {
+			$result->text = wp_specialchars_decode( wp_kses( $result->text, [] ) );
+		}
+
+		$data['results']    = array_values( (array) $results );
+		$data['taxonomies'] = get_taxonomies();
+
+		return $data;
+	}
+	/**
+	 * Get an event's cost
+	 *
+	 * @param string   $cost                 Current cost value
+	 * @param null|int $post_id              (optional)
+	 * @param bool     $with_currency_symbol Include the currency symbol
+	 *
+	 * @return string Cost of the event.
+	 * @category Cost
+	 */
+	public function tribe_get_cost( $cost, $post_id, $with_currency_symbol ) {
+		if ( empty( $cost ) ) {
+			$cost = '0';
+		}
+
+		return $cost;
+	}
+
+	/**
 	 * Edits the event submission message to be more friendly
 	 */
 	public function tribe_events_filter_submission_message( $message, $type ) {
