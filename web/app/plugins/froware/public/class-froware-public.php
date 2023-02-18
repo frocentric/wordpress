@@ -799,6 +799,24 @@ class Froware_Public {
 	}
 
 	/**
+	 * Allows filtering the organizer ID while searching for it.
+	 *
+	 * Use this filter to define custom ways to find a matching Organizer provided the EA
+	 * record information; returning a non `null` value here will short-circuit the
+	 * check Event Aggregator would make.
+	 *
+	 * @since 4.6.15
+	 *
+	 * @param int|null $organizer_id The matching organizer ID if any
+	 * @param string   $organizer    The organizer name from the record.
+	 */
+	public function tribe_aggregator_find_matching_organizer( $organizer_id, $organizer ) {
+		$organizer = get_page_by_title( $organizer, 'OBJECT', Tribe__Events__Organizer::POSTTYPE );
+
+		return empty( $organizer ) ? $organizer_id : $organizer->ID;
+	}
+
+	/**
 	 * Flattens the taxonomy array passed back to a Select2 dropdown
 	 *
 	 * @param array<object>              $data   Array of results.

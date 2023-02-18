@@ -218,6 +218,7 @@ class Froware {
 		$this->loader->add_filter( 'the_content', $plugin_public, 'append_copyright_notice', 999, 1 );
 		$this->loader->add_filter( 'the_content_feed', $plugin_public, 'filter_content_feed', 999, 1 );
 		$this->loader->add_filter( 'the_excerpt_rss', $plugin_public, 'filter_content_feed', 999, 1 );
+		$this->loader->add_filter( 'tribe_aggregator_find_matching_organizer', $plugin_public, 'tribe_aggregator_find_matching_organizer', 10, 2 );
 		$this->loader->add_filter( 'tribe_context_locations', $plugin_public, 'tribe_filterbar_filter_context_locations' );
 		$this->loader->add_filter( 'tribe_dropdown_search_terms', $plugin_public, 'tribe_dropdown_search_terms', 10, 5 );
 		$this->loader->add_filter( 'tribe_events_community_submission_message', $plugin_public, 'tribe_events_filter_submission_message', 10, 2 );
