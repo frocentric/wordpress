@@ -182,12 +182,13 @@ class Froware {
 		$this->loader->add_action( 'plugins_loaded', $plugin_public, 'override_wpea_event_tickets_form' );
 		$this->loader->add_action( 'pre_get_posts', $plugin_public, 'elementor_pre_get_posts', 100 );
 		$this->loader->add_action( 'set_object_terms', $plugin_public, 'discourse_update_post_meta', 10, 4 );
+		$this->loader->add_action( 'tribe_aggregator_after_insert_post', $plugin_public, 'track_new_event', 10, 3 );
 		$this->loader->add_action( 'tribe_events_community_form_before_template', $plugin_public, 'event_import_form' );
 		$this->loader->add_action( 'tribe_events_filters_create_filters', $plugin_public, 'tribe_filterbar_create_filters' );
 		$this->loader->add_action( 'tribe_events_single_event_after_the_meta', $plugin_public, 'tribe_add_eventbrite_ticket_section' );
 		$this->loader->add_action( 'wpdc_after_sso_client_user_update', $plugin_public, 'discourse_sso_update_user_meta', 10, 2 );
 		$this->loader->add_action( 'wpdc_webhook_before_update_user_data', $plugin_public, 'discourse_webhook_before_update_user_meta', 10, 3 );
-		$this->loader->add_action( 'wpea_after_create_tec_eventbrite_event', $plugin_public, 'track_new_event', 10, 3 );
+		$this->loader->add_action( 'wp_ajax_aggregator_fetch_import', $plugin_public, 'ajax_fetch_import' );
 		$this->loader->add_action( 'wp_ajax_import_event', $plugin_public, 'import_event' );
 		$this->loader->add_action( 'wp_ajax_nopriv_import_event', $plugin_public, 'import_event' );
 		$this->loader->add_action( 'wp_ajax_nopriv_validate_event_url', $plugin_public, 'validate_event_url' );
@@ -219,6 +220,7 @@ class Froware {
 		$this->loader->add_filter( 'the_content_feed', $plugin_public, 'filter_content_feed', 999, 1 );
 		$this->loader->add_filter( 'the_excerpt_rss', $plugin_public, 'filter_content_feed', 999, 1 );
 		$this->loader->add_filter( 'tribe_aggregator_find_matching_organizer', $plugin_public, 'tribe_aggregator_find_matching_organizer', 10, 2 );
+		$this->loader->add_filter( 'tribe_aggregator_new_event_post_status_before_import', $plugin_public, 'tribe_aggregator_new_event_post_status_before_import', 10, 3 );
 		$this->loader->add_filter( 'tribe_context_locations', $plugin_public, 'tribe_filterbar_filter_context_locations' );
 		$this->loader->add_filter( 'tribe_dropdown_search_terms', $plugin_public, 'tribe_dropdown_search_terms', 10, 5 );
 		$this->loader->add_filter( 'tribe_events_community_submission_message', $plugin_public, 'tribe_events_filter_submission_message', 10, 2 );

@@ -742,10 +742,67 @@ class Froware_Public {
 	public function event_import_form() {
 		$post_id      = get_the_ID();
 
-		// TODO: Remove WPEA dependency check
-		if ( class_exists( 'WP_Event_Aggregator_Pro_Manage_Import' ) && ( ! $post_id || ! tribe_is_event( $post_id ) ) ) {
+		if ( class_exists( 'Tribe__Events__Aggregator__Records' ) && ( ! $post_id || ! tribe_is_event( $post_id ) ) ) {
 			require_once plugin_dir_path( __FILE__ ) . '../public/partials/froware-event-form.php';
 		}
+	}
+
+	// phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
+	public function ajax_fetch_import() {
+		if ( isset( $_GET['import_id'] ) ) {
+			$import_id = sanitize_key( wp_unslash( $_GET['import_id'] ) );
+		} else {
+			$import_id = -1;
+		}
+
+		$record = Tribe__Events__Aggregator__Records::instance()->get_by_import_id( $import_id );
+
+		if ( tribe_is_error( $record ) ) {
+			wp_send_json_error( $record );
+		}
+
+		$result = $record->get_import_data();
+
+		if ( isset( $result->data ) ) {
+			$result->data->origin = $record->origin;
+		}
+
+		if ( is_wp_error( $result ) ) {
+			wp_send_json_error( $result );
+		}
+
+		// if we've received a source name, let's set that in the record as soon as possible
+		if ( ! empty( $result->data->source_name ) ) {
+			$record->update_meta( 'source_name', $result->data->source_name );
+
+			if ( ! empty( $record->post->post_parent ) ) {
+				$parent_record = Tribe__Events__Aggregator__Records::instance()->get_by_post_id( $record->post->post_parent );
+
+				if ( tribe_is_error( $parent_record ) ) {
+					$parent_record->update_meta( 'source_name', $result->data->source_name );
+				}
+			}
+		}
+
+		// if there is a warning in the data let's localize it
+		if ( ! empty( $result->warning_code ) ) {
+			/** @var Tribe__Events__Aggregator__Service $service */
+			$service         = tribe( 'events-aggregator.service' );
+			$default_warning = ! empty( $result->warning ) ? $result->warning : null;
+			$result->warning = $service->get_service_message( $result->warning_code, [], $default_warning );
+		}
+
+		// Retrieve the WP post ID for a single-event import
+		if ( isset( $result->data ) && isset( $result->data->events ) && is_array( $result->data->events ) && count( $result->data->events ) === 1 ) {
+			$global_id = $result->data->events[0]->global_id;
+			$event_post = Tribe__Events__Aggregator__Event::get_post_by_meta( 'global_id', $global_id );
+
+			if ( ! empty( $event_post ) ) {
+				$result->data->post_id = $event_post->ID;
+			}
+		}
+
+		wp_send_json_success( $result );
 	}
 
 	/**
@@ -796,6 +853,19 @@ class Froware_Public {
 		];
 
 		wp_send_json_error( $data );
+	}
+
+	/**
+	 * Sets all imported events as "Pending Review".
+	 *
+	 * @since 4.8.2
+	 *
+	 * @param string                                      $post_status The event's post status before being filtered.
+	 * @param array                                       $event       The WP event data about to imported and saved to the DB.
+	 * @param Tribe__Events__Aggregator__Record__Abstract $record      The import's EA Import Record.
+	 */
+	public function tribe_aggregator_new_event_post_status_before_import( $post_status, $event, $record ) {
+		return 'pending';
 	}
 
 	/**
@@ -1130,14 +1200,17 @@ class Froware_Public {
 	}
 
 	/**
-	 * Tracks a new event in order to be rendered in front-end event creation UI.
+	 * Fires after a single event has been created/updated, and  with it its linked
+	 * posts, with import data.
 	 *
-	 * @param int   $new_event_id ID of newly-saved event.
-	 * @param array $formatted_args Array of arguments used when creating the event.
-	 * @param array $centralize_array Centralize array form of event.
+	 * @since 4.6.16
+	 *
+	 * @param array $event  Which Event data was sent
+	 * @param array $item   Raw version of the data sent from EA
+	 * @param self  $record The record we are dealing with
 	 */
-	public function track_new_event( $new_event_id, $formatted_args, $centralize_array ) {
-		$this->imported_event_id = $new_event_id;
+	public function track_new_event( $event, $item, $record ) {
+		$this->imported_event_id = $event['ID'];
 	}
 
 	/**
