@@ -915,6 +915,7 @@ class Froware_Public {
 	/**
 	 * Edits the event submission message to be more friendly
 	 */
+	// phpcs:ignore Generic.Metrics.NestingLevel.MaxExceeded, Generic.Metrics.CyclomaticComplexity.MaxExceeded
 	public function tribe_events_filter_submission_message( $message, $type ) {
 		if ( 'update' === $type ) {
 			$events_label_singular = tribe_get_event_label_singular();
@@ -922,8 +923,25 @@ class Froware_Public {
 
 			// translators: %s is the singular event label.
 			if ( strpos( $message, sprintf( __( '%s updated.', 'tribe-events-community' ), $events_label_singular ) ) === 0 ) {
-				// translators: %s is the lower-case singular event label.
-				$message = sprintf( __( 'Your %s has been submitted and is awaiting review before being published. Thank you for contributing, we truly appreciate it!', 'tribe-events-community' ), $events_label_singular_lowercase );
+				$suffix = 'updated.';
+
+				if ( isset( $_REQUEST['post_ID'] ) ) {
+					$post = get_post( sanitize_key( wp_unslash( $_REQUEST['post_ID'] ) ) );
+					switch ( $post->post_status ) {
+						case 'draft':
+							$suffix = 'saved.';
+							break;
+						case 'pending':
+							$suffix = 'submitted and is awaiting review before being published. Thank you for contributing, we truly appreciate it!';
+							break;
+						case 'publish':
+							$suffix = 'published.';
+							break;
+					}
+				}
+
+				// translators: %1$s is the lower-case singular event label.
+				$message = sprintf( __( 'Your %1$s has been %2$s', 'tribe-events-community' ), $events_label_singular_lowercase, $suffix );
 			}
 		}
 
