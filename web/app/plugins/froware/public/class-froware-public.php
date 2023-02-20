@@ -561,39 +561,6 @@ class Froware_Public {
 	}
 
 	/**
-	 * Validates an event URL for import
-	 */
-	public function validate_event_url() {
-		global $wpea_success_msg, $wpea_errors;
-
-		// Ensure callback handler only executes once per request.
-		if ( did_action( 'validate_event_url' ) > 1 ) {
-			return;
-		}
-
-		// if ( check_admin_referer( 'wpea_import_form_nonce_action', 'wpea_import_form_nonce' ) === false ) {.
-		if ( ! isset( $_POST ) || ! isset( $_POST['event_url'] ) || check_admin_referer( 'import_form_nonce_action', 'import_form_nonce' ) === false ) {
-			wp_send_json_error( __( 'Invalid form', 'froware' ) );
-		}
-
-		$url = filter_input( INPUT_POST, 'event_url' );
-
-		if ( ! empty( $url ) ) {
-			$regex = '/^https?:\/\/([^\/]+)*/';
-			// Capture domain from URL.
-			preg_match( $regex, $url, $matches );
-
-			if ( ! $matches || count( $matches ) <= 1 ) {
-				wp_send_json_error( __( 'Invalid URL, please try again', 'froware' ) );
-			}
-
-			$this->import_from_url( $url );
-		} else {
-			wp_send_json_error( __( 'URL not supplied, please try again', 'froware' ) );
-		}
-	}
-
-	/**
 	 * Sets the post author based on the provided querystring value
 	 * Requires "feed_author" parameter to be added to feed URL in Feedzy control panel. Can be set to either a user ID or login.
 	 */
@@ -685,27 +652,6 @@ class Froware_Public {
 		return $args;
 	}
 
-	protected function import_from_url( $url ) {
-		$regex = '/^https?:\/\/(?:www\.)?eventbrite(?:\.[a-z]{2,3}){1,2}\/.*/';
-
-		if ( ! preg_match( $regex, $url ) ) {
-			wp_send_json_error( __( 'Unsupported domain, please create manually', 'froware' ) );
-
-			return;
-		}
-
-		// phpcs:ignore Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure
-		if ( ( $event_id = $this->get_eventbrite_event_id( $url ) ) !== false ) {
-			$response = $this->create_eventbrite_response( $event_id );
-		} else {
-			wp_send_json_error( __( 'Valid URL not supplied, please try again', 'froware' ) );
-
-			return;
-		}
-
-		wp_send_json_success( $response );
-	}
-
 	protected function get_eventbrite_event_id( $url ) {
 		$regex = '/^https?:\/\/(?:www\.)?eventbrite(?:\.[a-z]{2,3}){1,2}\/e\/.*-(\d+)(?:\/|\?)?.*/';
 		$matches = [];
@@ -717,23 +663,6 @@ class Froware_Public {
 		}
 
 		return false;
-	}
-
-	protected function create_eventbrite_response( $event_id ) {
-		$response                         = new stdClass();
-		$response->action                 = 'import_event';
-		$response->eventbrite_import_by   = 'event_id';
-		$response->event_plugin           = 'tec';
-		$response->event_status           = tribe( 'community.main' )->getOption( 'defaultStatus', 'pending' );
-		$response->import_frequency       = 'daily';
-		$response->import_origin          = 'eventbrite';
-		$response->import_type            = 'onetime';
-		$response->wpea_action            = 'wpea_import_submit';
-		$response->wpea_eventbrite_id     = $event_id;
-		$response->wpea_import_form_nonce = wp_create_nonce( 'wpea_import_form_nonce_action' );
-		$response->import_source          = 'tec_community_submission';
-
-		return $response;
 	}
 
 	/**
@@ -803,38 +732,6 @@ class Froware_Public {
 		}
 
 		wp_send_json_success( $result );
-	}
-
-	/**
-	 * Imports an event using the WP Event Aggregator API
-	 */
-	public function import_event() {
-		global $wpea_success_msg, $wpea_errors;
-
-		// Ensure callback handler only executes once per request.
-		if ( did_action( 'import_event' ) > 1 ) {
-			return;
-		}
-
-		if ( check_admin_referer( 'wpea_import_form_nonce_action', 'wpea_import_form_nonce' ) === false ) {
-			wp_send_json_error();
-		}
-
-		// TODO: Validate fields (type, frequency, status, categories).
-
-		if ( class_exists( 'WP_Event_Aggregator_Pro_Manage_Import' ) ) {
-			run_wp_event_aggregator()->manage_import->handle_import_form_submit();
-
-			if ( count( $wpea_success_msg ) > 0 ) {
-				$imported_event = tribe_get_event( $this->imported_event_id );
-
-				$this->send_status( $imported_event );
-			} elseif ( count( $wpea_errors ) > 0 ) {
-				wp_send_json_error( $wpea_errors[0] );
-			}
-		} else {
-			wp_send_json_error( __( 'Unrecognised event format.', 'froware' ) );
-		}
 	}
 
 	/**
@@ -1218,20 +1115,6 @@ class Froware_Public {
 		}
 	}
 
-	protected function send_status( $imported_event ) {
-		global $wpea_success_msg;
-
-		if ( ! empty( $imported_event ) && ! is_wp_error( $imported_event ) ) {
-			wp_send_json_success( $imported_event );
-		} else {
-			// TODO: Pattern match against __( '%d Skipped (Already exists)', 'wp-event-aggregator' )
-			$message = strpos( $wpea_success_msg[0], 'Already exists' ) > 0 ?
-				__( 'This event has already been imported, please try again', 'froware' ) :
-				$wpea_success_msg[0];
-			wp_send_json_error( $message );
-		}
-	}
-
 	/**
 	 * Fires after a single event has been created/updated, and  with it its linked
 	 * posts, with import data.
@@ -1266,16 +1149,6 @@ class Froware_Public {
 				add_action( 'wp_login', [ $this, 'wpmus_maybesync_newuser' ], 10, 1 );
 				add_action( 'social_connect_login', [ $this, 'wpmus_maybesync_newuser' ], 10, 1 );
 			}
-		}
-	}
-
-	/**
-	 * Prevents WP Event Aggregator plugin from rendering Eventbrite ticket form
-	 */
-	// TODO: Delete once WPEA dependencies are removed
-	public function override_wpea_event_tickets_form() {
-		if ( class_exists( 'WP_Event_Aggregator' ) ) {
-			remove_action( 'tribe_events_single_event_after_the_meta', [ WP_Event_Aggregator::instance()->common, 'wpea_add_tec_ticket_section' ], 10, 1 );
 		}
 	}
 
