@@ -34,6 +34,11 @@ final class Constants {
 	const CRON_REQUEST = 'cron';
 
 	/**
+	 * Defines the taxonomies that are represented as Discourse tags
+	 */
+	const DISCOURSE_TAG_TAXONOMIES = [ 'discipline', 'interest' ];
+
+	/**
 	 * Represents a request to the front end
 	 */
 	const FRONTEND_REQUEST = 'frontend';
