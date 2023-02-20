@@ -8,6 +8,9 @@
 
 namespace Frocentric\Customizations;
 
+use Frocentric\Constants as Constants;
+use Frocentric\Utils as Utils;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -24,8 +27,13 @@ class Elementor {
 	 */
 	public static function hooks() {
 		if ( class_exists( '\Elementor\Plugin' ) ) {
-			add_action( 'init', [ __CLASS__, 'init_override_enqueue_scripts' ], 20 );
-			add_action( 'pre_get_posts', [ __CLASS__, 'pre_get_posts' ], 100 );
+			if ( Utils::is_request( Constants::ADMIN_REQUEST ) ) {
+				add_action( 'init', [ __CLASS__, 'init_override_enqueue_scripts' ], 20 );
+			}
+
+			if ( Utils::is_request( Constants::FRONTEND_REQUEST ) ) {
+				add_action( 'pre_get_posts', [ __CLASS__, 'pre_get_posts' ], 100 );
+			}
 		}
 	}
 
