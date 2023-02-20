@@ -40,7 +40,7 @@ abstract class Assets {
 	private static $wp_localize_scripts = [];
 
 	/**
-	 * Tryies to localize the minified version if required and exists, otherwise load the unminified version
+	 * Tries to localize the minified version if required and exists, otherwise load the unminified version
 	 *
 	 * @param  string $path Path of the asset to locate.
 	 * @return string
