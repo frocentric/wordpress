@@ -9,6 +9,8 @@
 
 namespace Frocentric;
 
+use Frocentric\Constants as Constants;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -27,13 +29,13 @@ final class Utils {
 	public static function is_request( $type ) {
 
 		switch ( $type ) {
-			case 'admin':
+			case Constants::ADMIN_REQUEST:
 				return is_admin();
-			case 'ajax':
+			case Constants::AJAX_REQUEST:
 				return defined( 'DOING_AJAX' ) && DOING_AJAX;
-			case 'cron':
+			case Constants::CRON_REQUEST:
 				return defined( 'DOING_CRON' ) && DOING_CRON;
-			case 'frontend':
+			case Constants::FRONTEND_REQUEST:
 				return ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) && ( ! defined( 'DOING_CRON' ) || ! DOING_CRON );
 		}
 	}

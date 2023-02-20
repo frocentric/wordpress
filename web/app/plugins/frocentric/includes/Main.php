@@ -8,6 +8,7 @@
 
 namespace Frocentric;
 
+use Frocentric\Constants as Constants;
 use Frocentric\Admin\Main as Admin;
 use Frocentric\Front\Main as Front;
 
@@ -15,14 +16,6 @@ use Frocentric\Front\Main as Front;
  * Base Plugin class holding generic functionality
  */
 final class Main {
-
-	/**
-	 * Set the minimum required versions for the plugin.
-	 */
-	const PLUGIN_REQUIREMENTS = [
-		'php_version' => '8.0',
-		'wp_version'  => '6.0',
-	];
 
 	/**
 	 * Constructor
@@ -68,11 +61,11 @@ final class Main {
 			return;
 		}
 
-		if ( Utils::is_request( 'admin' ) ) {
+		if ( Utils::is_request( Constants::ADMIN_REQUEST ) ) {
 			Admin::hooks();
 		}
 
-		if ( Utils::is_request( 'frontend' ) ) {
+		if ( Utils::is_request( Constants::FRONTEND_REQUEST ) ) {
 			Front::hooks();
 		}
 
@@ -115,12 +108,12 @@ final class Main {
 		$errors = [];
 		global $wp_version;
 
-		if ( ! version_compare( PHP_VERSION, self::PLUGIN_REQUIREMENTS['php_version'], '>=' ) ) {
+		if ( ! version_compare( PHP_VERSION, Constants::PLUGIN_REQUIREMENTS['php_version'], '>=' ) ) {
 			/* Translators: The minimum PHP version */
 			$errors[] = sprintf( esc_html__( 'Frocentric Platform requires a minimum PHP version of %s.', 'frocentric' ), self::PLUGIN_REQUIREMENTS['php_version'] );
 		}
 
-		if ( ! version_compare( $wp_version, self::PLUGIN_REQUIREMENTS['wp_version'], '>=' ) ) {
+		if ( ! version_compare( $wp_version, Constants::PLUGIN_REQUIREMENTS['wp_version'], '>=' ) ) {
 			/* Translators: The minimum WP version */
 			$errors[] = sprintf( esc_html__( 'Frocentric Platform requires a minimum WordPress version of %s.', 'frocentric' ), self::PLUGIN_REQUIREMENTS['wp_version'] );
 		}
@@ -129,7 +122,7 @@ final class Main {
 			return true;
 		}
 
-		if ( Utils::is_request( 'admin' ) ) {
+		if ( Utils::is_request( Constants::ADMIN_REQUEST ) ) {
 
 			add_action(
 				'admin_notices',
