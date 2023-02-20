@@ -25,26 +25,11 @@ final class Assets {
 	 * Hook in methods.
 	 */
 	public static function hooks() {
-		add_filter( 'plugin_name_enqueue_styles', [ __CLASS__, 'add_styles' ], 9 );
-		add_filter( 'plugin_name_enqueue_scripts', [ __CLASS__, 'add_scripts' ], 9 );
 		add_action( 'admin_enqueue_scripts', [ AssetsMain::class, 'load_scripts' ] );
-		add_action( 'admin_print_scripts', [ AssetsMain::class, 'localize_printed_scripts' ], 5 );
 		add_action( 'admin_print_footer_scripts', [ AssetsMain::class, 'localize_printed_scripts' ], 5 );
-	}
-
-	/**
-	 * Add styles for the admin.
-	 *
-	 * @param array $styles Admin styles.
-	 * @return array<string,array>
-	 */
-	public static function add_styles( $styles ) {
-
-		$styles['frocentric-admin'] = [
-			'src' => AssetsMain::localize_asset( 'css/admin/frocentric-admin.css' ),
-		];
-
-		return $styles;
+		add_action( 'admin_print_scripts', [ AssetsMain::class, 'localize_printed_scripts' ], 5 );
+		add_filter( 'plugin_name_enqueue_scripts', [ __CLASS__, 'add_scripts' ], 9 );
+		add_filter( 'plugin_name_enqueue_styles', [ __CLASS__, 'add_styles' ], 9 );
 	}
 
 	/**
@@ -63,5 +48,20 @@ final class Assets {
 		];
 
 		return $scripts;
+	}
+
+	/**
+	 * Add styles for the admin.
+	 *
+	 * @param array $styles Admin styles.
+	 * @return array<string,array>
+	 */
+	public static function add_styles( $styles ) {
+
+		$styles['frocentric-admin'] = [
+			'src' => AssetsMain::localize_asset( 'css/admin/frocentric-admin.css' ),
+		];
+
+		return $styles;
 	}
 }
