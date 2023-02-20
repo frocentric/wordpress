@@ -79,7 +79,7 @@ final class Main {
 		// Common includes.
 		Block::hooks();
 
-		Customizations\ACF::hooks();
+		Customizations\Elementor::hooks();
 
 		// Set up localisation.
 		self::load_plugin_textdomain();
