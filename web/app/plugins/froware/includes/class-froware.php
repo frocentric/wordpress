@@ -184,6 +184,7 @@ class Froware {
 		$this->loader->add_action( 'set_object_terms', $plugin_public, 'discourse_update_post_meta', 10, 4 );
 		$this->loader->add_action( 'tribe_aggregator_after_insert_post', $plugin_public, 'track_new_event', 10, 3 );
 		$this->loader->add_action( 'tribe_events_community_form_before_template', $plugin_public, 'event_import_form' );
+		$this->loader->add_action( 'tribe_events_event_update_args', $plugin_public, 'tribe_events_event_update_args', 10, 3 );
 		$this->loader->add_action( 'tribe_events_filters_create_filters', $plugin_public, 'tribe_filterbar_create_filters' );
 		$this->loader->add_action( 'tribe_events_single_event_after_the_meta', $plugin_public, 'tribe_add_eventbrite_ticket_section' );
 		$this->loader->add_action( 'wpdc_after_sso_client_user_update', $plugin_public, 'discourse_sso_update_user_meta', 10, 2 );
@@ -223,8 +224,8 @@ class Froware {
 		$this->loader->add_filter( 'tribe_aggregator_new_event_post_status_before_import', $plugin_public, 'tribe_aggregator_new_event_post_status_before_import', 10, 3 );
 		$this->loader->add_filter( 'tribe_context_locations', $plugin_public, 'tribe_filterbar_filter_context_locations' );
 		$this->loader->add_filter( 'tribe_dropdown_search_terms', $plugin_public, 'tribe_dropdown_search_terms', 10, 5 );
+		$this->loader->add_filter( 'tribe_events_community_allowed_event_fields', $plugin_public, 'tribe_events_community_allowed_event_fields', 10, 1 );
 		$this->loader->add_filter( 'tribe_events_community_submission_message', $plugin_public, 'tribe_events_filter_submission_message', 10, 2 );
-		// $this->loader->add_filter( 'tribe_events_event_insert_args', $plugin_public, 'tribe_events_update_event_args', 10, 1 );
 		$this->loader->add_filter( 'tribe_events_filter_bar_context_to_filter_map', $plugin_public, 'tribe_filterbar_filter_map' );
 		$this->loader->add_filter( 'tribe_get_cost', $plugin_public, 'tribe_get_cost', 10, 3 );
 		$this->loader->add_filter( 'tribe_tickets_get_ticket_max_purchase', $plugin_public, 'tribe_tickets_set_ticket_max_purchase', 10, 3 );

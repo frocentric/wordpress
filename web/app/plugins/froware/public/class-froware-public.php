@@ -964,6 +964,39 @@ class Froware_Public {
 
 		return $data;
 	}
+
+	/**
+	 * Adds 'admin_post_status' to list of event fields allowed by the scrubber
+	 * to enable front-end control of post status.
+	 *
+	 * @param array   $allowed_fields The allowed fields.
+	 */
+	public function tribe_events_community_allowed_event_fields( $allowed_fields ) {
+		if ( current_user_can( 'manage_options' ) ) {
+			$allowed_fields[] = 'admin_post_status';
+		}
+
+		return $allowed_fields;
+	}
+
+	/**
+	 * Enables 'post_status' field to be set from proxy field.
+	 *
+	 * @param array   $args The fields we want saved.
+	 * @param int     $event_id The event ID we are modifying.
+	 * @param WP_Post $post The event itself.
+	 *
+	 * @since 4.9.4
+	 */
+	public function tribe_events_event_update_args( $args, $event_id, $post ) {
+		if ( current_user_can( 'manage_options' ) && isset( $args['admin_post_status'] ) ) {
+			$args['post_status'] = $args['admin_post_status'];
+			unset( $args['admin_post_status'] );
+		}
+
+		return $args;
+	}
+
 	/**
 	 * Get an event's cost
 	 *
