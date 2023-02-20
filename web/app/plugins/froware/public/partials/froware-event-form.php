@@ -29,7 +29,7 @@ $events_label_singular = tribe_get_event_label_singular();
 		<legend><?php esc_html_e( 'Import event', 'froware' ); ?></legend>
 				<input id="import-event-url" name="event_url" />
 				<input type="button" id="import-event" value="<?php esc_attr_e( 'Import event', 'froware' ); ?>" />
-				<?php wp_nonce_field( 'import_form_nonce_action', 'import_form_nonce', false ); ?>
+				<?php wp_nonce_field( 'tribe-aggregator-save-import', 'tribe_aggregator_nonce', false ); ?>
 				<div class="validation-message"></div>
 			</fieldset>
 		</form>

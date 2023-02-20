@@ -156,7 +156,6 @@ class Froware {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-		$this->loader->add_action( 'admin_init', $plugin_admin, 'remove_wpea_hook' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'restrict_wpadmin_access' );
 		$this->loader->add_action( 'admin_print_scripts-profile.php', $plugin_admin, 'hide_admin_bar_prefs' );
 		$this->loader->add_action( 'init', $plugin_admin, 'override_elementor_enqueue_scripts_hook', 20 );
@@ -179,19 +178,16 @@ class Froware {
 		$this->loader->add_action( 'init', $plugin_public, 'add_taxonomy_to_pages' );
 		$this->loader->add_action( 'login_enqueue_scripts', $plugin_public, 'enqueue_login_styles' );
 		$this->loader->add_action( 'plugins_loaded', $plugin_public, 'override_community_events_parse_request_hook' );
-		$this->loader->add_action( 'plugins_loaded', $plugin_public, 'override_wpea_event_tickets_form' );
 		$this->loader->add_action( 'pre_get_posts', $plugin_public, 'elementor_pre_get_posts', 100 );
 		$this->loader->add_action( 'set_object_terms', $plugin_public, 'discourse_update_post_meta', 10, 4 );
+		$this->loader->add_action( 'tribe_aggregator_after_insert_post', $plugin_public, 'track_new_event', 10, 3 );
 		$this->loader->add_action( 'tribe_events_community_form_before_template', $plugin_public, 'event_import_form' );
+		$this->loader->add_action( 'tribe_events_event_update_args', $plugin_public, 'tribe_events_event_update_args', 10, 3 );
 		$this->loader->add_action( 'tribe_events_filters_create_filters', $plugin_public, 'tribe_filterbar_create_filters' );
 		$this->loader->add_action( 'tribe_events_single_event_after_the_meta', $plugin_public, 'tribe_add_eventbrite_ticket_section' );
 		$this->loader->add_action( 'wpdc_after_sso_client_user_update', $plugin_public, 'discourse_sso_update_user_meta', 10, 2 );
 		$this->loader->add_action( 'wpdc_webhook_before_update_user_data', $plugin_public, 'discourse_webhook_before_update_user_meta', 10, 3 );
-		$this->loader->add_action( 'wpea_after_create_tec_eventbrite_event', $plugin_public, 'track_new_event', 10, 3 );
-		$this->loader->add_action( 'wp_ajax_import_event', $plugin_public, 'import_event' );
-		$this->loader->add_action( 'wp_ajax_nopriv_import_event', $plugin_public, 'import_event' );
-		$this->loader->add_action( 'wp_ajax_nopriv_validate_event_url', $plugin_public, 'validate_event_url' );
-		$this->loader->add_action( 'wp_ajax_validate_event_url', $plugin_public, 'validate_event_url' );
+		$this->loader->add_action( 'wp_ajax_aggregator_fetch_import', $plugin_public, 'ajax_fetch_import' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_insert_post', $plugin_public, 'wp_insert_post_callback', 10, 3 );
@@ -218,10 +214,12 @@ class Froware {
 		$this->loader->add_filter( 'the_content', $plugin_public, 'append_copyright_notice', 999, 1 );
 		$this->loader->add_filter( 'the_content_feed', $plugin_public, 'filter_content_feed', 999, 1 );
 		$this->loader->add_filter( 'the_excerpt_rss', $plugin_public, 'filter_content_feed', 999, 1 );
+		$this->loader->add_filter( 'tribe_aggregator_find_matching_organizer', $plugin_public, 'tribe_aggregator_find_matching_organizer', 10, 2 );
+		$this->loader->add_filter( 'tribe_aggregator_new_event_post_status_before_import', $plugin_public, 'tribe_aggregator_new_event_post_status_before_import', 10, 3 );
 		$this->loader->add_filter( 'tribe_context_locations', $plugin_public, 'tribe_filterbar_filter_context_locations' );
 		$this->loader->add_filter( 'tribe_dropdown_search_terms', $plugin_public, 'tribe_dropdown_search_terms', 10, 5 );
+		$this->loader->add_filter( 'tribe_events_community_allowed_event_fields', $plugin_public, 'tribe_events_community_allowed_event_fields', 10, 1 );
 		$this->loader->add_filter( 'tribe_events_community_submission_message', $plugin_public, 'tribe_events_filter_submission_message', 10, 2 );
-		// $this->loader->add_filter( 'tribe_events_event_insert_args', $plugin_public, 'tribe_events_update_event_args', 10, 1 );
 		$this->loader->add_filter( 'tribe_events_filter_bar_context_to_filter_map', $plugin_public, 'tribe_filterbar_filter_map' );
 		$this->loader->add_filter( 'tribe_get_cost', $plugin_public, 'tribe_get_cost', 10, 3 );
 		$this->loader->add_filter( 'tribe_tickets_get_ticket_max_purchase', $plugin_public, 'tribe_tickets_set_ticket_max_purchase', 10, 3 );

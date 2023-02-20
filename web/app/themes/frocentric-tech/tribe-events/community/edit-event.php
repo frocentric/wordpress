@@ -90,6 +90,8 @@ $datepicker_format = Tribe__Date_Utils::get_datepicker_format_index();
 
 	<?php tribe_get_template_part( 'community/modules/spam-control' ); ?>
 
+	<?php tribe_get_template_part( 'community/modules/post_status' ); ?>
+
 	<?php tribe_get_template_part( 'community/modules/terms' ); ?>
 
 	<?php tribe_get_template_part( 'community/modules/submit' ); ?>
