@@ -41,7 +41,7 @@ final class Assets {
 	public static function add_styles( $styles ) {
 
 		$styles['frocentric-admin'] = [
-			'src' => AssetsMain::localize_asset( 'css/admin/frocentric.css' ),
+			'src' => AssetsMain::localize_asset( 'css/admin/frocentric-admin.css' ),
 		];
 
 		return $styles;
