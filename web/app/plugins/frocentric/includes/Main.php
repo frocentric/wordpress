@@ -20,9 +20,8 @@ final class Main {
 	 * Set the minimum required versions for the plugin.
 	 */
 	const PLUGIN_REQUIREMENTS = [
-		'php_version' => '7.3',
-		'wp_version'  => '5.6',
-		'wc_version'  => '5.3',
+		'php_version' => '8.0',
+		'wp_version'  => '6.0',
 	];
 
 	/**
@@ -124,11 +123,6 @@ final class Main {
 		if ( ! version_compare( $wp_version, self::PLUGIN_REQUIREMENTS['wp_version'], '>=' ) ) {
 			/* Translators: The minimum WP version */
 			$errors[] = sprintf( esc_html__( 'Frocentric Platform requires a minimum WordPress version of %s.', 'frocentric' ), self::PLUGIN_REQUIREMENTS['wp_version'] );
-		}
-
-		if ( isset( self::PLUGIN_REQUIREMENTS['wc_version'] ) && ( ! defined( 'WC_VERSION' ) || ! version_compare( WC_VERSION, self::PLUGIN_REQUIREMENTS['wc_version'], '>=' ) ) ) {
-			/* Translators: The minimum WC version */
-			$errors[] = sprintf( esc_html__( 'Frocentric Platform requires a minimum WooCommerce version of %s.', 'frocentric' ), self::PLUGIN_REQUIREMENTS['wc_version'] );
 		}
 
 		if ( empty( $errors ) ) {
