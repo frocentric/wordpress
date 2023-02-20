@@ -28,7 +28,7 @@ class Elementor {
 	public static function hooks() {
 		if ( class_exists( '\Elementor\Plugin' ) ) {
 			if ( Utils::is_request( Constants::ADMIN_REQUEST ) ) {
-				add_action( 'init', [ __CLASS__, 'init_override_enqueue_scripts' ], 20 );
+				add_action( 'init', [ __CLASS__, 'init' ], 20 );
 			}
 
 			if ( Utils::is_request( Constants::FRONTEND_REQUEST ) ) {
@@ -40,7 +40,7 @@ class Elementor {
 	/**
 	 * Overrides admin_enqueue_scripts event hook in Elementor to avoid conflict with Ninja Forms editor
 	 */
-	public static function init_override_enqueue_scripts() {
+	public static function init() {
 		if ( class_exists( '\Elementor\Plugin' ) && isset( $_GET['page'] ) && 'ninja-forms' === $_GET['page'] ) {
 			remove_action( 'admin_enqueue_scripts', [ \Elementor\Plugin::instance()->common, 'register_scripts' ] );
 		}
