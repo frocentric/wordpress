@@ -66,8 +66,9 @@ final class Template {
 	public static function get( $template_name, $args = [], $template_path = '', $default_path = '' ) {
 
 		if ( ! empty( $args ) && is_array( $args ) ) {
-			// phpcs:ignore WordPress.PHP.DontExtract, NeutronStandard.Extract.DisallowExtract.Extract
-			extract( $args );
+			foreach ( $args as $key => $value ) {
+				$$key = $value;
+			}
 		}
 
 		$located = self::locate( $template_name, $template_path, $default_path );
