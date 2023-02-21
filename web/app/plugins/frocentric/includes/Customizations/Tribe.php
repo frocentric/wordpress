@@ -298,7 +298,7 @@ class Tribe {
 		$post_id      = get_the_ID();
 
 		if ( class_exists( '\Tribe__Events__Aggregator__Records' ) && ( ! $post_id || ! tribe_is_event( $post_id ) ) ) {
-			require_once plugin_dir_path( __FILE__ ) . '../public/partials/froware-event-form.php';
+			require_once Utils::plugin_path() . '/templates/import-event-form.php';
 		}
 	}
 
