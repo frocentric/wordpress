@@ -243,7 +243,7 @@ class Module extends Module_Base {
 	public function menu_cart_fragments() {
 		$all_fragments = [];
 
-		if ( ! isset( $_POST['_nonce'] ) || ! wp_verify_nonce( $_POST['_nonce'], self::MENU_CART_FRAGMENTS_ACTION ) ) {
+		if ( ! isset( $_POST['_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['_nonce'] ), self::MENU_CART_FRAGMENTS_ACTION ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, it's used only for nonce verification
 			wp_send_json( [] );
 		}
 
@@ -647,7 +647,7 @@ class Module extends Module_Base {
 		} else {
 			$info = [
 				'user_login' => trim( ProUtils::_unstable_get_super_global_value( $_POST, 'username' ) ),
-				'user_password' => $_POST['password'], // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				'user_password' => $_POST['password'] ?? '', // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash, A password should not be sanitized.
 				'remember' => ProUtils::_unstable_get_super_global_value( $_POST, 'remember' ),
 			];
 
@@ -1365,7 +1365,9 @@ class Module extends Module_Base {
 	}
 
 	private function is_product_query( $widget ) {
-		return ( 'loop-grid' === $widget->get_name() && 'product' === $widget->get_current_skin_id() );
+		$widget_config = $widget->get_config();
+
+		return ( ! empty( $widget_config['is_loop'] ) && 'product' === $widget->get_current_skin_id() );
 	}
 
 	private function parse_loop_query_args( $widget ) {
@@ -1401,7 +1403,10 @@ class Module extends Module_Base {
 
 		$settings = array_merge( $settings, $query_settings );
 
-		$settings['rows'] = ceil( $settings['posts_per_page'] / $settings['columns'] );
+		if ( isset( $settings['posts_per_page'] ) && isset( $settings['columns'] ) ) {
+			$settings['rows'] = ceil( $settings['posts_per_page'] / $settings['columns'] );
+		}
+
 		$settings['paginate'] = 'yes';
 		$settings['allow_order'] = 'no';
 		$settings['show_result_count'] = 'no';

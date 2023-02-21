@@ -19,8 +19,8 @@ class Products_Renderer extends Base_Products_Renderer {
 		$this->settings = $settings;
 		$this->type = $type;
 		$this->attributes = $this->parse_attributes( [
-			'columns' => $settings['columns'],
-			'rows' => $settings['rows'],
+			'columns' => $settings['columns'] ?? self::DEFAULT_COLUMNS_AND_ROWS,
+			'rows' => $settings['rows'] ?? self::DEFAULT_COLUMNS_AND_ROWS,
 			'paginate' => $settings['paginate'],
 			'cache' => false,
 		] );
@@ -78,9 +78,9 @@ class Products_Renderer extends Base_Products_Renderer {
 		}
 
 		// fallback to the widget's default settings in case settings was left empty:
-		$rows = ! empty( $settings['rows'] ) ? $settings['rows'] : self::DEFAULT_COLUMNS_AND_ROWS;
-		$columns = ! empty( $settings['columns'] ) ? $settings['columns'] : self::DEFAULT_COLUMNS_AND_ROWS;
-		$query_args['posts_per_page'] = intval( $columns * $rows );
+		$rows = $this->attributes['rows'];
+		$columns = $this->attributes['columns'];
+		$query_args['posts_per_page'] = $settings['posts_per_page'] ?? intval( $columns * $rows );
 
 		$this->set_visibility_query_args( $query_args );
 

@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.10.3 - 29-01-2023 */
+/*! elementor-pro - v3.11.1 - 15-02-2023 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["frontend"],{
 
 /***/ "../assets/dev/js/frontend/frontend.js":
@@ -18,11 +18,13 @@ var _frontend3 = _interopRequireDefault(__webpack_require__(/*! ../../../../modu
 var _frontend4 = _interopRequireDefault(__webpack_require__(/*! ../../../../modules/video-playlist/assets/js/frontend/frontend */ "../modules/video-playlist/assets/js/frontend/frontend.js"));
 var _frontend5 = _interopRequireDefault(__webpack_require__(/*! ../../../../modules/payments/assets/js/frontend/frontend */ "../modules/payments/assets/js/frontend/frontend.js"));
 var _frontend6 = _interopRequireDefault(__webpack_require__(/*! ../../../../modules/progress-tracker/assets/js/frontend/frontend */ "../modules/progress-tracker/assets/js/frontend/frontend.js"));
+var _controls = _interopRequireDefault(__webpack_require__(/*! ./utils/controls */ "../assets/dev/js/frontend/utils/controls.js"));
 class ElementorProFrontend extends elementorModules.ViewModule {
   onInit() {
     super.onInit();
     this.config = ElementorProFrontendConfig;
     this.modules = {};
+    this.initOnReadyComponents();
   }
   bindEvents() {
     jQuery(window).on('elementor/frontend/init', this.onElementorFrontendInit.bind(this));
@@ -59,8 +61,104 @@ class ElementorProFrontend extends elementorModules.ViewModule {
   onElementorFrontendInit() {
     this.initModules();
   }
+  initOnReadyComponents() {
+    this.utils = {
+      controls: new _controls.default()
+    };
+  }
 }
 window.elementorProFrontend = new ElementorProFrontend();
+
+/***/ }),
+
+/***/ "../assets/dev/js/frontend/utils/controls.js":
+/*!***************************************************!*\
+  !*** ../assets/dev/js/frontend/utils/controls.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+class Controls {
+  /**
+   * Get Control Value
+   *
+   * Retrieves a control value.
+   * This function has been copied from `elementor/assets/dev/js/editor/utils/conditions.js`.
+   *
+   * @since 3.11.0
+   *
+   * @param {{}}     controlSettings A settings object (e.g. element settings - keys and values)
+   * @param {string} controlKey      The control key name
+   * @param {string} controlSubKey   A specific property of the control object.
+   * @return {*} Control Value
+   */
+  getControlValue(controlSettings, controlKey, controlSubKey) {
+    let value;
+    if ('object' === typeof controlSettings[controlKey] && controlSubKey) {
+      value = controlSettings[controlKey][controlSubKey];
+    } else {
+      value = controlSettings[controlKey];
+    }
+    return value;
+  }
+
+  /**
+   * Get the value of a responsive control.
+   *
+   * Retrieves the value of a responsive control for the current device or for this first parent device which has a control value.
+   *
+   * @since 3.11.0
+   *
+   * @param {{}}     controlSettings A settings object (e.g. element settings - keys and values)
+   * @param {string} controlKey      The control key name
+   * @param {string} controlSubKey   A specific property of the control object.
+   * @return {*} Control Value
+   */
+  getResponsiveControlValue(controlSettings, controlKey) {
+    let controlSubKey = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+    const currentDeviceMode = elementorFrontend.getCurrentDeviceMode(),
+      controlValueDesktop = this.getControlValue(controlSettings, controlKey, controlSubKey);
+
+    // Set the control value for the current device mode.
+    // First check the widescreen device mode.
+    if ('widescreen' === currentDeviceMode) {
+      const controlValueWidescreen = this.getControlValue(controlSettings, `${controlKey}_widescreen`, controlSubKey);
+      return !!controlValueWidescreen || 0 === controlValueWidescreen ? controlValueWidescreen : controlValueDesktop;
+    }
+
+    // Loop through all responsive and desktop device modes.
+    const activeBreakpoints = elementorFrontend.breakpoints.getActiveBreakpointsList({
+      withDesktop: true
+    });
+    let parentDeviceMode = currentDeviceMode,
+      deviceIndex = activeBreakpoints.indexOf(currentDeviceMode),
+      controlValue = '';
+    while (deviceIndex <= activeBreakpoints.length) {
+      if ('desktop' === parentDeviceMode) {
+        controlValue = controlValueDesktop;
+        break;
+      }
+      const responsiveControlKey = `${controlKey}_${parentDeviceMode}`,
+        responsiveControlValue = this.getControlValue(controlSettings, responsiveControlKey, controlSubKey);
+      if (!!responsiveControlValue || 0 === responsiveControlValue) {
+        controlValue = responsiveControlValue;
+        break;
+      }
+
+      // If no control value has been set for the current device mode, then check the parent device mode.
+      deviceIndex++;
+      parentDeviceMode = activeBreakpoints[deviceIndex];
+    }
+    return controlValue;
+  }
+}
+exports["default"] = Controls;
 
 /***/ }),
 
