@@ -21,9 +21,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 class Tribe {
 
 	const EVENT_TAXONOMIES = [
-		'audience' => 'Frocentric\Customizations\Tribe\Filterbar_Filter_Audience',
-		'discipline' => 'Frocentric\Customizations\Tribe\Filterbar_Filter_Discipline',
-		'interest' => 'Frocentric\Customizations\Tribe\Filterbar_Filter_Interest',
+		'audience' => Tribe\Filterbar_Filter_Audience::class,
+		'discipline' => Tribe\Filterbar_Filter_Discipline::class,
+		'interest' => Tribe\Filterbar_Filter_Interest::class,
 	];
 
 	/**
