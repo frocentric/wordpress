@@ -75,6 +75,7 @@ final class Main {
 		Customizations\Discourse::hooks();
 		Customizations\EAddons::hooks();
 		Customizations\Elementor::hooks();
+		Customizations\Feedzy::hooks();
 
 		// Set up localisation.
 		self::load_plugin_textdomain();
