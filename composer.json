@@ -251,11 +251,14 @@
       "php -r \"copy('.env.example', '.env');\""
     ],
 	"post-install-cmd": [
+		"@configure-ssp",
 		"@fix-kinsta"
 	],
 	"post-update-cmd": [
+		"@configure-ssp",
 		"@fix-kinsta"
 	],
+	"configure-ssp": "pushd web/app/plugins/frocentric;composer install;popd",
 	"fix-kinsta": "[ -d \"web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins\" ] && find web/app/mu-plugins/kinsta-mu-plugins ! -name 'kinsta-mu-plugins' -type d -maxdepth 1 -exec rm -rf {} \\; && mv -f web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins.php web/app/mu-plugins && mv -f web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins/* web/app/mu-plugins/kinsta-mu-plugins && rm -rf web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins || true",
     "cs": "phpcs --standard=phpcs.xml ./web/app/plugins/frocentric ./web/app/plugins/frocentric-elementor-extension ./web/app/themes/frocentric ./web/app/themes/frocentric-tech",
     "cbf": "phpcbf --standard=phpcs.xml ./web/app/plugins/frocentric ./web/app/plugins/frocentric-elementor-extension ./web/app/themes/frocentric ./web/app/themes/frocentric-tech",
