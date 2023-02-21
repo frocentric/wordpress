@@ -73,6 +73,7 @@ final class Main {
 		Block::hooks();
 
 		Customizations\Discourse::hooks();
+		Customizations\EAddons::hooks();
 		Customizations\Elementor::hooks();
 
 		// Set up localisation.
