@@ -268,7 +268,10 @@ class Activecampaign extends Integration_Base {
 			wp_send_json_error();
 		}
 		try {
-			new Classes\Activecampaign_Handler( $_POST['api_key'], $_POST['api_url'] );
+			new Classes\Activecampaign_Handler(
+				Utils::_unstable_get_super_global_value( $_POST, 'api_key' ),
+				Utils::_unstable_get_super_global_value( $_POST, 'api_url' )
+			);
 		} catch ( \Exception $exception ) {
 			wp_send_json_error();
 		}
