@@ -1,6 +1,6 @@
 const pluginFiles = [
   {
-    filename: './web/app/plugins/froware/froware.php',
+    filename: './web/app/plugins/frocentric/frocentric.php',
     updater: './scripts/js/wp-version-updater.js',
   },
 ];
