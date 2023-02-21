@@ -76,6 +76,7 @@ final class Main {
 		Customizations\EAddons::hooks();
 		Customizations\Elementor::hooks();
 		Customizations\Feedzy::hooks();
+		Customizations\GeneratePress::hooks();
 
 		// Set up localisation.
 		self::load_plugin_textdomain();
