@@ -1,0 +1,45 @@
+{
+	"name": "author-slug/frocentric",
+	"description": "Custom functionality for the frocentric.io platform",
+	"homepage": "https://hq.frocentric.io/",
+	"type": "wordpress-plugin",
+	"keywords": [],
+	"license": "GPL-2.0-or-later",
+	"require": {
+		"php": ">=7.3"
+	},
+	"require-dev": {
+		"composer/installers": "^1.7.0",
+		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.1",
+		"woocommerce/woocommerce-sniffs": "^0.1.0",
+		"wp-coding-standards/wpcs": "^2.3"
+	},
+	"autoload": {
+		"psr-4": {
+			"Frocentric\\": "includes/"
+		}
+	},
+	"config": {
+		"platform": {
+			"php": "7.3.0"
+		},
+		"allow-plugins": {
+			"composer/installers": true,
+			"dealerdirect/phpcodesniffer-composer-installer": true
+		}
+	},
+	"scripts": {
+		"phpcs": [
+			"phpcs --extensions=php -s -p"
+		],
+		"phpcbf": [
+			"phpcbf -p"
+		]
+	},
+	"extra": {
+		"scripts-description": {
+			"phpcs": "Analyze code against the WordPress coding standards with PHP_CodeSniffer",
+			"phpcbf": "Fix coding standards warnings/errors automatically with PHP Code Beautifier"
+		}
+	}
+}
