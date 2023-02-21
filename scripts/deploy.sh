@@ -40,9 +40,6 @@ echo "TASK: git pull finished"
 composer install --no-dev --optimize-autoloader
 echo "TASK: composer install finished"
 
-pushd web/app/plugins/frocentric;composer install;popd
-echo "TASK: Frocentric plugin composer install finished"
-
 # Load HTTP auth from .env file
 HTTP_USERNAME=$(grep HTTP_USERNAME "$env_file" | cut -d '=' -f2)
 
@@ -51,4 +48,3 @@ if [ -n "$HTTP_USERNAME" ]; then
 else
     curl -L "$2/kinsta-clear-cache-all/"
 fi
-echo "TASK: Cache cleared"
