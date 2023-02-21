@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.10.3 - 29-01-2023 */
+/*! elementor-pro - v3.11.1 - 15-02-2023 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -1341,6 +1341,139 @@ var shallowCompare = function shallowCompare(obj1, obj2) {
 
 ////////////////////////////////////////////////////////////////////////////////
 
+
+/***/ }),
+
+/***/ "../core/app/assets/js/hooks/use-feature-lock.js":
+/*!*******************************************************!*\
+  !*** ../core/app/assets/js/hooks/use-feature-lock.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = useFeatureLock;
+var _react = _interopRequireDefault(__webpack_require__(/*! react */ "react"));
+var _connectButton = _interopRequireDefault(__webpack_require__(/*! ../ui/connect-button */ "../core/app/assets/js/ui/connect-button.js"));
+var _utils = __webpack_require__(/*! ../utils */ "../core/app/assets/js/utils.js");
+function useFeatureLock(featureName) {
+  var _appConfig$lock, _appConfig$lock2, _appConfig$lock3;
+  const appConfig = elementorAppProConfig[featureName] ?? {},
+    isLocked = ((_appConfig$lock = appConfig.lock) === null || _appConfig$lock === void 0 ? void 0 : _appConfig$lock.is_locked) ?? false;
+  const buttonText = (0, _utils.htmlDecodeTextContent)((_appConfig$lock2 = appConfig.lock) === null || _appConfig$lock2 === void 0 ? void 0 : _appConfig$lock2.button.text);
+  const buttonLink = (0, _utils.replaceUtmPlaceholders)(((_appConfig$lock3 = appConfig.lock) === null || _appConfig$lock3 === void 0 ? void 0 : _appConfig$lock3.button.url) ?? '', appConfig.utms ?? {});
+  const ConnectButton = () => /*#__PURE__*/_react.default.createElement(_connectButton.default, {
+    text: buttonText,
+    url: buttonLink
+  });
+  return {
+    isLocked,
+    ConnectButton
+  };
+}
+
+/***/ }),
+
+/***/ "../core/app/assets/js/ui/connect-button.js":
+/*!**************************************************!*\
+  !*** ../core/app/assets/js/ui/connect-button.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+/* provided dependency */ var PropTypes = __webpack_require__(/*! prop-types */ "../node_modules/prop-types/index.js");
+/* provided dependency */ var __ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n")["__"];
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+var _extends2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/extends */ "../node_modules/@babel/runtime/helpers/extends.js"));
+var _react = _interopRequireWildcard(__webpack_require__(/*! react */ "react"));
+var _appUi = __webpack_require__(/*! @elementor/app-ui */ "@elementor/app-ui");
+var _utils = __webpack_require__(/*! ../utils.js */ "../core/app/assets/js/utils.js");
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+const ConnectButton = props => {
+  const className = (0, _utils.arrayToClassName)(['e-app-connect-button', props.className]);
+  const buttonRef = (0, _react.useRef)(null);
+  (0, _react.useEffect)(() => {
+    if (!buttonRef.current) {
+      return;
+    }
+    jQuery(buttonRef.current).elementorConnect();
+  }, []);
+  return /*#__PURE__*/_react.default.createElement(_appUi.Button, (0, _extends2.default)({}, props, {
+    elRef: buttonRef,
+    className: className
+  }));
+};
+ConnectButton.propTypes = {
+  ..._appUi.Button.propTypes,
+  text: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  className: PropTypes.string
+};
+ConnectButton.defaultProps = {
+  className: '',
+  variant: 'contained',
+  size: 'sm',
+  color: 'cta',
+  target: '_blank',
+  rel: 'noopener noreferrer',
+  text: __('Connect & Activate', 'elementor')
+};
+var _default = _react.default.memo(ConnectButton);
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ "../core/app/assets/js/utils.js":
+/*!**************************************!*\
+  !*** ../core/app/assets/js/utils.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.replaceUtmPlaceholders = exports.htmlDecodeTextContent = exports.arrayToClassName = void 0;
+// Copied from Core.
+const arrayToClassName = (array, action) => {
+  return array.filter(item => 'object' === typeof item ? Object.entries(item)[0][1] : item).map(item => {
+    const value = 'object' === typeof item ? Object.entries(item)[0][0] : item;
+    return action ? action(value) : value;
+  }).join(' ');
+};
+exports.arrayToClassName = arrayToClassName;
+const htmlDecodeTextContent = input => {
+  const doc = new DOMParser().parseFromString(input, 'text/html');
+  return doc.documentElement.textContent;
+};
+exports.htmlDecodeTextContent = htmlDecodeTextContent;
+const replaceUtmPlaceholders = function () {
+  let link = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  let utms = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  if (!link || !utms) {
+    return link;
+  }
+  Object.keys(utms).forEach(key => {
+    const match = new RegExp(`%%${key}%%`, 'g');
+    link = link.replace(match, utms[key]);
+  });
+  return link;
+};
+exports.replaceUtmPlaceholders = replaceUtmPlaceholders;
 
 /***/ }),
 
@@ -2820,11 +2953,16 @@ var _siteEditor = __webpack_require__(/*! @elementor/site-editor */ "@elementor/
 __webpack_require__(/*! ./add-new.scss */ "../core/app/modules/site-editor/assets/js/pages/add-new.scss");
 var _templates = __webpack_require__(/*! ../context/templates */ "../core/app/modules/site-editor/assets/js/context/templates.js");
 var _backButton = _interopRequireDefault(__webpack_require__(/*! ../molecules/back-button */ "../core/app/modules/site-editor/assets/js/molecules/back-button.js"));
+var _useFeatureLock = _interopRequireDefault(__webpack_require__(/*! elementor-pro-app/hooks/use-feature-lock */ "../core/app/assets/js/hooks/use-feature-lock.js"));
 function AddNew() {
   const {
       templates
     } = _react.default.useContext(_templates.Context),
     hasTemplates = 1 <= Object.keys(templates).length;
+  const {
+    isLocked,
+    ConnectButton
+  } = (0, _useFeatureLock.default)('site-editor');
 
   /**
    * An hover element for each site part.
@@ -2832,6 +2970,15 @@ function AddNew() {
    * @param {any} props
    */
   const HoverElement = props => {
+    if (isLocked) {
+      return /*#__PURE__*/_react.default.createElement(_appUi.CardOverlay, {
+        className: "e-site-editor__promotion-overlay"
+      }, /*#__PURE__*/_react.default.createElement("div", {
+        className: "e-site-editor__promotion-overlay__link"
+      }, /*#__PURE__*/_react.default.createElement("i", {
+        className: "e-site-editor__promotion-overlay__icon eicon-lock"
+      })));
+    }
     return /*#__PURE__*/_react.default.createElement("a", {
       href: props.urls.create,
       className: "eps-card__image-overlay eps-add-new__overlay"
@@ -2844,11 +2991,20 @@ function AddNew() {
   };
   return /*#__PURE__*/_react.default.createElement("section", {
     className: "e-site-editor__add-new"
-  }, /*#__PURE__*/_react.default.createElement("header", {
+  }, /*#__PURE__*/_react.default.createElement(_appUi.Grid, {
+    container: true,
+    direction: "column",
     className: "e-site-editor__header"
-  }, hasTemplates && /*#__PURE__*/_react.default.createElement(_backButton.default, null), /*#__PURE__*/_react.default.createElement(_appUi.Heading, {
+  }, hasTemplates && /*#__PURE__*/_react.default.createElement(_appUi.Grid, {
+    item: true
+  }, /*#__PURE__*/_react.default.createElement(_backButton.default, null)), /*#__PURE__*/_react.default.createElement(_appUi.Grid, {
+    item: true,
+    container: true,
+    justify: "space-between",
+    alignItems: "start"
+  }, /*#__PURE__*/_react.default.createElement(_appUi.Heading, {
     variant: "h1"
-  }, __('Start customizing every part of your site', 'elementor-pro'))), /*#__PURE__*/_react.default.createElement(_siteEditor.SiteParts, {
+  }, __('Start customizing every part of your site', 'elementor-pro')), isLocked && /*#__PURE__*/_react.default.createElement(ConnectButton, null))), /*#__PURE__*/_react.default.createElement(_siteEditor.SiteParts, {
     hoverElement: HoverElement
   }));
 }
@@ -3400,12 +3556,17 @@ var _react = _interopRequireDefault(__webpack_require__(/*! react */ "react"));
 var _siteEditor = __webpack_require__(/*! @elementor/site-editor */ "@elementor/site-editor");
 var _appUi = __webpack_require__(/*! @elementor/app-ui */ "@elementor/app-ui");
 var _siteTemplates = _interopRequireDefault(__webpack_require__(/*! ../organisms/site-templates */ "../core/app/modules/site-editor/assets/js/organisms/site-templates.js"));
+var _useFeatureLock = _interopRequireDefault(__webpack_require__(/*! elementor-pro-app/hooks/use-feature-lock */ "../core/app/assets/js/hooks/use-feature-lock.js"));
 __webpack_require__(/*! ./template-type.scss */ "../core/app/modules/site-editor/assets/js/pages/template-type.scss");
 function TemplateType(props) {
   const {
       templateTypes
     } = _react.default.useContext(_siteEditor.TemplateTypesContext),
-    currentType = templateTypes.find(item => item.type === props.type);
+    currentType = templateTypes.find(item => item.type === props.type),
+    {
+      isLocked,
+      ConnectButton
+    } = (0, _useFeatureLock.default)('site-editor');
   if (!currentType) {
     return /*#__PURE__*/_react.default.createElement(_appUi.NotFound, null);
   }
@@ -3417,7 +3578,7 @@ function TemplateType(props) {
     justify: "space-between"
   }, /*#__PURE__*/_react.default.createElement(_appUi.Heading, {
     variant: "h1"
-  }, currentType.page_title), /*#__PURE__*/_react.default.createElement(_appUi.AddNewButton, {
+  }, currentType.page_title), isLocked ? /*#__PURE__*/_react.default.createElement(ConnectButton, null) : /*#__PURE__*/_react.default.createElement(_appUi.AddNewButton, {
     url: currentType.urls.create,
     text: __('Add New', 'elementor-pro')
   })), /*#__PURE__*/_react.default.createElement("hr", {
@@ -3453,14 +3614,20 @@ exports["default"] = Templates;
 var _react = _interopRequireDefault(__webpack_require__(/*! react */ "react"));
 var _siteTemplates = _interopRequireDefault(__webpack_require__(/*! ../organisms/site-templates */ "../core/app/modules/site-editor/assets/js/organisms/site-templates.js"));
 var _appUi = __webpack_require__(/*! @elementor/app-ui */ "@elementor/app-ui");
+var _useFeatureLock = _interopRequireDefault(__webpack_require__(/*! elementor-pro-app/hooks/use-feature-lock */ "../core/app/assets/js/hooks/use-feature-lock.js"));
 function Templates() {
+  const {
+    isLocked,
+    ConnectButton
+  } = (0, _useFeatureLock.default)('site-editor');
   return /*#__PURE__*/_react.default.createElement("section", {
     className: "e-site-editor__site-templates"
   }, /*#__PURE__*/_react.default.createElement(_appUi.Grid, {
     container: true,
     justify: "space-between",
+    alignItems: "start",
     className: "page-header"
-  }, /*#__PURE__*/_react.default.createElement("h1", null, __('Your Site\'s Global Parts', 'elementor-pro')), /*#__PURE__*/_react.default.createElement(_appUi.AddNewButton, {
+  }, /*#__PURE__*/_react.default.createElement("h1", null, __('Your Site\'s Global Parts', 'elementor-pro')), isLocked ? /*#__PURE__*/_react.default.createElement(ConnectButton, null) : /*#__PURE__*/_react.default.createElement(_appUi.AddNewButton, {
     url: "/site-editor/add-new"
   })), /*#__PURE__*/_react.default.createElement("hr", {
     className: "eps-separator"
@@ -3701,11 +3868,15 @@ var _siteEditor = __webpack_require__(/*! @elementor/site-editor */ "@elementor/
 var _appUi = __webpack_require__(/*! @elementor/app-ui */ "@elementor/app-ui");
 var _router2 = _interopRequireDefault(__webpack_require__(/*! @elementor/router */ "@elementor/router"));
 var _component = _interopRequireDefault(__webpack_require__(/*! ./data/component */ "../core/app/modules/site-editor/assets/js/data/component.js"));
+var _useFeatureLock = _interopRequireDefault(__webpack_require__(/*! elementor-pro-app/hooks/use-feature-lock */ "../core/app/assets/js/hooks/use-feature-lock.js"));
 __webpack_require__(/*! ./site-editor.scss */ "../core/app/modules/site-editor/assets/js/site-editor.scss");
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 function SiteEditor() {
   var _elementorAppProConfi, _elementorAppProConfi2;
+  const {
+    isLocked
+  } = (0, _useFeatureLock.default)('site-editor');
   const basePath = 'site-editor';
   const headerButtons = [{
     id: 'import',
@@ -3744,7 +3915,8 @@ function SiteEditor() {
       url: '/' + basePath
     }),
     headerButtons: headerButtons,
-    titleRedirectRoute: '/' + basePath
+    titleRedirectRoute: '/' + basePath,
+    promotion: isLocked
   }, /*#__PURE__*/_react.default.createElement(_appUi.Grid, {
     container: true,
     className: "e-site-editor__content_container"

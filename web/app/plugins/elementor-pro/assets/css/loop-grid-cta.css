@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.10.3 - 29-01-2023 */
+/*! elementor-pro - v3.11.1 - 15-02-2023 */
 .e-loop-empty-view__container {
   display: flex;
   flex-direction: row;
@@ -62,6 +62,11 @@
   margin: 0 auto;
   padding: 30px 0;
 }
+.e-loop-empty-view__container .e-loop-empty-view__box,
+.e-loop-empty-view__container .elementor-swiper-button,
+.e-loop-empty-view__container .swiper-pagination {
+  opacity: 1;
+}
 
 .elementor-swiper-button {
   position: absolute;
@@ -101,12 +106,14 @@
   border: 0;
 }
 
-.swiper-container-horizontal > .swiper-pagination-bullets {
+.swiper-container-horizontal > .swiper-pagination-bullets,
+.swiper-horizontal > .swiper-pagination-bullets {
   bottom: 5px;
   left: 0;
   width: 100%;
 }
-.swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {
+.swiper-container-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet,
+.swiper-horizontal > .swiper-pagination-bullets .swiper-pagination-bullet {
   margin: 0 6px;
 }
 

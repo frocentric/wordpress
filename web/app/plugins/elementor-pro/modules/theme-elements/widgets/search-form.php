@@ -762,7 +762,7 @@ class Search_Form extends Base {
 			do_action( 'elementor_pro/search_form/before_input', $this );
 			?>
 			<?php if ( 'full_screen' === $settings['skin'] ) : ?>
-			<div class="elementor-search-form__toggle">
+			<div class="elementor-search-form__toggle" tabindex="0" role="button">
 				<?php $this->render_search_icon( $icon, [ 'aria-hidden' => 'true' ] ); ?>
 				<span class="elementor-screen-only"><?php esc_html_e( 'Search', 'elementor-pro' ); ?></span>
 			</div>
@@ -835,7 +835,7 @@ class Search_Form extends Base {
 		#>
 		<form class="elementor-search-form" action="" role="search">
 			<# if ( 'full_screen' === settings.skin ) { #>
-				<div class="elementor-search-form__toggle">
+				<div class="elementor-search-form__toggle" tabindex="0" role="button">
 					<i class="fa fas fa-search" aria-hidden="true"></i>
 					<span class="elementor-screen-only"><?php esc_html_e( 'Search', 'elementor-pro' ); ?></span>
 				</div>
