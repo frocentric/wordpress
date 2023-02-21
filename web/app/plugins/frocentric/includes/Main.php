@@ -72,6 +72,7 @@ final class Main {
 		// Common includes.
 		Block::hooks();
 
+		Customizations\Discourse::hooks();
 		Customizations\Elementor::hooks();
 
 		// Set up localisation.
