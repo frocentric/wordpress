@@ -23,7 +23,7 @@ final class Utils {
 	/**
 	 * What type of request is this?
 	 *
-	 * @param  string $type admin, ajax, cron or frontend.
+	 * @param  string $type admin, ajax, cron, frontend or login.
 	 * @return bool
 	 */
 	public static function is_request( $type ) {
@@ -37,6 +37,8 @@ final class Utils {
 				return defined( 'DOING_CRON' ) && DOING_CRON;
 			case Constants::FRONTEND_REQUEST:
 				return ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) && ( ! defined( 'DOING_CRON' ) || ! DOING_CRON );
+			case Constants::LOGIN_REQUEST:
+				return is_login();
 		}
 	}
 

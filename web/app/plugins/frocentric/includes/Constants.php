@@ -44,10 +44,15 @@ final class Constants {
 	const FRONTEND_REQUEST = 'frontend';
 
 	/**
+	 * Represents a request to the login page
+	 */
+	const LOGIN_REQUEST = 'login';
+
+	/**
 	 * Set the minimum required versions for the plugin.
 	 */
 	const PLUGIN_REQUIREMENTS = [
 		'php_version' => '8.0',
-		'wp_version'  => '6.0',
+		'wp_version'  => '6.1',
 	];
 }
