@@ -21,17 +21,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class EAddons {
 
 	/**
-	 * Hook in methods.
-	 *
-	 * @return void
-	 */
-	public static function hooks() {
-		if ( Utils::is_request( Constants::FRONTEND_REQUEST ) ) {
-			add_filter( 'e_addons/dynamic', [ __CLASS__, 'e_addons_dynamic' ], 10, 3 );
-		}
-	}
-
-	/**
 	 * Parses API fields from the e-addons link field
 	 * Tokens are in the format {{field_name}}
 	 */
@@ -59,5 +48,16 @@ class EAddons {
 		);
 
 		return $value;
+	}
+
+	/**
+	 * Hook in methods.
+	 *
+	 * @return void
+	 */
+	public static function hooks() {
+		if ( Utils::is_request( Constants::FRONTEND_REQUEST ) ) {
+			add_filter( 'e_addons/dynamic', [ __CLASS__, 'e_addons_dynamic' ], 10, 3 );
+		}
 	}
 }
