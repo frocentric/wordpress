@@ -1,1 +1,0 @@
-Ninja Forms Mailchimp [![codecov](https://codecov.io/gh/Saturday-Drive/ninja-forms-mailchimp/branch/develop/graph/badge.svg?token=YL4K66CKT3)](https://codecov.io/gh/Saturday-Drive/ninja-forms-mailchimp)

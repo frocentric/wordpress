@@ -8,15 +8,8 @@ web/app/e-backup/*
 !web/app/plugins/frocentric*
 !web/app/plugins/froware
 !web/app/plugins/gp-premium
-!web/app/plugins/ninja-forms-conditionals
-!web/app/plugins/ninja-forms-mail-chimp
-!web/app/plugins/ninja-forms-multi-part
-!web/app/plugins/ninja-forms-post-creation
-!web/app/plugins/ninja-forms-style
-!web/app/plugins/ninja-forms-uploads
-!web/app/plugins/ninja-forms-user-management
-!web/app/plugins/ninja-forms-webhooks
-!web/app/plugins/ninja-forms-zapier
+web/app/plugins/ninja-forms-addon-manager/*
+!web/app/plugins/ninja-forms-*
 !web/app/plugins/query-standard-format-posts
 !web/app/plugins/twig-anything
 !web/app/plugins/wp-event-aggregator-pro
