@@ -1,7 +1,7 @@
 /**
  * Contains functionality specific to the login page.
  *
- * @package           Froware
+ * @package           Frocentric
  */
 
 (function ($) {
