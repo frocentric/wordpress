@@ -67,7 +67,7 @@ final class Utils {
 	 */
 	public static function template_path() {
 		// Allow 3rd party plugin filter template path from their plugin.
-		return apply_filters( 'plugin_name_template_path', 'frocentric/' );
+		return apply_filters( 'frocentric_template_path', 'frocentric/' );
 	}
 
 	/**
