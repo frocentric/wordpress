@@ -31,8 +31,8 @@ final class Assets {
 		add_action( 'admin_print_scripts', [ AssetsMain::class, 'localize_printed_scripts' ], 5 );
 		add_action( 'admin_print_scripts-profile.php', [ __CLASS__, 'hide_admin_bar_prefs' ] );
 		add_filter( 'option_active_plugins', [ __CLASS__, 'filter_active_plugins' ], 10, 2 );
-		add_filter( 'plugin_name_enqueue_scripts', [ __CLASS__, 'add_scripts' ], 9 );
-		add_filter( 'plugin_name_enqueue_styles', [ __CLASS__, 'add_styles' ], 9 );
+		add_filter( 'frocentric_enqueue_scripts', [ __CLASS__, 'add_scripts' ], 9 );
+		add_filter( 'frocentric_enqueue_styles', [ __CLASS__, 'add_styles' ], 9 );
 	}
 
 	/**

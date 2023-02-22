@@ -102,8 +102,8 @@ final class Assets {
 		// Filters
 		add_filter( 'logout_redirect', [ __CLASS__, 'logout_redirect' ], 10, 3 );
 		add_filter( 'nav_menu_css_class', [ __CLASS__, 'nav_menu_css_class' ], 10, 3 );
-		add_filter( 'plugin_name_enqueue_scripts', [ __CLASS__, 'add_scripts' ], 9 );
-		add_filter( 'plugin_name_enqueue_styles', [ __CLASS__, 'add_styles' ], 9 );
+		add_filter( 'frocentric_enqueue_scripts', [ __CLASS__, 'add_scripts' ], 9 );
+		add_filter( 'frocentric_enqueue_styles', [ __CLASS__, 'add_styles' ], 9 );
 		add_filter( 'show_admin_bar', [ __CLASS__, 'show_admin_bar' ], 20, 1 );
 		add_filter( 'the_content', [ __CLASS__, 'the_content' ], 999, 1 );
 		add_filter( 'the_content_feed', [ __CLASS__, 'the_content_feed' ], 999, 1 );

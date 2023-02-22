@@ -35,7 +35,7 @@ final class Block {
 	public static function register_blocks() {
 
 		// A register block for each existing block.
-		$blocks = apply_filters( 'plugin_name_gutenberg_blocks', [] );
+		$blocks = apply_filters( 'frocentric_gutenberg_blocks', [] );
 
 		foreach ( $blocks as $key => $block ) {
 

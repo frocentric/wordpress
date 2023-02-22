@@ -76,7 +76,7 @@ abstract class Assets {
 	 */
 	public static function get_styles() {
 		// Allow to change the list of styles.
-		return apply_filters( 'plugin_name_enqueue_styles', [] );
+		return apply_filters( 'frocentric_enqueue_styles', [] );
 	}
 
 	/**
@@ -86,7 +86,7 @@ abstract class Assets {
 	 */
 	public static function get_scripts() {
 		// Allow to change the list of scripts.
-		return apply_filters( 'plugin_name_enqueue_scripts', [] );
+		return apply_filters( 'frocentric_enqueue_scripts', [] );
 	}
 
 	/**
@@ -195,7 +195,7 @@ abstract class Assets {
 	// phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 	public static function load_scripts() {
 
-		if ( ! did_action( 'before_plugin_name_init' ) ) {
+		if ( ! did_action( 'before_frocentric_init' ) ) {
 			return;
 		}
 
