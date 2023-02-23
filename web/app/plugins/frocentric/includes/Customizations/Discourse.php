@@ -64,7 +64,8 @@ class Discourse {
 				$value = '<div class="elementor-button-wrapper"><a href="' . $url . '" class="elementor-button-link elementor-button elementor-size-lg" role="button"><span class="elementor-button-content-wrapper"><span class="elementor-button-text">' . esc_html__( 'Reply', 'frocentric' ) . '</span></span></a></div>';
 
 				return $value;
-			}, $modified
+			},
+			$modified
 		);
 		$needle = 'class="comments-area">';
 
@@ -86,7 +87,7 @@ class Discourse {
 	 * @return array
 	 */
 	protected static function generate_discourse_tags( $post_id ) {
-		$tags = [];
+		$tags = array();
 
 		foreach ( Constants::DISCOURSE_TAG_TAXONOMIES as $taxonomy ) {
 			$terms = get_the_terms( $post_id, $taxonomy );
@@ -105,8 +106,8 @@ class Discourse {
 	 * Uses the Discourse avatar if user has one, otherwise uses the WordPress avatar.
 	 *
 	 * @param string $url The current URL.
-	 * @param mixed $id_or_email The Gravatar key.
-	 * @param array $args Arguments passed to get_avatar_data.
+	 * @param mixed  $id_or_email The Gravatar key.
+	 * @param array  $args Arguments passed to get_avatar_data.
 	 */
 	public static function get_avatar_url( $url, $id_or_email, $args ) {
 		if ( is_numeric( $id_or_email ) ) {
@@ -139,16 +140,16 @@ class Discourse {
 		if ( class_exists( '\Discourse\Plugin' ) ) {
 			if ( Utils::is_request( Constants::FRONTEND_REQUEST ) ) {
 				// Actions
-				add_action( 'set_object_terms', [ __CLASS__, 'set_object_terms' ], 10, 4 );
-				add_action( 'wpdc_after_sso_client_user_update', [ __CLASS__, 'wpdc_after_sso_client_user_update' ], 10, 2 );
-				add_action( 'wpdc_webhook_before_update_user_data', [ __CLASS__, 'wpdc_webhook_before_update_user_data' ], 10, 3 );
+				add_action( 'set_object_terms', array( __CLASS__, 'set_object_terms' ), 10, 4 );
+				add_action( 'wpdc_after_sso_client_user_update', array( __CLASS__, 'wpdc_after_sso_client_user_update' ), 10, 2 );
+				add_action( 'wpdc_webhook_before_update_user_data', array( __CLASS__, 'wpdc_webhook_before_update_user_data' ), 10, 3 );
 
 				// Filters.
-				add_filter( 'discourse_comment_html', [ __CLASS__, 'discourse_comment_html' ], 10, 1 );
-				add_filter( 'discourse_no_replies_html', [ __CLASS__, 'discourse_replies_html' ], 10, 1 );
-				add_filter( 'discourse_replies_html', [ __CLASS__, 'discourse_replies_html' ], 10, 1 );
-				add_filter( 'get_avatar_url', [ __CLASS__, 'get_avatar_url' ], 10, 3 );
-				add_filter( 'login_redirect', [ __CLASS__, 'login_redirect' ], 10, 3 );
+				add_filter( 'discourse_comment_html', array( __CLASS__, 'discourse_comment_html' ), 10, 1 );
+				add_filter( 'discourse_no_replies_html', array( __CLASS__, 'discourse_replies_html' ), 10, 1 );
+				add_filter( 'discourse_replies_html', array( __CLASS__, 'discourse_replies_html' ), 10, 1 );
+				add_filter( 'get_avatar_url', array( __CLASS__, 'get_avatar_url' ), 10, 3 );
+				add_filter( 'login_redirect', array( __CLASS__, 'login_redirect' ), 10, 3 );
 				add_filter( 'wpdc_use_discourse_user_webhook', '__return_true', 10, 1 );
 			}
 		}
@@ -163,7 +164,7 @@ class Discourse {
 	 * @return string
 	 */
 	public static function login_redirect( $redirect_to, $request, $user ) {
-		//is there a user to check?
+		// is there a user to check?
 		if ( isset( $user->roles ) && is_array( $user->roles ) && self::discourse_client_configured() ) {
 			// check for admin URL
 			if ( str_starts_with( $redirect_to, admin_url() ) ) {
@@ -181,9 +182,9 @@ class Discourse {
 	/**
 	 * Updates Discourse publishing metadata.
 	 *
-	 * @param int $post_id The object's ID.
-	 * @param array $terms An array of object term IDs or slugs.
-	 * @param array $tt_ids An array of term taxonomy IDs.
+	 * @param int    $post_id The object's ID.
+	 * @param array  $terms An array of object term IDs or slugs.
+	 * @param array  $tt_ids An array of term taxonomy IDs.
 	 * @param string $taxonomy The taxonomy slug.
 	 */
 	public static function set_object_terms( $object_id, $terms, $tt_ids, $taxonomy ) {
@@ -193,12 +194,12 @@ class Discourse {
 
 		$post = get_post( $object_id );
 		// bail out if this isn't a regular post
-		if ( empty( $post ) || is_wp_error( $post ) || 'post' !== $post->post_type ) {
+		if ( empty( $post ) || is_wp_error( $post ) || $post->post_type !== 'post' ) {
 			return;
 		}
 
 		// bail out if the post isn't in the Community or Platform categories
-		$categories = wp_get_post_categories( $object_id, [ 'fields' => 'slugs' ] );
+		$categories = wp_get_post_categories( $object_id, array( 'fields' => 'slugs' ) );
 		if ( ! in_array( 'community', $categories, true ) && ! in_array( 'platform', $categories, true ) ) {
 			return;
 		}
@@ -222,7 +223,7 @@ class Discourse {
 	/**
 	 * Saves the Discourse account details to the user metadata.
 	 *
-	 * @param int $user_id The WordPress user's ID.
+	 * @param int   $user_id The WordPress user's ID.
 	 * @param array $discourse_user The Discourse user data.
 	 */
 	public static function wpdc_after_sso_client_user_update( $user_id, $discourse_user ) {
@@ -232,7 +233,7 @@ class Discourse {
 	/**
 	 * Updates WP user with Discord profile data during save
 	 *
-	 * @param WPUser $wordpress_user The WordPress user
+	 * @param WPUser                                             $wordpress_user The WordPress user
 	 * @param array @discourse_user The Discourse profile fields
 	 * @param string @event_type The event type
 	 */
@@ -244,7 +245,7 @@ class Discourse {
 		$discourse_meta = get_user_meta( $user_id, 'discourse_user', true );
 
 		if ( empty( $discourse_meta ) && ! empty( $user_fields ) ) {
-			$discourse_meta = [];
+			$discourse_meta = array();
 		}
 
 		if ( empty( $user_fields ) ) {
@@ -257,6 +258,11 @@ class Discourse {
 
 		update_user_meta( $user_id, 'discourse_user', $discourse_meta );
 		update_user_meta( $user_id, 'description', empty( $bio ) ? '' : $bio );
-		wp_update_user( [ 'ID' => $user_id, 'user_url' => empty( $website ) ? '' : $website ] );
+		wp_update_user(
+			array(
+				'ID' => $user_id,
+				'user_url' => empty( $website ) ? '' : $website,
+			)
+		);
 	}
 }

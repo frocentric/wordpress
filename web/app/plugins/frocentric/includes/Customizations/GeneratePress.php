@@ -29,7 +29,7 @@ class GeneratePress {
 	 * @since    1.0.0
 	 */
 	public static function generate_inside_post_meta_item_output( $output, $item ) {
-		if ( 'author' === $item ) {
+		if ( $item === 'author' ) {
 			$user_id = get_the_author_meta( 'ID' );
 			$output  = sprintf( '<a href="%1$s" class="avatar-link">%2$s</a>', get_author_posts_url( $user_id ), get_avatar( $user_id, 32 ) );
 		}
@@ -81,7 +81,7 @@ class GeneratePress {
 	 * @since    1.0.0
 	 */
 	public static function generate_svg_icon_element( $output, $icon ) {
-		if ( 'menu-bars' === $icon ) {
+		if ( $icon === 'menu-bars' ) {
 			$output = '<img alt="Open menu" src="' . esc_url( get_stylesheet_directory_uri() ) . '/images/burger-menu-open.svg" class="open-menu" />';
 			$output .= '<img alt="Close menu" src="' . esc_url( get_stylesheet_directory_uri() ) . '/images/burger-menu-close.svg" class="close-menu" />';
 		}
@@ -112,11 +112,11 @@ class GeneratePress {
 	 */
 	public static function hooks() {
 		if ( Utils::is_request( Constants::FRONTEND_REQUEST ) ) {
-			add_filter( 'generate_inside_post_meta_item_output', [ __CLASS__, 'generate_inside_post_meta_item_output' ], 20, 2 );
-			add_filter( 'generate_post_date_output', [ __CLASS__, 'generate_post_date_output' ], 10, 2 );
-			add_filter( 'generate_svg_icon', [ __CLASS__, 'generate_svg_icon' ], 10, 2 );
-			add_filter( 'generate_svg_icon_element', [ __CLASS__, 'generate_svg_icon_element' ], 10, 2 );
-			add_filter( 'generate_typography_default_fonts', [ __CLASS__, 'generate_typography_default_fonts' ] );
+			add_filter( 'generate_inside_post_meta_item_output', array( __CLASS__, 'generate_inside_post_meta_item_output' ), 20, 2 );
+			add_filter( 'generate_post_date_output', array( __CLASS__, 'generate_post_date_output' ), 10, 2 );
+			add_filter( 'generate_svg_icon', array( __CLASS__, 'generate_svg_icon' ), 10, 2 );
+			add_filter( 'generate_svg_icon_element', array( __CLASS__, 'generate_svg_icon_element' ), 10, 2 );
+			add_filter( 'generate_typography_default_fonts', array( __CLASS__, 'generate_typography_default_fonts' ) );
 		}
 	}
 }

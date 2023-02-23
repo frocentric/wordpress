@@ -24,7 +24,7 @@ final class Block {
 	 * @return void
 	 */
 	public static function hooks() {
-		add_action( 'init', [ __CLASS__, 'register_blocks' ] );
+		add_action( 'init', array( __CLASS__, 'register_blocks' ) );
 	}
 
 	/**
@@ -35,12 +35,12 @@ final class Block {
 	public static function register_blocks() {
 
 		// A register block for each existing block.
-		$blocks = apply_filters( 'plugin_name_gutenberg_blocks', [] );
+		$blocks = apply_filters( 'frocentric_gutenberg_blocks', array() );
 
 		foreach ( $blocks as $key => $block ) {
 
 			$block_name = is_string( $block ) ? $block : $key;
-			$args       = is_string( $block ) ? [] : $block;
+			$args       = is_string( $block ) ? array() : $block;
 
 			if ( is_admin() ) {
 				self::register_admin( $block_name, $args );
@@ -57,7 +57,7 @@ final class Block {
 	 * @param array  $args  Block arguments.
 	 * @return void
 	 */
-	public static function register_admin( $block = '', $args = [] ) {
+	public static function register_admin( $block = '', $args = array() ) {
 
 		$block_name = empty( $block ) ? PREFIX : $block;
 		$block_path = $block . '/';
@@ -84,12 +84,12 @@ final class Block {
 	 * @param array  $args  Block arguments.
 	 * @return void
 	 */
-	public static function register( $block = '', $args = [] ) {
+	public static function register( $block = '', $args = array() ) {
 
 		$block_name = empty( $block ) ? PREFIX : $block;
 
 		// Set frontend styles.
-		$styles = [];
+		$styles = array();
 		if ( ! empty( $args['styles'] ) ) {
 			array_push( $styles, $args['styles'] );
 		}
@@ -108,12 +108,12 @@ final class Block {
 
 		register_block_type(
 			'frocentric/' . $block_name,
-			[
+			array(
 				'style'         => $styles,
 				'script'        => $script,
 				'editor_style'  => $editor_style,
 				'editor_script' => 'frocentric-' . $block_name . '-blocks',
-			]
+			)
 		);
 	}
 }

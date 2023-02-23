@@ -24,7 +24,7 @@ class EAddons {
 	 * Parses API fields from the e-addons link field
 	 * Tokens are in the format {{field_name}}
 	 */
-	public static function e_addons_dynamic( $value, $fields = [], $urlencode = false ) {
+	public static function e_addons_dynamic( $value, $fields = array(), $urlencode = false ) {
 		if ( ! array_key_exists( 'block', $fields ) ) {
 			return $value;
 		}
@@ -44,7 +44,8 @@ class EAddons {
 				}
 
 				return $value;
-			}, $value
+			},
+			$value
 		);
 
 		return $value;
@@ -57,7 +58,7 @@ class EAddons {
 	 */
 	public static function hooks() {
 		if ( Utils::is_request( Constants::FRONTEND_REQUEST ) ) {
-			add_filter( 'e_addons/dynamic', [ __CLASS__, 'e_addons_dynamic' ], 10, 3 );
+			add_filter( 'e_addons/dynamic', array( __CLASS__, 'e_addons_dynamic' ), 10, 3 );
 		}
 	}
 }

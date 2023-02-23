@@ -1,11 +1,11 @@
 <?php
-// Don't load directly
-defined( 'WPINC' ) && current_user_can( 'manage_options' ) || die;
-
 /**
  * Event Submission Form Post Status Block
  * Renders the post status field in the submission form (for administrators only).
  */
+
+// Don't load directly
+defined( 'WPINC' ) && current_user_can( 'manage_options' ) || die;
 $event = get_post();
 
 if ( ! isset( $event ) ) {
@@ -13,11 +13,20 @@ if ( ! isset( $event ) ) {
 }
 
 $current_option = empty( $event ) || empty( $event->post_status ) ? '' : $event->post_status;
-$options = [
-	['value' => 'publish', 'text' => __( 'Published' )],
-	['value' => 'pending', 'text' => __( 'Pending Review' )],
-	['value' => 'draft', 'text' => __( 'Draft' )],
-];
+$options = array(
+	array(
+		'value' => 'publish',
+		'text' => __( 'Published' ),
+	),
+	array(
+		'value' => 'pending',
+		'text' => __( 'Pending Review' ),
+	),
+	array(
+		'value' => 'draft',
+		'text' => __( 'Draft' ),
+	),
+);
 
 ?>
 <div id="event_tribe_post_status" class="tribe-section tribe-section-event-status">
