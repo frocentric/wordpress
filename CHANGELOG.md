@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.18.0](https://github.com/frocentric/wordpress/compare/v1.17.22...v1.18.0) (2023-02-23)
+
+
+### Features
+
+* enables status setting for imported events ([30266e2](https://github.com/frocentric/wordpress/commit/30266e228a40f63b9a831ff423508d5b7e8968cf))
+* makes event import confirmation contextual ([c60fb10](https://github.com/frocentric/wordpress/commit/c60fb10f2d19777f2b2e6dfab7ce3c3a5115d7b1))
+* reconfigures community event submission form ([c79a823](https://github.com/frocentric/wordpress/commit/c79a823a60be3f7223b93367d87bbd2096516f55))
+
+
+### Bug Fixes
+
+* fixes event page bugs ([968e0fb](https://github.com/frocentric/wordpress/commit/968e0fb5c6ca34ad98ae7ae8cfabcc798ca46ed3))
+* fixes Eventbrite site and event URL regexes ([c6e0754](https://github.com/frocentric/wordpress/commit/c6e0754ffc3d08ab8084ca3e74361c73a99c7082))
+* matches current organiser by title in import ([629ca57](https://github.com/frocentric/wordpress/commit/629ca57328c06a5fb43834e491c9f7781132f02c))
+* prevents event taxonomy from breaking page ([976a58c](https://github.com/frocentric/wordpress/commit/976a58cf907955b1730a66b0602ffd3995737351)), closes [#728](https://github.com/frocentric/wordpress/issues/728)
+
 ## [1.17.22](https://github.com/frocentric/wordpress/compare/v1.17.21...v1.17.22) (2023-02-02)
 
 ### [1.17.21](https://github.com/frocentric/wordpress/compare/v1.17.20...v1.17.21) (2022-12-28)
