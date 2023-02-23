@@ -11,11 +11,8 @@ web/app/e-backup/*
 web/app/plugins/ninja-forms-addon-manager/*
 !web/app/plugins/ninja-forms-*
 !web/app/plugins/query-standard-format-posts
-!web/app/plugins/twig-anything
 !web/app/plugins/wp-event-aggregator-pro
 !web/app/plugins/wp-show-posts-pro
-!web/app/plugins/wpematico_fullcontent
-!web/app/plugins/wpematico_professional
 web/app/mu-plugins/*
 !web/app/mu-plugins/s3-endpoint.php
 web/app/upgrade
