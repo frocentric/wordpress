@@ -1,4 +1,10 @@
 <?php
+/**
+ * TEC Filterbar
+ *
+ * @package     Frocentric/Customizations/Tribe
+ */
+
 namespace Frocentric\Customizations\Tribe;
 
 use Tribe__Context as Context;
@@ -25,12 +31,12 @@ abstract class Filterbar_Filter_Taxonomy extends \Tribe__Events__Filterbar__Filt
 	}
 
 	protected function get_values() {
-		$terms = [];
+		$terms = array();
 
 		// Load all available event categories
 		$source = $this->get_taxonomy_terms();
 		if ( empty( $source ) || is_wp_error( $source ) ) {
-			return [];
+			return array();
 		}
 
 		// Preprocess the terms
@@ -38,7 +44,7 @@ abstract class Filterbar_Filter_Taxonomy extends \Tribe__Events__Filterbar__Filt
 			$terms[ (int) $term->term_id ] = $term;
 			$term->parent                  = (int) $term->parent;
 			$term->depth                   = 0;
-			$term->children                = [];
+			$term->children                = array();
 		}
 
 		// Initially copy the source list of terms to our ordered list
@@ -47,7 +53,7 @@ abstract class Filterbar_Filter_Taxonomy extends \Tribe__Events__Filterbar__Filt
 		// Re-order!
 		foreach ( $terms as $id => $term ) {
 			// Skip root elements
-			if ( 0 === $term->parent || ! isset( $terms[ $term->parent ] ) ) {
+			if ( $term->parent === 0 || ! isset( $terms[ $term->parent ] ) ) {
 				continue;
 			}
 
@@ -62,12 +68,12 @@ abstract class Filterbar_Filter_Taxonomy extends \Tribe__Events__Filterbar__Filt
 	}
 
 	protected function get_taxonomy_terms() {
-		$args = [
+		$args = array(
 			'fields' => 'ids',
 			'post_type' => \Tribe__Events__Main::POSTTYPE,
 			'posts_per_page' => 100,
 			'start_date' => 'now',
-		];
+		);
 		// build an array of post IDs
 		$postids = tribe_get_events( $args );
 		$key = sprintf( '%1$s_%2$s', $this->taxonomy, md5( implode( ',', $postids ) ) );
@@ -75,7 +81,14 @@ abstract class Filterbar_Filter_Taxonomy extends \Tribe__Events__Filterbar__Filt
 		$terms = get_transient( $key );
 
 		if ( $terms === false ) {
-			$terms = wp_get_object_terms( $postids, $this->taxonomy, [ 'orderby' => 'name', 'order' => 'ASC' ] );
+			$terms = wp_get_object_terms(
+				$postids,
+				$this->taxonomy,
+				array(
+					'orderby' => 'name',
+					'order' => 'ASC',
+				)
+			);
 			set_transient( $key, $terms, 300 );
 		}
 
@@ -88,7 +101,7 @@ abstract class Filterbar_Filter_Taxonomy extends \Tribe__Events__Filterbar__Filt
 	 * @since 4.5
 	 *
 	 * @param     $term
-	 * @param int $level
+	 * @param int  $level
 	 *
 	 * @return int
 	 */
@@ -97,7 +110,7 @@ abstract class Filterbar_Filter_Taxonomy extends \Tribe__Events__Filterbar__Filt
 			return 0;
 		}
 
-		if ( 0 === $term->parent ) {
+		if ( $term->parent === 0 ) {
 			return $level;
 		} else {
 			$level++;
@@ -120,19 +133,19 @@ abstract class Filterbar_Filter_Taxonomy extends \Tribe__Events__Filterbar__Filt
 	 */
 	// phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 	protected function pre_get_posts( \WP_Query $query ) {
-		$new_rules      = [];
+		$new_rules      = array();
 		$existing_rules = (array) $query->get( 'tax_query' );
 		// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		$values         = (array) $this->currentValue;
 
 		// if select display and event category has children get all those ids for query
-		if ( 'select' === $this->type ) {
+		if ( $this->type === 'select' ) {
 
 			$categories = get_categories(
-				[
+				array(
 					'taxonomy' => 'tribe_events_cat',
 					'child_of' => current( $values ),
-				]
+				)
 			);
 
 			if ( ! empty( $categories ) ) {
@@ -140,16 +153,16 @@ abstract class Filterbar_Filter_Taxonomy extends \Tribe__Events__Filterbar__Filt
 					$values[] = $category->term_id;
 				}
 			}
-		} elseif ( 'multiselect' === $this->type ) {
+		} elseif ( $this->type === 'multiselect' ) {
 			// Any value that will evaluate to empty, we drop.
 			$values = array_filter( Arr::list_to_array( $values ) );
 		}
 
-		$new_rules[] = [
+		$new_rules[] = array(
 			'taxonomy' => $this->taxonomy,
 			'operator' => 'IN',
 			'terms'    => array_map( 'absint', $values ),
-		];
+		);
 
 		/**
 		 * Controls the relationship between different taxonomy queries.
@@ -172,9 +185,9 @@ abstract class Filterbar_Filter_Taxonomy extends \Tribe__Events__Filterbar__Filt
 		$nest = apply_filters( 'tribe_events_filter_nest_taxonomy_queries', version_compare( $GLOBALS['wp_version'], '4.1', '>=' ) );
 
 		if ( $nest ) {
-			$new_rules = [
+			$new_rules = array(
 				__CLASS__ => $new_rules,
-			];
+			);
 		}
 
 		$tax_query = array_merge_recursive( $existing_rules, $new_rules );

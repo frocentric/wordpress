@@ -20,11 +20,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Tribe {
 
-	const EVENT_TAXONOMIES = [
+	const EVENT_TAXONOMIES = array(
 		'audience' => Tribe\Filterbar_Filter_Audience::class,
 		'discipline' => Tribe\Filterbar_Filter_Discipline::class,
 		'interest' => Tribe\Filterbar_Filter_Interest::class,
-	];
+	);
 
 	/**
 	 * Prints an error message and ensures that we don't hit bugs on Select2
@@ -36,17 +36,17 @@ class Tribe {
 	 * @return void
 	 */
 	private static function ajax_error( $message ) {
-		$data = [
+		$data = array(
 			'message' => $message,
-			'results' => [],
-		];
+			'results' => array(),
+		);
 
 		wp_send_json_error( $data );
 	}
 
 	private static function get_eventbrite_event_id( $url ) {
 		$regex = '/^https?:\/\/(?:www\.)?eventbrite(?:\.[a-z]{2,3}){1,2}\/e\/.*-(\d+)(?:\/|\?)?.*/';
-		$matches = [];
+		$matches = array();
 		// Capture event ID from URL.
 		preg_match( $regex, $url, $matches );
 
@@ -64,23 +64,24 @@ class Tribe {
 	 */
 	public static function hooks() {
 		if ( ! Utils::is_request( Constants::LOGIN_REQUEST ) ) {
-			add_action( 'plugins_loaded', [ __CLASS__, 'plugins_loaded' ] );
-			add_action( 'tribe_events_community_form_before_template', [ __CLASS__, 'tribe_events_community_form_before_template' ] );
-			add_action( 'tribe_events_event_update_args', [ __CLASS__, 'tribe_events_event_update_args' ], 10, 3 );
-			add_action( 'tribe_events_single_event_after_the_meta', [ __CLASS__, 'tribe_events_single_event_after_the_meta' ] );
-			add_action( 'wp_ajax_aggregator_fetch_import', [ __CLASS__, 'wp_ajax_aggregator_fetch_import' ] );
+			// Actions.
+			add_action( 'plugins_loaded', array( __CLASS__, 'plugins_loaded' ) );
+			add_action( 'tribe_events_community_form_before_template', array( __CLASS__, 'tribe_events_community_form_before_template' ) );
+			add_action( 'tribe_events_event_update_args', array( __CLASS__, 'tribe_events_event_update_args' ), 10, 3 );
+			add_action( 'tribe_events_single_event_after_the_meta', array( __CLASS__, 'tribe_events_single_event_after_the_meta' ) );
+			add_action( 'wp_ajax_aggregator_fetch_import', array( __CLASS__, 'wp_ajax_aggregator_fetch_import' ) );
 
-			// Filters
-			add_filter( 'tribe_aggregator_find_matching_organizer', [ __CLASS__, 'tribe_aggregator_find_matching_organizer' ], 10, 2 );
-			add_filter( 'tribe_aggregator_new_event_post_status_before_import', [ __CLASS__, 'tribe_aggregator_new_event_post_status_before_import' ], 10, 3 );
-			add_filter( 'tribe_context_locations', [ __CLASS__, 'tribe_context_locations' ] );
-			add_filter( 'tribe_dropdown_search_terms', [ __CLASS__, 'tribe_dropdown_search_terms' ], 10, 5 );
-			add_filter( 'tribe_events_community_allowed_event_fields', [ __CLASS__, 'tribe_events_community_allowed_event_fields' ], 10, 1 );
-			add_filter( 'tribe_events_community_submission_message', [ __CLASS__, 'tribe_events_community_submission_message' ], 10, 2 );
-			add_action( 'tribe_events_filters_create_filters', [ __CLASS__, 'tribe_events_filters_create_filters' ] );
-			add_filter( 'tribe_events_filter_bar_context_to_filter_map', [ __CLASS__, 'tribe_events_filter_bar_context_to_filter_map' ] );
-			add_filter( 'tribe_get_cost', [ __CLASS__, 'tribe_get_cost' ], 10, 3 );
-			add_filter( 'tribe_tickets_get_ticket_max_purchase', [ __CLASS__, 'tribe_tickets_get_ticket_max_purchase' ], 10, 3 );
+			// Filters.
+			add_filter( 'tribe_aggregator_find_matching_organizer', array( __CLASS__, 'tribe_aggregator_find_matching_organizer' ), 10, 2 );
+			add_filter( 'tribe_aggregator_new_event_post_status_before_import', array( __CLASS__, 'tribe_aggregator_new_event_post_status_before_import' ), 10, 3 );
+			add_filter( 'tribe_context_locations', array( __CLASS__, 'tribe_context_locations' ) );
+			add_filter( 'tribe_dropdown_search_terms', array( __CLASS__, 'tribe_dropdown_search_terms' ), 10, 5 );
+			add_filter( 'tribe_events_community_allowed_event_fields', array( __CLASS__, 'tribe_events_community_allowed_event_fields' ), 10, 1 );
+			add_filter( 'tribe_events_community_submission_message', array( __CLASS__, 'tribe_events_community_submission_message' ), 10, 2 );
+			add_action( 'tribe_events_filters_create_filters', array( __CLASS__, 'tribe_events_filters_create_filters' ) );
+			add_filter( 'tribe_events_filter_bar_context_to_filter_map', array( __CLASS__, 'tribe_events_filter_bar_context_to_filter_map' ) );
+			add_filter( 'tribe_get_cost', array( __CLASS__, 'tribe_get_cost' ), 10, 3 );
+			add_filter( 'tribe_tickets_get_ticket_max_purchase', array( __CLASS__, 'tribe_tickets_get_ticket_max_purchase' ), 10, 3 );
 		}
 	}
 
@@ -89,8 +90,8 @@ class Tribe {
 	 */
 	public static function plugins_loaded() {
 		if ( class_exists( '\WP_Router' ) ) {
-			remove_action( 'parse_request', [ \WP_Router::get_instance(), 'parse_request' ], 10, 1 );
-			add_action( 'parse_request', [ __CLASS__, 'shim_parse_request' ], 10, 1 );
+			remove_action( 'parse_request', array( \WP_Router::get_instance(), 'parse_request' ), 10, 1 );
+			add_action( 'parse_request', array( __CLASS__, 'shim_parse_request' ), 10, 1 );
 		}
 
 		if ( function_exists( 'wpmus_maybesync_newuser' ) ) {
@@ -101,8 +102,8 @@ class Tribe {
 			if ( $wpmus_newUserSync === 'yes' ) {
 				remove_action( 'wp_login', 'wpmus_maybesync_newuser', 10, 1 );
 				remove_action( 'social_connect_login', 'wpmus_maybesync_newuser', 10, 1 );
-				add_action( 'wp_login', [ __CLASS__, 'wpmus_maybesync_newuser' ], 10, 1 );
-				add_action( 'social_connect_login', [ __CLASS__, 'wpmus_maybesync_newuser' ], 10, 1 );
+				add_action( 'wp_login', array( __CLASS__, 'wpmus_maybesync_newuser' ), 10, 1 );
+				add_action( 'social_connect_login', array( __CLASS__, 'wpmus_maybesync_newuser' ), 10, 1 );
 			}
 		}
 	}
@@ -144,7 +145,7 @@ class Tribe {
 	 * Here we add the taxonomy filters as read-only Context locations: we'll not need to write it.
 	 *
 	 * @param array<string,array> $locations A map of the locations the Context supports and is able to read from and write
-	 *                                                                              to.
+	 *                                                                               to.
 	 *
 	 * @return array<string,array> The filtered map of Context locations, with the one required from the filter added to it.
 	 */
@@ -155,16 +156,16 @@ class Tribe {
 			};
 		};
 
-		$taxonomy_locations = [];
+		$taxonomy_locations = array();
 
 		foreach ( array_keys( self::EVENT_TAXONOMIES ) as $taxonomy ) {
-			$taxonomy_locations[ 'filterbar_' . $taxonomy ] = [
-				'read' => [
-					\Tribe__Context::QUERY_VAR     => [ ( 'tribe_filterbar_' . $taxonomy ) ],
-					\Tribe__Context::REQUEST_VAR   => [ ( 'tribe_filterbar_' . $taxonomy ) ],
-					\Tribe__Context::LOCATION_FUNC => [ 'view_data', $get_fb_val_from_view_data( $taxonomy ) ],
-				],
-			];
+			$taxonomy_locations[ 'filterbar_' . $taxonomy ] = array(
+				'read' => array(
+					\Tribe__Context::QUERY_VAR     => array( ( 'tribe_filterbar_' . $taxonomy ) ),
+					\Tribe__Context::REQUEST_VAR   => array( ( 'tribe_filterbar_' . $taxonomy ) ),
+					\Tribe__Context::LOCATION_FUNC => array( 'view_data', $get_fb_val_from_view_data( $taxonomy ) ),
+				),
+			);
 		}
 		// Read the filter selected values, if any, from the URL request vars.
 		$locations = array_merge( $locations, $taxonomy_locations );
@@ -211,7 +212,7 @@ class Tribe {
 			$terms = get_terms( $args );
 		}
 
-		$results = [];
+		$results = array();
 
 		if ( empty( $args['search'] ) ) {
 			foreach ( $terms as $i => $term ) {
@@ -227,9 +228,9 @@ class Tribe {
 				// Prep for Select2
 				$term->id          = $term->term_id;
 				$term->text        = $term->name;
-				$term->breadcrumbs = [];
+				$term->breadcrumbs = array();
 
-				if ( 0 !== (int) $term->parent ) {
+				if ( (int) $term->parent !== 0 ) {
 					$ancestors = get_ancestors( $term->id, $term->taxonomy );
 					$ancestors = array_reverse( $ancestors );
 					foreach ( $ancestors as $ancestor ) {
@@ -243,7 +244,7 @@ class Tribe {
 		}
 
 		foreach ( $results as $result ) {
-			$result->text = wp_specialchars_decode( wp_kses( $result->text, [] ) );
+			$result->text = wp_specialchars_decode( wp_kses( $result->text, array() ) );
 		}
 
 		$data['results']    = array_values( (array) $results );
@@ -281,7 +282,7 @@ class Tribe {
 	 * Adds 'admin_post_status' to list of event fields allowed by the scrubber
 	 * to enable front-end control of post status.
 	 *
-	 * @param array   $allowed_fields The allowed fields.
+	 * @param array $allowed_fields The allowed fields.
 	 */
 	public static function tribe_events_community_allowed_event_fields( $allowed_fields ) {
 		if ( current_user_can( 'manage_options' ) ) {
@@ -325,7 +326,7 @@ class Tribe {
 	 */
 	// phpcs:ignore Generic.Metrics.NestingLevel.MaxExceeded, Generic.Metrics.CyclomaticComplexity.MaxExceeded
 	public static function tribe_events_community_submission_message( $message, $type ) {
-		if ( 'update' === $type ) {
+		if ( $type === 'update' ) {
 			$events_label_singular = tribe_get_event_label_singular();
 			$events_label_singular_lowercase = tribe_get_event_label_singular_lowercase();
 
@@ -367,7 +368,7 @@ class Tribe {
 		// Instantiate custom taxonomy filter classes
 		foreach ( self::EVENT_TAXONOMIES as $taxonomy => $class_name ) {
 			$ref = new \ReflectionClass( $class_name );
-			$obj = $ref->newInstanceArgs( [ ucfirst( $taxonomy ), ( 'filterbar_' . $taxonomy ) ] );
+			$obj = $ref->newInstanceArgs( array( ucfirst( $taxonomy ), ( 'filterbar_' . $taxonomy ) ) );
 		}
 	}
 
@@ -521,7 +522,7 @@ class Tribe {
 			/** @var Tribe__Events__Aggregator__Service $service */
 			$service         = tribe( 'events-aggregator.service' );
 			$default_warning = ! empty( $result->warning ) ? $result->warning : null;
-			$result->warning = $service->get_service_message( $result->warning_code, [], $default_warning );
+			$result->warning = $service->get_service_message( $result->warning_code, array(), $default_warning );
 		}
 
 		// Retrieve the WP post ID for a single-event import

@@ -27,7 +27,7 @@ final class Main {
 
 		Assets::hooks();
 
-		add_action( 'current_screen', [ __CLASS__, 'conditional_includes' ] );
+		add_action( 'current_screen', array( __CLASS__, 'conditional_includes' ) );
 	}
 
 	/**

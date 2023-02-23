@@ -24,8 +24,7 @@ final class Install {
 	public static function install() {
 
 		// Perform install actions here.
-
 		// Trigger action.
-		do_action( 'plugin_name_installed' );
+		do_action( 'frocentric_installed' );
 	}
 }

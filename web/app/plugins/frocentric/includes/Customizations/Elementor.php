@@ -28,11 +28,11 @@ class Elementor {
 	public static function hooks() {
 		if ( class_exists( '\Elementor\Plugin' ) ) {
 			if ( Utils::is_request( Constants::ADMIN_REQUEST ) ) {
-				add_action( 'init', [ __CLASS__, 'init' ], 20 );
+				add_action( 'init', array( __CLASS__, 'init' ), 20 );
 			}
 
 			if ( Utils::is_request( Constants::FRONTEND_REQUEST ) ) {
-				add_action( 'pre_get_posts', [ __CLASS__, 'pre_get_posts' ], 100 );
+				add_action( 'pre_get_posts', array( __CLASS__, 'pre_get_posts' ), 100 );
 			}
 		}
 	}
@@ -41,8 +41,8 @@ class Elementor {
 	 * Overrides admin_enqueue_scripts event hook in Elementor to avoid conflict with Ninja Forms editor
 	 */
 	public static function init() {
-		if ( class_exists( '\Elementor\Plugin' ) && isset( $_GET['page'] ) && 'ninja-forms' === $_GET['page'] ) {
-			remove_action( 'admin_enqueue_scripts', [ \Elementor\Plugin::instance()->common, 'register_scripts' ] );
+		if ( class_exists( '\Elementor\Plugin' ) && isset( $_GET['page'] ) && $_GET['page'] === 'ninja-forms' ) {
+			remove_action( 'admin_enqueue_scripts', array( \Elementor\Plugin::instance()->common, 'register_scripts' ) );
 		}
 	}
 
@@ -60,7 +60,7 @@ class Elementor {
 			&& is_array( $query->get( 'post_type' ) )
 			&& in_array( \Elementor\Modules\LandingPages\Module::CPT, $query->get( 'post_type' ), true )
 			// If custom permalinks are enabled.
-			&& '' !== get_option( 'permalink_structure' )
+			&& get_option( 'permalink_structure' ) !== ''
 			// If the query is for a front-end page.
 			&& ( ! is_admin() || wp_doing_ajax() )
 			&& $query->is_main_query()
@@ -70,7 +70,7 @@ class Elementor {
 			&& ! is_home()
 			// If the page name has been set and is not for a path.
 			&& ! empty( $query->query['pagename'] )
-			&& false === strpos( $query->query['pagename'], '/' )
+			&& strpos( $query->query['pagename'], '/' ) === false
 			// If the name has not already been set.
 			&& empty( $query->query['name'] ) ) {
 			$query->set( 'name', $query->query['pagename'] );

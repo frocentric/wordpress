@@ -1,4 +1,10 @@
 <?php
+/**
+ * TEC Filterbar
+ *
+ * @package     Frocentric/Customizations/Tribe
+ */
+
 namespace Frocentric\Customizations\Tribe;
 
 /**

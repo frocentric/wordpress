@@ -32,7 +32,7 @@ final class Template {
 
 		// Look in yourtheme/slug-name.php and yourtheme/frocentric/slug-name.php .
 		if ( $name ) {
-			$template = locate_template( [ "{$slug}-{$name}.php", Utils::template_path() . "{$slug}-{$name}.php" ] );
+			$template = locate_template( array( "{$slug}-{$name}.php", Utils::template_path() . "{$slug}-{$name}.php" ) );
 		}
 
 		// Get default slug-name.php .
@@ -42,11 +42,11 @@ final class Template {
 
 		// If template file doesn't exist, look in yourtheme/slug.php and yourtheme/frocentric/slug.php .
 		if ( ! $template ) {
-			$template = locate_template( [ "{$slug}.php", Utils::template_path() . "{$slug}.php" ] );
+			$template = locate_template( array( "{$slug}.php", Utils::template_path() . "{$slug}.php" ) );
 		}
 
 		// Allow 3rd party plugins to filter template file from their plugin.
-		$template = apply_filters( 'plugin_name_get_template_part', $template, $slug, $name );
+		$template = apply_filters( 'frocentric_get_template_part', $template, $slug, $name );
 
 		if ( $template ) {
 			load_template( $template, false );
@@ -63,7 +63,7 @@ final class Template {
 	 *
 	 * @return void
 	 */
-	public static function get( $template_name, $args = [], $template_path = '', $default_path = '' ) {
+	public static function get( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
 
 		if ( ! empty( $args ) && is_array( $args ) ) {
 			foreach ( $args as $key => $value ) {
@@ -79,15 +79,15 @@ final class Template {
 		}
 
 		// Allow 3rd party plugin filter template file from their plugin.
-		$located = apply_filters( 'plugin_name_get_template', $located, $template_name, $args, $template_path, $default_path );
+		$located = apply_filters( 'frocentric_get_template', $located, $template_name, $args, $template_path, $default_path );
 
 		// Perform other actions before template part is included.
-		do_action( 'plugin_name_before_template_part', $template_name, $template_path, $located, $args );
+		do_action( 'frocentric_before_template_part', $template_name, $template_path, $located, $args );
 
 		include $located;
 
 		// Perform other actions after template part is included.
-		do_action( 'plugin_name_after_template_part', $template_name, $template_path, $located, $args );
+		do_action( 'frocentric_after_template_part', $template_name, $template_path, $located, $args );
 	}
 
 	/**
@@ -100,7 +100,7 @@ final class Template {
 	 * @param string              $default_path (default: '') Default path to fallback to.
 	 * @return string
 	 */
-	public static function get_html( $template_name, $args = [], $template_path = '', $default_path = '' ) {
+	public static function get_html( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
 
 		ob_start();
 
@@ -137,10 +137,10 @@ final class Template {
 
 		// Look within passed path within the theme - this is priority.
 		$template = locate_template(
-			[
+			array(
 				trailingslashit( $template_path ) . $template_name,
 				$template_name,
-			]
+			)
 		);
 
 		// Get default template.
@@ -149,6 +149,6 @@ final class Template {
 		}
 
 		// Return what we found.
-		return apply_filters( 'plugin_name_locate_template', $template, $template_name, $template_path );
+		return apply_filters( 'frocentric_locate_template', $template, $template_name, $template_path );
 	}
 }
