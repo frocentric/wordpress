@@ -75,9 +75,9 @@ class Feedzy {
 	 */
 	public static function hooks() {
 		if ( Utils::is_request( Constants::FRONTEND_REQUEST ) ) {
-			add_filter( 'feedzy_content', [ __CLASS__, 'feedzy_content' ], 5, 2 );
-			add_filter( 'feedzy_insert_post_args', [ __CLASS__, 'feedzy_insert_post_args' ], 10, 6 );
-			add_filter( 'feedzy_item_filter', [ __CLASS__, 'feedzy_item_filter' ], 10, 5 );
+			add_filter( 'feedzy_content', array( __CLASS__, 'feedzy_content' ), 5, 2 );
+			add_filter( 'feedzy_insert_post_args', array( __CLASS__, 'feedzy_insert_post_args' ), 10, 6 );
+			add_filter( 'feedzy_item_filter', array( __CLASS__, 'feedzy_item_filter' ), 10, 5 );
 		}
 	}
 
@@ -163,7 +163,7 @@ class Feedzy {
 				$formats = array_keys( get_post_format_slugs() );
 
 				if ( empty( $args['meta_input'] ) ) {
-					$args['meta_input'] = [];
+					$args['meta_input'] = array();
 				}
 
 				$args['meta_input']['post_format'] = in_array( $post_format, $formats, true ) ? $post_format : 'standard';

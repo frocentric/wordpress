@@ -29,13 +29,13 @@ final class Assets {
 	 */
 	public static function add_scripts( $scripts ) {
 
-		$scripts['frocentric-general'] = [
+		$scripts['frocentric-general'] = array(
 			'src'  => AssetsMain::localize_asset( 'source/js/frontend/frocentric.js' ),
-			'data' => [
+			'data' => array(
 				'ajax_url' => Utils::ajax_url(),
 				'homeurl' => home_url(),
-			],
-		];
+			),
+		);
 
 		return $scripts;
 	}
@@ -48,14 +48,14 @@ final class Assets {
 	 */
 	public static function add_styles( $styles ) {
 
-		$styles['frocentric-general'] = [
+		$styles['frocentric-general'] = array(
 			'src' => AssetsMain::localize_asset( 'source/css/frontend/frocentric.css' ),
-		];
-		$styles['dashicons'] = [];
-		$styles['google-fonts-nunito'] = [
+		);
+		$styles['dashicons'] = array();
+		$styles['google-fonts-nunito'] = array(
 			'src'  => 'https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800;1,900&display=swap',
-			'deps' => [],
-		];
+			'deps' => array(),
+		);
 
 		return $styles;
 	}
@@ -64,7 +64,7 @@ final class Assets {
 	 * Adds support for audio post types
 	 */
 	public static function after_setup_theme() {
-		add_theme_support( 'post-formats', [ 'aside', 'image', 'video', 'quote', 'link', 'status', 'audio' ] );
+		add_theme_support( 'post-formats', array( 'aside', 'image', 'video', 'quote', 'link', 'status', 'audio' ) );
 	}
 
 	private static function explode_path( $path ) {
@@ -91,25 +91,25 @@ final class Assets {
 	 */
 	public static function hooks() {
 		// Actions
-		add_action( 'after_setup_theme', [ __CLASS__, 'after_setup_theme' ], 100 );
-		add_action( 'init', [ __CLASS__, 'init' ] );
-		add_action( 'login_enqueue_scripts', [ __CLASS__, 'login_enqueue_scripts' ] );
-		add_action( 'wp_enqueue_scripts', [ AssetsMain::class, 'load_scripts' ] );
-		add_action( 'wp_insert_post', [ __CLASS__, 'wp_insert_post' ], 10, 3 );
-		add_action( 'wp_print_footer_scripts', [ AssetsMain::class, 'localize_printed_scripts' ], 5 );
-		add_action( 'wp_print_scripts', [ AssetsMain::class, 'localize_printed_scripts' ], 5 );
+		add_action( 'after_setup_theme', array( __CLASS__, 'after_setup_theme' ), 100 );
+		add_action( 'init', array( __CLASS__, 'init' ) );
+		add_action( 'login_enqueue_scripts', array( __CLASS__, 'login_enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( AssetsMain::class, 'load_scripts' ) );
+		add_action( 'wp_insert_post', array( __CLASS__, 'wp_insert_post' ), 10, 3 );
+		add_action( 'wp_print_footer_scripts', array( AssetsMain::class, 'localize_printed_scripts' ), 5 );
+		add_action( 'wp_print_scripts', array( AssetsMain::class, 'localize_printed_scripts' ), 5 );
 
 		// Filters
-		add_filter( 'logout_redirect', [ __CLASS__, 'logout_redirect' ], 10, 3 );
-		add_filter( 'nav_menu_css_class', [ __CLASS__, 'nav_menu_css_class' ], 10, 3 );
-		add_filter( 'frocentric_enqueue_scripts', [ __CLASS__, 'add_scripts' ], 9 );
-		add_filter( 'frocentric_enqueue_styles', [ __CLASS__, 'add_styles' ], 9 );
-		add_filter( 'show_admin_bar', [ __CLASS__, 'show_admin_bar' ], 20, 1 );
-		add_filter( 'the_content', [ __CLASS__, 'the_content' ], 999, 1 );
-		add_filter( 'the_content_feed', [ __CLASS__, 'the_content_feed' ], 999, 1 );
-		add_filter( 'the_excerpt_rss', [ __CLASS__, 'the_content_feed' ], 999, 1 );
-		add_filter( 'wp_get_nav_menu_items', [ __CLASS__, 'wp_get_nav_menu_items' ], 10, 3 );
-		add_filter( 'wp_nav_menu_objects', [ __CLASS__, 'wp_nav_menu_objects' ] );
+		add_filter( 'logout_redirect', array( __CLASS__, 'logout_redirect' ), 10, 3 );
+		add_filter( 'nav_menu_css_class', array( __CLASS__, 'nav_menu_css_class' ), 10, 3 );
+		add_filter( 'frocentric_enqueue_scripts', array( __CLASS__, 'add_scripts' ), 9 );
+		add_filter( 'frocentric_enqueue_styles', array( __CLASS__, 'add_styles' ), 9 );
+		add_filter( 'show_admin_bar', array( __CLASS__, 'show_admin_bar' ), 20, 1 );
+		add_filter( 'the_content', array( __CLASS__, 'the_content' ), 999, 1 );
+		add_filter( 'the_content_feed', array( __CLASS__, 'the_content_feed' ), 999, 1 );
+		add_filter( 'the_excerpt_rss', array( __CLASS__, 'the_content_feed' ), 999, 1 );
+		add_filter( 'wp_get_nav_menu_items', array( __CLASS__, 'wp_get_nav_menu_items' ), 10, 3 );
+		add_filter( 'wp_nav_menu_objects', array( __CLASS__, 'wp_nav_menu_objects' ) );
 	}
 
 	/**
@@ -128,8 +128,8 @@ final class Assets {
 	 * @return void
 	 */
 	public static function login_enqueue_scripts() {
-		wp_enqueue_style( 'frocentric-login', AssetsMain::localize_asset( 'source/css/frontend/login.css' ), [], \Frocentric\VERSION, 'all' );
-		wp_enqueue_script( 'frocentric-login', AssetsMain::localize_asset( 'source/js/frontend/login.js' ), [ 'jquery' ], \Frocentric\VERSION, false );
+		wp_enqueue_style( 'frocentric-login', AssetsMain::localize_asset( 'source/css/frontend/login.css' ), array(), \Frocentric\VERSION, 'all' );
+		wp_enqueue_script( 'frocentric-login', AssetsMain::localize_asset( 'source/js/frontend/login.js' ), array( 'jquery' ), \Frocentric\VERSION, false );
 	}
 
 	/**
@@ -158,12 +158,12 @@ final class Assets {
 		global $post;
 
 		// Modifies primary navigation menu only.
-		if ( 'primary' !== $args->theme_location ) {
+		if ( $args->theme_location !== 'primary' ) {
 			return $classes;
 		}
 
-		$parent_classes = [ 'current-menu-item', 'page_item', 'current_page_item', 'current_page_parent' ];
-		$event_prefixes   = [ 'events', 'event', 'organiser', 'venue', 'series' ];
+		$parent_classes = array( 'current-menu-item', 'page_item', 'current_page_item', 'current_page_parent' );
+		$event_prefixes   = array( 'events', 'event', 'organiser', 'venue', 'series' );
 		$page_path = wp_make_link_relative( get_permalink() );
 		$page_segments = self::explode_path( $page_path );
 		$item_segments = self::explode_path( $item->url );
@@ -179,7 +179,7 @@ final class Assets {
 			$slug       = self::get_category_slug();
 
 			// Specify default page if posts page not enabled.
-			if ( 0 === $posts_page ) {
+			if ( $posts_page === 0 ) {
 				$posts_page = 13283; // TODO: refactor magic number.
 			}
 
@@ -244,7 +244,7 @@ final class Assets {
 		$excerpt = $post->post_excerpt;
 
 		if ( has_post_thumbnail( $post->ID ) ) {
-			$excerpt = get_the_post_thumbnail( $post->ID, 'post-thumbnail', [ 'style' => 'max-width: 600px; width: 100%; height: auto; margin: 30px 0;' ] ) . $excerpt;
+			$excerpt = get_the_post_thumbnail( $post->ID, 'post-thumbnail', array( 'style' => 'max-width: 600px; width: 100%; height: auto; margin: 30px 0;' ) ) . $excerpt;
 		}
 
 		return $excerpt;
@@ -291,7 +291,7 @@ final class Assets {
 		$permalink = trailingslashit( home_url( $wp->request ) );
 		$current_user = wp_get_current_user();
 		$offset = 0;
-		$flagged = [];
+		$flagged = array();
 
 		foreach ( $items as $item ) {
 			if ( in_array( 'user-login', $item->classes, true ) && isset( $_SERVER['REQUEST_URI'] ) && strpos( $item->url, 'redirect_to=' ) === false ) {

@@ -32,7 +32,7 @@ final class Template {
 
 		// Look in yourtheme/slug-name.php and yourtheme/frocentric/slug-name.php .
 		if ( $name ) {
-			$template = locate_template( [ "{$slug}-{$name}.php", Utils::template_path() . "{$slug}-{$name}.php" ] );
+			$template = locate_template( array( "{$slug}-{$name}.php", Utils::template_path() . "{$slug}-{$name}.php" ) );
 		}
 
 		// Get default slug-name.php .
@@ -42,7 +42,7 @@ final class Template {
 
 		// If template file doesn't exist, look in yourtheme/slug.php and yourtheme/frocentric/slug.php .
 		if ( ! $template ) {
-			$template = locate_template( [ "{$slug}.php", Utils::template_path() . "{$slug}.php" ] );
+			$template = locate_template( array( "{$slug}.php", Utils::template_path() . "{$slug}.php" ) );
 		}
 
 		// Allow 3rd party plugins to filter template file from their plugin.
@@ -63,7 +63,7 @@ final class Template {
 	 *
 	 * @return void
 	 */
-	public static function get( $template_name, $args = [], $template_path = '', $default_path = '' ) {
+	public static function get( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
 
 		if ( ! empty( $args ) && is_array( $args ) ) {
 			foreach ( $args as $key => $value ) {
@@ -100,7 +100,7 @@ final class Template {
 	 * @param string              $default_path (default: '') Default path to fallback to.
 	 * @return string
 	 */
-	public static function get_html( $template_name, $args = [], $template_path = '', $default_path = '' ) {
+	public static function get_html( $template_name, $args = array(), $template_path = '', $default_path = '' ) {
 
 		ob_start();
 
@@ -137,10 +137,10 @@ final class Template {
 
 		// Look within passed path within the theme - this is priority.
 		$template = locate_template(
-			[
+			array(
 				trailingslashit( $template_path ) . $template_name,
 				$template_name,
-			]
+			)
 		);
 
 		// Get default template.

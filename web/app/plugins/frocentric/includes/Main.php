@@ -22,11 +22,11 @@ final class Main {
 	 */
 	public static function bootstrap() {
 
-		register_activation_hook( PLUGIN_FILE, [ Install::class, 'install' ] );
+		register_activation_hook( PLUGIN_FILE, array( Install::class, 'install' ) );
 
-		add_action( 'plugins_loaded', [ __CLASS__, 'load' ] );
+		add_action( 'plugins_loaded', array( __CLASS__, 'load' ) );
 
-		add_action( 'init', [ __CLASS__, 'init' ] );
+		add_action( 'init', array( __CLASS__, 'init' ) );
 
 		// Perform other actions when plugin is loaded.
 		do_action( 'frocentric_loaded' );
@@ -98,7 +98,6 @@ final class Main {
 		do_action( 'before_frocentric_init' );
 
 		// Add needed hooks here.
-
 		// After init action.
 		do_action( 'frocentric_init' );
 	}
@@ -111,7 +110,7 @@ final class Main {
 	// phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 	private static function check_plugin_requirements() {
 
-		$errors = [];
+		$errors = array();
 		global $wp_version;
 
 		if ( ! version_compare( PHP_VERSION, Constants::PLUGIN_REQUIREMENTS['php_version'], '>=' ) ) {

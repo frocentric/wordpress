@@ -23,21 +23,21 @@ abstract class Assets {
 	 *
 	 * @var array<string>
 	 */
-	private static $scripts = [];
+	private static $scripts = array();
 
 	/**
 	 * Contains an array of script handles registered by WC.
 	 *
 	 * @var array<string>
 	 */
-	private static $styles = [];
+	private static $styles = array();
 
 	/**
 	 * Contains an array of script handles localized by WC.
 	 *
 	 * @var array<string>
 	 */
-	private static $wp_localize_scripts = [];
+	private static $wp_localize_scripts = array();
 
 	/**
 	 * Tries to localize the minified version if required and exists, otherwise load the unminified version
@@ -48,7 +48,7 @@ abstract class Assets {
 	public static function localize_asset( $path ) {
 
 		$assets_path     = Utils::plugin_path() . '/assets/';
-		$assets_path_url = str_replace( [ 'http:', 'https:' ], '', Utils::plugin_url() ) . '/assets/';
+		$assets_path_url = str_replace( array( 'http:', 'https:' ), '', Utils::plugin_url() ) . '/assets/';
 
 		if ( ! ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ) {
 
@@ -76,7 +76,7 @@ abstract class Assets {
 	 */
 	public static function get_styles() {
 		// Allow to change the list of styles.
-		return apply_filters( 'frocentric_enqueue_styles', [] );
+		return apply_filters( 'frocentric_enqueue_styles', array() );
 	}
 
 	/**
@@ -86,7 +86,7 @@ abstract class Assets {
 	 */
 	public static function get_scripts() {
 		// Allow to change the list of scripts.
-		return apply_filters( 'frocentric_enqueue_scripts', [] );
+		return apply_filters( 'frocentric_enqueue_scripts', array() );
 	}
 
 	/**
@@ -106,7 +106,7 @@ abstract class Assets {
 	 *
 	 * @return void
 	 */
-	private static function register_script( $handle, $path, $deps = [ 'jquery' ], $version = VERSION, $in_footer = true ) {
+	private static function register_script( $handle, $path, $deps = array( 'jquery' ), $version = VERSION, $in_footer = true ) {
 		self::$scripts[] = $handle;
 		wp_register_script( $handle, $path, $deps, $version, $in_footer );
 	}
@@ -128,7 +128,7 @@ abstract class Assets {
 	 *
 	 * @return void
 	 */
-	private static function enqueue_script( $handle, $path = '', $deps = [ 'jquery' ], $version = VERSION, $in_footer = true ) {
+	private static function enqueue_script( $handle, $path = '', $deps = array( 'jquery' ), $version = VERSION, $in_footer = true ) {
 
 		if ( ! in_array( $handle, self::$scripts, true ) && $path ) {
 			self::register_script( $handle, $path, $deps, $version, $in_footer );
@@ -155,7 +155,7 @@ abstract class Assets {
 	 *
 	 * @return void
 	 */
-	private static function register_style( $handle, $path, $deps = [], $version = VERSION, $media = 'all' ) {
+	private static function register_style( $handle, $path, $deps = array(), $version = VERSION, $media = 'all' ) {
 		self::$styles[] = $handle;
 		wp_register_style( $handle, $path, $deps, $version, $media );
 	}
@@ -178,7 +178,7 @@ abstract class Assets {
 	 *
 	 * @return void
 	 */
-	private static function enqueue_style( $handle, $path = '', $deps = [], $version = VERSION, $media = 'all' ) {
+	private static function enqueue_style( $handle, $path = '', $deps = array(), $version = VERSION, $media = 'all' ) {
 
 		if ( ! in_array( $handle, self::$styles, true ) && $path ) {
 			self::register_style( $handle, $path, $deps, $version, $media );
@@ -206,13 +206,13 @@ abstract class Assets {
 			foreach ( $enqueue_scripts as $handle => $args ) {
 				$args = wp_parse_args(
 					$args,
-					[
+					array(
 						'src'       => '',
-						'deps'      => [ 'jquery' ],
+						'deps'      => array( 'jquery' ),
 						'version'   => VERSION,
 						'in_footer' => true,
 						'enqueue'   => true,
-					]
+					)
 				);
 
 				if ( $args['enqueue'] ) {
@@ -230,13 +230,13 @@ abstract class Assets {
 			foreach ( $enqueue_styles as $handle => $args ) {
 				$args = wp_parse_args(
 					$args,
-					[
+					array(
 						'src'     => '',
 						'deps'    => '',
 						'version' => VERSION,
 						'media'   => 'all',
 						'enqueue' => true,
-					]
+					)
 				);
 
 				if ( $args['enqueue'] ) {
