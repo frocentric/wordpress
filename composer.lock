@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "073721cf9a87a7e9a89e23c12cfda3eb",
+    "content-hash": "2836ba71c14e725adaa1330defe0d405",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1705,7 +1705,7 @@
         },
         {
             "name": "modern-tribe/events-calendar-pro",
-            "version": "6.0.8",
+            "version": "6.0.9",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}"
@@ -1714,7 +1714,7 @@
         },
         {
             "name": "modern-tribe/events-tickets-plus",
-            "version": "5.6.6.1",
+            "version": "5.6.7",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=event-tickets-plus&version={%VERSION}&key={%TEC_ETP_LICENSE}"
@@ -1723,7 +1723,7 @@
         },
         {
             "name": "modern-tribe/events-virtual",
-            "version": "1.13.5",
+            "version": "1.13.6",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-virtual&version={%VERSION}&key={%TEC_VE_LICENSE}"
@@ -1732,7 +1732,7 @@
         },
         {
             "name": "modern-tribe/the-events-calendar-community-events",
-            "version": "4.10.3",
+            "version": "4.10.4",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community&version={%VERSION}&key={%TEC_CE_LICENSE}"
@@ -1750,7 +1750,7 @@
         },
         {
             "name": "modern-tribe/the-events-calendar-filterbar",
-            "version": "5.4.2",
+            "version": "5.4.3",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=tribe-filterbar&version={%VERSION}&key={%TEC_FB_LICENSE}"
