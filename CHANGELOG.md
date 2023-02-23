@@ -2,6 +2,168 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.17.22](https://github.com/frocentric/wordpress/compare/v1.17.21...v1.17.22) (2023-02-02)
+
+### [1.17.21](https://github.com/frocentric/wordpress/compare/v1.17.20...v1.17.21) (2022-12-28)
+
+### [1.17.20](https://github.com/frocentric/wordpress/compare/v1.17.19...v1.17.20) (2022-12-28)
+
+### [1.17.19](https://github.com/frocentric/wordpress/compare/v1.17.18...v1.17.19) (2022-12-28)
+
+### [1.17.18](https://github.com/frocentric/wordpress/compare/v1.17.17...v1.17.18) (2022-12-27)
+
+### [1.17.17](https://github.com/frocentric/wordpress/compare/v1.17.16...v1.17.17) (2022-12-27)
+
+### [1.17.16](https://github.com/frocentric/wordpress/compare/v1.17.15...v1.17.16) (2022-12-27)
+
+### [1.17.15](https://github.com/frocentric/wordpress/compare/v1.17.14...v1.17.15) (2022-12-27)
+
+### [1.17.14](https://github.com/frocentric/wordpress/compare/v1.17.13...v1.17.14) (2022-12-27)
+
+### [1.17.13](https://github.com/frocentric/wordpress/compare/v1.17.12...v1.17.13) (2022-12-25)
+
+### [1.17.12](https://github.com/frocentric/wordpress/compare/v1.17.11...v1.17.12) (2022-12-25)
+
+### [1.17.11](https://github.com/frocentric/wordpress/compare/v1.17.10...v1.17.11) (2022-12-25)
+
+### [1.17.10](https://github.com/frocentric/wordpress/compare/v1.17.9...v1.17.10) (2022-12-25)
+
+### [1.17.9](https://github.com/frocentric/wordpress/compare/v1.17.8...v1.17.9) (2022-12-24)
+
+### [1.17.8](https://github.com/frocentric/wordpress/compare/v1.17.7...v1.17.8) (2022-12-22)
+
+### [1.17.7](https://github.com/frocentric/wordpress/compare/v1.17.6...v1.17.7) (2022-12-22)
+
+### [1.17.6](https://github.com/frocentric/wordpress/compare/v1.17.5...v1.17.6) (2022-12-22)
+
+### [1.17.5](https://github.com/frocentric/wordpress/compare/v1.17.4...v1.17.5) (2022-12-03)
+
+### [1.17.4](https://github.com/frocentric/wordpress/compare/v1.17.3...v1.17.4) (2022-11-03)
+
+### [1.17.3](https://github.com/frocentric/wordpress/compare/v1.17.2...v1.17.3) (2022-11-03)
+
+### [1.17.2](https://github.com/frocentric/wordpress/compare/v1.17.1...v1.17.2) (2022-10-12)
+
+### [1.17.1](https://github.com/frocentric/wordpress/compare/v1.17.0...v1.17.1) (2022-10-08)
+
+
+### Bug Fixes
+
+* **events:** fixes calendar popup styling ([96df04f](https://github.com/frocentric/wordpress/commit/96df04f31761f9759428b04c28d96f8e7a3887cc))
+* **events:** fixes submit event page layout ([08978d9](https://github.com/frocentric/wordpress/commit/08978d983efc8dda927c1ef85d8c405791605f35))
+
+## [1.17.0](https://github.com/frocentric/wordpress/compare/v1.16.3...v1.17.0) (2022-10-02)
+
+
+### Features
+
+* enables sorting RSVP display order ([3a20690](https://github.com/frocentric/wordpress/commit/3a206901701e05805e2f62095f3bf3c2baef3ad8))
+
+### [1.16.3](https://github.com/frocentric/wordpress/compare/v1.16.2...v1.16.3) (2022-10-01)
+
+
+### Bug Fixes
+
+* **events:** prevents duplicate event creation ([f555082](https://github.com/frocentric/wordpress/commit/f5550820b9642a5d58a961e24dec1853786fe5ef)), closes [#573](https://github.com/frocentric/wordpress/issues/573)
+* highlights Content menu item for Authors page ([8c7c57f](https://github.com/frocentric/wordpress/commit/8c7c57fd31238099ee35cdd83a37079f67433a3a))
+
+### [1.16.2](https://github.com/frocentric/wordpress/compare/v1.16.1...v1.16.2) (2022-09-28)
+
+### [1.16.1](https://github.com/frocentric/wordpress/compare/v1.16.0...v1.16.1) (2022-09-27)
+
+
+### Bug Fixes
+
+* **events:** fixes admin form styling ([a66da27](https://github.com/frocentric/wordpress/commit/a66da274a62aa7fe2477755f20a7d444c61a8609))
+* **events:** fixes datepicker styling ([092080a](https://github.com/frocentric/wordpress/commit/092080a275e62c770525ff7a0bd763d43bc14fc8))
+
+## [1.16.0](https://github.com/frocentric/wordpress/compare/v1.15.2...v1.16.0) (2022-09-26)
+
+
+### Features
+
+* **events:** adds custom taxonomies to details ([3499772](https://github.com/frocentric/wordpress/commit/349977265d1080cfc5d049f2b9674eb215d01834))
+* **events:** adds custom taxonomy filters ([ac90134](https://github.com/frocentric/wordpress/commit/ac90134dc0d5ee37521a4abf503be7b80a9e3119))
+
+
+### Bug Fixes
+
+* **events:** only returns terms for future events ([2b56ba8](https://github.com/frocentric/wordpress/commit/2b56ba8370ec1bae4886a4b7b6d214fa50681494))
+
+### [1.15.2](https://github.com/frocentric/wordpress/compare/v1.15.1...v1.15.2) (2022-09-22)
+
+
+### Bug Fixes
+
+* cleans up event form styling ([be72008](https://github.com/frocentric/wordpress/commit/be72008e0579d33aba0fd600e5848fb7a205ebda))
+* fixes RSVP styling ([947da9f](https://github.com/frocentric/wordpress/commit/947da9f30796f00b99803a0df6ba50a821b6275c))
+
+### [1.15.1](https://github.com/frocentric/wordpress/compare/v1.15.0...v1.15.1) (2022-09-20)
+
+
+### Bug Fixes
+
+* resolves PHPCS errors ([7d9aebc](https://github.com/frocentric/wordpress/commit/7d9aebcf16c7ee8524184fec1785f577b382cfc6))
+
+## [1.15.0](https://github.com/frocentric/wordpress/compare/v1.14.0...v1.15.0) (2022-09-18)
+
+
+### Features
+
+* adds ability to limit RSVP/ticket guests ([d352703](https://github.com/frocentric/wordpress/commit/d3527034197e822aa2155f8a50292cbf9ccdfd28))
+
+
+### Bug Fixes
+
+* prevent PHPCS errors ([81e5256](https://github.com/frocentric/wordpress/commit/81e52567f10247a2578d993ca3d22202aeff3a98))
+
+## [1.14.0](https://github.com/frocentric/wordpress/compare/v1.13.0...v1.14.0) (2022-09-17)
+
+
+### Features
+
+* improve event submission message ([308b0dd](https://github.com/frocentric/wordpress/commit/308b0ddfd26a5f473beb82821a4060fe78de76ed))
+
+
+### Bug Fixes
+
+* adds missing vendor directories ([cede4dd](https://github.com/frocentric/wordpress/commit/cede4ddd6955bc22e52b0c8cb7286cbdda529d09))
+* fixes imported event status ([e437576](https://github.com/frocentric/wordpress/commit/e4375765ad4b527531a6570ce022b34b71cebe8a)), closes [#513](https://github.com/frocentric/wordpress/issues/513)
+
+## [1.13.0](https://github.com/frocentric/wordpress/compare/v1.12.0...v1.13.0) (2022-08-19)
+
+
+### Features
+
+* syncs users when updating Discourse profile ([8e1e6b0](https://github.com/frocentric/wordpress/commit/8e1e6b0ee81a0adfa3b87fe429bf87fa6869de8f))
+
+
+### Bug Fixes
+
+* fixes action parameter count ([03d44a9](https://github.com/frocentric/wordpress/commit/03d44a9beb4586225b51ca8a768472c8a50a14fc))
+
+## [1.12.0](https://github.com/frocentric/wordpress/compare/v1.11.0...v1.12.0) (2022-08-18)
+
+
+### Features
+
+* adds dynamic comment reply link ([b625415](https://github.com/frocentric/wordpress/commit/b6254159d751d30b3fb535d42e045f5503d8843d))
+* blocks regular users from WP backend ([5140b42](https://github.com/frocentric/wordpress/commit/5140b42a7c8deec56c469debfee3587071239d39))
+* replaces text content with button link ([280d53a](https://github.com/frocentric/wordpress/commit/280d53a51ca9bbcf4e8874d80d8a641fe24a9ef1))
+
+## [1.11.0](https://github.com/frocentric/wordpress/compare/v1.10.3...v1.11.0) (2022-08-10)
+
+
+### Features
+
+* replaces text content with button link ([#491](https://github.com/frocentric/wordpress/issues/491)) ([f988d6a](https://github.com/frocentric/wordpress/commit/f988d6a553361a3663776087c58629f24329ef06))
+
+
+### Bug Fixes
+
+* fixes missing icon ([8a0a053](https://github.com/frocentric/wordpress/commit/8a0a053c50c18b034cb841ba9762ee89c0419a7a))
+* fixes version regex ([f1e75e0](https://github.com/frocentric/wordpress/commit/f1e75e0e39337f255ca423eb814298beb63e7147))
+
 ### [1.10.3](https://github.com/frocentric/wordpress/compare/v1.10.2...v1.10.3) (2022-08-06)
 
 
