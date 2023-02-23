@@ -241,7 +241,7 @@ class Loop extends Theme_Document {
 	 * @since 3.8.0
 	 */
 	public function get_content( $with_css = false ) {
-		$preview_mode = Plugin::elementor()->preview->is_preview_mode();
+		$edit_mode = Plugin::elementor()->editor->is_edit_mode();
 
 		add_filter( 'elementor/frontend/builder_content/before_print_css', [ $this, 'prevent_inline_css_printing' ] );
 
@@ -253,7 +253,7 @@ class Loop extends Theme_Document {
 
 		remove_filter( 'elementor/frontend/builder_content/before_print_css', [ $this, 'prevent_inline_css_printing' ] );
 
-		Plugin::elementor()->editor->set_edit_mode( $preview_mode );
+		Plugin::elementor()->editor->set_edit_mode( $edit_mode );
 
 		return $content;
 	}
@@ -285,7 +285,7 @@ class Loop extends Theme_Document {
 		<div
 			data-elementor-type="<?php echo esc_attr( static::get_type() ); ?>"
 			data-elementor-id="<?php echo esc_attr( $post_id ); ?>"
-			class="elementor elementor-<?php echo esc_attr( $post_id ); ?> elementor-edit-area elementor-edit-mode elementor-edit-area-active"
+			class="elementor elementor-<?php echo esc_attr( $post_id ); ?> elementor-edit-area elementor-edit-mode elementor-edit-area-active e-loop-first-edit"
 			data-elementor-title="<?php echo esc_attr( ucfirst( static::get_type() ) ); ?>"
 		>
 			<div class="elementor-section-wrap ui-sortable"></div>

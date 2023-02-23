@@ -1382,11 +1382,6 @@ class Nav_Menu extends Base_Widget {
 
 		$is_migrated = isset( $settings['__fa4_migrated']['submenu_icon'] );
 
-		$this->add_render_attribute( 'main-menu', [
-			'migration_allowed' => Icons_Manager::is_migration_allowed() ? '1' : '0',
-			'migrated' => $is_migrated ? '1' : '0',
-		] );
-
 		if ( 'dropdown' !== $settings['layout'] ) :
 			$this->add_render_attribute( 'main-menu', 'class', [
 				'elementor-nav-menu--main',

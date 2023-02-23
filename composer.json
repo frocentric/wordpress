@@ -58,7 +58,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/the-events-calendar-community-events",
-        "version": "4.10.3",
+        "version": "4.10.4",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community&version={%VERSION}&key={%TEC_CE_LICENSE}",
@@ -88,7 +88,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-tickets-plus",
-        "version": "5.6.5",
+        "version": "5.6.7",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=event-tickets-plus&version={%VERSION}&key={%TEC_ETP_LICENSE}",
@@ -103,7 +103,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-calendar-pro",
-        "version": "6.0.7",
+        "version": "6.0.9",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}",
@@ -118,7 +118,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-virtual",
-        "version": "1.13.4",
+        "version": "1.13.6",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-virtual&version={%VERSION}&key={%TEC_VE_LICENSE}",
@@ -133,7 +133,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/the-events-calendar-filterbar",
-        "version": "5.4.1",
+        "version": "5.4.3",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=tribe-filterbar&version={%VERSION}&key={%TEC_FB_LICENSE}",
@@ -206,13 +206,12 @@
     "wpackagist-plugin/wpm-user-sync": "~1.0",
     "wpackagist-plugin/wp-analytify": "~4.0",
     "wpackagist-plugin/wp-discourse": "~2.0",
-    "wpackagist-plugin/wp-event-aggregator": "~1.0",
     "wpackagist-plugin/wp-mail-smtp": "~3.0",
     "wpackagist-theme/generatepress": "~3.0",
     "wp-media/wp-rocket": "~3.0"
   },
   "require-dev": {
-    "automattic/phpcs-neutron-ruleset": "^3.4",
+	"slevomat/coding-standard": "^8.0",
     "dealerdirect/phpcodesniffer-composer-installer": "*",
     "phpcompatibility/phpcompatibility-wp": "*",
     "squizlabs/php_codesniffer": "3.*",
@@ -252,14 +251,17 @@
       "php -r \"copy('.env.example', '.env');\""
     ],
 	"post-install-cmd": [
+		"@configure-ssp",
 		"@fix-kinsta"
 	],
 	"post-update-cmd": [
+		"@configure-ssp",
 		"@fix-kinsta"
 	],
+	"configure-ssp": "cd web/app/plugins/frocentric;composer install;cd ../../../..",
 	"fix-kinsta": "[ -d \"web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins\" ] && find web/app/mu-plugins/kinsta-mu-plugins ! -name 'kinsta-mu-plugins' -type d -maxdepth 1 -exec rm -rf {} \\; && mv -f web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins.php web/app/mu-plugins && mv -f web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins/* web/app/mu-plugins/kinsta-mu-plugins && rm -rf web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins || true",
-    "cs": "phpcs --standard=phpcs.xml ./web/app/plugins/froware ./web/app/plugins/frocentric-elementor-extension ./web/app/themes/frocentric ./web/app/themes/frocentric-tech",
-    "cbf": "phpcbf --standard=phpcs.xml ./web/app/plugins/froware ./web/app/plugins/frocentric-elementor-extension ./web/app/themes/frocentric ./web/app/themes/frocentric-tech",
+    "cs": "phpcs --standard=phpcs.xml ./web/app/plugins/frocentric ./web/app/plugins/frocentric-elementor-extension ./web/app/themes/frocentric ./web/app/themes/frocentric-tech",
+    "cbf": "phpcbf --standard=phpcs.xml ./web/app/plugins/frocentric ./web/app/plugins/frocentric-elementor-extension ./web/app/themes/frocentric ./web/app/themes/frocentric-tech",
     "test": [
       "phpcs"
     ]

@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.10.3 - 29-01-2023 */
+/*! elementor-pro - v3.11.1 - 15-02-2023 */
 .elementor-document-handle {
   display: none;
   align-items: center;
@@ -91,7 +91,7 @@
   border: 1px solid #fcb92c;
 }
 
-div[class*=elementor-widget-loop] .elementor-edit-area-active[data-editable-elementor-document] {
+div[class*=elementor-widget-loop] .elementor-edit-area-active[data-editable-elementor-document], div[class*=elementor-widget-loop] .elementor-edit-area-active.swiper-slide-active, div[class*=elementor-widget-loop] .elementor-edit-area-active.e-loop-first-edit:first-of-type {
   border: 1px solid #fcb92c;
 }
 div[class*=elementor-widget-loop] .elementor-edit-area-active .elementor-document-save-back-handle {
