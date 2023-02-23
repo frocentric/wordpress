@@ -2,6 +2,7 @@
 namespace ElementorPro\Modules\DynamicTags\ACF;
 
 use ElementorPro\Plugin;
+use ElementorPro\Modules\LoopBuilder\Module as LoopBuilderModule;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -20,7 +21,7 @@ class Dynamic_Value_Provider {
 
 		if ( 'options' === $field_key ) {
 			$field = $this->get_field_object( $meta_key, $field_key );
-		} elseif ( ! empty( $document ) && 'loop-item' === $document::get_type() ) {
+		} elseif ( ! empty( $document ) && LoopBuilderModule::TEMPLATE_LIBRARY_TYPE_SLUG === $document::get_type() ) {
 			$field = $this->get_field_object( $field_key, get_the_ID() );
 		} else {
 			$field = $this->get_field_object( $field_key, get_queried_object() );

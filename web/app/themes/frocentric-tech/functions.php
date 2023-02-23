@@ -13,12 +13,12 @@ if ( ! function_exists( 'enqueue_parent_styles' ) ) {
 	 */
 	function enqueue_parent_styles() {
 		wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css', null, wp_get_theme()->get( 'Version' ) );
-		wp_enqueue_style( 'theme-variables', get_theme_file_uri( 'css/variables.css' ), [ 'generate-child' ], filemtime( get_theme_file_path( 'css/variables.css' ) ), 'all' );
-		wp_enqueue_style( 'theme-fonts', get_theme_file_uri( 'css/fonts.css' ), [ 'theme-variables' ], filemtime( get_theme_file_path( 'css/fonts.css' ) ), 'all' );
-		wp_enqueue_style( 'theme-elements', get_theme_file_uri( 'css/elements.css' ), [ 'theme-fonts' ], filemtime( get_theme_file_path( 'css/elements.css' ) ), 'all' );
-		wp_enqueue_style( 'theme-elementor', get_theme_file_uri( 'css/elementor.css' ), [ 'theme-elements' ], filemtime( get_theme_file_path( 'css/elementor.css' ) ), 'all' );
-		wp_enqueue_style( 'theme-forms', get_theme_file_uri( 'css/ninja-forms.css' ), [ 'theme-elements' ], filemtime( get_theme_file_path( 'css/ninja-forms.css' ) ), 'all' );
-		wp_enqueue_style( 'theme-tech', get_theme_file_uri( 'css/tech.css' ), [ 'theme-forms' ], filemtime( get_theme_file_path( 'css/tech.css' ) ), 'all' );
+		wp_enqueue_style( 'theme-variables', get_theme_file_uri( 'css/variables.css' ), array( 'generate-child' ), filemtime( get_theme_file_path( 'css/variables.css' ) ), 'all' );
+		wp_enqueue_style( 'theme-fonts', get_theme_file_uri( 'css/fonts.css' ), array( 'theme-variables' ), filemtime( get_theme_file_path( 'css/fonts.css' ) ), 'all' );
+		wp_enqueue_style( 'theme-elements', get_theme_file_uri( 'css/elements.css' ), array( 'theme-fonts' ), filemtime( get_theme_file_path( 'css/elements.css' ) ), 'all' );
+		wp_enqueue_style( 'theme-elementor', get_theme_file_uri( 'css/elementor.css' ), array( 'theme-elements' ), filemtime( get_theme_file_path( 'css/elementor.css' ) ), 'all' );
+		wp_enqueue_style( 'theme-forms', get_theme_file_uri( 'css/ninja-forms.css' ), array( 'theme-elements' ), filemtime( get_theme_file_path( 'css/ninja-forms.css' ) ), 'all' );
+		wp_enqueue_style( 'theme-tech', get_theme_file_uri( 'css/tech.css' ), array( 'theme-forms' ), filemtime( get_theme_file_path( 'css/tech.css' ) ), 'all' );
 	}
 }
 
@@ -31,11 +31,11 @@ if ( ! function_exists( 'generate_entry_meta' ) ) {
 	function generate_entry_meta() {
 		$items = apply_filters(
 			'generate_footer_entry_meta_items',
-			[
+			array(
 				'author',
 				'tags',
 				'comments-link',
-			]
+			)
 		);
 
 		foreach ( $items as $item ) {
@@ -53,10 +53,10 @@ if ( ! function_exists( 'generate_posted_on' ) ) {
 	function generate_posted_on() {
 		$items = apply_filters(
 			'generate_header_entry_meta_items',
-			[
+			array(
 				'categories',
 				'date',
-			]
+			)
 		);
 
 		foreach ( $items as $item ) {
@@ -76,9 +76,9 @@ if ( ! function_exists( 'generate_post_meta' ) ) {
 	function generate_post_meta() {
 		$post_types = apply_filters(
 			'generate_entry_meta_post_types',
-			[
+			array(
 				'post',
-			]
+			)
 		);
 
 		if ( in_array( get_post_type(), $post_types, true ) ) : ?>

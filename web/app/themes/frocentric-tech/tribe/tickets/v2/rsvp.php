@@ -75,7 +75,7 @@ if ( is_array( $values ) && ! empty( $values[0] ) ) {
 			data-rsvp-id="<?php echo esc_attr( $rsvp->ID ); ?>"
 		>
 			<?php $this->template( 'v2/components/loader/loader' ); ?>
-			<?php $this->template( 'v2/rsvp/content', [ 'rsvp' => $rsvp ] ); ?>
+			<?php $this->template( 'v2/rsvp/content', array( 'rsvp' => $rsvp ) ); ?>
 
 		</div>
 	<?php endforeach; ?>

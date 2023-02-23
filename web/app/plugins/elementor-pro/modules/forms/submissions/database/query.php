@@ -369,6 +369,15 @@ class Query extends Base_Object {
 
 		$result = $this->wpdb->get_col( $this->wpdb->prepare( $sql, $post_id, $element_id ) ); // phpcs:ignore
 
+		$form = Form_Snapshot_Repository::instance()->find( $post_id, $element_id );
+		if ( $form ) {
+			$ordered_keys = array_map( function( $field ) {
+				return $field['id'];
+			}, $form->fields );
+
+			$result = array_merge( array_intersect( $ordered_keys, $result ), array_diff( $result, $ordered_keys ) );
+		}
+
 		if ( ! $result ) {
 			return new Collection( [] );
 		}

@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.10.3 - 29-01-2023 */
+/*! elementor-pro - v3.11.1 - 15-02-2023 */
 "use strict";
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["elements-handlers"],{
 
@@ -29,6 +29,7 @@ var _frontend15 = _interopRequireDefault(__webpack_require__(/*! modules/theme-b
 var _frontend16 = _interopRequireDefault(__webpack_require__(/*! modules/theme-elements/assets/js/frontend/frontend */ "../modules/theme-elements/assets/js/frontend/frontend.js"));
 var _frontend17 = _interopRequireDefault(__webpack_require__(/*! modules/woocommerce/assets/js/frontend/frontend */ "../modules/woocommerce/assets/js/frontend/frontend.js"));
 var _frontend18 = _interopRequireDefault(__webpack_require__(/*! modules/loop-builder/assets/js/frontend/frontend */ "../modules/loop-builder/assets/js/frontend/frontend.js"));
+var _frontend19 = _interopRequireDefault(__webpack_require__(/*! modules/mega-menu/assets/js/frontend/frontend */ "../modules/mega-menu/assets/js/frontend/frontend.js"));
 const extendDefaultHandlers = defaultHandlers => {
   const handlers = {
     animatedText: _frontend.default,
@@ -48,7 +49,8 @@ const extendDefaultHandlers = defaultHandlers => {
     themeElements: _frontend16.default,
     woocommerce: _frontend17.default,
     tableOfContents: _frontend14.default,
-    loopBuilder: _frontend18.default
+    loopBuilder: _frontend18.default,
+    megaMenu: _frontend19.default
   };
   return {
     ...defaultHandlers,
@@ -305,8 +307,6 @@ class _default extends elementorModules.Module {
     ['post', 'product'].forEach(skinName => {
       elementorFrontend.elementsHandler.attachHandler('loop-grid', () => __webpack_require__.e(/*! import() | load-more */ "load-more").then(__webpack_require__.bind(__webpack_require__, /*! ./handlers/load-more */ "../modules/loop-builder/assets/js/frontend/handlers/load-more.js")), skinName);
       elementorFrontend.elementsHandler.attachHandler('loop-grid', () => __webpack_require__.e(/*! import() | loop */ "loop").then(__webpack_require__.bind(__webpack_require__, /*! ./handlers/loop */ "../modules/loop-builder/assets/js/frontend/handlers/loop.js")), skinName);
-    });
-    ['carousel-post'].forEach(skinName => {
       elementorFrontend.elementsHandler.attachHandler('loop-carousel', () => __webpack_require__.e(/*! import() | loop */ "loop").then(__webpack_require__.bind(__webpack_require__, /*! ./handlers/loop */ "../modules/loop-builder/assets/js/frontend/handlers/loop.js")), skinName);
       elementorFrontend.elementsHandler.attachHandler('loop-carousel', () => __webpack_require__.e(/*! import() | loop-carousel */ "loop-carousel").then(__webpack_require__.bind(__webpack_require__, /*! ./handlers/loop-carousel */ "../modules/loop-builder/assets/js/frontend/handlers/loop-carousel.js")), skinName);
     });
@@ -332,6 +332,28 @@ class _default extends elementorModules.Module {
   constructor() {
     super();
     elementorFrontend.elementsHandler.attachHandler('lottie', () => __webpack_require__.e(/*! import() | lottie */ "lottie").then(__webpack_require__.bind(__webpack_require__, /*! ./handler */ "../modules/lottie/assets/js/frontend/handler.js")));
+  }
+}
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ "../modules/mega-menu/assets/js/frontend/frontend.js":
+/*!***********************************************************!*\
+  !*** ../modules/mega-menu/assets/js/frontend/frontend.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+class _default extends elementorModules.Module {
+  constructor() {
+    super();
+    elementorFrontend.elementsHandler.attachHandler('mega-menu', () => __webpack_require__.e(/*! import() | mega-menu */ "mega-menu").then(__webpack_require__.bind(__webpack_require__, /*! ./handlers/mega-menu */ "../modules/mega-menu/assets/js/frontend/handlers/mega-menu.js")));
   }
 }
 exports["default"] = _default;
@@ -403,7 +425,7 @@ class _default extends elementorModules.frontend.Document {
   initTriggers() {
     this.triggers = new _triggers.default(this.getDocumentSettings('triggers'), this);
   }
-  showModal(avoidMultiple) {
+  showModal(avoidMultiple, event) {
     // eslint-disable-next-line @wordpress/no-unused-vars-before-return
     const settings = this.getDocumentSettings();
     if (!this.isEdit) {
@@ -436,6 +458,9 @@ class _default extends elementorModules.frontend.Document {
       this.countTimes();
     }
     elementorProFrontend.modules.popup.popupPopped = true;
+    if (!this.isEdit && settings.a11y_navigation) {
+      this.handleKeyboardA11y(event);
+    }
   }
   setEntranceAnimation() {
     const $widgetContent = this.getModal().getElements('widgetContent'),
@@ -451,6 +476,49 @@ class _default extends elementorModules.frontend.Document {
     const animationDuration = settings.entrance_animation_duration.size;
     $widgetContent.addClass(newAnimation);
     setTimeout(() => $widgetContent.removeClass(newAnimation), animationDuration * 1000);
+  }
+  handleKeyboardA11y(event) {
+    const selectorFocusedElements = ':focusable';
+    const $focusableElements = this.getModal().getElements('widgetContent').find(selectorFocusedElements);
+    if (!$focusableElements.length) {
+      return;
+    }
+    let $lastButtonClicked = null;
+    if (event?.currentTarget) {
+      $lastButtonClicked = jQuery(event.currentTarget);
+    }
+    const $lastFocusableElement = $focusableElements[$focusableElements.length - 1];
+    const $firstFocusableElement = $focusableElements[0];
+    const onKeyDownPressed = keyDownEvent => {
+      const TAB_KEY = 9;
+      const isShiftPressed = keyDownEvent.shiftKey;
+      const isTabPressed = 'Tab' === keyDownEvent.key || TAB_KEY === keyDownEvent.keyCode;
+      if (!isTabPressed) {
+        return;
+      }
+      const activeElement = elementorFrontend.elements.window.document.activeElement;
+      if (isShiftPressed) {
+        const isFocusOnFirstElement = activeElement === $firstFocusableElement;
+        if (isFocusOnFirstElement) {
+          $lastFocusableElement.focus();
+          keyDownEvent.preventDefault();
+        }
+      } else {
+        const isFocusOnLastElement = activeElement === $lastFocusableElement;
+        if (isFocusOnLastElement) {
+          $firstFocusableElement.focus();
+          keyDownEvent.preventDefault();
+        }
+      }
+    };
+    $firstFocusableElement.focus();
+    const $window = elementorFrontend.elements.$window;
+    $window.on('keydown', onKeyDownPressed).on('elementor/popup/hide', () => {
+      $window.off('keydown', onKeyDownPressed);
+      if ($lastButtonClicked) {
+        $lastButtonClicked.focus();
+      }
+    });
   }
   setExitAnimation() {
     const modal = this.getModal(),
@@ -642,7 +710,7 @@ class _default extends elementorModules.Module {
       elementorFrontend.storage.set('sessions', sessions + 1);
     }
   }
-  showPopup(settings) {
+  showPopup(settings, event) {
     const popup = elementorFrontend.documentsManager.documents[settings.id];
     if (!popup) {
       return;
@@ -651,7 +719,7 @@ class _default extends elementorModules.Module {
     if (settings.toggle && modal.isVisible()) {
       modal.hide();
     } else {
-      popup.showModal();
+      popup.showModal(null, event);
     }
   }
   closePopup(settings, event) {
@@ -666,7 +734,7 @@ class _default extends elementorModules.Module {
     }
   }
   onFrontendComponentsInit() {
-    elementorFrontend.utils.urlActions.addAction('popup:open', settings => this.showPopup(settings));
+    elementorFrontend.utils.urlActions.addAction('popup:open', (settings, event) => this.showPopup(settings, event));
     elementorFrontend.utils.urlActions.addAction('popup:close', (settings, event) => this.closePopup(settings, event));
   }
 }
@@ -695,6 +763,7 @@ var _loggedIn = _interopRequireDefault(__webpack_require__(/*! ./timing/logged-i
 var _devices = _interopRequireDefault(__webpack_require__(/*! ./timing/devices */ "../modules/popup/assets/js/frontend/timing/devices.js"));
 var _times = _interopRequireDefault(__webpack_require__(/*! ./timing/times */ "../modules/popup/assets/js/frontend/timing/times.js"));
 var _browsers = _interopRequireDefault(__webpack_require__(/*! ./timing/browsers */ "../modules/popup/assets/js/frontend/timing/browsers.js"));
+var _schedule = _interopRequireDefault(__webpack_require__(/*! ./timing/schedule */ "../modules/popup/assets/js/frontend/timing/schedule.js"));
 class _default extends elementorModules.Module {
   constructor(settings, document) {
     super(settings);
@@ -707,7 +776,8 @@ class _default extends elementorModules.Module {
       logged_in: _loggedIn.default,
       devices: _devices.default,
       times: _times.default,
-      browsers: _browsers.default
+      browsers: _browsers.default,
+      schedule: _schedule.default
     };
   }
   check() {
@@ -872,6 +942,91 @@ class _default extends _base.default {
       initialPageViews = pageViews;
     }
     return pageViews - initialPageViews >= this.getTimingSetting('views');
+  }
+}
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ "../modules/popup/assets/js/frontend/timing/schedule-utils.js":
+/*!********************************************************************!*\
+  !*** ../modules/popup/assets/js/frontend/timing/schedule-utils.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "../node_modules/@babel/runtime/helpers/defineProperty.js"));
+class ScheduleUtils {
+  constructor(args) {
+    (0, _defineProperty2.default)(this, "shouldDisplay", () => {
+      if (!this.settings.startDate && !this.settings.endDate) {
+        return true;
+      }
+      const now = this.getCurrentDateTime();
+      if ((!this.settings.startDate || now >= this.settings.startDate) && (!this.settings.endDate || now <= this.settings.endDate)) {
+        return true;
+      }
+      return false;
+    });
+    this.settings = args.settings;
+  }
+  getCurrentDateTime() {
+    let now = new Date();
+    if ('site' === this.settings.timezone && this.settings.serverDatetime) {
+      now = new Date(this.settings.serverDatetime);
+    }
+    return now;
+  }
+}
+exports["default"] = ScheduleUtils;
+
+/***/ }),
+
+/***/ "../modules/popup/assets/js/frontend/timing/schedule.js":
+/*!**************************************************************!*\
+  !*** ../modules/popup/assets/js/frontend/timing/schedule.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+var _base = _interopRequireDefault(__webpack_require__(/*! ./base */ "../modules/popup/assets/js/frontend/timing/base.js"));
+var _scheduleUtils = _interopRequireDefault(__webpack_require__(/*! ./schedule-utils */ "../modules/popup/assets/js/frontend/timing/schedule-utils.js"));
+class _default extends _base.default {
+  constructor() {
+    super(...arguments);
+    const {
+      schedule_timezone: timezone,
+      schedule_start_date: startDate,
+      schedule_end_date: endDate,
+      schedule_server_datetime: serverDatetime
+    } = this.getSettings();
+    this.settings = {
+      timezone,
+      startDate: startDate ? new Date(startDate) : false,
+      endDate: endDate ? new Date(endDate) : false,
+      serverDatetime: serverDatetime ? new Date(serverDatetime) : false
+    };
+    this.scheduleUtils = new _scheduleUtils.default({
+      settings: this.settings
+    });
+  }
+  getName() {
+    return 'schedule';
+  }
+  check() {
+    return this.scheduleUtils.shouldDisplay();
   }
 }
 exports["default"] = _default;

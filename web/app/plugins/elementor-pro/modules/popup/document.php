@@ -752,6 +752,17 @@ class Document extends Theme_Section_Document {
 		);
 
 		$this->add_control(
+			'a11y_navigation',
+			[
+				'label' => esc_html__( 'Accessible navigation', 'elementor-pro' ),
+				'type' => Controls_Manager::SWITCHER,
+				'default' => 'yes',
+				'description' => esc_html__( 'Allow keyboard tab navigation for accessibility', 'elementor-pro' ),
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
 			'open_selector',
 			[
 				'label' => esc_html__( 'Open By Selector', 'elementor-pro' ),

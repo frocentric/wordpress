@@ -1,5 +1,28 @@
 # Elementor Pro - by Elementor.com
 
+#### 3.11.1 - 2023-02-15
+
+* Fix: Featured Image dynamic tag is not working in Background images ([#21313](https://github.com/elementor/elementor/issues/21313))
+* Fix: Time zone is not correct in Countdown widget ([#17485](https://github.com/elementor/elementor/issues/17485))
+* Fix: File upload field is not working in Form widget ([#21341](https://github.com/elementor/elementor/issues/21341))
+* Fix: Post Image Attachments dynamic tag is not working in various widgets ([#21314](https://github.com/elementor/elementor/issues/21314))
+
+#### 3.11.0 - 2023-02-13
+
+* New: Introducing Loop Carousel widget - Create powerful & repeating loop templates and populate each one with dynamic content ([#219](https://github.com/elementor/elementor/issues/219))
+* New: Added Date and Time Range option to Advanced Rules in Popup
+* Tweak: Improved accessibility when opening and closing a popup ([#9788](https://github.com/elementor/elementor/issues/9788))
+* Tweak: Improved accessibility of full-screen mode in Search Form widget ([#19907](https://github.com/elementor/elementor/issues/19907))
+* Tweak: Added keyboard accessibility support to Flip Box widget ([#5861](https://github.com/elementor/elementor/issues/5861))
+* Tweak: Add `aria-label` to read more link in Posts widget ([#13784](https://github.com/elementor/elementor/issues/13784))
+* Tweak: Use `aspect-ratio` property instead of CSS trick in Media Carousel widget
+* Tweak: Updated translation string in Stripe widget
+* Fix: Masonry and Columns controls are not working as expected with responsive in Posts and Loop Grid widgets ([#20670](https://github.com/elementor/elementor/issues/20670))
+* Fix: Invalid attributes names in Nav Menu widget ([#17400](https://github.com/elementor/elementor/issues/17400))
+* Fix: Post Image Attachments dynamic tag is not working as expected in various widgets
+* Fix: Form fields order is not presented correctly when exported to CSV in Form Submissions
+* Fix: Dynamic background image and video are not working with ACF in Loop Grid widget
+
 #### 3.10.3 - 2023-01-29
 
 * Tweak: Added introduction video to loop item information modal in Theme Builder

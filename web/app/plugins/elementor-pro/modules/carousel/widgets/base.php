@@ -464,6 +464,8 @@ abstract class Base extends Base_Widget {
 			]
 		);
 
+		$swiper_class = Plugin::elementor()->experiments->is_feature_active( 'e_swiper_latest' ) ? 'swiper' : 'swiper-container';
+
 		$this->add_control(
 			'pagination_size',
 			[
@@ -476,7 +478,7 @@ abstract class Base extends Base_Widget {
 				],
 				'selectors' => [
 					'{{WRAPPER}} .swiper-pagination-bullet' => 'height: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}}',
-					'{{WRAPPER}} .swiper-container-horizontal .swiper-pagination-progressbar' => 'height: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .' . $swiper_class . '-horizontal .swiper-pagination-progressbar' => 'height: {{SIZE}}{{UNIT}}',
 					'{{WRAPPER}} .swiper-pagination-fraction' => 'font-size: {{SIZE}}{{UNIT}}',
 				],
 				'condition' => [
@@ -531,9 +533,10 @@ abstract class Base extends Base_Widget {
 		$settings = array_merge( $default_settings, $settings );
 
 		$slides_count = count( $settings['slides'] );
+		$swiper_class = Plugin::elementor()->experiments->is_feature_active( 'e_swiper_latest' ) ? 'swiper' : 'swiper-container';
 		?>
 		<div class="elementor-swiper">
-			<div class="<?php echo esc_attr( $settings['container_class'] ); ?> swiper-container">
+			<div class="<?php echo esc_attr( $settings['container_class'] ); ?> <?php echo esc_attr( $swiper_class ); ?>">
 				<div class="swiper-wrapper">
 					<?php
 					foreach ( $settings['slides'] as $index => $slide ) :

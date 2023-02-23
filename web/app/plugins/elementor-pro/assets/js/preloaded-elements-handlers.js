@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.10.3 - 29-01-2023 */
+/*! elementor-pro - v3.11.1 - 15-02-2023 */
 "use strict";
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["preloaded-elements-handlers"],{
 
@@ -29,6 +29,7 @@ var _frontendLegacy15 = _interopRequireDefault(__webpack_require__(/*! modules/t
 var _frontendLegacy16 = _interopRequireDefault(__webpack_require__(/*! modules/theme-elements/assets/js/frontend/frontend-legacy */ "../modules/theme-elements/assets/js/frontend/frontend-legacy.js"));
 var _frontendLegacy17 = _interopRequireDefault(__webpack_require__(/*! modules/woocommerce/assets/js/frontend/frontend-legacy */ "../modules/woocommerce/assets/js/frontend/frontend-legacy.js"));
 var _frontendLegacy18 = _interopRequireDefault(__webpack_require__(/*! modules/loop-builder/assets/js/frontend/frontend-legacy */ "../modules/loop-builder/assets/js/frontend/frontend-legacy.js"));
+var _frontendLegacy19 = _interopRequireDefault(__webpack_require__(/*! modules/mega-menu/assets/js/frontend/frontend-legacy */ "../modules/mega-menu/assets/js/frontend/frontend-legacy.js"));
 const extendDefaultHandlers = defaultHandlers => {
   const handlers = {
     animatedText: _frontendLegacy.default,
@@ -48,7 +49,8 @@ const extendDefaultHandlers = defaultHandlers => {
     themeElements: _frontendLegacy16.default,
     woocommerce: _frontendLegacy17.default,
     tableOfContents: _frontendLegacy14.default,
-    loopBuilder: _frontendLegacy18.default
+    loopBuilder: _frontendLegacy18.default,
+    megaMenu: _frontendLegacy19.default
   };
   return {
     ...defaultHandlers,
@@ -2633,8 +2635,6 @@ class _default extends elementorModules.Module {
     ['post', 'product'].forEach(skinName => {
       elementorFrontend.elementsHandler.attachHandler('loop-grid', _loadMore.default, skinName);
       elementorFrontend.elementsHandler.attachHandler('loop-grid', _loop.default, skinName);
-    });
-    ['carousel-post'].forEach(skinName => {
       elementorFrontend.elementsHandler.attachHandler('loop-carousel', _loop.default, skinName);
       elementorFrontend.elementsHandler.attachHandler('loop-carousel', _loopCarousel.default, skinName);
     });
@@ -2658,6 +2658,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 var _loadMore = _interopRequireDefault(__webpack_require__(/*! modules/posts/assets/js/frontend/handlers/load-more */ "../modules/posts/assets/js/frontend/handlers/load-more.js"));
+var _elementHandlers = _interopRequireDefault(__webpack_require__(/*! ./utils/element-handlers */ "../modules/loop-builder/assets/js/frontend/handlers/utils/element-handlers.js"));
 class LoopLoadMore extends _loadMore.default {
   getDefaultSettings() {
     const defaultSettings = super.getDefaultSettings();
@@ -2673,10 +2674,7 @@ class LoopLoadMore extends _loadMore.default {
       this.handleLazyloadBackgroundElements();
     }
     this.handleDynamicStyleElements(result);
-    this.runElementHandlers(postsElements);
-  }
-  runElementHandlers(postsElements) {
-    [...postsElements].flatMap(el => [...el.querySelectorAll('.elementor-element')]).forEach(el => elementorFrontend.elementsHandler.runReadyTrigger(el));
+    (0, _elementHandlers.default)(postsElements);
   }
 
   /**
@@ -2722,24 +2720,47 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 var _imageCarousel = _interopRequireDefault(__webpack_require__(/*! elementor/assets/dev/js/frontend/handlers/image-carousel */ "../../elementor/assets/dev/js/frontend/handlers/image-carousel.js"));
+var _elementHandlers = _interopRequireDefault(__webpack_require__(/*! ./utils/element-handlers */ "../modules/loop-builder/assets/js/frontend/handlers/utils/element-handlers.js"));
 class LoopCarousel extends _imageCarousel.default {
   getDefaultSettings() {
-    return {
-      selectors: {
-        carousel: '.elementor-loop-container',
-        slideContent: '.swiper-slide'
-      }
-    };
+    const defaultSettings = super.getDefaultSettings();
+    defaultSettings.selectors.carousel = '.elementor-loop-container';
+    return defaultSettings;
   }
   getSwiperSettings() {
-    const swiperOptions = super.getSwiperSettings();
-    if ('yes' === this.getElementSettings('arrows')) {
+    const swiperOptions = super.getSwiperSettings(),
+      elementSettings = this.getElementSettings();
+    if ('yes' === elementSettings.arrows) {
       swiperOptions.navigation = {
         prevEl: '.elementor-swiper-button-prev',
         nextEl: '.elementor-swiper-button-next'
       };
     }
+    if (elementSettings.pagination) {
+      swiperOptions.pagination = {
+        el: '.swiper-pagination',
+        type: elementSettings.pagination,
+        clickable: true
+      };
+    }
+    swiperOptions.on = {
+      slideChange: () => {
+        this.handleElementHandlers();
+      }
+    };
     return swiperOptions;
+  }
+  async onInit() {
+    super.onInit(...arguments);
+    this.ranElementHandlers = false;
+  }
+  handleElementHandlers() {
+    if (this.ranElementHandlers || !this.swiper) {
+      return;
+    }
+    const newSlides = Array.from(this.swiper.slides).slice(this.swiper.activeIndex - 1, this.swiper.slides.length);
+    (0, _elementHandlers.default)(newSlides);
+    this.ranElementHandlers = true;
   }
 }
 exports["default"] = LoopCarousel;
@@ -2772,6 +2793,7 @@ class Loop extends _posts.default {
     const defaultSettings = super.getDefaultSettings();
     defaultSettings.selectors.post = '.elementor-loop-container .elementor';
     defaultSettings.selectors.postsContainer = '.elementor-loop-container';
+    defaultSettings.classes.inPlaceTemplateEditable = 'elementor-in-place-template-editable';
     return defaultSettings;
   }
 
@@ -2782,30 +2804,55 @@ class Loop extends _posts.default {
    */
   fitImages() {}
   getVerticalSpaceBetween() {
-    return this.getElementSettings(this.getSkinPrefix() + 'row_gap.size');
+    return elementorProFrontend.utils.controls.getResponsiveControlValue(this.getElementSettings(), 'row_gap', 'size');
   }
 
   /**
    * This is a callback that runs when the "Edit Template" document handle is clicked in the Editor.
    */
   onInPlaceEditTemplate() {
-    const templateID = this.getElementSettings('template_id'),
-      elementsToRemove = ['style#loop-' + templateID, 'link#font-loop-' + templateID, 'style#loop-dynamic-' + templateID];
-    elementsToRemove.forEach(elementToRemove => {
+    this.$element.addClass(this.getDefaultSettings().classes.inPlaceTemplateEditable);
+    this.elementsToRemove = [];
+    this.handleSwiper();
+    const templateID = this.getElementSettings('template_id');
+    this.elementsToRemove = [...this.elementsToRemove, 'style#loop-' + templateID, 'link#font-loop-' + templateID, 'style#loop-dynamic-' + templateID];
+    this.elementsToRemove.forEach(elementToRemove => {
       this.$element.find(elementToRemove).remove();
     });
   }
+  handleSwiper() {
+    const swiper = this.elements.$postsContainer.data('swiper');
+    if (!swiper) {
+      return;
+    }
+    swiper.slideTo(0);
+    swiper.autoplay.pause();
+    swiper.allowTouchMove = false;
+    swiper.params.autoplay.delay = 1000000; // Add a long delay so that the Swiper does not move while editing the Template. Even though it was paused, it will start again on mouse leave.
+    swiper.update();
+    this.elementsToRemove = [...this.elementsToRemove, '.swiper-pagination', '.elementor-swiper-button', '.elementor-document-handle'];
+  }
   attachEditDocumentHandle() {
     // eslint-disable-next-line computed-property-spacing
-    const element = this.$element.find('[data-elementor-type="loop-item"]').first()[0],
-      id = this.getElementSettings('template_id');
-    if (element && id) {
-      (0, _documentHandle.default)({
-        element,
-        title: __('Template', 'elementor-pro'),
-        id
-      }, _documentHandle.EDIT_CONTEXT, () => this.onInPlaceEditTemplate(), '.elementor-element-' + this.getID() + ' .elementor-' + id);
+    const id = this.getElementSettings('template_id'),
+      elementData = elementor.getElementData(elementorFrontend.config.elements.data[this.getModelCID()]),
+      element = this.$element.find(elementData?.edit_handle_selector).first()[0];
+    if (!element || !id) {
+      return;
     }
+    if (this.isFirstEdit()) {
+      // TODO: refactor when CSS :has() is fully supported.
+      this.$element.find('.elementor-swiper-button').remove();
+      return;
+    }
+    (0, _documentHandle.default)({
+      element,
+      title: __('Template', 'elementor-pro'),
+      id
+    }, _documentHandle.EDIT_CONTEXT, () => this.onInPlaceEditTemplate(), '.elementor-element-' + this.getID() + ' .elementor-' + id);
+  }
+  isFirstEdit() {
+    return this.$element.has('.e-loop-first-edit').length;
   }
   handleCTA() {
     const emptyViewContainer = document.querySelector(`[data-id="${this.getID()}"] .e-loop-empty-view__wrapper`);
@@ -2839,6 +2886,24 @@ class Loop extends _posts.default {
   }
 }
 exports["default"] = Loop;
+
+/***/ }),
+
+/***/ "../modules/loop-builder/assets/js/frontend/handlers/utils/element-handlers.js":
+/*!*************************************************************************************!*\
+  !*** ../modules/loop-builder/assets/js/frontend/handlers/utils/element-handlers.js ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = runElementHandlers;
+function runElementHandlers(elements) {
+  [...elements].flatMap(el => [...el.querySelectorAll('.elementor-element')]).forEach(el => elementorFrontend.elementsHandler.runReadyTrigger(el));
+}
 
 /***/ }),
 
@@ -3518,6 +3583,114 @@ exports["default"] = lottieHandler;
 
 /***/ }),
 
+/***/ "../modules/mega-menu/assets/js/frontend/frontend-legacy.js":
+/*!******************************************************************!*\
+  !*** ../modules/mega-menu/assets/js/frontend/frontend-legacy.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+var _megaMenu = _interopRequireDefault(__webpack_require__(/*! ./handlers/mega-menu */ "../modules/mega-menu/assets/js/frontend/handlers/mega-menu.js"));
+class _default extends elementorModules.Module {
+  constructor() {
+    super();
+    elementorFrontend.elementsHandler.attachHandler('mega-menu', _megaMenu.default);
+  }
+}
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ "../modules/mega-menu/assets/js/frontend/handlers/mega-menu.js":
+/*!*********************************************************************!*\
+  !*** ../modules/mega-menu/assets/js/frontend/handlers/mega-menu.js ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
+  getDefaultSettings() {
+    const settings = super.getDefaultSettings();
+    settings.selectors.tabTitle = '.e-n-menu-item-title';
+    settings.selectors.headingContainer = '.e-n-menu-items-heading';
+    settings.autoExpand = this.isEdit;
+    return settings;
+  }
+  changeActiveTab(tabIndex) {
+    let fromUser = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+    const isActiveTab = this.isActiveTab(tabIndex);
+    if (!isActiveTab || isActiveTab && !fromUser) {
+      this.deactivateActiveTab();
+      this.activateTab(tabIndex);
+    } else {
+      this.deactivateActiveTab();
+    }
+  }
+  bindEvents() {
+    super.bindEvents();
+    this.elements.$tabContents.on(this.getTabContentEvents());
+  }
+  getTabEvents() {
+    const tabEvents = super.getTabEvents();
+    return this.isNeedToOpenOnClick() ? tabEvents : this.replaceClickWithHover(tabEvents);
+  }
+  getTabContentEvents() {
+    return this.isNeedToOpenOnClick() ? {} : {
+      mouseleave: this.onMouseContentLeave.bind(this)
+    };
+  }
+  isNeedToOpenOnClick() {
+    const nonMobileDevices = ['mobile', 'mobile_extra', 'tablet', 'tablet_extra'];
+    return this.isEdit || nonMobileDevices.includes(elementorFrontend.getCurrentDeviceMode()) || this.getElementSettings('open_on') !== 'hover';
+  }
+  replaceClickWithHover(tabEvents) {
+    delete tabEvents.click;
+    tabEvents.mouseenter = this.onMouseTitleEnter.bind(this);
+    tabEvents.mouseleave = this.onMouseTitleLeave.bind(this);
+    return tabEvents;
+  }
+  onMouseTitleEnter(event) {
+    event.preventDefault();
+    this.changeActiveTab(event.currentTarget.getAttribute('data-tab'), true);
+  }
+  onMouseTitleLeave(event) {
+    event.preventDefault();
+    const itemsUnderMouseArray = Array.prototype.slice.call(document.querySelectorAll(':hover'));
+    if (this.isContainingMenuContentTab(itemsUnderMouseArray)) {
+      return;
+    }
+    this.deactivateActiveTab();
+  }
+  isContainingMenuContentTab(itemsUnderMouse) {
+    return itemsUnderMouse.some(item => item.classList.contains('e-n-menu-items-content'));
+  }
+  onMouseContentLeave(event) {
+    event.preventDefault();
+    this.deactivateActiveTab();
+  }
+  onTabClick(event) {
+    if (!this.isEdit && 'a' === event.target.nodeName.toLowerCase()) {
+      return;
+    }
+    event.preventDefault();
+    this.changeActiveTab(event.currentTarget.getAttribute('data-tab'), true);
+  }
+}
+exports["default"] = MegaMenu;
+
+/***/ }),
+
 /***/ "../modules/nav-menu/assets/js/frontend/frontend-legacy.js":
 /*!*****************************************************************!*\
   !*** ../modules/nav-menu/assets/js/frontend/frontend-legacy.js ***!
@@ -3774,7 +3947,7 @@ class _default extends elementorModules.frontend.Document {
   initTriggers() {
     this.triggers = new _triggers.default(this.getDocumentSettings('triggers'), this);
   }
-  showModal(avoidMultiple) {
+  showModal(avoidMultiple, event) {
     // eslint-disable-next-line @wordpress/no-unused-vars-before-return
     const settings = this.getDocumentSettings();
     if (!this.isEdit) {
@@ -3807,6 +3980,9 @@ class _default extends elementorModules.frontend.Document {
       this.countTimes();
     }
     elementorProFrontend.modules.popup.popupPopped = true;
+    if (!this.isEdit && settings.a11y_navigation) {
+      this.handleKeyboardA11y(event);
+    }
   }
   setEntranceAnimation() {
     const $widgetContent = this.getModal().getElements('widgetContent'),
@@ -3822,6 +3998,49 @@ class _default extends elementorModules.frontend.Document {
     const animationDuration = settings.entrance_animation_duration.size;
     $widgetContent.addClass(newAnimation);
     setTimeout(() => $widgetContent.removeClass(newAnimation), animationDuration * 1000);
+  }
+  handleKeyboardA11y(event) {
+    const selectorFocusedElements = ':focusable';
+    const $focusableElements = this.getModal().getElements('widgetContent').find(selectorFocusedElements);
+    if (!$focusableElements.length) {
+      return;
+    }
+    let $lastButtonClicked = null;
+    if (event?.currentTarget) {
+      $lastButtonClicked = jQuery(event.currentTarget);
+    }
+    const $lastFocusableElement = $focusableElements[$focusableElements.length - 1];
+    const $firstFocusableElement = $focusableElements[0];
+    const onKeyDownPressed = keyDownEvent => {
+      const TAB_KEY = 9;
+      const isShiftPressed = keyDownEvent.shiftKey;
+      const isTabPressed = 'Tab' === keyDownEvent.key || TAB_KEY === keyDownEvent.keyCode;
+      if (!isTabPressed) {
+        return;
+      }
+      const activeElement = elementorFrontend.elements.window.document.activeElement;
+      if (isShiftPressed) {
+        const isFocusOnFirstElement = activeElement === $firstFocusableElement;
+        if (isFocusOnFirstElement) {
+          $lastFocusableElement.focus();
+          keyDownEvent.preventDefault();
+        }
+      } else {
+        const isFocusOnLastElement = activeElement === $lastFocusableElement;
+        if (isFocusOnLastElement) {
+          $firstFocusableElement.focus();
+          keyDownEvent.preventDefault();
+        }
+      }
+    };
+    $firstFocusableElement.focus();
+    const $window = elementorFrontend.elements.$window;
+    $window.on('keydown', onKeyDownPressed).on('elementor/popup/hide', () => {
+      $window.off('keydown', onKeyDownPressed);
+      if ($lastButtonClicked) {
+        $lastButtonClicked.focus();
+      }
+    });
   }
   setExitAnimation() {
     const modal = this.getModal(),
@@ -4113,6 +4332,7 @@ var _loggedIn = _interopRequireDefault(__webpack_require__(/*! ./timing/logged-i
 var _devices = _interopRequireDefault(__webpack_require__(/*! ./timing/devices */ "../modules/popup/assets/js/frontend/timing/devices.js"));
 var _times = _interopRequireDefault(__webpack_require__(/*! ./timing/times */ "../modules/popup/assets/js/frontend/timing/times.js"));
 var _browsers = _interopRequireDefault(__webpack_require__(/*! ./timing/browsers */ "../modules/popup/assets/js/frontend/timing/browsers.js"));
+var _schedule = _interopRequireDefault(__webpack_require__(/*! ./timing/schedule */ "../modules/popup/assets/js/frontend/timing/schedule.js"));
 class _default extends elementorModules.Module {
   constructor(settings, document) {
     super(settings);
@@ -4125,7 +4345,8 @@ class _default extends elementorModules.Module {
       logged_in: _loggedIn.default,
       devices: _devices.default,
       times: _times.default,
-      browsers: _browsers.default
+      browsers: _browsers.default,
+      schedule: _schedule.default
     };
   }
   check() {
@@ -4290,6 +4511,91 @@ class _default extends _base.default {
       initialPageViews = pageViews;
     }
     return pageViews - initialPageViews >= this.getTimingSetting('views');
+  }
+}
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ "../modules/popup/assets/js/frontend/timing/schedule-utils.js":
+/*!********************************************************************!*\
+  !*** ../modules/popup/assets/js/frontend/timing/schedule-utils.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "../node_modules/@babel/runtime/helpers/defineProperty.js"));
+class ScheduleUtils {
+  constructor(args) {
+    (0, _defineProperty2.default)(this, "shouldDisplay", () => {
+      if (!this.settings.startDate && !this.settings.endDate) {
+        return true;
+      }
+      const now = this.getCurrentDateTime();
+      if ((!this.settings.startDate || now >= this.settings.startDate) && (!this.settings.endDate || now <= this.settings.endDate)) {
+        return true;
+      }
+      return false;
+    });
+    this.settings = args.settings;
+  }
+  getCurrentDateTime() {
+    let now = new Date();
+    if ('site' === this.settings.timezone && this.settings.serverDatetime) {
+      now = new Date(this.settings.serverDatetime);
+    }
+    return now;
+  }
+}
+exports["default"] = ScheduleUtils;
+
+/***/ }),
+
+/***/ "../modules/popup/assets/js/frontend/timing/schedule.js":
+/*!**************************************************************!*\
+  !*** ../modules/popup/assets/js/frontend/timing/schedule.js ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+var _base = _interopRequireDefault(__webpack_require__(/*! ./base */ "../modules/popup/assets/js/frontend/timing/base.js"));
+var _scheduleUtils = _interopRequireDefault(__webpack_require__(/*! ./schedule-utils */ "../modules/popup/assets/js/frontend/timing/schedule-utils.js"));
+class _default extends _base.default {
+  constructor() {
+    super(...arguments);
+    const {
+      schedule_timezone: timezone,
+      schedule_start_date: startDate,
+      schedule_end_date: endDate,
+      schedule_server_datetime: serverDatetime
+    } = this.getSettings();
+    this.settings = {
+      timezone,
+      startDate: startDate ? new Date(startDate) : false,
+      endDate: endDate ? new Date(endDate) : false,
+      serverDatetime: serverDatetime ? new Date(serverDatetime) : false
+    };
+    this.scheduleUtils = new _scheduleUtils.default({
+      settings: this.settings
+    });
+  }
+  getName() {
+    return 'schedule';
+  }
+  check() {
+    return this.scheduleUtils.shouldDisplay();
   }
 }
 exports["default"] = _default;
@@ -5405,20 +5711,9 @@ var _default = elementorModules.frontend.handlers.Base.extend({
     });
   },
   setColsCountSettings() {
-    var currentDeviceMode = elementorFrontend.getCurrentDeviceMode(),
-      settings = this.getElementSettings(),
+    const settings = this.getElementSettings(),
       skinPrefix = this.getSkinPrefix(),
-      colsCount;
-    switch (currentDeviceMode) {
-      case 'mobile':
-        colsCount = settings[skinPrefix + 'columns_mobile'];
-        break;
-      case 'tablet':
-        colsCount = settings[skinPrefix + 'columns_tablet'];
-        break;
-      default:
-        colsCount = settings[skinPrefix + 'columns'];
-    }
+      colsCount = elementorProFrontend.utils.controls.getResponsiveControlValue(settings, `${skinPrefix}columns`);
     this.setSettings('colsCount', colsCount);
   },
   isMasonryEnabled() {
@@ -5428,10 +5723,10 @@ var _default = elementorModules.frontend.handlers.Base.extend({
     imagesLoaded(this.elements.$posts, this.runMasonry);
   },
   getVerticalSpaceBetween() {
-    /* The `verticalSpaceBetween` variable is setup in a way that supports older versions of the portfolio widget */
-    let verticalSpaceBetween = this.getElementSettings(this.getSkinPrefix() + 'row_gap.size');
+    /* The `verticalSpaceBetween` variable is set up in a way that supports older versions of the portfolio widget */
+    let verticalSpaceBetween = elementorProFrontend.utils.controls.getResponsiveControlValue(this.getElementSettings(), `${this.getSkinPrefix()}row_gap`, 'size');
     if ('' === this.getSkinPrefix() && '' === verticalSpaceBetween) {
-      verticalSpaceBetween = this.getElementSettings(this.getSkinPrefix() + 'item_gap.size');
+      verticalSpaceBetween = this.getElementSettings('item_gap.size');
     }
     return verticalSpaceBetween;
   },
@@ -6498,13 +6793,25 @@ var _default = elementorModules.frontend.handlers.Base.extend({
       $input = self.elements.$input,
       $wrapper = self.elements.$wrapper,
       $icon = self.elements.$icon,
+      $toggle = self.elements.$toggle,
       skin = this.getElementSettings('skin'),
       classes = this.getSettings('classes');
+    const toggleFullScreenSearch = () => {
+      $container.toggleClass(classes.isFullScreen).toggleClass(classes.lightbox);
+      $input.trigger('focus');
+    };
     if ('full_screen' === skin) {
-      // Activate full-screen mode on click
-      self.elements.$toggle.on('click', function () {
-        $container.toggleClass(classes.isFullScreen).toggleClass(classes.lightbox);
-        $input.trigger('focus');
+      // Activate full-screen mode on mouse click.
+      $toggle.on('click', function () {
+        toggleFullScreenSearch();
+      });
+
+      // Activate full-screen mode on Enter keyup.
+      $toggle.on('keyup', function (event) {
+        const ENTER_KEY = 13;
+        if (ENTER_KEY === event.keyCode) {
+          toggleFullScreenSearch();
+        }
       });
 
       // Deactivate full-screen mode on click or on esc.
@@ -6517,7 +6824,7 @@ var _default = elementorModules.frontend.handlers.Base.extend({
         $container.removeClass(classes.isFullScreen).removeClass(classes.lightbox);
       });
       elementorFrontend.elements.$document.on('keyup', function (event) {
-        var ESC_KEY = 27;
+        const ESC_KEY = 27;
         if (ESC_KEY === event.keyCode) {
           if ($container.hasClass(classes.isFullScreen)) {
             $container.trigger('click');
@@ -7688,6 +7995,9 @@ class ImageCarousel extends elementorModules.frontend.handlers.SwiperBase {
         slidesPerView: +elementSettings['slides_to_show_' + breakpointName] || defaultSlidesToShow,
         slidesPerGroup: +elementSettings['slides_to_scroll_' + breakpointName] || 1
       };
+      if (elementSettings.image_spacing_custom) {
+        swiperOptions.breakpoints[elementorBreakpoints[breakpointName].value].spaceBetween = this.getSpaceBetween(breakpointName);
+      }
       lastBreakpointSlidesToShowValue = +elementSettings['slides_to_show_' + breakpointName] || defaultSlidesToShow;
     });
     if ('yes' === elementSettings.autoplay) {
@@ -7707,7 +8017,7 @@ class ImageCarousel extends elementorModules.frontend.handlers.SwiperBase {
       swiperOptions.slidesPerGroup = +elementSettings.slides_to_scroll || 1;
     }
     if (elementSettings.image_spacing_custom) {
-      swiperOptions.spaceBetween = elementSettings.image_spacing_custom.size;
+      swiperOptions.spaceBetween = this.getSpaceBetween();
     }
     const showArrows = 'arrows' === elementSettings.navigation || 'both' === elementSettings.navigation,
       showDots = 'dots' === elementSettings.navigation || 'both' === elementSettings.navigation;
@@ -7754,9 +8064,6 @@ class ImageCarousel extends elementorModules.frontend.handlers.SwiperBase {
 
     // Handle special cases where the value to update is not the value that the Swiper library accepts.
     switch (propertyName) {
-      case 'image_spacing_custom':
-        params.spaceBetween = newSettingValue.size || 0;
-        break;
       case 'autoplay_speed':
         params.autoplay.delay = newSettingValue;
         break;
@@ -7771,10 +8078,15 @@ class ImageCarousel extends elementorModules.frontend.handlers.SwiperBase {
       pause_on_hover: 'pauseOnHover',
       autoplay_speed: 'delay',
       speed: 'speed',
-      image_spacing_custom: 'spaceBetween'
+      arrows_position: 'arrows_position' // Not a Swiper setting.
     };
   }
+
   onElementChange(propertyName) {
+    if (0 === propertyName.indexOf('image_spacing_custom')) {
+      this.updateSpaceBetween(propertyName);
+      return;
+    }
     const changeableProperties = this.getChangeableProperties();
     if (changeableProperties[propertyName]) {
       // 'pause_on_hover' is implemented by the handler with event listeners, not the Swiper library.
@@ -7790,6 +8102,20 @@ class ImageCarousel extends elementorModules.frontend.handlers.SwiperBase {
     if ('activeItemIndex' === propertyName) {
       this.swiper.slideToLoop(this.getEditSettings('activeItemIndex') - 1);
     }
+  }
+  getSpaceBetween() {
+    let device = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    return elementorFrontend.utils.controls.getResponsiveControlValue(this.getElementSettings(), 'image_spacing_custom', 'size', device) || 0;
+  }
+  updateSpaceBetween(propertyName) {
+    const deviceMatch = propertyName.match('image_spacing_custom_(.*)'),
+      device = deviceMatch ? deviceMatch[1] : 'desktop',
+      newSpaceBetween = this.getSpaceBetween(device);
+    if ('desktop' !== device) {
+      this.swiper.params.breakpoints[elementorFrontend.config.responsive.activeBreakpoints[device].value].spaceBetween = newSpaceBetween;
+    }
+    this.swiper.params.spaceBetween = newSpaceBetween;
+    this.swiper.update();
   }
 }
 exports["default"] = ImageCarousel;

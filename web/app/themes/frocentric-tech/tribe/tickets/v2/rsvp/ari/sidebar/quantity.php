@@ -34,7 +34,7 @@
 
 		<?php
 		// phpcs:ignore VariableAnalysis.CodeAnalysis.VariableAnalysis.UndefinedVariable
-		$this->template( 'v2/rsvp/ari/sidebar/quantity/input', [ 'rsvp' => $rsvp ] );
+		$this->template( 'v2/rsvp/ari/sidebar/quantity/input', array( 'rsvp' => $rsvp ) );
 		?>
 
 		<?php

@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.10.3 - 29-01-2023 */
+/*! elementor-pro - v3.11.1 - 15-02-2023 */
 :root {
   --color-box-shadow-color: rgba(0, 0, 0, 0.05);
 }
@@ -116,6 +116,9 @@
 
 .e-site-editor__templates .page-header {
   margin-bottom: 0.625rem;
+}
+.e-site-editor__templates .page-header > a {
+  align-self: baseline;
 }
 .e-site-editor__templates .eps-separator {
   margin-bottom: 2.75rem;

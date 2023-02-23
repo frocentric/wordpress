@@ -971,13 +971,19 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 			return;
 		}
 
+		$aria_label_text = sprintf(
+			/* translators: %s: Post title. */
+			esc_attr__( 'Read more about %s', 'elementor-pro' ),
+			get_the_title()
+		);
+
 		$optional_attributes_html = $this->get_optional_link_attributes_html();
 
 		if ( $this->display_read_more_bottom() ) : ?>
 			<div class="elementor-post__read-more-wrapper">
 		<?php endif; ?>
 
-		<a class="elementor-post__read-more" href="<?php echo esc_url( $this->current_permalink ); ?>" <?php Utils::print_unescaped_internal_string( $optional_attributes_html ); ?>>
+		<a class="elementor-post__read-more" href="<?php echo esc_url( $this->current_permalink ); ?>" aria-label="<?php echo esc_attr( $aria_label_text ); ?>" <?php Utils::print_unescaped_internal_string( $optional_attributes_html ); ?>>
 			<?php echo wp_kses_post( $read_more ); ?>
 		</a>
 

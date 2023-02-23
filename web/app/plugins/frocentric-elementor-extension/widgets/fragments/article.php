@@ -1,4 +1,10 @@
 <?php
+/**
+ * Elementor article template
+ *
+ * @package     Frocentric/Customizations/Tribe
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -66,10 +72,10 @@ self::$enable_columns = true;
 				the_content();
 
 				wp_link_pages(
-					[
+					array(
 						'before' => '<div class="page-links">' . __( 'Pages:', 'generatepress' ),
 						'after'  => '</div>',
-					]
+					)
 				);
 				?>
 			</div><!-- .entry-content -->

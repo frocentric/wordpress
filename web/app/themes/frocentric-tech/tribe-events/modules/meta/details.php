@@ -1,5 +1,4 @@
 <?php
-// phpcs:disable Generic.WhiteSpace.ScopeIndent
 /**
  * Single Event Meta (Details) Template
  *
@@ -13,6 +12,7 @@
  * @version 4.6.19
  */
 
+// phpcs:disable Generic.WhiteSpace.ScopeIndent
 if ( ! function_exists( 'fro_meta_event_archive_taxonomy' ) ) {
 	/**
 	 * Display the event tags in a list with links to the event tag archive.
@@ -43,8 +43,8 @@ if ( ! function_exists( 'fro_meta_event_archive_taxonomy' ) ) {
 			$label = esc_html__( 'Labels:', 'froware' );
 		}
 
-		$terms = [];
-		$custom_taxonomies = array_intersect( array_keys( Froware_Public::EVENT_TAXONOMIES ), get_post_taxonomies( get_the_ID() ) );
+		$terms = array();
+		$custom_taxonomies = array_intersect( array_keys( Frocentric\Customizations\Tribe::EVENT_TAXONOMIES ), get_post_taxonomies( get_the_ID() ) );
 
 		foreach ( $custom_taxonomies as $taxonomy ) {
 			$taxonomy_terms = get_the_terms( get_the_ID(), $taxonomy );
@@ -62,7 +62,7 @@ if ( ! function_exists( 'fro_meta_event_archive_taxonomy' ) ) {
 			return;
 		}
 
-		$term_links = [];
+		$term_links = array();
 		foreach ( $terms as $term ) {
 			$term_links[] = '<span class="tag">' . $term->name . '</span>';
 		}
@@ -221,7 +221,7 @@ $website_title = tribe_events_get_event_website_title();
 		<?php
 		echo tribe_get_event_categories(
 			get_the_id(),
-			[
+			array(
 				'before'       => '',
 				'sep'          => ', ',
 				'after'        => '',
@@ -230,7 +230,7 @@ $website_title = tribe_events_get_event_website_title();
 				'label_after'  => '</dt>',
 				'wrap_before'  => '<dd class="tribe-events-event-categories">',
 				'wrap_after'   => '</dd>',
-			]
+			)
 		);
 		?>
 

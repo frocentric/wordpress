@@ -3549,9 +3549,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function PanelDraggable(props) {
   var _usePanelContext = (0,_panel__WEBPACK_IMPORTED_MODULE_4__.usePanelContext)(),
-    _usePanelContext$size = _usePanelContext.size,
-    defaultWidth = _usePanelContext$size.defaultWidth,
-    defaultHeight = _usePanelContext$size.defaultHeight,
+    defaultWidth = _usePanelContext.size.defaultWidth,
     _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({}),
     _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__["default"])(_useState, 2),
     bounds = _useState2[0],
@@ -3831,9 +3829,7 @@ var handleProps = {
 var Handle = (0,styled_components__WEBPACK_IMPORTED_MODULE_4__["default"])(_div_base__WEBPACK_IMPORTED_MODULE_2__["default"])(_templateObject3 || (_templateObject3 = (0,_babel_runtime_helpers_taggedTemplateLiteral__WEBPACK_IMPORTED_MODULE_0__["default"])(["\n  flex: 0 0 ", "px !important;\n  display: inline-flex !important;\n  justify-content: center !important;\n  align-items: center !important;\n  background-color: #fff !important;\n  margin-top: 1px !important;\n  cursor: row-resize !important;\n"])), handleProps.height);
 function PanelResizer(props) {
   var _usePanelContext = (0,_panel__WEBPACK_IMPORTED_MODULE_3__.usePanelContext)(),
-    _usePanelContext$size = _usePanelContext.size,
-    defaultWidth = _usePanelContext$size.defaultWidth,
-    defaultHeight = _usePanelContext$size.defaultHeight;
+    defaultHeight = _usePanelContext.size.defaultHeight;
   var resizableRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
   var childrenRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
   var handleRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);

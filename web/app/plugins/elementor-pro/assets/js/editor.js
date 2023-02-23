@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.10.3 - 29-01-2023 */
+/*! elementor-pro - v3.11.1 - 15-02-2023 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -5818,6 +5818,7 @@ class ThemeBuilderModule extends elementorModules.editor.utils.Module {
     elementor.on('document:unload', this.onDocumentUnloaded.bind(this));
     this.onApplyPreview = this.onApplyPreview.bind(this);
     this.onSectionPreviewSettingsActive = this.onSectionPreviewSettingsActive.bind(this);
+    elementor.channels.editor.on('elementorProSiteLogo:change', this.openSiteIdentity);
   }
   onDocumentLoaded(document) {
     if (!document.config.theme_builder) {
@@ -5905,8 +5906,7 @@ class ThemeBuilderModule extends elementorModules.editor.utils.Module {
       controlView.$el.toggle(!!controlModel.get('autocomplete').object);
     }
   }
-  async openSiteIdentity(e) {
-    e.preventDefault();
+  async openSiteIdentity() {
     await $e.run('panel/global/open');
     $e.route('panel/global/settings-site-identity');
   }
@@ -8856,6 +8856,7 @@ module.exports = _interopRequireDefault, module.exports.__esModule = true, modul
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
 /******/ 			if (chunkId === "page-transitions-editor") return "" + chunkId + ".ed9e6f841eb61c1ca3b1.bundle.js";
+/******/ 			if (chunkId === "mega-menu-editor") return "" + chunkId + ".66d798484de92bb1d092.bundle.js";
 /******/ 			if (chunkId === "modules_query-control_assets_js_editor_template-query-control_js") return "2916a86e9d819c3b8e53.bundle.js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
@@ -9099,6 +9100,12 @@ var ElementorPro = Marionette.Application.extend({
           default: PageTransitions
         } = _ref;
         this.modules.pageTransitions = new PageTransitions();
+      });
+    }
+    if (elementorCommon.config.experimentalFeatures['mega-menu']) {
+      elementorCommon.elements.$window.on('elementor/nested-element-type-loaded', async () => {
+        // The module should be loaded only when `nestedElements` is available.
+        this.modules.megaMenu = new (await __webpack_require__.e(/*! import() | mega-menu-editor */ "mega-menu-editor").then(__webpack_require__.bind(__webpack_require__, /*! modules/mega-menu/assets/js/editor/module */ "../modules/mega-menu/assets/js/editor/module.js"))).default();
       });
     }
   },

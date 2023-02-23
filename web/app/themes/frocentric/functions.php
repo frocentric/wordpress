@@ -25,11 +25,11 @@ if ( ! function_exists( 'generate_entry_meta' ) ) {
 	function generate_entry_meta() {
 		$items = apply_filters(
 			'generate_footer_entry_meta_items',
-			[
+			array(
 				'author',
 				'tags',
 				'comments-link',
-			]
+			)
 		);
 
 		foreach ( $items as $item ) {
@@ -47,10 +47,10 @@ if ( ! function_exists( 'generate_posted_on' ) ) {
 	function generate_posted_on() {
 		$items = apply_filters(
 			'generate_header_entry_meta_items',
-			[
+			array(
 				'categories',
 				'date',
-			]
+			)
 		);
 
 		foreach ( $items as $item ) {
@@ -70,9 +70,9 @@ if ( ! function_exists( 'generate_post_meta' ) ) {
 	function generate_post_meta() {
 		$post_types = apply_filters(
 			'generate_entry_meta_post_types',
-			[
+			array(
 				'post',
-			]
+			)
 		);
 
 		if ( in_array( get_post_type(), $post_types, true ) ) : ?>

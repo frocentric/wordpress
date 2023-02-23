@@ -97,7 +97,7 @@ final class Frocentric_Elementor_Extension {
 	 */
 	public function __construct() {
 
-		add_action( 'plugins_loaded', [ $this, 'on_plugins_loaded' ] );
+		add_action( 'plugins_loaded', array( $this, 'on_plugins_loaded' ) );
 
 	}
 
@@ -133,7 +133,7 @@ final class Frocentric_Elementor_Extension {
 	public function on_plugins_loaded() {
 
 		if ( $this->is_compatible() ) {
-			add_action( 'elementor/init', [ $this, 'init' ] );
+			add_action( 'elementor/init', array( $this, 'init' ) );
 		}
 
 	}
@@ -152,19 +152,19 @@ final class Frocentric_Elementor_Extension {
 
 		// Check if Elementor installed and activated.
 		if ( ! did_action( 'elementor/loaded' ) ) {
-			add_action( 'admin_notices', [ $this, 'admin_notice_missing_main_plugin' ] );
+			add_action( 'admin_notices', array( $this, 'admin_notice_missing_main_plugin' ) );
 			return false;
 		}
 
 		// Check for required Elementor version.
 		if ( ! version_compare( ELEMENTOR_VERSION, self::MINIMUM_ELEMENTOR_VERSION, '>=' ) ) {
-			add_action( 'admin_notices', [ $this, 'admin_notice_minimum_elementor_version' ] );
+			add_action( 'admin_notices', array( $this, 'admin_notice_minimum_elementor_version' ) );
 			return false;
 		}
 
 		// Check for required PHP version.
 		if ( version_compare( PHP_VERSION, self::MINIMUM_PHP_VERSION, '<' ) ) {
-			add_action( 'admin_notices', [ $this, 'admin_notice_minimum_php_version' ] );
+			add_action( 'admin_notices', array( $this, 'admin_notice_minimum_php_version' ) );
 			return false;
 		}
 
@@ -189,8 +189,8 @@ final class Frocentric_Elementor_Extension {
 		$this->i18n();
 
 		// Add Plugin actions.
-		add_action( 'elementor/widgets/widgets_registered', [ $this, 'init_widgets' ] );
-		add_action( 'elementor/controls/controls_registered', [ $this, 'init_controls' ] );
+		add_action( 'elementor/widgets/widgets_registered', array( $this, 'init_widgets' ) );
+		add_action( 'elementor/controls/controls_registered', array( $this, 'init_controls' ) );
 
 	}
 
@@ -212,9 +212,9 @@ final class Frocentric_Elementor_Extension {
 
 		// Register widget.
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( $post_grid_widget );
-		add_filter( 'generate_blog_columns', [ $post_grid_widget, 'set_columns' ] );
-		add_filter( 'generate_post_author', [ $post_grid_widget, 'enable_author' ] );
-		add_filter( 'post_class', [ $post_grid_widget, 'generate_blog_post_classes' ] );
+		add_filter( 'generate_blog_columns', array( $post_grid_widget, 'set_columns' ) );
+		add_filter( 'generate_post_author', array( $post_grid_widget, 'enable_author' ) );
+		add_filter( 'post_class', array( $post_grid_widget, 'generate_blog_post_classes' ) );
 		add_action( 'generate_after_entry_content', 'generate_footer_meta' );
 
 	}
@@ -232,7 +232,6 @@ final class Frocentric_Elementor_Extension {
 
 		// Include Control files.
 		// require_once __DIR__ . '/controls/test-control.php';
-
 		// Register control.
 	}
 
@@ -328,9 +327,10 @@ if ( ! function_exists( 'generate_footer_meta' ) ) {
 	 */
 	function generate_footer_meta() {
 		$post_types = apply_filters(
-			'generate_footer_meta_post_types', [
+			'generate_footer_meta_post_types',
+			array(
 				'post',
-			]
+			)
 		);
 
 		if ( in_array( get_post_type(), $post_types, true ) ) : ?>

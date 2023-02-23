@@ -42,7 +42,7 @@
 	<?php endif; ?>
 >
 	<div class="tribe-common-l-container tribe-events-l-container">
-		<?php $this->template( 'components/loader', [ 'text' => __( 'Loading...', 'tribe-events-calendar-pro' ) ] ); ?>
+		<?php $this->template( 'components/loader', array( 'text' => __( 'Loading...', 'tribe-events-calendar-pro' ) ) ); ?>
 
 		<?php $this->template( 'components/json-ld-data' ); ?>
 
@@ -59,7 +59,7 @@
 				<?php foreach ( $events as $event ) : ?>
 					<?php $this->setup_postdata( $event ); ?>
 
-					<?php $this->template( 'photo/event', [ 'event' => $event ] ); ?>
+					<?php $this->template( 'photo/event', array( 'event' => $event ) ); ?>
 
 				<?php endforeach; ?>
 

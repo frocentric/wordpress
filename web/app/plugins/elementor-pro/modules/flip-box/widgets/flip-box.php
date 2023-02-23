@@ -1459,7 +1459,7 @@ class Flip_Box extends Base_Widget {
 		$is_new = empty( $settings['icon'] ) && $migration_allowed;
 
 		?>
-		<div class="elementor-flip-box">
+		<div class="elementor-flip-box" tabindex="0">
 			<div class="elementor-flip-box__layer elementor-flip-box__front">
 				<div class="elementor-flip-box__layer__overlay">
 					<div class="elementor-flip-box__layer__inner">
@@ -1565,7 +1565,7 @@ class Flip_Box extends Base_Widget {
 			migrated = elementor.helpers.isIconMigrated( settings, 'selected_icon' );
 		#>
 
-		<div class="elementor-flip-box">
+		<div class="elementor-flip-box" tabindex="0">
 			<div class="elementor-flip-box__layer elementor-flip-box__front">
 				<div class="elementor-flip-box__layer__overlay">
 					<div class="elementor-flip-box__layer__inner">
@@ -1596,22 +1596,22 @@ class Flip_Box extends Base_Widget {
 				</div>
 			</div>
 			<{{ wrapperTag }} class="elementor-flip-box__layer elementor-flip-box__back">
-			<div class="elementor-flip-box__layer__overlay">
-				<div class="elementor-flip-box__layer__inner">
-					<# if ( settings.title_text_b ) { #>
-					<h3 class="elementor-flip-box__layer__title">{{{ settings.title_text_b }}}</h3>
-					<# } #>
+				<div class="elementor-flip-box__layer__overlay">
+					<div class="elementor-flip-box__layer__inner">
+						<# if ( settings.title_text_b ) { #>
+						<h3 class="elementor-flip-box__layer__title">{{{ settings.title_text_b }}}</h3>
+						<# } #>
 
-					<# if ( settings.description_text_b ) { #>
-					<div class="elementor-flip-box__layer__description">{{{ settings.description_text_b }}}</div>
-					<# } #>
+						<# if ( settings.description_text_b ) { #>
+						<div class="elementor-flip-box__layer__description">{{{ settings.description_text_b }}}</div>
+						<# } #>
 
-					<# if ( settings.button_text ) { #>
-					<{{ buttonTag }} href="#" class="{{ btnClasses }}">{{{ settings.button_text }}}</{{ buttonTag }}>
-				<# } #>
-			</div>
-		</div>
-		</{{ wrapperTag }}>
+						<# if ( settings.button_text ) { #>
+						<{{ buttonTag }} href="#" class="{{ btnClasses }}">{{{ settings.button_text }}}</{{ buttonTag }}>
+						<# } #>
+					</div>
+				</div>
+			</{{ wrapperTag }}>
 		</div>
 		<?php
 	}
