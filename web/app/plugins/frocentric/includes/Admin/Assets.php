@@ -25,14 +25,14 @@ final class Assets {
 	 * Hook in methods.
 	 */
 	public static function hooks() {
-		add_action( 'admin_enqueue_scripts', [ AssetsMain::class, 'load_scripts' ] );
-		add_action( 'admin_init', [ __CLASS__, 'restrict_wpadmin_access' ] );
-		add_action( 'admin_print_footer_scripts', [ AssetsMain::class, 'localize_printed_scripts' ], 5 );
-		add_action( 'admin_print_scripts', [ AssetsMain::class, 'localize_printed_scripts' ], 5 );
-		add_action( 'admin_print_scripts-profile.php', [ __CLASS__, 'hide_admin_bar_prefs' ] );
-		add_filter( 'option_active_plugins', [ __CLASS__, 'filter_active_plugins' ], 10, 2 );
-		add_filter( 'frocentric_enqueue_scripts', [ __CLASS__, 'add_scripts' ], 9 );
-		add_filter( 'frocentric_enqueue_styles', [ __CLASS__, 'add_styles' ], 9 );
+		add_action( 'admin_enqueue_scripts', array( AssetsMain::class, 'load_scripts' ) );
+		add_action( 'admin_init', array( __CLASS__, 'restrict_wpadmin_access' ) );
+		add_action( 'admin_print_footer_scripts', array( AssetsMain::class, 'localize_printed_scripts' ), 5 );
+		add_action( 'admin_print_scripts', array( AssetsMain::class, 'localize_printed_scripts' ), 5 );
+		add_action( 'admin_print_scripts-profile.php', array( __CLASS__, 'hide_admin_bar_prefs' ) );
+		add_filter( 'option_active_plugins', array( __CLASS__, 'filter_active_plugins' ), 10, 2 );
+		add_filter( 'frocentric_enqueue_scripts', array( __CLASS__, 'add_scripts' ), 9 );
+		add_filter( 'frocentric_enqueue_styles', array( __CLASS__, 'add_styles' ), 9 );
 	}
 
 	/**
@@ -43,12 +43,12 @@ final class Assets {
 	 */
 	public static function add_scripts( $scripts ) {
 
-		$scripts['frocentric-admin'] = [
+		$scripts['frocentric-admin'] = array(
 			'src'  => AssetsMain::localize_asset( 'js/admin/frocentric.js' ),
-			'data' => [
+			'data' => array(
 				'ajax_url' => Utils::ajax_url(),
-			],
-		];
+			),
+		);
 
 		return $scripts;
 	}
@@ -61,9 +61,9 @@ final class Assets {
 	 */
 	public static function add_styles( $styles ) {
 
-		$styles['frocentric-admin'] = [
+		$styles['frocentric-admin'] = array(
 			'src' => AssetsMain::localize_asset( 'css/admin/frocentric-admin.css' ),
-		];
+		);
 
 		return $styles;
 	}

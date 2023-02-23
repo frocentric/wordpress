@@ -44,11 +44,11 @@ $datepicker_format = Tribe__Date_Utils::get_datepicker_format_index();
 
 	<?php tribe_get_template_part( 'community/modules/image' ); ?>
 
-	<?php tribe_get_template_part( 'community/modules/taxonomy', null, [ 'taxonomy' => Tribe__Events__Main::TAXONOMY ] ); ?>
+	<?php tribe_get_template_part( 'community/modules/taxonomy', null, array( 'taxonomy' => Tribe__Events__Main::TAXONOMY ) ); ?>
 
-	<?php tribe_get_template_part( 'community/modules/taxonomy', null, [ 'taxonomy' => 'discipline' ] ); ?>
+	<?php tribe_get_template_part( 'community/modules/taxonomy', null, array( 'taxonomy' => 'discipline' ) ); ?>
 
-	<?php tribe_get_template_part( 'community/modules/taxonomy', null, [ 'taxonomy' => 'audience' ] ); ?>
+	<?php tribe_get_template_part( 'community/modules/taxonomy', null, array( 'taxonomy' => 'audience' ) ); ?>
 
 	<?php
 	/**

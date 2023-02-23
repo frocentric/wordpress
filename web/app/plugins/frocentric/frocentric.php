@@ -48,12 +48,12 @@ const PLUGIN_FILE = __FILE__;
  * @return array
  */
 function get_error() {
-	return [
+	return array(
 		/* translators: 1: composer command. 2: plugin directory */
 		'message'   => esc_html__( 'Your installation of Frocentric Platform plugin is incomplete. Please run %1$s within the %2$s directory.', 'frocentric' ),
 		'command'   => 'composer install',
 		'directory' => esc_html( str_replace( ABSPATH, '', __DIR__ ) ),
-	];
+	);
 }
 
 /**

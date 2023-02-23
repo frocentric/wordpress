@@ -36,7 +36,7 @@ final class Constants {
 	/**
 	 * Defines the taxonomies that are represented as Discourse tags
 	 */
-	const DISCOURSE_TAG_TAXONOMIES = [ 'discipline', 'interest' ];
+	const DISCOURSE_TAG_TAXONOMIES = array( 'discipline', 'interest' );
 
 	/**
 	 * Represents a request to the front end
@@ -51,8 +51,8 @@ final class Constants {
 	/**
 	 * Set the minimum required versions for the plugin.
 	 */
-	const PLUGIN_REQUIREMENTS = [
+	const PLUGIN_REQUIREMENTS = array(
 		'php_version' => '8.0',
 		'wp_version'  => '6.1',
-	];
+	);
 }
