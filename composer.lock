@@ -2212,30 +2212,30 @@
         },
         {
             "name": "psr/log",
-            "version": "1.1.4",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "d49695b909c3b7628b6289db5479a1c204601f11"
+                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/d49695b909c3b7628b6289db5479a1c204601f11",
-                "reference": "d49695b909c3b7628b6289db5479a1c204601f11",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/fe5ea303b0887d5caefd3d431c3e61ad47037001",
+                "reference": "fe5ea303b0887d5caefd3d431c3e61ad47037001",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "php": ">=8.0.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.1.x-dev"
+                    "dev-master": "3.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Psr\\Log\\": "Psr/Log/"
+                    "Psr\\Log\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -2256,9 +2256,9 @@
                 "psr-3"
             ],
             "support": {
-                "source": "https://github.com/php-fig/log/tree/1.1.4"
+                "source": "https://github.com/php-fig/log/tree/3.0.0"
             },
-            "time": "2021-05-03T11:20:27+00:00"
+            "time": "2021-07-14T16:46:02+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -2904,16 +2904,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.12.6",
+            "version": "v3.12.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "c3e3da752374f84b6dcd9827e890324b3f8d8c24"
+                "reference": "33e8242f134c2ef2a1265ed4b3d754429002f983"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/c3e3da752374f84b6dcd9827e890324b3f8d8c24",
-                "reference": "c3e3da752374f84b6dcd9827e890324b3f8d8c24",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/33e8242f134c2ef2a1265ed4b3d754429002f983",
+                "reference": "33e8242f134c2ef2a1265ed4b3d754429002f983",
                 "shasum": ""
             },
             "require": {
@@ -3013,7 +3013,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2023-02-22T16:40:02+00:00"
+            "time": "2023-03-06T19:54:34+00:00"
         },
         {
             "name": "wpackagist-plugin/authors-list",
