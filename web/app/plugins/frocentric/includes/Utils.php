@@ -76,6 +76,6 @@ final class Utils {
 	 * @return string
 	 */
 	public static function ajax_url() {
-		return admin_url( 'admin-ajax.php', 'relative' );
+		return admin_url( 'admin-ajax.php' );
 	}
 }
