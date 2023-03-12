@@ -1,3 +1,24 @@
+##### [Version 3.2.35](https://github.com/Codeinwp/themeisle-sdk/compare/v3.2.34...v3.2.35) (2023-02-22)
+
+Added Codeinwp and wpshout feeds to dashboard widget
+
+##### [Version 3.2.34](https://github.com/Codeinwp/themeisle-sdk/compare/v3.2.33...v3.2.34) (2023-01-31)
+
+Improve promotions
+
+##### [Version 3.2.33](https://github.com/Codeinwp/themeisle-sdk/compare/v3.2.32...v3.2.33) (2023-01-30)
+
+* Adds PHP 8.2 compatibility
+* Update promotions
+
+##### [Version 3.2.32](https://github.com/Codeinwp/themeisle-sdk/compare/v3.2.31...v3.2.32) (2022-11-30)
+
+Release
+
+##### [Version 3.2.31](https://github.com/Codeinwp/themeisle-sdk/compare/v3.2.30...v3.2.31) (2022-11-23)
+
+- improve the promotions module
+
 ##### [Version 3.2.30](https://github.com/Codeinwp/themeisle-sdk/compare/v3.2.29...v3.2.30) (2022-09-15)
 
 - fix filesystem wrong use - ref [#138](https://github.com/Codeinwp/themeisle-sdk/issues/138), props [@ethanclevenger91](https://github.com/ethanclevenger91) for reporting

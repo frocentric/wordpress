@@ -11,7 +11,7 @@ if ( isset( $this->settings['wordai_hash'] ) ) {
 
 $_status              = 'Invalid';
 $wordai_licence       = '';
-$license_status_color = 'red';
+$license_status_color = '#F00';
 $wordai_last_check    = __( 'Never', 'feedzy-rss-feeds' );
 if ( isset( $this->settings['wordai_licence'] ) ) {
 	$wordai_licence = $this->settings['wordai_licence'];
@@ -38,7 +38,7 @@ if ( isset( $this->settings['wordai_message'] ) && ! empty( $this->settings['wor
 			<div class="fz-input-group">
 				<div class="fz-input-group-left">
 					<input type="password" id="wordai_pass" class="form-control" name="wordai_pass" value="<?php echo esc_attr( $wordai_pass ); ?>" placeholder="<?php echo esc_attr( __( 'WordAI API key', 'feedzy-rss-feeds' ) ); ?>"/>
-					<div class="help-text"><?php echo wp_kses_post( wp_sprintf( __( 'API Status: %1$s | Last check: %2$s', 'feedzy-rss-feeds' ), $_status, $wordai_last_check ) ); ?></div>
+					<div class="help-text"><?php echo wp_kses_post( wp_sprintf( __( 'API Status: <span style="color:%1$s;">%2$s</span> | Last check: %3$s', 'feedzy-rss-feeds' ), $license_status_color, $_status, $wordai_last_check ) ); ?></div>
 				</div>
 				<div class="fz-input-group-right">
 					<div class="fz-input-group-btn">

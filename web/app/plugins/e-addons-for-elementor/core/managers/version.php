@@ -123,7 +123,7 @@ class Version {
                 if (current_user_can('install_plugins')) {
                     $wp_plugin_dir = Utils::get_wp_plugin_dir();
                     $plugin_name = sanitize_key($_POST['e_addons_plugin']);
-                    $plugin_version = version_compare($_POST['e_addons_version'], '0.0.1', '>=') ? $_POST['e_addons_version'] : '0';
+                    $plugin_version = Utils::version_compare($_POST['e_addons_version'], '0.0.1', '>=') ? $_POST['e_addons_version'] : '0';
                     $backup = E_ADDONS_BACKUP_PATH . DIRECTORY_SEPARATOR . $plugin_name . '.' . $plugin_version . '.zip';
                     if (is_file($backup)) {
                         $roll_url = E_ADDONS_BACKUP_URL . '/' . $plugin_name . '.' . $plugin_version . '.zip';
