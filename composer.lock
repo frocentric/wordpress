@@ -3179,15 +3179,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "3.11.2",
+            "version": "3.11.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/3.11.2"
+                "reference": "tags/3.11.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.3.11.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/elementor.3.11.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3233,15 +3233,15 @@
         },
         {
             "name": "wpackagist-plugin/event-tickets",
-            "version": "5.5.8",
+            "version": "5.5.9",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/event-tickets/",
-                "reference": "tags/5.5.8"
+                "reference": "tags/5.5.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/event-tickets.5.5.8.zip"
+                "url": "https://downloads.wordpress.org/plugin/event-tickets.5.5.9.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3359,15 +3359,15 @@
         },
         {
             "name": "wpackagist-plugin/meta-box",
-            "version": "5.6.16",
+            "version": "5.6.17",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/meta-box/",
-                "reference": "tags/5.6.16"
+                "reference": "tags/5.6.17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/meta-box.5.6.16.zip"
+                "url": "https://downloads.wordpress.org/plugin/meta-box.5.6.17.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3413,15 +3413,15 @@
         },
         {
             "name": "wpackagist-plugin/pods",
-            "version": "2.9.11.1",
+            "version": "2.9.12",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/pods/",
-                "reference": "tags/2.9.11.1"
+                "reference": "tags/2.9.12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/pods.2.9.11.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/pods.2.9.12.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3449,15 +3449,15 @@
         },
         {
             "name": "wpackagist-plugin/query-monitor",
-            "version": "3.11.1",
+            "version": "3.11.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/query-monitor/",
-                "reference": "tags/3.11.1"
+                "reference": "tags/3.11.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/query-monitor.3.11.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/query-monitor.3.11.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3557,15 +3557,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-discourse",
-            "version": "2.4.8",
+            "version": "2.4.9",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-discourse/",
-                "reference": "tags/2.4.8"
+                "reference": "tags/2.4.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-discourse.2.4.8.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-discourse.2.4.9.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -4109,5 +4109,5 @@
         "php": ">=5.6"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.3.0"
 }
