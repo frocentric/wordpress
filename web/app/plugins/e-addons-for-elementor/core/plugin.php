@@ -329,7 +329,7 @@ class Plugin {
                     $plugins[$e_plugin_name]['new_version'] = false;
                     if (empty($plugin_version)) {
                         if (!empty($addons[$e_plugin_name]['version'])) {
-                            if (version_compare($addons[$e_plugin_name]['version'], $e_plugin['Version'], '>')) {
+                            if (Utils::version_compare($addons[$e_plugin_name]['version'], $e_plugin['Version'], '>')) {
                                 $plugins[$e_plugin_name]['new_version'] = $addons[$e_plugin_name]['version'];
                             }
                         }

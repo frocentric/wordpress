@@ -89,11 +89,22 @@ class Template {
     public static function get_builder_content_for_display($post_id, $with_css = false) {
         //$document = \Elementor\Plugin::instance()->documents->get_current();
         //var_dump($document);
-        $content = '';
+        ob_start();
         $content = \Elementor\Plugin::instance()->frontend->get_builder_content_for_display($post_id, $with_css);
-        if (empty($content)) {
-            $content = \Elementor\Plugin::instance()->frontend->get_builder_content($post_id, $with_css);
+        echo $content;
+        $tmp = ob_end_clean();
+        if (is_string($tmp)) {
+            $content = $tmp;
         }
+        if (empty($content)) {
+            ob_start();
+            echo \Elementor\Plugin::instance()->frontend->get_builder_content($post_id, $with_css);
+            $tmp = ob_end_clean();
+            if (is_string($tmp)) {
+                    $content = $tmp;
+            }
+        }
+        
         /*
         $document = \Elementor\Plugin::$instance->documents->get_doc_for_frontend( $post_id );
         
@@ -437,7 +448,7 @@ class Template {
                     $devices = array($device => $dynamic);
                 }
                 foreach ($devices as $device => $device_value) {
-                    $selector = '.elementor.e-' . $q_o['type'] . '-' . $q_o['id'];
+                    $selector = '.elementor:is(.e-' . $q_o['type'] . '-' . $q_o['id'].',.e-loop-item-' . $q_o['id'].')';
 
                     if (!empty($wp_query->in_repeater_loop)) {                        
                         if (is_object($e_widget_query)) {
@@ -465,6 +476,10 @@ class Template {
                                     $extra_setting_value = '';
                                     if ($device_value == 'background_image') {
                                         if ($setting_value) {
+                                            $tmp = explode('"', $setting_value);
+                                            if (count($tmp) == 3) {
+                                                $extra_setting_value .= '--e-bg-lazyload:url("'.$tmp[1].'");';
+                                            }
                                             if (!empty($settings['background_position'])) {
                                                 $extra_setting_value .= 'background-position: '.$settings['background_position'].';';
                                             }
@@ -505,10 +520,12 @@ class Template {
                     }
                 }
             }
-
             if (!empty($style)) {
                 if (!wp_doing_ajax()) {
+                    //echo 'NOAJAX';
                     $style = Assets::enqueue_style('template-dynamic-' . $element->get_id() . '-inline', $style);
+                } else {
+                    //echo 'AJAX';
                 }
                 if (!empty($style)) {
                     echo '<style>' . $style . '</style>';

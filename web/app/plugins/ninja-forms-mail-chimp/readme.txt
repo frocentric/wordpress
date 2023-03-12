@@ -3,7 +3,7 @@ Contributors: wpninjasllc, kbjohnson90, pippinsplugins, klhall1987
 Tags: form, forms, ninja forms, mailpoet, wysija, newsletters, email
 Requires at least: 5.3
 Tested up to: 6.1.1
-Stable tag: 3.3.5
+Stable tag: 3.3.6
 
 License: GPLv2 or later
 
@@ -23,6 +23,10 @@ This section describes how to install the plugin.
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+= 3.3.6 (9 March 2023)
+*Other:*
+- Correct plugin folder name to ensure match with existing 
+
 = 3.3.5 (8 February 2023) =
 *Other:*
 - Improve logging to provide exception details

@@ -83,7 +83,7 @@ $all_addons = Utils::get_addons(true);
                             <?php
                         }
                         //var_dump($e_plugin['Version']); var_dump($e_plugin['new_version']);
-                        if ($e_plugin['new_version'] && version_compare($e_plugin['Version'], $e_plugin['new_version'], '<')) {
+                        if ($e_plugin['new_version'] && Utils::version_compare($e_plugin['Version'], $e_plugin['new_version'], '<')) {
                             $install_url = '';
                             if ($e_plugin['Free']) {
                                 if (empty($e_plugin['url'])) {

@@ -22,12 +22,12 @@ class Feedzy_Rss_Feeds_Pro_Elementor {
 	 * @param object $dynamic_tags Dynamic tags class object.
 	 */
 	public function feedzy_elementor_register_dynamic_tags( $dynamic_tags ) {
-		$post_id = get_the_ID();
+		$post_id               = get_the_ID();
 		$page_settings_manager = \Elementor\Core\Settings\Manager::get_settings_managers( 'page' );
-		$page_settings_model = $page_settings_manager->get_model( $post_id );
-		$template_id = $page_settings_model->get_data( 'id' );
-		$elementor_type = get_post_meta( $template_id, '_elementor_template_type', true );
-		if ( $elementor_type === 'feedzy-loop' ) {
+		$page_settings_model   = $page_settings_manager->get_model( $post_id );
+		$template_id           = $page_settings_model->get_data( 'id' );
+		$elementor_type        = get_post_meta( $template_id, '_elementor_template_type', true );
+		if ( 'feedzy-loop' === $elementor_type ) {
 			$dynamic_tags->register_group(
 				'feedzy-feed-items',
 				array(
@@ -40,8 +40,8 @@ class Feedzy_Rss_Feeds_Pro_Elementor {
 		require_once FEEDZY_PRO_ABSPATH . '/includes/elementor/dynamic-tags/feedzy-rss-item-image.php';
 
 		// Register feedzy feed item tags.
-		$dynamic_tags->register_tag( 'Feedzy_Feed_Items' );
-		$dynamic_tags->register_tag( 'Feedzy_Feed_Items_Image' );
+		$dynamic_tags->register( new Feedzy_Feed_Items() );
+		$dynamic_tags->register( new Feedzy_Feed_Items_Image() );
 	}
 
 	/**
@@ -74,7 +74,7 @@ class Feedzy_Rss_Feeds_Pro_Elementor {
 		if ( defined( 'ELEMENTOR_PATH' ) && class_exists( 'Elementor\Widget_Base' ) ) {
 			if ( class_exists( 'ElementorPro\Modules\QueryControl\Module' ) ) {
 				require_once FEEDZY_PRO_ABSPATH . '/includes/elementor/widgets/feedzy-rss-loop-widget.php';
-				\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widget_Feedzy_Loop() );
+				\Elementor\Plugin::instance()->widgets_manager->register( new Widget_Feedzy_Loop() );
 			}
 		}
 	}
