@@ -70,7 +70,7 @@
         var jqxhr = $.ajax({
           type: "GET",
           url:
-            settings.ajaxurl +
+            frocentric_general_params.ajaxurl +
             "?action=aggregator_fetch_import&import_id=" +
             import_id,
           dataType: "json",
@@ -120,7 +120,7 @@
           } else {
             console.log(response.data.data);
             window.location =
-              settings.homeurl +
+              frocentric_general_params.homeurl +
               "/events/community/edit/event/" +
               response.data.data.post_id;
           }
@@ -133,7 +133,7 @@
         .prop("value", "Importing...")
         .prop("disabled", true);
       $.post(
-        `${settings.ajaxurl}?action=tribe_aggregator_create_import`,
+        `${frocentric_general_params.ajaxurl}?action=tribe_aggregator_create_import`,
         data,
         function (response) {
           console.log(response);
@@ -146,7 +146,7 @@
             import_id = data.aggregator.import_id =
               response.data.data.import_id;
             $.post(
-              `${settings.ajaxurl}?action=tribe_aggregator_create_import`,
+              `${frocentric_general_params.ajaxurl}?action=tribe_aggregator_create_import`,
               data,
               function (response) {
                 $message.text("");
