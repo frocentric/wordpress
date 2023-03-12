@@ -126,6 +126,18 @@ trait Data {
         return is_string($json) && is_array(json_decode($json, true)) && json_last_error() === JSON_ERROR_NONE;
     }
     
+    public static function maybe_date_convert($date, $format = 'Y-m-d') {
+        if (is_string($date) && strlen($date) == 8) {
+            $y = substr($date, 0, 4);
+            $m = substr($date, 4, 2);
+            $d = substr($date, 6, 2);
+            $date = str_replace('Y', $y, $format);
+            $date = str_replace('m', $m, $date);
+            $date = str_replace('d', $d, $date);
+        }
+        return $date;
+    }
+    
     public static function maybe_media($value = null, $tag = null) {
         if ($tag && is_object($tag)) {
             if (!$tag->is_data) return $value;

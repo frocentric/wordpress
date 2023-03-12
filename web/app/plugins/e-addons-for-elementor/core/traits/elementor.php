@@ -25,30 +25,33 @@ trait Elementor {
         global $wpdb;
         $t_id = false;
         if (empty(self::$documents[$e_id])) {
-            // search element settings elsewhere (maybe in a template)            
-            $q = "SELECT post_id FROM " . $wpdb->prefix . "postmeta WHERE meta_key LIKE '_elementor_data'";
-            $q .= ' AND meta_value LIKE \'%"id":"' . $e_id . '",%\'';
-            if (empty($p_id)) {
-                $current = $q . ' AND post_id = ' . get_the_ID();
-                $results = $wpdb->get_col($current);
-                if (empty($results)) {
-                    $q .= " AND post_id IN ( SELECT id FROM " . $wpdb->prefix . "posts WHERE post_status LIKE 'publish' )";
+            $post_id = get_the_ID();
+            if (!empty($post_id)) {
+                // search element settings elsewhere (maybe in a template)            
+                $q = "SELECT post_id FROM " . $wpdb->prefix . "postmeta WHERE meta_key LIKE '_elementor_data'";
+                $q .= ' AND meta_value LIKE \'%"id":"' . $e_id . '",%\'';
+                if (empty($p_id)) {
+                    $current = $q . ' AND post_id = ' . $post_id;
+                    $results = $wpdb->get_col($current);
+                    if (empty($results)) {
+                        $q .= " AND post_id IN ( SELECT id FROM " . $wpdb->prefix . "posts WHERE post_status LIKE 'publish' )";
+                    } else {
+                        $p_id = reset($results);
+                    }
                 } else {
-                    $p_id = reset($results);
+                    $q .= ' AND post_id = ' . $p_id;
                 }
-            } else {
-                $q .= ' AND post_id = ' . $p_id;
-            }
 
-            if ($p_id <= 0) {
-                $results = $wpdb->get_col($q);
-                $p_id = -1;
-                if (!empty($results)) {
-                    $p_id = reset($results);
+                if ($p_id <= 0) {
+                    $results = $wpdb->get_col($q);
+                    $p_id = -1;
+                    if (!empty($results)) {
+                        $p_id = reset($results);
+                    }
                 }
+                self::$documents[$e_id] = $t_id = $p_id;
+                //var_dump(get_the_ID()); var_dump(self::$documents[$e_id]);
             }
-            self::$documents[$e_id] = $t_id = $p_id;
-            //var_dump(get_the_ID()); var_dump(self::$documents[$e_id]);
         } else {
             $t_id = self::$documents[$e_id];
         }
@@ -680,12 +683,15 @@ trait Elementor {
                         //var_dump(self::get_query_widgets()); die();
                         if (in_array($element['widgetType'], self::get_query_widgets())) {
                             if (!empty($element['settings']['list_items'])) {
-                                //var_dump($element['settings']['form_fields']);
+                                //var_dump($element['settings']['list_items']);
                                 foreach ($element['settings']['list_items'] as $item) {
-                                    if (!empty($item['item_type'])) {
-                                        $type = $item['item_type'];
-                                        $used['items'][$type] = empty($used['items'][$type]) ? 1 : $used['items'][$type] + 1;
-                                    }
+                                    /*if (empty($item['item_type']) && empty($item['metafield_key'])) {
+                                        //var_dump($element['widgetType']);
+                                        //var_dump($item);
+                                    }*/
+                                    $type = empty($item['item_type']) ? 'item_title' : $item['item_type'];
+                                    $type = empty($item['metafield_key']) ? $type : 'item_custommeta';
+                                    $used['items'][$type] = empty($used['items'][$type]) ? 1 : $used['items'][$type] + 1;
                                 }
                             }
                         }
@@ -745,5 +751,12 @@ trait Elementor {
         //var_dump($used['fields']);
         return $used;
     }
+    
+    public static function ready_to_print() {
+        return wp_doing_ajax() // 
+        || self::is_preview() // fix editor
+        || did_action( 'elementor/frontend/before_get_builder_content') // only when needed to render html
+        || did_action( 'elementor/element/before_parse_css' ); // fix css generation
+    } 
 
 }

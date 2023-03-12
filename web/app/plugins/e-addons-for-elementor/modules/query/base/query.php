@@ -56,38 +56,41 @@ class Query extends Base_Widget {
     public static $filters = [];
 
     public function __construct($data = [], $args = null) {
-        $this->add_query_actions();
         parent::__construct($data, $args);
-
-        $filters = [
-            'register_controls_hovereffects' => 'elementor/element/' . $this->get_name() . '/section_items/before_section_start',
-            'register_reveal_controls' => 'elementor/element/' . $this->get_name() . '/section_items/before_section_start',
-            'register_controls_layout' => 'elementor/element/' . $this->get_name() . '/section_items/after_section_end',
-        ];
-        foreach ($filters as $fnc => $filter) {
-            if (!has_action($filter, [$this, $fnc]) && (empty(self::$filters[$filter]) || !in_array($fnc, self::$filters[$filter]))) {
-                add_action($filter, [$this, $fnc]);
-                self::$filters[$filter][] = $fnc;
+        if (Utils::ready_to_print()) {
+            $this->add_query_actions();
+            
+            $filters = [
+                'register_controls_hovereffects' => 'elementor/element/' . $this->get_name() . '/section_items/before_section_start',
+                'register_reveal_controls' => 'elementor/element/' . $this->get_name() . '/section_items/before_section_start',
+                'register_controls_layout' => 'elementor/element/' . $this->get_name() . '/section_items/after_section_end',
+            ];
+            foreach ($filters as $fnc => $filter) {
+                if (!has_action($filter, [$this, $fnc]) && (empty(self::$filters[$filter]) || !in_array($fnc, self::$filters[$filter]))) {
+                    add_action($filter, [$this, $fnc]);
+                    self::$filters[$filter][] = $fnc;
+                }
             }
+            //var_dump(get_class($this));
         }
-        //var_dump(get_class($this));
     }
 
     public function add_query_actions() {
-        if (!has_action('e_addons/query/' . $this->get_querytype())) { // TODO: check why istantiate multiple times
-            add_action('e_addons/query/' . $this->get_querytype(), [$this, 'loop'], 10, 2);
+        //var_dump($this->get_querytype());
+        if (!has_action('e_addons/query/' . $this->get_id())) { // TODO: check why istantiate multiple times
+            add_action('e_addons/query/' . $this->get_id(), [$this, 'loop'], 10, 2);
         }
-        if (!has_filter('e_addons/query/should_render/' . $this->get_querytype())) { // TODO: check why istantiate multiple times
-            add_filter('e_addons/query/should_render/' . $this->get_querytype(), [$this, 'should_render'], 10, 3);
+        if (!has_filter('e_addons/query/should_render/' . $this->get_id())) { // TODO: check why istantiate multiple times
+            add_filter('e_addons/query/should_render/' . $this->get_id(), [$this, 'should_render'], 10, 3);
         }
-        if (!has_filter('e_addons/query/page_limit/' . $this->get_querytype())) { // TODO: check why istantiate multiple times
-            add_filter('e_addons/query/page_limit/' . $this->get_querytype(), [$this, 'pagination__page_limit'], 10, 4);
+        if (!has_filter('e_addons/query/page_limit/' . $this->get_id())) { // TODO: check why istantiate multiple times
+            add_filter('e_addons/query/page_limit/' . $this->get_id(), [$this, 'pagination__page_limit'], 10, 4);
         }
-        if (!has_filter('e_addons/query/per_page/' . $this->get_querytype())) { // TODO: check why istantiate multiple times
-            add_filter('e_addons/query/per_page/' . $this->get_querytype(), [$this, 'pagination__per_page'], 10, 4);
+        if (!has_filter('e_addons/query/per_page/' . $this->get_id())) { // TODO: check why istantiate multiple times
+            add_filter('e_addons/query/per_page/' . $this->get_id(), [$this, 'pagination__per_page'], 10, 4);
         }
-        if (!has_filter('e_addons/query/page_length/' . $this->get_querytype())) { // TODO: check why istantiate multiple times
-            add_filter('e_addons/query/page_length/' . $this->get_querytype(), [$this, 'pagination__page_length'], 10, 4);
+        if (!has_filter('e_addons/query/page_length/' . $this->get_id())) { // TODO: check why istantiate multiple times
+            add_filter('e_addons/query/page_length/' . $this->get_id(), [$this, 'pagination__page_length'], 10, 4);
         }
     }
 
@@ -944,7 +947,7 @@ class Query extends Base_Widget {
                 $metakey_field_meta = $item['metakey_field_meta'];
                 $metakey_field_meta_type = $item['metakey_field_meta_type'];
                 $metakey_field_meta_compare = $item['metakey_field_meta_compare'];
-                $metakey_field_meta_value = $item['metakey_field_meta_value'];
+                $metakey_field_meta_value = Utils::get_dynamic_data($item['metakey_field_meta_value']);
                 //$metakey_field_meta_value_num = $item['metakey_field_meta_value_num'];
                 if (in_array($metakey_field_meta_compare, array('IN', 'NOT IN', 'BETWEEN', 'NOT BETWEEN'))) {
                     $metakey_field_meta_value = Utils::explode($metakey_field_meta_value);
