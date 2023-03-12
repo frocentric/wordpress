@@ -217,6 +217,8 @@ trait Items_Content {
                 'options' => [
                     'publish' => esc_html__('Publish Date', 'e-addons'),
                     'modified' => esc_html__('Last Modified Date', 'e-addons'),
+                    'meta' => esc_html__('Custom Meta Field', 'e-addons'),
+                    'custom' => esc_html__('Custom Code', 'e-addons'),
                 ],
                 'default' => 'publish',
                 'conditions' => [
@@ -229,21 +231,42 @@ trait Items_Content {
                 ]
                     ]
             );
+            $target->add_control(
+                    'date_meta', [
+                'label' => esc_html__('Custom Meta Field', 'e-addons'),
+                'type' => 'e-query',
+                'placeholder' => esc_html__('Search Date Custom Field', 'e-addons'),
+                'query_type' => 'metas',
+                'object_type' => 'post',
+                'label_block' => true,
+                'condition' => [
+                    'item_type' => ['item_date', 'item_registered'],
+                    'date_type' => 'meta',
+                ]
+                    ]
+            );
+            $target->add_control(
+                    'date_custom', [
+                'label' => esc_html__('Custom Code', 'e-addons'),
+                'type' => Controls_Manager::TEXT,
+                'placeholder' => '{{post.date}}', //[my-date-shortcode]',
+                'condition' => [
+                    'item_type' => ['item_date', 'item_registered'],
+                    'date_type' => 'custom',
+                ]
+                    ]
+            );
         }
+
+
         // added block_enable
         $target->add_control(
                 'date_format', [
             'label' => esc_html__('Date Format', 'e-addons'),
             'type' => Controls_Manager::TEXT,
             'default' => 'd/<b>m</b>/y',
-            'conditions' => [
-                'terms' => [
-                    [
-                        'name' => 'item_type',
-                        'operator' => 'in',
-                        'value' => ['item_date', 'item_registered'],
-                    ]
-                ]
+            'condition' => [
+                'item_type' => ['item_date', 'item_registered'],
             ]
                 ]
         );
@@ -288,7 +311,7 @@ trait Items_Content {
                 ]
         );
     }
-    
+
     // +********************* ReadMore
     public function controls_items_readmore_content($target) {
         do_action("e_addons/query/item_controls/item_readmore", $target);
@@ -303,5 +326,5 @@ trait Items_Content {
     public function controls_items_label_content($target) {
         do_action("e_addons/query/item_controls/item_label", $target);
     }
-    
+
 }

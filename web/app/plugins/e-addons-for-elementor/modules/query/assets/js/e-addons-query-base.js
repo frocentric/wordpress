@@ -174,6 +174,7 @@ jQuery(window).on('elementor/frontend/init', () => {
                     }
                     if (this.elementSettings.infiniteScroll_prefill) {
                         infscr_options['prefill'] = true;
+                        //infscr_options['checkLastPage'] = true;
                     }
 
                     let name = this.$element.data('widget_type').split('.').shift();
@@ -210,6 +211,15 @@ jQuery(window).on('elementor/frontend/init', () => {
                         var $containerWrapper = this.elements.$containerWrapper;
                         $containerWrapper.on('load.infiniteScroll', function (event, body, path, response) {
                             $containerWrapper.find(infscr_options['append']).addClass('old-items');
+                            /*if ($containerWrapper.find(infscr_options['append']+'.elementor-hidden').length) {
+                                // button show
+                                jQuery(infscr_options['button']).show();
+                                jQuery(infscr_options['button']).prop('disabled', false);
+                            }*/
+                            //console.log('load');
+                            //console.log(path);
+                            //console.log(infscr_options['append']);
+                            //console.log($containerWrapper.find(infscr_options['append']+'.elementor-hidden').length);
                         });
                         $containerWrapper.on('append.infiniteScroll', function (event, body, path, items, response) {
                             $containerWrapper.find(infscr_options['append']).not('.old-items').addClass('elementor-hidden');
@@ -217,12 +227,37 @@ jQuery(window).on('elementor/frontend/init', () => {
                                 let lenght = $containerWrapper.find(infscr_options['append'] + ':not(.elementor-hidden)').length;
                                 jQuery(classe).text(lenght);
                             }
+                            if ($containerWrapper.find(infscr_options['append']+'.elementor-hidden').length) {
+                                // button show
+                                jQuery(infscr_options['button']).show();
+                                jQuery(infscr_options['button']).prop('disabled', false);
+                            }
+                            //console.log('append');
+                            //console.log(path);
+                            //console.log(infscr_options['append']);
+                           // console.log($containerWrapper.find(infscr_options['append']+'.elementor-hidden').length);
                         });
                         jQuery(infscr_options['button']).on('click', function () {
                             $containerWrapper.find(infscr_options['append'] + '.elementor-hidden').removeClass('elementor-hidden');
                             if (jQuery(classe).length) {
                                 let lenght = $containerWrapper.find(infscr_options['append']).length;
                                 jQuery(classe).text(lenght);
+                            }
+                            if (!$containerWrapper.find(infscr_options['append']+'.elementor-hidden').length && jQuery(infscr_options['button']).hasClass('last-click')) {
+                                // button hide
+                                jQuery(infscr_options['button']).hide();
+                            }
+                            //console.log('click');
+                        });
+                        
+                        // jQuery
+                        $containerWrapper.on( 'last.infiniteScroll', function( event, body, path ) {
+                            //console.log(`Last page hit on ${path}`);
+                            jQuery(infscr_options['button']).addClass('last-click');
+                            if ($containerWrapper.find(infscr_options['append']).is('.elementor-hidden').length) {
+                                // button show
+                                jQuery(infscr_options['button']).show();
+                                jQuery(infscr_options['button']).prop('disabled', false);
                             }
                         });
                     }
@@ -231,6 +266,7 @@ jQuery(window).on('elementor/frontend/init', () => {
                 // infinite-scroll
                 if (this.elementSettings.infiniteScroll_enable) {
                     setTimeout(function () {
+                        //console.log('activate InfiniteScroll')
                         activeInfiniteScroll();
                     }, 200);
                 }

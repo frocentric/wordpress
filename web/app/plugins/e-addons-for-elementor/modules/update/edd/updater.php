@@ -1,6 +1,7 @@
 <?php
 
 namespace EAddonsForElementor\Modules\Update\Edd;
+use EAddonsForElementor\Core\Utils;
 
 // Exit if accessed directly
 if (!defined('ABSPATH'))
@@ -118,7 +119,7 @@ class Updater {
         if (false !== $version_info && is_object($version_info) && isset($version_info->new_version)) {
 
             $no_update = false;
-            if (version_compare($this->version, $version_info->new_version, '<')) {
+            if (Utils::version_compare($this->version, $version_info->new_version, '<')) {
 
                 $_transient_data->response[$this->name] = $version_info;
 
@@ -211,7 +212,7 @@ class Updater {
             }
 
             $no_update = false;
-            if (version_compare($this->version, $version_info->new_version, '<')) {
+            if (Utils::version_compare($this->version, $version_info->new_version, '<')) {
 
                 $update_cache->response[$this->name] = $version_info;
             } else {
@@ -242,7 +243,7 @@ class Updater {
         // Restore our filter
         add_filter('pre_set_site_transient_update_plugins', array($this, 'check_update'));
 
-        if (!empty($update_cache->response[$this->name]) && version_compare($this->version, $version_info->new_version, '<')) {
+        if (!empty($update_cache->response[$this->name]) && Utils::version_compare($this->version, $version_info->new_version, '<')) {
 
             // build a plugin list row, with update notification
             $wp_list_table = _get_list_table('WP_Plugins_List_Table');

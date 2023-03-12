@@ -19,6 +19,7 @@ class Term extends Module_Base {
         if ($term && is_object($term) && get_class($term) == 'WP_Term') {
             return $term->term_id;
         }
+        
         return false;
     }
 

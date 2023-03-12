@@ -72,13 +72,54 @@ class Form {
         //$post_id = !empty($_POST['queried_id']) ? absint($_POST['queried_id']) : absint($_POST['post_id']);
         // force post for Dynamic Tags and Widgets
         global $post, $wp_query;
-        $post_id = absint($_POST['post_id']);
-        if ($post_id && empty($wp_query->queried_object)) {
-            $post = get_post($post_id);
-            if ($post) {
-                $wp_query->queried_object = $post;
-                $wp_query->queried_object_id = $post_id;
+        if ( empty($wp_query->queried_object) ) {
+            $post_id = false;
+            if (!empty($_POST['post_id'])) { 
+                $post_id = absint($_POST['post_id']);
+                $post = get_post($post_id);
+                if ($post && $post->post_type == 'elementor_library') { 
+                    // fix Popup
+                    $post_id = false;
+                } else {
+                    $wp_query->queried_object = $post;
+                    $wp_query->queried_object_id = $post_id;
+                }
             }
+            if (!empty($_POST['current_post_id'])) { 
+                $post_id = absint($_POST['current_post_id']);
+                $post = get_post($post_id);
+            }
+            if (!empty($_POST['queried_id'])) {
+                $obj_id = absint($_POST['queried_id']);
+                // https://developer.wordpress.org/reference/functions/get_queried_object/
+                switch ($_POST['queried_type']) {
+                    case 'WP_Term':
+                        $obj = get_term($obj_id);
+                        if ($obj) { 
+                            $wp_query->queried_object = $obj;
+                        }
+                        break;
+                    case 'WP_User':
+                        $obj = get_user_by('ID', $obj_id);
+                        if ($obj) { 
+                            $wp_query->queried_object = $obj;
+                        }
+                        break;
+                    case 'WP_Post_Type':
+                    case 'WP_Post':
+                    default:   
+                        $obj = get_post($obj_id);
+                        if ($obj) {
+                            $wp_query->queried_object = $obj;
+                            if (!$post_id) {
+                                $post = $obj;
+                            }
+                        }
+                        break;
+                }
+                $wp_query->queried_object_id = $obj_id;
+            }
+            
         }
 
         //var_dump($fields); die();
@@ -135,10 +176,13 @@ class Form {
 
     public static function do_setting_shortcodes($setting, $fields = array(), $urlencode = false) {
         // Shortcode can be `[field id="fds21fd"]` or `[field title="Email" id="fds21fd"]`, multiple shortcodes are allowed
-        if (!empty($fields)) {
+        if (!empty($fields) && is_string($setting)) {
             if (strpos($setting, '[field id=') !== false || strpos($setting, '[option id=') !== false) {
                 foreach ($fields as $fkey => $fvalue) {
-                    
+                    $field_type = Form::get_field_type($fkey);
+                    if ($field_type == 'number') {
+                        $fvalue = empty($fvalue) ? 0 : $fvalue;
+                    }
                     if (!is_object($fvalue)) {
                         $fvalue = Utils::to_string($fvalue);
                         if ($urlencode) {
@@ -366,7 +410,7 @@ class Form {
             if (is_object($record)) {
                 $fields = $record->get('fields');
             }
-            if (substr($shortcode,0,9) == '[e-fields') {
+            //if (substr($shortcode,0,9) == '[e-fields') {
                 foreach($fields as $fkey => $fvalue) {                    
                     $fields[$fkey] = array(
                         'title' => self::get_field_label($fkey, $fkey),
@@ -374,7 +418,7 @@ class Form {
                         'type' => self::get_field_type($fkey),
                     );
                 }
-            }
+            //}
             foreach ($fields as $fkey => $field) {
                 $formatted = '';
                 if (is_string($field) || empty($field['type'])) {
@@ -392,6 +436,7 @@ class Form {
                     if (( 'textarea' === $field['type'] ) && ( '<br>' === $line_break )) {
                         $formatted = str_replace(["\r\n", "\n", "\r"], '<br />', $formatted);
                     }
+                    if ( 'group' === $field['type'] ) continue;
                     if (!$show_empty && empty($field['value']))
                         continue;
                 }

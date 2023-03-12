@@ -735,7 +735,7 @@ td.e-add-item.elementor-column.elementor-col-100 {
     text-align: center;
     color: #777;
 }
-.e-add-infiniteScroll button.e-add-view-more-button {
+/*.e-add-infiniteScroll .elementor-button {
     font-size: 20px;
     padding: 10px 20px;
     border-radius: 5px;
@@ -747,7 +747,7 @@ td.e-add-item.elementor-column.elementor-col-100 {
     -ms-transition: background-color .5s ease-in-out, color .5s ease-in-out;
     -o-transition: background-color .5s ease-in-out, color .5s ease-in-out;
     transition: background-color .5s ease-in-out, color .5s ease-in-out;
-}
+}*/
 
 /*.e-add-infiniteScroll .visible .scroller-status,
 .e-add-infiniteScroll .visible .infinite-scroll-last,

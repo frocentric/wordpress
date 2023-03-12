@@ -124,7 +124,24 @@ class Dualslider extends Carousel {
         'frontend_available' => true,
         'separator' => 'before'
             ]
-    );
+        );
+        $this->add_control(
+            'dualslidercenter', [
+        'label' => '<i class="fas fa-crosshairs"></i> '.esc_html__('Center', 'e-addons'),
+        'description' => esc_html__('Set to true to enable image focused in the center', 'e-addons'),
+        'type' => Controls_Manager::SWITCHER,
+        'frontend_available' => true,
+            ]
+        );
+        $this->add_control(
+            'dualsliderfreemode', [
+        'label' => '<i class="fas fa-bicycle"></i> '.esc_html__('Freemode', 'e-addons'),
+        'description' => esc_html__('Set to true to enable free drag mode', 'e-addons'),
+        'type' => Controls_Manager::SWITCHER,
+        'frontend_available' => true,
+        'separator' => 'after'
+            ]
+        );
         $this->add_responsive_control(
                 'dualslider_distribution_vertical', [
             'label' => esc_html__('Distribution', 'e-addons'),
@@ -764,8 +781,8 @@ class Dualslider extends Carousel {
           break;
           }
           } */
-
-        if (apply_filters('e_addons/query/should_render/' . $querytype, true, $this, $query)) {
+        $element_id = $this->parent->get_id();
+        if (apply_filters('e_addons/query/should_render/' . $element_id, true, $this, $query)) {
 
             switch ($querytype) {
                 case 'attachment':
