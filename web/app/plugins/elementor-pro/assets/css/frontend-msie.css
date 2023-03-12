@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.11.1 - 15-02-2023 */
+/*! elementor-pro - v3.11.4 - 07-03-2023 */
 @charset "UTF-8";
 .elementor-bg-transform .elementor-bg {
   will-change: transform;
@@ -9967,6 +9967,7 @@ ol.elementor-toc__list-wrapper .elementor-toc__list-item-text-wrapper:before {
   background: var(--dots-hover-color, #000000);
   opacity: 1;
 }
+.elementor-widget-loop-carousel.elementor-in-place-template-editable .swiper,
 .elementor-widget-loop-carousel.elementor-in-place-template-editable .swiper-container {
   overflow: visible;
   overflow-x: clip;
