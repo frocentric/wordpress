@@ -32,7 +32,7 @@ final class Assets {
 		$scripts['frocentric-general'] = array(
 			'src'  => AssetsMain::localize_asset( 'source/js/frontend/frocentric.js' ),
 			'data' => array(
-				'ajax_url' => Utils::ajax_url(),
+				'ajaxurl' => Utils::ajax_url(),
 				'homeurl' => home_url(),
 			),
 		);
