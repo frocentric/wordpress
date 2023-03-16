@@ -3413,15 +3413,15 @@
         },
         {
             "name": "wpackagist-plugin/pods",
-            "version": "2.9.12",
+            "version": "2.9.13",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/pods/",
-                "reference": "tags/2.9.12"
+                "reference": "tags/2.9.13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/pods.2.9.12.zip"
+                "url": "https://downloads.wordpress.org/plugin/pods.2.9.13.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
