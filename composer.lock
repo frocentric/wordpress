@@ -3611,15 +3611,15 @@
         },
         {
             "name": "wpackagist-theme/generatepress",
-            "version": "3.2.4",
+            "version": "3.3.0",
             "source": {
                 "type": "svn",
                 "url": "https://themes.svn.wordpress.org/generatepress/",
-                "reference": "3.2.4"
+                "reference": "3.3.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/theme/generatepress.3.2.4.zip"
+                "url": "https://downloads.wordpress.org/theme/generatepress.3.3.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
