@@ -341,6 +341,33 @@ trait Wordpress {
         }
         return false;
     }
+    
+    public static function get_title($obj = null, $type = 'post') {
+        if (is_numeric($obj) || empty($obj)) {
+            switch ($type) {
+                case 'WP_Term':
+                case 'term':
+                    $term = get_term($obj);
+                    return $term->name;
+                case 'WP_User':
+                case 'user':
+                    $user = get_user_by('ID', $obj);
+                    return $user->display_name;
+                case 'WP_Comment':
+                case 'comment':
+                    return self::get_comment_url($obj);
+                case 'WP_Post_Type':
+                    $post = get_post($obj);
+                    $post_type = get_post_type_object($post->post_type);
+                    return $post_type->label;
+                case 'WP_Post':
+                case 'post':
+                default:
+                    return get_the_title($obj);
+            }
+        }
+        return $obj;
+    }
 
     public static function get_link($obj = null) {
         return self::get_permalink($obj);
@@ -349,12 +376,19 @@ trait Wordpress {
     public static function get_permalink($obj = null, $type = 'post') {
         if (is_numeric($obj) || empty($obj)) {
             switch ($type) {
+                case 'WP_Term':
                 case 'term':
                     return self::get_term_url($obj);
+                case 'WP_User':
                 case 'user':
                     return self::get_user_url($obj);
+                case 'WP_Comment':
                 case 'comment':
-                    return self::get_comment_url($obj);
+                    //return self::get_comment_url($obj);
+                case 'WP_Post_Type':
+                    $post = get_post($obj);
+                    return get_post_type_archive_link($post->post_type);
+                case 'WP_Post':
                 case 'post':
                 default:
                     return get_permalink($obj);
@@ -380,6 +414,9 @@ trait Wordpress {
         if (is_object($obj)) {
             switch (get_class($obj)) {
                 case 'WP_Post':
+                    if ($type == 'WP_Post_Type') {
+                        return get_post_type_archive_link($obj->post_type);
+                    }
                     return self::get_post_url($obj->ID);
                 case 'WP_Term':
                     return self::get_term_url($obj->term_id);
@@ -387,6 +424,56 @@ trait Wordpress {
                     return self::get_user_url($obj->ID);
                 case 'WP_Comment':
                     return self::get_comment_url($obj->comment_ID);
+            }
+        }
+        return false;
+    }
+    
+    public static function get_edit_link($obj = null, $type = 'post') {
+        if (is_numeric($obj) || empty($obj)) {
+            switch ($type) {
+                case 'WP_Term':
+                case 'term':
+                    return get_edit_term_link($obj);
+                case 'WP_User':
+                case 'user':
+                    return get_edit_user_link($obj);
+                case 'WP_Comment':
+                case 'comment':
+                    return get_edit_comment_link($obj);
+                case 'WP_Post':
+                case 'post':
+                default:
+                    return get_edit_post_link($obj);
+            }
+        }
+        if (is_string($obj)) {
+            return $obj;
+        }
+        if (is_array($obj)) {
+            if (!empty($obj['term_id'])) {
+                return get_edit_term_link($obj['term_id']);
+            }
+            if (!empty($obj['comment_ID'])) {
+                return get_edit_comment_link($obj['comment_ID']);
+            }
+            if (!empty($obj['ID'])) {
+                if (!empty($obj['user_login'])) {
+                    return get_edit_user_link($obj['ID']);
+                }
+                return get_edit_post_link($obj['ID']);
+            }
+        }
+        if (is_object($obj)) {
+            switch (get_class($obj)) {
+                case 'WP_Post':
+                    return get_edit_post_link($obj);
+                case 'WP_Term':
+                    return get_edit_term_link($obj);
+                case 'WP_User':
+                    return get_edit_user_link($obj->ID);
+                case 'WP_Comment':
+                    return get_edit_comment_link($obj->comment_ID);
             }
         }
         return false;
@@ -504,6 +591,23 @@ trait Wordpress {
 	}
 
 	return $r;
+    }
+    
+    public static function get_post_descendants($post_id, $descendants = []) {
+        $args = array(
+            'posts_per_page' => -1,
+            'post_parent'    => $post_id,
+            'post_type'      => get_post_type($post_id),
+	);
+        $children_ids = [];
+        $children = get_children( $args );
+        if (!empty($children)) {
+            foreach($children as $child) {
+                $descendants = self::get_post_descendants($child->ID, $descendants);
+                $children_ids[] = $child->ID;
+            }
+        }
+        return array_merge($descendants, $children_ids);
     }
 
 }

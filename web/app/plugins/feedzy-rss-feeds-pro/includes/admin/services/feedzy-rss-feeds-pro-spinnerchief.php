@@ -14,7 +14,7 @@
  */
 class Feedzy_Rss_Feeds_Pro_Spinnerchief implements Feedzy_Rss_Feeds_Pro_Services_Interface {
 
-	const API_URL = 'http://api.spinnerchief.com:443/apikey=#key#&username=#username#&password=#password#';
+	const API_URL = 'https://spinnerchief.com/api/paraphraser';
 
 	/**
 	 * The API URL
@@ -86,12 +86,9 @@ class Feedzy_Rss_Feeds_Pro_Spinnerchief implements Feedzy_Rss_Feeds_Pro_Services
 	 * @access  public
 	 * @param   string $key The API key.
 	 */
-	public function init( $key = '', $username = '', $password = '' ) {
+	public function init( $key = '', $password = '' ) {
 		$this->set_api_option( 'key', $key );
-		$this->set_api_option( 'username', $username );
-		$this->set_api_option( 'password', $password );
-
-		$this->url = str_replace( array( '#key#', '#username#', '#password#' ), array( $this->get_api_option( 'key' ), $this->get_api_option( 'username' ), $this->get_api_option( 'password' ) ), self::API_URL );
+		$this->set_api_option( 'dev_key', $password );
 	}
 
 	/**
@@ -128,22 +125,26 @@ class Feedzy_Rss_Feeds_Pro_Spinnerchief implements Feedzy_Rss_Feeds_Pro_Services
 	 * @access  public
 	 */
 	public function check_api( &$post_data, $settings ) {
-		if ( ! (
-				isset( $post_data['spinnerchief_password'] ) && ! empty( $post_data['spinnerchief_password'] )
-				&& isset( $post_data['spinnerchief_username'] ) && ! empty( $post_data['spinnerchief_username'] )
-				&& isset( $post_data['spinnerchief_key'] ) && ! empty( $post_data['spinnerchief_key'] )
-			)
-		) {
+		if ( empty( $post_data['spinnerchief_key'] ) ) {
 			// phpcs:ignore warning
 			do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'spinnerchief: NOT calling API with settings = ', print_r( $settings, true ) ), 'debug', __FILE__, __LINE__ );
 			return;
 		}
 
-		$this->init( $post_data['spinnerchief_key'], $post_data['spinnerchief_username'], $post_data['spinnerchief_password'] );
+		$text = 'Test account details';
+		$this->init( $post_data['spinnerchief_key'], wp_hash( $text ) );
 
-		$url = $this->url . '&querytimes=2';
-
-		$response = wp_remote_post( $url );
+		$response = wp_remote_post(
+			self::API_URL,
+			array(
+				'body' => array(
+					'api_key'    => $this->get_api_option( 'key' ),
+					'dev_key'    => $this->get_api_option( 'dev_key' ),
+					'text'       => $text,
+					'querytimes' => 2,
+				),
+			)
+		);
 
 		// phpcs:ignore warning
 		do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'spinnerchief: calling %s and getting response %s', $url, print_r( $response, true ) ), 'debug', __FILE__, __LINE__ );
@@ -160,14 +161,12 @@ class Feedzy_Rss_Feeds_Pro_Spinnerchief implements Feedzy_Rss_Feeds_Pro_Services
 			$post_data['spinnerchief_message']    = '';
 
 			// phpcs:ignore warning
-			$body = base64_decode( $response['body'] );
-			if ( strpos( $body, 'error=' ) !== false ) {
-				$error_message                     = str_replace( 'error=', '', $body );
-				$post_data['spinnerchief_message'] = $error_message;
-				// phpcs:ignore warning
-				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'spinnerchief: check_api error %s', print_r( $error_message, true ) ), 'error', __FILE__, __LINE__ );
-			} elseif ( is_numeric( $body ) ) {
+			$body = json_decode( $response['body'] );
+			if ( 200 === $body->code ) {
 				$post_data['spinnerchief_licence'] = 'yes';
+			} else {
+				// phpcs:ignore warning
+				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'spinnerchief: check_api error %s', print_r( $body->text, true ) ), 'error', __FILE__, __LINE__ );
 			}
 		}
 	}
@@ -185,9 +184,7 @@ class Feedzy_Rss_Feeds_Pro_Spinnerchief implements Feedzy_Rss_Feeds_Pro_Services
 	 */
 	public function call_api( $settings, $text, $type, $additional = array() ) {
 		if ( ! (
-				isset( $settings['spinnerchief_password'] ) && ! empty( $settings['spinnerchief_password'] )
-				&& isset( $settings['spinnerchief_username'] ) && ! empty( $settings['spinnerchief_username'] )
-				&& isset( $settings['spinnerchief_key'] ) && ! empty( $settings['spinnerchief_key'] )
+				! empty( $settings['spinnerchief_key'] )
 				&& ! empty( $text )
 				&& 'yes' === $settings['spinnerchief_licence']
 			)
@@ -197,7 +194,7 @@ class Feedzy_Rss_Feeds_Pro_Spinnerchief implements Feedzy_Rss_Feeds_Pro_Services
 			return null;
 		}
 
-		$this->init( $settings['spinnerchief_key'], $settings['spinnerchief_username'], $settings['spinnerchief_password'] );
+		$this->init( $settings['spinnerchief_key'], wp_hash( wp_strip_all_tags( $text ) ) );
 
 		$additional = array_filter( $additional );
 
@@ -214,14 +211,13 @@ class Feedzy_Rss_Feeds_Pro_Spinnerchief implements Feedzy_Rss_Feeds_Pro_Services
 			}
 		}
 
-		$url  = $this->url;
-		$url_query_string = array();
-		$parse_url = wp_parse_url( $url, PHP_URL_PATH );
-		wp_parse_str( $parse_url, $url_query_string );
-
-		$args = apply_filters( 'feedzy_spinnerchief_args', array_merge( $additional, array( 'spintype' => 1 ) ) );
-		$args = array_merge( $url_query_string, $args );
-		$url  = str_replace( $parse_url, '', $url ) . urldecode( http_build_query( $args ) );
+		$url  = self::API_URL;
+		$args = array(
+			'text'    => $text,
+			'api_key' => $this->get_api_option( 'key' ),
+			'dev_key' => $this->get_api_option( 'dev_key' ),
+		);
+		$args = apply_filters( 'feedzy_spinnerchief_args', array_merge( $additional, $args ) );
 		do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'spinnerchief: calling %s for %s', $url, $text ), 'info', __FILE__, __LINE__ );
 
 		$response = wp_remote_post(
@@ -229,8 +225,7 @@ class Feedzy_Rss_Feeds_Pro_Spinnerchief implements Feedzy_Rss_Feeds_Pro_Services
 			apply_filters(
 				'feedzy_service_api_params',
 				array(
-					// phpcs:ignore warning
-					'body' => base64_encode( $text ),
+					'body' => $args,
 				),
 				'spinnerchief'
 			)
@@ -249,11 +244,11 @@ class Feedzy_Rss_Feeds_Pro_Spinnerchief implements Feedzy_Rss_Feeds_Pro_Services
 			$error_message = $response->get_error_message();
 		} else {
 			// phpcs:ignore warning
-			$body = base64_decode( $response['body'] );
-			do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'spinnerchief: no error and body of response: raw = %s, base64 decoded = %s', $response['body'], $body ), 'debug', __FILE__, __LINE__ );
+			$body = json_decode( $response['body'] );
+			do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'spinnerchief: no error and body of response: raw = %s', $response['body'] ), 'debug', __FILE__, __LINE__ );
 
-			if ( strpos( $body, 'error=' ) !== false ) {
-				$error_message = str_replace( 'error=', '', $body );
+			if ( 200 !== $body->code ) {
+				$error_message = str_replace( 'error=', '', $body->text );
 			}
 		}
 
@@ -264,11 +259,12 @@ class Feedzy_Rss_Feeds_Pro_Spinnerchief implements Feedzy_Rss_Feeds_Pro_Services
 				'message' => 'Something went wrong: ' . $error_message,
 			);
 		} else {
+			$new_text = $body->text;
 			if ( 'title' !== $type ) {
-				$body = nl2br( $body );
+				$new_text = nl2br( $new_text );
 			}
-			do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'spinnerchief: %s spun to %s', $text, $body ), 'info', __FILE__, __LINE__ );
-			return $body;
+			do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'spinnerchief: %s spun to %s', $text, $new_text ), 'info', __FILE__, __LINE__ );
+			return $new_text;
 		}
 		return null;
 	}

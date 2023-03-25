@@ -49,7 +49,12 @@ abstract class Module_Base extends Module {
             /*if (!defined('ELEMENTOR_PRO_VERSION')) {
                 add_action('elementor/elements/categories_registered', [$this, 'init_categories']);
             }*/
-            add_action('elementor/widgets/widgets_registered', [$this, 'init_widgets'], 11);
+            if (Utils::version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {
+                add_action('elementor/widgets/widgets_registered', [$this, 'init_widgets'], 11); // < 3.5.0 - TODO: REMOVE IT SHORTLY
+            } else {
+                add_action('elementor/widgets/register', [$this, 'init_widgets'], 11); // >= 3.5.0
+            }
+            
         }
         
         if ($this->has_elements('elements')) {
@@ -59,7 +64,7 @@ abstract class Module_Base extends Module {
         
         $priority = Utils::is_plugin_active('acf') ? 20 : 10;
         if ($this->has_elements('tags')) {
-            if (version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {
+            if (Utils::version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {
                 add_action('elementor/dynamic_tags/register_tags', [$this, 'init_tags'], $priority); // < 3.5.0 - TODO: REMOVE IT SHORTLY
             } else {
                 add_action('elementor/dynamic_tags/register', [$this, 'init_tags'], $priority); // >= 3.5.0
@@ -100,7 +105,7 @@ abstract class Module_Base extends Module {
             $priority = 9;
         }
         
-        if (defined('ELEMENTOR_PRO_VERSION') && (version_compare(ELEMENTOR_PRO_VERSION, '3.5.0') >= 0 || substr(ELEMENTOR_PRO_VERSION,0,4) == '3.5.')) {
+        if (defined('ELEMENTOR_PRO_VERSION') && (Utils::version_compare(ELEMENTOR_PRO_VERSION, '3.5.0') >= 0)) {
             if ($this->has_elements('fields')) {     
                 add_action('elementor_pro/forms/fields/register', [$this, 'init_fields']); // > Elementor PRO 3.5.x 
             }
@@ -204,7 +209,7 @@ abstract class Module_Base extends Module {
             $class_name = $this->get_reflection()->getNamespaceName() . '\Controls\\' . $control;
             if (empty(self::$controls[$class_name])) {
                 self::$controls[$class_name] = $control_obj = new $class_name();
-                if (version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {
+                if (Utils::version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {
                     $controls_manager->register_control($control_obj->get_type(), $control_obj);
                 } else {
                     $controls_manager->register($control_obj);
@@ -254,7 +259,7 @@ abstract class Module_Base extends Module {
                 self::$widgets[$class_name] = new $class_name();
                 $widget = self::$widgets[$class_name];    
                 $this->add_category($widget);
-                if (version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {    
+                if (Utils::version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {    
                     $widget_manager->register_widget_type($widget);
                 } else {
                     $widget_manager->register($widget);
@@ -325,7 +330,7 @@ abstract class Module_Base extends Module {
             if (!property_exists($class_name, 'ignore')) {
                 if (empty(self::$dynamic_tags[$class_name])) {
                     self::$dynamic_tags[$class_name] = $tag = new $class_name();
-                    if (version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {    
+                    if (Utils::version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {    
                         $module->register_tag($class_name);
                     } else {
                         $module->register($tag);

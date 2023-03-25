@@ -1,3 +1,28 @@
+##### [Version 2.2.1](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.2.0...v2.2.1) (2023-02-28)
+
+* Fix Elementor query loop templates
+
+#### [Version 2.2.0](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.1.0...v2.2.0) (2023-02-24)
+
+### Fixes
+- Update Guzzle version to solve various plugins conflicts
+- Remove whitespace from the feed title
+- Fix elementor deprecated errors
+- Fix PHP 8 fatal error when importing custom tag
+- Fix amazon integration support for developer license
+- Fix compatibility with SpinnerChief's new API
+
+#### [Version 2.1.0](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.0.5...v2.1.0) (2022-12-06)
+
+### Features
+- Add compatibility with Amazon Advertising API (https://docs.themeisle.com/article/1745-how-to-display-amazon-products-using-feedzy)
+- Adds support for lazy loaded images on import
+
+### Fixes
+- Parsing custom tags at feed level does not work - extracts from item node
+- Rephrasing full content does not consistently work
+- Filtering content in Feedzy Loop available with Elementor Pro
+
 ##### [Version 2.0.5](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.0.4...v2.0.5) (2022-10-26)
 
 * Fix keyword filtering not working on the full content text. 

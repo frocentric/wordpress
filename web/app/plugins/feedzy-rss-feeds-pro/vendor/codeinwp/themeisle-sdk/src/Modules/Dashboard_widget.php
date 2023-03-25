@@ -81,6 +81,8 @@ class Dashboard_Widget extends Abstract_Module {
 			'themeisle_sdk_dashboard_widget_feeds',
 			[
 				'https://themeisle.com/blog/feed',
+				'https://www.codeinwp.com/blog/feed',
+				'https://wpshout.com/feed',
 			]
 		);
 		add_action( 'wp_dashboard_setup', array( &$this, 'add_widget' ) );

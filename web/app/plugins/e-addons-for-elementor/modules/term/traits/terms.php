@@ -6,7 +6,7 @@ use \Elementor\Controls_Manager;
 use EAddonsForElementor\Core\Utils;
 
 trait Terms {
-    
+
     public function add_source_controls() {
         $this->add_control(
                 'source',
@@ -14,16 +14,17 @@ trait Terms {
                     'label' => esc_html__('Source', 'elementor'),
                     'type' => Controls_Manager::SELECT,
                     'options' => [
-                        '' => esc_html__('Current (Term Archive)', 'e-addons'),                        
+                        '' => esc_html__('Current (Term Archive)', 'e-addons'),
+                        //'query' => esc_html__('Current (Query Term Widget)', 'e-addons'),
                         'parent' => esc_html__('Parent', 'e-addons'),
                         'root' => esc_html__('Root', 'e-addons'),
                         'post' => esc_html__('Current Post', 'e-addons'),
                         'other' => esc_html__('Other', 'e-addons'),
                     ],
-                    //'label_block' => true,
+                //'label_block' => true,
                 ]
         );
-        
+
         $this->add_control(
                 'taxonomy',
                 [
@@ -37,7 +38,7 @@ trait Terms {
                     ]
                 ]
         );
-        
+
         $this->add_control(
                 'term_id',
                 [
@@ -52,65 +53,74 @@ trait Terms {
                 ]
         );
     }
-    
+
     public function get_term_id() {
         $settings = $this->get_settings_for_display();
         if (empty($settings))
             return;
-        
+
         $term_id = $this->get_module()->get_term_id();
-        
-        if ($settings['source']) {      
+
+        if ($settings['source']) {
             switch ($settings['source']) {
-            case 'other':
-                if ($settings['term_id']) {    
-                    $term_id = $settings['term_id'];
-                    //return $term_id;
-                }
-                break;
-            case 'post':                
-                //$post_id = get_the_ID();
-                $post_type = get_post_type();                
-                $taxonomy = 'category';
-                if ($post_type && $post_type != 'post') {
-                    $taxonomies = get_post_taxonomies();
-                    if (!empty($taxonomies)) {
-                        $taxonomy = reset($taxonomies);
+                case 'query':
+                    global $e_widget_query;
+                    if (!empty($e_widget_query)) {
+                        if (is_object($e_widget_query->current_data) && get_class($e_widget_query->current_data) == 'WP_Term') {
+                            return $e_widget_query->current_id;
+                        }
                     }
-                }
-                $taxonomy = $settings['taxonomy'] ? $settings['taxonomy'] : $taxonomy;
-                $terms = get_the_terms(get_the_ID(), $taxonomy);
-                if (!empty($terms)) {
-                    $term = reset($terms);
-                    $term_id = $term->term_id;
-                    //return $term_id;
-                }
-                break;
-            case 'root':
-            case 'parent':
-                if ($term_id) { 
-                    do {
-                        $term = Utils::get_term($term_id);
-                        $parent_id = $term->parent;
-                        if ($settings['source'] == 'parent') {
-                            //return $parent_id;
-                            $term_id = $parent_id;
-                            break;
+                    break;
+                case 'other':
+                    if ($settings['term_id']) {
+                        $term_id = $settings['term_id'];
+                        //return $term_id;
+                    }
+                    break;
+                case 'post':
+                    //$post_id = get_the_ID();
+                    $post_type = get_post_type();
+                    $taxonomy = 'category';
+                    if ($post_type && $post_type != 'post') {
+                        $taxonomies = get_post_taxonomies();
+                        if (!empty($taxonomies)) {
+                            $taxonomy = reset($taxonomies);
                         }
-                        if ($parent_id) {
-                            $term_id = $parent_id;
-                        }
-                    } while($parent_id);
-                    //return $term_id;
-                }
+                    }
+                    $taxonomy = $settings['taxonomy'] ? $settings['taxonomy'] : $taxonomy;
+                    $terms = get_the_terms(get_the_ID(), $taxonomy);
+                    if (!empty($terms)) {
+                        $term = reset($terms);
+                        $term_id = $term->term_id;
+                        //return $term_id;
+                    }
+                    break;
+                case 'root':
+                case 'parent':
+                    if ($term_id) {
+                        do {
+                            $term = Utils::get_term($term_id);
+                            $parent_id = $term->parent;
+                            if ($settings['source'] == 'parent') {
+                                //return $parent_id;
+                                $term_id = $parent_id;
+                                break;
+                            }
+                            if ($parent_id) {
+                                $term_id = $parent_id;
+                            }
+                        } while ($parent_id);
+                        //return $term_id;
+                    }
             }
         }
-        
+
         if (Utils::is_plugin_active('wpml')) {
             $term = get_term($term_id);
-            $term_id = apply_filters( 'wpml_object_id', $term_id, $term->taxonomy, true);
+            $term_id = apply_filters('wpml_object_id', $term_id, $term->taxonomy, true);
         }
-        
+
         return $term_id;
     }
+
 }

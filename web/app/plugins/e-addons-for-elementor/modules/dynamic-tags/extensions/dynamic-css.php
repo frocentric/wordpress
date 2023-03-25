@@ -42,11 +42,12 @@ class Dynamic_Css extends Base_Global {
     public function parse_css($css_post, $element) {
         //var_dump($css_post->get_post_id().'-'.$element->get_id());
         //if (empty(self::$parsed[$css_post->get_post_id()])) {
+            
             $element_settings = $element->get_settings_for_display();
             //$settings = $element->get_settings();
             if (!empty($element_settings["__dynamic__"])){
                 $controls = $css_post->get_style_controls( $element, null, $element->get_parsed_dynamic_settings() );
-                //echo '<pre>';var_dump($element_settings);var_dump($controls);echo '</pre>'; die();
+                //if ('slides' == $element->get_name()) echo '<pre>';var_dump($element_settings);var_dump($controls);echo '</pre>'; die();
                 $controls_dynamic = [];
                 foreach($element_settings["__dynamic__"] as $dkey => $dshort) {
                     if (!empty($controls[$dkey])) {

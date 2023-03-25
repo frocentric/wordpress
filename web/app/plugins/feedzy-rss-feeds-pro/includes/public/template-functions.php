@@ -14,7 +14,10 @@ if ( ! function_exists( 'feedzy_feed_class' ) ) {
 	function feedzy_feed_class() {
 		global $_custom_feedzy_feed_title;
 		$classes = isset( $_custom_feedzy_feed_title['rss_classes'] ) ? $_custom_feedzy_feed_title['rss_classes'] : array();
-		return 'feedzy-rss ' . implode( ' ', array_filter( $classes ) );
+		if ( empty( $_custom_feedzy_feed_title['disable_default_style'] ) ) {
+			$classes[] = 'feedzy-rss';
+		}
+		return implode( ' ', array_filter( $classes ) );
 	}
 }
 

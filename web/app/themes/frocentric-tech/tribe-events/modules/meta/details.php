@@ -44,7 +44,7 @@ if ( ! function_exists( 'fro_meta_event_archive_taxonomy' ) ) {
 		}
 
 		$terms = array();
-		$custom_taxonomies = array_intersect( array_keys( Frocentric\Customizations\Tribe::EVENT_TAXONOMIES ), get_post_taxonomies( get_the_ID() ) );
+		$custom_taxonomies = class_exists( 'Frocentric\Customizations\Tribe' ) ? array_intersect( array_keys( Frocentric\Customizations\Tribe::EVENT_TAXONOMIES ), get_post_taxonomies( get_the_ID() ) ) : array();
 
 		foreach ( $custom_taxonomies as $taxonomy ) {
 			$taxonomy_terms = get_the_terms( get_the_ID(), $taxonomy );

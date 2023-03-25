@@ -43,7 +43,7 @@ class Widget_Feedzy_Loop extends Elementor\Widget_Base {
 	/**
 	 * Widget register controls.
 	 */
-	protected function _register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+	protected function register_controls() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 		$this->start_controls_section(
 			'config_feedzy_feeds',
 			array(
@@ -106,18 +106,82 @@ class Widget_Feedzy_Loop extends Elementor\Widget_Base {
 				'type'  => Controls_Manager::SELECT,
 				'default' => '12_hours',
 				'description' => __( '(eg: 1_days, defaults: 12_hours)', 'feedzy-rss-feeds' ),
-				'options' => array(
-					'1_hours'  => wp_sprintf( '1 %1$s', __( 'Hour', 'feedzy-rss-feeds' ) ),
-					'3_hours'  => wp_sprintf( '3 %1$s', __( 'Hour', 'feedzy-rss-feeds' ) ),
-					'12_hours' => wp_sprintf( '12 %1$s', __( 'Hour', 'feedzy-rss-feeds' ) ),
-					'1_days'   => wp_sprintf( '1 %1$s', __( 'Day', 'feedzy-rss-feeds' ) ),
-					'3_days'   => wp_sprintf( '3 %1$s', __( 'Days', 'feedzy-rss-feeds' ) ),
-					'15_days'  => wp_sprintf( '12 %1$s', __( 'Days', 'feedzy-rss-feeds' ) ),
-				),
+				'options'     => feedzy_elementor_widget_refresh_options(),
 			)
 		);
 
 		$this->end_controls_section();
+
+		// Start filter items section.
+		$this->start_controls_section(
+			'fz-filter-items',
+			array(
+				'label'   => wp_sprintf( __( 'Filter items', 'feedzy-rss-feeds' ) ),
+			)
+		);
+		$this->add_control(
+			'fz-filter-inc-on',
+			array(
+				'label'   => __( 'Display items if', 'feedzy-rss-feeds' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'title',
+				'options' => array(
+					'title'       => __( 'Title', 'feedzy-rss-feeds' ),
+					'description' => __( 'Description', 'feedzy-rss-feeds' ),
+					'author'      => __( 'Author', 'feedzy-rss-feeds' ),
+				),
+			)
+		);
+		$this->add_control(
+			'fz-filter-inc-key',
+			array(
+				'label_block' => true,
+				'label'       => __( 'Contains:', 'feedzy-rss-feeds' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'description' => __( 'You can add multiple keywords at once by separating them with comma (,) or use the plus sign (+) to bind multiple keywords.', 'feedzy-rss-feeds' ),
+			)
+		);
+		$this->add_control(
+			'fz-filter-exc-on',
+			array(
+				'label'   => __( 'Exclude items if', 'feedzy-rss-feeds' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'title',
+				'options' => array(
+					'title'       => __( 'Title', 'feedzy-rss-feeds' ),
+					'description' => __( 'Description', 'feedzy-rss-feeds' ),
+					'author'      => __( 'Author', 'feedzy-rss-feeds' ),
+				),
+				'separator' => 'before',
+			)
+		);
+		$this->add_control(
+			'fz-filter-exc-key',
+			array(
+				'label_block' => true,
+				'label'       => __( 'Contains:', 'feedzy-rss-feeds' ),
+				'type'        => Controls_Manager::TEXTAREA,
+				'description' => __( 'You can add multiple keywords at once by separating them with comma (,) or use the plus sign (+) to bind multiple keywords.', 'feedzy-rss-feeds' ),
+			)
+		);
+		$this->add_control(
+			'fz-filter-from-dt',
+			array(
+				'label_block' => true,
+				'label'       => __( 'Filter items by time range, from: ', 'feedzy-rss-feeds' ),
+				'type'        => 'date_time_local',
+				'separator'   => 'before',
+			)
+		);
+		$this->add_control(
+			'fz-filter-to-dt',
+			array(
+				'label_block' => true,
+				'label'       => __( 'To ', 'feedzy-rss-feeds' ),
+				'type'        => 'date_time_local',
+			)
+		);
+		$this->end_controls_section(); // End filter items section.
 
 		$this->start_controls_section(
 			'feedzy_section_template',
@@ -164,8 +228,8 @@ class Widget_Feedzy_Loop extends Elementor\Widget_Base {
 		$max = $this->get_settings( 'max' );
 		$offset = $this->get_settings( 'offset' );
 		$summarylength = $this->get_settings( 'summarylength' );
-
 		$options = array(
+			'__jobID' => 0,
 			'feeds'   => $source,
 			'max'     => $max ? $max : 5,
 			'offset'  => $offset ? $offset : 0,
@@ -183,13 +247,18 @@ class Widget_Feedzy_Loop extends Elementor\Widget_Base {
 			'keywords_ban'   => '',
 			'columns'        => 1,
 			'multiple_meta'  => 'no',
+			'keywords_title'  => $this->get_settings( 'fz-filter-inc-key' ),
+			'keywords_inc_on' => $this->get_settings( 'fz-filter-inc-on' ),
+			'keywords_ban'    => $this->get_settings( 'fz-filter-exc-key' ),
+			'keywords_exc_on' => $this->get_settings( 'fz-filter-exc-on' ),
+			'from_datetime'   => $this->get_settings( 'fz-filter-from-dt' ),
+			'to_datetime'     => $this->get_settings( 'fz-filter-to-dt' ),
 		);
 
 		$template_content = Plugin::elementor()->frontend->get_builder_content_for_display( $feedzy_template_id );
-
+		$options = apply_filters( 'feedzy_shortcode_options', $options, null );
 		$admin = new \Feedzy_Rss_Feeds_Import( 'feedzy-rss-feeds', Feedzy_Rss_Feeds::get_version() );
 		$feed_items = $admin->get_job_feed( $options, $template_content );
-
 		$error_message = __( 'Feed has no items.', 'feedzy-rss-feeds' );
 		if ( empty( $source ) ) {
 			$error_message = __( 'Please enter a valid feed URL/feed categories slug in feed source setting.', 'feedzy-rss-feeds' );

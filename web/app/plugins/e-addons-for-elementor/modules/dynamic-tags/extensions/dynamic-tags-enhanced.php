@@ -2,8 +2,9 @@
 
 namespace EAddonsForElementor\Modules\DynamicTags\Extensions;
 
-use EAddonsForElementor\Core\Utils;
 use Elementor\Controls_Manager;
+use EAddonsForElementor\Core\Utils;
+use EAddonsForElementor\Core\Managers\Assets;
 use EAddonsForElementor\Base\Base_Tag;
 
 if (!defined('ABSPATH')) {
@@ -46,6 +47,9 @@ class Dynamic_Tags_Enhanced extends Base_Tag {
         // fix section video background
         add_action("elementor/frontend/section/before_render", [$this, '_section_before_render']);
         add_action("elementor/frontend/section/after_render", [$this, '_section_after_render']);
+        
+        add_filter("elementor/widget/render_content", [$this, '_render_content'], 11, 2);
+        
     }
 
     public function get_name() {
@@ -114,24 +118,52 @@ class Dynamic_Tags_Enhanced extends Base_Tag {
     }
 
     public function _section_before_render($element) {
-        $settings = $element->get_settings_for_display();
-        $frontend_settings = $element->get_frontend_settings();
-        if (empty($frontend_settings['background_video_link']) && $settings['background_video_link']) {
-            ob_start();
+        if ($element->get_name() == 'video') {
+            $settings = $element->get_settings_for_display();
+            $frontend_settings = $element->get_frontend_settings();
+            if (empty($frontend_settings['background_video_link']) && !empty($settings['background_video_link'])) {
+                ob_start();
+            }
         }
     }
 
     public function _section_after_render($element) {
-        $settings = $element->get_settings_for_display();
-        $frontend_settings = $element->get_frontend_settings();
+        if ($element->get_name() == 'video') {
+            $settings = $element->get_settings_for_display();
+            $frontend_settings = $element->get_frontend_settings();
 
-        if (empty($frontend_settings['background_video_link']) && $settings['background_video_link']) {
-            $content = ob_get_clean();
-            if (strpos($content, 'background_video_link') === false) {
-                $content = str_replace('&quot;background_background&quot;:&quot;video&quot;', '&quot;background_background&quot;:&quot;video&quot;,&quot;background_video_link&quot;:&quot;' . wp_slash($settings['background_video_link']) . '&quot;', $content);
+            if (empty($frontend_settings['background_video_link']) && !empty($settings['background_video_link'])) {
+                $content = ob_get_clean();
+                if (strpos($content, 'background_video_link') === false) {
+                    $content = str_replace('&quot;background_background&quot;:&quot;video&quot;', '&quot;background_background&quot;:&quot;video&quot;,&quot;background_video_link&quot;:&quot;' . wp_slash($settings['background_video_link']) . '&quot;', $content);
+                }
+                echo $content;
             }
-            echo $content;
         }
     }
+    
+    public function _render_content($content, $element) {
+        if ($element->get_name() == 'slides') {
+            $settings = $element->get_settings_for_display();
+            //$frontend_settings = $element->get_frontend_settings();
+            //echo '<pre>';var_dump($settings);echo '</pre>';
+            $css = '';
+            foreach ($settings['slides'] as $slide) {
+                if (!empty($slide["__dynamic__"]["background_image"])) {
+                    $css = $css ? $css : '<style>';
+                    $css .= '.elementor .elementor-element.elementor-element-'.$element->get_id().' .elementor-repeater-item-'.$slide["_id"].' .swiper-slide-bg {background-image: url('.$slide["background_image"]["url"].');}';
+                }
+            }
+            if (!empty($css)) {
+                $css .= '</style>';
+                if (!wp_doing_ajax()) {
+                    $css = Assets::enqueue_style('slide-image-' . $element->get_id() . '-inline', $css);
+                }
+                $content .= $css;
+            }
+        }
+        return $content;
+    }
+    
 
 }

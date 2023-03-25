@@ -134,9 +134,15 @@ class WidgetQueryDualSliderHandlerClass extends elementorModules.frontend.handle
             autoHeight: false,
             watchOverflow: true,
             direction:  directionThumbSlider,
-            watchSlidesProgress: true,
+            centeredSlides: Boolean(this.elementSettings[this.skinPrefix+'dualslidercenter']),
             navigation: navigationThumbnail,
-            loop: loopdual,
+            loop: loopdual, 
+            freeMode: {
+                enabled: Boolean(this.elementSettings[this.skinPrefix + 'dualsliderfreeMode']),
+            },
+            watchSlidesProgress: true,
+            slideToClickedSlide: true,
+            //centeredSlides: true,
             on: {
                 init: function () {
                     this.isThumbsCarouselEnabled = true;

@@ -54,11 +54,32 @@ class Date extends Base_Item {
                 $date_type = $settings['date_type'];
                 //se mi trovo in post
                 switch ($date_type) {
+                    
+                    case 'meta':
+                        if (!empty($settings['date_meta'])) {
+                            $date = get_post_meta($skin->current_id, $settings['date_meta'], true);
+                            if (!empty($date)) {
+                                $date = Utils::maybe_date_convert($date);
+                                $date = date($date_format, strtotime($date));
+                            }
+                        }
+                        break;
+                    
+                    case 'custom':
+                        $date = Utils::get_dynamic_data($settings['date_custom']);
+                        if (!empty($date)) {
+                            $time = strtotime($date);
+                            if (!empty($time)) {
+                                $date = date($date_format, $time);
+                            }
+                        }
+                        break;
+                    
                     case 'modified' :
                         $date = get_the_modified_date($date_format, '');
 
                         break;
-
+                    
                     case 'publish' :
                     default:
                         $date = get_the_date($date_format, '');

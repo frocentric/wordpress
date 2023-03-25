@@ -48,6 +48,14 @@ class Form_Fields extends \Elementor\Control_Select {
      */
     protected function get_default_settings() {
         return [
+            'dynamic' => [
+                'active' => true,
+                'categories' => [
+                    'base', //TagsModule::BASE_GROUP,
+                    'text', //TagsModule::TEXT_CATEGORY,
+                    'number', //TagsModule::NUMBER_CATEGORY,
+                ],
+            ],
             'options' => [],
             'field_type' => '',
         ];
@@ -84,6 +92,8 @@ class Form_Fields extends \Elementor\Control_Select {
         $template = ob_get_clean();
         $template = str_replace('<select ', '<# var multiple = ( data.multiple ) ? \'multiple\' : \'\'; #><# var select_type = ( data.multiple ) ? \'select2\' : \'select\'; #><select class="elementor-{{ select_type }}" type="{{ select_type }}" {{ multiple }} ', $template);
         $template = str_replace('<select ', '<select data-field_type="{{ data.field_type }}"', $template);
+        $template = str_replace('elementor-control-input-wrapper', 'elementor-control-input-wrapper elementor-control-dynamic-switcher-wrapper', $template);
+        $template = str_replace('<select ', '<select class="elementor-control-tag-area" ', $template);
         echo $template;
     }
 

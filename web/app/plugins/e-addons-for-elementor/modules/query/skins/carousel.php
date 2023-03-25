@@ -1799,7 +1799,7 @@ class Carousel extends Base {
         $this->add_control(
                 'freeMode', [
             'label' => esc_html__('Use Free Mode', 'e-addons'),
-            'description' => esc_html__('If true then slides will not have fixed positions', 'e-addons'),
+            'description' => esc_html__('Set to true to enable free drag mode', 'e-addons'),
             'type' => Controls_Manager::SWITCHER,
             'frontend_available' => true
                 ]
@@ -2014,7 +2014,7 @@ class Carousel extends Base {
                 ]
             ]
         );
-        // --------------- centerSlides ------
+        // --------------- centerSlides --------
         $this->add_control(
                 'centeredSlides', [
             'label' => '<i class="fas fa-plus"></i> '.esc_html__('Centered Slides', 'e-addons'),

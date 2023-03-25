@@ -314,7 +314,7 @@ trait Pagination {
             $query = $this->get_query();
             $querytype = $this->get_querytype();
 
-            $page_limit = apply_filters('e_addons/query/page_limit/'.$querytype, 1, $this, $query, $settings);
+            $page_limit = apply_filters('e_addons/query/page_limit/'.$this->get_id(), 1, $this, $query, $settings);
             
             $this->numeric_query_pagination($page_limit, $settings);
         }

@@ -3,9 +3,9 @@ Contributors: nerdsfarm, poglie, frapesce
 Donate link: https://e-addons.com/donate/
 Tags: elementor, addons, extension, dynamic, template, code, widget, module, design
 Requires at least: 5.0
-Tested up to: 6.1
-Elementor tested up to: 3.9.0
-Stable tag: 3.3
+Tested up to: 6.2
+Elementor tested up to: 3.10.x
+Stable tag: 3.3.1
 Requires PHP: 7.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -97,6 +97,20 @@ Absolutely not! But for an advanced use it's better to understand Wordpress logi
 3. **More e-addons** enable only wanted and really needed features
 
 == Changelog ==
+
+= 3.3.1 - 30-11-2022 =
+* New: Hierarchical option for List Skin (for Query Posts and Terms)
+* Optimization: Query widgets execution speed
+* Add: Query Posts descendants option
+* Add: Form Fields Control support for Dynamic Tags
+* Tweak: PRO Form Queried Object fix
+* Tweak: DualSilder Skin params: center, freeMode
+* Fix: nested Query widgets of same kind
+* Fix: infinite scroll fix
+* Fix: Background dynamic image on loop templates in Query widgets
+* Fix: Compatibility with Elementor 3.10.x
+* Fix: Query Items counter in Settings
+* Fix: minor fixes
 
 = 3.3.0.2 - 15-10-2022 =
 * Compatibility: confirmed support to Elementor 3.9.x and Elementor PRO 3.9.x

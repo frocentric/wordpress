@@ -57,6 +57,7 @@ class Base extends Base_Skin {
     public $depended_scripts = [];
     public $depended_styles = [];
     public $parent;
+    public $widget;
 
     public function show_in_settings() {
         return in_array(get_class($this), ["EAddonsForElementor\Modules\Query\Skins\Base", "EAddonsForElementor\Modules\Query\Skins\Grid"]) ? false : true;
@@ -134,8 +135,10 @@ class Base extends Base_Skin {
         /** @p qui prendo il valore di $query elaborato in query-base.php */
         $query = $this->parent->get_query();
         $querytype = $this->parent->get_querytype();
+        $element_id = $this->parent->get_id();
+        //var_dump($element_id);
 
-        if (apply_filters('e_addons/query/should_render/' . $querytype, true, $this, $query)) {
+        if (apply_filters('e_addons/query/should_render/' . $element_id, true, $this, $query)) {
 
             $this->parent->skin = $this; // access to current skin from widget
 
@@ -153,7 +156,7 @@ class Base extends Base_Skin {
             $this->counter = 0;
 
             //var_dump('e_addons/query/'.$querytype);
-            do_action('e_addons/query/' . $querytype, $this, $query);
+            do_action('e_addons/query/' . $element_id, $this, $query);
 
             $this->render_loop_end();
 
@@ -188,7 +191,7 @@ class Base extends Base_Skin {
     }
 
     public function render_element_item() {
-
+        $parent = $this->parent;
         $this->index++;
 
         $style_items = $this->parent->get_settings_for_display('style_items');
@@ -212,6 +215,9 @@ class Base extends Base_Skin {
         $this->render_item_end();
 
         $this->counter++;
+        if ($parent) {
+            $this->parent = $parent;
+        }
     }
 
     public function render_custom_html() {
@@ -735,7 +741,7 @@ class Base extends Base_Skin {
                             $link = $settings['shortcode_link'];
                             $raw_settings = $this->parent->get_settings('list_items');
                             foreach ($raw_settings as $raw_setting) {
-                                if ($raw_setting['_id'] == $settings['_id']) {
+                                if (!empty($raw_setting['_id']) && !empty($settings['_id']) && $raw_setting['_id'] == $settings['_id']) {
                                     //var_dump($this->current_data); die();
                                     $link = $raw_setting['shortcode_link'];
                                 }
@@ -816,16 +822,25 @@ class Base extends Base_Skin {
             $offset = empty($settings['posts_offset']) ? 0 : intval($settings['posts_offset']);
             $offset = empty($settings['offset']) ? $offset : intval($settings['offset']);
             if ($paged > 1) {
-                if ($settings['pagination_enable']) {
+                if (!empty($settings['pagination_enable'])) {
                     $query = $this->parent->get_query();
                     $querytype = $this->parent->get_querytype();
-                    $no = apply_filters('e_addons/query/per_page/' . $querytype, get_option('posts_per_page'), $this, $query, $settings);
+                    $no = apply_filters('e_addons/query/per_page/' . $this->parent->get_id(), get_option('posts_per_page'), $this, $query, $settings);
                     $start = $no * ($paged - 1) + $offset;
                     //var_dump($start);
                     return $start;
                 }
             }
             return $offset;
+        }
+        
+        public function set_widget($parent) {
+            $this->widget = $parent;
+        }
+        public function restore_parent() {
+            if ($this->widget) {
+                $this->parent = $this->widget;
+            }
         }
 
     }

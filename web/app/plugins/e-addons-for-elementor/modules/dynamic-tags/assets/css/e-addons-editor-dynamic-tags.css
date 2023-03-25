@@ -12,10 +12,11 @@
     margin-top: 2px;
 }
 
-
+.elementor-control.elementor-control-type-form_fields .elementor-control-dynamic-switcher-wrapper.elementor-control-input-wrapper::after,
 .elementor-control.elementor-control-type-select .elementor-control-dynamic-switcher-wrapper.elementor-control-input-wrapper::after {
   right: 35px;
 }
+.elementor-tag-settings-popup .elementor-control.elementor-control-type-form_fields .elementor-control-dynamic-switcher-wrapper.elementor-control-input-wrapper::after,
 .elementor-tag-settings-popup .elementor-control.elementor-control-type-select .elementor-control-dynamic-switcher-wrapper.elementor-control-input-wrapper::after {
   right: 10px;
 }

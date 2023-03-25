@@ -153,6 +153,19 @@ class Query_Posts extends Base_Query {
                     ],
                 ]
         );
+        
+        $this->add_control(
+                'specific_page_parent_ancestor',
+                [
+                    'label' => esc_html__('Add all descendants', 'e-addons'),
+                    'type' => Controls_Manager::SWITCHER,
+                    'description' => esc_html__('Include also children of the children of selected post and all its direct descendants', 'elementor-pro'),
+                    'condition' => [
+                        'query_type' => 'post_parent',
+                        'specific_page_parent!' => ''
+                    ],
+                ]
+        );
 
         $this->add_specific_posts_repeater();
 
@@ -1281,6 +1294,13 @@ class Query_Posts extends Base_Query {
                 // multiple
                 $post_parent = !empty($settings['specific_page_parent']) ? $settings['specific_page_parent'] : get_the_ID();
                 $post_parent__in = Utils::explode($post_parent, null, null, 'intval');
+                if (!empty($settings['specific_page_parent_ancestor'])) {
+                    // like term child_of
+                    foreach ($post_parent__in as $post_id) {
+                        $post_parent__in = array_merge($post_parent__in, Utils::get_post_descendants($post_id));
+                    }
+                }
+                //var_dump($post_parent__in); die();
                 if (Utils::is_plugin_active('wpml')) {
                     $tmp = [];
                     foreach ($post_parent__in as $post_id) {

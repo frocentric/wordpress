@@ -29,7 +29,7 @@ final class Assets {
             //var_dump($version); die();
             $assets_version = get_option('e_addons_version');
             //var_dump($assets_version); die();
-            if ((!$assets_version && $version) || ($assets_version != $version) || (version_compare($assets_version, $version, '<'))) {
+            if ((!$assets_version && $version) || ($assets_version != $version) || (Utils::version_compare($assets_version, $version, '<'))) {
                 $this->_clear_all_cache();
                 update_option('e_addons_version', $version);
                 //var_dump($assets_version); die();
@@ -253,27 +253,81 @@ final class Assets {
                 foreach (self::$styles as $skey => $sstyle) {
                     $sstyle = self::clean($sstyle);
                     if ($sstyle) {
-                        $style .= '<style id="e-addons-' . $skey . '">' . $sstyle . '</style>';
+                        $style .= self::get_style($skey, $sstyle);
                     }
                 }
             }
         }
         echo $style;
     }
-
+    public static function get_style($handle, $style = '') {
+        //var_dump($handle);
+        if (empty($style) && empty(self::$styles[$handle])) {
+            $wp_styles = wp_styles();
+            if (isset($wp_styles->registered[$handle])) {
+                ob_start();
+                $concat = $wp_styles->do_concat;
+                $wp_styles->do_concat = false;
+                $tmp = $wp_styles->do_item($handle);
+                //wp_print_styles($handle);
+                $wp_styles->do_concat = $concat;
+                $style = ob_end_clean().$tmp;
+                if ($style != '11') return $style;
+                
+                if ($wp_styles->registered[$handle]->src) {
+                    return '<link id="'.$handle.'" href="'.$wp_styles->registered[$handle]->src.'" rel="stylesheet">';
+                } else {
+                    $style = $wp_styles->print_inline_style( $handle, false );
+                }
+            }
+        }
+        $style = self::clean($style);
+        if ($style) {
+            return '<style id="e-addons-' . $handle . '">' . $style . '</style>';
+        }
+        return '';
+    }
+    public static function print_style($handle, $style) {
+        echo self::get_style($handle, $style);
+    }
     public static function print_scripts() {
         $script = '';
         if (!\Elementor\Plugin::$instance->editor->is_edit_mode()) {
             if (!empty(self::$scripts)) {
                 foreach (self::$scripts as $skey => $sscript) {
-                    $sscript = self::clean($sscript);
-                    if ($sscript) {
-                        $script .= '<script id="e-addons-' . $skey . '">' . $sscript . '</script>';
-                    }
+                    $script .= self::get_script($skey, $sscript);
                 }
             }
         }
         echo $script;
+    }
+    public static function get_script($handle, $script = '') {
+        //var_dump($handle);
+        if (empty($script) && empty(self::$scripts[$handle])) {
+            $wp_scripts = wp_scripts();
+            if (isset($wp_scripts->registered[$handle])) {
+                ob_start();
+                $concat = $wp_scripts->do_concat;
+                $wp_scripts->do_concat = false;
+                $tmp = $wp_scripts->do_item($handle);
+                //wp_print_scripts($handle);
+                $wp_scripts->do_concat = $concat;
+                $script = ob_end_clean().$tmp;
+                if ($wp_scripts->registered[$handle]->src) {
+                    return '<script id="'.$handle.'" src="'.$wp_scripts->registered[$handle]->src.'"></script>';
+                } else {
+                    $script = $wp_scripts->print_inline_script( $handle, false );
+                }
+            }
+        }
+        $script = self::clean($script);
+        if ($script) {
+            return '<script id="e-addons-' . $handle . '">' . $script . '</script>';
+        }
+        return '';
+    }
+    public static function print_script($handle, $script) {
+        echo self::get_script($handle, $script);
     }
 
     public function enqueue_icons() {

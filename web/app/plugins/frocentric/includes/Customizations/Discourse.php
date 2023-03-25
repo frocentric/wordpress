@@ -137,20 +137,21 @@ class Discourse {
 	 * @return void
 	 */
 	public static function hooks() {
-		if ( class_exists( '\Discourse\Plugin' ) ) {
-			if ( Utils::is_request( Constants::FRONTEND_REQUEST ) ) {
-				// Actions
-				add_action( 'set_object_terms', array( __CLASS__, 'set_object_terms' ), 10, 4 );
-				add_action( 'wpdc_after_sso_client_user_update', array( __CLASS__, 'wpdc_after_sso_client_user_update' ), 10, 2 );
-				add_action( 'wpdc_webhook_before_update_user_data', array( __CLASS__, 'wpdc_webhook_before_update_user_data' ), 10, 3 );
+		if ( class_exists( '\WPDiscourse\Discourse\Discourse' ) ) {
+			// Actions
+			add_action( 'set_object_terms', array( __CLASS__, 'set_object_terms' ), 10, 4 );
+			add_action( 'wpdc_after_sso_client_user_update', array( __CLASS__, 'wpdc_after_sso_client_user_update' ), 10, 2 );
+			add_action( 'wpdc_webhook_before_update_user_data', array( __CLASS__, 'wpdc_webhook_before_update_user_data' ), 10, 3 );
 
-				// Filters.
+			// Filters.
+			add_filter( 'get_avatar_url', array( __CLASS__, 'get_avatar_url' ), 10, 3 );
+			add_filter( 'login_redirect', array( __CLASS__, 'login_redirect' ), 10, 3 );
+			add_filter( 'wpdc_use_discourse_user_webhook', '__return_true', 10, 1 );
+
+			if ( Utils::is_request( Constants::FRONTEND_REQUEST ) ) {
 				add_filter( 'discourse_comment_html', array( __CLASS__, 'discourse_comment_html' ), 10, 1 );
 				add_filter( 'discourse_no_replies_html', array( __CLASS__, 'discourse_replies_html' ), 10, 1 );
 				add_filter( 'discourse_replies_html', array( __CLASS__, 'discourse_replies_html' ), 10, 1 );
-				add_filter( 'get_avatar_url', array( __CLASS__, 'get_avatar_url' ), 10, 3 );
-				add_filter( 'login_redirect', array( __CLASS__, 'login_redirect' ), 10, 3 );
-				add_filter( 'wpdc_use_discourse_user_webhook', '__return_true', 10, 1 );
 			}
 		}
 	}

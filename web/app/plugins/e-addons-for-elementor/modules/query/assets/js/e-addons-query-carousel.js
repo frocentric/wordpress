@@ -86,6 +86,11 @@ jQuery(window).on('elementor/frontend/init', () => {
                             eaddPostsSwiper.autoplay.run();
                         });
                     }
+                    // if (this.skinPrefix == 'dualslider_') {
+                    //     eaddPostsSwiper.controller.control = this.elements.$scope.data('thumbscarousel');
+                    //     this.elements.$scope.data('thumbscarousel').controller.control = eaddPostsSwiper;
+                    // }
+
                 }, 10);
 
             } else {
@@ -322,7 +327,8 @@ jQuery(window).on('elementor/frontend/init', () => {
             if (this.skinPrefix == 'dualslider_') {
                 eaddSwiperOptions = jQuery.extend(eaddSwiperOptions, {thumbs: {
                         swiper: this.elements.$scope.data('thumbscarousel'),
-                        multipleActiveThumbs: false
+                        multipleActiveThumbs: false,
+                        
                     }});
             }
             //console.log(eaddSwiperOptions);

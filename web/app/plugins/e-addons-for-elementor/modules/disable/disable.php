@@ -17,7 +17,11 @@ class Disable extends Module_Base {
         $module = $this->get_plugin_textdomain();
         add_filter('e_addons/'.$module.'/modules/disable/widgets', [$this, 'get_elementor_widgets']); 
         
-        add_action('elementor/widgets/widgets_registered', [$this, 'disable_widgets'], 99);
+        if (Utils::version_compare(ELEMENTOR_VERSION, '3.5.0', '<')) {
+            add_action('elementor/widgets/widgets_registered', [$this, 'disable_widgets'], 99); // < 3.5.0 - TODO: REMOVE IT SHORTLY
+        } else {
+            add_action('elementor/widgets/register', [$this, 'disable_widgets'], 99); // >= 3.5.0
+        }
     }
     
     public function get_elementor_widgets($widgets) {

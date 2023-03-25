@@ -100,6 +100,20 @@ trait Plugin {
         }
         return false;
     }
+    
+    public static function version_compare($version1, $version2, $operator = null) {
+        //$delimiters = ['beta', 'dev', 'alpha', 'rc'];
+        
+        //$version1 = str_replace($delimiters, $delimiters[0], $version1);
+        $tmp = explode('-', $version1);
+        $version1 = reset($tmp);
+        
+        //$version2 = str_replace($delimiters, $delimiters[0], $version2);
+        $tmp = explode('-', $version1);
+        $version2 = reset($tmp);
+        
+        return version_compare($version1, $version2, $operator);
+    }
 
     public static function get_addons($core = false) {
         $all_addons = array();

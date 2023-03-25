@@ -132,9 +132,12 @@ class Author extends Base_Item {
 
         $avatar_args['size'] = $avatar_image_size;
 
-        $user_id = get_the_author_meta('ID');
-        $author['avatar'] = get_avatar_url($user_id, $avatar_args);
-        $author['posts_url'] = get_author_posts_url($user_id);
+        $post_id = $skin->current_id;
+        $author_id = get_post_field( 'post_author', $post_id );
+        //$author_id = get_the_author_meta('ID');
+        
+        $author['avatar'] = get_avatar_url($author_id, $avatar_args);
+        $author['posts_url'] = get_author_posts_url($author_id);
 
         $author_link = '<a href="' . $author['posts_url'] . '">';
 

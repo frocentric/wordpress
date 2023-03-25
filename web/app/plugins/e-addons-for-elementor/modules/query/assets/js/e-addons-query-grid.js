@@ -7,7 +7,7 @@ jQuery(window).on('elementor/frontend/init', () => {
                 selectors: {
                     container: '.e-add-posts-container',
                     containerGrid: '.e-add-posts-container.e-add-skin-grid',
-                    containerGridMasonry: '.e-add-posts-container.e-add-skin-grid-masonry .e-add-posts-wrapper',
+                    containerGridMasonry: '.e-add-posts-container.e-add-skin-grid-masonry > .e-add-posts-wrapper',
 
                     containerWrapper: '.e-add-posts-wrapper',
                     items: '.e-add-post-item',
