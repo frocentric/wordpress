@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.18.1](https://github.com/frocentric/wordpress/compare/v1.18.0...v1.18.1) (2023-03-25)
+
+
+### Bug Fixes
+
+* adds safety check for dependent class ([fed4751](https://github.com/frocentric/wordpress/commit/fed4751e4c21d517290f13822a710c72cef27cfd))
+* fixes event submission form ([30cd03d](https://github.com/frocentric/wordpress/commit/30cd03d860318286c05569df88a6aa358d11a00d))
+* restores WPDiscourse compatibility ([30fc347](https://github.com/frocentric/wordpress/commit/30fc34705607e66cedd81227f1c38eb5065e97d1))
+
 ## [1.18.0](https://github.com/frocentric/wordpress/compare/v1.17.22...v1.18.0) (2023-02-23)
 
 
