@@ -433,6 +433,7 @@ class Actions {
                         //var_dump($ametas);
                         if (!empty($values) && is_array($values)) {
                             foreach($values as $value) {
+                                $value = Utils::to_string($value);
                                 if (!isset($tmp[$value])) {
                                     $tmp[$value] = $value;
                                 }            

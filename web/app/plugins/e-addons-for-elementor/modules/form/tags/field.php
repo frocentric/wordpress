@@ -82,20 +82,65 @@ class Field extends Base_Tag {
                             'label' => esc_html__('Common', 'e-addons'),
                             'options' => [
                                 'post_id' => esc_html__('Post ID', 'e-addons'),
+                                'current_post_id' => esc_html__('Current Post ID', 'e-addons'),
                                 'queried_id' => esc_html__('Queried Object ID', 'e-addons'),
                                 'form_id' => esc_html__('Form ID', 'e-addons'),
                                 'form_name' => esc_html__('Form Name', 'e-addons'),
+                                'referer_title' => esc_html__('Referer Title', 'e-addons'),
                                 'all_fields' => esc_html__('All Fields', 'e-addons'),
                                 'all_fields_not_empty' => esc_html__('All Fields (not empty)', 'e-addons'),
                                 'e_fields' => esc_html__('Enhanced Fields', 'e-addons'),
                                 'e_fields_not_empty' => esc_html__('Enhanced Fields (not empty)', 'e-addons'),
+                                //'unique' => esc_html__('Unique', 'e-addons'),
                             //'all_fields_labels' => esc_html__('All Fields (with Labels)', 'e-addons'),
                             ],
-                        ]
+                        ]/*,
+                        [
+                            'label' => esc_html__('Special', 'e-addons'),
+                            'options' => [
+                                'unique' => esc_html__('Unique', 'e-addons'),
+                            ],
+                        ]*/
                     ],
                 ]
         );
-
+        /*
+        $this->add_control(
+                'unique_type',
+                [
+                    'label' => esc_html__('Unique Type', 'elementor'),
+                    'type' => Controls_Manager::SELECT, //'e-query',
+                    'options' => [
+                        'increment' => esc_html__('Numeric Incremental', 'e-addons'),
+                        'random' => esc_html__('Random String', 'e-addons'),
+                    ],
+                    'condition' => [
+                        'form_field' => 'unique',
+                    ]
+                ]
+        );
+        
+        //random
+              
+        //number,letter,symbol 
+                
+        //increment
+        //min, max
+        
+        //length min.4
+        //leading zero, number of digits
+        $this->add_control(
+                'unique_length',
+                [
+                    'label' => esc_html__('Unique Length', 'elementor'),
+                    'type' => Controls_Manager::NUMBER, //'e-query',
+                    'min' => 2,
+                    'condition' => [
+                        'form_field' => 'unique',
+                    ]
+                ]
+        );
+        */
         $this->add_control(
                 'custom',
                 [
@@ -171,6 +216,21 @@ class Field extends Base_Tag {
                 $e_form = $_POST['form_fields'];
             }
         }
+        
+        /*if ($settings['form_field'] == 'unique') {
+            $meta = \Elementor\Utils::generate_random_string();
+            if (!empty($settings['unique_length'])) {
+                $meta = substr($meta,0,$settings['unique_length']);
+            }
+            if ($settings['unique_type'] == 'increment') {
+                $last = get_option('e_form_unique',[]);
+                $form_id = Form::get_form_id();
+                $meta = 1;
+                if (isset($last[$form_id])) {
+                    $meta = $last[$form_id]+1;
+                }
+            }
+        }*/
 
         if (Utils::is_preview() || empty($e_form)) {
 
@@ -243,7 +303,7 @@ class Field extends Base_Tag {
                             $meta = '[all-fields|!empty]';
                             break;
                         case 'all_fields':
-                        default:
+                        //default:
                             $meta = '[all-fields]';
                     }
                     $meta = Form::replace_content_shortcodes($meta, $e_form);
@@ -285,7 +345,7 @@ class Field extends Base_Tag {
                             ];
                         }
                         break;
-                    case 'media':
+                    case 'gallery':
                         if (isset($e_form[$field])) {
                             $imgs = Utils::explode($e_form[$field]);
                             $gallery = [];
@@ -344,7 +404,7 @@ class Field extends Base_Tag {
     public function get_content(array $options = []) {
         $settings = $this->get_settings();
 
-        if ($settings['form_return'] == 'media') {
+        if (in_array($settings['form_return'], ['media','gallery'])) {
             $this->is_data = true;
         }
         

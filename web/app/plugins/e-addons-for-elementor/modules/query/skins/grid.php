@@ -478,8 +478,10 @@ class Grid extends Base {
                 [
                     'label' => '<i class="fas fa-arrows-alt-h"></i>&nbsp;' . esc_html__('Columns Gap', 'e-addons'),
                     'type' => Controls_Manager::SLIDER,
+                    'size_units' => ['px', 'em', '%'],
                     'default' => [
                         'size' => 30,
+                        'unit' => 'px'
                     ],
                     'range' => [
                         'px' => [
@@ -504,8 +506,10 @@ class Grid extends Base {
                 [
                     'label' => '<i class="fas fa-arrows-alt-v"></i>&nbsp;' . esc_html__('Rows Gap', 'e-addons'),
                     'type' => Controls_Manager::SLIDER,
+                    'size_units' => ['px', 'em', '%'],
                     'default' => [
-                        'size' => 35,
+                        'size' => 30,
+                        'unit' => 'px'
                     ],
                     'range' => [
                         'px' => [
@@ -527,7 +531,7 @@ class Grid extends Base {
     }
 
     public function render_element_item() {
-        
+        $parent = $this->parent;
         $this->index++;
         
         $style_items = $this->parent->get_settings_for_display('style_items');
@@ -556,6 +560,9 @@ class Grid extends Base {
         $this->render_item_end();
 
         $this->counter++;
+        if ($parent) {
+            $this->parent = $parent;
+        }
     }
 
     public function get_container_class() {
