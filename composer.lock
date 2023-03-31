@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cef4ff8cc859279f077cc52b38f16b7d",
+    "content-hash": "3cf9c52b62b65eb60747d212a2d29275",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3017,15 +3017,15 @@
         },
         {
             "name": "wpackagist-plugin/authors-list",
-            "version": "1.2.9",
+            "version": "2.0.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/authors-list/",
-                "reference": "tags/1.2.9"
+                "reference": "tags/2.0.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/authors-list.1.2.9.zip"
+                "url": "https://downloads.wordpress.org/plugin/authors-list.2.0.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
