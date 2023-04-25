@@ -3197,15 +3197,15 @@
         },
         {
             "name": "wpackagist-plugin/enable-media-replace",
-            "version": "4.0.3",
+            "version": "4.1.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/enable-media-replace/",
-                "reference": "tags/4.0.3"
+                "reference": "tags/4.1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/enable-media-replace.4.0.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/enable-media-replace.4.1.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
