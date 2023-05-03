@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cef4ff8cc859279f077cc52b38f16b7d",
+    "content-hash": "3315134a57ae33a6dc7292eb830ba171",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3305,15 +3305,15 @@
         },
         {
             "name": "wpackagist-plugin/jetpack",
-            "version": "11.9.1",
+            "version": "12.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/jetpack/",
-                "reference": "tags/11.9.1"
+                "reference": "tags/12.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jetpack.11.9.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/jetpack.12.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
