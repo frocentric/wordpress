@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.12.1 - 02-04-2023 */
+/*! elementor-pro - v3.13.1 - 11-05-2023 */
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
@@ -228,7 +228,7 @@ class Preview extends elementorModules.ViewModule {
     elementorFrontend.on('components:init', () => this.onFrontendComponentsInit());
   }
   createDocumentsHandles() {
-    jQuery.each(elementorFrontend.documentsManager.documents, (index, document) => {
+    Object.values(elementorFrontend.documentsManager.documents).forEach(document => {
       const element = document.$element.get(0),
         {
           elementorTitle: title,
