@@ -58,7 +58,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/the-events-calendar-community-events",
-        "version": "4.10.5",
+        "version": "4.10.7",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community&version={%VERSION}&key={%TEC_CE_LICENSE}",
@@ -73,7 +73,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/the-events-calendar-community-events-tickets",
-        "version": "4.8.3",
+        "version": "4.9.2",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community-tickets&version={%VERSION}&key={%TEC_CT_LICENSE}",
@@ -88,7 +88,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-tickets-plus",
-        "version": "5.6.8",
+        "version": "5.6.10",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=event-tickets-plus&version={%VERSION}&key={%TEC_ETP_LICENSE}",
@@ -103,7 +103,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-calendar-pro",
-        "version": "6.0.9.2",
+        "version": "6.0.12.1",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}",
@@ -133,7 +133,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/the-events-calendar-filterbar",
-        "version": "5.4.3",
+        "version": "5.4.4",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=tribe-filterbar&version={%VERSION}&key={%TEC_FB_LICENSE}",
