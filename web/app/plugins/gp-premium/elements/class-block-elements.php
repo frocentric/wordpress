@@ -78,8 +78,11 @@ class GeneratePress_Block_Elements {
 		wp_set_script_translations( 'gp-premium-block-elements', 'gp-premium', GP_PREMIUM_DIR_PATH . 'langs' );
 
 		$taxonomies = get_taxonomies(
-			array(
-				'public'   => true,
+			apply_filters(
+				'generate_get_block_element_taxonomies_args',
+				array(
+					'public' => true,
+				)
 			)
 		);
 
@@ -310,7 +313,13 @@ class GeneratePress_Block_Elements {
 	 * Build our content block.
 	 */
 	public function do_content_block() {
-		if ( 'gp_elements' !== get_post_type() && ! is_admin() ) {
+		// Prevents infinite loops while in the editor or autosaving.
+		$nonpublic_post_types = array(
+			'gp_elements',
+			'revision',
+		);
+
+		if ( ! in_array( get_post_type(), $nonpublic_post_types ) && ! is_admin() ) {
 			return sprintf(
 				'<div class="dynamic-entry-content">%s</div>',
 				apply_filters( 'the_content', str_replace( ']]>', ']]&gt;', get_the_content() ) ) // phpcs:ignore -- Core filter.
@@ -755,6 +764,10 @@ class GeneratePress_Block_Elements {
 							$post_title = post_type_archive_title( '', false );
 						} elseif ( is_archive() && function_exists( 'get_the_archive_title' ) ) {
 							$post_title = get_the_archive_title();
+
+							if ( is_author() ) {
+								$post_title = get_the_author();
+							}
 						} elseif ( is_home() ) {
 							$page_for_posts = get_option( 'page_for_posts' );
 
@@ -1303,7 +1316,13 @@ class GeneratePress_Block_Elements {
 	public function set_dynamic_container_url( $attributes, $settings ) {
 		$link_type = ! empty( $settings['gpDynamicLinkType'] ) ? $settings['gpDynamicLinkType'] : '';
 
-		if ( $link_type && '' !== $settings['url'] && ( 'wrapper' === $settings['linkType'] || 'hidden-link' === $settings['linkType'] ) ) {
+		if (
+			$link_type &&
+			isset( $settings['url'] ) &&
+			isset( $settings['linkType'] ) &&
+			'' !== $settings['url'] &&
+			( 'wrapper' === $settings['linkType'] || 'hidden-link' === $settings['linkType'] )
+		) {
 			if ( ! empty( $link_type ) ) {
 				$source = ! empty( $settings['gpDynamicSource'] ) ? $settings['gpDynamicSource'] : 'current-post';
 				$id = $this->get_source_id( $source, $settings );

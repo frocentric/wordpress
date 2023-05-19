@@ -194,6 +194,10 @@ class GeneratePress_Elements_Helper {
 				$label = __( 'Content Template', 'gp-premium' );
 				break;
 
+			case 'loop-template':
+				$label = __( 'Loop Template', 'gp-premium' );
+				break;
+
 			case 'post-meta-template':
 				$label = __( 'Post Meta Template', 'gp-premium' );
 				break;
