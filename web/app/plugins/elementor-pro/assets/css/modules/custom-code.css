@@ -1748,5 +1748,14 @@ span.font-variations-count {
     background: #f1f3f5;
   }
 }
+.elementor-custom-code-panel .e-ai-button {
+  all: unset;
+  color: #D004D4;
+  cursor: pointer;
+  transition: var(--e-a-transition-hover);
+}
+.elementor-custom-code-panel .e-ai-button:hover {
+  color: #E73CF6;
+}
 
 /*# sourceMappingURL=custom-code.css.map */

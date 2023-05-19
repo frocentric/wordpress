@@ -114,6 +114,7 @@ class GeneratePress_Site_Library {
 					'hasBackup' => ! empty( get_option( '_generatepress_site_library_backup', array() ) ),
 					'gppVersion' => GP_PREMIUM_VERSION,
 					'gpVersion' => generate_premium_get_theme_version(),
+					'generateblocksVersion' => defined( 'GENERATEBLOCKS_VERSION' ) ? GENERATEBLOCKS_VERSION : '',
 					'elementorReplaceUrls' => esc_url( admin_url( 'admin.php?page=elementor-tools#tab-replace_url' ) ),
 					'uploadsUrl' => $uploads_url['baseurl'],
 					'isDebugEnabled' => defined( 'WP_DEBUG' ) && true === WP_DEBUG,
