@@ -55,6 +55,13 @@ class Promotions extends Abstract_Module {
 	private $option_optimole = 'themeisle_sdk_promotions_optimole_installed';
 
 	/**
+	 * Option key for ROP promos.
+	 *
+	 * @var string
+	 */
+	private $option_rop = 'themeisle_sdk_promotions_rop_installed';
+
+	/**
 	 * Loaded promotion.
 	 *
 	 * @var string
@@ -86,6 +93,7 @@ class Promotions extends Abstract_Module {
 		$this->debug          = apply_filters( 'themeisle_sdk_promo_debug', $this->debug );
 		$promotions_to_load   = apply_filters( $product->get_key() . '_load_promotions', array() );
 		$promotions_to_load[] = 'optimole';
+		$promotions_to_load[] = 'rop';
 
 		$this->promotions = $this->get_promotions();
 
@@ -152,6 +160,10 @@ class Promotions extends Abstract_Module {
 		if ( isset( $_GET['optimole_reference_key'] ) ) {
 			update_option( 'optimole_reference_key', sanitize_key( $_GET['optimole_reference_key'] ) );
 		}
+
+		if ( isset( $_GET['rop_reference_key'] ) ) {
+			update_option( 'rop_reference_key', sanitize_key( $_GET['rop_reference_key'] ) );
+		}
 	}
 
 	/**
@@ -191,6 +203,16 @@ class Promotions extends Abstract_Module {
 				'default'           => false,
 			)
 		);
+		register_setting(
+			'themeisle_sdk_settings',
+			$this->option_rop,
+			array(
+				'type'              => 'boolean',
+				'sanitize_callback' => 'rest_sanitize_boolean',
+				'show_in_rest'      => true,
+				'default'           => false,
+			)
+		);
 	}
 
 	/**
@@ -201,7 +223,12 @@ class Promotions extends Abstract_Module {
 	private function get_sdk_uri() {
 		global $themeisle_sdk_max_path;
 
-		if ( $this->product->is_plugin() ) {
+		/**
+		 * $themeisle_sdk_max_path can point to the theme when the theme version is higher.
+		 * hence we also need to check that the path does not point to the theme else this will break the URL.
+		 * References: https://github.com/Codeinwp/neve-pro-addon/issues/2403
+		 */
+		if ( $this->product->is_plugin() && false === strpos( $themeisle_sdk_max_path, get_template_directory() ) ) {
 			return plugins_url( '/', $themeisle_sdk_max_path . '/themeisle-sdk/' );
 		};
 
@@ -235,8 +262,9 @@ class Promotions extends Abstract_Module {
 	 */
 	private function is_plugin_installed( $plugin ) {
 		static $allowed_keys = [
-			'otter-blocks' => 'otter-blocks/otter-blocks.php',
-			'optimole-wp'  => 'optimole-wp/optimole-wp.php',
+			'otter-blocks'   => 'otter-blocks/otter-blocks.php',
+			'optimole-wp'    => 'optimole-wp/optimole-wp.php',
+			'tweet-old-post' => 'tweet-old-post/tweet-old-post.php',
 		];
 
 		if ( ! isset( $allowed_keys[ $plugin ] ) ) {
@@ -260,8 +288,11 @@ class Promotions extends Abstract_Module {
 		$had_otter_from_promo    = get_option( $this->option_otter, false );
 		$has_optimole            = defined( 'OPTIMOLE_VERSION' ) || $this->is_plugin_installed( 'optimole-wp' );
 		$had_optimole_from_promo = get_option( $this->option_optimole, false );
+		$has_rop                 = defined( 'ROP_LITE_VERSION' ) || $this->is_plugin_installed( 'tweet-old-post' );
+		$had_rop_from_promo      = get_option( $this->option_rop, false );
 		$is_min_req_v            = version_compare( get_bloginfo( 'version' ), '5.8', '>=' );
 		$has_enough_attachments  = $this->has_min_media_attachments();
+		$has_enough_old_posts    = $this->has_old_posts();
 
 		$all = [
 			'optimole' => [
@@ -298,6 +329,12 @@ class Promotions extends Abstract_Module {
 				'blocks-conditions' => [
 					'env'    => ! $has_otter && $is_min_req_v && ! $had_otter_from_promo,
 					'screen' => 'editor',
+				],
+			],
+			'rop'      => [
+				'rop-posts' => [
+					'env'    => ! $has_rop && ! $had_rop_from_promo && $has_enough_old_posts,
+					'screen' => 'edit-post',
 				],
 			],
 		];
@@ -370,6 +407,7 @@ class Promotions extends Abstract_Module {
 
 		$is_elementor = isset( $_GET['action'] ) && $_GET['action'] === 'elementor';
 		$is_media     = isset( $current_screen->id ) && $current_screen->id === 'upload';
+		$is_posts     = isset( $current_screen->id ) && $current_screen->id === 'edit-post';
 		$is_editor    = method_exists( $current_screen, 'is_block_editor' ) && $current_screen->is_block_editor();
 
 		$return = [];
@@ -397,6 +435,11 @@ class Promotions extends Abstract_Module {
 							unset( $this->promotions[ $slug ][ $key ] );
 						}
 						break;
+					case 'edit-post':
+						if ( ! $is_posts ) {
+							unset( $this->promotions[ $slug ][ $key ] );
+						}
+						break;
 				}
 			}
 
@@ -420,6 +463,9 @@ class Promotions extends Abstract_Module {
 			if ( $this->get_upsells_dismiss_time( 'om-media' ) === false ) {
 				add_action( 'admin_notices', [ $this, 'render_optimole_dash_notice' ] );
 			}
+			if ( $this->get_upsells_dismiss_time( 'rop-posts' ) === false ) {
+				add_action( 'admin_notices', [ $this, 'render_rop_dash_notice' ] );
+			}
 
 			return;
 		}
@@ -438,6 +484,10 @@ class Promotions extends Abstract_Module {
 			case 'om-media':
 				add_action( 'admin_enqueue_scripts', [ $this, 'enqueue' ] );
 				add_action( 'admin_notices', [ $this, 'render_optimole_dash_notice' ] );
+				break;
+			case 'rop-posts':
+				add_action( 'admin_enqueue_scripts', [ $this, 'enqueue' ] );
+				add_action( 'admin_notices', [ $this, 'render_rop_dash_notice' ] );
 				break;
 		}
 	}
@@ -483,13 +533,28 @@ class Promotions extends Abstract_Module {
 				'optimoleApi'           => esc_url( rest_url( 'optml/v1/register_service' ) ),
 				'optimoleActivationUrl' => $this->get_plugin_activation_link( 'optimole-wp' ),
 				'otterActivationUrl'    => $this->get_plugin_activation_link( 'otter-blocks' ),
+				'ropActivationUrl'      => $this->get_plugin_activation_link( 'tweet-old-post' ),
 				'optimoleDash'          => esc_url( add_query_arg( [ 'page' => 'optimole' ], admin_url( 'upload.php' ) ) ),
+				'ropDash'               => esc_url( add_query_arg( [ 'page' => 'TweetOldPost' ], admin_url( 'admin.php' ) ) ),
 				// translators: %s is the product name.
 				'title'                 => esc_html( sprintf( __( 'Recommended by %s', 'textdomain' ), $this->product->get_name() ) ),
 			]
 		);
 		wp_enqueue_script( $handle );
 		wp_enqueue_style( $handle, $themeisle_sdk_src . 'assets/js/build/style-index.css', [ 'wp-components' ], $asset_file['version'] );
+	}
+
+	/**
+	 * Render rop notice.
+	 */
+	public function render_rop_dash_notice() {
+		$screen = get_current_screen();
+
+		if ( ! isset( $screen->id ) || $screen->id !== 'edit-post' ) {
+			return;
+		}
+
+		echo '<div id="ti-rop-notice" class="notice notice-info ti-sdk-rop-notice"></div>';
 	}
 
 	/**
@@ -562,7 +627,72 @@ class Promotions extends Abstract_Module {
 		if ( $this->debug ) {
 			return true;
 		}
+		$attachment_count = get_transient( 'tsk_attachment_count' );
+		if ( false === $attachment_count ) {
+			$args = array(
+				'post_type'      => 'attachment',
+				'posts_per_page' => 51,
+				'fields'         => 'ids',
+				'post_status'    => 'inherit',
+				'no_found_rows'  => true,
+			);
 
-		return array_sum( (array) wp_count_attachments( 'image' ) ) > 50;
+			$query            = new \WP_Query( $args );
+			$attachment_count = $query->post_count;
+
+
+			set_transient( 'tsk_attachment_count', $attachment_count, DAY_IN_SECONDS );
+		}
+		return $attachment_count > 50;
+	}
+
+	/**
+	 * Check if the website has more than 100 posts and over 10 are over a year old.
+	 *
+	 * @return bool
+	 */
+	private function has_old_posts() {
+		if ( $this->debug ) {
+			return true;
+		}
+
+		$posts_count = get_transient( 'tsk_posts_count' );
+
+		// Create a new WP_Query object to get all posts
+		$args = array(
+			'post_type'      => 'post',
+			'posts_per_page' => 101, //phpcs:ignore WordPress.WP.PostsPerPage.posts_per_page_posts_per_page
+			'fields'         => 'ids',
+			'no_found_rows'  => true,
+		);
+
+		if ( false === $posts_count ) {
+			$query       = new \WP_Query( $args );
+			$total_posts = $query->post_count;
+			wp_reset_postdata();
+
+			// Count the number of posts older than 1 year
+			$one_year_ago       = gmdate( 'Y-m-d H:i:s', strtotime( '-1 year' ) );
+			$args['date_query'] = array(
+				array(
+					'before'    => $one_year_ago,
+					'inclusive' => true,
+				),
+			);
+
+			$query     = new \WP_Query( $args );
+			$old_posts = $query->post_count;
+			wp_reset_postdata();
+
+			$posts_count = array(
+				'total_posts' => $total_posts,
+				'old_posts'   => $old_posts,
+			);
+
+			set_transient( 'tsk_posts_count', $posts_count, DAY_IN_SECONDS );
+		}
+
+		// Check if there are more than 100 posts and more than 10 old posts
+		return $posts_count['total_posts'] > 100 && $posts_count['old_posts'] > 10;
 	}
 }

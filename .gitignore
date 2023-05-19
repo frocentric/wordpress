@@ -83,7 +83,7 @@ local-adminer-*.php
 .idea
 
 # NPM
-/node_modules
+**/node_modules
 
 # PHP_CodeSniffer
 .phpcs.cache
