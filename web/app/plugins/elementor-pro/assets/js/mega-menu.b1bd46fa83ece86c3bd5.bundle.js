@@ -1,6 +1,76 @@
-/*! elementor-pro - v3.12.1 - 02-04-2023 */
+/*! elementor-pro - v3.13.1 - 11-05-2023 */
 "use strict";
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["mega-menu"],{
+
+/***/ "../assets/dev/js/frontend/utils/anchor-link.js":
+/*!******************************************************!*\
+  !*** ../assets/dev/js/frontend/utils/anchor-link.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+class AnchorLinks {
+  followMenuAnchors($anchorLinks, classes) {
+    $anchorLinks.each((index, anchorLink) => {
+      if (location.pathname === anchorLink.pathname && '' !== anchorLink.hash) {
+        this.followMenuAnchor(jQuery(anchorLink), classes);
+      }
+    });
+  }
+  followMenuAnchor($element, classes) {
+    const anchorSelector = $element[0].hash,
+      activeAnchorClass = classes.activeAnchorItem,
+      anchorClass = classes.anchorItem,
+      $targetElement = $element.hasClass(anchorClass) ? $element : $element.closest(`.${anchorClass}`);
+    let offset = -300,
+      $anchor;
+    try {
+      // `decodeURIComponent` for UTF8 characters in the hash.
+      $anchor = jQuery(decodeURIComponent(anchorSelector));
+    } catch (e) {
+      return;
+    }
+    if (!$anchor.length) {
+      return;
+    }
+    if (!$anchor.hasClass('elementor-menu-anchor')) {
+      const halfViewport = jQuery(window).height() / 2;
+      offset = -$anchor.outerHeight() + halfViewport;
+    }
+    elementorFrontend.waypoint($anchor, direction => {
+      if ('down' === direction) {
+        $targetElement.addClass(activeAnchorClass);
+        $element.attr('aria-current', 'location');
+      } else {
+        $targetElement.removeClass(activeAnchorClass);
+        $element.attr('aria-current', '');
+      }
+    }, {
+      offset: '50%',
+      triggerOnce: false
+    });
+    elementorFrontend.waypoint($anchor, direction => {
+      if ('down' === direction) {
+        $targetElement.removeClass(activeAnchorClass);
+        $element.attr('aria-current', '');
+      } else {
+        $targetElement.addClass(activeAnchorClass);
+        $element.attr('aria-current', 'location');
+      }
+    }, {
+      offset,
+      triggerOnce: false
+    });
+  }
+}
+exports["default"] = AnchorLinks;
+
+/***/ }),
 
 /***/ "../modules/mega-menu/assets/js/frontend/handlers/mega-menu.js":
 /*!*********************************************************************!*\
@@ -10,11 +80,13 @@
 
 
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports["default"] = void 0;
 var _utils = __webpack_require__(/*! ../utils */ "../modules/mega-menu/assets/js/frontend/utils.js");
+var _anchorLink = _interopRequireDefault(__webpack_require__(/*! ../../../../../../assets/dev/js/frontend/utils/anchor-link */ "../assets/dev/js/frontend/utils/anchor-link.js"));
 class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
   constructor() {
     super(...arguments);
@@ -35,6 +107,9 @@ class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
     settings.selectors.dropdownMenuToggle = '.e-n-menu-toggle';
     settings.selectors.menuContent = '.e-n-menu-items-content';
     settings.selectors.contentContainer = '.e-n-menu-items-content .e-con';
+    settings.selectors.anchorLink = '.e-anchor a';
+    settings.classes.anchorItem = 'e-anchor';
+    settings.classes.activeAnchorItem = 'e-current';
     return settings;
   }
   getDefaultElements() {
@@ -47,6 +122,7 @@ class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
     elements.$desktopTabTitles = this.$element.find(selectors.desktopTabTitle);
     elements.$mobileTabTitles = this.$element.find(selectors.mobileTabTitle);
     elements.$contentContainers = this.$element.find(selectors.contentContainer);
+    elements.$anchorLink = this.$element.find(selectors.anchorLink);
     return elements;
   }
   dropdownMenuHeightControllerConfig() {
@@ -85,18 +161,17 @@ class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
     }
     if (isFitToContent) {
       const direction = elementorFrontend.config.is_rtl ? 'right' : 'left',
-        menuItemContainerOffset = this.getMenuItemContainerAbsolutePosition($contentContainer);
-      this.elements.$menuContent.css(direction, menuItemContainerOffset);
+        menuItemContainerOffset = 0 < this.getMenuItemContainerAbsolutePosition($contentContainer) ? this.getMenuItemContainerAbsolutePosition($contentContainer) : 0;
+      $contentContainer.css(direction, menuItemContainerOffset);
     }
     const headingsHeight = this.elements.$headingContainer[0].getBoundingClientRect().height;
     if (this.shouldPositionContentAbove($contentContainer, headingsHeight)) {
       const contentContainerBoundingBox = $contentContainer[0].getBoundingClientRect();
       $contentContainer.css({
-        position: 'absolute',
-        bottom: headingsHeight + +this.getDistanceFromContentSetting(),
         width: isFitToContent ? 'max-content' : '',
         'max-width': contentContainerBoundingBox.width
       });
+      this.elements.$menuContent.addClass('content-above');
     }
   }
   getMenuItemContainerAbsolutePosition($contentContainer) {
@@ -115,7 +190,6 @@ class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
       default:
         menuItemContainerOffset = this.getCenteredContainerOffset(contentContainerWidth, titleBoundingBox);
     }
-    menuItemContainerOffset -= this.getMenuContainerOffset();
     return menuItemContainerOffset;
   }
   getCenteredContainerOffset(contentContainerWidth, titleBoundingBox) {
@@ -208,6 +282,7 @@ class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
       'max-width': '',
       width: 'var(--width)'
     });
+    this.elements.$menuContent.removeClass('content-above');
   }
   getTabContentFilterSelector(tabIndex) {
     return `[data-content="${tabIndex}"]`;
@@ -227,11 +302,21 @@ class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
         display: 'var(--display)'
       });
       $requestedContent.removeAttr('hidden display');
+      if (elementorFrontend.isEditMode()) {
+        this.activeContainerWidthListener($requestedContent);
+      }
     }
   }
   deactivateActiveTab(tabIndex) {
+    const settings = this.getSettings(),
+      activeClass = settings.classes.active,
+      activeContentFilter = tabIndex ? this.getTabContentFilterSelector(tabIndex) : '.' + activeClass,
+      $activeContent = this.elements.$tabContents.filter(activeContentFilter);
     super.deactivateActiveTab(tabIndex);
     this.removeAnimationFromContentIfNeeded();
+    if (elementorFrontend.isEditMode() && !!$activeContent.length) {
+      this.observedContainer?.unobserve($activeContent[0]);
+    }
   }
   shouldPositionContentAbove($contentContainer) {
     let offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
@@ -244,17 +329,12 @@ class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
   isContentTallerThanItsBottomOffset(contentDimensions) {
     return window.innerHeight - contentDimensions.top < contentDimensions.height;
   }
-  getDistanceFromContentSetting() {
-    const currentDeviceMode = elementorFrontend.getCurrentDeviceMode(),
-      deviceSuffix = 'desktop' === currentDeviceMode ? '' : '_' + currentDeviceMode;
-    return this.getElementSettings('menu_item_title_distance_from_content' + deviceSuffix).size;
-  }
   onShowTabContent($requestedContent) {
     this.handleContentContainerPosition($requestedContent);
     super.onShowTabContent($requestedContent);
   }
-  onHideTabContent($activeContent) {
-    if ('absolute' === $activeContent.css('position')) {
+  onHideTabContent() {
+    if (this.elements.$menuContent.hasClass('content-above')) {
       this.resetContentContainersPosition();
     }
   }
@@ -276,7 +356,8 @@ class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
     this.elements.$desktopTabTitles.on(this.getDesktopTabEvents());
     this.elements.$mobileTabTitles.on(this.getTabEvents());
     this.elements.$dropdownMenuToggle.on('click', this.onClickToggleDropdownMenu.bind(this));
-    this.elements.$tabContents.on(this.getTabContentEvents());
+    this.elements.$tabContents.on(this.getContentEvents());
+    this.elements.$menuContent.on(this.getContentEvents());
     elementorFrontend.addListenerOnce(this.getModelCID(), 'scroll', elementorFrontend.debounce(this.menuHeightController.reassignMobileMenuHeight.bind(this.menuHeightController), 250));
     elementorFrontend.elements.$window.on('elementor/nested-tabs/activate', this.reInitSwipers);
     this.resizeListener = this.handleContentContainerPosition.bind(this);
@@ -306,6 +387,7 @@ class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
   unbindEvents() {
     this.elements.$desktopTabTitles.off();
     this.elements.$mobileTabTitles.off();
+    this.elements.$menuContent.off();
     this.elements.$tabContents.off();
     elementorFrontend.elements.$window.off('resize', this.resizeListener);
     if (elementorFrontend.isEditMode()) {
@@ -330,7 +412,7 @@ class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
     const tabEvents = this.getTabEvents();
     return this.isNeedToOpenOnClick() ? tabEvents : this.replaceClickWithHover(tabEvents);
   }
-  getTabContentEvents() {
+  getContentEvents() {
     return this.isNeedToOpenOnClick() ? {} : {
       mouseleave: this.onMouseLeave.bind(this)
     };
@@ -355,14 +437,11 @@ class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
   }
   onMouseTitleEnter(event) {
     event.preventDefault();
-    const itemsUnderMouseArray = Array.prototype.slice.call(document.querySelectorAll(':hover'));
-    if (this.isActiveMenuItem(itemsUnderMouseArray)) {
+    const isActiveTabTitle = event.currentTarget.classList.contains(this.getActiveClass());
+    if (isActiveTabTitle) {
       return;
     }
     this.changeActiveTab(event.currentTarget.getAttribute('data-tab'), true);
-  }
-  isActiveMenuItem(itemsUnderMouseArray) {
-    return itemsUnderMouseArray.some(item => item.classList.contains('e-active'));
   }
   onClickToggleDropdownMenu(show) {
     const settings = this.getSettings(),
@@ -391,13 +470,17 @@ class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
     }
     this.elements.$tabContents.removeClass(`animated ${openAnimation}`);
   }
-  isContainingMenuContentTab(itemsUnderMouse) {
-    return itemsUnderMouse.some(item => item.classList.contains('e-n-menu-items-content'));
+  isHoveredDropdownMenu(isMouseLeavingTabContent) {
+    const settings = this.getSettings(),
+      $widget = this.$element,
+      isMenuContentHover = 0 < $widget.find(`${settings.selectors.menuContent}:hover`).length,
+      isTabContentHover = 0 < $widget.find(`${settings.selectors.tabContent}:hover`).length;
+    return isTabContentHover || !isMouseLeavingTabContent && isMenuContentHover;
   }
   onMouseLeave(event) {
     event.preventDefault();
-    const itemsUnderMouseArray = Array.prototype.slice.call(document.querySelectorAll(':hover'));
-    if (this.isContainingMenuContentTab(itemsUnderMouseArray)) {
+    const isMouseLeavingTabContent = event.currentTarget.classList.contains('e-con');
+    if (this.isHoveredDropdownMenu(isMouseLeavingTabContent)) {
       return;
     }
     this.deactivateActiveTab();
@@ -428,9 +511,27 @@ class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
   onInit() {
     this.menuHeightController = new elementorProFrontend.utils.DropdownMenuHeightController(this.dropdownMenuHeightControllerConfig());
     super.onInit(...arguments);
+    if (!elementorFrontend.isEditMode()) {
+      const classes = this.getSettings('classes');
+      this.anchorLinks = new _anchorLink.default();
+      this.anchorLinks.followMenuAnchors(this.elements.$anchorLink, classes);
+    }
   }
   getPropsThatTriggerContentPositionCalculations() {
     return ['content_horizontal_position', 'content_position', 'item_position_horizontal', 'content_width', 'item_layout'];
+  }
+  activeContainerWidthListener($activeContainer) {
+    let previousWidth = 0;
+    this.observedContainer = new ResizeObserver(activeContainer => {
+      const currentWidth = activeContainer[0].borderBoxSize?.[0].inlineSize;
+      if (!!currentWidth && currentWidth !== previousWidth) {
+        previousWidth = currentWidth;
+        if (0 !== previousWidth) {
+          this.handleContentContainerPosition();
+        }
+      }
+    });
+    this.observedContainer.observe($activeContainer[0]);
   }
   onElementChange(propertyName) {
     if (this.getPropsThatTriggerContentPositionCalculations().includes(propertyName)) {
@@ -475,4 +576,4 @@ function isMenuInDropdownMode(elementSettings) {
 /***/ })
 
 }]);
-//# sourceMappingURL=mega-menu.20ae2ea9e778e559492a.bundle.js.map
+//# sourceMappingURL=mega-menu.b1bd46fa83ece86c3bd5.bundle.js.map

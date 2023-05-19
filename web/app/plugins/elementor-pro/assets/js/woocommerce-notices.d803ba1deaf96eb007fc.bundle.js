@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.12.1 - 02-04-2023 */
+/*! elementor-pro - v3.13.1 - 11-05-2023 */
 "use strict";
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["woocommerce-notices"],{
 
