@@ -1017,10 +1017,10 @@
         },
         {
             "name": "koodimonni-language/en_gb",
-            "version": "6.2.1",
+            "version": "6.2.2",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/6.2.1/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/6.2.2/en_GB.zip"
             },
             "require": {
                 "koodimonni-plugin-language/akismet-en_gb": "*",
