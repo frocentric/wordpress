@@ -2903,16 +2903,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.13.3",
+            "version": "v3.13.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "ce99d6957d4ad6099c28ef6481cb9dee07595a8c"
+                "reference": "38715e3384c92726de854e21eaf63f7b322ca9c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/ce99d6957d4ad6099c28ef6481cb9dee07595a8c",
-                "reference": "ce99d6957d4ad6099c28ef6481cb9dee07595a8c",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/38715e3384c92726de854e21eaf63f7b322ca9c7",
+                "reference": "38715e3384c92726de854e21eaf63f7b322ca9c7",
                 "shasum": ""
             },
             "require": {
@@ -3012,7 +3012,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2023-05-24T13:56:27+00:00"
+            "time": "2023-06-05T10:50:45+00:00"
         },
         {
             "name": "wpackagist-plugin/authors-list",
