@@ -3124,15 +3124,15 @@
         },
         {
             "name": "wpackagist-plugin/dynamic-visibility-for-elementor",
-            "version": "5.0.5",
+            "version": "5.0.6",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/dynamic-visibility-for-elementor/",
-                "reference": "tags/5.0.5"
+                "reference": "tags/5.0.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/dynamic-visibility-for-elementor.5.0.5.zip"
+                "url": "https://downloads.wordpress.org/plugin/dynamic-visibility-for-elementor.5.0.6.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
