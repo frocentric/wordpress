@@ -23,6 +23,9 @@ web/app/themes/*
 web/app/cache
 web/*phpinfo.php
 
+# Query Monitor
+web/app/db.php
+
 # WP Rocket
 web/app/advanced-cache.php
 web/app/wp-rocket-config
