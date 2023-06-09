@@ -1,3 +1,13 @@
+#### [Version 3.3.0](https://github.com/Codeinwp/themeisle-sdk/compare/v3.2.41...v3.3.0) (2023-05-30)
+
+- Adds About Page Integration
+- Adds promos for Neve FSE, Sparks & PPOM
+
+##### [Version 3.2.41](https://github.com/Codeinwp/themeisle-sdk/compare/v3.2.40...v3.2.41) (2023-05-10)
+
+- Delay product recommendation mentions
+- Allow upselling notifications for new users
+
 ##### [Version 3.2.40](https://github.com/Codeinwp/themeisle-sdk/compare/v3.2.39...v3.2.40) (2023-03-30)
 
 - Add ROP upsell to all products

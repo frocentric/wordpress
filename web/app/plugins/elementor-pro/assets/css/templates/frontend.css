@@ -227,7 +227,7 @@
   pointer-events: all;
 }
 .elementor-popup-modal .dialog-close-button svg {
-  fill: #1A1C1E;
+  fill: #1f2124;
   height: 1em;
   width: 1em;
 }
@@ -1639,7 +1639,7 @@ body.elementor-default .elementor-widget-woocommerce-menu-cart:not(.elementor-me
   display: grid;
   grid-template-columns: max-content auto;
   margin: 10px 0;
-  color: var(--product-variations-color, #1A1C1E);
+  color: var(--product-variations-color, #1f2124);
 }
 .elementor-menu-cart__product .variation dt {
   grid-column-start: 1;
@@ -4062,7 +4062,7 @@ body.elementor-default .elementor-widget-woocommerce-menu-cart.elementor-menu-ca
 }
 .elementor-search-form__input {
   flex-basis: 100%;
-  color: #3A3F45;
+  color: #3f444b;
   transition: color 0.2s;
 }
 .elementor-search-form__input::-webkit-input-placeholder {
@@ -4112,8 +4112,8 @@ body.elementor-default .elementor-widget-woocommerce-menu-cart.elementor-menu-ca
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  color: #3A3F45;
-  fill: #3A3F45;
+  color: #3f444b;
+  fill: #3f444b;
   font-size: var(--e-search-form-icon-size-minimal, 15px);
 }
 .elementor-search-form--skin-minimal .elementor-search-form__icon svg {
@@ -4137,7 +4137,7 @@ body.elementor-default .elementor-widget-woocommerce-menu-cart.elementor-menu-ca
   display: inline-block;
   cursor: pointer;
   vertical-align: middle;
-  color: var(--e-search-form-toggle-color, #2e3237);
+  color: var(--e-search-form-toggle-color, #33373d);
   font-size: var(--e-search-form-toggle-size, 33px);
 }
 .elementor-search-form--skin-full_screen .elementor-search-form__toggle i,
@@ -4149,7 +4149,7 @@ body.elementor-default .elementor-widget-woocommerce-menu-cart.elementor-menu-ca
   height: var(--e-search-form-toggle-size, 33px);
   background-color: var(--e-search-form-toggle-background-color, rgba(0, 0, 0, 0.05));
   border-style: solid;
-  border-color: var(--e-search-form-toggle-color, #2e3237);
+  border-color: var(--e-search-form-toggle-color, #33373d);
   border-width: var(--e-search-form-toggle-border-width, 0);
   border-radius: var(--e-search-form-toggle-border-radius, 3px);
 }
@@ -4168,7 +4168,7 @@ body.elementor-default .elementor-widget-woocommerce-menu-cart.elementor-menu-ca
 }
 .elementor-search-form--skin-full_screen .elementor-search-form__toggle i svg,
 .elementor-search-form--skin-full_screen .elementor-search-form__toggle .e-font-icon-svg-container svg {
-  fill: var(--e-search-form-toggle-color, #2e3237);
+  fill: var(--e-search-form-toggle-color, #33373d);
   width: var(--e-search-form-toggle-icon-size, 0.55em);
   height: var(--e-search-form-toggle-icon-size, 0.55em);
 }
@@ -4262,14 +4262,14 @@ body.elementor-default .elementor-widget-woocommerce-menu-cart.elementor-menu-ca
 }
 
 .elementor-button.elementor-author-box__button {
-  border: solid 2px #3A3F45;
+  border: solid 2px #3f444b;
   font-size: 15px;
   font-weight: 100;
   padding: 10px 18px;
 }
 .elementor-button.elementor-author-box__button, .elementor-button.elementor-author-box__button:hover {
   background: transparent;
-  color: #3A3F45;
+  color: #3f444b;
 }
 
 .elementor-widget-author-box:not(.elementor-author-box--layout-image-above) .elementor-author-box__avatar {
@@ -5457,13 +5457,13 @@ the source property is coming from element/dev/scss...
   background-color: #F9FAFA;
 }
 .elementor-cta--skin-classic .elementor-cta__content-item, .elementor-cta--skin-classic .elementor-cta__content-item .elementor-icon {
-  color: #3A3F45;
-  border-color: #3A3F45;
-  fill: #3A3F45;
+  color: #3f444b;
+  border-color: #3f444b;
+  fill: #3f444b;
 }
 .elementor-cta--skin-classic .elementor-cta__button.elementor-button {
-  color: #3A3F45;
-  border-color: #3A3F45;
+  color: #3f444b;
+  border-color: #3f444b;
 }
 .elementor-cta--skin-cover .elementor-cta {
   display: block;
@@ -7132,7 +7132,7 @@ body.rtl .elementor-widget-slides .elementor-swiper-button-prev {
   border-top: 0 none;
   border-bottom: 0 none;
   font-style: normal;
-  color: #3A3F45;
+  color: #3f444b;
 }
 .elementor-widget-blockquote blockquote:before, .elementor-widget-blockquote blockquote:after,
 .elementor-widget-blockquote blockquote .e-q-footer:before,
@@ -8061,7 +8061,7 @@ body.rtl .elementor-widget-slides .elementor-swiper-button-prev {
   height: 3px;
   width: 100%;
   left: 0;
-  background-color: #3A3F45;
+  background-color: #3f444b;
   z-index: 2;
 }
 .e--pointer-double-line.e--animation-grow .elementor-item:not(:hover):not(:focus):not(.elementor-item-active):not(.highlighted):before, .e--pointer-double-line.e--animation-grow .elementor-item:not(:hover):not(:focus):not(.elementor-item-active):not(.highlighted):after, .e--pointer-underline.e--animation-grow .elementor-item:not(:hover):not(:focus):not(.elementor-item-active):not(.highlighted):before, .e--pointer-underline.e--animation-grow .elementor-item:not(:hover):not(:focus):not(.elementor-item-active):not(.highlighted):after, .e--pointer-overline.e--animation-grow .elementor-item:not(:hover):not(:focus):not(.elementor-item-active):not(.highlighted):before, .e--pointer-overline.e--animation-grow .elementor-item:not(:hover):not(:focus):not(.elementor-item-active):not(.highlighted):after {
@@ -8124,7 +8124,7 @@ body.rtl .elementor-widget-slides .elementor-swiper-button-prev {
   top: 0;
   bottom: 0;
   right: 0;
-  border: 3px solid #3A3F45;
+  border: 3px solid #3f444b;
 }
 .e--pointer-framed .elementor-item:before {
   content: "";
@@ -8205,7 +8205,7 @@ body.rtl .elementor-widget-slides .elementor-swiper-button-prev {
   left: 0;
   right: 0;
   bottom: 0;
-  background: #3A3F45;
+  background: #3f444b;
   z-index: -1;
 }
 .e--pointer-background .elementor-item:hover, .e--pointer-background .elementor-item:focus, .e--pointer-background .elementor-item.highlighted, .e--pointer-background .elementor-item-active {
@@ -8250,7 +8250,7 @@ body.rtl .elementor-widget-slides .elementor-swiper-button-prev {
   left: 0;
   right: 0;
   bottom: 0;
-  background: #3A3F45;
+  background: #3f444b;
   z-index: -1;
 }
 .e--pointer-background.e--animation-shutter-in-vertical .elementor-item:before {
@@ -8335,12 +8335,12 @@ body.rtl .elementor-widget-slides .elementor-swiper-button-prev {
   padding: 13px 20px;
 }
 .elementor-nav-menu--main .elementor-nav-menu a.current {
-  background: #1A1C1E;
+  background: #1f2124;
   color: #fff;
 }
 .elementor-nav-menu--main .elementor-nav-menu a.disabled {
-  background: #3A3F45;
-  color: #828b96;
+  background: #3f444b;
+  color: #88909b;
 }
 .elementor-nav-menu--main .elementor-nav-menu ul {
   position: absolute;
@@ -8368,12 +8368,12 @@ body.rtl .elementor-widget-slides .elementor-swiper-button-prev {
   overflow: hidden;
   border-width: 8px;
   border-style: dashed dashed solid dashed;
-  border-color: transparent transparent #2e3237 transparent;
+  border-color: transparent transparent #33373d transparent;
 }
 .elementor-nav-menu--main .elementor-nav-menu span.scroll-down-arrow {
   top: 6px;
   border-style: solid dashed dashed dashed;
-  border-color: #2e3237 transparent transparent transparent;
+  border-color: #33373d transparent transparent transparent;
 }
 .elementor-nav-menu--main .elementor-nav-menu--dropdown .sub-arrow i, .elementor-nav-menu--main .elementor-nav-menu--dropdown .sub-arrow .e-font-icon-svg {
   transform: rotate(-90deg);
@@ -8525,12 +8525,12 @@ body.rtl .elementor-widget-slides .elementor-swiper-button-prev {
   line-height: 20px;
 }
 .elementor-nav-menu a.current {
-  background: #1A1C1E;
+  background: #1f2124;
   color: #fff;
 }
 .elementor-nav-menu a.disabled {
   cursor: not-allowed;
-  color: #828b96;
+  color: #88909b;
 }
 .elementor-nav-menu .e-plus-icon:before {
   content: "+";
@@ -8563,7 +8563,7 @@ body.rtl .elementor-widget-slides .elementor-swiper-button-prev {
 .elementor-sub-item:focus,
 .elementor-sub-item.highlighted,
 .elementor-sub-item.elementor-item-active {
-  background-color: #3A3F45;
+  background-color: #3f444b;
   color: #fff;
 }
 
@@ -8577,7 +8577,7 @@ body.rtl .elementor-widget-slides .elementor-swiper-button-prev {
   border: 0 solid;
   border-radius: 3px;
   background-color: rgba(0, 0, 0, 0.05);
-  color: #2e3237;
+  color: #33373d;
 }
 .elementor-menu-toggle.elementor-active .elementor-menu-toggle__icon--open {
   display: none;
@@ -8586,7 +8586,7 @@ body.rtl .elementor-widget-slides .elementor-swiper-button-prev {
   display: none;
 }
 .elementor-menu-toggle .e-font-icon-svg {
-  fill: #2e3237;
+  fill: #33373d;
   height: 1em;
   width: 1em;
 }
@@ -8620,10 +8620,10 @@ span.elementor-menu-toggle__icon--close {
   font-size: 0.85em;
 }
 .elementor-nav-menu--dropdown a {
-  color: #2e3237;
+  color: #33373d;
 }
 .elementor-nav-menu--dropdown a.current {
-  background: #1A1C1E;
+  background: #1f2124;
   color: #fff;
 }
 .elementor-nav-menu--dropdown a.disabled {
@@ -9083,7 +9083,7 @@ ol.elementor-toc__list-wrapper .elementor-toc__list-item-text-wrapper:before {
   box-sizing: content-box;
 }
 .e-tabs-inner-tabs .e-inner-tabs-wrapper .e-inner-tab-title a {
-  color: #3A3F45;
+  color: #3f444b;
   padding: 0 36px;
   display: block;
   text-align: center;
@@ -9104,7 +9104,7 @@ ol.elementor-toc__list-wrapper .elementor-toc__list-item-text-wrapper:before {
   padding: 20px;
 }
 .e-tabs-inner-tabs .e-inner-tabs-content-wrapper .e-inner-tab-content .e-inner-tab-text {
-  color: #1A1C1E;
+  color: #1f2124;
 }
 .e-tabs-inner-tabs .e-inner-tabs-content-wrapper .e-inner-tab-content.e-inner-tab-active {
   display: block;
@@ -10043,9 +10043,9 @@ ol.elementor-toc__list-wrapper .elementor-toc__list-item-text-wrapper:before {
 .elementor-widget-n-menu {
   --n-menu-items-content-padding: initial;
   --n-menu-items-heading-justify-content: initial;
-  --n-menu-item-title-color-normal: #1A1C1E;
+  --n-menu-item-title-color-normal: #1f2124;
   --n-menu-item-title-color-active: #58D0F5;
-  --n-menu-item-title-hover-color-fallback: #1A1C1E;
+  --n-menu-item-title-hover-color-fallback: #1f2124;
   --n-menu-item-title-font-size: 1rem;
   --n-menu-item-title-justify-content: initial;
   --n-menu-item-title-flex-grow: initial;
@@ -10054,7 +10054,7 @@ ol.elementor-toc__list-wrapper .elementor-toc__list-item-text-wrapper:before {
   --n-menu-toggle-icon-wrapper-animation-duration: 500ms;
   --n-menu-toggle-icon-hover-duration: 500ms;
   --n-menu-toggle-icon-size: 20px;
-  --n-menu-toggle-icon-color: #1A1C1E;
+  --n-menu-toggle-icon-color: #1f2124;
   --n-menu-toggle-icon-color-hover: var(--n-menu-toggle-icon-color);
   --n-menu-toggle-icon-color-active: var(--n-menu-toggle-icon-color);
   --n-menu-toggle-icon-border-radius: initial;
@@ -10062,7 +10062,7 @@ ol.elementor-toc__list-wrapper .elementor-toc__list-item-text-wrapper:before {
   --n-menu-open-animation-duration: 500ms;
   --n-menu-item-title-space-between: 0px;
   --n-menu-item-title-distance-from-content: 0px;
-  --n-menu-item-title-color-hover: #1A1C1E;
+  --n-menu-item-title-color-hover: #1f2124;
   --n-menu-item-title-padding: 0.5rem 1rem;
   --n-menu-item-title-transition: 0.3s;
   --n-menu-dropdown-content-max-width: initial;

@@ -1,5 +1,9 @@
 # Elementor Pro - by Elementor.com
 
+#### 3.13.2 - 2023-05-22
+
+* Fix: Hover settings not working as expected on Touch-Enabled devices in Menu widget ([#22258](https://github.com/elementor/elementor/issues/22258))
+
 #### 3.13.1 - 2023-05-11
 
 * Security Fix: Addressed security weaknesses in access management related functions
