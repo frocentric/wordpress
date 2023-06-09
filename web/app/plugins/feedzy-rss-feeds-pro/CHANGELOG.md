@@ -1,3 +1,7 @@
+##### [Version 2.2.3](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.2.2...v2.2.3) (2023-06-05)
+
+- Updated dependencies
+
 ##### [Version 2.2.2](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.2.1...v2.2.2) (2023-03-31)
 
 - Fixed the issue with extracting custom tags from YouTube feeds

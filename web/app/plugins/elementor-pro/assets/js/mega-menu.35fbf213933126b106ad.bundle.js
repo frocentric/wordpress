@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.13.1 - 11-05-2023 */
+/*! elementor-pro - v3.13.2 - 22-05-2023 */
 "use strict";
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["mega-menu"],{
 
@@ -422,12 +422,8 @@ class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
     return this.isEdit || this.isMobileDevice() || 'hover' !== elementSettings.open_on || 'dropdown' === elementSettings.item_layout;
   }
   isMobileDevice() {
-    if (elementorFrontend.utils.environment.isTouchDevice !== undefined) {
-      return elementorFrontend.utils.environment.isTouchDevice;
-    }
-    // Core 3.10 & 3.11 backward compatability
-    const nonMobileDevices = ['mobile', 'mobile_extra', 'tablet', 'tablet_extra'];
-    return nonMobileDevices.includes(elementorFrontend.getCurrentDeviceMode());
+    const mobileDevices = ['mobile', 'mobile_extra', 'tablet', 'tablet_extra'];
+    return mobileDevices.includes(elementorFrontend.getCurrentDeviceMode());
   }
   replaceClickWithHover(tabEvents) {
     delete tabEvents.click;
@@ -576,4 +572,4 @@ function isMenuInDropdownMode(elementSettings) {
 /***/ })
 
 }]);
-//# sourceMappingURL=mega-menu.b1bd46fa83ece86c3bd5.bundle.js.map
+//# sourceMappingURL=mega-menu.35fbf213933126b106ad.bundle.js.map
