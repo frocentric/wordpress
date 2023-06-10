@@ -3,12 +3,23 @@ jQuery( function( $ ) {
 		e.preventDefault();
 
 		$( '.choose-element-type-parent' ).show();
+		$( '.choose-element-type .select-type' ).focus();
 	} );
 
 	$( '.close-choose-element-type' ).on( 'click', function( e ) {
 		e.preventDefault();
 
 		$( '.choose-element-type-parent' ).hide();
+		$( '.page-title-action' ).focus();
+	} );
+
+	$( '.post-type-gp_elements' ).on( 'keyup', function( e ) {
+		const $element = $( '.choose-element-type-parent' );
+
+		if ( e.key === 'Escape' && $element.is( ':visible' ) ) {
+			$element.hide();
+			$( '.page-title-action' ).focus();
+		}
 	} );
 
 	// Don't allow Elements to quick edit parents.

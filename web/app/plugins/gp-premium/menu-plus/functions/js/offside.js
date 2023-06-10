@@ -497,19 +497,18 @@
 /**
  * Start GP.
  */
-document.addEventListener( 'DOMContentLoaded', function() {
-	document.querySelector( '.slideout-navigation' ).style.display = '';
-} );
-
 var generateOffside = offside( '.slideout-navigation', {
     slidingElementsSelector:'#slideout-container',
     buttonsSelector: '.slideout-mobile .main-navigation .menu-toggle, .slideout-both .main-navigation .menu-toggle, .slideout-both .slideout-toggle, .slideout-desktop .slideout-toggle',
 	slidingSide: offSide.side,
 	beforeOpen: function() {
-		// Turn on visibility so we can transition nicely.
-		document.querySelector( '.slideout-navigation' ).style.visibility = 'visible';
+		document.querySelector( '.slideout-navigation' ).classList.add( 'slideout-transition' );
 	},
 	afterOpen: function() {
+		setTimeout( function() {
+			document.querySelector( '.slideout-navigation' ).classList.remove( 'slideout-transition' );
+		}, 10 );
+
 		document.documentElement.classList.add( 'slide-opened' );
 		document.body.classList.add( 'slide-opened' );
 
@@ -526,8 +525,6 @@ var generateOffside = offside( '.slideout-navigation', {
 			}
 		}
 
-		document.querySelector( '.slideout-navigation' ).removeAttribute( 'aria-hidden' );
-
 		// Focus the first focusable element.
 		var focusable = document.querySelector( '.slideout-navigation' ).querySelectorAll( 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])' );
 
@@ -537,7 +534,14 @@ var generateOffside = offside( '.slideout-navigation', {
 			}, 200 );
 		}
 	},
+	beforeClose: function() {
+		document.querySelector( '.slideout-navigation' ).classList.add( 'slideout-transition' );
+	},
 	afterClose: function() {
+		setTimeout( function() {
+			document.querySelector( '.slideout-navigation' ).classList.remove( 'slideout-transition' );
+		}, 500 );
+
 		var body = document.body,
 			nav = document.querySelectorAll( '.main-navigation' );
 
@@ -566,12 +570,6 @@ var generateOffside = offside( '.slideout-navigation', {
 				}
 			}
 		}
-
-		// Turn off visibility.
-		setTimeout( function() {
-			document.querySelector( '.slideout-navigation:not(.is-open)' ).style.visibility = '';
-			document.querySelector( '.slideout-navigation:not(.is-open)' ).setAttribute( 'aria-hidden', 'true' );
-		}, 500 );
 	}
 } );
 
@@ -636,3 +634,13 @@ document.addEventListener( 'keyup', function( e ) {
 		}
 	}
 } );
+
+var toggles = document.querySelectorAll( '.slideout-toggle a' );
+for ( var i = 0; i < toggles.length; i++ ) {
+	toggles[ i ].addEventListener( 'keypress', function( e ) {
+		if ( ' ' === e.key ) {
+			e.preventDefault();
+			generateOffside.open();
+		}
+	} );
+};

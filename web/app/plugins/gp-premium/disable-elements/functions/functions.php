@@ -20,7 +20,7 @@ if ( ! function_exists( 'generate_disable_elements' ) ) {
 	function generate_disable_elements() {
 		// Don't run the function unless we're on a page it applies to.
 		if ( ! is_singular() ) {
-			return;
+			return '';
 		}
 
 		global $post;

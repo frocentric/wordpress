@@ -221,6 +221,7 @@ class Post_Info extends Base {
 			[
 				'label' => esc_html__( 'Size', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'selectors' => [
 					'{{WRAPPER}} {{CURRENT_ITEM}} .elementor-icon-list-icon' => 'width: {{SIZE}}{{UNIT}}',
 				],
@@ -407,6 +408,7 @@ class Post_Info extends Base {
 			[
 				'label' => esc_html__( 'Space Between', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range' => [
 					'px' => [
 						'max' => 50,
@@ -511,7 +513,7 @@ class Post_Info extends Base {
 			[
 				'label' => esc_html__( 'Width', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ '%', 'px' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'default' => [
 					'unit' => '%',
 				],
@@ -540,7 +542,7 @@ class Post_Info extends Base {
 			[
 				'label' => esc_html__( 'Height', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ '%', 'px' ],
+				'size_units' => [ 'px', 'em', 'rem', 'vh', 'custom' ],
 				'default' => [
 					'unit' => '%',
 				],
@@ -613,6 +615,7 @@ class Post_Info extends Base {
 			[
 				'label' => esc_html__( 'Size', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'default' => [
 					'size' => 14,
 				],
@@ -644,6 +647,7 @@ class Post_Info extends Base {
 			[
 				'label' => esc_html__( 'Indent', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range' => [
 					'px' => [
 						'max' => 50,
@@ -937,10 +941,17 @@ class Post_Info extends Base {
 			<?php
 			if ( ! empty( $item_data['image'] ) ) :
 				$image_data = 'image_' . $repeater_index;
-				$this->add_render_attribute( $image_data, 'src', $item_data['image'] );
-				$this->add_render_attribute( $image_data, 'alt', $item_data['text'] );
+				$this->add_render_attribute(
+					$image_data,
+					[
+						'class' => 'elementor-avatar',
+						'src' => $item_data['image'],
+						'alt' => $item_data['text'],
+						'loading' => 'lazy',
+					]
+				);
 				?>
-					<img class="elementor-avatar" <?php $this->print_render_attribute_string( $image_data ); ?>>
+					<img <?php $this->print_render_attribute_string( $image_data ); ?>>
 				<?php elseif ( $show_icon ) : ?>
 					<?php if ( $is_new || $migrated ) :
 						Icons_Manager::render_icon( $item_data['selected_icon'], [ 'aria-hidden' => 'true' ] );

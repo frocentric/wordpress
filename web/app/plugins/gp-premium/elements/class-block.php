@@ -132,6 +132,10 @@ class GeneratePress_Block_Element {
 				case 'loop-template':
 					$hook = 'generate_before_main_content';
 					break;
+
+				case 'search-modal':
+					$hook = 'generate_inside_search_modal';
+					break;
 			}
 
 			if ( 'custom' === $hook && $custom_hook ) {
@@ -179,6 +183,10 @@ class GeneratePress_Block_Element {
 				add_filter( 'generate_blog_columns', '__return_false' );
 				add_filter( 'option_generate_blog_settings', array( $this, 'filter_blog_settings' ) );
 				add_filter( 'post_class', array( $this, 'post_classes' ) );
+			}
+
+			if ( 'search-modal' === $this->type ) {
+				remove_action( 'generate_inside_search_modal', 'generate_do_search_fields' );
 			}
 
 			add_action( 'wp', array( $this, 'remove_elements' ), 100 );
@@ -291,6 +299,7 @@ class GeneratePress_Block_Element {
 				}
 
 				remove_action( 'generate_archive_title', 'generate_archive_title' );
+				remove_filter( 'get_the_archive_title', 'generate_filter_the_archive_title' );
 
 				// WooCommerce removal.
 				if ( class_exists( 'WooCommerce' ) ) {

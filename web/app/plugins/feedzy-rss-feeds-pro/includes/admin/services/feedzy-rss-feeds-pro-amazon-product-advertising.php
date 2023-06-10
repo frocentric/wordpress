@@ -115,66 +115,82 @@ class Feedzy_Rss_Feeds_Pro_Amazon_Product_Advertising implements Feedzy_Rss_Feed
 			return;
 		}
 
-		$config = new Amazon\ProductAdvertisingAPI\v1\Configuration();
-		$config->setAccessKey( $post_data['amazon_access_key'] );
-		$config->setSecretKey( $post_data['amazon_secret_key'] );
-		$config->setHost( $post_data['amazon_host'] );
-		$config->setRegion( $post_data['amazon_region'] );
-
-		$api_instance = new Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\api\DefaultApi(
-			new GuzzleHttp\Client(),
-			$config
+		$locale_hosts = feedzy_amazon_get_locale_hosts();
+		$region       = feedzy_amazon_get_get_locale_regions();
+		$this->url    = $post_data['amazon_host'];
+		$locale_hosts = array_search( $this->url, $locale_hosts, true );
+		// Parse query param.
+		parse_str( wp_parse_url( $this->url, PHP_URL_QUERY ), $query_param );
+		// Get region from host URL.
+		if ( false !== $locale_hosts ) {
+			$region = isset( $region[ $locale_hosts ] ) ? $region[ $locale_hosts ] : reset( $region );
+		} else {
+			$region = reset( $region );
+		}
+		$query_param = array_change_key_case( $query_param, CASE_LOWER );
+		$resource    = new SearchItemsResource();
+		$payload     = array(
+			'PartnerType' => PartnerType::ASSOCIATES,
+			'PartnerTag'  => $post_data['amazon_partner_tag'],
+			'Keywords'    => 'Laptop',
+			'SearchIndex' => 'All',
+			'Resources'   => array(
+				$resource::ITEM_INFOTITLE,
+			),
 		);
 
-		$search_request = new Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\SearchItemsRequest();
-		$search_request->setSearchIndex( 'All' );
-		$search_request->setKeywords( 'Laptop' );
-		$search_request->setItemCount( 1 );
-		$search_request->setPartnerTag( $post_data['amazon_partner_tag'] );
-		$search_request->setPartnerType( Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\PartnerType::ASSOCIATES );
-		$search_request->setResources(
+		$host      = wp_parse_url( $this->url, PHP_URL_PATH );
+		$host      = rtrim( $host, '/' );
+		$host_path = pathinfo( $host, PATHINFO_EXTENSION );
+
+		$host      = wp_parse_url( $this->url, PHP_URL_PATH );
+		$host      = rtrim( $host, '/' );
+		$host_path = pathinfo( $host, PATHINFO_EXTENSION );
+
+		// Get product using keyword search.
+		$path       = '/paapi5/searchitems';
+		$amz_target = $host_path . '.amazon.paapi5.v1.ProductAdvertisingAPIv1.SearchItems';
+
+		$payload = wp_json_encode( $payload );
+		$awsv4   = new \Feedzy_Rss_Feeds_Pro_AWS_Request_URL( $post_data['amazon_access_key'], $post_data['amazon_secret_key'] );
+		$awsv4->set_region_name( $region );
+		$awsv4->set_service_name( 'ProductAdvertisingAPI' );
+		$awsv4->set_path( $path );
+		$awsv4->set_pay_load( $payload );
+		$awsv4->set_request_method( 'POST' );
+		$awsv4->add_header( 'content-encoding', 'amz-1.0' );
+		$awsv4->add_header( 'content-type', 'application/json; charset=utf-8' );
+		$awsv4->add_header( 'host', $host );
+		$awsv4->add_header( 'x-amz-target', $amz_target );
+		$headers = $awsv4->get_headers();
+
+		$request_url = 'https://' . $host . $path;
+		$response    = wp_remote_post(
+			$request_url,
 			array(
-				SearchItemsResource::ITEM_INFOTITLE,
+				'timeout' => 100,
+				'headers' => $headers,
+				'body'    => $payload,
 			)
 		);
 
-		try {
-			$response = $api_instance->searchItems( $search_request );
-			if ( null !== $response->getSearchResult() ) {
-				// phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
-				$post_data['aws_last_check'] = date( 'd/m/Y H:i:s' );
-				$post_data['aws_message']    = '';
-				$post_data['aws_licence']    = 'yes';
+		$status_code = wp_remote_retrieve_response_code( $response );
+		$data        = json_decode( wp_remote_retrieve_body( $response ) );
+		if ( ! is_wp_error( $response ) && 200 === $status_code ) {
+			// phpcs:ignore WordPress.DateTime.RestrictedFunctions.date_date
+			$post_data['aws_last_check'] = date( 'd/m/Y H:i:s' );
+			$post_data['aws_message']    = '';
+			$post_data['aws_licence']    = 'yes';
+		} else {
+			$message = '';
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			if ( $data && $data->Errors ) {
+				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$errors = reset( $data->Errors );
+				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$message = $errors->Message ? $errors->Message : '';
 			}
-			if ( $response->getErrors() !== null ) {
-				// phpcs:ignore warning
-				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'Amazon: check_api error %s', print_r( $response->getErrors(), true ) ), 'error', __FILE__, __LINE__ );
-				$post_data['aws_message'] = $response->getErrors()[0]->getMessage();
-				$post_data['aws_licence'] = 'no';
-			}
-		} catch ( ApiException $exception ) {
-			// phpcs:ignore warning.
-			if ( $exception->getResponseObject() instanceof Amazon\ProductAdvertisingAPI\v1\com\amazon\paapi5\v1\ProductAdvertisingAPIClientException ) {
-				$errors                   = $exception->getResponseObject()->getErrors();
-				$post_data['aws_licence'] = 'no';
-				if ( 'InvalidSignature' === $errors[0]->getCode() ) {
-					$post_data['aws_message'] = __( 'The Host or Region included in the request is invalid.', 'feedzy-rss-feeds' );
-				} else {
-					$post_data['aws_message'] = $errors[0]->getMessage();
-				}
-
-				// phpcs:ignore warning
-				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'Amazon: check_api error %s', print_r( $post_data['aws_message'], true ) ), 'error', __FILE__, __LINE__ );
-			} else {
-				// phpcs:ignore warning
-				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'Amazon: check_api error %s', print_r( $exception->getResponseBody(), true ) ), 'error', __FILE__, __LINE__ );
-				$post_data['aws_message'] = $exception->getResponseBody();
-				$post_data['aws_licence'] = 'no';
-			}
-		} catch ( Exception $exception ) {
-			// phpcs:ignore warning
-			do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'Amazon: check_api error %s', print_r( $exception->getMessage(), true ) ), 'error', __FILE__, __LINE__ );
-			$post_data['aws_message'] = $exception->getMessage();
+			$post_data['aws_message'] = $message;
 			$post_data['aws_licence'] = 'no';
 		}
 	}

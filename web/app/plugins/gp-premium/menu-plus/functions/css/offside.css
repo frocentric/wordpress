@@ -9,26 +9,25 @@
 /* Off-canvas element CSS */
 .main-navigation.offside {
     position: fixed; /* Does not play well with some old browsers (see: README) */
-    width: 265px;
+    width: var(--gp-slideout-width);
     height: 100%;
 	height: 100vh;
     top: 0;
     z-index: 9999;
     overflow: auto;
     -webkit-overflow-scrolling: touch; /* enables momentum scrolling in iOS overflow elements */
-	visibility: hidden;
 }
 
 /* Left off-canvas elements default status: out of the page */
 .offside,
 .offside--left {
-    left: -265px;
+    left: calc(var(--gp-slideout-width) * -1);
 }
 
 /* Right off-canvas elements default status: out of the page */
 .offside--right {
     left: auto;
-    right: -265px;
+    right: calc(var(--gp-slideout-width) * -1);
 }
 
 /*
@@ -36,9 +35,9 @@
  * - off-canvas element slides in
  * - container elements slides out
  */
-.offside--left.is-open,
+.offside--left.is-open:not(.slideout-transition),
 .offside-js--is-left .offside-sliding-element {
-    transform: translate3d(265px, 0, 0);
+    transform: translate3d(var(--gp-slideout-width), 0, 0);
 }
 
 /*
@@ -46,9 +45,9 @@
  * - off-canvas element slides in
  * - container elements slides out
  */
-.offside--right.is-open,
+.offside--right.is-open:not(.slideout-transition),
 .offside-js--is-right .offside-sliding-element {
-    transform: translate3d(-265px, 0, 0);
+    transform: translate3d(calc(var(--gp-slideout-width) * -1), 0, 0);
 }
 
 /* Elements Transitions */
@@ -90,14 +89,26 @@
 
 /* Element is open: container elements slide out */
 .no-csstransforms3d > .offside-js--is-left .offside-sliding-element {
-    right: -265px;
+    right: calc(var(--gp-slideout-width) * -1);
 }
 
 .no-csstransforms3d > .offside-js--is-right .offside-sliding-element {
-    left: -265px;
+    left: calc(var(--gp-slideout-width) * -1);
 }
 
 /* GP */
+.slideout-navigation.main-navigation:not(.is-open):not(.slideout-transition) {
+	display: none;
+}
+
+.slideout-navigation.main-navigation:not(.slideout-transition).do-overlay {
+	opacity: 1;
+}
+
+.slideout-navigation.main-navigation.slideout-transition.do-overlay {
+	opacity: 0;
+}
+
 .slideout-overlay {
     z-index: 100000;
     position: fixed;
@@ -110,7 +121,7 @@
 	bottom: 0;
 	left: 0;
     background-color: rgba(0,0,0,0.8);
-    visibility: hidden;
+	visibility: hidden;
     opacity: 0;
     cursor: pointer;
     transition: visibility .2s ease, opacity .2s ease;
@@ -154,11 +165,11 @@ button.slideout-exit:hover {
 }
 
 .offside-js--is-left.slide-opened .slideout-overlay button.slideout-exit {
-    left: 260px;
+    left: calc(var(--gp-slideout-width) - 5px);
 }
 
 .offside-js--is-right.slide-opened .slideout-overlay button.slideout-exit {
-    right: 260px;
+    right: calc(var(--gp-slideout-width) - 5px);
 }
 
 .slideout-widget {
@@ -269,21 +280,12 @@ button.slideout-exit:hover {
 /* Overlay */
 
 .slideout-navigation.do-overlay {
-    transform: none;
+    transform: none !important;
     transition: opacity 0.2s, visibility 0.2s;
     width: 100%;
-    visibility: hidden;
-    opacity: 0;
     text-align: center;
 	left: 0;
 	right: 0;
-	pointer-events: none;
-}
-
-.slideout-navigation.do-overlay.is-open {
-    opacity: 1;
-	visibility: visible;
-	pointer-events: auto;
 }
 
 .slideout-navigation.do-overlay .inside-navigation {

@@ -228,6 +228,11 @@ Event Calendar styles
 #tribe-events-pg-template {
 	padding: 0;
 }
+.tribe-common .tribe-common-anchor-thin:active,
+.tribe-common .tribe-common-anchor-thin:focus,
+.tribe-common .tribe-common-anchor-thin:hover {
+  text-decoration: none;
+}
 .tribe-common.tribe-events.tribe-events-view .tribe-events-l-container {
   min-height: auto;
   padding-bottom: 0;

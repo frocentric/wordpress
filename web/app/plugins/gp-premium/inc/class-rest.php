@@ -83,6 +83,16 @@ class GeneratePress_Pro_Rest extends WP_REST_Controller {
 
 		register_rest_route(
 			$namespace,
+			'/beta/',
+			array(
+				'methods'             => WP_REST_Server::EDITABLE,
+				'callback'            => array( $this, 'update_beta_testing' ),
+				'permission_callback' => array( $this, 'update_settings_permission' ),
+			)
+		);
+
+		register_rest_route(
+			$namespace,
 			'/export/',
 			array(
 				'methods'             => WP_REST_Server::EDITABLE,
@@ -167,13 +177,11 @@ class GeneratePress_Pro_Rest extends WP_REST_Controller {
 	 */
 	public function update_licensing( WP_REST_Request $request ) {
 		$new_license_key = $request->get_param( 'key' );
-		$new_beta_tester = $request->get_param( 'betaTester' );
 		$old_license = get_option( 'gen_premium_license_key', '' );
 		$old_status = get_option( 'gen_premium_license_key_status', 'deactivated' );
 		$new_license = strpos( $new_license_key, '***' ) !== false
 			? trim( $old_license )
 			: trim( $new_license_key );
-
 
 		if ( $new_license ) {
 			$api_params = array(
@@ -257,13 +265,34 @@ class GeneratePress_Pro_Rest extends WP_REST_Controller {
 			update_option( 'gen_premium_license_key_status', esc_attr( $license_data->license ) );
 		}
 
+		update_option( 'gen_premium_license_key', sanitize_key( $new_license ) );
+
+		if ( ! isset( $api_params ) ) {
+			return $this->success( __( 'Settings saved.', 'gp-premium' ) );
+		}
+
+		if ( ! empty( $message ) ) {
+			return $this->failed( $message );
+		}
+
+		return $this->success( $license_data );
+	}
+
+	/**
+	 * Update licensing.
+	 *
+	 * @param WP_REST_Request $request request object.
+	 *
+	 * @return mixed
+	 */
+	public function update_beta_testing( WP_REST_Request $request ) {
+		$new_beta_tester = $request->get_param( 'beta' );
+
 		if ( ! empty( $new_beta_tester ) ) {
 			update_option( 'gp_premium_beta_testing', true, false );
 		} else {
 			delete_option( 'gp_premium_beta_testing' );
 		}
-
-		update_option( 'gen_premium_license_key', sanitize_key( $new_license ) );
 
 		if ( ! isset( $api_params ) ) {
 			return $this->success( __( 'Settings saved.', 'gp-premium' ) );

@@ -227,12 +227,10 @@ class GeneratePress_External_CSS_File {
 			return false;
 		}
 
-		global $wp_filesystem;
+		$filesystem = generate_premium_get_wp_filesystem();
 
-		// Initialize the WordPress filesystem.
-		if ( empty( $wp_filesystem ) ) {
-			require_once ABSPATH . '/wp-admin/includes/file.php';
-			WP_Filesystem();
+		if ( ! $filesystem ) {
+			return false;
 		}
 
 		// Take care of domain mapping.
@@ -252,7 +250,7 @@ class GeneratePress_External_CSS_File {
 				$chmod_file = FS_CHMOD_FILE;
 			}
 
-			if ( ! $wp_filesystem->put_contents( $this->file( 'path' ), wp_strip_all_tags( $content ), $chmod_file ) ) {
+			if ( ! $filesystem->put_contents( $this->file( 'path' ), wp_strip_all_tags( $content ), $chmod_file ) ) {
 
 				// Fail!
 				return false;

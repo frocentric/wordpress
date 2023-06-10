@@ -32,7 +32,7 @@ class Admin {
 
 		return [
 			API::STATUS_EXPIRED => [
-				'title' => esc_html__( 'Oh no! Your Elementor Pro license has expired.', 'elementor-pro' ),
+				'title' => esc_html__( 'Your Elementor Pro license has expired.', 'elementor-pro' ),
 				'description' => esc_html__( 'Want to keep creating secure and high-performing websites? Renew your subscription to regain access to all of the Elementor Pro widgets, templates, updates & more', 'elementor-pro' ),
 				'button_text' => esc_html__( 'Renew Now', 'elementor-pro' ),
 				'button_url' => API::RENEW_URL,
@@ -323,7 +323,7 @@ class Admin {
 			<p class="e-row-divider-bottom elementor-admin-alert elementor-alert-danger">
 				<?php printf(
 				/* translators: 1: Bold text opening tag, 2: Bold text closing tag, 3: Link opening tag, 4: Link closing tag. */
-					esc_html__( '%1$sOh no! Your Elementor Pro license has expired.%2$s Want to keep creating secure and high-performing websites? Renew your subscription to regain access to all of the Elementor Pro widgets, templates, updates & more. %3$sRenew now%4$s', 'elementor-pro' ),
+					esc_html__( '%1$sYour Elementor Pro license has expired.%2$s Want to keep creating secure and high-performing websites? Renew your subscription to regain access to all of the Elementor Pro widgets, templates, updates & more. %3$sRenew now%4$s', 'elementor-pro' ),
 					'<strong>',
 					'</strong>',
 					'<a href="https://go.elementor.com/renew/" target="_blank"><strong>',

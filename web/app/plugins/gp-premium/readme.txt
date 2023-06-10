@@ -3,9 +3,9 @@ Contributors: edge22
 Donate link: https://generatepress.com
 Tags: generatepress
 Requires at least: 5.2
-Tested up to: 6.1
+Tested up to: 6.2
 Requires PHP: 5.6
-Stable tag: 2.2.2
+Stable tag: 2.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,6 +26,32 @@ To learn how to install GP Premium, check out our documentation [here](https://d
 In most cases, #1 will work fine and is way easier.
 
 == Changelog ==
+
+= 2.3.1 =
+* Fix: SelectSearch component infinite loop
+* Fix: Block widths inside Block Elements
+
+= 2.3.0 =
+* Feature: Add Search Modal Element type
+* Fix: Inline post meta feature in GenerateBlocks 1.7
+* Fix: Close "Choose Element Type" modal with ESC key
+* Fix: Replace WooCommerce secondary image attachment size
+* Fix: WP Filesystem error missing credentials
+* Fix: Undefined array keys in dynamic Container URL
+* Fix: Author avatar in Header/Block Element titles
+* Fix: Infinite loop error when autosaving with dynamic content block
+* Fix: Add aria-label to off-canvas panel button
+* Fix: WooCommerce button dynamic typography
+* Fix: Empty WooCommerce quantity fields
+* Fix: PHP 8.1 notice using disable elements in Customizer
+* Tweak: Improve license key area
+* Tweak: Improve off-canvas transitions
+* Tweak: Check for WooCommerce functions
+* Tweak: Open off-canvas using space bar
+* Tweak: Use image ID in mobile header/sticky nav logos
+* Tweak: Improve Elements hook selection dropdown UI
+* Tweak: Add site library check for min GenerateBlocks version
+* Tweak: Add Loop Template to Custom Post Type dropdown filters
 
 = 2.2.2 =
 * Fix: Off Canvas anchor links not working

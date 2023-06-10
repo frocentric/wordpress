@@ -523,7 +523,7 @@ ul.products .woocommerce-text-align-right {
 	margin-top: 40px;
 }
 
-.woocommerce div.product form.cart,
+.woocommerce div.product.do-quantity-buttons form.cart,
 .add-to-cart-panel form.cart {
 	display: flex;
 	flex-wrap: wrap;

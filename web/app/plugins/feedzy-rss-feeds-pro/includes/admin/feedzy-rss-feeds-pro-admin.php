@@ -1023,14 +1023,14 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 				// Prefix only if the element is not already prefixed with a namespace.
 				if ( strpos( $element, ':' ) === false ) {
 					$element = $prefix . $element;
-				}
-
-				$feed_namespace = explode( ':', $element );
-				$feed_namespace = reset( $feed_namespace );
-				if ( ! array_key_exists( $feed_namespace, $namespaces ) ) {
-					$namespaces = array_keys( $namespaces );
-					$namespaces = end( $namespaces );
-					$element    = str_replace( "$feed_namespace:", "$namespaces:", $element );
+				} else {
+					$feed_namespace = explode( ':', $element );
+					$feed_namespace = reset( $feed_namespace );
+					if ( ! array_key_exists( $feed_namespace, $namespaces ) ) {
+						$namespaces = array_keys( $namespaces );
+						$namespaces = end( $namespaces );
+						$element    = str_replace( "$feed_namespace:", "$namespaces:", $element );
+					}
 				}
 
 				$title_tag   = 'title';
@@ -1086,14 +1086,6 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 				// Prefix only if the element is not already prefixed with a namespace.
 				if ( strpos( $element, ':' ) === false ) {
 					$element = $prefix . $element;
-				}
-
-				$feed_namespace = explode( ':', $element );
-				$feed_namespace = reset( $feed_namespace );
-				if ( ! array_key_exists( $feed_namespace, $namespaces ) ) {
-					$namespaces = array_keys( $namespaces );
-					$namespaces = end( $namespaces );
-					$element    = str_replace( "$feed_namespace:", "$namespaces:", $element );
 				}
 
 				$title_tag   = 'title';

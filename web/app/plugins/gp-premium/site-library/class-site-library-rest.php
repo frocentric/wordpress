@@ -216,6 +216,7 @@ class GeneratePress_Site_Library_Rest extends WP_REST_Controller {
 					'category'          => $site['category'],
 					'min_version'       => $site['min_version'],
 					'min_theme_version' => $site['min_theme_version'],
+					'min_generateblocks_version' => $site['min_generateblocks_version'],
 					'uploads_url'       => $site['uploads_url'],
 					'plugins'           => $site['plugins'],
 					'documentation'     => $site['documentation'],
