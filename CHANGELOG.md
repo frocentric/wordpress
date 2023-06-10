@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.18.2](https://github.com/frocentric/wordpress/compare/v1.18.1...v1.18.2) (2023-06-10)
+
+
+### Bug Fixes
+
+* fixes "double underline" ([47650ac](https://github.com/frocentric/wordpress/commit/47650acfb37716e2348939712bf37301c078f455))
+* ignore local symlinked file ([8098767](https://github.com/frocentric/wordpress/commit/80987678b427017b0a5f46d9e8c2b307a1161acc))
+
 ## [1.18.1](https://github.com/frocentric/wordpress/compare/v1.18.0...v1.18.1) (2023-03-25)
 
 
