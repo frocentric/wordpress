@@ -142,6 +142,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 			[
 				'label' => esc_html__( 'Image Width', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'range' => [
 					'%' => [
 						'min' => 10,
@@ -164,7 +165,6 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 					'size' => 100,
 					'unit' => '%',
 				],
-				'size_units' => [ '%', 'px' ],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-post__thumbnail__link' => 'width: {{SIZE}}{{UNIT}};',
 				],
@@ -384,6 +384,9 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 				'label' => esc_html__( 'Separator Between', 'elementor-pro' ),
 				'type' => Controls_Manager::TEXT,
 				'default' => '///',
+				'ai' => [
+					'active' => false,
+				],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-post__meta-data span + span:before' => 'content: "{{VALUE}}"',
 				],
@@ -414,6 +417,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 			[
 				'label' => esc_html__( 'Columns Gap', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'default' => [
 					'size' => 30,
 				],
@@ -434,6 +438,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 			[
 				'label' => esc_html__( 'Rows Gap', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'default' => [
 					'size' => 35,
 				],
@@ -493,7 +498,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 			[
 				'label' => esc_html__( 'Border Radius', 'elementor-pro' ),
 				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%', 'em' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-post__thumbnail' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -508,6 +513,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 			[
 				'label' => esc_html__( 'Spacing', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range' => [
 					'px' => [
 						'max' => 100,
@@ -630,6 +636,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 			[
 				'label' => esc_html__( 'Spacing', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range' => [
 					'px' => [
 						'max' => 100,
@@ -703,6 +710,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 			[
 				'label' => esc_html__( 'Spacing', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range' => [
 					'px' => [
 						'max' => 100,
@@ -762,6 +770,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 			[
 				'label' => esc_html__( 'Spacing', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range' => [
 					'px' => [
 						'max' => 100,
@@ -825,6 +834,7 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 			[
 				'label' => esc_html__( 'Spacing', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range' => [
 					'px' => [
 						'max' => 100,

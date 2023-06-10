@@ -286,6 +286,7 @@ class Price_List extends Base_Widget {
 			[
 				'label' => esc_html__( 'Weight', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range' => [
 					'px' => [
 						'max' => 10,
@@ -325,6 +326,7 @@ class Price_List extends Base_Widget {
 			[
 				'label' => esc_html__( 'Spacing', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range' => [
 					'px' => [
 						'max' => 40,
@@ -363,7 +365,7 @@ class Price_List extends Base_Widget {
 			[
 				'label' => esc_html__( 'Border Radius', 'elementor-pro' ),
 				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%', 'em' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-price-list-image img' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -375,6 +377,7 @@ class Price_List extends Base_Widget {
 			[
 				'label' => esc_html__( 'Spacing', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range' => [
 					'px' => [
 						'max' => 50,
@@ -408,6 +411,7 @@ class Price_List extends Base_Widget {
 			[
 				'label' => esc_html__( 'Rows Gap', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range' => [
 					'px' => [
 						'max' => 50,
@@ -417,7 +421,6 @@ class Price_List extends Base_Widget {
 						'step' => 0.1,
 					],
 				],
-				'size_units' => [ 'px', 'em' ],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-price-list li:not(:last-child)' => 'margin-bottom: {{SIZE}}{{UNIT}};',
 				],
@@ -470,7 +473,7 @@ class Price_List extends Base_Widget {
 			$image_src = $image_src[0];
 		}
 
-		return sprintf( '<img src="%s" alt="%s" />', $image_src, $item['title'] );
+		return sprintf( '<img src="%s" alt="%s" loading="lazy" />', $image_src, $item['title'] );
 	}
 
 	private function render_item_header( $item ) {
@@ -597,7 +600,7 @@ class Price_List extends Base_Widget {
 						var image_url = elementor.imagesManager.getImageUrl( image );
 
 						if ( image_url ) { #>
-							<div class="elementor-price-list-image"><img src="{{ image_url }}" alt="{{ item.title }}"></div>
+							<div class="elementor-price-list-image"><img src="{{ image_url }}" alt="{{ item.title }}" loading="lazy" /></div>
 						<# } #>
 
 					<# } #>

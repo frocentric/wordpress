@@ -3,6 +3,7 @@ namespace ElementorPro\Modules\Screenshots;
 
 use ElementorPro\Base\Module_Base;
 use Elementor\Core\Frontend\Render_Mode_Manager;
+use ElementorPro\Core\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -55,6 +56,10 @@ class Module extends Module_Base {
 			return false;
 		}
 
+		if ( ! $this->can_user_manage_screenshots( $data['post_id'] ) ) {
+			return false;
+		}
+
 		$screenshot = new Screenshot( $data['post_id'], $data['screenshot'] );
 
 		$screenshot
@@ -79,6 +84,10 @@ class Module extends Module_Base {
 			return false;
 		}
 
+		if ( ! $this->can_user_manage_screenshots( $data['post_id'] ) ) {
+			return false;
+		}
+
 		$screenshot = new Screenshot( $data['post_id'] );
 
 		$screenshot
@@ -98,6 +107,10 @@ class Module extends Module_Base {
 	 */
 	public function ajax_screenshot_failed( $data ) {
 		if ( empty( $data['post_id'] ) ) {
+			return false;
+		}
+
+		if ( ! $this->can_user_manage_screenshots( $data['post_id'] ) ) {
 			return false;
 		}
 
@@ -203,17 +216,29 @@ class Module extends Module_Base {
 	 * @return bool
 	 * @throws \Requests_Exception_HTTP_400
 	 * @throws \Requests_Exception_HTTP_403
+	 * @throws Status400
+	 * @throws Status403
 	 */
 	protected function is_screenshot_proxy_mode( array $query_params ) {
 		$is_proxy = isset( $query_params['screenshot_proxy'] );
 
 		if ( $is_proxy ) {
 			if ( ! wp_verify_nonce( $query_params['nonce'], self::SCREENSHOT_PROXY_NONCE_ACTION ) ) {
-				throw new \Requests_Exception_HTTP_403();
+				// WP >= 6.2-alpha
+				if ( class_exists( '\WpOrg\Requests\Exception\Http\Status403' ) ) {
+					throw new \WpOrg\Requests\Exception\Http\Status403();
+				} else {
+					throw new \Requests_Exception_HTTP_403();
+				}
 			}
 
 			if ( ! $query_params['href'] ) {
-				throw new \Requests_Exception_HTTP_400();
+				// WP >= 6.2-alpha
+				if ( class_exists( '\WpOrg\Requests\Exception\Http\Status400' ) ) {
+					throw new \WpOrg\Requests\Exception\Http\Status400();
+				} else {
+					throw new \Requests_Exception_HTTP_400();
+				}
 			}
 		}
 
@@ -221,10 +246,17 @@ class Module extends Module_Base {
 	}
 
 	/**
-	 * Module constructor.
+	 * @param $post_id
 	 *
-	 * @throws \Requests_Exception_HTTP_400
-	 * @throws \Requests_Exception_HTTP_403
+	 * @return bool
+	 * @throws \Exception
+	 */
+	private function can_user_manage_screenshots( $post_id ) {
+		return Utils::_unstable_get_document_for_edit( $post_id ) && current_user_can( 'upload_files' );
+	}
+
+	/**
+	 * Module constructor.
 	 */
 	public function __construct() {
 		parent::__construct();

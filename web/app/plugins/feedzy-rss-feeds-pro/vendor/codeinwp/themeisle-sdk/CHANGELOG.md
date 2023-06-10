@@ -1,3 +1,33 @@
+#### [Version 3.3.0](https://github.com/Codeinwp/themeisle-sdk/compare/v3.2.41...v3.3.0) (2023-05-30)
+
+- Adds About Page Integration
+- Adds promos for Neve FSE, Sparks & PPOM
+
+##### [Version 3.2.41](https://github.com/Codeinwp/themeisle-sdk/compare/v3.2.40...v3.2.41) (2023-05-10)
+
+- Delay product recommendation mentions
+- Allow upselling notifications for new users
+
+##### [Version 3.2.40](https://github.com/Codeinwp/themeisle-sdk/compare/v3.2.39...v3.2.40) (2023-03-30)
+
+- Add ROP upsell to all products
+
+##### [Version 3.2.39](https://github.com/Codeinwp/themeisle-sdk/compare/v3.2.38...v3.2.39) (2023-03-17)
+
+* Adds direct utility function for a direct support link.
+
+##### [Version 3.2.38](https://github.com/Codeinwp/themeisle-sdk/compare/v3.2.37...v3.2.38) (2023-03-10)
+
+Fix promotions path-breaking
+
+##### [Version 3.2.37](https://github.com/Codeinwp/themeisle-sdk/compare/v3.2.36...v3.2.37) (2023-03-01)
+
+Fix array casting
+
+##### [Version 3.2.36](https://github.com/Codeinwp/themeisle-sdk/compare/v3.2.35...v3.2.36) (2023-03-01)
+
+fix perfomance issues on attachments count https://github.com/Codeinwp/themeisle-sdk/issues/159
+
 ##### [Version 3.2.35](https://github.com/Codeinwp/themeisle-sdk/compare/v3.2.34...v3.2.35) (2023-02-22)
 
 Added Codeinwp and wpshout feeds to dashboard widget

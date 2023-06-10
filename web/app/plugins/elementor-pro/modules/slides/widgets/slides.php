@@ -498,6 +498,7 @@ class Slides extends Base_Widget {
 			[
 				'label' => esc_html__( 'Height', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'vh', 'custom' ],
 				'range' => [
 					'px' => [
 						'min' => 100,
@@ -511,7 +512,6 @@ class Slides extends Base_Widget {
 				'default' => [
 					'size' => 400,
 				],
-				'size_units' => [ 'px', 'vh', 'em' ],
 				'selectors' => [
 					'{{WRAPPER}} .swiper-slide' => 'height: {{SIZE}}{{UNIT}};',
 				],
@@ -683,6 +683,7 @@ class Slides extends Base_Widget {
 			[
 				'label' => esc_html__( 'Content Width', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'range' => [
 					'px' => [
 						'min' => 0,
@@ -693,7 +694,6 @@ class Slides extends Base_Widget {
 						'max' => 100,
 					],
 				],
-				'size_units' => [ '%', 'px' ],
 				'default' => [
 					'size' => '66',
 					'unit' => '%',
@@ -715,7 +715,7 @@ class Slides extends Base_Widget {
 			[
 				'label' => esc_html__( 'Padding', 'elementor-pro' ),
 				'type' => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', 'em', '%' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'selectors' => [
 					'{{WRAPPER}} .swiper-slide-inner' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -819,6 +819,7 @@ class Slides extends Base_Widget {
 			[
 				'label' => esc_html__( 'Spacing', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range' => [
 					'px' => [
 						'min' => 0,
@@ -869,6 +870,7 @@ class Slides extends Base_Widget {
 			[
 				'label' => esc_html__( 'Spacing', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range' => [
 					'px' => [
 						'min' => 0,
@@ -940,7 +942,7 @@ class Slides extends Base_Widget {
 			[
 				'label' => esc_html__( 'Border Width', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', '%', 'em' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'range' => [
 					'px' => [
 						'max' => 20,
@@ -960,7 +962,7 @@ class Slides extends Base_Widget {
 			[
 				'label' => esc_html__( 'Border Radius', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
-				'size_units' => [ 'px', '%', 'em' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'range' => [
 					'px' => [
 						'min' => 0,
@@ -1106,6 +1108,7 @@ class Slides extends Base_Widget {
 			[
 				'label' => esc_html__( 'Arrows Size', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range' => [
 					'px' => [
 						'min' => 20,
@@ -1172,6 +1175,7 @@ class Slides extends Base_Widget {
 			[
 				'label' => esc_html__( 'Size', 'elementor-pro' ),
 				'type' => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range' => [
 					'px' => [
 						'min' => 5,
@@ -1284,7 +1288,7 @@ class Slides extends Base_Widget {
 				$ken_class = ' elementor-ken-burns elementor-ken-burns--' . $slide['zoom_direction'];
 			}
 
-			$slide_html = '<div class="swiper-slide-bg' . $ken_class . '"></div>' . $slide_html;
+			$slide_html = '<div class="swiper-slide-bg' . $ken_class . '" role="img"></div>' . $slide_html;
 
 			$slides[] = '<div class="elementor-repeater-item-' . $slide['_id'] . ' swiper-slide">' . $slide_html . '</div>';
 			$slide_count++;
@@ -1309,13 +1313,13 @@ class Slides extends Base_Widget {
 						<div class="swiper-pagination"></div>
 					<?php endif; ?>
 					<?php if ( $show_arrows ) : ?>
-						<div class="elementor-swiper-button elementor-swiper-button-prev">
+						<div class="elementor-swiper-button elementor-swiper-button-prev" role="button" tabindex="0">
 							<?php $this->render_swiper_button( 'previous' ); ?>
-							<span class="elementor-screen-only"><?php echo esc_html__( 'Previous', 'elementor-pro' ); ?></span>
+							<span class="elementor-screen-only"><?php echo esc_html__( 'Previous slide', 'elementor-pro' ); ?></span>
 						</div>
-						<div class="elementor-swiper-button elementor-swiper-button-next">
+						<div class="elementor-swiper-button elementor-swiper-button-next" role="button" tabindex="0">
 							<?php $this->render_swiper_button( 'next' ); ?>
-							<span class="elementor-screen-only"><?php echo esc_html__( 'Next', 'elementor-pro' ); ?></span>
+							<span class="elementor-screen-only"><?php echo esc_html__( 'Next slide', 'elementor-pro' ); ?></span>
 						</div>
 					<?php endif; ?>
 				<?php endif; ?>
@@ -1355,7 +1359,7 @@ class Slides extends Base_Widget {
 								kenClass = ' elementor-ken-burns elementor-ken-burns--' + slide.zoom_direction;
 							}
 							#>
-							<div class="swiper-slide-bg{{ kenClass }}"></div>
+							<div class="swiper-slide-bg{{ kenClass }}" role="img"></div>
 							<# if ( 'yes' === slide.background_overlay ) { #>
 							<div class="elementor-background-overlay"></div>
 							<# } #>
@@ -1380,13 +1384,13 @@ class Slides extends Base_Widget {
 						<div class="swiper-pagination"></div>
 					<# } #>
 					<# if ( showArrows ) { #>
-						<div class="elementor-swiper-button elementor-swiper-button-prev">
+						<div class="elementor-swiper-button elementor-swiper-button-prev" role="button" tabindex="0">
 							<i class="eicon-chevron-{{ prev }}" aria-hidden="true"></i>
-							<span class="elementor-screen-only"><?php echo esc_html__( 'Previous', 'elementor-pro' ); ?></span>
+							<span class="elementor-screen-only"><?php echo esc_html__( 'Previous slide', 'elementor-pro' ); ?></span>
 						</div>
-						<div class="elementor-swiper-button elementor-swiper-button-next">
+						<div class="elementor-swiper-button elementor-swiper-button-next" role="button" tabindex="0">
 							<i class="eicon-chevron-{{ next }}" aria-hidden="true"></i>
-							<span class="elementor-screen-only"><?php echo esc_html__( 'Next', 'elementor-pro' ); ?></span>
+							<span class="elementor-screen-only"><?php echo esc_html__( 'Next slide', 'elementor-pro' ); ?></span>
 						</div>
 					<# } #>
 				<# } #>

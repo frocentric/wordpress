@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.11.4 - 07-03-2023 */
+/*! elementor-pro - v3.13.2 - 22-05-2023 */
 "use strict";
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["preloaded-elements-handlers"],{
 
@@ -60,6 +60,76 @@ const extendDefaultHandlers = defaultHandlers => {
 elementorProFrontend.on('elementor-pro/modules/init:before', () => {
   elementorFrontend.hooks.addFilter('elementor-pro/frontend/handlers', extendDefaultHandlers);
 });
+
+/***/ }),
+
+/***/ "../assets/dev/js/frontend/utils/anchor-link.js":
+/*!******************************************************!*\
+  !*** ../assets/dev/js/frontend/utils/anchor-link.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+class AnchorLinks {
+  followMenuAnchors($anchorLinks, classes) {
+    $anchorLinks.each((index, anchorLink) => {
+      if (location.pathname === anchorLink.pathname && '' !== anchorLink.hash) {
+        this.followMenuAnchor(jQuery(anchorLink), classes);
+      }
+    });
+  }
+  followMenuAnchor($element, classes) {
+    const anchorSelector = $element[0].hash,
+      activeAnchorClass = classes.activeAnchorItem,
+      anchorClass = classes.anchorItem,
+      $targetElement = $element.hasClass(anchorClass) ? $element : $element.closest(`.${anchorClass}`);
+    let offset = -300,
+      $anchor;
+    try {
+      // `decodeURIComponent` for UTF8 characters in the hash.
+      $anchor = jQuery(decodeURIComponent(anchorSelector));
+    } catch (e) {
+      return;
+    }
+    if (!$anchor.length) {
+      return;
+    }
+    if (!$anchor.hasClass('elementor-menu-anchor')) {
+      const halfViewport = jQuery(window).height() / 2;
+      offset = -$anchor.outerHeight() + halfViewport;
+    }
+    elementorFrontend.waypoint($anchor, direction => {
+      if ('down' === direction) {
+        $targetElement.addClass(activeAnchorClass);
+        $element.attr('aria-current', 'location');
+      } else {
+        $targetElement.removeClass(activeAnchorClass);
+        $element.attr('aria-current', '');
+      }
+    }, {
+      offset: '50%',
+      triggerOnce: false
+    });
+    elementorFrontend.waypoint($anchor, direction => {
+      if ('down' === direction) {
+        $targetElement.removeClass(activeAnchorClass);
+        $element.attr('aria-current', '');
+      } else {
+        $targetElement.addClass(activeAnchorClass);
+        $element.attr('aria-current', 'location');
+      }
+    }, {
+      offset,
+      triggerOnce: false
+    });
+  }
+}
+exports["default"] = AnchorLinks;
 
 /***/ }),
 
@@ -2390,7 +2460,13 @@ class galleryHandler extends elementorModules.frontend.handlers.Base {
     this.gallery.setSettings('tags', 'all' === id ? [] : ['' + id]);
   }
   bindEvents() {
-    this.elements.$titles.on('click', this.galleriesNavigationListener.bind(this));
+    this.elements.$titles.on('click', this.galleriesNavigationListener.bind(this)).on('keyup', event => {
+      const ENTER_KEY = 13,
+        SPACE_KEY = 32;
+      if (ENTER_KEY === event.keyCode || SPACE_KEY === event.keyCode) {
+        event.currentTarget.click();
+      }
+    });
   }
   galleriesNavigationListener(event) {
     const classes = this.getSettings('classes'),
@@ -2729,11 +2805,12 @@ class LoopCarousel extends _imageCarousel.default {
   }
   getSwiperSettings() {
     const swiperOptions = super.getSwiperSettings(),
-      elementSettings = this.getElementSettings();
+      elementSettings = this.getElementSettings(),
+      isRtl = elementorFrontend.config.is_rtl;
     if ('yes' === elementSettings.arrows) {
       swiperOptions.navigation = {
-        prevEl: '.elementor-swiper-button-prev',
-        nextEl: '.elementor-swiper-button-next'
+        prevEl: isRtl ? '.elementor-swiper-button-next' : '.elementor-swiper-button-prev',
+        nextEl: isRtl ? '.elementor-swiper-button-prev' : '.elementor-swiper-button-next'
       };
     }
     if (elementSettings.pagination) {
@@ -2833,11 +2910,15 @@ class Loop extends _posts.default {
     this.elementsToRemove = [...this.elementsToRemove, '.swiper-pagination', '.elementor-swiper-button', '.elementor-document-handle'];
   }
   attachEditDocumentHandle() {
-    // eslint-disable-next-line computed-property-spacing
-    const id = this.getElementSettings('template_id'),
-      elementData = elementor.getElementData(elementorFrontend.config.elements.data[this.getModelCID()]),
-      element = this.$element.find(elementData?.edit_handle_selector).first()[0];
-    if (!element || !id) {
+    const templateId = this.getElementSettings('template_id');
+    if (!templateId) {
+      return;
+    }
+    const elementSettings = this.getElementSettings(),
+      widgetSelector = `.elementor-element-${this.getID()}`,
+      editHandleSelector = elementSettings?.edit_handle_selector + ('[data-elementor-type="loop-item"]' === elementSettings?.edit_handle_selector ? `.elementor-${templateId}` : ''),
+      editHandleElement = this.$element.find(editHandleSelector).first()[0];
+    if (!editHandleElement) {
       return;
     }
     if (this.isFirstEdit()) {
@@ -2846,10 +2927,10 @@ class Loop extends _posts.default {
       return;
     }
     (0, _documentHandle.default)({
-      element,
+      element: editHandleElement,
       title: __('Template', 'elementor-pro'),
-      id
-    }, _documentHandle.EDIT_CONTEXT, () => this.onInPlaceEditTemplate(), '.elementor-element-' + this.getID() + ' .elementor-' + id);
+      id: templateId
+    }, _documentHandle.EDIT_CONTEXT, () => this.onInPlaceEditTemplate(), `${widgetSelector} .elementor-${templateId}`);
   }
   isFirstEdit() {
     return this.$element.has('.e-loop-first-edit').length;
@@ -3597,10 +3678,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 var _megaMenu = _interopRequireDefault(__webpack_require__(/*! ./handlers/mega-menu */ "../modules/mega-menu/assets/js/frontend/handlers/mega-menu.js"));
+var _stretchMenuItemContent = _interopRequireDefault(__webpack_require__(/*! ./handlers/stretch-menu-item-content */ "../modules/mega-menu/assets/js/frontend/handlers/stretch-menu-item-content.js"));
 class _default extends elementorModules.Module {
   constructor() {
     super();
-    elementorFrontend.elementsHandler.attachHandler('mega-menu', _megaMenu.default);
+    elementorFrontend.elementsHandler.attachHandler('mega-menu', [_megaMenu.default, _stretchMenuItemContent.default]);
   }
 }
 exports["default"] = _default;
@@ -3611,6 +3693,479 @@ exports["default"] = _default;
 /*!*********************************************************************!*\
   !*** ../modules/mega-menu/assets/js/frontend/handlers/mega-menu.js ***!
   \*********************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+var _utils = __webpack_require__(/*! ../utils */ "../modules/mega-menu/assets/js/frontend/utils.js");
+var _anchorLink = _interopRequireDefault(__webpack_require__(/*! ../../../../../../assets/dev/js/frontend/utils/anchor-link */ "../assets/dev/js/frontend/utils/anchor-link.js"));
+class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
+  constructor() {
+    super(...arguments);
+    if (elementorFrontend.isEditMode()) {
+      this.lifecycleChangeListener = null;
+    }
+    this.resizeListener = null;
+  }
+  getDefaultSettings() {
+    const settings = super.getDefaultSettings();
+    settings.selectors.menuContainer = '.e-n-menu';
+    settings.selectors.tabTitle = '.e-n-menu-item-title';
+    settings.selectors.desktopTabTitle = '.e-n-menu-items-heading .e-n-menu-item-title';
+    settings.selectors.mobileTabTitle = '.e-n-menu-items-content .e-n-menu-item-title';
+    settings.selectors.headingContainer = '.e-n-menu-items-heading';
+    settings.autoExpand = false;
+    settings.autoFocus = false;
+    settings.selectors.dropdownMenuToggle = '.e-n-menu-toggle';
+    settings.selectors.menuContent = '.e-n-menu-items-content';
+    settings.selectors.contentContainer = '.e-n-menu-items-content .e-con';
+    settings.selectors.anchorLink = '.e-anchor a';
+    settings.classes.anchorItem = 'e-anchor';
+    settings.classes.activeAnchorItem = 'e-current';
+    return settings;
+  }
+  getDefaultElements() {
+    const elements = super.getDefaultElements(),
+      selectors = this.getSettings('selectors');
+    elements.$menuContainer = this.$element.find(selectors.menuContainer);
+    elements.$dropdownMenuToggle = this.$element.find(selectors.dropdownMenuToggle);
+    elements.$menuContent = this.$element.find(selectors.menuContent);
+    elements.$headingContainer = this.$element.find(selectors.headingContainer);
+    elements.$desktopTabTitles = this.$element.find(selectors.desktopTabTitle);
+    elements.$mobileTabTitles = this.$element.find(selectors.mobileTabTitle);
+    elements.$contentContainers = this.$element.find(selectors.contentContainer);
+    elements.$anchorLink = this.$element.find(selectors.anchorLink);
+    return elements;
+  }
+  dropdownMenuHeightControllerConfig() {
+    const selectors = this.getSettings('selectors');
+    return {
+      elements: {
+        $element: this.$element,
+        $dropdownMenuContainer: this.$element.find(selectors.menuContent),
+        $menuToggle: this.$element.find(selectors.dropdownMenuToggle)
+      },
+      classes: {
+        menuToggleActiveClass: 'e-active'
+      },
+      settings: {
+        dropdownMenuContainerMaxHeight: 'auto',
+        menuHeightCssVarName: '--n-menu-dropdown-content-box-height'
+      }
+    };
+  }
+  handleContentContainerPosition() {
+    let $contentContainer = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    this.resetContentContainersPosition();
+
+    // If no container is passed as an argument, check if there is an active container.
+    $contentContainer = $contentContainer || this.elements.$contentContainers.filter('.e-active');
+    if (!$contentContainer.length) {
+      return;
+    }
+    this.setContentContainerAbsolutePosition($contentContainer);
+  }
+  setContentContainerAbsolutePosition($contentContainer) {
+    const elementSettings = this.getElementSettings(),
+      isFitToContent = 'fit_to_content' === elementSettings.content_width;
+    if ((0, _utils.isMenuInDropdownMode)(elementSettings)) {
+      return;
+    }
+    if (isFitToContent) {
+      const direction = elementorFrontend.config.is_rtl ? 'right' : 'left',
+        menuItemContainerOffset = 0 < this.getMenuItemContainerAbsolutePosition($contentContainer) ? this.getMenuItemContainerAbsolutePosition($contentContainer) : 0;
+      $contentContainer.css(direction, menuItemContainerOffset);
+    }
+    const headingsHeight = this.elements.$headingContainer[0].getBoundingClientRect().height;
+    if (this.shouldPositionContentAbove($contentContainer, headingsHeight)) {
+      const contentContainerBoundingBox = $contentContainer[0].getBoundingClientRect();
+      $contentContainer.css({
+        width: isFitToContent ? 'max-content' : '',
+        'max-width': contentContainerBoundingBox.width
+      });
+      this.elements.$menuContent.addClass('content-above');
+    }
+  }
+  getMenuItemContainerAbsolutePosition($contentContainer) {
+    const tabIndex = $contentContainer.data('content'),
+      $titleEl = this.elements.$tabTitles.filter(this.getTabTitleFilterSelector(tabIndex))[0],
+      titleBoundingBox = $titleEl.getBoundingClientRect(),
+      contentContainerWidth = $contentContainer[0].clientWidth;
+    let menuItemContainerOffset = null;
+    switch (this.getElementSettings('content_horizontal_position')) {
+      case 'left':
+        menuItemContainerOffset = this.getLeftDirectionContainerOffset(contentContainerWidth, titleBoundingBox);
+        break;
+      case 'right':
+        menuItemContainerOffset = this.getRightDirectionContainerOffset(contentContainerWidth, titleBoundingBox);
+        break;
+      default:
+        menuItemContainerOffset = this.getCenteredContainerOffset(contentContainerWidth, titleBoundingBox);
+    }
+    return menuItemContainerOffset;
+  }
+  getCenteredContainerOffset(contentContainerWidth, titleBoundingBox) {
+    const menuItemContentContainerHalfWidth = contentContainerWidth / 2,
+      bodyWidth = elementorFrontend.elements.$body[0].clientWidth;
+    let titleMiddleOffset = this.adjustForScrollbarIfNeeded(titleBoundingBox.left + titleBoundingBox.width / 2);
+    if (elementorFrontend.config.is_rtl) {
+      titleMiddleOffset = bodyWidth - titleMiddleOffset;
+    }
+    let offset = titleMiddleOffset - menuItemContentContainerHalfWidth;
+    if (titleMiddleOffset + menuItemContentContainerHalfWidth > bodyWidth) {
+      offset = bodyWidth - contentContainerWidth;
+    } else if (menuItemContentContainerHalfWidth > titleMiddleOffset) {
+      offset = 0;
+    }
+    return offset;
+  }
+  getLeftDirectionContainerOffset(contentContainerWidth, titleBoundingBox) {
+    return elementorFrontend.config.is_rtl ? this.getRtlLeftDirectionContainerOffset(contentContainerWidth, titleBoundingBox) : this.getLtrLeftDirectionContainerOffset(contentContainerWidth, titleBoundingBox);
+  }
+  getRtlLeftDirectionContainerOffset(contentContainerWidth, titleBoundingBox) {
+    const bodyWidth = elementorFrontend.elements.$body[0].clientWidth,
+      titleLeftOffset = this.adjustForScrollbarIfNeeded(titleBoundingBox.left);
+    let offset = bodyWidth - titleLeftOffset - contentContainerWidth;
+
+    // If the content container doesn't fit in the viewport, align its right edge with the viewport's right edge.
+    if (-offset + contentContainerWidth > bodyWidth) {
+      offset = 0;
+    }
+    return offset;
+  }
+  getLtrLeftDirectionContainerOffset(contentContainerWidth, titleBoundingBox) {
+    let offset = this.adjustForScrollbarIfNeeded(titleBoundingBox.left);
+    offset = this.adjustStartOffsetToViewport(offset, contentContainerWidth);
+    return offset;
+  }
+  getRightDirectionContainerOffset(contentContainerWidth, titleBoundingBox) {
+    return elementorFrontend.config.is_rtl ? this.getRtlRightDirectionContainerOffset(contentContainerWidth, titleBoundingBox) : this.getLtrRightDirectionContainerOffset(contentContainerWidth, titleBoundingBox);
+  }
+  getRtlRightDirectionContainerOffset(contentContainerWidth, titleBoundingBox) {
+    const bodyWidth = elementorFrontend.elements.$body[0].clientWidth;
+    let offset = bodyWidth - this.adjustForScrollbarIfNeeded(titleBoundingBox.right);
+    offset = this.adjustStartOffsetToViewport(offset, contentContainerWidth);
+    return offset;
+  }
+
+  /**
+   * If the content container doesn't fit in the viewport, align its right edge with the viewport's right edge.
+   *
+   * @param {number} offset
+   * @param {number} contentContainerWidth
+   */
+  adjustStartOffsetToViewport(offset, contentContainerWidth) {
+    const bodyWidth = elementorFrontend.elements.$body[0].clientWidth;
+    if (offset + contentContainerWidth > bodyWidth) {
+      offset = bodyWidth - contentContainerWidth;
+    }
+    return offset;
+  }
+  getLtrRightDirectionContainerOffset(contentContainerWidth, titleBoundingBox) {
+    return contentContainerWidth > titleBoundingBox.right ? 0 : titleBoundingBox.right - contentContainerWidth;
+  }
+  adjustForScrollbarIfNeeded(offset) {
+    if (elementorFrontend.config.is_rtl && elementorFrontend.isEditMode()) {
+      const scrollbarWidth = window.innerWidth - elementorFrontend.elements.$body[0].clientWidth;
+      offset -= scrollbarWidth;
+    }
+    return offset;
+  }
+  getMenuContainerOffset() {
+    const menuContainerBoundingBox = this.elements.$menuContainer[0].getBoundingClientRect();
+    return elementorFrontend.config.is_rtl ? this.getMenuContainerOffsetRtl(menuContainerBoundingBox) : menuContainerBoundingBox.left;
+  }
+  getMenuContainerOffsetRtl(menuContainerBoundingBox) {
+    const bodyWidth = elementorFrontend.elements.$body[0].clientWidth;
+    let menuContainerOffset = bodyWidth - menuContainerBoundingBox.right;
+    if (elementorFrontend.isEditMode()) {
+      // In RTL mode, the editor's scrollbar is on the left side, so we need to add its width to the offset.
+      const scrollbarWidth = window.innerWidth - bodyWidth;
+      menuContainerOffset += scrollbarWidth;
+    }
+    return menuContainerOffset;
+  }
+  resetContentContainersPosition() {
+    this.elements.$contentContainers.css({
+      left: '',
+      right: '',
+      bottom: '',
+      position: 'var(--position)',
+      'max-width': '',
+      width: 'var(--width)'
+    });
+    this.elements.$menuContent.removeClass('content-above');
+  }
+  getTabContentFilterSelector(tabIndex) {
+    return `[data-content="${tabIndex}"]`;
+  }
+  activateTab(tabIndex) {
+    const settings = this.getSettings(),
+      activeClass = settings.classes.active,
+      containerClass = settings.selectors.tabContent,
+      $requestedTitle = this.elements.$tabTitles.filter(this.getTabTitleFilterSelector(tabIndex)),
+      animationDuration = 'show' === settings.showTabFn ? 0 : 400,
+      $requestedContent = this.elements.$tabContents.filter(this.getTabContentFilterSelector(tabIndex));
+    this.addAnimationToContentIfNeeded(tabIndex);
+    if ($requestedContent.hasClass(containerClass.replace('.', ''))) {
+      $requestedContent[settings.showTabFn](animationDuration, () => this.onShowTabContent($requestedContent));
+      $requestedTitle.add($requestedContent).addClass(activeClass);
+      $requestedContent.css({
+        display: 'var(--display)'
+      });
+      $requestedContent.removeAttr('hidden display');
+      if (elementorFrontend.isEditMode()) {
+        this.activeContainerWidthListener($requestedContent);
+      }
+    }
+  }
+  deactivateActiveTab(tabIndex) {
+    const settings = this.getSettings(),
+      activeClass = settings.classes.active,
+      activeContentFilter = tabIndex ? this.getTabContentFilterSelector(tabIndex) : '.' + activeClass,
+      $activeContent = this.elements.$tabContents.filter(activeContentFilter);
+    super.deactivateActiveTab(tabIndex);
+    this.removeAnimationFromContentIfNeeded();
+    if (elementorFrontend.isEditMode() && !!$activeContent.length) {
+      this.observedContainer?.unobserve($activeContent[0]);
+    }
+  }
+  shouldPositionContentAbove($contentContainer) {
+    let offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+    const contentDimensions = $contentContainer[0].getBoundingClientRect();
+    return this.isContentShorterThanItsTopOffset(contentDimensions, offset) && this.isContentTallerThanItsBottomOffset(contentDimensions);
+  }
+  isContentShorterThanItsTopOffset(contentDimensions, offset) {
+    return contentDimensions.height < contentDimensions.top - offset;
+  }
+  isContentTallerThanItsBottomOffset(contentDimensions) {
+    return window.innerHeight - contentDimensions.top < contentDimensions.height;
+  }
+  onShowTabContent($requestedContent) {
+    this.handleContentContainerPosition($requestedContent);
+    super.onShowTabContent($requestedContent);
+  }
+  onHideTabContent() {
+    if (this.elements.$menuContent.hasClass('content-above')) {
+      this.resetContentContainersPosition();
+    }
+  }
+  changeActiveTab(tabIndex) {
+    let fromUser = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+    const isActiveTab = this.isActiveTab(tabIndex);
+    this.deactivateActiveTab();
+    if (!isActiveTab || isActiveTab && !fromUser) {
+      this.activateTab(tabIndex);
+    }
+  }
+  onTabClick(event) {
+    if (event.currentTarget.classList.contains('link-only')) {
+      return;
+    }
+    this.changeActiveTab(event.currentTarget.getAttribute('data-tab'), true);
+  }
+  bindEvents() {
+    this.elements.$desktopTabTitles.on(this.getDesktopTabEvents());
+    this.elements.$mobileTabTitles.on(this.getTabEvents());
+    this.elements.$dropdownMenuToggle.on('click', this.onClickToggleDropdownMenu.bind(this));
+    this.elements.$tabContents.on(this.getContentEvents());
+    this.elements.$menuContent.on(this.getContentEvents());
+    elementorFrontend.addListenerOnce(this.getModelCID(), 'scroll', elementorFrontend.debounce(this.menuHeightController.reassignMobileMenuHeight.bind(this.menuHeightController), 250));
+    elementorFrontend.elements.$window.on('elementor/nested-tabs/activate', this.reInitSwipers);
+    this.resizeListener = this.handleContentContainerPosition.bind(this);
+    elementorFrontend.elements.$window.on('resize', this.resizeListener);
+    if (elementorFrontend.isEditMode()) {
+      this.addChildLifeCycleEventListeners();
+    }
+  }
+
+  /**
+   * Add Child Lifecycle Event Listeners
+   *
+   * This method adds event listeners for the elementor/editor/element-rendered and elementor/editor/element-destroyed
+   * events. These events are fired when an element is rendered or destroyed in the editor. The callback functions
+   * check if the rendered/destroyed element is nested in this mega-menu instance, and if it is, triggeres the
+   * recalculation of the mega-menu's content containers position.
+   */
+  addChildLifeCycleEventListeners() {
+    this.lifecycleChangeListener = this.handleContentContainerChildrenChanges.bind(this);
+    window.addEventListener('elementor/editor/element-rendered', this.lifecycleChangeListener);
+    window.addEventListener('elementor/editor/element-destroyed', this.lifecycleChangeListener);
+  }
+  removeChildLifeCycleEventListeners() {
+    window.removeEventListener('elementor/editor/element-rendered', this.lifecycleChangeListener);
+    window.removeEventListener('elementor/editor/element-destroyed', this.lifecycleChangeListener);
+  }
+  unbindEvents() {
+    this.elements.$desktopTabTitles.off();
+    this.elements.$mobileTabTitles.off();
+    this.elements.$menuContent.off();
+    this.elements.$tabContents.off();
+    elementorFrontend.elements.$window.off('resize', this.resizeListener);
+    if (elementorFrontend.isEditMode()) {
+      this.removeChildLifeCycleEventListeners();
+    }
+  }
+  handleContentContainerChildrenChanges(event) {
+    if (!this.isNestedElementRenderedInContentContainer(event.detail.elementView)) {
+      return;
+    }
+    this.handleContentContainerPosition();
+  }
+  isNestedElementRenderedInContentContainer(elementView) {
+    const elementContainer = elementView?.getContainer();
+    if (!elementContainer) {
+      return false;
+    }
+    const elementAncestors = elementContainer.getParentAncestry();
+    return elementAncestors.some(parent => this.getID() === parent.model.get('id'));
+  }
+  getDesktopTabEvents() {
+    const tabEvents = this.getTabEvents();
+    return this.isNeedToOpenOnClick() ? tabEvents : this.replaceClickWithHover(tabEvents);
+  }
+  getContentEvents() {
+    return this.isNeedToOpenOnClick() ? {} : {
+      mouseleave: this.onMouseLeave.bind(this)
+    };
+  }
+  isNeedToOpenOnClick() {
+    const elementSettings = this.getElementSettings();
+    return this.isEdit || this.isMobileDevice() || 'hover' !== elementSettings.open_on || 'dropdown' === elementSettings.item_layout;
+  }
+  isMobileDevice() {
+    const mobileDevices = ['mobile', 'mobile_extra', 'tablet', 'tablet_extra'];
+    return mobileDevices.includes(elementorFrontend.getCurrentDeviceMode());
+  }
+  replaceClickWithHover(tabEvents) {
+    delete tabEvents.click;
+    tabEvents.mouseenter = this.onMouseTitleEnter.bind(this);
+    tabEvents.mouseleave = this.onMouseLeave.bind(this);
+    return tabEvents;
+  }
+  onMouseTitleEnter(event) {
+    event.preventDefault();
+    const isActiveTabTitle = event.currentTarget.classList.contains(this.getActiveClass());
+    if (isActiveTabTitle) {
+      return;
+    }
+    this.changeActiveTab(event.currentTarget.getAttribute('data-tab'), true);
+  }
+  onClickToggleDropdownMenu(show) {
+    const settings = this.getSettings(),
+      activeClass = settings.classes.active,
+      isDropdownVisible = this.elements.$dropdownMenuToggle.hasClass(activeClass);
+    if ('boolean' !== typeof show) {
+      show = !isDropdownVisible;
+    }
+    this.elements.$dropdownMenuToggle.toggleClass(activeClass, show);
+    this.elements.$menuContent.toggleClass(activeClass, show);
+    elementorFrontend.utils.events.dispatch(window, 'elementor-pro/mega-menu/dropdown-open');
+    this.menuHeightController.reassignMobileMenuHeight();
+  }
+  addAnimationToContentIfNeeded(tabIndex) {
+    const openAnimation = this.getElementSettings('open_animation');
+    if ('none' === openAnimation) {
+      return;
+    }
+    const $requestedContent = this.elements.$tabContents.filter(this.getTabContentFilterSelector(tabIndex));
+    $requestedContent.addClass(`animated ${openAnimation}`);
+  }
+  removeAnimationFromContentIfNeeded() {
+    const openAnimation = this.getElementSettings('open_animation');
+    if ('none' === openAnimation) {
+      return;
+    }
+    this.elements.$tabContents.removeClass(`animated ${openAnimation}`);
+  }
+  isHoveredDropdownMenu(isMouseLeavingTabContent) {
+    const settings = this.getSettings(),
+      $widget = this.$element,
+      isMenuContentHover = 0 < $widget.find(`${settings.selectors.menuContent}:hover`).length,
+      isTabContentHover = 0 < $widget.find(`${settings.selectors.tabContent}:hover`).length;
+    return isTabContentHover || !isMouseLeavingTabContent && isMenuContentHover;
+  }
+  onMouseLeave(event) {
+    event.preventDefault();
+    const isMouseLeavingTabContent = event.currentTarget.classList.contains('e-con');
+    if (this.isHoveredDropdownMenu(isMouseLeavingTabContent)) {
+      return;
+    }
+    this.deactivateActiveTab();
+  }
+  createMobileTabs() {
+    const settings = this.getSettings();
+    if (elementorFrontend.isEditMode()) {
+      let index = 1;
+      const $widget = this.$element,
+        $contentAreaContainer = this.findElement('.e-n-menu-items-content');
+      this.findElement('.e-n-menu-items-heading > .e-n-menu-item-title').each(function () {
+        const $desktopTabTitle = $widget.find(`${settings.selectors.headingContainer} > *:nth-child( ${index})`).clone(),
+          $mobileTitleHTML = $desktopTabTitle.removeClass('e-normal').addClass('e-collapse');
+
+        // Avoid any possible duplication.
+        if ($widget.find(`#${$mobileTitleHTML[0].id}.e-collapse`).length > 0) {
+          return;
+        }
+        $contentAreaContainer.append($mobileTitleHTML);
+        const $currentContainer = $widget.find(`.e-con[data-content="${index}"]`);
+        if ($currentContainer[0]) {
+          $currentContainer.insertAfter($widget.find(`.e-n-menu-items-content > .e-collapse[data-tab="${index}"]`));
+        }
+        index++;
+      });
+    }
+  }
+  onInit() {
+    this.menuHeightController = new elementorProFrontend.utils.DropdownMenuHeightController(this.dropdownMenuHeightControllerConfig());
+    super.onInit(...arguments);
+    if (!elementorFrontend.isEditMode()) {
+      const classes = this.getSettings('classes');
+      this.anchorLinks = new _anchorLink.default();
+      this.anchorLinks.followMenuAnchors(this.elements.$anchorLink, classes);
+    }
+  }
+  getPropsThatTriggerContentPositionCalculations() {
+    return ['content_horizontal_position', 'content_position', 'item_position_horizontal', 'content_width', 'item_layout'];
+  }
+  activeContainerWidthListener($activeContainer) {
+    let previousWidth = 0;
+    this.observedContainer = new ResizeObserver(activeContainer => {
+      const currentWidth = activeContainer[0].borderBoxSize?.[0].inlineSize;
+      if (!!currentWidth && currentWidth !== previousWidth) {
+        previousWidth = currentWidth;
+        if (0 !== previousWidth) {
+          this.handleContentContainerPosition();
+        }
+      }
+    });
+    this.observedContainer.observe($activeContainer[0]);
+  }
+  onElementChange(propertyName) {
+    if (this.getPropsThatTriggerContentPositionCalculations().includes(propertyName)) {
+      this.handleContentContainerPosition();
+    }
+  }
+  onEditSettingsChange(propertyName, value) {
+    const settings = this.getSettings();
+    if (settings.autoFocus) {
+      super.onEditSettingsChange(propertyName, value);
+    }
+  }
+}
+exports["default"] = MegaMenu;
+
+/***/ }),
+
+/***/ "../modules/mega-menu/assets/js/frontend/handlers/stretch-menu-item-content.js":
+/*!*************************************************************************************!*\
+  !*** ../modules/mega-menu/assets/js/frontend/handlers/stretch-menu-item-content.js ***!
+  \*************************************************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -3619,75 +4174,55 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports["default"] = void 0;
-class MegaMenu extends elementorModules.frontend.handlers.NestedTabs {
-  getDefaultSettings() {
-    const settings = super.getDefaultSettings();
-    settings.selectors.tabTitle = '.e-n-menu-item-title';
-    settings.selectors.headingContainer = '.e-n-menu-items-heading';
-    settings.autoExpand = this.isEdit;
-    return settings;
+class StretchedMenuItemContent extends elementorModules.frontend.handlers.StretchedElement {
+  getStretchedClass() {
+    return 'elementor-widget-n-menu';
   }
-  changeActiveTab(tabIndex) {
-    let fromUser = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-    const isActiveTab = this.isActiveTab(tabIndex);
-    if (!isActiveTab || isActiveTab && !fromUser) {
-      this.deactivateActiveTab();
-      this.activateTab(tabIndex);
-    } else {
-      this.deactivateActiveTab();
-    }
+  getStretchElementForConfig() {
+    return this.$element.find('.e-n-menu-items-content');
   }
   bindEvents() {
     super.bindEvents();
-    this.elements.$tabContents.on(this.getTabContentEvents());
+    elementorFrontend.addListenerOnce(this.getUniqueHandlerID(), 'elementor-pro/mega-menu/dropdown-open', this.stretch);
   }
-  getTabEvents() {
-    const tabEvents = super.getTabEvents();
-    return this.isNeedToOpenOnClick() ? tabEvents : this.replaceClickWithHover(tabEvents);
+  unbindEvents() {
+    super.unbindEvents();
+    elementorFrontend.removeListeners(this.getUniqueHandlerID(), 'elementor-pro/mega-menu/dropdown-open', this.stretch);
   }
-  getTabContentEvents() {
-    return this.isNeedToOpenOnClick() ? {} : {
-      mouseleave: this.onMouseContentLeave.bind(this)
-    };
+  isStretchSettingEnabled() {
+    return true;
   }
-  isNeedToOpenOnClick() {
-    const nonMobileDevices = ['mobile', 'mobile_extra', 'tablet', 'tablet_extra'];
-    return this.isEdit || nonMobileDevices.includes(elementorFrontend.getCurrentDeviceMode()) || this.getElementSettings('open_on') !== 'hover';
-  }
-  replaceClickWithHover(tabEvents) {
-    delete tabEvents.click;
-    tabEvents.mouseenter = this.onMouseTitleEnter.bind(this);
-    tabEvents.mouseleave = this.onMouseTitleLeave.bind(this);
-    return tabEvents;
-  }
-  onMouseTitleEnter(event) {
-    event.preventDefault();
-    this.changeActiveTab(event.currentTarget.getAttribute('data-tab'), true);
-  }
-  onMouseTitleLeave(event) {
-    event.preventDefault();
-    const itemsUnderMouseArray = Array.prototype.slice.call(document.querySelectorAll(':hover'));
-    if (this.isContainingMenuContentTab(itemsUnderMouseArray)) {
-      return;
-    }
-    this.deactivateActiveTab();
-  }
-  isContainingMenuContentTab(itemsUnderMouse) {
-    return itemsUnderMouse.some(item => item.classList.contains('e-n-menu-items-content'));
-  }
-  onMouseContentLeave(event) {
-    event.preventDefault();
-    this.deactivateActiveTab();
-  }
-  onTabClick(event) {
-    if (!this.isEdit && 'a' === event.target.nodeName.toLowerCase()) {
-      return;
-    }
-    event.preventDefault();
-    this.changeActiveTab(event.currentTarget.getAttribute('data-tab'), true);
+  isActive() {
+    return true;
   }
 }
-exports["default"] = MegaMenu;
+exports["default"] = StretchedMenuItemContent;
+
+/***/ }),
+
+/***/ "../modules/mega-menu/assets/js/frontend/utils.js":
+/*!********************************************************!*\
+  !*** ../modules/mega-menu/assets/js/frontend/utils.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.isMenuInDropdownMode = isMenuInDropdownMode;
+function isMenuInDropdownMode(elementSettings) {
+  if ('dropdown' === elementSettings.item_layout) {
+    return true;
+  }
+  const activeBreakpointsList = elementorFrontend.breakpoints.getActiveBreakpointsList({
+      withDesktop: true
+    }),
+    breakpointIndex = activeBreakpointsList.indexOf(elementSettings.breakpoint_selector),
+    currentDeviceModeIndex = activeBreakpointsList.indexOf(elementorFrontend.getCurrentDeviceMode());
+  return currentDeviceModeIndex <= breakpointIndex;
+}
 
 /***/ }),
 
@@ -3728,14 +4263,16 @@ exports["default"] = _default;
 /*!*******************************************************************!*\
   !*** ../modules/nav-menu/assets/js/frontend/handlers/nav-menu.js ***!
   \*******************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
 
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ "../node_modules/@babel/runtime/helpers/interopRequireDefault.js");
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports["default"] = void 0;
+var _anchorLink = _interopRequireDefault(__webpack_require__(/*! ../../../../../../assets/dev/js/frontend/utils/anchor-link */ "../assets/dev/js/frontend/utils/anchor-link.js"));
 var _default = elementorModules.frontend.handlers.Base.extend({
   stretchElement: null,
   getDefaultSettings() {
@@ -3745,6 +4282,10 @@ var _default = elementorModules.frontend.handlers.Base.extend({
         anchorLink: '.elementor-nav-menu--main .elementor-item-anchor',
         dropdownMenu: '.elementor-nav-menu__container.elementor-nav-menu--dropdown',
         menuToggle: '.elementor-menu-toggle'
+      },
+      classes: {
+        anchorItem: 'elementor-item-anchor',
+        activeAnchorItem: 'elementor-item-active'
       }
     };
   },
@@ -3759,16 +4300,34 @@ var _default = elementorModules.frontend.handlers.Base.extend({
     elements.$links = elements.$dropdownMenu.find('a.elementor-item');
     return elements;
   },
+  dropdownMenuHeightControllerConfig() {
+    const selectors = this.getSettings('selectors');
+    return {
+      elements: {
+        $element: this.$element,
+        $dropdownMenuContainer: this.$element.find(selectors.dropdownMenu),
+        $menuToggle: this.$element.find(selectors.menuToggle)
+      },
+      classes: {
+        menuToggleActiveClass: 'elementor-active'
+      },
+      settings: {
+        dropdownMenuContainerMaxHeight: '1000vmax',
+        // Max-height value is fixed to 1000vmax in order to allow the mobile menu closing animation.
+        menuHeightCssVarName: '--menu-height'
+      }
+    };
+  },
   bindEvents() {
     if (!this.elements.$menu.length) {
       return;
     }
-    this.elements.$menuToggle.on('click', this.toggleMenu.bind(this));
+    this.elements.$menuToggle.on('click', this.toggleMenu.bind(this)).on('keyup', this.triggerClickOnEnterSpace.bind(this));
     if (this.getElementSettings('full_width')) {
-      this.elements.$dropdownMenuFinalItems.on('click', this.toggleMenu.bind(this, false));
+      this.elements.$dropdownMenuFinalItems.on('click', this.toggleMenu.bind(this, false)).on('keyup', this.triggerClickOnEnterSpace.bind(this));
     }
     elementorFrontend.addListenerOnce(this.$element.data('model-cid'), 'resize', this.stretchMenu);
-    elementorFrontend.addListenerOnce(this.$element.data('model-cid'), 'scroll', this.debounce(this.reassignMobileMenuHeight, 250));
+    elementorFrontend.addListenerOnce(this.$element.data('model-cid'), 'scroll', elementorFrontend.debounce(this.menuHeightController.reassignMobileMenuHeight.bind(this.menuHeightController), 250));
   },
   initStretchElement() {
     this.stretchElement = new elementorModules.frontend.tools.StretchElement({
@@ -3788,56 +4347,18 @@ var _default = elementorModules.frontend.handlers.Base.extend({
     this.elements.$dropdownMenu.attr('aria-hidden', !show);
     this.elements.$menuToggle.toggleClass('elementor-active', show);
     this.toggleNavLinksTabIndex(show);
-    this.reassignMobileMenuHeight(show);
+    this.menuHeightController.reassignMobileMenuHeight(this);
     if (show && this.getElementSettings('full_width')) {
       this.stretchElement.stretch();
     }
   },
-  followMenuAnchors() {
-    var self = this;
-    self.elements.$anchorLink.each(function () {
-      if (location.pathname === this.pathname && '' !== this.hash) {
-        self.followMenuAnchor(jQuery(this));
-      }
-    });
-  },
-  followMenuAnchor($element) {
-    const anchorSelector = $element[0].hash;
-    let offset = -300,
-      $anchor;
-    try {
-      // `decodeURIComponent` for UTF8 characters in the hash.
-      $anchor = jQuery(decodeURIComponent(anchorSelector));
-    } catch (e) {
-      return;
+  triggerClickOnEnterSpace(event) {
+    const ENTER_KEY = 13,
+      SPACE_KEY = 32;
+    if (ENTER_KEY === event.keyCode || SPACE_KEY === event.keyCode) {
+      event.currentTarget.click();
+      event.stopPropagation();
     }
-    if (!$anchor.length) {
-      return;
-    }
-    if (!$anchor.hasClass('elementor-menu-anchor')) {
-      var halfViewport = jQuery(window).height() / 2;
-      offset = -$anchor.outerHeight() + halfViewport;
-    }
-    elementorFrontend.waypoint($anchor, function (direction) {
-      if ('down' === direction) {
-        $element.addClass('elementor-item-active');
-      } else {
-        $element.removeClass('elementor-item-active');
-      }
-    }, {
-      offset: '50%',
-      triggerOnce: false
-    });
-    elementorFrontend.waypoint($anchor, function (direction) {
-      if ('down' === direction) {
-        $element.removeClass('elementor-item-active');
-      } else {
-        $element.addClass('elementor-item-active');
-      }
-    }, {
-      offset,
-      triggerOnce: false
-    });
   },
   stretchMenu() {
     if (this.getElementSettings('full_width')) {
@@ -3848,6 +4369,7 @@ var _default = elementorModules.frontend.handlers.Base.extend({
     }
   },
   onInit() {
+    this.menuHeightController = new elementorProFrontend.utils.DropdownMenuHeightController(this.dropdownMenuHeightControllerConfig());
     elementorModules.frontend.handlers.Base.prototype.onInit.apply(this, arguments);
     if (!this.elements.$menu.length) {
       return;
@@ -3871,42 +4393,15 @@ var _default = elementorModules.frontend.handlers.Base.extend({
     this.initStretchElement();
     this.stretchMenu();
     if (!elementorFrontend.isEditMode()) {
-      this.followMenuAnchors();
+      const classes = this.getSettings('classes');
+      this.anchorLinks = new _anchorLink.default();
+      this.anchorLinks.followMenuAnchors(this.elements.$anchorLink, classes);
     }
   },
   onElementChange(propertyName) {
     if ('full_width' === propertyName) {
       this.stretchMenu();
     }
-  },
-  calculateStickyMenuNavHeight() {
-    const menuToggleHeight = this.elements.$dropdownMenu?.offset().top - jQuery(window).scrollTop();
-    return elementorFrontend.elements.$window.height() - menuToggleHeight;
-  },
-  isElementSticky() {
-    return this.$element.hasClass('elementor-sticky') || this.$element.parents('.elementor-sticky').length;
-  },
-  getMenuHeight() {
-    // Max-height value is fixed to 1000vmax in order to allow the mobile menu closing animation.
-    return this.isElementSticky() ? this.calculateStickyMenuNavHeight() + 'px' : '1000vmax';
-  },
-  setMenuHeight(menuHeight) {
-    this.elements.$dropdownMenu.css('--menu-height', menuHeight);
-  },
-  reassignMobileMenuHeight() {
-    const menuHeight = this.elements.$menuToggle.hasClass('elementor-active') ? this.getMenuHeight() : 0;
-    return this.setMenuHeight(menuHeight);
-  },
-  debounce(fn, time) {
-    let timer;
-    return function () {
-      const context = this;
-      const args = arguments;
-      clearTimeout(timer);
-      timer = setTimeout(() => {
-        fn.apply(context, args);
-      }, time);
-    };
   }
 });
 exports["default"] = _default;
@@ -6302,8 +6797,8 @@ class TOCHandler extends elementorModules.frontend.handlers.Base {
   bindEvents() {
     const elementSettings = this.getElementSettings();
     if (elementSettings.minimize_box) {
-      this.elements.$expandButton.on('click', () => this.expandBox());
-      this.elements.$collapseButton.on('click', () => this.collapseBox());
+      this.elements.$expandButton.on('click', () => this.expandBox()).on('keyup', event => this.triggerClickOnEnterSpace(event));
+      this.elements.$collapseButton.on('click', () => this.collapseBox()).on('keyup', event => this.triggerClickOnEnterSpace(event));
     }
     if (elementSettings.collapse_subitems) {
       this.elements.$listItems.on('hover', event => jQuery(event.target).slideToggle());
@@ -6574,17 +7069,27 @@ class TOCHandler extends elementorModules.frontend.handlers.Base {
   expandBox() {
     const boxHeight = this.getCurrentDeviceSetting('min_height');
     this.$element.removeClass(this.getSettings('classes.collapsed'));
-    this.elements.$tocBody.slideDown();
+    this.elements.$tocBody.attr('aria-expanded', 'true').slideDown();
 
     // Return container to the full height in case a min-height is defined by the user
     this.elements.$widgetContainer.css('min-height', boxHeight.size + boxHeight.unit);
+    this.elements.$collapseButton.trigger('focus');
   }
   collapseBox() {
     this.$element.addClass(this.getSettings('classes.collapsed'));
-    this.elements.$tocBody.slideUp();
+    this.elements.$tocBody.attr('aria-expanded', 'false').slideUp();
 
     // Close container in case a min-height is defined by the user
     this.elements.$widgetContainer.css('min-height', '0px');
+    this.elements.$expandButton.trigger('focus');
+  }
+  triggerClickOnEnterSpace(event) {
+    const ENTER_KEY = 13,
+      SPACE_KEY = 32;
+    if (ENTER_KEY === event.keyCode || SPACE_KEY === event.keyCode) {
+      event.currentTarget.click();
+      event.stopPropagation();
+    }
   }
   onInit() {
     super.onInit(...arguments);
@@ -6796,33 +7301,37 @@ var _default = elementorModules.frontend.handlers.Base.extend({
       $toggle = self.elements.$toggle,
       skin = this.getElementSettings('skin'),
       classes = this.getSettings('classes');
-    const toggleFullScreenSearch = () => {
-      $container.toggleClass(classes.isFullScreen).toggleClass(classes.lightbox);
+    const openFullScreenSearch = () => {
+      $container.addClass(classes.isFullScreen).addClass(classes.lightbox);
       $input.trigger('focus');
     };
+    const closeFullScreenSearch = () => {
+      $container.removeClass(classes.isFullScreen).removeClass(classes.lightbox);
+      $toggle.trigger('focus');
+    };
+    const triggerClickOnEnterSpace = event => {
+      const ENTER_KEY = 13,
+        SPACE_KEY = 32;
+      if (ENTER_KEY === event.keyCode || SPACE_KEY === event.keyCode) {
+        event.currentTarget.click();
+        event.stopPropagation();
+      }
+    };
     if ('full_screen' === skin) {
-      // Activate full-screen mode on mouse click.
-      $toggle.on('click', function () {
-        toggleFullScreenSearch();
-      });
+      // Activate full-screen mode on mouse click or keyboard Enter & Space keyup.
+      $toggle.on('click', () => openFullScreenSearch()).on('keyup', event => triggerClickOnEnterSpace(event));
 
-      // Activate full-screen mode on Enter keyup.
-      $toggle.on('keyup', function (event) {
-        const ENTER_KEY = 13;
-        if (ENTER_KEY === event.keyCode) {
-          toggleFullScreenSearch();
-        }
-      });
-
-      // Deactivate full-screen mode on click or on esc.
+      // Deactivate full-screen mode when clicking outside the container.
       $container.on('click', function (event) {
         if ($container.hasClass(classes.isFullScreen) && $container[0] === event.target) {
           $container.removeClass(classes.isFullScreen).removeClass(classes.lightbox);
         }
       });
-      $closeButton.on('click', function () {
-        $container.removeClass(classes.isFullScreen).removeClass(classes.lightbox);
-      });
+
+      // Deactivate full-screen mode on mouse click or keyboard Enter & Space keyup.
+      $closeButton.on('click', () => closeFullScreenSearch()).on('keyup', event => triggerClickOnEnterSpace(event));
+
+      // Deactivate full-screen mode on keyboard Esc keyup.
       elementorFrontend.elements.$document.on('keyup', function (event) {
         const ESC_KEY = 27;
         if (ESC_KEY === event.keyCode) {
@@ -7391,7 +7900,7 @@ class _default extends elementorModules.frontend.handlers.Base {
         toggle: '.elementor-menu-cart__toggle',
         toggleButton: '#elementor-menu-cart__toggle_button',
         toggleWrapper: '.elementor-menu-cart__toggle_wrapper',
-        closeButton: '.elementor-menu-cart__close-button',
+        closeButton: '.elementor-menu-cart__close-button, .elementor-menu-cart__close-button-custom',
         productList: '.elementor-menu-cart__products'
       },
       classes: {
@@ -7954,168 +8463,11 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports["default"] = void 0;
-class ImageCarousel extends elementorModules.frontend.handlers.SwiperBase {
+class ImageCarousel extends elementorModules.frontend.handlers.CarouselBase {
   getDefaultSettings() {
-    return {
-      selectors: {
-        carousel: '.elementor-image-carousel-wrapper',
-        slideContent: '.swiper-slide'
-      }
-    };
-  }
-  getDefaultElements() {
-    const selectors = this.getSettings('selectors');
-    const elements = {
-      $swiperContainer: this.$element.find(selectors.carousel)
-    };
-    elements.$slides = elements.$swiperContainer.find(selectors.slideContent);
-    return elements;
-  }
-  getSwiperSettings() {
-    const elementSettings = this.getElementSettings(),
-      slidesToShow = +elementSettings.slides_to_show || 3,
-      isSingleSlide = 1 === slidesToShow,
-      elementorBreakpoints = elementorFrontend.config.responsive.activeBreakpoints,
-      defaultSlidesToShowMap = {
-        mobile: 1,
-        tablet: isSingleSlide ? 1 : 2
-      };
-    const swiperOptions = {
-      slidesPerView: slidesToShow,
-      loop: 'yes' === elementSettings.infinite,
-      speed: elementSettings.speed,
-      handleElementorBreakpoints: true
-    };
-    swiperOptions.breakpoints = {};
-    let lastBreakpointSlidesToShowValue = slidesToShow;
-    Object.keys(elementorBreakpoints).reverse().forEach(breakpointName => {
-      // Tablet has a specific default `slides_to_show`.
-      const defaultSlidesToShow = defaultSlidesToShowMap[breakpointName] ? defaultSlidesToShowMap[breakpointName] : lastBreakpointSlidesToShowValue;
-      swiperOptions.breakpoints[elementorBreakpoints[breakpointName].value] = {
-        slidesPerView: +elementSettings['slides_to_show_' + breakpointName] || defaultSlidesToShow,
-        slidesPerGroup: +elementSettings['slides_to_scroll_' + breakpointName] || 1
-      };
-      if (elementSettings.image_spacing_custom) {
-        swiperOptions.breakpoints[elementorBreakpoints[breakpointName].value].spaceBetween = this.getSpaceBetween(breakpointName);
-      }
-      lastBreakpointSlidesToShowValue = +elementSettings['slides_to_show_' + breakpointName] || defaultSlidesToShow;
-    });
-    if ('yes' === elementSettings.autoplay) {
-      swiperOptions.autoplay = {
-        delay: elementSettings.autoplay_speed,
-        disableOnInteraction: 'yes' === elementSettings.pause_on_interaction
-      };
-    }
-    if (isSingleSlide) {
-      swiperOptions.effect = elementSettings.effect;
-      if ('fade' === elementSettings.effect) {
-        swiperOptions.fadeEffect = {
-          crossFade: true
-        };
-      }
-    } else {
-      swiperOptions.slidesPerGroup = +elementSettings.slides_to_scroll || 1;
-    }
-    if (elementSettings.image_spacing_custom) {
-      swiperOptions.spaceBetween = this.getSpaceBetween();
-    }
-    const showArrows = 'arrows' === elementSettings.navigation || 'both' === elementSettings.navigation,
-      showDots = 'dots' === elementSettings.navigation || 'both' === elementSettings.navigation;
-    if (showArrows) {
-      swiperOptions.navigation = {
-        prevEl: '.elementor-swiper-button-prev',
-        nextEl: '.elementor-swiper-button-next'
-      };
-    }
-    if (showDots) {
-      swiperOptions.pagination = {
-        el: '.swiper-pagination',
-        type: 'bullets',
-        clickable: true
-      };
-    }
-    if ('yes' === elementSettings.lazyload) {
-      swiperOptions.lazy = {
-        loadPrevNext: true,
-        loadPrevNextAmount: 1
-      };
-    }
-    return swiperOptions;
-  }
-  async onInit() {
-    super.onInit(...arguments);
-    if (!this.elements.$swiperContainer.length || 2 > this.elements.$slides.length) {
-      return;
-    }
-    const Swiper = elementorFrontend.utils.swiper;
-    this.swiper = await new Swiper(this.elements.$swiperContainer, this.getSwiperSettings());
-
-    // Expose the swiper instance in the frontend
-    this.elements.$swiperContainer.data('swiper', this.swiper);
-    const elementSettings = this.getElementSettings();
-    if ('yes' === elementSettings.pause_on_hover) {
-      this.togglePauseOnHover(true);
-    }
-  }
-  updateSwiperOption(propertyName) {
-    const elementSettings = this.getElementSettings(),
-      newSettingValue = elementSettings[propertyName],
-      params = this.swiper.params;
-
-    // Handle special cases where the value to update is not the value that the Swiper library accepts.
-    switch (propertyName) {
-      case 'autoplay_speed':
-        params.autoplay.delay = newSettingValue;
-        break;
-      case 'speed':
-        params.speed = newSettingValue;
-        break;
-    }
-    this.swiper.update();
-  }
-  getChangeableProperties() {
-    return {
-      pause_on_hover: 'pauseOnHover',
-      autoplay_speed: 'delay',
-      speed: 'speed',
-      arrows_position: 'arrows_position' // Not a Swiper setting.
-    };
-  }
-
-  onElementChange(propertyName) {
-    if (0 === propertyName.indexOf('image_spacing_custom')) {
-      this.updateSpaceBetween(propertyName);
-      return;
-    }
-    const changeableProperties = this.getChangeableProperties();
-    if (changeableProperties[propertyName]) {
-      // 'pause_on_hover' is implemented by the handler with event listeners, not the Swiper library.
-      if ('pause_on_hover' === propertyName) {
-        const newSettingValue = this.getElementSettings('pause_on_hover');
-        this.togglePauseOnHover('yes' === newSettingValue);
-      } else {
-        this.updateSwiperOption(propertyName);
-      }
-    }
-  }
-  onEditSettingsChange(propertyName) {
-    if ('activeItemIndex' === propertyName) {
-      this.swiper.slideToLoop(this.getEditSettings('activeItemIndex') - 1);
-    }
-  }
-  getSpaceBetween() {
-    let device = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    return elementorFrontend.utils.controls.getResponsiveControlValue(this.getElementSettings(), 'image_spacing_custom', 'size', device) || 0;
-  }
-  updateSpaceBetween(propertyName) {
-    const deviceMatch = propertyName.match('image_spacing_custom_(.*)'),
-      device = deviceMatch ? deviceMatch[1] : 'desktop',
-      newSpaceBetween = this.getSpaceBetween(device);
-    if ('desktop' !== device) {
-      this.swiper.params.breakpoints[elementorFrontend.config.responsive.activeBreakpoints[device].value].spaceBetween = newSpaceBetween;
-    }
-    this.swiper.params.spaceBetween = newSpaceBetween;
-    this.swiper.update();
+    const settings = super.getDefaultSettings();
+    settings.selectors.carousel = '.elementor-image-carousel-wrapper';
+    return settings;
   }
 }
 exports["default"] = ImageCarousel;

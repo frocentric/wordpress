@@ -241,6 +241,7 @@ class GeneratePress_Elements_Post_Type {
 				'site-header',
 				'page-hero',
 				'content-template',
+				'loop-template',
 				'post-meta-template',
 				'post-navigation-template',
 				'archive-navigation-template',
