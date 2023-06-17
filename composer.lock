@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e01bc71f4b7f0ee17d8f0e10ee3d6bd",
+    "content-hash": "445eeae14b786aeaebdd66d9249e322a",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3349,6 +3349,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/granular-controls-for-elementor/"
+        },
+        {
+            "name": "wpackagist-plugin/hivepress",
+            "version": "1.7.1",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/hivepress/",
+                "reference": "tags/1.7.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/hivepress.1.7.1.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/hivepress/"
         },
         {
             "name": "wpackagist-plugin/imagify",
