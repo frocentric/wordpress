@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "445eeae14b786aeaebdd66d9249e322a",
+    "content-hash": "60878314a695a06672302f543e8d8cff",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1769,7 +1769,7 @@
         },
         {
             "name": "modern-tribe/events-calendar-pro",
-            "version": "6.0.12.1",
+            "version": "6.1.0",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}"
@@ -1778,7 +1778,7 @@
         },
         {
             "name": "modern-tribe/events-tickets-plus",
-            "version": "5.6.10",
+            "version": "5.7.0",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=event-tickets-plus&version={%VERSION}&key={%TEC_ETP_LICENSE}"
@@ -1787,7 +1787,7 @@
         },
         {
             "name": "modern-tribe/events-virtual",
-            "version": "1.13.6",
+            "version": "1.15.0",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-virtual&version={%VERSION}&key={%TEC_VE_LICENSE}"
@@ -1814,7 +1814,7 @@
         },
         {
             "name": "modern-tribe/the-events-calendar-filterbar",
-            "version": "5.4.4",
+            "version": "5.5.0",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=tribe-filterbar&version={%VERSION}&key={%TEC_FB_LICENSE}"
