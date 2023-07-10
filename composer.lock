@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.275.1",
+            "version": "3.275.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "6cf6aacecda1dec52bf4a70d8e1503b5bc56e924"
+                "reference": "d46961b82e857f77059c0c78160719ecb26f6cc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6cf6aacecda1dec52bf4a70d8e1503b5bc56e924",
-                "reference": "6cf6aacecda1dec52bf4a70d8e1503b5bc56e924",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d46961b82e857f77059c0c78160719ecb26f6cc6",
+                "reference": "d46961b82e857f77059c0c78160719ecb26f6cc6",
                 "shasum": ""
             },
             "require": {
@@ -151,9 +151,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.275.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.275.5"
             },
-            "time": "2023-06-30T18:23:40+00:00"
+            "time": "2023-07-07T18:20:11+00:00"
         },
         {
             "name": "cloudflare/cf-ip-rewrite",
@@ -1379,10 +1379,10 @@
         },
         {
             "name": "koodimonni-plugin-language/woocommerce-en_gb",
-            "version": "7.8.1",
+            "version": "7.8.2",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/7.8.1/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/7.8.2/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -2968,16 +2968,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.14",
+            "version": "v3.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "dd11428841365384d42e38abde5c5b3c796fb4a8"
+                "reference": "b5e13c19999dc41e89f1a1e7b60ae67c6189c406"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/dd11428841365384d42e38abde5c5b3c796fb4a8",
-                "reference": "dd11428841365384d42e38abde5c5b3c796fb4a8",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/b5e13c19999dc41e89f1a1e7b60ae67c6189c406",
+                "reference": "b5e13c19999dc41e89f1a1e7b60ae67c6189c406",
                 "shasum": ""
             },
             "require": {
@@ -3078,7 +3078,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2023-06-15T15:33:00+00:00"
+            "time": "2023-07-04T19:09:44+00:00"
         },
         {
             "name": "wpackagist-plugin/authors-list",
@@ -3280,15 +3280,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "5.8.0",
+            "version": "5.8.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/5.8.0"
+                "reference": "tags/5.8.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.5.8.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.5.8.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3316,15 +3316,15 @@
         },
         {
             "name": "wpackagist-plugin/feedzy-rss-feeds",
-            "version": "4.2.6",
+            "version": "4.2.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/feedzy-rss-feeds/",
-                "reference": "tags/4.2.6"
+                "reference": "tags/4.2.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.4.2.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.4.2.7.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3388,15 +3388,15 @@
         },
         {
             "name": "wpackagist-plugin/jetpack",
-            "version": "12.2.1",
+            "version": "12.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/jetpack/",
-                "reference": "tags/12.2.1"
+                "reference": "tags/12.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jetpack.12.2.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/jetpack.12.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3460,15 +3460,15 @@
         },
         {
             "name": "wpackagist-plugin/ninja-forms",
-            "version": "3.6.25",
+            "version": "3.6.28",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/ninja-forms/",
-                "reference": "tags/3.6.25"
+                "reference": "tags/3.6.28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.6.25.zip"
+                "url": "https://downloads.wordpress.org/plugin/ninja-forms.3.6.28.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3532,15 +3532,15 @@
         },
         {
             "name": "wpackagist-plugin/query-monitor",
-            "version": "3.12.3",
+            "version": "3.13.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/query-monitor/",
-                "reference": "tags/3.12.3"
+                "reference": "tags/3.13.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/query-monitor.3.12.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/query-monitor.3.13.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"

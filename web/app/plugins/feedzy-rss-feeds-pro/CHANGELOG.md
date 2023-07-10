@@ -1,3 +1,7 @@
+##### [Version 2.2.4](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.2.3...v2.2.4) (2023-07-06)
+
+- Removed image tag escaping to fix issue with some images not displaying
+
 ##### [Version 2.2.3](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.2.2...v2.2.3) (2023-06-05)
 
 - Updated dependencies
