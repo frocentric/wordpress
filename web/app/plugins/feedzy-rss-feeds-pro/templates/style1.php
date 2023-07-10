@@ -30,22 +30,8 @@
 							title="<?php echo esc_attr( $item['item_url_title'] ); ?>"
 							style="<?php echo esc_attr( $item['item_img_style'] ); ?>">
 							<?php
-								$allowed_html = array(
-									'span' => array(
-										'class' => true,
-										'title' => true,
-										'style' => true,
-									),
-									'amp-img' => array(
-										'alt' => true,
-										'src' => true,
-										'width' => true,
-										'height' => true,
-										'layout' => true,
-									),
-								);
 								add_filter( 'safecss_filter_attr_allow_css', '__return_true' );
-								echo wp_kses( feedzy_feed_item_image( $item ), $allowed_html );
+								echo feedzy_feed_item_image( $item );
 								remove_filter( 'safecss_filter_attr_allow_css', '__return_true' );
 							?>
 						</a>
