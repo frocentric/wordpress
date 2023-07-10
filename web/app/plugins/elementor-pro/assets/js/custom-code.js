@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.13.2 - 22-05-2023 */
+/*! elementor-pro - v3.14.0 - 26-06-2023 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -2623,6 +2623,7 @@ class CustomCode extends elementorModules.Module {
     const $buttonOpenAI = jQuery(`<button class="e-ai-button"><i class="eicon-ai"></i> ${__('Write me code', 'elementor-pro')}</button>`);
     $buttonOpenAI.on('click', event => {
       event.preventDefault();
+      const isRTL = elementorCommon.config.isRTL;
       const rootElement = document.createElement('div');
       document.body.append(rootElement);
       ReactDOM.render( /*#__PURE__*/_react.default.createElement(_elementorAiAdmin.default, {
@@ -2635,7 +2636,8 @@ class CustomCode extends elementorModules.Module {
         onClose: () => {
           ReactDOM.unmountComponentAtNode(rootElement);
           rootElement.parentNode.removeChild(rootElement);
-        }
+        },
+        isRTL: isRTL
       }), rootElement);
     });
     jQuery('.elementor-field.location.elementor-field-select').after($buttonOpenAI);

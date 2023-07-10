@@ -1,3 +1,7 @@
+##### [Version 3.3.1](https://github.com/Codeinwp/themeisle-sdk/compare/v3.3.0...v3.3.1) (2023-06-21)
+
+- Fix Neve FSE promo typo
+
 #### [Version 3.3.0](https://github.com/Codeinwp/themeisle-sdk/compare/v3.2.41...v3.3.0) (2023-05-30)
 
 - Adds About Page Integration
