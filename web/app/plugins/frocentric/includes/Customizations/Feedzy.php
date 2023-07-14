@@ -87,10 +87,10 @@ class Feedzy {
 	 * Replaces the default "Read More" link to the source with a formatted citation
 	 */
 	protected static function replace_citation( $content, $author, $title, $url ) {
-		$pattern = '/<a\b[^>]*href=["\']' . preg_quote($url, '/') . '["\'][^>]*class=["\']feedzy-rss-link-icon["\'][^>]*>' . __( 'Read More', 'feedzy-rss-feeds' ) . '<\/a>/i';
+		$pattern = '/<a\b[^>]*href=["\']' . preg_quote( $url, '/' ) . '["\'][^>]*class=["\']feedzy-rss-link-icon["\'][^>]*>' . __( 'Read More', 'feedzy-rss-feeds' ) . '<\/a>/i';
 		$citation = '<aside class="cite">' . __( 'Originally posted by ', 'frocentric' ) . $author . ' to <a href="' . $url . '" target="_blank" rel="nofollow">' . $title . '</a></aside>';
 
-		return preg_replace($pattern, $citation, $content );
+		return preg_replace( $pattern, $citation, $content );
 	}
 
 	/**
@@ -147,18 +147,17 @@ class Feedzy {
 			$title = get_post_meta( $post->ID, 'feedzy_item_title', true );
 			$url = get_post_meta( $post->ID, 'feedzy_item_url', true );
 
-			if ( empty( $author) ) {
+			if ( empty( $author ) ) {
 				$author = get_post_meta( $post->ID, 'feedzy_item_author', true );
 			}
 
-			if ( empty( $title) ) {
+			if ( empty( $title ) ) {
 				$title = $post->post_title;
 			}
 
 			if ( ! empty( $author ) && ! empty( $title ) && ! empty( $url ) ) {
 				$content = self::replace_citation( $content, $author, $title, $url );
 			}
-
 		}
 
 		return $content;
