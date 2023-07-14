@@ -75,9 +75,11 @@ class Feedzy {
 	 */
 	public static function hooks() {
 		if ( Utils::is_request( Constants::FRONTEND_REQUEST ) ) {
+			add_action( 'feedzy_after_post_import', array( __CLASS__, 'save_item_title' ), 10, 3 );
 			add_filter( 'feedzy_content', array( __CLASS__, 'feedzy_content' ), 5, 2 );
 			add_filter( 'feedzy_insert_post_args', array( __CLASS__, 'feedzy_insert_post_args' ), 10, 6 );
 			add_filter( 'feedzy_item_filter', array( __CLASS__, 'feedzy_item_filter' ), 10, 5 );
+			add_filter( 'the_content', array( __CLASS__, 'set_post_citation' ) );
 		}
 	}
 
@@ -89,6 +91,13 @@ class Feedzy {
 		$citation = '<aside class="cite">' . __( 'Originally posted by ', 'frocentric' ) . $author . ' to <a href="' . $url . '" target="_blank" rel="nofollow">' . $title . '</a></aside>';
 
 		return preg_replace($pattern, $citation, $content );
+	}
+
+	/**
+	 * Saves the original item title as metadata for the imported post
+	 */
+	public static function save_item_title( $post_id, $feedzy_item, $feedzy_settings ) {
+		update_post_meta( $post_id, 'feedzy_item_title', sanitize_text_field( $feedzy_item['item_title'] ) );
 	}
 
 	/**
@@ -115,8 +124,6 @@ class Feedzy {
 			}
 		}
 
-		$args = self::set_post_citation( $args, $item, $author );
-
 		return $args;
 	}
 
@@ -132,24 +139,29 @@ class Feedzy {
 	/**
 	 * Replaces the default "Read More" link to the source with a formatted citation
 	 */
-	private static function set_post_citation( $args, $item, $author ) {
-		$author_name = '';
+	public static function set_post_citation( $content ) {
+		global $post;
 
-		if ( ! empty( $author ) ) {
-			$author_name = $author->display_name;
-		} else {
-			if ( $item['item_author'] ) {
-				if ( is_string( $item['item_author'] ) ) {
-					$author_name = $item['item_author'];
-				} elseif ( is_object( $item['item_author'] ) ) {
-					$author_name = $item['item_author']->get_name();
-				}
+		if ( ! empty( $post ) && get_post_meta( $post->ID, 'feedzy', true ) ) {
+			$author = get_the_author_meta( 'display_name', intval( $post->post_author ) );
+			$title = get_post_meta( $post->ID, 'feedzy_item_title', true );
+			$url = get_post_meta( $post->ID, 'feedzy_item_url', true );
+
+			if ( empty( $author) ) {
+				$author = get_post_meta( $post->ID, 'feedzy_item_author', true );
 			}
+
+			if ( empty( $title) ) {
+				$title = $post->post_title;
+			}
+
+			if ( ! empty( $author ) && ! empty( $title ) && ! empty( $url ) ) {
+				$content = self::replace_citation( $content, $author, $title, $url );
+			}
+
 		}
 
-		$args['post_content'] = self::replace_citation( $args['post_content'], $author_name, $args['post_title'], $args['post_content'] );
-
-		return $args;
+		return $content;
 	}
 
 	/**
