@@ -82,6 +82,16 @@ class Feedzy {
 	}
 
 	/**
+	 * Replaces the default "Read More" link to the source with a formatted citation
+	 */
+	protected static function replace_citation( $content, $author, $title, $url ) {
+		$pattern = '/<a\b[^>]*href=["\']' . preg_quote($url, '/') . '["\'][^>]*class=["\']feedzy-rss-link-icon["\'][^>]*>' . __( 'Read More', 'feedzy-rss-feeds' ) . '<\/a>/i';
+		$citation = '<aside class="cite">' . __( 'Originally posted by ', 'frocentric' ) . $author . ' to <a href="' . $url . '" target="_blank" rel="nofollow">' . $title . '</a></aside>';
+
+		return preg_replace($pattern, $citation, $content );
+	}
+
+	/**
 	 * Sets the post author based on the provided querystring value
 	 * Requires "feed_author" parameter to be added to feed URL in Feedzy control panel. Can be set to either a user ID or login.
 	 */
@@ -137,9 +147,7 @@ class Feedzy {
 			}
 		}
 
-		$pattern = '/<a\b[^>]*href=["\']' . preg_quote($item['item_url'], '/') . '["\'][^>]*class=["\']feedzy-rss-link-icon["\'][^>]*>' . __( 'Read More', 'feedzy-rss-feeds' ) . '<\/a>/i';
-		$citation = '<aside class="cite">' . __( 'Originally posted by ', 'frocentric' ) . $author_name . ' to <a href="' . $item['item_url'] . '" target="_blank" rel="nofollow">' . $args['post_title'] . '</a></aside>';
-		$args['post_content'] = preg_replace($pattern, $citation, $args['post_content'] );
+		$args['post_content'] = self::replace_citation( $args['post_content'], $author_name, $args['post_title'], $args['post_content'] );
 
 		return $args;
 	}
