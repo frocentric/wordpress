@@ -2968,16 +2968,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.14.1",
+            "version": "v3.14.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "b5e13c19999dc41e89f1a1e7b60ae67c6189c406"
+                "reference": "05762d9488671652e641ca51fa0dc575341563d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/b5e13c19999dc41e89f1a1e7b60ae67c6189c406",
-                "reference": "b5e13c19999dc41e89f1a1e7b60ae67c6189c406",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/05762d9488671652e641ca51fa0dc575341563d9",
+                "reference": "05762d9488671652e641ca51fa0dc575341563d9",
                 "shasum": ""
             },
             "require": {
@@ -2996,11 +2996,11 @@
                 "mobiledetect/mobiledetectlib": "^2.8",
                 "php": "^7 || ^8",
                 "phpcompatibility/phpcompatibility-wp": "^2.0",
-                "phpstan/phpstan": "^0.12",
+                "phpstan/phpstan": "^1.8",
                 "phpunit/phpunit": "^7.5 || ^8 || ^9",
                 "psr/container": "1.0.0",
                 "roave/security-advisories": "dev-master",
-                "szepeviktor/phpstan-wordpress": "^0.7.0",
+                "szepeviktor/phpstan-wordpress": "^1.3",
                 "woocommerce/action-scheduler": "^3.4",
                 "wp-coding-standards/wpcs": "^2",
                 "wp-media/background-processing": "^1.3",
@@ -3078,7 +3078,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2023-07-04T19:09:44+00:00"
+            "time": "2023-07-18T13:07:00+00:00"
         },
         {
             "name": "wpackagist-plugin/authors-list",
