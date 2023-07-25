@@ -249,9 +249,10 @@
   },
   "scripts": {
     "post-root-package-install": [
-      "php -r \"copy('.env.example', '.env');\""
+      "@init"
     ],
 	"post-install-cmd": [
+		"@init",
 		"@configure-ssp",
 		"@fix-kinsta"
 	],
@@ -259,6 +260,7 @@
 		"@configure-ssp",
 		"@fix-kinsta"
 	],
+	"init": "if [ ! -e .env ]; then cp .env.dist .env; fi;if [ ! -e wp-cli.yml ]; then cp wp-cli.yml.dist wp-cli.yml; fi",
 	"configure-ssp": "cd web/app/plugins/frocentric;composer install;cd ../../../..",
 	"fix-kinsta": "[ -d \"web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins\" ] && find web/app/mu-plugins/kinsta-mu-plugins ! -name 'kinsta-mu-plugins' -type d -maxdepth 1 -exec rm -rf {} \\; && mv -f web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins.php web/app/mu-plugins && mv -f web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins/* web/app/mu-plugins/kinsta-mu-plugins && rm -rf web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins || true",
     "cs": "phpcs --standard=phpcs.xml ./web/app/plugins/frocentric ./web/app/plugins/frocentric-elementor-extension ./web/app/themes/frocentric ./web/app/themes/frocentric-tech",
