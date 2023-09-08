@@ -118,7 +118,6 @@ abstract class Filterbar_Filter_Taxonomy extends \Tribe__Events__Filterbar__Filt
 
 			return $this->get_depth( $term, $level );
 		}
-
 	}
 
 	/**

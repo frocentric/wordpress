@@ -58,7 +58,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/the-events-calendar-community-events",
-        "version": "4.10.9",
+        "version": "4.10.12",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community&version={%VERSION}&key={%TEC_CE_LICENSE}",
@@ -88,7 +88,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-tickets-plus",
-        "version": "5.7.2",
+        "version": "5.7.4",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=event-tickets-plus&version={%VERSION}&key={%TEC_ETP_LICENSE}",
@@ -103,7 +103,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-calendar-pro",
-        "version": "6.1.0",
+        "version": "6.2.1",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}",
@@ -118,7 +118,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-virtual",
-        "version": "1.15.1",
+        "version": "1.15.3",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-virtual&version={%VERSION}&key={%TEC_VE_LICENSE}",
@@ -133,7 +133,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/the-events-calendar-filterbar",
-        "version": "5.5.0",
+        "version": "5.5.2",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=tribe-filterbar&version={%VERSION}&key={%TEC_FB_LICENSE}",
@@ -249,9 +249,10 @@
   },
   "scripts": {
     "post-root-package-install": [
-      "php -r \"copy('.env.example', '.env');\""
+      "@init"
     ],
 	"post-install-cmd": [
+		"@init",
 		"@configure-ssp",
 		"@fix-kinsta"
 	],
@@ -259,6 +260,7 @@
 		"@configure-ssp",
 		"@fix-kinsta"
 	],
+	"init": "if [ ! -e .env ]; then cp .env.dist .env; fi;if [ ! -e wp-cli.yml ]; then cp wp-cli.yml.dist wp-cli.yml; fi",
 	"configure-ssp": "cd web/app/plugins/frocentric;composer install;cd ../../../..",
 	"fix-kinsta": "[ -d \"web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins\" ] && find web/app/mu-plugins/kinsta-mu-plugins ! -name 'kinsta-mu-plugins' -type d -maxdepth 1 -exec rm -rf {} \\; && mv -f web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins.php web/app/mu-plugins && mv -f web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins/* web/app/mu-plugins/kinsta-mu-plugins && rm -rf web/app/mu-plugins/kinsta-mu-plugins/kinsta-mu-plugins || true",
     "cs": "phpcs --standard=phpcs.xml ./web/app/plugins/frocentric ./web/app/plugins/frocentric-elementor-extension ./web/app/themes/frocentric ./web/app/themes/frocentric-tech",
