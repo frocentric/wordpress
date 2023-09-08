@@ -8,7 +8,7 @@
 
 namespace Frocentric;
 
-use Frocentric\Constants as Constants;
+use Frocentric\Constants;
 use Frocentric\Admin\Main as Admin;
 use Frocentric\Front\Main as Front;
 
@@ -131,7 +131,7 @@ final class Main {
 
 			add_action(
 				'admin_notices',
-				function() use ( $errors ) {
+				function () use ( $errors ) {
 					?>
 					<div class="notice notice-error">
 						<?php
@@ -166,6 +166,6 @@ final class Main {
 
 		load_textdomain( 'frocentric', WP_LANG_DIR . '/frocentric/frocentric-' . $locale . '.mo' );
 
-		load_plugin_textdomain( 'frocentric', false, plugin_basename( dirname( __FILE__ ) ) . '/i18n/languages' );
+		load_plugin_textdomain( 'frocentric', false, plugin_basename( __DIR__ ) . '/i18n/languages' );
 	}
 }

@@ -272,7 +272,6 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 		);
 
 		$this->end_controls_section();
-
 	}
 
 	/**
@@ -400,5 +399,4 @@ class Post_Grid_Widget extends \Elementor\Widget_Base {
 			return $related_args;
 		}
 	}
-
 }
