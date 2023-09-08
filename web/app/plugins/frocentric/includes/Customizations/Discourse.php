@@ -8,8 +8,8 @@
 
 namespace Frocentric\Customizations;
 
-use Frocentric\Constants as Constants;
-use Frocentric\Utils as Utils;
+use Frocentric\Constants;
+use Frocentric\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
