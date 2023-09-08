@@ -88,7 +88,8 @@ final class Assets {
 	/**
 	 * Renders stylesheet to hide admin bar on profile page
 	 */
-	public static function hide_admin_bar_prefs() { ?>
+	public static function hide_admin_bar_prefs() {
+		?>
 		<style type="text/css">
 			.show-admin-bar {display: none;}
 		</style>
