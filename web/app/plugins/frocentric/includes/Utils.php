@@ -9,7 +9,7 @@
 
 namespace Frocentric;
 
-use Frocentric\Constants as Constants;
+use Frocentric\Constants;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

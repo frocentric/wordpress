@@ -79,7 +79,7 @@ if ( ! is_readable( $autoloader ) ) {
 	 */
 	add_action(
 		'admin_notices',
-		function() {
+		function () {
 			$composer_error = get_error();
 			?>
 			<div class="notice notice-error">

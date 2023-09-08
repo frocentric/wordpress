@@ -34,10 +34,13 @@ web/app/wp-rocket-config
 web/wp
 web/.htaccess
 
+# WP-CLI
+wp-cli*.yml
+
 # Dotenv
 .env
 .env.*
-!.env.example
+!.env.dist
 
 # Composer
 **/vendor/*

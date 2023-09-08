@@ -66,7 +66,7 @@ class Feedzy_Rss_Feeds_Pro {
 	 */
 	public function __construct() {
 		$this->plugin_name = 'feedzy-rss-feeds-pro';
-		$this->version     = '2.2.4';
+		$this->version     = '2.2.5';
 		$this->loader      = new Feedzy_Rss_Feeds_Pro_Loader();
 		$this->set_locale();
 		$this->define_admin_hooks();

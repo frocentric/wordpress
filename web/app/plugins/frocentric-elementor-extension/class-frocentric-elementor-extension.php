@@ -85,7 +85,6 @@ final class Frocentric_Elementor_Extension {
 			self::$instance = new self();
 		}
 		return self::$instance;
-
 	}
 
 	/**
@@ -98,7 +97,6 @@ final class Frocentric_Elementor_Extension {
 	public function __construct() {
 
 		add_action( 'plugins_loaded', array( $this, 'on_plugins_loaded' ) );
-
 	}
 
 	/**
@@ -115,7 +113,6 @@ final class Frocentric_Elementor_Extension {
 	public function i18n() {
 
 		load_plugin_textdomain( 'elementor-test-extension' );
-
 	}
 
 	/**
@@ -135,7 +132,6 @@ final class Frocentric_Elementor_Extension {
 		if ( $this->is_compatible() ) {
 			add_action( 'elementor/init', array( $this, 'init' ) );
 		}
-
 	}
 
 	/**
@@ -169,7 +165,6 @@ final class Frocentric_Elementor_Extension {
 		}
 
 		return true;
-
 	}
 
 	/**
@@ -191,7 +186,6 @@ final class Frocentric_Elementor_Extension {
 		// Add Plugin actions.
 		add_action( 'elementor/widgets/widgets_registered', array( $this, 'init_widgets' ) );
 		add_action( 'elementor/controls/controls_registered', array( $this, 'init_controls' ) );
-
 	}
 
 	/**
@@ -216,7 +210,6 @@ final class Frocentric_Elementor_Extension {
 		add_filter( 'generate_post_author', array( $post_grid_widget, 'enable_author' ) );
 		add_filter( 'post_class', array( $post_grid_widget, 'generate_blog_post_classes' ) );
 		add_action( 'generate_after_entry_content', 'generate_footer_meta' );
-
 	}
 
 	/**
@@ -258,7 +251,6 @@ final class Frocentric_Elementor_Extension {
 		);
 
 		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
-
 	}
 
 	/**
@@ -285,7 +277,6 @@ final class Frocentric_Elementor_Extension {
 		);
 
 		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
-
 	}
 
 	/**
@@ -312,9 +303,7 @@ final class Frocentric_Elementor_Extension {
 		);
 
 		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
-
 	}
-
 }
 
 Frocentric_Elementor_Extension::instance();

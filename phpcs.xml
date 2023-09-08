@@ -27,13 +27,18 @@
 	<arg value="ns"/>
 	<arg value="ps"/>
 
+	<!--
+	Prevent errors caused by WordPress Coding Standards not supporting PHP 8.0+.
+	See https://github.com/WordPress/WordPress-Coding-Standards/issues/2035
+	-->
+	<ini name="error_reporting" value="E_ALL" />
+
 	<rule ref="PHPCompatibilityWP" />
 	<config name="7.1-" />
 
 	<rule ref="WordPress-Core">
 		<!-- PSR4 -->
-		<exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
-		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+		<exclude name="WordPress.Files.FileName"/>
 		<exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
 	</rule>
 

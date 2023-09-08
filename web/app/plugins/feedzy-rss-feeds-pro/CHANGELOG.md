@@ -1,3 +1,7 @@
+##### [Version 2.2.5](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.2.4...v2.2.5) (2023-08-03)
+
+- Fixed import custom field value issue with duplicate title
+
 ##### [Version 2.2.4](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.2.3...v2.2.4) (2023-07-06)
 
 - Removed image tag escaping to fix issue with some images not displaying

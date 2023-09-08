@@ -948,24 +948,24 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 		}
 		$new_content = $content;
 		$feed        = null;
-		$item_title  = '';
+		$item_link   = '';
 		if ( is_array( $item_obj ) && isset( $item_obj['item'] ) ) {
-			$feed       = $item_obj['item']->get_feed();
-			$item_title = $item_obj['item']->get_title();
+			$feed      = $item_obj['item']->get_feed();
+			$item_link = $item_obj['item']->get_link( 0 );
 		} elseif ( method_exists( $item_obj, 'get_items' ) ) {
-			$feed       = $item_obj;
-			$item_title = $item_obj->get_item()->get_feed();
+			$feed      = $item_obj;
+			$item_link = $item_obj->get_item()->get_link( 0 );
 		} elseif ( method_exists( $item_obj, 'get_feed' ) ) {
-			$feed       = $item_obj->get_feed();
-			$item_title = $item_obj->get_title();
+			$feed      = $item_obj->get_feed();
+			$item_link = $item_obj->get_link( 0 );
 		}
 
 		if ( null === $feed ) {
 			return $new_content;
 		}
 
-		$item_title = html_entity_decode( $item_title );
-		$feed_url   = $feed->subscribe_url();
+		$item_link = html_entity_decode( $item_link );
+		$feed_url  = $feed->subscribe_url();
 
 		$sxe = null;
 		libxml_use_internal_errors( true );
@@ -1033,11 +1033,11 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 					}
 				}
 
-				$title_tag   = 'title';
-				$item_titles = $sxe->xpath( "//{$prefix}{$item_tag}/$prefix$title_tag" );
-				$index       = $this->feedzy_find_index_by_title( $item_titles, $item_title );
-				$index       = false !== $index ? $index + 1 : $index;
-				$tag_index   = ! empty( $item_matches[3] ) ? $item_matches[3] : 1;
+				$link_tag   = 'link[1]';
+				$item_links = $sxe->xpath( "//{$prefix}{$item_tag}/$prefix$link_tag" );
+				$index      = $this->feedzy_find_index_by_title( $item_links, $item_link );
+				$index      = false !== $index ? $index + 1 : $index;
+				$tag_index  = ! empty( $item_matches[3] ) ? $item_matches[3] : 1;
 
 				$eval  = false;
 				$xpath = ! empty( $attribute ) ? "//{$prefix}{$item_tag}[$index]//{$element}[$tag_index]/@{$attribute}" : "//{$prefix}{$item_tag}[$index]//{$element}[$tag_index]/text()";
@@ -1088,10 +1088,10 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 					$element = $prefix . $element;
 				}
 
-				$title_tag   = 'title';
-				$item_titles = $sxe->xpath( "//{$prefix}{$item_tag}/$prefix$title_tag" );
-				$index       = $this->feedzy_find_index_by_title( $item_titles, $item_title );
-				$index       = false !== $index ? $index + 1 : false;
+				$link_tag   = 'link[1]';
+				$item_links = $sxe->xpath( "//{$prefix}{$item_tag}/$prefix$link_tag" );
+				$index      = $this->feedzy_find_index_by_title( $item_links, $item_link );
+				$index      = false !== $index ? $index + 1 : false;
 
 				$xpath = empty( $attribute ) ? "//{$element}/text()" : "//{$element}/@{$attribute}";
 
@@ -2124,15 +2124,17 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 *
 	 * @access @public
 	 * @param array  $data All item titles.
-	 * @param string $title Current item title.
+	 * @param string $item_link Current item link.
 	 * @return false|int return item index key.
 	 */
-	public function feedzy_find_index_by_title( $data, $title ) {
+	public function feedzy_find_index_by_title( $data, $item_link ) {
 		$index = false;
 		if ( ! empty( $data ) ) {
-			foreach ( $data as $key => $item_title ) {
-				$item_title = trim( reset( $item_title ) );
-				if ( trim( $title ) === $item_title ) {
+			foreach ( $data as $key => $link ) {
+				if ( is_object( $link ) && ( method_exists( $link, 'attributes' ) && $link->attributes()->href ) ) {
+					$link = $link->attributes()->href;
+				}
+				if ( md5( trim( $item_link ) ) === md5( trim( $link ) ) ) {
 					$index = $key;
 					break;
 				}
