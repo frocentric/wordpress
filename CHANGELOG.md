@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.18.5](https://github.com/frocentric/wordpress/compare/v1.18.4...v1.18.5) (2023-09-08)
+
+
+### Bug Fixes
+
+* ensure citations are displayed for imported posts ([#892](https://github.com/frocentric/wordpress/issues/892)) ([d66c3a6](https://github.com/frocentric/wordpress/commit/d66c3a6e32c04586a30002955db54e4c8baa4228)), closes [#891](https://github.com/frocentric/wordpress/issues/891)
+
 ## [1.18.4](https://github.com/frocentric/wordpress/compare/v1.18.3...v1.18.4) (2023-07-10)
 
 ## [1.18.3](https://github.com/frocentric/wordpress/compare/v1.18.2...v1.18.3) (2023-07-03)
