@@ -15,7 +15,7 @@
  * Plugin Name: Frocentric Platform
  * Plugin URI:  https://github.com/frocentric/wordpress//
  * Description: Custom functionality for the frocentric.io platform
- * Version:     1.18.6
+ * Version:     1.18.7
  * Author:      Frocentric CIC
  * Author URI:  https://hq.frocentric.io/
  * License:     GPL-2.0+
