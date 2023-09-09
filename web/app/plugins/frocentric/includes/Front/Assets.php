@@ -213,7 +213,7 @@ final class Assets {
 	 * Remove WP version number from CSS and JS URLs
 	 */
 	public static function remove_version_from_assets( $src ) {
-		if ( strpos( $src, '?ver=' ) ) {
+		if ( strpos( $src, '?ver=' ) || strpos( $src, '&ver=' ) ) {
 			$src = remove_query_arg( 'ver', $src );
 		}
 
