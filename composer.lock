@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c389a25dc814a514ebd2365a5444f555",
+    "content-hash": "fa2b5c2e900a6070c596601290d9df61",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3373,6 +3373,24 @@
             "homepage": "https://wordpress.org/plugins/ninja-forms-addon-manager/"
         },
         {
+            "name": "wpackagist-plugin/plausible-analytics",
+            "version": "1.3.5",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/plausible-analytics/",
+                "reference": "tags/1.3.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/plausible-analytics.1.3.5.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/plausible-analytics/"
+        },
+        {
             "name": "wpackagist-plugin/pods",
             "version": "2.9.19",
             "source": {
@@ -3497,24 +3515,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wordpress-importer/"
-        },
-        {
-            "name": "wpackagist-plugin/wp-analytify",
-            "version": "5.1.1",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wp-analytify/",
-                "reference": "tags/5.1.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-analytify.5.1.1.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/wp-analytify/"
         },
         {
             "name": "wpackagist-plugin/wp-discourse",
