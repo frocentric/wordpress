@@ -105,9 +105,12 @@ final class Assets {
 		add_filter( 'frocentric_enqueue_scripts', array( __CLASS__, 'add_scripts' ), 9 );
 		add_filter( 'frocentric_enqueue_styles', array( __CLASS__, 'add_styles' ), 9 );
 		add_filter( 'show_admin_bar', array( __CLASS__, 'show_admin_bar' ), 20, 1 );
+		add_filter( 'script_loader_src', array( __CLASS__, 'remove_version_from_assets' ), 999 );
+		add_filter( 'style_loader_src', array( __CLASS__, 'remove_version_from_assets' ), 999 );
 		add_filter( 'the_content', array( __CLASS__, 'the_content' ), 999, 1 );
 		add_filter( 'the_content_feed', array( __CLASS__, 'the_content_feed' ), 999, 1 );
 		add_filter( 'the_excerpt_rss', array( __CLASS__, 'the_content_feed' ), 999, 1 );
+		add_filter( 'the_generator', array( __CLASS__, 'remove_version_from_generator' ) );
 		add_filter( 'wp_get_nav_menu_items', array( __CLASS__, 'wp_get_nav_menu_items' ), 10, 3 );
 		add_filter( 'wp_nav_menu_objects', array( __CLASS__, 'wp_nav_menu_objects' ) );
 	}
@@ -204,6 +207,24 @@ final class Assets {
 
 		// Filter out duplicate classes.
 		return array_unique( $classes );
+	}
+
+	/**
+	 * Remove WP version number from CSS and JS URLs
+	 */
+	public static function remove_version_from_assets( $src ) {
+		if ( strpos( $src, '?ver=' ) || strpos( $src, '&ver=' ) ) {
+			$src = remove_query_arg( 'ver', $src );
+		}
+
+		return $src;
+	}
+
+	/**
+	 * Remove WP version number in <generator /> tag from HTML pages and RSS feeds
+	 */
+	public static function remove_version_from_generator() {
+		return '';
 	}
 
 	/**
