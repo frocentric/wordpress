@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.18.8](https://github.com/frocentric/wordpress/compare/v1.18.7...v1.18.8) (2023-09-09)
+
+
+### Bug Fixes
+
+* **security:** hide WP version number ([f03c6f2](https://github.com/frocentric/wordpress/commit/f03c6f2d0878eeeffeb2163644d3f52a1c7e4aa4))
+* **security:** remove WP version number ([397079c](https://github.com/frocentric/wordpress/commit/397079c88f052ab0b083d2832eca7b71820f36a6))
+
 ## [1.18.7](https://github.com/frocentric/wordpress/compare/v1.18.6...v1.18.7) (2023-09-09)
 
 ## [1.18.6](https://github.com/frocentric/wordpress/compare/v1.18.5...v1.18.6) (2023-09-09)
