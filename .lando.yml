@@ -1,0 +1,52 @@
+name: frocentric
+recipe: wordpress
+config:
+  database: mariadb
+  php: '8.1'
+  via: nginx
+  webroot: web
+  xdebug: true
+  config:
+    php: .lando/config/php/php.ini
+proxy:
+  appserver_nginx:
+    - tech.frocentric.lndo.site
+services:
+  appserver:
+    composer_version: 2-latest
+    build_as_root:
+      - apt-get update
+      - apt-get install -y ca-certificates curl gnupg
+      - mkdir -p /etc/apt/keyrings
+      - curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+      - NODE_MAJOR=20 && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+      - apt-get update
+      - apt-get install -y nodejs
+    run:
+      - composer install
+      - npm install
+    run_as_root:
+      - .lando/scripts/xdebug.sh develop,debug
+    overrides:
+      environment:
+        XDEBUG_MODE:
+        PHP_IDE_CONFIG: "serverName=appserver"
+  database:
+    portforward: 3308
+# https://github.com/lando/lando/issues/1668#issuecomment-557090549
+# events:
+#   pre-wp:
+#     - appserver: rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini && pkill -o -USR2 php-fpm
+#   post-wp:
+#     - appserver: docker-php-ext-enable xdebug && pkill -o -USR2 php-fpm
+tooling:
+  node:
+    service: appserver
+  npm:
+    service: appserver
+  # https://github.com/lando/lando/issues/1668#issuecomment-772829423
+  xdebug:
+    description: Loads XDebug in the selected mode.
+    cmd:
+      - appserver: /app/.lando/scripts/xdebug.sh
+    user: root
