@@ -93,3 +93,6 @@ local-adminer-*.php
 
 # PHP_CodeSniffer
 .phpcs.cache
+
+# Lando
+.lando.local.yml

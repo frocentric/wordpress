@@ -1,0 +1,20 @@
+{
+  "workspaceFolder": "/app",
+  "extensions": [
+    "bmewburn.vscode-intelephense-client",
+    "dbaeumer.vscode-eslint",
+    "EditorConfig.EditorConfig",
+    "esbenp.prettier-vscode",
+    "Gruntfuggly.todo-tree",
+    "ms-azuretools.vscode-docker",
+    "obliviousharmony.vscode-php-codesniffer",
+    "vivaxy.vscode-conventional-commits",
+    "wongjn.php-sniffer",
+    "xdebug.php-debug",
+    "xdebug.php-pack",
+    "yzhang.markdown-all-in-one",
+    "zobo.php-intellisense"
+  ],
+  "settings": {},
+  "remoteUser": "www-data"
+}

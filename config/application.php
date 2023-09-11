@@ -45,10 +45,11 @@ if ( file_exists( $root_dir . '/.env' ) ) {
  */
 define( 'WP_ENV', env( 'WP_ENV' ) ?? 'production' );
 
-$env_config = __DIR__ . '/environments/' . WP_ENV . '.php';
-
-if ( file_exists( $env_config ) ) {
-	require_once $env_config;
+/**
+ * Infer WP_ENVIRONMENT_TYPE based on WP_ENV
+ */
+if ( ! env( 'WP_ENVIRONMENT_TYPE' ) && in_array( WP_ENV, array( 'production', 'staging', 'development' ) ) ) {
+	Config::define( 'WP_ENVIRONMENT_TYPE', WP_ENV );
 }
 
 /**
@@ -84,9 +85,9 @@ if ( env( 'DATABASE_URL' ) ) {
 	Config::define( 'DB_HOST', isset( $dsn->port ) ? "{$dsn->host}:{$dsn->port}" : $dsn->host );
 }
 
-if ( WP_ENV === 'development' && defined( 'WP_CLI' ) && WP_CLI ) {
-	Config::define( 'DB_HOST', env( 'DB_HOST_LOCAL' ) );
-}
+// if ( WP_ENV === 'development' && defined( 'WP_CLI' ) && WP_CLI ) {
+// 	Config::define( 'DB_HOST', env( 'DB_HOST_LOCAL' ) );
+// }
 
 /**
  * Authentication Unique Keys and Salts
@@ -110,6 +111,8 @@ Config::define( 'DISABLE_WP_CRON', env( 'DISABLE_WP_CRON' ) ?? false );
 Config::define( 'DISALLOW_FILE_EDIT', true );
 // Disable plugin and theme updates and installation from the admin.
 Config::define( 'DISALLOW_FILE_MODS', env( 'DISALLOW_FILE_MODS' ) ?? true );
+// Disable plugin and theme updates and installation from the admin.
+Config::define( 'WP_MEMORY_LIMIT', env( 'WP_MEMORY_LIMIT' ) ?? '256M' );
 
 /**
  * Debugging Settings
@@ -117,6 +120,10 @@ Config::define( 'DISALLOW_FILE_MODS', env( 'DISALLOW_FILE_MODS' ) ?? true );
 Config::define( 'WP_DEBUG_DISPLAY', false );
 Config::define( 'WP_DEBUG_LOG', env( 'WP_DEBUG_LOG' ) ?? false );
 Config::define( 'SCRIPT_DEBUG', false );
+ini_set( 'display_errors', '0' );
+if ( env( 'EXCLUDED_ERROR_LEVELS' ) ) {
+	Config::define( 'EXCLUDED_ERROR_LEVELS', explode( ',', env( 'EXCLUDED_ERROR_LEVELS' ) ) );
+}
 
 /**
  * Multisite Settings
