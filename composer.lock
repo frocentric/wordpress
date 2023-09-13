@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa2b5c2e900a6070c596601290d9df61",
+    "content-hash": "d1b3d02c143d1dbfa12191dea8db39fe",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -2845,16 +2845,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.15",
+            "version": "v3.15.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "6417d8f8ce6d465c9430934fcbb60b3fb8e45567"
+                "reference": "240d37d8d753dc18853c1c8fdb052ece6df7c93e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/6417d8f8ce6d465c9430934fcbb60b3fb8e45567",
-                "reference": "6417d8f8ce6d465c9430934fcbb60b3fb8e45567",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/240d37d8d753dc18853c1c8fdb052ece6df7c93e",
+                "reference": "240d37d8d753dc18853c1c8fdb052ece6df7c93e",
                 "shasum": ""
             },
             "require": {
@@ -2956,7 +2956,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2023-08-31T17:05:38+00:00"
+            "time": "2023-09-12T15:51:49+00:00"
         },
         {
             "name": "wpackagist-plugin/authors-list",
