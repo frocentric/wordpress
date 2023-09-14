@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d1b3d02c143d1dbfa12191dea8db39fe",
+    "content-hash": "8de98db6ef9192dce25c1987a46acd4f",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3392,15 +3392,15 @@
         },
         {
             "name": "wpackagist-plugin/pods",
-            "version": "2.9.19",
+            "version": "3.0.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/pods/",
-                "reference": "tags/2.9.19"
+                "reference": "tags/3.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/pods.2.9.19.zip"
+                "url": "https://downloads.wordpress.org/plugin/pods.3.0.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
