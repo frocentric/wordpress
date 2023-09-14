@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa2b5c2e900a6070c596601290d9df61",
+    "content-hash": "d1b3d02c143d1dbfa12191dea8db39fe",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3176,15 +3176,15 @@
         },
         {
             "name": "wpackagist-plugin/event-tickets",
-            "version": "5.6.4",
+            "version": "5.6.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/event-tickets/",
-                "reference": "tags/5.6.4"
+                "reference": "tags/5.6.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/event-tickets.5.6.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/event-tickets.5.6.5.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
