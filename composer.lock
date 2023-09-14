@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa2b5c2e900a6070c596601290d9df61",
+    "content-hash": "d1b3d02c143d1dbfa12191dea8db39fe",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3482,15 +3482,15 @@
         },
         {
             "name": "wpackagist-plugin/the-events-calendar",
-            "version": "6.2.1",
+            "version": "6.2.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/the-events-calendar/",
-                "reference": "tags/6.2.1"
+                "reference": "tags/6.2.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.6.2.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.6.2.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
