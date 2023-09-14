@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fa2b5c2e900a6070c596601290d9df61",
+    "content-hash": "d1b3d02c143d1dbfa12191dea8db39fe",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3158,15 +3158,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "5.8.8",
+            "version": "5.8.9",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/5.8.8"
+                "reference": "tags/5.8.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.5.8.8.zip"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.5.8.9.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
