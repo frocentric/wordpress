@@ -113,6 +113,21 @@ final class Assets {
 		add_filter( 'the_generator', array( __CLASS__, 'remove_version_from_generator' ) );
 		add_filter( 'wp_get_nav_menu_items', array( __CLASS__, 'wp_get_nav_menu_items' ), 10, 3 );
 		add_filter( 'wp_nav_menu_objects', array( __CLASS__, 'wp_nav_menu_objects' ) );
+
+		// Shortcodes.
+		add_shortcode(
+			'wpse_comments_template',
+			function ( $atts = array(), $content = '' ) {
+				if ( is_singular() && post_type_supports( get_post_type(), 'comments' ) ) {
+					ob_start();
+					comments_template();
+					add_filter( 'comments_open', 'wpse_comments_open' );
+					add_filter( 'get_comments_number', 'wpse_comments_number' );
+					return ob_get_clean();
+				}
+				return '';
+			}
+		);
 	}
 
 	/**
