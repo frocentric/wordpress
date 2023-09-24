@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.18.10](https://github.com/frocentric/wordpress/compare/v1.18.9...v1.18.10) (2023-09-24)
+
+
+### Bug Fixes
+
+* restores post comment display ([af80710](https://github.com/frocentric/wordpress/commit/af80710ed85087c47be1e07121462d9490ec37ad))
+
 ## [1.18.9](https://github.com/frocentric/wordpress/compare/v1.18.8...v1.18.9) (2023-09-11)
 
 ## [1.18.8](https://github.com/frocentric/wordpress/compare/v1.18.7...v1.18.8) (2023-09-09)
