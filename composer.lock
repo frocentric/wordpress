@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d1b3d02c143d1dbfa12191dea8db39fe",
+    "content-hash": "962adbadcc392edbfd8a39bd4dcf77d3",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1793,7 +1793,7 @@
         },
         {
             "name": "modern-tribe/events-calendar-pro",
-            "version": "6.2.1",
+            "version": "6.2.3",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}"
@@ -1802,7 +1802,7 @@
         },
         {
             "name": "modern-tribe/events-tickets-plus",
-            "version": "5.7.4",
+            "version": "5.7.6",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=event-tickets-plus&version={%VERSION}&key={%TEC_ETP_LICENSE}"
@@ -1811,7 +1811,7 @@
         },
         {
             "name": "modern-tribe/events-virtual",
-            "version": "1.15.3",
+            "version": "1.15.4",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-virtual&version={%VERSION}&key={%TEC_VE_LICENSE}"
@@ -1820,7 +1820,7 @@
         },
         {
             "name": "modern-tribe/the-events-calendar-community-events",
-            "version": "4.10.12",
+            "version": "4.10.13",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community&version={%VERSION}&key={%TEC_CE_LICENSE}"
@@ -1829,7 +1829,7 @@
         },
         {
             "name": "modern-tribe/the-events-calendar-community-events-tickets",
-            "version": "4.9.2",
+            "version": "4.9.3",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community-tickets&version={%VERSION}&key={%TEC_CT_LICENSE}"
@@ -1838,7 +1838,7 @@
         },
         {
             "name": "modern-tribe/the-events-calendar-filterbar",
-            "version": "5.5.2",
+            "version": "5.5.3",
             "dist": {
                 "type": "zip",
                 "url": "https://pue.tri.be/api/plugins/v2/download?plugin=tribe-filterbar&version={%VERSION}&key={%TEC_FB_LICENSE}"
