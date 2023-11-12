@@ -3158,15 +3158,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "5.8.13",
+            "version": "5.8.14",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "tags/5.8.13"
+                "reference": "tags/5.8.14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.5.8.13.zip"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.5.8.14.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3176,15 +3176,15 @@
         },
         {
             "name": "wpackagist-plugin/event-tickets",
-            "version": "5.6.6.1",
+            "version": "5.6.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/event-tickets/",
-                "reference": "tags/5.6.6.1"
+                "reference": "tags/5.6.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/event-tickets.5.6.6.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/event-tickets.5.6.7.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -3482,15 +3482,15 @@
         },
         {
             "name": "wpackagist-plugin/the-events-calendar",
-            "version": "6.2.4",
+            "version": "6.2.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/the-events-calendar/",
-                "reference": "tags/6.2.4"
+                "reference": "tags/6.2.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.6.2.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.6.2.5.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -4223,5 +4223,5 @@
         "php": ">=5.6"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
