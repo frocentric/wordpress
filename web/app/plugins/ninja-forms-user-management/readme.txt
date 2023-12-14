@@ -1,10 +1,16 @@
 === Ninja Forms - User Management Extension ===
-Contributors: klhall1987, kbjohnson90
-Donate link: http://ninjaforms.com
-Tags: form, forms
-Requires at least: 4.7
-Tested up to: 6.0.2
-Stable tag: 3.2.0
+Author: Saturday Drive
+Author URI: http://ninjaforms.com/?utm_source=Ninja+Forms+Plugin&utm_medium=Plugins+WP+Dashboard
+Requires at least: 6.1
+Tested up to: 6.4.0
+Stable tag: 3.2.1
+Copyright: 2013 Saturday Drive
+
+Download Instructions
+1. Please navigate the to the Plugins > Add New page in the Wordpress admin area of your website.
+2. Click "Upload Plugin", browse to the directory you downloaded your add-on, click on the zip file, and then click "Open"
+3. Click the "Install Plugin" button
+4. Activate the plugin
 
 License: GPLv2 or later
 
@@ -30,6 +36,17 @@ This section describes how to install the plugin and get it working.
 For help and video tutorials, please visit our website: [Ninja Forms Documentation](http://docs.ninjaforms.com/)
 
 == Changelog ==
+
+= 3.2.1 (08 November 2023)
+*Bug Fixes:*
+- Ensure capabilities are honored for submission access
+- Ensure identical values don't override meta keys
+- Ensure User Access settings are present when selecting roles
+
+*Other:*
+- Update standard build automation
+- Remove deprecated codebase
+
 = 3.2.0 (06 September 2022)
 * Enhancements *
 * Enable Admin to set role permissions to view/edit submissions

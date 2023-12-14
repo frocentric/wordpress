@@ -1,7 +1,7 @@
 === FEEDZY RSS Feeds ===
 Contributors: themeisle,codeinwp
 Tags: RSS, SimplePie, shortcode, feed, thumbnail, image, rss feeds, aggregator, tinyMCE, WYSIWYG, MCE, UI, flux, plugin, WordPress, widget, importer, XML, ATOM, API, parser
-Requires at least: 3.7
+Requires at least: 6.0
 Requires PHP: 7.2 and above
 Tested up to: latest
 Stable tag: 1.0.0

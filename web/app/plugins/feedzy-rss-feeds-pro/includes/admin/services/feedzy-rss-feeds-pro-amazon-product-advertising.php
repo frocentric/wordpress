@@ -371,7 +371,7 @@ class Feedzy_Rss_Feeds_Pro_Amazon_Product_Advertising implements Feedzy_Rss_Feed
 						}
 					}
 				} else {
-					$this->errors[] = $exception->getMessage();
+					$this->errors[] = $result->getErrors();
 				}
 			} catch ( ApiException $exception ) {
 				if ( $exception->getResponseObject() instanceof ProductAdvertisingAPIClientException ) {

@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'saturday-drive/ninja-forms-user-management',
-        'pretty_version' => '3.2.0',
-        'version' => '3.2.0.0',
-        'reference' => '3ff5d52a6ad754d8b1816d8dca3c82b882f9d36a',
+        'pretty_version' => '3.2.1',
+        'version' => '3.2.1.0',
+        'reference' => '05ee92cfdd80d30c3e582f2cbeeb60e36797546e',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'saturday-drive/ninja-forms-user-management' => array(
-            'pretty_version' => '3.2.0',
-            'version' => '3.2.0.0',
-            'reference' => '3ff5d52a6ad754d8b1816d8dca3c82b882f9d36a',
+            'pretty_version' => '3.2.1',
+            'version' => '3.2.1.0',
+            'reference' => '05ee92cfdd80d30c3e582f2cbeeb60e36797546e',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

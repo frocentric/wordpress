@@ -1,3 +1,19 @@
+#### [Version 2.3.0](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.2.5...v2.3.0) (2023-10-23)
+
+### **New Features**
+
+- **Paraphrasing using OpenAI / Chat GPT [PRO]:** This feature enables users to utilize OpenAI's Chat GPT for paraphrasing text. It can assist in rephrasing and generating alternative wording for content.
+- **Content summarization support using OpenAI / Chat GPT  [PRO]:** With this feature, users can access support for summarizing longer pieces of content, making it easier to condense and understand the main points of a text.
+- **Added support to create a dynamic category [PRO]:** Feedzy can now create WordPress categories automatically during the import by taking the category name from the RSS XML Feed.
+- **Added individual fallback image setting [PRO]:** This feature allows users to set specific backup images for individual import jobs, not only a general fallback image for all import jobs.
+- **Ability to trim content to a particular amount of characters:** Users can now trim or limit the length of content to a specified number of characters, helping to meet length requirements or constraints.
+- **Integrated Search & Replace in the content of the tag feature:** This integration enables users to search for specific content within tags and replace it with alternative text, streamlining content management.
+- **Added action chain process support:** This feature facilitates the creation of multiple actions for a single Feedzy magic tag. You can now add a tag for the import job and use multiple actions on it (_paraphrase, summarize, trim, etc._).
+
+### **Bug Fixes**
+- Fixed conflict with spintax support
+- Fixed compatibility issue with the Elementor image rendering
+
 ##### [Version 2.2.5](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.2.4...v2.2.5) (2023-08-03)
 
 - Fixed import custom field value issue with duplicate title

@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.15.0 - 09-08-2023 */
+/*! elementor-pro - v3.18.0 - 06-12-2023 */
 (self["webpackChunkelementor_pro"] = self["webpackChunkelementor_pro"] || []).push([["frontend"],{
 
 /***/ "../assets/dev/js/frontend/frontend.js":
@@ -182,8 +182,12 @@ class DropdownMenuHeightController {
     this.widgetConfig = widgetConfig;
   }
   calculateStickyMenuNavHeight() {
+    this.widgetConfig.elements.$dropdownMenuContainer.css(this.widgetConfig.settings.menuHeightCssVarName, '');
     const menuToggleHeight = this.widgetConfig.elements.$dropdownMenuContainer.offset().top - jQuery(window).scrollTop();
     return elementorFrontend.elements.$window.height() - menuToggleHeight;
+  }
+  calculateMenuTabContentHeight($tab) {
+    return elementorFrontend.elements.$window.height() - $tab[0].getBoundingClientRect().top;
   }
   isElementSticky() {
     return this.widgetConfig.elements.$element.hasClass('elementor-sticky') || this.widgetConfig.elements.$element.parents('.elementor-sticky').length;
@@ -195,8 +199,40 @@ class DropdownMenuHeightController {
     this.widgetConfig.elements.$dropdownMenuContainer.css(this.widgetConfig.settings.menuHeightCssVarName, menuHeight);
   }
   reassignMobileMenuHeight() {
-    const menuHeight = this.widgetConfig.elements.$menuToggle.hasClass(this.widgetConfig.classes.menuToggleActiveClass) ? this.getMenuHeight() : 0;
+    const menuHeight = this.isToggleActive() ? this.getMenuHeight() : 0;
     return this.setMenuHeight(menuHeight);
+  }
+  reassignMenuHeight($activeTabContent) {
+    if (!this.isElementSticky() || 0 === $activeTabContent.length) {
+      return;
+    }
+    const offsetBottom = elementorFrontend.elements.$window.height() - $activeTabContent[0].getBoundingClientRect().top,
+      isContentHeightBiggerThanWindow = $activeTabContent.height() > offsetBottom;
+    if (!isContentHeightBiggerThanWindow) {
+      return;
+    }
+    $activeTabContent.css('height', this.calculateMenuTabContentHeight($activeTabContent) + 'px');
+    $activeTabContent.css('overflow-y', 'scroll');
+  }
+  resetMenuHeight($activeTabContent) {
+    if (!this.isElementSticky()) {
+      return;
+    }
+    $activeTabContent.css('height', 'initial');
+    $activeTabContent.css('overflow-y', 'visible');
+  }
+  isToggleActive() {
+    const $menuToggle = this.widgetConfig.elements.$menuToggle;
+
+    // New approach.
+    // Aria attributes instead of css classes.
+    if (!!this.widgetConfig.attributes?.menuToggleState) {
+      return 'true' === $menuToggle.attr(this.widgetConfig.attributes.menuToggleState);
+    }
+
+    // This can be removed once the new markup of the Mega Menu has been implemented.
+    // Previously we used state classes to indicate the active state of the menu toggle.
+    return $menuToggle.hasClass(this.widgetConfig.classes.menuToggleActiveClass);
   }
 }
 exports["default"] = DropdownMenuHeightController;
@@ -1176,7 +1212,7 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 exports["default"] = void 0;
-var _default = elementorModules.frontend.handlers.Base.extend({
+var _default = exports["default"] = elementorModules.frontend.handlers.Base.extend({
   currentConfig: {},
   debouncedReactivate: null,
   bindEvents() {
@@ -1337,7 +1373,6 @@ var _default = elementorModules.frontend.handlers.Base.extend({
     });
   }
 });
-exports["default"] = _default;
 
 /***/ }),
 
@@ -1457,14 +1492,14 @@ module.exports = _toPropertyKey, module.exports.__esModule = true, module.export
   \********************************************************/
 /***/ ((module) => {
 
-function _typeof(obj) {
+function _typeof(o) {
   "@babel/helpers - typeof";
 
-  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(obj);
+  return (module.exports = _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, module.exports.__esModule = true, module.exports["default"] = module.exports), _typeof(o);
 }
 module.exports = _typeof, module.exports.__esModule = true, module.exports["default"] = module.exports;
 

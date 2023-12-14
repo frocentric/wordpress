@@ -15,7 +15,7 @@ class RetrieveRoleBasedPermissionSettingsFromNfSettings implements RetrieveRoleB
      *
      * @var array
      */
-    protected $userManagementSettings;
+    public $userManagementSettings;
 
     /** @inheritDoc */
     public function viewOwnRoles(): array

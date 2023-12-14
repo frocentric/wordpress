@@ -7,6 +7,7 @@ use ElementorPro\Base\Base_Widget;
 use Elementor\Controls_Manager;
 use ElementorPro\Core\Utils;
 use ElementorPro\Modules\Posts\Traits\Button_Widget_Trait;
+use ElementorPro\Modules\Posts\Traits\Pagination_Trait;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -17,6 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 abstract class Posts_Base extends Base_Widget {
 	use Button_Widget_Trait;
+	use Pagination_Trait;
 
 	const LOAD_MORE_ON_CLICK = 'load_more_on_click';
 	const LOAD_MORE_INFINITE_SCROLL = 'load_more_infinite_scroll';
@@ -260,6 +262,54 @@ abstract class Posts_Base extends Base_Widget {
 						'load_more_on_click',
 						'load_more_infinite_scroll',
 						'',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'pagination_individual_divider',
+			[
+				'type' => Controls_Manager::DIVIDER,
+				'condition' => [
+					'pagination_type' => [
+						'numbers',
+						'numbers_and_prev_next',
+						'prev_next',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'pagination_individual_handle',
+			[
+				'label' => esc_html__( 'Individual Pagination', 'elementor-pro' ),
+				'type' => Controls_Manager::SWITCHER,
+				'label_on' => esc_html__( 'On', 'elementor-pro' ),
+				'label_off' => esc_html__( 'Off', 'elementor-pro' ),
+				'default' => '',
+				'condition' => [
+					'pagination_type' => [
+						'numbers',
+						'numbers_and_prev_next',
+						'prev_next',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'pagination_individual_handle_message',
+			[
+				'type' => Controls_Manager::RAW_HTML,
+				'raw' => esc_html__( 'For multiple Posts Widgets on the same page, toggle this on to control the pagination for each individually. Note: It affects the page\'s URL structure.', 'elementor-pro' ),
+				'content_classes' => 'elementor-control-field-description',
+				'condition' => [
+					'pagination_type' => [
+						'numbers',
+						'numbers_and_prev_next',
+						'prev_next',
 					],
 				],
 			]
@@ -589,7 +639,12 @@ abstract class Posts_Base extends Base_Widget {
 			return 1;
 		}
 
-		return max( 1, get_query_var( 'paged' ), get_query_var( 'page' ) );
+		return max(
+			1,
+			get_query_var( 'paged' ),
+			get_query_var( 'page' ),
+			Utils::_unstable_get_super_global_value( $_GET, 'e-page-' . $this->get_id() )
+		);
 	}
 
 	public function is_rest_request() {
@@ -601,7 +656,7 @@ abstract class Posts_Base extends Base_Widget {
 	}
 
 	public function get_wp_link_page( $i ) {
-		if ( ( ! is_singular() || is_front_page() ) && ! $this->is_rest_request() ) {
+		if ( ( ! is_singular() || is_front_page() ) && ! $this->is_rest_request() && ! $this->is_allow_to_use_custom_page_option() ) {
 			return get_pagenum_link( $i );
 		}
 
@@ -632,6 +687,14 @@ abstract class Posts_Base extends Base_Widget {
 			}
 		}
 
+		if ( $i > 1 && $this->is_allow_to_use_custom_page_option() ) {
+			$url = $this->get_wp_link_page_url_for_custom_page_option( $url, $i, $post_id ?? 0 );
+		}
+
+		if ( 1 === $i && $this->is_allow_to_use_custom_page_option() ) {
+			$url = $this->get_base_url();
+		}
+
 		if ( is_preview() ) {
 			$url = $this->get_wp_link_page_url_for_preview( $post, $query_args, $url );
 		}
@@ -647,6 +710,10 @@ abstract class Posts_Base extends Base_Widget {
 		return $url;
 	}
 
+	public function is_allow_to_use_custom_page_option() {
+		return 'ajax' === $this->get_settings_for_display( 'pagination_load_type' ) || 'yes' === $this->get_settings_for_display( 'pagination_individual_handle' );
+	}
+
 	protected function get_base_url_for_rest_request( $post_id, $url ) {
 		if ( $post_id > 0 ) {
 			return get_permalink( $post_id );
@@ -655,7 +722,7 @@ abstract class Posts_Base extends Base_Widget {
 		global $wp_rewrite;
 
 		if ( $wp_rewrite->using_permalinks() && ( $this->current_url_contains_taxonomy_filter() || $this->referer_contains_taxonomy_filter() ) ) {
-			$url = get_query_var( 'pagination_base_url' ) . user_trailingslashit( "$wp_rewrite->pagination_base/", 'single_paged' );
+			$url = $this->is_allow_to_use_custom_page_option() ? get_query_var( 'pagination_base_url' ) : get_query_var( 'pagination_base_url' ) . user_trailingslashit( "$wp_rewrite->pagination_base/", 'single_paged' );
 		} else {
 			$url = remove_query_arg( 'p', $url );
 		}
@@ -705,7 +772,7 @@ abstract class Posts_Base extends Base_Widget {
 		$e_filters = '';
 
 		foreach ( $query_params as $param_key => $param_value ) {
-			if ( strpos( $param_key, 'e-filter' ) ) {
+			if ( false !== strpos( $param_key, 'e-filter' ) ) {
 				$e_filters .= '&' . $param_key . '=' . $param_value;
 			}
 		}
@@ -714,11 +781,11 @@ abstract class Posts_Base extends Base_Widget {
 	}
 
 	public function current_url_contains_taxonomy_filter() {
-		return strpos( Utils::_unstable_get_super_global_value( $_SERVER, 'QUERY_STRING' ), 'e-filter-' );
+		return false !== strpos( Utils::_unstable_get_super_global_value( $_SERVER, 'QUERY_STRING' ), 'e-filter-' );
 	}
 
 	public function referer_contains_taxonomy_filter() {
-		return strpos( Utils::_unstable_get_super_global_value( $_SERVER, 'HTTP_REFERER' ), 'e-filter-' );
+		return false !== strpos( Utils::_unstable_get_super_global_value( $_SERVER, 'HTTP_REFERER' ), 'e-filter-' );
 	}
 
 	protected function format_query_string_concatenation( $input ) {
@@ -788,4 +855,16 @@ abstract class Posts_Base extends Base_Widget {
 	}
 
 	public function render_plain_content() {}
+
+	/**
+	 * @param string $url
+	 * @param int $i
+	 * @param int $post_id
+	 * @return string
+	 */
+	private function get_wp_link_page_url_for_custom_page_option( $url, $i, $post_id ) {
+		$base_raw_url = $this->is_rest_request() ? $this->get_base_url_for_rest_request( $post_id, $url ) : $this->get_base_url();
+
+		return $this->format_query_string_concatenation( $base_raw_url . '&e-page-' . $this->get_id() . '=' . $i );
+	}
 }
