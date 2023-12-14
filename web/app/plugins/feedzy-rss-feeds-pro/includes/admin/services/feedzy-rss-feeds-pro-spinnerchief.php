@@ -147,7 +147,7 @@ class Feedzy_Rss_Feeds_Pro_Spinnerchief implements Feedzy_Rss_Feeds_Pro_Services
 		);
 
 		// phpcs:ignore warning
-		do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'spinnerchief: calling %s and getting response %s', $url, print_r( $response, true ) ), 'debug', __FILE__, __LINE__ );
+		do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'spinnerchief: calling %s and getting response %s', self::API_URL, print_r( $response, true ) ), 'debug', __FILE__, __LINE__ );
 
 		if ( is_wp_error( $response ) ) {
 			$error_message                     = 'Something went wrong: ' . $response->get_error_message();

@@ -37,4 +37,11 @@ interface UsersSubmissionsPermissions{
      * @return boolean
      */
     public function editOthersSubmissions(): bool;
+
+    /**
+     * Get roles settings
+     *
+     * @return RetrieveRoleBasedPermissionSettings
+     */
+    public function retrieveRoleBasedPermissionSettings(): RetrieveRoleBasedPermissionSettings;
 }
