@@ -58,7 +58,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/the-events-calendar-community-events",
-        "version": "4.10.13",
+        "version": "4.10.14",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community&version={%VERSION}&key={%TEC_CE_LICENSE}",
@@ -88,7 +88,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-tickets-plus",
-        "version": "5.7.6",
+        "version": "5.8.1",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=event-tickets-plus&version={%VERSION}&key={%TEC_ETP_LICENSE}",
@@ -103,7 +103,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-calendar-pro",
-        "version": "6.2.3",
+        "version": "6.2.4",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}",
@@ -118,7 +118,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-virtual",
-        "version": "1.15.4",
+        "version": "1.15.5",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-virtual&version={%VERSION}&key={%TEC_VE_LICENSE}",
@@ -175,7 +175,7 @@
     "roots/wp-password-bcrypt": "1.1.0",
     "vlucas/phpdotenv": "~5.3",
     "wpackagist-plugin/authors-list": "~2.0",
-    "wpackagist-plugin/autodescription": "~4.0",
+    "wpackagist-plugin/autodescription": "~5.0",
     "wpackagist-plugin/classic-editor": "~1.0",
     "wpackagist-plugin/cloudflare": "~4.0",
     "wpackagist-plugin/customizer-export-import": "~0.0",
@@ -198,7 +198,7 @@
     "wpackagist-plugin/ninja-forms": "~3.0",
     "wpackagist-plugin/ninja-forms-addon-manager": "~3.0",
     "wpackagist-plugin/plausible-analytics": "^1.3",
-    "wpackagist-plugin/pods": "~2.0",
+    "wpackagist-plugin/pods": "~3.0",
     "wpackagist-plugin/publishpress": "~3.3",
     "wpackagist-plugin/query-monitor": "~3.0",
     "wpackagist-plugin/search-filter": "~1.2",
