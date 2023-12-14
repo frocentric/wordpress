@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.15.0 - 09-08-2023 */
+/*! elementor-pro - v3.18.0 - 06-12-2023 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -46,7 +46,7 @@ Object.defineProperty(exports, "__esModule", ({
 exports["default"] = void 0;
 // Ref: https://stackoverflow.com/questions/26088849/url-fragment-allowed-characters
 const urlFragmentPattern = /.*#[\w\-/$.+()*@?~!&',;=:%]*$/;
-var _default = {
+var _default = exports["default"] = {
   // Disable using data attribute.
   isDisabled: a => Object.prototype.hasOwnProperty.call(a.dataset, 'eDisablePageTransition'),
   // Allow only links from same origin and without a URL fragment (e.g. #some-string).
@@ -71,7 +71,6 @@ var _default = {
   // Custom regex filter from attributes.
   isExcluded: (a, exclude) => a.href.match(new RegExp(exclude))
 };
-exports["default"] = _default;
 
 /***/ }),
 
@@ -338,8 +337,7 @@ class PageTransition extends HTMLElement {
    * @param {string} prefix   - Variable prefix, defaults to `e-page-transition`.
    * @return {string} - CSS variable value.
    */
-  getCssVar(variable) {
-    let prefix = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'e-page-transition-';
+  getCssVar(variable, prefix = 'e-page-transition-') {
     return window.getComputedStyle(this).getPropertyValue(`--${prefix}${variable}`);
   }
 
@@ -404,8 +402,7 @@ class PageTransition extends HTMLElement {
    * @param {number}                 delay - Delay (in ms) before resolving the Promise.
    * @return {Promise} - Animation sequence Promise.
    */
-  animateState(state) {
-    let delay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  animateState(state, delay = 0) {
     const className = this.classes?.[state];
     if (!className) {
       return new Promise((resolve, reject) => {
@@ -446,8 +443,7 @@ class PageTransition extends HTMLElement {
   }
 }
 exports.PageTransition = PageTransition;
-var _default = PageTransition;
-exports["default"] = _default;
+var _default = exports["default"] = PageTransition;
 
 /***/ }),
 
@@ -527,8 +523,7 @@ class Preloader extends HTMLElement {
   }
 }
 exports.Preloader = Preloader;
-var _default = Preloader;
-exports["default"] = _default;
+var _default = exports["default"] = Preloader;
 
 /***/ }),
 

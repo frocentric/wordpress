@@ -1,4 +1,4 @@
-/*! elementor-pro - v3.15.0 - 09-08-2023 */
+/*! elementor-pro - v3.18.0 - 06-12-2023 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -68,8 +68,7 @@ class BaseContext extends React.Component {
   }
 }
 exports.BaseContext = BaseContext;
-var _default = BaseContext;
-exports["default"] = _default;
+var _default = exports["default"] = BaseContext;
 
 /***/ }),
 
@@ -94,8 +93,7 @@ var _condition = _interopRequireDefault(__webpack_require__(/*! ./models/conditi
 var _conditionsConfig = _interopRequireDefault(__webpack_require__(/*! ./services/conditions-config */ "../core/app/modules/site-editor/assets/js/context/services/conditions-config.js"));
 var _baseContext = _interopRequireDefault(__webpack_require__(/*! ./base-context */ "../core/app/modules/site-editor/assets/js/context/base-context.js"));
 var _commands = __webpack_require__(/*! ../data/commands */ "../core/app/modules/site-editor/assets/js/data/commands/index.js");
-const Context = _react.default.createContext();
-exports.Context = Context;
+const Context = exports.Context = _react.default.createContext();
 class ConditionsProvider extends _baseContext.default {
   static propTypes = {
     children: PropTypes.any.isRequired,
@@ -148,7 +146,7 @@ class ConditionsProvider extends _baseContext.default {
   /**
    * Execute a request to save the template conditions.
    *
-   * @return {any} -
+   * @return {any} Saved conditions
    */
   saveConditions() {
     const conditions = Object.values(this.state.conditions).map(condition => condition.forDb());
@@ -185,7 +183,7 @@ class ConditionsProvider extends _baseContext.default {
    * Fetching subId titles.
    *
    * @param {any} condition
-   * @return {Promise<unknown>} -
+   * @return {Promise<unknown>} Titles
    */
   fetchSubIdsTitles(condition) {
     return new Promise(resolve => {
@@ -256,8 +254,7 @@ class ConditionsProvider extends _baseContext.default {
    * @param {any}     args
    * @param {boolean} shouldCheckConflicts
    */
-  updateConditionItemState(id, args) {
-    let shouldCheckConflicts = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+  updateConditionItemState(id, args, shouldCheckConflicts = true) {
     if (args.name) {
       args.subOptions = this.conditionsConfig.getSubOptions(args.name);
     }
@@ -301,8 +298,7 @@ class ConditionsProvider extends _baseContext.default {
    *
    * @param {boolean} shouldCheckConflicts
    */
-  createConditionItemInState() {
-    let shouldCheckConflicts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
+  createConditionItemInState(shouldCheckConflicts = true) {
     const defaultCondition = this.props.currentTemplate.defaultCondition,
       newCondition = new _condition.default({
         name: defaultCondition,
@@ -325,7 +321,7 @@ class ConditionsProvider extends _baseContext.default {
    * Find a condition item from the conditions state.
    *
    * @param {any} id
-   * @return {Condition|null} -
+   * @return {Condition|null} Condition
    */
   findConditionItemInState(id) {
     return Object.values(this.state.conditions).find(c => c.id === id);
@@ -335,7 +331,7 @@ class ConditionsProvider extends _baseContext.default {
    * Update the whole conditions state.
    *
    * @param {Function} callback
-   * @return {Promise<any>} -
+   * @return {Promise<undefined>} Conditions state
    */
   updateConditionsState(callback) {
     return new Promise(resolve => this.setState(prev => ({
@@ -346,7 +342,7 @@ class ConditionsProvider extends _baseContext.default {
   /**
    * Renders the provider.
    *
-   * @return {any} -
+   * @return {any} Element
    */
   render() {
     if (this.state.action.current === ConditionsProvider.actions.FETCH_CONFIG) {
@@ -363,8 +359,7 @@ class ConditionsProvider extends _baseContext.default {
   }
 }
 exports.ConditionsProvider = ConditionsProvider;
-var _default = ConditionsProvider;
-exports["default"] = _default;
+var _default = exports["default"] = ConditionsProvider;
 
 /***/ }),
 
@@ -465,7 +460,7 @@ class ConditionsConfig {
   }
 
   /**
-   * @return {Promise<ConditionsConfig>} -
+   * @return {Promise<ConditionsConfig>} Conditions config
    */
   static create() {
     if (ConditionsConfig.instance) {
@@ -482,14 +477,13 @@ class ConditionsConfig {
   /**
    * Get main options for condition name.
    *
-   * @return {Array} -
+   * @return {Array} Condition options
    */
   getOptions() {
-    return this.getSubOptions('general', true).map(_ref => {
-      let {
-        label,
-        value
-      } = _ref;
+    return this.getSubOptions('general', true).map(({
+      label,
+      value
+    }) => {
       return {
         label,
         value
@@ -502,10 +496,9 @@ class ConditionsConfig {
    *
    * @param {string}  itemName
    * @param {boolean} isSubItem
-   * @return {Array} -
+   * @return {Array} Sub options
    */
-  getSubOptions(itemName) {
-    let isSubItem = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  getSubOptions(itemName, isSubItem = false) {
     const config = this.config[itemName];
     if (!config) {
       return [];
@@ -527,7 +520,7 @@ class ConditionsConfig {
    * Get the autocomplete property from the conditions config
    *
    * @param {string} sub
-   * @return {{}|any} -
+   * @return {{}|any} Conditions autocomplete
    */
   getSubIdAutocomplete(sub) {
     const config = this.config[sub];
@@ -545,7 +538,7 @@ class ConditionsConfig {
    * Calculate instances from the conditions.
    *
    * @param {Array} conditions
-   * @return {Object} -
+   * @return {Object} Conditions Instances
    */
   calculateInstances(conditions) {
     let instances = conditions.reduce((current, condition) => {
@@ -570,8 +563,7 @@ class ConditionsConfig {
   }
 }
 exports.ConditionsConfig = ConditionsConfig;
-var _default = ConditionsConfig;
-exports["default"] = _default;
+var _default = exports["default"] = ConditionsConfig;
 
 /***/ }),
 
@@ -595,8 +587,7 @@ class ConditionsConfig extends $e.modules.CommandData {
   }
 }
 exports.ConditionsConfig = ConditionsConfig;
-var _default = ConditionsConfig;
-exports["default"] = _default;
+var _default = exports["default"] = ConditionsConfig;
 
 /***/ }),
 
@@ -663,8 +654,7 @@ class TemplatesConditionsConflicts extends $e.modules.CommandData {
   }
 }
 exports.TemplatesConditionsConflicts = TemplatesConditionsConflicts;
-var _default = TemplatesConditionsConflicts;
-exports["default"] = _default;
+var _default = exports["default"] = TemplatesConditionsConflicts;
 
 /***/ }),
 
@@ -688,8 +678,7 @@ class TemplatesConditions extends $e.modules.CommandData {
   }
 }
 exports.TemplatesConditions = TemplatesConditions;
-var _default = TemplatesConditions;
-exports["default"] = _default;
+var _default = exports["default"] = TemplatesConditions;
 
 /***/ }),
 
@@ -713,8 +702,7 @@ class Templates extends $e.modules.CommandData {
   }
 }
 exports.Templates = Templates;
-var _default = Templates;
-exports["default"] = _default;
+var _default = exports["default"] = Templates;
 
 /***/ }),
 
@@ -732,8 +720,8 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 var dataCommands = _interopRequireWildcard(__webpack_require__(/*! ./commands */ "../core/app/modules/site-editor/assets/js/data/commands/index.js"));
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
 class Component extends $e.modules.ComponentBase {
   static namespace = 'site-editor';
   getNamespace() {
@@ -858,7 +846,7 @@ var _appUi = __webpack_require__(/*! @elementor/app-ui */ "@elementor/app-ui");
  * Main component.
  *
  * @param {any} props
- * @return {any} -
+ * @return {any} Element
  * @class
  */
 function ConditionSubId(props) {
@@ -884,7 +872,7 @@ function ConditionSubId(props) {
  * that passes as a prop
  *
  * @param {any} autocomplete
- * @return {Object} -
+ * @return {Object} Settings
  */
 function getSettings(autocomplete) {
   return {
@@ -1150,8 +1138,8 @@ var _react = _interopRequireWildcard(__webpack_require__(/*! react */ "react"));
 var _appUi = __webpack_require__(/*! @elementor/app-ui */ "@elementor/app-ui");
 var _conditions = _interopRequireDefault(__webpack_require__(/*! ./conditions */ "../modules/custom-code/assets/js/admin/publish-metabox/conditions.js"));
 var _conditionsConfig = _interopRequireDefault(__webpack_require__(/*! elementor-pro-app-modules/site-editor/assets/js/context/services/conditions-config */ "../core/app/modules/site-editor/assets/js/context/services/conditions-config.js"));
-function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
-function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && Object.prototype.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
 /**
  * Publish metabox conditions ( 'Edit' modal ).
  */
@@ -2595,6 +2583,8 @@ class CustomCode extends elementorModules.Module {
   }
   initialize() {
     $e.components.register(new _component.default());
+
+    // eslint-disable-next-line react/no-deprecated
     ReactDOM.render( /*#__PURE__*/_react.default.createElement(_conditionsModal.default, null), document.querySelector('.post-conditions'));
     this.addTipsyToFields();
     this.addDescription();
@@ -2626,6 +2616,8 @@ class CustomCode extends elementorModules.Module {
       const isRTL = elementorCommon.config.isRTL;
       const rootElement = document.createElement('div');
       document.body.append(rootElement);
+
+      // eslint-disable-next-line react/no-deprecated
       ReactDOM.render( /*#__PURE__*/_react.default.createElement(_elementorAiAdmin.default, {
         type: 'code',
         getControlValue: () => document.querySelector('.CodeMirror').CodeMirror.getValue(),
@@ -2634,7 +2626,7 @@ class CustomCode extends elementorModules.Module {
           codeLanguage: 'html'
         },
         onClose: () => {
-          ReactDOM.unmountComponentAtNode(rootElement);
+          ReactDOM.unmountComponentAtNode(rootElement); // eslint-disable-line react/no-deprecated
           rootElement.parentNode.removeChild(rootElement);
         },
         isRTL: isRTL
