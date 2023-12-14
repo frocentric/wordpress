@@ -58,13 +58,18 @@ class EnableSubmissionsByPermissions
      */
     protected function addFilterSubmissionsPageDisplay(): void
     {
-        add_filter('ninja_forms_admin_submissions_capabilities',   [$this, 'getUserCapability']); // Submissions Submenu
+        add_filter('ninja_forms_admin_submissions_capabilities', [$this, 'getUserCapability']); // Submissions Submenu
 
         add_filter('ninja_forms_api_allow_get_submissions', '__return_true', 10, 2);
 
         add_filter('ninja_forms_api_allow_handle_extra_submission',  '__return_true', 10, 2);
 
         add_filter('ninja_forms_api_allow_email_action',  '__return_true', 10, 2);
+
+        add_filter('register_post_type_args', [$this, 'set_nf_sub_capabilities'], 10, 2);
+
+        add_action('init', [$this, 'reset_nf_sub_roles_capabilities'], 10);
+
     }
 
     /**
@@ -91,7 +96,6 @@ class EnableSubmissionsByPermissions
         $capability = '';
 
         $user = \wp_get_current_user();
-
         $capabilities = $user->allcaps;
 
         if (
@@ -101,7 +105,7 @@ class EnableSubmissionsByPermissions
             $capabilityKeys = \array_keys($capabilities);
             $capability = $capabilityKeys[0];
         }
-
+        
         $this->userCapability = $capability;
     }
 
@@ -162,5 +166,78 @@ class EnableSubmissionsByPermissions
 
         return $isAdministrator;
     }
+
+    /**
+     * Filter nf_submissions custom post type and set new capability type
+     *
+     * @return array CPT $args
+     */
+    public function set_nf_sub_capabilities($args, $post_type)
+    {
+        if ('nf_sub' === $post_type) {
+            $args['map_meta_cap'] = true;
+            $args['capability_type'] = 'nf_sub';
+            $args['capabilities'] = [
+                'read_post' => 'nf_read_sub',
+                'read_private_posts' => 'nf_read_private_subs',
+                'edit_post' => 'nf_edit_sub',
+                'delete_post' => 'nf_delete_sub',
+                'edit_posts' => 'nf_edit_subs',
+                'delete_posts' => 'nf_delete_subs',
+                'delete_posts' => 'nf_delete_subs',
+                'edit_others_posts' => 'nf_edit_others_subs',
+                'delete_others_posts' => 'nf_delete_others_subs'       
+            ];
+        }
+
+        return $args;
+    }
+
+    /**
+     * Sets meta capabilities by role for the CPT access
+     *
+     * @return void
+     */
+    public function reset_nf_sub_roles_capabilities()
+    {
+        $roles = ['editor', 'author', 'contributor', 'subscriber'];
+        $rolesSet = $this->usersSubmissionsPermissions->retrieveRoleBasedPermissionSettings()->userManagementSettings;
+        foreach($roles as $listed_role){
+            $role_obj = get_role( $listed_role );
+            if (in_array($listed_role, $rolesSet['view_own_submissions'])) {
+                $role_obj->add_cap('nf_read_sub');
+            } else {
+                $role_obj->remove_cap('nf_read_sub');
+            }
+
+            if(in_array($listed_role, $rolesSet['view_others_submissions'])){
+                $role_obj->add_cap('nf_read_private_subs');
+            } else {
+                $role_obj->remove_cap('nf_read_private_subs');
+            }
+            
+            if (in_array($listed_role, $rolesSet['edit_own_submissions'])){
+                $role_obj->add_cap('nf_edit_sub');
+                $role_obj->add_cap('nf_delete_sub');
+                $role_obj->add_cap('nf_edit_subs');
+                $role_obj->add_cap('nf_delete_subs');
+            } else {
+                $role_obj->remove_cap('nf_edit_sub');
+                $role_obj->remove_cap('nf_delete_sub');
+                $role_obj->remove_cap('nf_edit_subs');
+                $role_obj->remove_cap('nf_delete_subs');
+            }
+
+            if(in_array($listed_role, $rolesSet['edit_others_submissions'])){
+                $role_obj->add_cap('nf_edit_others_subs');
+                $role_obj->add_cap('nf_delete_others_subs');
+            } else {
+                $role_obj->remove_cap('nf_edit_others_subs');
+                $role_obj->remove_cap('nf_delete_others_subs');
+            }
+        }
+
+    }
+
    
 }

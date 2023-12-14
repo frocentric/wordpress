@@ -74,9 +74,12 @@ class Feedzy_Rss_Get_Item {
 	 * @return string Item URL.
 	 */
 	public function get_content() {
-		$content_info      = '';
-		$item_info         = $this->item->getItemInfo();
-		$item_features     = $item_info->getFeatures()->getDisplayValues();
+		$content_info = '';
+		$item_info    = $this->item->getItemInfo();
+		if ( ! is_object( $item_info->getFeatures() ) ) {
+			return '';
+		}
+		$item_features     = method_exists( $item_info->getFeatures(), 'getDisplayValues' ) ? $item_info->getFeatures()->getDisplayValues() : array();
 		$item_features[0] .= '.';
 		$item_features     = array_map(
 			function( $content ) {
@@ -124,8 +127,11 @@ class Feedzy_Rss_Get_Item {
 	 * @return string Item short description.
 	 */
 	public function get_description() {
-		$item_info     = $this->item->getItemInfo();
-		$item_features = $item_info->getFeatures()->getDisplayValues();
+		$item_info = $this->item->getItemInfo();
+		if ( ! is_object( $item_info->getFeatures() ) ) {
+			return '';
+		}
+		$item_features = method_exists( $item_info->getFeatures(), 'getDisplayValues' ) ? $item_info->getFeatures()->getDisplayValues() : array();
 		return is_array( $item_features ) ? reset( $item_features ) : '';
 	}
 

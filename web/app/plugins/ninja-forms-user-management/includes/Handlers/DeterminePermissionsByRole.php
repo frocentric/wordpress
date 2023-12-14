@@ -90,4 +90,10 @@ class DeterminePermissionsByRole implements UsersSubmissionsPermissions
     {
         return $this->editOthersSubmissions;
     }
+
+    /** @inheritDoc     */
+    public function retrieveRoleBasedPermissionSettings(): RetrieveRoleBasedPermissionSettings
+    {
+        return $this->retrieveRoleBasedPermissionSettings;
+    }
 }
