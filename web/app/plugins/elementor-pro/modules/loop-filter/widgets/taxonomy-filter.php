@@ -10,6 +10,9 @@ use Elementor\Group_Control_Typography;
 use ElementorPro\Base\Base_Widget;
 use ElementorPro\Modules\LoopFilter\Traits\Hierarchical_Taxonomy_Trait;
 use ElementorPro\Plugin;
+use Elementor\Utils;
+use ElementorPro\Modules\ThemeBuilder\Module as ThemeBuilderModule;
+use ElementorPro\Modules\Posts\Traits\Pagination_Trait;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -17,6 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class Taxonomy_Filter extends Base_Widget {
 	use Hierarchical_Taxonomy_Trait;
+	use Pagination_Trait;
 
 	public function get_name() {
 		return 'taxonomy-filter';
@@ -38,7 +42,7 @@ class Taxonomy_Filter extends Base_Widget {
 		return [ 'filter', 'loop', 'filter bar', 'taxonomy', 'categories', 'tags' ];
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->start_controls_section(
 			'section_taxonomy_filter',
 			[
@@ -256,6 +260,44 @@ class Taxonomy_Filter extends Base_Widget {
 				'condition' => [
 					'selected_element!' => '',
 				],
+			]
+		);
+
+		$this->add_control(
+			'heading_filter_logic',
+			[
+				'type' => Controls_Manager::HEADING,
+				'label' => esc_html__( 'Filter Logic', 'elementor-pro' ),
+			]
+		);
+
+		$this->add_control(
+			'multiple_selection',
+			[
+				'label' => esc_html__( 'Multiple Selection', 'elementor-pro' ),
+				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'label_on' => esc_html__( 'Yes', 'elementor-pro' ),
+				'label_off' => esc_html__( 'No', 'elementor-pro' ),
+				'default' => 'no',
+				'frontend_available' => true,
+			]
+		);
+
+		$this->add_control(
+			'logical_combination',
+			[
+				'label' => __( 'Logical Combination', 'elementor-pro' ),
+				'type' => Controls_Manager::SELECT,
+				'default' => 'AND',
+				'options' => [
+					'AND' => esc_html__( 'AND', 'elementor-pro' ),
+					'OR' => esc_html__( 'OR', 'elementor-pro' ),
+				],
+				'condition' => [
+					'multiple_selection' => 'yes',
+				],
+				'separator' => 'after',
+				'frontend_available' => true,
 			]
 		);
 
@@ -631,6 +673,53 @@ class Taxonomy_Filter extends Base_Widget {
 		return false;
 	}
 
+	/**
+	 * @return array
+	 */
+	private function get_loop_widget_settings() {
+		$document = Plugin::elementor()->documents->get_doc_for_frontend( $this->get_current_ID() );
+
+		if ( ! $document ) {
+			return [];
+		}
+
+		$widget_data = Utils::find_element_recursive( $document->get_elements_data(), $this->get_settings_for_display( 'selected_element' ) );
+
+		return ! empty( $widget_data['settings'] ) ? $widget_data['settings'] : [];
+	}
+
+	/**
+	 * @return int
+	 */
+	private function get_current_ID() {
+		$post_id = 0;
+		$theme_builder = ThemeBuilderModule::instance();
+		$location = $theme_builder->get_locations_manager()->get_current_location();
+		$documents = $theme_builder->get_conditions_manager()->get_documents_for_location( $location );
+
+		if ( empty( $documents ) ) {
+			return get_the_ID();
+		}
+
+		foreach ( $documents as $document ) {
+			$post_id = $document->get_post()->ID;
+		}
+
+		return $post_id;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	private function is_term_excluded_by_query_control( $term, $loop_filter_module ) {
+		$loop_widget_settings = $this->get_loop_widget_settings();
+		$skin = ! empty( $loop_widget_settings['_skin'] ) ? $loop_widget_settings['_skin'] : 'post';
+
+		return $loop_filter_module->is_term_not_selected_for_inclusion( $loop_widget_settings, $term, $skin )
+			|| $loop_filter_module->is_term_selected_for_exclusion( $loop_widget_settings, $term, $skin )
+			|| $loop_filter_module->should_exclude_term_by_manual_selection( $loop_widget_settings, $term, $this->get_settings_for_display( 'taxonomy' ), $skin );
+	}
+
 	public function render() {
 		$settings = $this->get_settings_for_display();
 		$selected_element = $settings['selected_element'];
@@ -642,11 +731,12 @@ class Taxonomy_Filter extends Base_Widget {
 			return;
 		}
 
-		$active_filter = [];
-		$query_string_filters = Plugin::instance()->modules_manager->get_modules( 'loop-filter' )->get_query_string_filters();
+		$active_filters = [];
+		$loop_filter_module = Plugin::instance()->modules_manager->get_modules( 'loop-filter' );
+		$query_string_filters = $loop_filter_module->get_query_string_filters();
 
 		if ( array_key_exists( $selected_element, $query_string_filters ) ) {
-			$active_filter = $query_string_filters[ $selected_element ]['taxonomy'];
+			$active_filters = $query_string_filters[ $selected_element ]['taxonomy'];
 		}
 
 		$active_terms = 0;
@@ -655,22 +745,23 @@ class Taxonomy_Filter extends Base_Widget {
 
 		$this->add_render_attribute( 'filter-bar', [
 			'class' => 'e-filter',
+			'role' => 'search', // BC for older browser versions that don't support `<search>` element.
 			'data-base-url' => $this->get_base_url(),
 			'data-page-num' => max( 1, get_query_var( 'paged' ), get_query_var( 'page' ) ),
 		] );
 		?>
-		<div <?php $this->print_render_attribute_string( 'filter-bar' ); ?>>
+		<search <?php $this->print_render_attribute_string( 'filter-bar' ); ?>>
 			<?php foreach ( $terms as $term ) {
 				$total_taxonomies++;
 				$aria_pressed_value = 'false';
 
-				if ( ! isset( $term->taxonomy ) ) {
+				if ( ! isset( $term->taxonomy ) || $this->is_term_excluded_by_query_control( $term, $loop_filter_module ) ) {
 					continue;
 				}
 
 				$term_taxonomy = $term->taxonomy;
 
-				if ( array_key_exists( $term_taxonomy, $active_filter ) && $term->slug === $active_filter[ $term_taxonomy ][0] ) {
+				if ( array_key_exists( $term_taxonomy, $active_filters ) && in_array( urldecode( $term->slug ), $active_filters[ $term_taxonomy ]['terms'] ) ) {
 					$aria_pressed_value = 'true';
 					$active_terms++;
 				}
@@ -678,8 +769,11 @@ class Taxonomy_Filter extends Base_Widget {
 				if ( ! empty( $number_of_taxonomies ) && $total_taxonomies > $number_of_taxonomies ) {
 					continue;
 				}
+
+				// This filter allows us to write the slug with non-latin characters as well, such as Hebrew.
+				$slug = apply_filters( 'editable_slug', $term->slug, $term );
 				?>
-				<button class="e-filter-item" data-filter="<?php echo esc_attr( $term->slug ); ?>" aria-pressed="<?php echo esc_html( $aria_pressed_value ); ?>"><?php echo esc_html( $term->name ); ?></button>
+				<button class="e-filter-item" data-filter="<?php echo esc_attr( $slug ); ?>" aria-pressed="<?php echo esc_html( $aria_pressed_value ); ?>"><?php echo esc_html( $term->name ); ?></button>
 			<?php } ?>
 
 			<?php
@@ -690,7 +784,7 @@ class Taxonomy_Filter extends Base_Widget {
 				<?php echo $settings['first_item_title']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</button>
 			<?php endif; ?>
-		</div>
+		</search>
 		<?php
 	}
 
@@ -723,27 +817,5 @@ class Taxonomy_Filter extends Base_Widget {
 		}
 
 		return $terms;
-	}
-
-	private function get_base_url() {
-		if ( is_page() ) {
-			// Check if it's a normal page.
-			return get_permalink();
-		} elseif ( is_archive() ) {
-			// Check if it's an archive page.
-			return get_post_type_archive_link( get_post_type() );
-		} elseif ( is_singular() && 'post' !== get_post_type() && 'page' !== get_post_type() ) {
-			// Check if it's a single post/page of a custom post type.
-			$post_type = get_post_type_object( get_post_type() );
-
-			if ( $post_type->has_archive ) {
-				return get_post_type_archive_link( get_post_type() );
-			} else {
-				return get_permalink();
-			}
-		}
-
-		// Fallback to home URL.
-		return home_url( '/' );
 	}
 }
