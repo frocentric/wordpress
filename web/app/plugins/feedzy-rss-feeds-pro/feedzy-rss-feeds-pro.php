@@ -15,7 +15,7 @@
  * Plugin Name:     Feedzy RSS Feeds Premium
  * Plugin URI:      http://themeisle.com/plugins/feedzy-rss-feeds/
  * Description:     FEEDZY RSS Feeds Premium extends the functionality of FEEDZY RSS Feeds.
- * Version:         2.2.5
+ * Version:         2.3.0
  * Author:          Themeisle
  * Author URI:      https://themeisle.com
  * Text Domain:     feedzy-rss-feeds
@@ -122,7 +122,9 @@ function run_feedzy_rss_feeds_pro() {
 	define( 'FEEDZY_PRO_REWRITE_CONTENT_API', FEEDZY_ROOT_API . '/api/feedzyfp/v1/item/content-writers/' );
 	define( 'FEEDZY_PRO_AUTO_TRANSLATE_CONTENT', FEEDZY_ROOT_API . '/api/feedzyfp/v1/item/auto-translate/' );
 	define( 'FEEDZY_PRO_AWS_PRODUCT_API', FEEDZY_ROOT_API . '/api/feedzyfp/v1/aws-product-advertising' );
-	define( 'FEEDZY_PRO_VERSION', '2.2.5' );
+	define( 'FEEDZY_PRO_OPENAI_API', FEEDZY_ROOT_API . '/api/feedzyfp/v1/open-ai' );
+	define( 'FEEDZY_PRO_OPENAI_SUMMARIZE_API', FEEDZY_PRO_OPENAI_API . '/summarize' );
+	define( 'FEEDZY_PRO_VERSION', '2.3.0' );
 
 	// this hook will indicate to free that pro is aware of import feeds being shifted to free.
 	// avoids doing this by comparing versions.
@@ -140,7 +142,7 @@ function run_feedzy_rss_feeds_pro() {
 			$compatibilities['FeedzyLite'] = array(
 				'basefile'  => defined( 'FEEDZY_BASEFILE' ) ? FEEDZY_BASEFILE : '',
 				'required'  => '3.8',
-				'tested_up' => '4.2',
+				'tested_up' => '4.3',
 			);
 			return $compatibilities;
 		}

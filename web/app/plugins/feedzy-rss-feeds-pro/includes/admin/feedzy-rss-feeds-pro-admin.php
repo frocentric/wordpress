@@ -852,6 +852,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 */
 	public function import_extra( $job, $results, $new_post_id, $import_errors = null, $import_info = null ) {
 		$import_custom_fields = get_post_meta( $job->ID, 'imports_custom_fields', true );
+		$import_post_term     = get_post_meta( $job->ID, 'import_post_term', true );
 		if ( ! empty( $import_custom_fields ) ) {
 			foreach ( $import_custom_fields as $key => $value ) {
 				if ( $value && $this->feedzy_is_business() ) {
@@ -865,6 +866,70 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 				}
 				if ( ! $value ) {
 					delete_post_meta( $new_post_id, $key );
+				}
+			}
+		}
+
+		// Create custom category.
+		if ( 'none' !== $import_post_term && strpos( $import_post_term, '[#item_' ) > 0 ) {
+			preg_match_all( '/\[(#item_)([a-zA-Z0-9:@\-_]*)\]/i', $import_post_term, $custom_tag );
+			if ( ! empty( $custom_tag[0] ) ) {
+				foreach ( $custom_tag[0] as $category_tag ) {
+					$categories = array();
+					if ( '[#item_categories]' === $category_tag ) {
+						$categories = $results['item_categories'];
+					} else {
+						$categories = apply_filters( 'feedzy_parse_custom_tags', $category_tag, $results );
+					}
+					$categories    = explode( ',', $categories );
+					$uncategorized = get_category( 1 );
+					$categories    = array_filter(
+						$categories,
+						function( $cat ) {
+							if ( empty( $cat ) ) {
+								return;
+							}
+							if ( false !== strpos( $cat, '[#item_' ) ) {
+								return;
+							}
+							return $cat;
+						}
+					);
+					if ( ! empty( $categories ) ) {
+						$default_category = (int) get_option( 'default_category' );
+						foreach ( $categories as $new_category ) {
+							$term_id = get_cat_ID( $new_category );
+							if ( empty( $term_id ) ) {
+								$term_id = wp_insert_category(
+									apply_filters(
+										'feedzy_insert_category_args',
+										array(
+											'cat_name' => $new_category,
+										),
+										$job,
+										$results
+									)
+								);
+							}
+							// uncategorized
+							// 1. may be the unmodified category ID 1
+							// 2. may have been recreated ('uncategorized') and may have a different slug in different languages.
+							if ( $default_category === $uncategorized->term_id ) {
+								wp_remove_object_terms(
+									$new_post_id, apply_filters(
+										'feedzy_uncategorized', array(
+											1,
+											'uncategorized',
+											$uncategorized->slug,
+										), $job->ID
+									), 'category'
+								);
+							}
+							// assign category.
+							$result = wp_set_object_terms( $new_post_id, intval( $term_id ), 'category', true );
+							do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'After creating post in %s/%d, result = %s', 'category', $term_id, print_r( $result, true ) ), 'debug', __FILE__, __LINE__ );
+						}
+					}
 				}
 			}
 		}
@@ -1277,7 +1342,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 
 		do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'business user = *%s*, import_content = %s', $is_business, $import_content ), 'debug', __FILE__, __LINE__ );
 
-		if ( $is_business && $import_content && ( false !== strpos( $import_content, '[#item_full_content' ) || false !== strpos( $import_content, '[#full_content' ) ) ) {
+		if ( $is_business && $import_content && str_contains( $import_content, '_full_content' ) ) {
 			$response = wp_remote_post(
 				FEEDZY_PRO_FULL_CONTENT_URL,
 				apply_filters(
@@ -1768,25 +1833,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 			$default['item_full_content:disabled'] = __( '🚫 Item Full Content', 'feedzy-rss-feeds' );
 		}
 
-		if ( $this->feedzy_is_agency() ) {
-			$default['translated_content']      = __( 'Translated Content', 'feedzy-rss-feeds' );
-			$default['translated_description']  = __( 'Translated Description', 'feedzy-rss-feeds' );
-			$default['translated_full_content'] = __( 'Translated Full Content', 'feedzy-rss-feeds' );
-		} else {
-			$default['translated_content:disabled']      = __( '🚫 Translated Content', 'feedzy-rss-feeds' );
-			$default['translated_description:disabled']  = __( '🚫 Translated Description', 'feedzy-rss-feeds' );
-			$default['translated_full_content:disabled'] = __( '🚫 Translated Full Content', 'feedzy-rss-feeds' );
-		}
-
-		if ( $this->feedzy_is_agency() ) {
-			$default['content_feedzy_rewrite']      = __( 'Paraphrased content from Feedzy', 'feedzy-rss-feeds' );
-			$default['full_content_feedzy_rewrite'] = __( 'Paraphrased full content from Feedzy', 'feedzy-rss-feeds' );
-		} else {
-			$default['content_feedzy_rewrite:disabled']      = __( '🚫 Paraphrased content from Feedzy', 'feedzy-rss-feeds' );
-			$default['full_content_feedzy_rewrite:disabled'] = __( '🚫 Paraphrased full content from Feedzy', 'feedzy-rss-feeds' );
-		}
-
-		return apply_filters( 'feedzy_agency_magic_tags_content', $default );
+		return $default;
 	}
 
 	/**
@@ -1815,7 +1862,11 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 			$addons = $this->get_services();
 			if ( $addons ) {
 				foreach ( $addons as $addon ) {
-					$default[ 'title_' . $addon->get_service_slug() ] = sprintf( __( 'Title from %s', 'feedzy-rss-feeds' ), $addon->get_service_name_proper() );
+					$service_slug = $addon->get_service_slug();
+					if ( in_array( $service_slug, array( 'amazon-product-advertising', 'openai' ), true ) ) {
+						continue;
+					}
+					$default[ 'title_' . $service_slug ] = sprintf( __( 'Title from %s', 'feedzy-rss-feeds' ), $addon->get_service_name_proper() );
 				}
 			}
 		} else {
@@ -1826,39 +1877,6 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 			$default['translated_title'] = __( 'Translated Title', 'feedzy-rss-feeds' );
 		} else {
 			$default['translated_title:disabled'] = __( '🚫 Translated Title', 'feedzy-rss-feeds' );
-		}
-
-		return $default;
-	}
-
-
-	/**
-	 * Renders the tags for the content, for the agency.
-	 *
-	 * @param array $default The default tags, empty.
-	 *
-	 * @since   1.4.2
-	 * @access  public
-	 */
-	public function agency_magic_tags_content( $default ) {
-		if ( $this->feedzy_is_agency() ) {
-			$addons = $this->get_services();
-			if ( $addons ) {
-				foreach ( $addons as $addon ) {
-					if ( $addon instanceof \Feedzy_Rss_Feeds_Pro_Amazon_Product_Advertising ) {
-						continue;
-					}
-					$default[ 'content_' . $addon->get_service_slug() ] = sprintf( __( 'Content from %s', 'feedzy-rss-feeds' ), $addon->get_service_name_proper() );
-					if ( $this->feedzy_is_business() ) {
-						$default[ 'full_content_' . $addon->get_service_slug() ] = sprintf( __( 'Full content from %s', 'feedzy-rss-feeds' ), $addon->get_service_name_proper() );
-					}
-				}
-			}
-		} else {
-			$default['content_spinnerchief:disabled']      = __( '🚫 Content from SpinnerChief', 'feedzy-rss-feeds' );
-			$default['full_content_spinnerchief:disabled'] = __( '🚫 Full content from SpinnerChief', 'feedzy-rss-feeds' );
-			$default['content_wordai:disabled']            = __( '🚫 Content from WordAI', 'feedzy-rss-feeds' );
-			$default['full_content_wordai:disabled']       = __( '🚫 Full content from WordAI', 'feedzy-rss-feeds' );
 		}
 
 		return $default;
@@ -2112,8 +2130,11 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 */
 	public function feedzy_text_spinner( $text ) {
 		if ( ! empty( $text ) && class_exists( 'bjoernffm\Spintax\Parser' ) ) {
-			$spintax = bjoernffm\Spintax\Parser::parse( $text );
-			$text    = $spintax->generate();
+			preg_match( '/{(.*?)}/', $text, $match );
+			if ( ! empty( $match ) ) {
+				$spintax = bjoernffm\Spintax\Parser::parse( $text );
+				$text    = $spintax->generate();
+			}
 		}
 
 		return $text;
@@ -2141,5 +2162,105 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 			}
 		}
 		return $index;
+	}
+
+	/**
+	 * Invoke the automatically openai services.
+	 *
+	 * @access  public
+	 *
+	 * @param string $content Item Content.
+	 * @param array  $additional_data Request sign.
+	 *
+	 * @return string rewrite content.
+	 */
+	public function invoke_content_openai_services( $content, $additional_data = array() ) {
+		if ( $this->feedzy_is_business() || $this->feedzy_is_agency() ) {
+			$post_data = array(
+				'content'  => $content,
+				'site_url' => get_site_url(),
+			);
+			$post_data = array_merge( $post_data, $additional_data );
+			$response  = wp_remote_post(
+				FEEDZY_PRO_OPENAI_API,
+				apply_filters(
+					'feedzy_openai_content_rewrite_args',
+					array(
+						'timeout' => 100,
+						'body'    => array_merge( $post_data, $this->get_additional_client_data() ),
+					)
+				)
+			);
+			if ( ! is_wp_error( $response ) ) {
+				if ( array_key_exists( 'response', $response ) && array_key_exists( 'code', $response['response'] ) && intval( $response['response']['code'] ) !== 200 ) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+					do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'error in response = %s', print_r( $response, true ) ), 'error', __FILE__, __LINE__ );
+				}
+				$body = wp_remote_retrieve_body( $response );
+				if ( ! is_wp_error( $body ) ) {
+					$response_data = json_decode( $body, true );
+					if ( isset( $response_data['rewrite_content'] ) ) {
+						$content = trim( $response_data['rewrite_content'] );
+					}
+				} else {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+					do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'error in body = %s', print_r( $body, true ) ), 'error', __FILE__, __LINE__ );
+				}
+			} else {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'error in request = %s', print_r( $response, true ) ), 'error', __FILE__, __LINE__ );
+			}
+		}
+		return $content;
+	}
+
+	/**
+	 * Invoke the automatically summarize services.
+	 *
+	 * @access  public
+	 *
+	 * @param string $content Item Content.
+	 * @param array  $additional_data Request sign.
+	 *
+	 * @return string rewrite content.
+	 */
+	public function invoke_content_summarize_service( $content, $additional_data = array() ) {
+		if ( $this->feedzy_is_business() || $this->feedzy_is_agency() ) {
+			$post_data = array(
+				'content'  => $content,
+				'site_url' => get_site_url(),
+			);
+			$post_data = array_merge( $post_data, $additional_data );
+			$response  = wp_remote_post(
+				FEEDZY_PRO_OPENAI_SUMMARIZE_API,
+				apply_filters(
+					'feedzy_openai_content_summarize_args',
+					array(
+						'timeout' => 100,
+						'body'    => array_merge( $post_data, $this->get_additional_client_data() ),
+					)
+				)
+			);
+			if ( ! is_wp_error( $response ) ) {
+				if ( array_key_exists( 'response', $response ) && array_key_exists( 'code', $response['response'] ) && intval( $response['response']['code'] ) !== 200 ) {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+					do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'error in response = %s', print_r( $response, true ) ), 'error', __FILE__, __LINE__ );
+				}
+				$body = wp_remote_retrieve_body( $response );
+				if ( ! is_wp_error( $body ) ) {
+					$response_data = json_decode( $body, true );
+					if ( ! empty( $response_data['summarize_content'] ) ) {
+						$content = trim( $response_data['summarize_content'] );
+					}
+				} else {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+					do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'error in body = %s', print_r( $body, true ) ), 'error', __FILE__, __LINE__ );
+				}
+			} else {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'error in request = %s', print_r( $response, true ) ), 'error', __FILE__, __LINE__ );
+			}
+		}
+		return $content;
 	}
 }

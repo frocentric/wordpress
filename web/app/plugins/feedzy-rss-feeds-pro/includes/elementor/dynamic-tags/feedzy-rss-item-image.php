@@ -53,7 +53,7 @@ class Feedzy_Feed_Items_Image extends \Elementor\Core\DynamicTags\Data_Tag {
 	public function get_value( array $options = array() ) {
 		$item_img = FEEDZY_ABSURL . '/img/feedzy.svg?tag=[#item_img]';
 		return array(
-			'id'  => 1,
+			'id'  => 0,
 			'url' => $item_img,
 		);
 	}
