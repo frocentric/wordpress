@@ -3286,15 +3286,15 @@
         },
         {
             "name": "wpackagist-plugin/jetpack",
-            "version": "12.9",
+            "version": "12.9.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/jetpack/",
-                "reference": "tags/12.9"
+                "reference": "tags/12.9.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/jetpack.12.9.zip"
+                "url": "https://downloads.wordpress.org/plugin/jetpack.12.9.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
