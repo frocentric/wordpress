@@ -2865,16 +2865,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.15.8",
+            "version": "v3.15.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "64db98cb9a4e051b1620a03219f6633b5e1cdd85"
+                "reference": "25bf61efd71a997a92896711c85d356ad76b00af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/64db98cb9a4e051b1620a03219f6633b5e1cdd85",
-                "reference": "64db98cb9a4e051b1620a03219f6633b5e1cdd85",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/25bf61efd71a997a92896711c85d356ad76b00af",
+                "reference": "25bf61efd71a997a92896711c85d356ad76b00af",
                 "shasum": ""
             },
             "require": {
@@ -2910,7 +2910,7 @@
                 "wpackagist-plugin/pdf-embedder": "^4.6",
                 "wpackagist-plugin/simple-custom-css": "^4.0.3",
                 "wpackagist-plugin/spinupwp": "^1.1",
-                "wpackagist-plugin/woocommerce": "^7",
+                "wpackagist-plugin/woocommerce": "^8",
                 "wpackagist-plugin/wp-smushit": "^3"
             },
             "type": "wordpress-plugin",
@@ -2976,7 +2976,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2024-01-17T11:34:01+00:00"
+            "time": "2024-01-23T14:13:57+00:00"
         },
         {
             "name": "wpackagist-plugin/authors-list",
