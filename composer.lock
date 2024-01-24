@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e19c51cd35854fc3eb90fab0ad86f963",
+    "content-hash": "11a5655ea87d5df776eab0e28c51691e",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -3430,15 +3430,15 @@
         },
         {
             "name": "wpackagist-plugin/publishpress",
-            "version": "3.12.2",
+            "version": "4.0.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/publishpress/",
-                "reference": "tags/3.12.2"
+                "reference": "tags/4.0.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/publishpress.3.12.2.zip"
+                "url": "https://downloads.wordpress.org/plugin/publishpress.4.0.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
