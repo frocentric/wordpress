@@ -3142,15 +3142,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "3.18.3",
+            "version": "3.19.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "trunk"
+                "reference": "tags/3.19.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.zip?timestamp=1703090978"
+                "url": "https://downloads.wordpress.org/plugin/elementor.3.19.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
