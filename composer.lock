@@ -3178,15 +3178,15 @@
         },
         {
             "name": "wpackagist-plugin/essential-addons-for-elementor-lite",
-            "version": "5.9",
+            "version": "5.9.11",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/essential-addons-for-elementor-lite/",
-                "reference": "trunk"
+                "reference": "tags/5.9.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.zip?timestamp=1701072748"
+                "url": "https://downloads.wordpress.org/plugin/essential-addons-for-elementor-lite.5.9.11.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
