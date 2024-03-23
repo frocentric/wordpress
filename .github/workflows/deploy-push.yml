@@ -40,7 +40,7 @@ jobs:
       - name: Install dependencies
         uses: php-actions/composer@v5
         with:
-          php_version: 8.0
+          php_version: 8.2
 
       - name: Install phpcs
         run: vendor/bin/phpcs -i
