@@ -997,7 +997,11 @@ class GeneratePress_Hero {
 				foreach ( $matches[1] as $match ) {
 					if ( null !== get_post_meta( get_the_ID(), $match, true ) && '_thumbnail_id' !== $match ) {
 						$search[] = '{{custom_field.' . $match . '}}';
-						$replace[] = get_post_meta( get_the_ID(), $match, true );
+						$value = get_post_meta( get_the_ID(), $match, true );
+						add_filter( 'wp_kses_allowed_html', [ 'GeneratePress_Elements_Helper', 'expand_allowed_html' ], 10, 2 );
+						$value = wp_kses_post( $value );
+						remove_filter( 'wp_kses_allowed_html', [ 'GeneratePress_Elements_Helper', 'expand_allowed_html' ], 10, 2 );
+						$replace[] = $value;
 					}
 				}
 

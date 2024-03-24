@@ -3,9 +3,9 @@ Contributors: edge22
 Donate link: https://generatepress.com
 Tags: generatepress
 Requires at least: 5.2
-Tested up to: 6.3
-Requires PHP: 5.6
-Stable tag: 2.3.2
+Tested up to: 6.4
+Requires PHP: 7.2
+Stable tag: 2.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,6 +26,28 @@ To learn how to install GP Premium, check out our documentation [here](https://d
 In most cases, #1 will work fine and is way easier.
 
 == Changelog ==
+
+= 2.4.0 =
+* Security: Disallow scripts in custom field template tags
+* Important: Requires PHP 7.2 or greater
+* Feature: Improve Site Library filters
+* Feature: Add search capability in Site Library
+* Feature: Allow author searching in Site Library
+* Feature: Add `generate_smooth_scroll_offset` filter
+* Feature: Use built-in read more text filters
+* Fix: PHP 8.1 notices
+* Fix: Display posts in columns option changes Query Loop blocks
+* Fix: Remove no-csstransforms3d CSS from off canvas panel
+* Fix: Display Rules taxonomies missing when has_archive disabled
+* Fix: Navigation logo undefined array keys
+* Tweak: Update Content Template templates
+* Tweak: Update Archive Navigation templates
+* Tweak: Update Page Hero templates
+* Tweak: Update post meta templates
+* Tweak: Update post navigation templates
+* Tweak: Update site footer templates
+* Tweak: Remove deprecated filter_input functions
+* General: Updated translations
 
 = 2.3.2 =
 * Tweak: Remove deprecated wp_get_loading_attr_default function

@@ -153,10 +153,16 @@ class Feedzy_Rss_Feeds_Pro_Openai implements Feedzy_Rss_Feeds_Pro_Services_Inter
 			return $text;
 		}
 
+		if ( 'image' === $type ) {
+			$settings['openai_api_model'] = apply_filters( 'feedzy_openai_image_generate_model', 'dall-e-3' );
+		}
+
 		$this->init( $settings['openai_api_key'], $settings['openai_api_model'] );
 		$credential = $this->api_cred_encrypt( $settings['openai_api_key'], $settings['openai_api_model'] );
 		if ( 'summarize' === $type ) {
 			$text = apply_filters( 'feedzy_invoke_content_summarize_service', $text, array( 'cred' => $credential ) );
+		} elseif ( 'image' === $type ) {
+			$text = apply_filters( 'feedzy_invoke_image_generate_service', $text, array( 'cred' => $credential ) );
 		} else {
 			$text = apply_filters( 'feedzy_invoke_content_openai_services', $text, array( 'cred' => $credential ) );
 		}

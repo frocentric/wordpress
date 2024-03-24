@@ -65,37 +65,6 @@
     overflow-x: hidden;
 }
 
-/* Fallback movements for browser not supporting CSS 3d Transitions
------------------------------------------------ */
-
-/* Modernizr false negative csstransforms3d fix, reset CSS 3d Transitions */
-.no-csstransforms3d .offside {
-    transform: translate3d(0, 0, 0);
-}
-
-.no-csstransforms3d .offside-sliding-element {
-    overflow-x: hidden;
-    position: relative;
-}
-
-/* Element is open: off-canvas element slides in */
-.no-csstransforms3d .offside--left.is-open {
-    left: 0;
-}
-
-.no-csstransforms3d .offside--right.is-open {
-    right: 0;
-}
-
-/* Element is open: container elements slide out */
-.no-csstransforms3d > .offside-js--is-left .offside-sliding-element {
-    right: calc(var(--gp-slideout-width) * -1);
-}
-
-.no-csstransforms3d > .offside-js--is-right .offside-sliding-element {
-    left: calc(var(--gp-slideout-width) * -1);
-}
-
 /* GP */
 .slideout-navigation.main-navigation:not(.is-open):not(.slideout-transition) {
 	display: none;

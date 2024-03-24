@@ -1,3 +1,39 @@
+##### [Version 2.4.3](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.4.2...v2.4.3) (2024-02-27)
+
+### Fixes
+- Reuse existing generated images before trying to generate new ones on import
+- Updated dependencies
+
+##### [Version 2.4.2](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.4.1...v2.4.2) (2024-02-02)
+
+### Fixes
+- Fixed dynamic category import issue
+
+##### [Version 2.4.1](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.4.0...v2.4.1) (2024-01-29)
+
+### Fixes
+- Updated tested version of the Free plugin
+
+#### [Version 2.4.0](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.3.2...v2.4.0) (2024-01-25)
+
+### New Features
+- Added an ability to generate featured images with OpenAI for imported posts
+
+##### [Version 2.3.2](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.3.1...v2.3.2) (2024-01-12)
+
+### Fixes
+- Fixed missing title paraphrasing support for the Developer plan
+- Enhanced security
+
+##### [Version 2.3.1](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.3.0...v2.3.1) (2023-12-20)
+
+### Improvements
+- Added dropdown for OpenAI model
+- Updated dependencies
+
+### Bug Fixes
+- Fixed "Post content" string from being imported when a YouTube Feed is used
+
 #### [Version 2.3.0](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.2.5...v2.3.0) (2023-10-23)
 
 ### **New Features**
