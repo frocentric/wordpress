@@ -706,8 +706,8 @@ if (window.Element && !Element.prototype.closest) {
 }));
 
 /* GP */
-var gpscroll = new SmoothScroll( smooth.elements.join(), {
-	speed: smooth.duration,
+var gpscroll = new SmoothScroll( gpSmoothScroll.elements.join(), {
+	speed: gpSmoothScroll.duration,
 	offset: function( anchor, toggle ) {
 		var body = document.body,
 			nav = document.querySelector( '#site-navigation' ),
@@ -736,6 +736,8 @@ var gpscroll = new SmoothScroll( smooth.elements.join(), {
 			}
 		}
 
-		return offset;
+		return gpSmoothScroll.offset
+			? gpSmoothScroll.offset
+			: offset;
 	}
 } );

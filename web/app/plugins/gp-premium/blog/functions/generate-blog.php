@@ -134,6 +134,11 @@ if ( ! function_exists( 'generate_blog_post_classes' ) ) {
 	 * @since 0.1
 	 */
 	function generate_blog_post_classes( $classes ) {
+		// Don't add these classes to the GB Query Loop block items.
+		if ( in_array( 'gb-query-loop-item', $classes ) ) {
+			return $classes;
+		}
+
 		global $wp_query;
 		$paged = get_query_var( 'paged' );
 		$paged = $paged ? $paged : 1;
@@ -415,6 +420,25 @@ if ( ! function_exists( 'generate_blog_css' ) ) {
 	}
 }
 
+add_filter( 'generate_excerpt_more_text', 'generate_blog_set_read_more_text' );
+/**
+ * Set the read more text with our Customizer setting.
+ *
+ * @param string $text The read more text.
+ */
+function generate_blog_set_read_more_text( $text ) {
+	$settings = wp_parse_args(
+		get_option( 'generate_blog_settings', array() ),
+		generate_blog_get_defaults()
+	);
+
+	if ( $settings['read_more'] ) {
+		return wp_kses_post( $settings['read_more'] );
+	}
+
+	return $text;
+}
+
 if ( ! function_exists( 'generate_blog_excerpt_more' ) ) {
 	add_filter( 'excerpt_more', 'generate_blog_excerpt_more', 15 );
 	/**
@@ -428,6 +452,12 @@ if ( ! function_exists( 'generate_blog_excerpt_more' ) ) {
 
 		if ( '' == $generate_settings['read_more'] ) {
 			return '';
+		}
+
+		// We don't need to overwrite the entire element just to change its text.
+		// If we can filter the text, stop here.
+		if ( function_exists( 'generate_get_read_more_text' ) ) {
+			return $more;
 		}
 
 		return apply_filters(
@@ -460,6 +490,12 @@ if ( ! function_exists( 'generate_blog_content_more' ) ) {
 
 		if ( '' == $generate_settings['read_more'] ) {
 			return '';
+		}
+
+		// We don't need to overwrite the entire element just to change its text.
+		// If we can filter the text, stop here.
+		if ( function_exists( 'generate_get_read_more_text' ) ) {
+			return $more;
 		}
 
 		return apply_filters(
@@ -610,16 +646,20 @@ function generate_blog_read_more_button( $output ) {
 		return $output;
 	}
 
+	$aria_label = function_exists( 'generate_get_read_more_aria_label' )
+		? generate_get_read_more_aria_label()
+		: sprintf(
+			/* translators: Aria-label describing the read more button */
+			_x( 'More on %s', 'more on post title', 'gp-premium' ),
+			the_title_attribute( 'echo=0' )
+		);
+
 	return sprintf(
 		'%5$s<p class="read-more-container"><a title="%1$s" class="read-more button" href="%2$s" aria-label="%4$s">%3$s</a></p>',
 		the_title_attribute( 'echo=0' ),
 		esc_url( get_permalink( get_the_ID() ) . apply_filters( 'generate_more_jump', '#more-' . get_the_ID() ) ),
 		wp_kses_post( $settings['read_more'] ),
-		sprintf(
-			/* translators: Aria-label describing the read more button */
-			_x( 'More on %s', 'more on post title', 'gp-premium' ),
-			the_title_attribute( 'echo=0' )
-		),
+		$aria_label,
 		'generate_excerpt_more_output' === current_filter() ? ' ... ' : ''
 	);
 }
