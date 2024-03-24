@@ -978,6 +978,10 @@ class GeneratePress_Block_Elements {
 								$custom_field = $block['attrs']['gpDynamicTextBefore'] . $custom_field;
 							}
 
+							add_filter( 'wp_kses_allowed_html', [ 'GeneratePress_Elements_Helper', 'expand_allowed_html' ], 10, 2 );
+							$custom_field = wp_kses_post( $custom_field );
+							remove_filter( 'wp_kses_allowed_html', [ 'GeneratePress_Elements_Helper', 'expand_allowed_html' ], 10, 2 );
+
 							$custom_field = apply_filters( 'generate_dynamic_element_text_output', $custom_field, $block );
 							$block_content = str_replace( $text_to_replace, $custom_field, $block_content );
 						} else {

@@ -222,7 +222,9 @@ if ( ! function_exists( 'generate_save_de_meta' ) ) {
 		);
 
 		foreach ( $options as $key ) {
-			$value = filter_input( INPUT_POST, $key, FILTER_SANITIZE_STRING );
+			$value = isset( $_POST[ $key ] )
+				? sanitize_text_field( wp_unslash( $_POST[ $key ] ) )
+				: '';
 
 			if ( $value ) {
 				update_post_meta( $post_id, $key, $value );
@@ -395,7 +397,9 @@ function generate_premium_save_disable_elements_meta( $post_id ) {
 	);
 
 	foreach ( $options as $key ) {
-		$value = filter_input( INPUT_POST, $key, FILTER_SANITIZE_STRING );
+		$value = isset( $_POST[ $key ] ) // phpcs:ignore -- Nonce exists within `generate_layout_meta_box_save` hook.
+			? sanitize_text_field( wp_unslash( $_POST[ $key ] ) ) // phpcs:ignore -- Nonce exists within `generate_layout_meta_box_save` hook.
+			: '';
 
 		if ( $value ) {
 			update_post_meta( $post_id, $key, $value );

@@ -66,7 +66,7 @@ class Feedzy_Rss_Feeds_Pro {
 	 */
 	public function __construct() {
 		$this->plugin_name = 'feedzy-rss-feeds-pro';
-		$this->version     = '2.3.0';
+		$this->version     = '2.4.3';
 		$this->loader      = new Feedzy_Rss_Feeds_Pro_Loader();
 		$this->set_locale();
 		$this->define_admin_hooks();
@@ -160,6 +160,7 @@ class Feedzy_Rss_Feeds_Pro {
 		$this->loader->add_filter( 'feedzy_invoke_auto_translate_services', $plugin_admin, 'invoke_auto_translate_services', 10, 6 );
 		$this->loader->add_filter( 'feedzy_invoke_content_openai_services', $plugin_admin, 'invoke_content_openai_services', 10, 2 );
 		$this->loader->add_filter( 'feedzy_invoke_content_summarize_service', $plugin_admin, 'invoke_content_summarize_service', 10, 2 );
+		$this->loader->add_filter( 'feedzy_invoke_image_generate_service', $plugin_admin, 'invoke_image_generate_service', 10, 2 );
 
 		// Text spinner.
 		$this->loader->add_filter( 'feedzy_parse_custom_tags', $plugin_admin, 'feedzy_text_spinner', 10, 1 );

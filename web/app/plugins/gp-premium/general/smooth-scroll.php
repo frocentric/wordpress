@@ -35,7 +35,7 @@ function generate_smooth_scroll_scripts() {
 
 	wp_localize_script(
 		'generate-smooth-scroll',
-		'smooth',
+		'gpSmoothScroll',
 		array(
 			'elements' => apply_filters(
 				'generate_smooth_scroll_elements',
@@ -45,6 +45,7 @@ function generate_smooth_scroll_scripts() {
 				)
 			),
 			'duration' => apply_filters( 'generate_smooth_scroll_duration', 800 ),
+			'offset' => apply_filters( 'generate_smooth_scroll_offset', '' ),
 		)
 	);
 }

@@ -2197,8 +2197,13 @@ function generate_do_navigation_branding() {
 				$data = wp_get_attachment_metadata( get_theme_mod( 'custom_logo' ) );
 
 				if ( ! empty( $data ) ) {
-					$attr['width'] = $data['width'];
-					$attr['height'] = $data['height'];
+					if ( isset( $data['width'] ) ) {
+						$attr['width'] = $data['width'];
+					}
+
+					if ( isset( $data['height'] ) ) {
+						$attr['height'] = $data['height'];
+					}
 				}
 			}
 
