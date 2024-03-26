@@ -3345,15 +3345,15 @@
         },
         {
             "name": "wpackagist-plugin/meta-box",
-            "version": "5.9.4",
+            "version": "5.9.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/meta-box/",
-                "reference": "tags/5.9.4"
+                "reference": "tags/5.9.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/meta-box.5.9.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/meta-box.5.9.5.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
