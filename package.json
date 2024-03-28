@@ -4,7 +4,7 @@
   "description": "[![Packagist](https://img.shields.io/packagist/v/roots/bedrock.svg?style=flat-square)](https://packagist.org/packages/roots/bedrock) [![Build Status](https://img.shields.io/travis/roots/bedrock.svg?style=flat-square)](https://travis-ci.org/roots/bedrock)",
   "main": "index.js",
   "devDependencies": {
-    "@commitlint/cli": "^12.1.1",
+    "@commitlint/cli": "^17.6.1",
     "@commitlint/config-conventional": "^12.1.1",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
@@ -14,7 +14,7 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "husky": "^6.0.0",
-    "lint-staged": ">=10",
+    "lint-staged": ">=13",
     "prettier": "^2.2.1"
   },
   "scripts": {
