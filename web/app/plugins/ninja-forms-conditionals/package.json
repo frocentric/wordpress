@@ -5,10 +5,10 @@
     "gulp": "gulp"
   },
   "dependencies": {
-    "autoprefixer": "^6.3.6",
+    "autoprefixer": "^10.4.16",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^3.1.0",
-    "gulp-postcss": "^6.1.1",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-postcss": "^9.0.1",
     "gulp-rename": "^1.2.2",
     "gulp-requirejs-optimize": "^0.3.2",
     "gulp-sass": "^2.2.0",
