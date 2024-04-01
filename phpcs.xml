@@ -4,9 +4,11 @@
 	<config name="testVersion" value="5.6-"/>
 
 	<!-- Scan all files in directory -->
+	<file>./tests</file>
 	<file>./web/app</file>
 
 	<!-- Ignore WordPress and Composer dependencies -->
+	<exclude-pattern>tests/_output</exclude-pattern>
 	<exclude-pattern>web/wp</exclude-pattern>
 	<exclude-pattern>\.codeception/*</exclude-pattern>
 	<exclude-pattern>\.github/*</exclude-pattern>
