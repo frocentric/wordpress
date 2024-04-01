@@ -58,10 +58,10 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/the-events-calendar-community-events",
-        "version": "4.10.15",
+        "version": "4.10.16",
         "type": "wordpress-plugin",
         "dist": {
-          "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community&version={%VERSION}&key={%TEC_CE_LICENSE}",
+          "url": "https://evnt.is/fetch-ce?version={%VERSION}&key={%TEC_CE_LICENSE}",
           "type": "zip"
         }
       },
@@ -76,7 +76,7 @@
         "version": "4.9.4",
         "type": "wordpress-plugin",
         "dist": {
-          "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-community-tickets&version={%VERSION}&key={%TEC_CT_LICENSE}",
+          "url": "https://evnt.is/fetch-ct?version={%VERSION}&key={%TEC_CT_LICENSE}",
           "type": "zip"
         }
       },
@@ -88,10 +88,10 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-tickets-plus",
-        "version": "5.9.3",
+        "version": "5.9.4",
         "type": "wordpress-plugin",
         "dist": {
-          "url": "https://pue.tri.be/api/plugins/v2/download?plugin=event-tickets-plus&version={%VERSION}&key={%TEC_ETP_LICENSE}",
+          "url": "https://evnt.is/fetch-etp?version={%VERSION}&key={%TEC_ETP_LICENSE}",
           "type": "zip"
         }
       },
@@ -106,7 +106,7 @@
         "version": "6.3.2",
         "type": "wordpress-plugin",
         "dist": {
-          "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-calendar-pro&version={%VERSION}&key={%TEC_PRO_LICENSE}",
+          "url": "https://evnt.is/fetch-ecp?version={%VERSION}&key={%TEC_PRO_LICENSE}",
           "type": "zip"
         }
       },
@@ -121,7 +121,7 @@
         "version": "5.5.4",
         "type": "wordpress-plugin",
         "dist": {
-          "url": "https://pue.tri.be/api/plugins/v2/download?plugin=tribe-filterbar&version={%VERSION}&key={%TEC_FB_LICENSE}",
+          "url": "https://evnt.is/fetch-fbar?version={%VERSION}&key={%TEC_FB_LICENSE}",
           "type": "zip"
         }
       },
@@ -136,7 +136,7 @@
         "version": "1.15.6",
         "type": "wordpress-plugin",
         "dist": {
-          "url": "https://pue.tri.be/api/plugins/v2/download?plugin=events-virtual&version={%VERSION}&key={%TEC_VE_LICENSE}",
+          "url": "https://evnt.is/fetch-ve?version={%VERSION}&key={%TEC_VE_LICENSE}",
           "type": "zip"
         }
       },
