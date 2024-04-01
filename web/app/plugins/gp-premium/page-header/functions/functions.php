@@ -1143,7 +1143,12 @@ function generate_page_header_template_tags( $content ) {
 			foreach ( $matches[1] as $match ) {
 				if ( null !== get_post_meta( get_the_ID(), $match, true ) && '_thumbnail_id' !== $match ) {
 					$search[] = '{{custom_field.' . $match . '}}';
-					$replace[] = get_post_meta( get_the_ID(), $match, true );
+					$value = get_post_meta( get_the_ID(), $match, true );
+					add_filter( 'wp_kses_allowed_html', 'generate_page_header_expand_allowed_html', 10, 2 );
+					$value = wp_kses_post( $value );
+					remove_filter( 'wp_kses_allowed_html', 'generate_page_header_expand_allowed_html', 10, 2 );
+
+					$replace[] = $value;
 				}
 			}
 
@@ -1292,4 +1297,21 @@ function generate_page_header_transfer_blog_header() {
 	$updated[ 'blog_page_header' ] = 'true';
 	$new_migration_settings = wp_parse_args( $updated, $migration_settings );
 	update_option( 'generate_migration_settings', $new_migration_settings );
+}
+
+function generate_page_header_expand_allowed_html( $tags, $context ) {
+	if ( ! isset( $tags['iframe'] ) ) {
+		$tags['iframe'] = [
+			'src'             => true,
+			'height'          => true,
+			'width'           => true,
+			'frameborder'     => true,
+			'allowfullscreen' => true,
+			'title'           => true,
+		];
+	}
+
+	$tags = apply_filters( 'generate_dynamic_content_allowed_html', $tags, $context );
+
+	return $tags;
 }

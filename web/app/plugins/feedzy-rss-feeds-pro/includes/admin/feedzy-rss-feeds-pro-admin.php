@@ -871,7 +871,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 		}
 
 		// Create custom category.
-		if ( 'none' !== $import_post_term && strpos( $import_post_term, '[#item_' ) > 0 ) {
+		if ( 'none' !== $import_post_term && false !== strpos( $import_post_term, '[#item_' ) ) {
 			preg_match_all( '/\[(#item_)([a-zA-Z0-9:@\-_]*)\]/i', $import_post_term, $custom_tag );
 			if ( ! empty( $custom_tag[0] ) ) {
 				foreach ( $custom_tag[0] as $category_tag ) {
@@ -1039,7 +1039,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 		} catch ( Exception $ex ) {
 			// if for some reason the URL is not being directly parsed
 			// we will fetch it manually.
-			$content = wp_remote_retrieve_body( wp_remote_get( $feed_url ) );
+			$content = wp_remote_retrieve_body( wp_safe_remote_get( $feed_url ) );
 			if ( ! empty( $content ) ) {
 				$sxe = new SimpleXMLElement( $content, LIBXML_NOCDATA, false );
 			} else {
@@ -1797,7 +1797,7 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 	 * @access  public
 	 */
 	public function magic_tags_title( $default ) {
-		if ( $this->feedzy_is_agency() ) {
+		if ( $this->feedzy_is_business() || $this->feedzy_is_agency() ) {
 			$default['title_feedzy_rewrite'] = __( 'Paraphrased title using Feedzy', 'feedzy-rss-feeds' );
 		} else {
 			$default['title_feedzy_rewrite:disabled'] = __( '🚫 Paraphrased title using Feedzy', 'feedzy-rss-feeds' );
@@ -1950,7 +1950,11 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 					$item_array['item_description'] = $desc;
 				}
 			}
-			$item_array['item_content'] .= '[video src="' . $url . '"]';
+			if ( str_contains( $item_array['item_content'], 'Post Content' ) ) {
+				$item_array['item_content'] = '[video src="' . $url . '"]';
+			} else {
+				$item_array['item_content'] .= '[video src="' . $url . '"]';
+			}
 		}
 
 		return $item_array;
@@ -2262,5 +2266,57 @@ class Feedzy_Rss_Feeds_Pro_Admin {
 			}
 		}
 		return $content;
+	}
+
+	/**
+	 * Invoke the automatically generate image services.
+	 *
+	 * @access  public
+	 *
+	 * @param string $content Item Content.
+	 * @param array  $additional_data Request sign.
+	 *
+	 * @return string rewrite content.
+	 */
+	public function invoke_image_generate_service( $content, $additional_data = array() ) {
+		if ( $this->feedzy_is_business() || $this->feedzy_is_agency() ) {
+			$post_data = array(
+				'content'  => $content,
+				'site_url' => get_site_url(),
+			);
+			$post_data = array_merge( $post_data, $additional_data );
+			$image_url = '';
+			$response  = wp_remote_post(
+				FEEDZY_PRO_OPENAI_GENERATE_IMG_API,
+				apply_filters(
+					'feedzy_openai_generate_image_args',
+					array(
+						'timeout' => 100,
+						'body'    => array_merge( $post_data, $this->get_additional_client_data() ),
+					)
+				)
+			);
+
+			if ( ! is_wp_error( $response ) ) {
+				if ( array_key_exists( 'response', $response ) && array_key_exists( 'code', $response['response'] ) && intval( $response['response']['code'] ) !== 200 ) {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+					do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'error in response = %s', print_r( $response, true ) ), 'error', __FILE__, __LINE__ );
+				}
+				$body = wp_remote_retrieve_body( $response );
+				if ( ! is_wp_error( $body ) ) {
+					$response_data = json_decode( $body, true );
+					if ( ! empty( $response_data['generated_image'] ) ) {
+						$image_url = trim( $response_data['generated_image'] );
+					}
+				} else {
+					// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+					do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'error in body = %s', print_r( $body, true ) ), 'error', __FILE__, __LINE__ );
+				}
+			} else {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				do_action( 'themeisle_log_event', FEEDZY_NAME, sprintf( 'error in request = %s', print_r( $response, true ) ), 'error', __FILE__, __LINE__ );
+			}
+		}
+		return $image_url;
 	}
 }

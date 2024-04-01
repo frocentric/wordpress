@@ -37,7 +37,25 @@ if ( isset( $this->settings['openai_message'] ) && ! empty( $this->settings['ope
 			<label class="form-label"><?php esc_html_e( 'The OpenAI model:', 'feedzy-rss-feeds' ); ?></label>
 			<div class="fz-input-group">
 				<div class="fz-input-group-left">
-					<input type="text" id="openai_api_model" class="form-control" name="openai_api_model" value="<?php echo esc_attr( $openai_api_model ); ?>" placeholder="<?php echo esc_attr( __( 'Model', 'feedzy-rss-feeds' ) ); ?>"/>
+					<select name="openai_api_model" id="openai_api_model" class="form-control fz-select-control">
+						<?php
+						$openai_models = apply_filters(
+							'feedzy_openai_models',
+							array(
+								'gpt-3.5-turbo-instruct',
+								'text-davinci-002',
+								'text-davinci-003',
+								'text-curie-001',
+								'text-babbage-001',
+								'text-ada-001',
+								'davinci',
+							),
+						);
+						foreach ( $openai_models as $key => $openai_model ) {
+							echo '<option value="' . esc_attr( $openai_model ) . '" ' . selected( $openai_api_model, $openai_model ) . '>' . esc_html( $openai_model ) . '</option>';
+						}
+						?>
+					</select>
 					<div class="help-text"><?php echo wp_kses_post( wp_sprintf( __( 'API Status: <span style="color:%1$s;">%2$s</span> | Last check: %3$s', 'feedzy-rss-feeds' ), $license_status_color, $_status, $openai_last_check ) ); ?></div>
 				</div>
 				<div class="fz-input-group-right">

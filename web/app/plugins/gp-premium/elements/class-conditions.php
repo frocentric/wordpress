@@ -85,16 +85,15 @@ class GeneratePress_Conditions {
 			);
 
 			// Add the post type archive.
-			if ( 'post' === $post_type_slug || ! empty( $post_type_object->has_archive ) ) {
-				$types[ $post_type_slug . '_archive' ] = array(
+			// We add this regardless of `has_archive` as we deal with that after taxonomies are added.
+			$types[ $post_type_slug . '_archive' ] = array(
+				/* translators: post type name */
+				'label' => sprintf( esc_html_x( '%s Archives', '%s is a singular post type name', 'gp-premium' ), $post_type->labels->singular_name ),
+				'locations' => array(
 					/* translators: post type name */
-					'label' => sprintf( esc_html_x( '%s Archives', '%s is a singular post type name', 'gp-premium' ), $post_type->labels->singular_name ),
-					'locations' => array(
-						/* translators: post type name */
-						'archive:' . $post_type_slug => sprintf( esc_html_x( '%s Archive', '%s is a singular post type name', 'gp-premium' ), $post_type->labels->singular_name ),
-					),
-				);
-			}
+					'archive:' . $post_type_slug => sprintf( esc_html_x( '%s Archive', '%s is a singular post type name', 'gp-premium' ), $post_type->labels->singular_name ),
+				),
+			);
 
 			// Add the taxonomies for the post type.
 			$taxonomies = get_object_taxonomies( $post_type_slug, 'objects' );
@@ -126,6 +125,16 @@ class GeneratePress_Conditions {
 				if ( isset( $types[ $post_type_slug ]['locations'] ) ) {
 					$types[ $post_type_slug ]['locations'][ $post_type_slug . ':taxonomy:' . $taxonomy_slug ] = esc_html( $post_type->labels->singular_name . ' ' . $label );
 				}
+			}
+
+			// Remove the archives location if `has_archive` is set to false.
+			if ( 'post' !== $post_type_slug && empty( $post_type_object->has_archive ) ) {
+				unset( $types[ $post_type_slug . '_archive' ]['locations'][ 'archive:' . $post_type_slug ] );
+			}
+
+			// Remove the entire item if no locations exist.
+			if ( 0 === count( (array) $types[ $post_type_slug . '_archive' ]['locations'] ) ) {
+				unset( $types[ $post_type_slug . '_archive' ] );
 			}
 		}
 

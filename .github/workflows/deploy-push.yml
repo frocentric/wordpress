@@ -21,6 +21,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
       - name: Cache Composer dependencies
         uses: actions/cache@v3
         with:
@@ -39,14 +44,15 @@ jobs:
 
       - name: Install dependencies
         uses: php-actions/composer@v5
-        with:
-          php_version: 8.0
 
       - name: Install phpcs
         run: vendor/bin/phpcs -i
 
       - name: PHP Code Style (phpcs)
         run: composer cs
+
+      - name: Run tests
+        run: composer test
 
   version:
     if: ${{ github.ref == 'refs/heads/production' && github.event_name == 'push' && !contains(github.event.head_commit.author.name, 'GitHub Action') }}

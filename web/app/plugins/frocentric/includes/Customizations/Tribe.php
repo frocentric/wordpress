@@ -72,6 +72,7 @@ class Tribe {
 			add_action( 'wp_ajax_aggregator_fetch_import', array( __CLASS__, 'wp_ajax_aggregator_fetch_import' ) );
 
 			// Filters.
+			add_filter( 'tribe_aggregator_before_save_event', array( __CLASS__, 'tribe_aggregator_before_save_event' ), 10, 2 );
 			add_filter( 'tribe_aggregator_find_matching_organizer', array( __CLASS__, 'tribe_aggregator_find_matching_organizer' ), 10, 2 );
 			add_filter( 'tribe_aggregator_new_event_post_status_before_import', array( __CLASS__, 'tribe_aggregator_new_event_post_status_before_import' ), 10, 3 );
 			add_filter( 'tribe_context_locations', array( __CLASS__, 'tribe_context_locations' ) );
@@ -106,6 +107,85 @@ class Tribe {
 				add_action( 'social_connect_login', array( __CLASS__, 'wpmus_maybesync_newuser' ), 10, 1 );
 			}
 		}
+	}
+
+	/**
+	 * Filters Eventbrite aggregator event content before saving
+	 *
+	 * @param array                                       $event  Event data to save
+	 * @param Tribe__Events__Aggregator__Record__Abstract $record Importer record
+	 */
+	public static function tribe_aggregator_before_save_event( $event, $record ) {
+		if ( $record->origin === 'eventbrite' ) {
+			$event['post_content'] = self::fix_eventbrite_event_markup( $event['post_content'] );
+		}
+
+		return $event;
+	}
+
+	/**
+	 * Fixes funky Eventbrite formatting of event description field, e.g.
+	 *
+	 * <div>Join us on November 8th for a collaboration between BGIT and SOHOHOUSE, as we explore "The Intersection of Fashion and Tech."</div>
+	 * <div style="margin-top: 20px;">
+	 *   <div style="margin: 20px 10px; font-size: 15px; line-height: 22px; font-weight: 400; text-align: left;">
+	 *     Join us on November 8th for a collaboration between BGIT and SOHOHOUSE, as we explore "The Intersection of Fashion and Tech." This unique event will delve into the dynamic fusion of two worlds, where innovation meets style, and technology ignites creativity.
+	 *     ...
+	 *   </div>
+	 *   ...
+	 * </div>
+	 * becomes:
+	 *
+	 * <div>Join us on November 8th for a collaboration between BGIT and SOHOHOUSE, as we explore "The Intersection of Fashion and Tech."</div>
+	 * Join us on November 8th for a collaboration between BGIT and SOHOHOUSE, as we explore "The Intersection of Fashion and Tech." This unique event will delve into the dynamic fusion of two worlds, where innovation meets style, and technology ignites creativity.
+	 *
+	 */
+	public static function fix_eventbrite_event_markup( $markup ) {
+		/**
+		 * Strips the tags from an HTML node but retains its content
+		 *
+		 * @param DOMNode $node Document node to strip tags from
+		 */
+		function strip_tags( $node ) {
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			$parent_node = $node->parentNode;
+
+			// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			while ( $node->firstChild ) {
+				// phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+				$parent_node->insertBefore( $node->firstChild, $node );
+			}
+
+			$parent_node->removeChild( $node );
+		}
+
+		$dom = new \DOMDocument();
+		libxml_use_internal_errors( true );
+		$encoded_markup = mb_encode_numericentity(
+			htmlspecialchars_decode(
+				htmlentities( '<html>' . $markup . '</html>', ENT_NOQUOTES, 'UTF-8', false ),
+				ENT_NOQUOTES
+			),
+			array( 0x80, 0x10FFFF, 0, ~0 ),
+			'UTF-8'
+		);
+		$dom->loadHTML( $encoded_markup, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+		libxml_clear_errors();
+
+		// Find all <div> elements with a "style" attribute
+		$xpath = new \DOMXPath( $dom );
+		$styled_divs = $xpath->query( '//div[@style]' );
+
+		for ( $count = 2; $count >= 0; $count-- ) {
+			$current_node = $styled_divs->item( $count );
+			$style = $current_node->attributes->getNamedItem( 'style' )->nodeValue;
+			// Strip tags from the styled <div> elements unless it's the image container
+			if ( $style === 'margin-top: 20px;' || strpos( $style, 'font-size:' ) !== false ) {
+				strip_tags( $current_node );
+			}
+		}
+
+		return str_replace( array( '<html>', '</html>' ), '', $dom->saveHTML() );
 	}
 
 	/**
