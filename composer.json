@@ -216,7 +216,16 @@
     "dealerdirect/phpcodesniffer-composer-installer": "*",
     "phpcompatibility/phpcompatibility-wp": "*",
     "squizlabs/php_codesniffer": "3.*",
-    "wp-coding-standards/wpcs": "*"
+    "wp-coding-standards/wpcs": "*",
+    "codeception/codeception": "^5.1",
+    "codeception/module-phpbrowser": "*",
+    "codeception/module-asserts": "*",
+    "codeception/verify": "^3.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Frocentric\\": "web/app/plugins/frocentric/includes/"
+    }
   },
   "extra": {
     "installer-paths": {
@@ -269,7 +278,7 @@
     "cs": "phpcs --standard=phpcs.xml ./web/app/plugins/frocentric ./web/app/plugins/frocentric-elementor-extension ./web/app/themes/frocentric ./web/app/themes/frocentric-tech",
     "cbf": "phpcbf --standard=phpcs.xml ./web/app/plugins/frocentric ./web/app/plugins/frocentric-elementor-extension ./web/app/themes/frocentric ./web/app/themes/frocentric-tech",
     "test": [
-      "phpcs"
+      "codecept run"
     ]
   },
   "minimum-stability": "dev",

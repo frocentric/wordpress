@@ -48,6 +48,9 @@ jobs:
       - name: PHP Code Style (phpcs)
         run: composer cs
 
+      - name: Run tests
+        run: composer test
+
   version:
     if: ${{ github.ref == 'refs/heads/production' && github.event_name == 'push' && !contains(github.event.head_commit.author.name, 'GitHub Action') }}
     needs: [ setup ]
