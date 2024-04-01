@@ -143,7 +143,15 @@ class Tribe {
 	public static function fix_eventbrite_event_markup( $markup ) {
 		$dom = new \DOMDocument();
 		libxml_use_internal_errors( true );
-		$dom->loadHTML( mb_convert_encoding( '<html>' . $markup . '</html>', 'HTML-ENTITIES', 'UTF-8' ), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
+		$encoded_markup = mb_encode_numericentity(
+			htmlspecialchars_decode(
+				htmlentities( '<html>' . $markup . '</html>', ENT_NOQUOTES, 'UTF-8', false ),
+				ENT_NOQUOTES
+			),
+			array( 0x80, 0x10FFFF, 0, ~0 ),
+			'UTF-8'
+		);
+		$dom->loadHTML( $encoded_markup, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD );
 		libxml_clear_errors();
 
 		// Find all <div> elements with a "style" attribute
