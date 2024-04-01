@@ -17,9 +17,9 @@ declare -A DEST
 declare -A DEV=(
 	["bucket"]="s3://froware-local/uploads"
 	["bucketurl"]="https://dzrf8lsyz0jmv.cloudfront.net"
-	["rootdomain"]="frocentric.local"
-	["domain"]="frocentric.local"
-	["url"]="https://frocentric.local"
+	["rootdomain"]="frocentric.lndo.site"
+	["domain"]="frocentric.lndo.site"
+	["url"]="https://frocentric.lndo.site"
 	["discourseurl"]="https://localhost:4200"
 )
 declare -A STAGING=(
