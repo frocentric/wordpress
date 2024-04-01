@@ -50,6 +50,8 @@ jobs:
 
       - name: Run tests
         run: composer test
+        with:
+          php_version: 8.2
 
   version:
     if: ${{ github.ref == 'refs/heads/production' && github.event_name == 'push' && !contains(github.event.head_commit.author.name, 'GitHub Action') }}
