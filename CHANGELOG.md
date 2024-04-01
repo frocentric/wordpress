@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.19.0](https://github.com/frocentric/wordpress/compare/v1.18.11...v1.19.0) (2024-04-01)
+
+
+### Features
+
+* implements Eventbrite event cleanup ([92c2592](https://github.com/frocentric/wordpress/commit/92c2592e71bc26bd9fd722f803f981b7325c1a89))
+
+
+### Bug Fixes
+
+* improves markup cleaning logic ([9948e40](https://github.com/frocentric/wordpress/commit/9948e40024c4f910b169245802cc7b8142e42103))
+
 ## [1.18.11](https://github.com/frocentric/wordpress/compare/v1.18.10...v1.18.11) (2023-12-14)
 
 ## [1.18.10](https://github.com/frocentric/wordpress/compare/v1.18.9...v1.18.10) (2023-09-24)
