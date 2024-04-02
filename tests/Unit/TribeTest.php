@@ -22,22 +22,22 @@ class TribeTest extends \Codeception\Test\Unit {
 	public function testEventbriteMarkupFormatted() {
 		$markup = <<<MARKUP
 		<div>Join us in Berlin for our new Germany chapter Launch</div>
-		<div style="margin-top: 20px;">
-		<div style="margin: 20px 0; line-height: 22px;"><img style="max-width: 100%; height: auto;" src="https://d3kjg0zldfafgn.cloudfront.net/uploads/2021/07/frocentric-tech-colour-black.svg" alt="" /></div>
-		<div style="margin: 20px 10px; font-size: 15px; line-height: 22px; font-weight: 400; text-align: left;">
+		<div style="margin-top: 20px">
+		<div style="margin: 20px 0; line-height: 22px"><img style="max-width: 100%; height: auto" src="https://d3kjg0zldfafgn.cloudfront.net/uploads/2021/07/frocentric-tech-colour-black.svg" alt="" /></div>
+		<div style="margin: 20px 10px; font-size: 15px; line-height: 22px; font-weight: 400; text-align: left">
 		<h3>A heading</h3>
 
 		A paragraph of text would go here.
 		</div>
 		</div>
 MARKUP;
-		$cleaned_markup = <<<MARKUP2
+		$cleaned_markup = <<<CLEANED_MARKUP
 		<div>Join us in Berlin for our new Germany chapter Launch</div>
-		<div style="margin: 20px 0; line-height: 22px;"><img style="max-width: 100%; height: auto;" src="https://d3kjg0zldfafgn.cloudfront.net/uploads/2021/07/frocentric-tech-colour-black.svg" alt=""></div>
+		<div style="margin: 20px 0; line-height: 22px"><img style="max-width: 100%; height: auto" src="https://d3kjg0zldfafgn.cloudfront.net/uploads/2021/07/frocentric-tech-colour-black.svg" alt=""></div>
 		<h3>A heading</h3>
 
 		A paragraph of text would go here.
-MARKUP2;
+CLEANED_MARKUP;
 
 		$returned_markup = Tribe::fix_eventbrite_event_markup( $markup );
 		verify( $this->strip_whitespace( $returned_markup ) )->equals( $this->strip_whitespace( $cleaned_markup ) );
