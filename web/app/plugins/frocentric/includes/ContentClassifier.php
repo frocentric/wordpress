@@ -20,19 +20,35 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class ContentClassifier {
 	protected array $state = array();
-	protected $tokenizer;
-
-	/**
-	 * Constructor with options for customization.
-	 *
-	 * @param array $options Options for customizing the classifier behavior.
-	 */
-	public function __construct( array $options = array() ) {
-		$this->tokenizer = $options['tokenizer'] ?? function ( $text ) {
-			// Default tokenizer: convert to lowercase and split into words
-			return explode( ' ', strtolower( $text ) );
-		};
-	}
+	protected array $default_stop_words = array(
+		'the',
+		'and',
+		'a',
+		'to',
+		'of',
+		'in',
+		'i',
+		'is',
+		'that',
+		'it',
+		'on',
+		'you',
+		'this',
+		'for',
+		'but',
+		'with',
+		'are',
+		'have',
+		'be',
+		'at',
+		'or',
+		'as',
+		'was',
+		'so',
+		'if',
+		'out',
+		'not',
+	);
 
 	/**
 	 * Learn from a single piece of text, with labels now being an associative array of label types
@@ -43,8 +59,8 @@ class ContentClassifier {
 	 * @param array $labels An associative array where keys are label types and values are arrays of labels of the text.
 	 */
 	// phpcs:ignore Generic.Metrics.NestingLevel.MaxExceeded
-	public function learn( string $content_type, string $text, array $labels ): void {
-		$words = call_user_func( $this->tokenizer, $text );
+	public function learn( string $content_type, string $text, array $labels, array $stop_words = null ): void {
+		$words = $this->tokenize( $text, $stop_words );
 
 		foreach ( $labels as $label_type => $label_values ) {
 			foreach ( $label_values as $label_value ) {
@@ -69,7 +85,6 @@ class ContentClassifier {
 			}
 		}
 
-		// Calculate probabilities
 		$this->calculate_probabilities();
 	}
 
@@ -79,8 +94,8 @@ class ContentClassifier {
 	 * @param string $content_type The type of content being classified.
 	 * @param string $text The text to classify.
 	 */
-	public function classify( string $content_type, string $text ): array {
-		$words = call_user_func( $this->tokenizer, $text );
+	public function classify( string $content_type, string $text, array $stop_words = null ): array {
+		$words = $this->tokenize( $text, $stop_words );
 		$label_scores = array();
 
 		foreach ( $this->state[ $content_type ] ?? array() as $label_type => $label_values ) {
@@ -124,6 +139,21 @@ class ContentClassifier {
 		} else {
 			unset( $this->state[ $content_type ] );
 		}
+	}
+
+	protected function tokenize( string $text, array $stop_words = null ): array {
+		$final_stop_words = $stop_words ?? $this->default_stop_words;
+		// escape the stopword array and implode with pipe
+		$filter_words = '~^\W*(' . implode( '|', array_map( 'preg_quote', $final_stop_words ) ) . ')\W+\b|\b\W+(?1)\W*$~i';
+
+		// remove stop words
+		$text = preg_replace( $filter_words, '', $text );
+
+		// split the words
+		preg_match_all( '/[[:alpha:]]+/u', $text, $matches );
+
+		// first match list of words
+		return $matches[0];
 	}
 
 	/**
