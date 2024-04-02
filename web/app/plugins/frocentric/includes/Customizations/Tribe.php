@@ -176,7 +176,7 @@ class Tribe {
 		$xpath = new \DOMXPath( $dom );
 		$styled_divs = $xpath->query( '//div[@style]' );
 
-		foreach( $styled_divs as $current_node) {
+		foreach ( $styled_divs as $current_node ) {
 			$style = $current_node->attributes->getNamedItem( 'style' )->nodeValue;
 			// Strip tags from the styled <div> elements unless it's the image container
 			if ( $style === 'margin-top: 20px' || strpos( $style, 'font-size:' ) !== false ) {
