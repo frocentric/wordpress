@@ -95,6 +95,14 @@ class ContentClassifierTest extends \Codeception\Test\Unit {
 		),
 		array(
 			'contentType' => 'reviews',
+			'text' => 'Fantastic product, would buy again',
+			'labels' => array(
+				'sentiment' => array( 'positive' ),
+				'features' => array( 'excellent' ),
+			),
+		),
+		array(
+			'contentType' => 'reviews',
 			'text' => 'Terrible customer service, would not recommend',
 			'labels' => array(
 				'sentiment' => array( 'negative' ),
@@ -153,7 +161,8 @@ class ContentClassifierTest extends \Codeception\Test\Unit {
 
 		// Assert internal state changes
 		// Note: Since the internal state is private, you might need to use reflection or make the state accessible for testing
-		verify( $classifier->exportState() )->notEmpty( 'Classifier state should not be empty after learning.' );
+		$state = json_decode( $classifier->exportState(), true );
+		verify( $state )->arrayHasKey( 'text', 'Classifier state should not be empty after learning.' );
 
 		// Test classification
 		$classification = $classifier->classify( 'text', 'Very pleased with the product' );
@@ -170,15 +179,20 @@ class ContentClassifierTest extends \Codeception\Test\Unit {
 
 		// Test learning with multiple content type and multiple labels
 		$this->learnFromDifferentContentTypes( $classifier, $this->differentContentTypesData );
+		var_dump( json_decode( $classifier->exportState(), true ) );
+		ob_flush();
 		// Resetting specific content type
 		$classifier->reset( 'blogs' );
 		$state = json_decode( $classifier->exportState(), true );
-		verify( $state['labelCounts'] )->arrayHasNotKey( 'blogs', 'State should be empty after resetting a specific content type.' );
+
+		verify( $state )->arrayHasNotKey( 'blogs', 'State for a specific content type should be empty after resetting it.' );
+		verify( $state )->arrayCount( 2, 'State should contain remaining content types after resetting a specific one.' );
 
 		// Global reset
 		$classifier->reset();
 		$state = json_decode( $classifier->exportState(), true );
-		verify( count( $state['labelCounts'] ) + count( $state['wordProbabilities'] ) )->equals( 0, 'State should be completely empty after global reset.' );
+
+		verify( $state )->arrayCount( 0, 'State should be completely empty after global reset.' );
 	}
 
 	// Additional tests for tokenizer functionality, import/export state, etc., can be added here.

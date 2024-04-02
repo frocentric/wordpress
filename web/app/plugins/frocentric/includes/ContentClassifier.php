@@ -19,9 +19,8 @@ if ( ! defined( 'ABSPATH' ) ) {
  * An enhanced Naive Bayes classifier with support for custom tokenization and flexible state management.
  */
 class ContentClassifier {
-	private array $labelCounts = array();
-	private array $wordProbabilities = array();
-	private $tokenizer;
+	protected array $state = array();
+	protected $tokenizer;
 
 	/**
 	 * Constructor with options for customization.
@@ -48,23 +47,29 @@ class ContentClassifier {
 
 		foreach ( $labels as $labelType => $labelValues ) {
 			foreach ( $labelValues as $labelValue ) {
-				$this->labelCounts[ $contentType ][ $labelType ][ $labelValue ] = ( $this->labelCounts[ $contentType ][ $labelType ][ $labelValue ] ?? 0 ) + 1;
+				// Initialize structure if not exists
+				if ( ! isset( $this->state[ $contentType ][ $labelType ][ $labelValue ] ) ) {
+					$this->state[ $contentType ][ $labelType ][ $labelValue ] = array(
+						'count' => 0,
+						'wordProbabilities' => array(),
+					);
+				}
+
+				// Increment label count
+				$this->state[ $contentType ][ $labelType ][ $labelValue ]['count']++;
 
 				foreach ( $words as $word ) {
-					$this->wordProbabilities[ $contentType ][ $labelType ][ $labelValue ][ $word ] = ( $this->wordProbabilities[ $contentType ][ $labelType ][ $labelValue ][ $word ] ?? 0 ) + 1;
+					if ( ! isset( $this->state[ $contentType ][ $labelType ][ $labelValue ]['wordProbabilities'][ $word ] ) ) {
+						$this->state[ $contentType ][ $labelType ][ $labelValue ]['wordProbabilities'][ $word ] = 1;
+					} else {
+						$this->state[ $contentType ][ $labelType ][ $labelValue ]['wordProbabilities'][ $word ]++;
+					}
 				}
 			}
 		}
 
 		// Calculate probabilities
-		foreach ( $labels as $labelType => $labelValues ) {
-			foreach ( $labelValues as $labelValue ) {
-				$totalWords = array_sum( $this->wordProbabilities[ $contentType ][ $labelType ][ $labelValue ] ?? array() );
-				foreach ( ( $this->wordProbabilities[ $contentType ][ $labelType ][ $labelValue ] ?? array() ) as $word => $count ) {
-					$this->wordProbabilities[ $contentType ][ $labelType ][ $labelValue ][ $word ] = ( $count + 1 ) / ( $totalWords + count( $this->wordProbabilities[ $contentType ][ $labelType ][ $labelValue ] ) );
-				}
-			}
-		}
+		$this->calculateProbabilities();
 	}
 
 	/**
@@ -77,20 +82,18 @@ class ContentClassifier {
 		$words = call_user_func( $this->tokenizer, $text );
 		$labelScores = array();
 
-		foreach ( $this->labelCounts[ $contentType ] ?? array() as $labelType => $labels ) {
-			foreach ( $labels as $labelValue => $count ) {
-				$labelScores[ $labelType ][ $labelValue ] = 1; // Initialize score
+		foreach ( $this->state[ $contentType ] ?? array() as $labelType => $labelValues ) {
+			foreach ( $labelValues as $labelValue => $data ) {
+				$labelScores[ $labelType ][ $labelValue ] = log( $data['count'] ); // Start with log(count) to avoid underflow
+
 				foreach ( $words as $word ) {
-					$labelScores[ $labelType ][ $labelValue ] *= $this->wordProbabilities[ $contentType ][ $labelType ][ $labelValue ][ $word ] ?? 1 / ( array_sum( $labels ) + count( $words ) );
+					$prob = $data['wordProbabilities'][ $word ] ?? ( 1 / ( array_sum( $data['wordProbabilities'] ) + count( $words ) ) );
+					$labelScores[ $labelType ][ $labelValue ] += log( $prob );
 				}
-				$labelScores[ $labelType ][ $labelValue ] *= $count / array_sum( $labels );
 			}
 		}
 
-		foreach ( $labelScores as $labelType => &$scores ) {
-			arsort( $scores ); // Sort by probability in descending order
-		}
-
+		// Normalize scores back from log space if necessary, or just use as a relative comparison
 		return $labelScores;
 	}
 
@@ -98,12 +101,7 @@ class ContentClassifier {
 	 * Export the current state as JSON.
 	 */
 	public function exportState(): string {
-		return json_encode(
-			array(
-				'labelCounts' => $this->labelCounts,
-				'wordProbabilities' => $this->wordProbabilities,
-			)
-		);
+		return json_encode( $this->state );
 	}
 
 	/**
@@ -111,9 +109,7 @@ class ContentClassifier {
 	 * @param string $text The JSON to import from.
 	 */
 	public function importState( string $json ): void {
-		$state = json_decode( $json, true );
-		$this->labelCounts = $state['labelCounts'] ?? array();
-		$this->wordProbabilities = $state['wordProbabilities'] ?? array();
+		$this->state = json_decode( $json, true );
 	}
 
 	/**
@@ -123,11 +119,27 @@ class ContentClassifier {
 	 */
 	public function reset( ?string $contentType = null ): void {
 		if ( $contentType === null ) {
-			$this->labelCounts = array();
-			$this->wordProbabilities = array();
+			$this->state = array();
 		} else {
-			unset( $this->labelCounts[ $contentType ] );
-			unset( $this->wordProbabilities[ $contentType ] );
+			unset( $this->state[ $contentType ] );
+		}
+	}
+
+	/**
+	 * Calculate probabilities for all words
+	 */
+	protected function calculateProbabilities(): void {
+		foreach ( $this->state as $contentType => $labelTypes ) {
+			foreach ( $labelTypes as $labelType => $labelValues ) {
+				foreach ( $labelValues as $labelValue => $data ) {
+					$totalWords = array_sum( $data['wordProbabilities'] );
+
+					foreach ( $data['wordProbabilities'] as $word => $count ) {
+						$this->state[ $contentType ][ $labelType ][ $labelValue ]['wordProbabilities'][ $word ] =
+							( $count + 1 ) / ( $totalWords + count( $data['wordProbabilities'] ) );
+					}
+				}
+			}
 		}
 	}
 }
