@@ -160,8 +160,8 @@ class ContentClassifierTest extends \Codeception\Test\Unit {
 		$this->learnFromSameContentType( $classifier, 'text', $this->sameContentTypeData );
 
 		// Assert internal state changes
-		// Note: Since the internal state is private, you might need to use reflection or make the state accessible for testing
-		$state = json_decode( $classifier->exportState(), true );
+		$state = $classifier->get_state();
+
 		verify( $state )->arrayHasKey( 'text', 'Classifier state should not be empty after learning.' );
 
 		// Test classification
@@ -179,18 +179,18 @@ class ContentClassifierTest extends \Codeception\Test\Unit {
 
 		// Test learning with multiple content type and multiple labels
 		$this->learnFromDifferentContentTypes( $classifier, $this->differentContentTypesData );
-		var_dump( json_decode( $classifier->exportState(), true ) );
-		ob_flush();
 		// Resetting specific content type
 		$classifier->reset( 'blogs' );
-		$state = json_decode( $classifier->exportState(), true );
+
+		$state = $classifier->get_state();
 
 		verify( $state )->arrayHasNotKey( 'blogs', 'State for a specific content type should be empty after resetting it.' );
 		verify( $state )->arrayCount( 2, 'State should contain remaining content types after resetting a specific one.' );
 
 		// Global reset
 		$classifier->reset();
-		$state = json_decode( $classifier->exportState(), true );
+
+		$state = $classifier->get_state();
 
 		verify( $state )->arrayCount( 0, 'State should be completely empty after global reset.' );
 	}
@@ -214,18 +214,22 @@ class ContentClassifierTest extends \Codeception\Test\Unit {
 		// after training with known data where the custom tokenizer's behavior would be evident.
 	}
 
-	public function testImportExportState() {
+	public function testImportget_state() {
 		$classifier = new ContentClassifier();
-		// Assume classifier has been trained here
-		$exportedState = $classifier->exportState();
-		$this->assertNotEmpty( $exportedState, 'Exported state should not be empty.' );
+
+		$this->learnFromSameContentType( $classifier, 'text', $this->sameContentTypeData );
+
+		$exportedState = $classifier->get_state();
+
+		verify( $exportedState )->arrayNotCount( 0, 'Exported state should not be empty.' );
 
 		// Create a new classifier instance and import the state
 		$newClassifier = new ContentClassifier();
-		$newClassifier->importState( $exportedState );
+
+		$newClassifier->set_state( $exportedState );
 
 		// Assert that the new classifier's exported state matches the original exported state
-		$this->assertEquals( $exportedState, $newClassifier->exportState(), 'Imported state should match exported state.' );
+		verify( $newClassifier->get_state() )->equals( $exportedState, 'Imported state should match exported state.' );
 	}
 
 	/**
