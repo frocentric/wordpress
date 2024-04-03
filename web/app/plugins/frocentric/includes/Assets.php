@@ -47,8 +47,8 @@ abstract class Assets {
 	 */
 	public static function localize_asset( $path ) {
 
-		$assets_path     = Utils::plugin_path() . '/assets/';
-		$assets_path_url = str_replace( array( 'http:', 'https:' ), '', Utils::plugin_url() ) . '/assets/';
+		$assets_path     = Utils::plugin_path() . '/assets/source/';
+		$assets_path_url = str_replace( array( 'http:', 'https:' ), '', Utils::plugin_url() ) . '/assets/source/';
 
 		if ( ! ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ) {
 

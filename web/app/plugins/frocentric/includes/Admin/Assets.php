@@ -44,7 +44,7 @@ final class Assets {
 	public static function add_scripts( $scripts ) {
 
 		$scripts['frocentric-admin'] = array(
-			'src'  => AssetsMain::localize_asset( 'js/admin/frocentric.js' ),
+			'src'  => AssetsMain::localize_asset( 'js/admin/frocentric-admin.js' ),
 			'data' => array(
 				'ajax_url' => Utils::ajax_url(),
 			),
