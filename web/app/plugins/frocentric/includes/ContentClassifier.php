@@ -20,35 +20,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class ContentClassifier {
 	protected array $state = array();
-	protected array $default_stop_words = array(
-		'the',
-		'and',
-		'a',
-		'to',
-		'of',
-		'in',
-		'i',
-		'is',
-		'that',
-		'it',
-		'on',
-		'you',
-		'this',
-		'for',
-		'but',
-		'with',
-		'are',
-		'have',
-		'be',
-		'at',
-		'or',
-		'as',
-		'was',
-		'so',
-		'if',
-		'out',
-		'not',
-	);
 
 	/**
 	 * Learn from a single piece of text, with labels now being an associative array of label types
@@ -142,9 +113,10 @@ class ContentClassifier {
 	}
 
 	protected function tokenize( string $text, array $stop_words = null ): array {
-		$final_stop_words = $stop_words ?? $this->default_stop_words;
+		$text = mb_strtolower( $text );
+		$final_stop_words = $stop_words ?? Constants::CLASSIFIER_STOP_WORDS;
 		// escape the stopword array and implode with pipe
-		$filter_words = '~^\W*(' . implode( '|', array_map( 'preg_quote', $final_stop_words ) ) . ')\W+\b|\b\W+(?1)\W*$~i';
+		$filter_words = '~\b(' . implode( '|', array_map( 'preg_quote', $final_stop_words ) ) . ')\b~';
 
 		// remove stop words
 		$text = preg_replace( $filter_words, '', $text );
