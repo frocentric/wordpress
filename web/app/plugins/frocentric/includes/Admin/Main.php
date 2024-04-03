@@ -26,6 +26,7 @@ final class Main {
 	public static function hooks() {
 
 		Assets::hooks();
+		ContentClassifierAdmin::hooks();
 
 		add_action( 'current_screen', array( __CLASS__, 'conditional_includes' ) );
 	}
