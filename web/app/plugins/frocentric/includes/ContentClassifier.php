@@ -54,9 +54,9 @@ class ContentClassifier {
 					}
 				}
 			}
-		}
 
-		$this->calculate_probabilities();
+			$this->calculate_probabilities( $content_type, $label_type, $label_value );
+		}
 	}
 
 	/**
@@ -129,21 +129,15 @@ class ContentClassifier {
 	}
 
 	/**
-	 * Calculate probabilities for all words
+	 * Calculate probabilities for all words matching a specific label
 	 */
-	// phpcs:ignore Generic.Metrics.NestingLevel.MaxExceeded
-	protected function calculate_probabilities(): void {
-		foreach ( $this->state as $content_type => $label_types ) {
-			foreach ( $label_types as $label_type => $label_values ) {
-				foreach ( $label_values as $label_value => $data ) {
-					$total_words = array_sum( $data['word_probabilities'] );
+	protected function calculate_probabilities( $content_type, $label_type, $label_value ): void {
+		$data = $this->state[ $content_type ][ $label_type ][ $label_value ];
+		$total_words = array_sum( $data['word_probabilities'] );
 
-					foreach ( $data['word_probabilities'] as $word => $count ) {
-						$this->state[ $content_type ][ $label_type ][ $label_value ]['word_probabilities'][ $word ] =
-							( $count + 1 ) / ( $total_words + count( $data['word_probabilities'] ) );
-					}
-				}
-			}
+		foreach ( $data['word_probabilities'] as $word => $count ) {
+			$this->state[ $content_type ][ $label_type ][ $label_value ]['word_probabilities'][ $word ] =
+				( $count + 1 ) / ( $total_words + count( $data['word_probabilities'] ) );
 		}
 	}
 }

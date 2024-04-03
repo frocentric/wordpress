@@ -123,7 +123,7 @@ class ContentClassifierAdmin {
 			if ( $query->have_posts() ) {
 				foreach ( $query->posts as $post_id ) {
 					list($text, $labels) = self::extract_text_and_labels( $post_id );
-					$classifier->learn( 'post', $text, $labels );
+					$classifier->learn( $post_type, $text, $labels );
 					$processed++;
 				}
 			}
