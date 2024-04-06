@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "10a235c05e069c6d6ce0439d59d69e2a",
+    "content-hash": "32ae2a2b1dc91a8fe10165a2723d333c",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1836,7 +1836,7 @@
         },
         {
             "name": "modern-tribe/events-tickets-plus",
-            "version": "5.9.4",
+            "version": "5.10.0",
             "dist": {
                 "type": "zip",
                 "url": "https://evnt.is/fetch-etp?version={%VERSION}&key={%TEC_ETP_LICENSE}"
@@ -5264,16 +5264,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "11.1.0",
+            "version": "11.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "882c5bf7aa85328d1010da2a76f4bb10c43778c6"
+                "reference": "816cb6070af901c0548aa5f18f2132fd8a6e4ade"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/882c5bf7aa85328d1010da2a76f4bb10c43778c6",
-                "reference": "882c5bf7aa85328d1010da2a76f4bb10c43778c6",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/816cb6070af901c0548aa5f18f2132fd8a6e4ade",
+                "reference": "816cb6070af901c0548aa5f18f2132fd8a6e4ade",
                 "shasum": ""
             },
             "require": {
@@ -5344,7 +5344,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.1.0"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/11.1.1"
             },
             "funding": [
                 {
@@ -5360,7 +5360,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-05T04:44:29+00:00"
+            "time": "2024-04-06T06:20:21+00:00"
         },
         {
             "name": "psr/container",
