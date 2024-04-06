@@ -1,3 +1,14 @@
+##### [Version 2.4.5](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.4.4...v2.4.5) (2024-04-01)
+
+### Improvements
+- **Updated internal dependencies**
+
+##### [Version 2.4.4](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.4.3...v2.4.4) (2024-03-29)
+
+### Fixes
+- Updated internal dependencies
+- Fixed issue with feed's featured image being overwritten by ChatGPT image generation even when present
+
 ##### [Version 2.4.3](https://github.com/Codeinwp/feedzy-rss-feeds-pro/compare/v2.4.2...v2.4.3) (2024-02-27)
 
 ### Fixes
