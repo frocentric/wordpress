@@ -88,7 +88,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-tickets-plus",
-        "version": "5.9.4",
+        "version": "5.10.0",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://evnt.is/fetch-etp?version={%VERSION}&key={%TEC_ETP_LICENSE}",

@@ -34,6 +34,14 @@ class Promotions extends Abstract_Module {
 	private $promotions = array();
 
 	/**
+	 * Holds the values of the promotions that are not allowed to be shown.
+	 * Can be filtered by each product.
+	 *
+	 * @var array
+	 */
+	private $dissallowed_promotions = array();
+
+	/**
 	 * Option key for promos.
 	 *
 	 * @var string
@@ -112,6 +120,8 @@ class Promotions extends Abstract_Module {
 		$promotions_to_load[] = 'neve-fse';
 
 		$this->promotions = $this->get_promotions();
+
+		$this->dissallowed_promotions = apply_filters( $product->get_key() . '_dissallowed_promotions', array() );
 
 		foreach ( $this->promotions as $slug => $data ) {
 			if ( ! in_array( $slug, $promotions_to_load, true ) ) {
@@ -505,6 +515,14 @@ class Promotions extends Abstract_Module {
 
 			$return = array_merge( $return, $this->promotions[ $slug ] );
 		}
+
+		$return = array_filter(
+			$return,
+			function ( $value, $key ) {
+				return ! in_array( $key, $this->dissallowed_promotions, true );
+			},
+			ARRAY_FILTER_USE_BOTH 
+		);
 
 		return array_keys( $return );
 	}
