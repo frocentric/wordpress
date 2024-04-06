@@ -1,3 +1,20 @@
+##### [Version 3.3.17](https://github.com/Codeinwp/themeisle-sdk/compare/v3.3.16...v3.3.17) (2024-04-01)
+
+### Improvements
+- Add safeguard against type mutation for featured plugin results.
+
+##### [Version 3.3.16](https://github.com/Codeinwp/themeisle-sdk/compare/v3.3.15...v3.3.16) (2024-03-29)
+
+### Improvements
+- Formbricks on multiple products.
+- List Pro Products in featured tab.
+
+##### [Version 3.3.15](https://github.com/Codeinwp/themeisle-sdk/compare/v3.3.14...v3.3.15) (2024-03-26)
+
+### Improvements
+- Add a filter to disallow promotions on specific products.
+- Update Formbricks
+
 ##### [Version 3.3.14](https://github.com/Codeinwp/themeisle-sdk/compare/v3.3.13...v3.3.14) (2024-02-27)
 
 - Add Announcement Module
