@@ -72,9 +72,9 @@ jobs:
           token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
+          node-version: '20.x'
 
       # Bumps version, updates changelog and creates tag. Adds [skip ci] to commit message to prevent infinite workflow loop
       - name: Tag release
