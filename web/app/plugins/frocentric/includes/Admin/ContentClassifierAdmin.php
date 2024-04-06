@@ -9,6 +9,7 @@
 namespace Frocentric\Admin;
 
 use Frocentric\Assets as AssetsMain;
+use Frocentric\Constants;
 use Frocentric\Utils;
 use Frocentric\ContentClassifier;
 
@@ -103,7 +104,7 @@ class ContentClassifierAdmin {
 		$total = 0;
 		$classifier = new ContentClassifier();
 
-		$classifier->set_state( get_option( 'content_classifier_state', array() ) );
+		$classifier->set_state( get_option( Constants::CLASSIFIER_STATE_OPTION, array() ) );
 		$classifier->reset( $post_type );
 
 		do {
@@ -131,7 +132,7 @@ class ContentClassifierAdmin {
 			$paged++;
 		} while ( $query->have_posts() );
 
-		update_option( 'content_classifier_state', $classifier->get_state() );
+		update_option( Constants::CLASSIFIER_STATE_OPTION, $classifier->get_state() );
 
 		wp_send_json_success(
 			array(

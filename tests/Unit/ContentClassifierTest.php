@@ -169,9 +169,25 @@ class ContentClassifierTest extends \Codeception\Test\Unit {
 
 		verify( $classification )->arrayHasKey( 'quality', 'Classification should contain quality labels.' );
 		verify( $classification['quality'] )->arrayHasKey( 'high', 'High quality label should be recognized.' );
+	}
 
-		// More tests could include testing with different content types, testing the reset functionality,
-		// and ensuring the tokenizer customization works as expected.
+	public function testExtendedLearningAndClassification() {
+		$classifier = new ContentClassifier();
+
+		// Test learning with single content type and multiple labels
+		$this->importState( $classifier );
+
+		// Assert internal state changes
+		$state = $classifier->get_state();
+		$text = file_get_contents( __DIR__ . '/event.txt' );
+
+		verify( $state )->arrayHasKey( 'tribe_events', 'Classifier state should not be empty after learning.' );
+
+		// Test classification
+		$classification = $classifier->classify( 'tribe_events', $text );
+		$this->log( $classification );
+		verify( $classification )->arrayHasKey( 'discipline', 'This is a post about building WordPress websites' );
+		verify( $classification['discipline'] )->arrayHasKey( 'web development', 'Web development label should be recognized.' );
 	}
 
 	public function testResetFunctionality() {
@@ -240,6 +256,8 @@ class ContentClassifierTest extends \Codeception\Test\Unit {
 	 * @param array $textItems An array of text items and their labels. Each item is an array with 'text' and 'labels' keys.
 	 */
 	function learnFromSameContentType( ContentClassifier $classifier, string $contentType, array $textItems ): void {
+		$classifier->reset();
+
 		foreach ( $textItems as $item ) {
 			$classifier->learn( $contentType, $item['text'], $item['labels'] );
 		}
@@ -252,8 +270,29 @@ class ContentClassifierTest extends \Codeception\Test\Unit {
 	 * @param array $textItems An array of text items, their content types, and labels. Each item is an array with 'contentType', 'text', and 'labels' keys.
 	 */
 	function learnFromDifferentContentTypes( ContentClassifier $classifier, array $textItems ): void {
+		$classifier->reset();
+
 		foreach ( $textItems as $item ) {
 			$classifier->learn( $item['contentType'], $item['text'], $item['labels'] );
 		}
+	}
+
+	/**
+	 * Learns from multiple text items of different content types.
+	 *
+	 * @param ContentClassifier $classifier The classifier instance.
+	 * @param array $textItems An array of text items, their content types, and labels. Each item is an array with 'contentType', 'text', and 'labels' keys.
+	 */
+	function importState( ContentClassifier $classifier ): void {
+		$json = file_get_contents( __DIR__ . '/state.json' );
+		$state = json_decode( $json, true );
+
+		$classifier->reset();
+		$classifier->set_state( $state );
+	}
+
+	function log( $value ) {
+		var_dump( $value );
+		ob_flush();
 	}
 }

@@ -68,8 +68,11 @@ class ContentClassifier {
 	public function classify( string $content_type, string $text, array $stop_words = null ): array {
 		$words = $this->tokenize( $text, $stop_words );
 		$label_scores = array();
+		$normalized_scores = array();
 
 		foreach ( $this->state[ $content_type ] ?? array() as $label_type => $label_values ) {
+			$exp_scores = array();
+
 			foreach ( $label_values as $label_value => $data ) {
 				$label_scores[ $label_type ][ $label_value ] = log( $data['count'] ); // Start with log(count) to avoid underflow
 
@@ -77,11 +80,22 @@ class ContentClassifier {
 					$prob = $data['word_probabilities'][ $word ] ?? ( 1 / ( array_sum( $data['word_probabilities'] ) + count( $words ) ) );
 					$label_scores[ $label_type ][ $label_value ] += log( $prob );
 				}
+
+				// Exponentiate the log scores to get them back to probability space
+				$exp_scores[ $label_type ][ $label_value ] = exp( $label_scores[ $label_type ][ $label_value ] );
+			}
+
+			// Normalize scores back to a 0-1 range
+			foreach ( $exp_scores as $label_type => $scores ) {
+				$total_score = array_sum( $scores );
+
+				foreach ( $scores as $label_value => $score ) {
+					$normalized_scores[ $label_type ][ $label_value ] = $score / $total_score;
+				}
 			}
 		}
 
-		// Normalize scores back from log space if necessary, or just use as a relative comparison
-		return $label_scores;
+		return $normalized_scores;
 	}
 
 	/**

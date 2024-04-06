@@ -57,6 +57,11 @@ final class Constants {
 	);
 
 	/**
+	 * The option key for persisting the content classifier's state
+	 */
+	const CLASSIFIER_STATE_OPTION = 'frocentric_classifier_state';
+
+	/**
 	 * The default stop word set for the content classifier.
 	 */
 	const CLASSIFIER_STOP_WORDS = array(
