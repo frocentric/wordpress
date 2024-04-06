@@ -79,6 +79,8 @@ jobs:
       # Bumps version, updates changelog and creates tag. Adds [skip ci] to commit message to prevent infinite workflow loop
       - name: Tag release
         id: tag_release
+        env:
+          HUSKY: 0
         run: |
           git fetch --unshallow --tags
           git config --global user.email "${{github.event.pusher.email}}"
