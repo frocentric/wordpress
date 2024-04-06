@@ -20,6 +20,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+        with:
+          node-version: '20.x'
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -29,6 +31,7 @@ jobs:
       - name: Cache Composer dependencies
         uses: actions/cache@v3
         with:
+          node-version: '20.x'
           path: /tmp/composer-cache
           key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
 
@@ -109,6 +112,7 @@ jobs:
           WORKFLOW_ID: ${{ 'deploy-application.yml' }}
         uses: actions/github-script@v6
         with:
+          node-version: '20.x'
           script: |-
             await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
