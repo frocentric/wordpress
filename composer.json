@@ -66,7 +66,7 @@
         }
       },
       "require": {
-        "ffraenz/private-composer-installer": "~5.0"
+        "ffraenz/private-composer-installer": "^5.0"
       }
     },
     {
@@ -81,14 +81,14 @@
         }
       },
       "require": {
-        "ffraenz/private-composer-installer": "~5.0"
+        "ffraenz/private-composer-installer": "^5.0"
       }
     },
     {
       "type": "package",
       "package": {
         "name": "modern-tribe/events-tickets-plus",
-        "version": "5.9.4",
+        "version": "5.10.0",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://evnt.is/fetch-etp?version={%VERSION}&key={%TEC_ETP_LICENSE}",
@@ -96,7 +96,7 @@
         }
       },
       "require": {
-        "ffraenz/private-composer-installer": "~5.0"
+        "ffraenz/private-composer-installer": "^5.0"
       }
     },
     {
@@ -111,7 +111,7 @@
         }
       },
       "require": {
-        "ffraenz/private-composer-installer": "~5.0"
+        "ffraenz/private-composer-installer": "^5.0"
       }
     },
     {
@@ -126,7 +126,7 @@
         }
       },
       "require": {
-        "ffraenz/private-composer-installer": "~5.0"
+        "ffraenz/private-composer-installer": "^5.0"
       }
     },
     {
@@ -141,7 +141,7 @@
         }
       },
       "require": {
-        "ffraenz/private-composer-installer": "~5.0"
+        "ffraenz/private-composer-installer": "^5.0"
       }
     },
     {
@@ -157,9 +157,9 @@
   "require": {
     "composer/installers": "^2.0",
     "ffraenz/private-composer-installer": "^5.0",
-    "humanmade/s3-uploads": "~3.0",
+    "humanmade/s3-uploads": "^3.0",
     "ingenyus/configure-environment-plugins": "^2.0",
-    "johnpbloch/wordpress": "~6.0",
+    "johnpbloch/wordpress": "^6.0",
     "kinsta/kinsta-mu-plugins": "^3.0",
     "koodimonni-language/en_gb": "*",
     "modern-tribe/events-calendar-pro": "*",
@@ -170,46 +170,46 @@
     "modern-tribe/the-events-calendar-filterbar": "*",
     "oscarotero/env": "^2.1.0",
     "php": ">=5.6",
-    "roots/bedrock-autoloader": "~1.0",
+    "roots/bedrock-autoloader": "^1.0",
     "roots/wp-config": "1.0.0",
     "roots/wp-password-bcrypt": "1.1.0",
-    "vlucas/phpdotenv": "~5.3",
-    "wpackagist-plugin/authors-list": "~2.0",
-    "wpackagist-plugin/autodescription": "~5.0",
-    "wpackagist-plugin/classic-editor": "~1.0",
-    "wpackagist-plugin/cloudflare": "~4.0",
-    "wpackagist-plugin/customizer-export-import": "~0.0",
-    "wpackagist-plugin/disable-emails": "~1.0",
-    "wpackagist-plugin/dynamic-visibility-for-elementor": "~5.0",
-    "wpackagist-plugin/easy-theme-and-plugin-upgrades": "~2.0",
-    "wpackagist-plugin/ele-custom-skin": "~3.0",
-    "wpackagist-plugin/elementor": "~3.0",
-    "wpackagist-plugin/enable-media-replace": "~4.0",
-    "wpackagist-plugin/event-tickets": "~5.0",
-    "wpackagist-plugin/essential-addons-for-elementor-lite": "~5.0",
-    "wpackagist-plugin/feedzy-rss-feeds": "~4.0",
-    "wpackagist-plugin/granular-controls-for-elementor": "~1.0",
-    "wpackagist-plugin/hivepress": "~1.0",
-    "wpackagist-plugin/imagify": "~2.0",
-    "wpackagist-plugin/jetpack": "~13.0",
-    "wpackagist-plugin/lightweight-grid-columns": "~1.0",
-    "wpackagist-plugin/log-emails": "~1.0",
-    "wpackagist-plugin/meta-box": "~5.0",
-    "wpackagist-plugin/ninja-forms": "~3.0",
-    "wpackagist-plugin/ninja-forms-addon-manager": "~3.0",
+    "vlucas/phpdotenv": "^5.3",
+    "wpackagist-plugin/authors-list": "^2.0",
+    "wpackagist-plugin/autodescription": "^5.0",
+    "wpackagist-plugin/classic-editor": "^1.0",
+    "wpackagist-plugin/cloudflare": "^4.0",
+    "wpackagist-plugin/customizer-export-import": "^0.9",
+    "wpackagist-plugin/disable-emails": "^1.0",
+    "wpackagist-plugin/dynamic-visibility-for-elementor": "^5.0",
+    "wpackagist-plugin/easy-theme-and-plugin-upgrades": "^2.0",
+    "wpackagist-plugin/ele-custom-skin": "^3.0",
+    "wpackagist-plugin/elementor": "^3.0",
+    "wpackagist-plugin/enable-media-replace": "^4.0",
+    "wpackagist-plugin/event-tickets": "^5.0",
+    "wpackagist-plugin/essential-addons-for-elementor-lite": "^5.0",
+    "wpackagist-plugin/feedzy-rss-feeds": "^4.0",
+    "wpackagist-plugin/granular-controls-for-elementor": "^1.0",
+    "wpackagist-plugin/hivepress": "^1.0",
+    "wpackagist-plugin/imagify": "^2.0",
+    "wpackagist-plugin/jetpack": "^13.0",
+    "wpackagist-plugin/lightweight-grid-columns": "^1.0",
+    "wpackagist-plugin/log-emails": "^1.0",
+    "wpackagist-plugin/meta-box": "^5.0",
+    "wpackagist-plugin/ninja-forms": "^3.0",
+    "wpackagist-plugin/ninja-forms-addon-manager": "^3.0",
     "wpackagist-plugin/plausible-analytics": "^2.0",
-    "wpackagist-plugin/pods": "~3.0",
+    "wpackagist-plugin/pods": "^3.0",
     "wpackagist-plugin/publishpress": "^4.0",
-    "wpackagist-plugin/query-monitor": "~3.0",
-    "wpackagist-plugin/search-filter": "~1.2",
-    "wpackagist-plugin/svg-support": "~2.0",
-    "wpackagist-plugin/the-events-calendar": "~6.0",
+    "wpackagist-plugin/query-monitor": "^3.0",
+    "wpackagist-plugin/search-filter": "^1.2",
+    "wpackagist-plugin/svg-support": "^2.0",
+    "wpackagist-plugin/the-events-calendar": "^6.0",
     "wpackagist-plugin/wordpress-importer": "0.*",
-    "wpackagist-plugin/wpm-user-sync": "~1.0",
-    "wpackagist-plugin/wp-discourse": "~2.0",
+    "wpackagist-plugin/wpm-user-sync": "^1.0",
+    "wpackagist-plugin/wp-discourse": "^2.0",
     "wpackagist-plugin/wp-mail-smtp": "^4.0",
-    "wpackagist-theme/generatepress": "~3.0",
-    "wp-media/wp-rocket": "~3.0"
+    "wpackagist-theme/generatepress": "^3.0",
+    "wp-media/wp-rocket": "^3.0"
   },
   "require-dev": {
     "slevomat/coding-standard": "^8.0",

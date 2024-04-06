@@ -69,11 +69,10 @@ jobs:
     steps:
       # Sets the Node version
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
+          node-version: '20.x'
       - name: Check site
-        uses: srt32/uptime@master
+        uses: jtalk/url-health-check-action@v4
         with:
-          url-to-hit: ${{ needs.deploy.outputs.url }}
-          expected-statuses: "200"
+          url: ${{ needs.deploy.outputs.url }}

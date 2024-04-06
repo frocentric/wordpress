@@ -78,4 +78,18 @@ final class Utils {
 	public static function ajax_url() {
 		return admin_url( 'admin-ajax.php' );
 	}
+
+	/**
+	 * Replacement for deprecated `get_page_by_title` function
+	 */
+	public static function get_page_by_title( $title, $output = OBJECT, $type = 'page' ) {
+		$posts = get_posts(
+			array(
+				'title'     => $title,
+				'post_type' => $type,
+			)
+		);
+
+		return count( $posts ) > 0 && ! empty( $posts[0] ) ? get_post( $posts[0], $output ) : null;
+	}
 }

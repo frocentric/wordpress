@@ -61,6 +61,7 @@ final class Loader {
 		'compatibilities',
 		'about_us',
 		'announcements',
+		'featured_plugins',
 	];
 
 	/**

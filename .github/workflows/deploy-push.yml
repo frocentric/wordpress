@@ -19,7 +19,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -27,20 +27,19 @@ jobs:
           php-version: '8.2'
 
       - name: Cache Composer dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: /tmp/composer-cache
           key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
 
       - name: Make .env file
-        uses: SpicyPizza/create-envfile@v1
-        with:
-          envkey_TEC_CE_LICENSE: ${{ secrets.TEC_CE_LICENSE }}
-          envkey_TEC_CT_LICENSE: ${{ secrets.TEC_CT_LICENSE }}
-          envkey_TEC_ETP_LICENSE: ${{ secrets.TEC_ETP_LICENSE }}
-          envkey_TEC_FB_LICENSE: ${{ secrets.TEC_FB_LICENSE }}
-          envkey_TEC_PRO_LICENSE: ${{ secrets.TEC_PRO_LICENSE }}
-          envkey_TEC_VE_LICENSE: ${{ secrets.TEC_VE_LICENSE }}
+        run:  |
+          echo "TEC_CE_LICENSE=${{ secrets.TEC_CE_LICENSE }}" >> .env
+          echo "TEC_CT_LICENSE=${{ secrets.TEC_CT_LICENSE }}" >> .env
+          echo "TEC_ETP_LICENSE=${{ secrets.TEC_ETP_LICENSE }}" >> .env
+          echo "TEC_FB_LICENSE=${{ secrets.TEC_FB_LICENSE }}" >> .env
+          echo "TEC_PRO_LICENSE=${{ secrets.TEC_PRO_LICENSE }}" >> .env
+          echo "TEC_VE_LICENSE=${{ secrets.TEC_VE_LICENSE }}" >> .env
 
       - name: Install dependencies
         uses: php-actions/composer@v5
@@ -72,13 +71,15 @@ jobs:
           token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
+          node-version: '20.x'
 
       # Bumps version, updates changelog and creates tag. Adds [skip ci] to commit message to prevent infinite workflow loop
       - name: Tag release
         id: tag_release
+        env:
+          HUSKY: 0
         run: |
           git fetch --unshallow --tags
           git config --global user.email "${{github.event.pusher.email}}"
@@ -105,7 +106,7 @@ jobs:
       - name: Deploy to hosting environment
         env:
           WORKFLOW_ID: ${{ 'deploy-application.yml' }}
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |-
             await github.rest.actions.createWorkflowDispatch({
