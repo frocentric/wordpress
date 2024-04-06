@@ -200,7 +200,7 @@ class Tribe {
 	 * @param string   $organizer    The organizer name from the record.
 	 */
 	public static function tribe_aggregator_find_matching_organizer( $organizer_id, $organizer ) {
-		$organizer = get_page_by_title( $organizer, 'OBJECT', \Tribe__Events__Organizer::POSTTYPE );
+		$organizer = Utils::get_page_by_title( $organizer, 'OBJECT', \Tribe__Events__Organizer::POSTTYPE );
 
 		return empty( $organizer ) ? $organizer_id : $organizer->ID;
 	}
