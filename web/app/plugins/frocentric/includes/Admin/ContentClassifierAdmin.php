@@ -144,8 +144,13 @@ class ContentClassifierAdmin {
 
 	protected static function extract_text_and_labels( $post_id ) {
 		$post = get_post( $post_id );
-		$text = strip_shortcodes( wp_strip_all_tags( get_the_content( null, false, $post ) ) );
 		$labels = array();
+
+		if ( empty( $post ) ) {
+			return array( '', $labels );
+		}
+
+		$text = strip_shortcodes( wp_strip_all_tags( get_the_content( null, false, $post ) ) );
 		// Get all public taxonomies for the post type
 		$taxonomies = get_object_taxonomies( $post->post_type, 'objects' );
 

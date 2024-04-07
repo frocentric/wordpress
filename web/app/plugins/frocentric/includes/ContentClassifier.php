@@ -65,6 +65,7 @@ class ContentClassifier {
 	 * @param string $content_type The type of content being classified.
 	 * @param string $text The text to classify.
 	 */
+	//phpcs:ignore Generic.Metrics.CyclomaticComplexity.MaxExceeded
 	public function classify( string $content_type, string $text, array $stop_words = null ): array {
 		$words = $this->tokenize( $text, $stop_words );
 		$label_scores = array();
