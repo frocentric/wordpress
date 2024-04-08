@@ -110,6 +110,8 @@ class Discourse {
 	 * @param array  $args Arguments passed to get_avatar_data.
 	 */
 	public static function get_avatar_url( $url, $id_or_email, $args ) {
+		$user = false;
+
 		if ( is_numeric( $id_or_email ) ) {
 			$user = get_user_by( 'id', $id_or_email );
 		} elseif ( is_object( $id_or_email ) ) {
