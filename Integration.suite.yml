@@ -1,0 +1,22 @@
+# Integration suite configuration
+#
+# Run integration and "WordPress unit" tests.
+
+actor: IntegrationTester
+bootstrap: _bootstrap.php
+modules:
+    enabled:
+        - \Helper\Integration
+        - lucatume\WPBrowser\Module\WPLoader
+    config:
+        lucatume\WPBrowser\Module\WPLoader:
+           wpRootFolder: "%WORDPRESS_ROOT_DIR%"
+           dbUrl: '%WORDPRESS_DB_URL%'
+           dsn: 'sqlite://Users/gary/Sites/frocentric/public/tests/database/db.sqlite'
+           wpDebug: true
+           tablePrefix: '%TEST_TABLE_PREFIX%'
+           domain: '%WORDPRESS_DOMAIN%'
+           adminEmail: 'admin@%WORDPRESS_DOMAIN%'
+           title: 'Integration Tests'
+           plugins: []
+           theme: ''

@@ -19,9 +19,9 @@ namespace Tests\Support;
  *
  * @SuppressWarnings(PHPMD)
 */
-class AcceptanceTester extends \Codeception\Actor
+class EndToEndTester extends \Codeception\Actor
 {
-    use _generated\AcceptanceTesterActions;
+    use _generated\EndToEndTesterActions;
 
     /**
      * Define custom actions here

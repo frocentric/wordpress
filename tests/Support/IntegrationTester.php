@@ -19,9 +19,9 @@ namespace Tests\Support;
  *
  * @SuppressWarnings(PHPMD)
 */
-class UnitTester extends \Codeception\Actor
+class IntegrationTester extends \Codeception\Actor
 {
-    use _generated\UnitTesterActions;
+    use _generated\IntegrationTesterActions;
 
     /**
      * Define custom actions here

@@ -1,20 +1,16 @@
 <?php
 /**
- * ContentClassifier testss
- *
- * @class       ContentClassifierTest
- * @version     1.0.0
- * @package     Tests/Unit
+ * ContentClassifier WP unit test suite
  */
 
-namespace Tests\Unit;
+namespace Tests\Frocentric;
 
 use Frocentric\ContentClassifier;
 
-class ContentClassifierTest extends \Codeception\Test\Unit {
+class ContentClassifierTest extends \lucatume\WPBrowser\TestCase\WPTestCase {
 
 	/**
-	 * @var \UnitTester
+	 * @var \IntegrationTester
 	 */
 	protected $tester;
 
@@ -150,17 +146,30 @@ class ContentClassifierTest extends \Codeception\Test\Unit {
 		),
 	);
 
-	protected function _before() {
+	public function setUp(): void {
+		// Before...
+		parent::setUp();
+
+		// Your set up methods here.
 		if ( ! defined( 'ABSPATH' ) ) {
 			define( 'ABSPATH', '' );
 		}
 	}
 
-	protected function _after() {
+	public function tearDown(): void {
+		// Your tear down methods here.
+		// Then...
+		parent::tearDown();
 	}
 
 	// Tests
-	public function testClassification() {
+	public function test_factory(): void {
+		$post = static::factory()->post->create_and_get();
+
+		$this->assertInstanceOf( \WP_Post::class, $post );
+	}
+
+	public function test_classification() {
 		$classifier = new ContentClassifier();
 
 		// Test classification
