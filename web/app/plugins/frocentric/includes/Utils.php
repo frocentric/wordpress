@@ -92,4 +92,25 @@ final class Utils {
 
 		return count( $posts ) > 0 && ! empty( $posts[0] ) ? get_post( $posts[0], $output ) : null;
 	}
+
+	public static function customise_error_reporting( $levels ) {
+		if ( ! is_array( $levels ) ) {
+			return;
+		}
+
+		$error_mask = E_ALL;
+		foreach ( $levels as $level_name ) {
+			if ( defined( $level_name ) ) {
+				$level = constant( $level_name );
+
+				if ( is_numeric( $level ) ) {
+					$error_mask &= ~$level;
+				}
+			}
+		}
+		// error_reporting(E_ALL);
+		// error_reporting(E_NOTICE);
+		// error_reporting(E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED);
+		error_reporting( $error_mask );
+	}
 }

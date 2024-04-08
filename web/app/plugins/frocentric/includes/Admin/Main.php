@@ -13,6 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use Frocentric\Utils;
+
 /**
  * Admin main class
  */
@@ -29,6 +31,7 @@ final class Main {
 		ContentClassifierAdmin::hooks();
 
 		add_action( 'current_screen', array( __CLASS__, 'conditional_includes' ) );
+		add_action( 'init', array( __CLASS__, 'customise_error_reporting' ), 1 );
 	}
 
 	/**
@@ -53,5 +56,13 @@ final class Main {
 			case 'profile':
 			case 'user-edit':
 		}
+	}
+
+	public static function customise_error_reporting() {
+		if ( ! defined( 'ADMIN_EXCLUDED_ERROR_LEVELS' ) || ! is_array( ADMIN_EXCLUDED_ERROR_LEVELS ) ) {
+			return;
+		}
+
+		Utils::customise_error_reporting( ADMIN_EXCLUDED_ERROR_LEVELS );
 	}
 }
