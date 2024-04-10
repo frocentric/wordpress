@@ -175,11 +175,12 @@ class ContentClassifierTest extends \lucatume\WPBrowser\TestCase\WPTestCase {
 		// Test classification
 		$classification = $classifier->classify( 'post', 'Very pleased with the product' );
 
-		$this->log( $classification );
+		// $this->log( $classification );
 		verify( $classification )->arrayHasKey( 'content', 'Classification should contain quality labels.' );
 	}
 
 	public function log( $value ) {
+		echo( "\n" );
 		var_dump( $value );
 		ob_flush();
 	}
