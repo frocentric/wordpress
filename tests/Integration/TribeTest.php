@@ -1,21 +1,34 @@
 <?php
+/**
+ * Tribe Event Calendar WP unit test suite
+ */
 
 namespace Tests\Unit;
 
 use Frocentric\Customizations\Tribe;
 
-class TribeTest extends \Codeception\Test\Unit {
+class TribeTest extends \lucatume\WPBrowser\TestCase\WPTestCase {
 
-	protected function _before() {
+	public function setUp(): void {
+		// Before...
+		parent::setUp();
+
+		// Your set up methods here.
 		if ( ! defined( 'ABSPATH' ) ) {
 			define( 'ABSPATH', '' );
 		}
 	}
 
-	protected function strip_whitespace( $html) {
-		$remove = array("\t", "\n", "\r", "\0", "\x0B");
+	public function tearDown(): void {
+		// Your tear down methods here.
+		// Then...
+		parent::tearDown();
+	}
 
-		return str_replace($remove, '', $html);
+	protected function strip_whitespace( $html ) {
+		$remove = array( "\t", "\n", "\r", "\0", "\x0B" );
+
+		return str_replace( $remove, '', $html );
 	}
 
 	// tests
