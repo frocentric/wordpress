@@ -29,3 +29,9 @@ Config::define('WP_ROCKET_KEY', '');
 if ( defined( 'WP_CLI' ) && WP_CLI && ! env( 'LANDO' ) ) {
 	Config::define( 'DB_HOST', env( 'DB_HOST_EXTERNAL' ) ?? Config::get( 'DB_HOST' ) );
 }
+
+// Handle WPBrowser test configuration
+if (getenv('WORDPRESS_URL')) {
+    Config::define('WP_HOME', getenv('WORDPRESS_URL'));
+    Config::define('WP_SITEURL', Config::get('WP_HOME') . substr(env('WP_SITEURL'), strlen(env('WP_HOME'))));
+}

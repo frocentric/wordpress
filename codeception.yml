@@ -20,7 +20,7 @@ extensions:
         lucatume\WPBrowser\Extension\BuiltInServerController:
             workers: 5
             port: '%BUILTIN_SERVER_PORT%'
-            docroot: '%WORDPRESS_ROOT_DIR%'
+            docroot: '%SERVER_ROOT_DIR%'
             env:
                 DATABASE_TYPE: sqlite
                 DB_ENGINE: sqlite
