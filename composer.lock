@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "317288378622d2eb646234e4ebcfc42e",
+    "content-hash": "77cf1fefecd105b0ed92787c7c4eb6ea",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -4602,16 +4602,16 @@
         },
         {
             "name": "lucatume/wp-browser",
-            "version": "4.1.6",
+            "version": "dev-v4-fix-716",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lucatume/wp-browser.git",
-                "reference": "b56afb5d7c1a8e8e72d2e5142e6796fa3ba3d958"
+                "reference": "67e19b49894fdd80da50b580170310441ab6bcfd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/b56afb5d7c1a8e8e72d2e5142e6796fa3ba3d958",
-                "reference": "b56afb5d7c1a8e8e72d2e5142e6796fa3ba3d958",
+                "url": "https://api.github.com/repos/lucatume/wp-browser/zipball/67e19b49894fdd80da50b580170310441ab6bcfd",
+                "reference": "67e19b49894fdd80da50b580170310441ab6bcfd",
                 "shasum": ""
             },
             "require": {
@@ -4689,7 +4689,7 @@
             ],
             "support": {
                 "issues": "https://github.com/lucatume/wp-browser/issues",
-                "source": "https://github.com/lucatume/wp-browser/tree/4.1.6"
+                "source": "https://github.com/lucatume/wp-browser/tree/v4-fix-716"
             },
             "funding": [
                 {
@@ -4697,7 +4697,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-07T12:53:06+00:00"
+            "time": "2024-04-10T07:36:37+00:00"
         },
         {
             "name": "masterminds/html5",
@@ -8403,7 +8403,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "lucatume/wp-browser": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

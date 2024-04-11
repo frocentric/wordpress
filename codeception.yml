@@ -12,6 +12,20 @@ params:
 extensions:
     enabled:
         - Codeception\Extension\RunFailed
+        - lucatume\WPBrowser\Extension\ChromeDriverController
+        - lucatume\WPBrowser\Extension\BuiltInServerController
+    config:
+        lucatume\WPBrowser\Extension\ChromeDriverController:
+            port: '%CHROMEDRIVER_PORT%'
+        lucatume\WPBrowser\Extension\BuiltInServerController:
+            workers: 5
+            port: '%BUILTIN_SERVER_PORT%'
+            docroot: '%WORDPRESS_ROOT_DIR%'
+            env:
+                DATABASE_TYPE: sqlite
+                DB_ENGINE: sqlite
+                DB_DIR: '%codecept_root_dir%/tests/Support/Data'
+                DB_FILE: db.sqlite
     commands:
       - "Codeception\\Command\\GenerateWPUnit"
       - "Codeception\\Command\\GenerateWPRestApi"
