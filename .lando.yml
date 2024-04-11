@@ -2,7 +2,7 @@ name: frocentric
 recipe: wordpress
 config:
   database: mariadb
-  php: '8.1'
+  php: '8.2'
   via: nginx
   webroot: web
   xdebug: true
