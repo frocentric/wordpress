@@ -132,7 +132,9 @@ if ( env( 'FRONTEND_EXCLUDED_ERROR_LEVELS' ) ) {
  * Multisite Settings
  */
 Config::define( 'WP_ALLOW_MULTISITE', false );
-Config::define( 'MULTISITE', false );
+if ( ! defined( 'MULTISITE' ) ) {
+	Config::define( 'MULTISITE', false );
+}
 Config::define( 'SUBDOMAIN_INSTALL', env( 'SUBDOMAIN_INSTALL' ) ?? true );
 Config::define( 'DOMAIN_CURRENT_SITE', env( 'DOMAIN_CURRENT_SITE' ) );
 Config::define( 'PATH_CURRENT_SITE', env( 'PATH_CURRENT_SITE' ) ?? '/' );
