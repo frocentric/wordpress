@@ -4,10 +4,10 @@
  *
  * @class       Utils
  * @version     1.0.0
- * @package     Frocentric/Classes/
+ * @package     Frocentric/Customizations/
  */
 
-namespace Frocentric;
+namespace Frocentric\Customizations;
 
 use Frocentric\Constants;
 
