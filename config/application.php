@@ -225,6 +225,12 @@ Config::define( 'OA_SOCIAL_LOGIN_SETTINGS_API_SECRET', env( 'OA_SOCIAL_LOGIN_SET
 Config::define( 'OA_SOCIAL_LOGIN_SETTINGS_SUBDOMAIN', env( 'OA_SOCIAL_LOGIN_SETTINGS_SUBDOMAIN' ) ?? '' );
 
 /**
+ * Content Classifier Settings
+ */
+Config::define( 'OPENAI_API_KEY', env( 'OPENAI_API_KEY' ) ?? '' );
+Config::define( 'CLASSIFIER_RELEVANCE_THRESHOLD', env( 'CLASSIFIER_RELEVANCE_THRESHOLD' ) ?? 0.7 );
+
+/**
  * Allow WordPress to detect HTTPS when used behind a reverse proxy or a load balancer
  * See https://codex.wordpress.org/Function_Reference/is_ssl#Notes
  */

@@ -5,7 +5,7 @@
 
 namespace Tests\Frocentric;
 
-use Frocentric\ContentClassifier;
+use Frocentric\Customizations\ContentClassifier;
 
 class ContentClassifierTest extends \lucatume\WPBrowser\TestCase\WPTestCase {
 
@@ -169,14 +169,27 @@ class ContentClassifierTest extends \lucatume\WPBrowser\TestCase\WPTestCase {
 		$this->assertInstanceOf( \WP_Post::class, $post );
 	}
 
-	public function test_classification() {
-		$classifier = new ContentClassifier();
-
+	public function test_classify(): void {
+		$content = 'In celebration of Black History Month this social games night Coding Black Females & Black Create Connect. You\'re invited to an exciting night of learning sharing and celebrating Black Women\'s History Game Night on Tuesday, October 31 at 6pm. Let\'s recognise and celebrate the impact and achievements made within the tech space. Join us for games, drinks, and delicious food, hosted by Coding Black Females and Black Create Connect. If you\'re looking to play some games, network with our communities, and have a laugh then we\'d love to have you. Don\'t miss this fun and educational evening - all ages are welcome! See you there! **Limited Spaces Available** We can\'t wait to see you there! Venue: Zetland House, Floor 2, 5-25 Scrutton Street, London EC2A 4HJ';
+		$taxonomies = array(
+			'discipline',
+			'audience',
+			'interest',
+		);
+		// $taxonomies = json_decode( '{ "discipline": [ "affiliate-marketing", "agile", "animation", "artificial-intelligence", "audio-production", "augmented-reality", "automation", "blockchain", "brand-design", "cloud-computing", "computer-vision", "content-marketing", "cryptocurrency", "cybersecurity", "data", "data-analysis", "data-engineering", "data-science", "data-visualisation", "database-administration", "design", "desktop-development", "devops", "digital-marketing", "email-marketing", "game-development", "graphic-design", "hardware-engineering", "iaas", "infosec", "infrastructure", "internet-of-things", "it-support", "machine-learning", "media-production", "mixed-reality", "mobile-advertising", "mobile-development", "network-administration", "no-code", "paas", "ppc-advertising", "product-management", "project-management", "robotics", "saas", "search-engine-marketing", "search-engine-optimisation", "security", "site-reliability-engineering", "social-media-marketing", "software-engineering", "systems-administration", "telecoms", "testing", "ui-design", "ux-design", "video-production", "viral-marketing", "virtual-reality", "web-development" ], "audience": [ "children", "disabled", "lgbtq", "neurodiverse", "parents", "students", "teens", "women" ], "category": [ "awards", "conference", "graduation", "hackathon", "launch", "lecture", "networking", "panel", "pitch", "recruitment", "social", "speech", "training", "workshop" ] }', true );
 		// Test classification
-		$classification = $classifier->classify( 'post', 'Very pleased with the product' );
+		$classification = ContentClassifier::classify( $content, $taxonomies );
 
-		// $this->log( $classification );
-		verify( $classification )->arrayHasKey( 'content', 'Classification should contain quality labels.' );
+		$this->log( $classification );
+		verify( $classification )->arrayHasKey( 'discipline', 'Classification should contain quality labels.' );
+	}
+
+	public function test_extract_json_object() {
+		$content = '```json\n{"content":"In celebration of Black History Month this social games night Coding Black Females & Black Create Connect. You\'re invited to an exciting night of learning sharing and celebrating Black Women\'s History Game Night on Tuesday, October 31 at 6pm. Let\'s recognise and celebrate the impact and achievements made within the tech space. Join us for games, drinks, and delicious food, hosted by Coding Black Females and Black Create Connect. If you\'re looking to play some games, network with our communities, and have a laugh then we\'d love to have you. Don\'t miss this fun and educational evening - all ages are welcome! See you there! **Limited Spaces Available** We can\'t wait to see you there! Venue: Zetland House, Floor 2, 5-25 Scrutton Street, London EC2A 4HJ","taxonomies":{"audience":["Men","Women","Students","Junior","Mid-level","Senior","Leadership"]}}\n```';
+		$result = ContentClassifier::extract_json_object( $content );
+
+		$this->log( $result );
+		$this->assertIsArray( $result );
 	}
 
 	public function log( $value ) {

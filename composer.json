@@ -179,6 +179,7 @@
     "wpackagist-plugin/classic-editor": "^1.0",
     "wpackagist-plugin/cloudflare": "^4.0",
     "wpackagist-plugin/customizer-export-import": "^0.9",
+    "wpackagist-plugin/debug-bar": "^1.1",
     "wpackagist-plugin/disable-emails": "^1.0",
     "wpackagist-plugin/dynamic-visibility-for-elementor": "^5.0",
     "wpackagist-plugin/easy-theme-and-plugin-upgrades": "^2.0",
@@ -196,7 +197,6 @@
     "wpackagist-plugin/log-emails": "^1.0",
     "wpackagist-plugin/meta-box": "^5.0",
     "wpackagist-plugin/ninja-forms": "^3.0",
-    "wpackagist-plugin/ninja-forms-addon-manager": "^3.0",
     "wpackagist-plugin/plausible-analytics": "^2.0",
     "wpackagist-plugin/pods": "^3.0",
     "wpackagist-plugin/publishpress": "^4.0",
@@ -209,7 +209,8 @@
     "wpackagist-plugin/wp-discourse": "^2.0",
     "wpackagist-plugin/wp-mail-smtp": "^4.0",
     "wpackagist-theme/generatepress": "^3.0",
-    "wp-media/wp-rocket": "^3.0"
+    "wp-media/wp-rocket": "^3.0",
+    "openai-php/client": "^0.8.4"
   },
   "require-dev": {
     "slevomat/coding-standard": "^8.0",
