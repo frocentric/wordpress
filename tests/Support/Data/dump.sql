@@ -192,7 +192,14 @@ CREATE TABLE "wp_terms" (
 "term_group" integer NOT NULL DEFAULT 0);
 
 INSERT INTO wp_terms ('term_id','name','slug','term_group') VALUES
-('1','Uncategorized','uncategorized','0');
+('1','Uncategorized','uncategorized','0'),
+('2','Men','men','0'),
+('3','Women','women','0'),
+('4','Students','students','0'),
+('5','Junior','junior','0'),
+('6','Mid-level','mid-level','0'),
+('7','Senior','senior','0'),
+('8','Leadership','leadership','0');
 
 CREATE TABLE "wp_term_taxonomy" (
 "term_taxonomy_id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -203,7 +210,14 @@ CREATE TABLE "wp_term_taxonomy" (
 "count" integer NOT NULL DEFAULT 0);
 
 INSERT INTO wp_term_taxonomy ('term_taxonomy_id','term_id','taxonomy','description','parent','count') VALUES
-('1','1','category','','0','1');
+('1','1','category','','0','1'),
+('2','2','audience','','0','0'),
+('3','3','audience','','0','0'),
+('4','4','audience','','0','0'),
+('5','5','audience','','0','0'),
+('6','6','audience','','0','0'),
+('7','7','audience','','0','0'),
+('8','8','audience','','0','0');
 
 CREATE TABLE "wp_term_relationships" (
 "object_id" integer NOT NULL DEFAULT 0,
