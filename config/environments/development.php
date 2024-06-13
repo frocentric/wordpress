@@ -29,17 +29,3 @@ Config::define('WP_ROCKET_KEY', '');
 if ( defined( 'WP_CLI' ) && WP_CLI && ! env( 'LANDO' ) ) {
 	Config::define( 'DB_HOST', env( 'DB_HOST_EXTERNAL' ) ?? Config::get( 'DB_HOST' ) );
 }
-
-// Handle WPBrowser test configuration
-if (getenv('WORDPRESS_URL')) {
-	Config::define('WP_HOME', getenv('WORDPRESS_URL'));
-	Config::define('WP_SITEURL', Config::get('WP_HOME') . substr(env('WP_SITEURL'), strlen(env('WP_HOME'))));
-	if ( getenv( 'WORDPRESS_DOMAIN' ) ) {
-		$str = 'localhost:12345';
-		$pattern = '/\:\d+/i';
-		$domain = preg_replace($pattern, '', getenv( 'WORDPRESS_DOMAIN' ));
-
-		Config::define( 'COOKIE_DOMAIN', '.' . $domain );
-		Config::define( 'COOKIEHASH', md5( $domain ) ); // notice absence of a '.' in front
-	}
-}
