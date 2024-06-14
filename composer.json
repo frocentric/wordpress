@@ -58,7 +58,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/the-events-calendar-community-events",
-        "version": "4.10.16",
+        "version": "4.10.18",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://evnt.is/fetch-ce?version={%VERSION}&key={%TEC_CE_LICENSE}",
@@ -73,7 +73,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/the-events-calendar-community-events-tickets",
-        "version": "4.9.4",
+        "version": "4.9.6",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://evnt.is/fetch-ct?version={%VERSION}&key={%TEC_CT_LICENSE}",
@@ -88,7 +88,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-tickets-plus",
-        "version": "5.10.0",
+        "version": "5.10.2",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://evnt.is/fetch-etp?version={%VERSION}&key={%TEC_ETP_LICENSE}",
@@ -103,7 +103,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-calendar-pro",
-        "version": "6.3.2",
+        "version": "6.5.0",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://evnt.is/fetch-ecp?version={%VERSION}&key={%TEC_PRO_LICENSE}",
@@ -133,7 +133,7 @@
       "type": "package",
       "package": {
         "name": "modern-tribe/events-virtual",
-        "version": "1.15.6",
+        "version": "1.15.8",
         "type": "wordpress-plugin",
         "dist": {
           "url": "https://evnt.is/fetch-ve?version={%VERSION}&key={%TEC_VE_LICENSE}",
