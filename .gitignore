@@ -96,3 +96,6 @@ local-adminer-*.php
 
 # Lando
 .lando.local.yml
+
+# Sync scripts
+sync*.sh
