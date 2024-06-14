@@ -1,4 +1,6 @@
+---
 path: web/wp
-
 server:
   docroot: web
+@development:
+  path: web/wp
