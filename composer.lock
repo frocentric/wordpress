@@ -3220,15 +3220,15 @@
         },
         {
             "name": "wpackagist-plugin/feedzy-rss-feeds",
-            "version": "4.4.9",
+            "version": "4.4.11",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/feedzy-rss-feeds/",
-                "reference": "tags/4.4.9"
+                "reference": "tags/4.4.11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.4.4.9.zip"
+                "url": "https://downloads.wordpress.org/plugin/feedzy-rss-feeds.4.4.11.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
