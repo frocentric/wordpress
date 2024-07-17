@@ -1061,10 +1061,10 @@
         },
         {
             "name": "koodimonni-language/en_gb",
-            "version": "6.5.5",
+            "version": "6.6",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/core/6.5.5/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/core/6.6/en_GB.zip"
             },
             "require": {
                 "koodimonni-plugin-language/admin-color-schemer-en_gb": "*",
@@ -1134,10 +1134,10 @@
         },
         {
             "name": "koodimonni-plugin-language/akismet-en_gb",
-            "version": "5.3.2",
+            "version": "5.3.3",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/akismet/5.3.2/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/akismet/5.3.3/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1153,10 +1153,10 @@
         },
         {
             "name": "koodimonni-plugin-language/bbpress-en_gb",
-            "version": "2.6.9",
+            "version": "2.6.11",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/bbpress/2.6.9/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/bbpress/2.6.11/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1419,10 +1419,10 @@
         },
         {
             "name": "koodimonni-plugin-language/woocommerce-en_gb",
-            "version": "9.0.2",
+            "version": "9.1.2",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/9.0.2/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/woocommerce/9.1.2/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1476,10 +1476,10 @@
         },
         {
             "name": "koodimonni-plugin-language/wp-jquery-update-test-en_gb",
-            "version": "2.0.0",
+            "version": "3.0.0",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/plugin/wp-jquery-update-test/2.0.0/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/plugin/wp-jquery-update-test/3.0.0/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1590,10 +1590,10 @@
         },
         {
             "name": "koodimonni-theme-language/twentyseventeen-en_gb",
-            "version": "3.6",
+            "version": "3.7",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/theme/twentyseventeen/3.6/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/theme/twentyseventeen/3.7/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1666,10 +1666,10 @@
         },
         {
             "name": "koodimonni-theme-language/twentytwelve-en_gb",
-            "version": "4.2",
+            "version": "4.3",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/theme/twentytwelve/4.2/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/theme/twentytwelve/4.3/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1685,10 +1685,10 @@
         },
         {
             "name": "koodimonni-theme-language/twentytwenty-en_gb",
-            "version": "2.6",
+            "version": "2.7",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/theme/twentytwenty/2.6/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/theme/twentytwenty/2.7/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1704,10 +1704,10 @@
         },
         {
             "name": "koodimonni-theme-language/twentytwentyfour-en_gb",
-            "version": "1.1",
+            "version": "1.2",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/theme/twentytwentyfour/1.1/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/theme/twentytwentyfour/1.2/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
@@ -1742,10 +1742,10 @@
         },
         {
             "name": "koodimonni-theme-language/twentytwentythree-en_gb",
-            "version": "1.4",
+            "version": "1.5",
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/translation/theme/twentytwentythree/1.4/en_GB.zip"
+                "url": "https://downloads.wordpress.org/translation/theme/twentytwentythree/1.5/en_GB.zip"
             },
             "require": {
                 "koodimonni/composer-dropin-installer": ">=0.2.3"
