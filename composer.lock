@@ -3256,15 +3256,15 @@
         },
         {
             "name": "wpackagist-plugin/hivepress",
-            "version": "1.7.4",
+            "version": "1.7.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/hivepress/",
-                "reference": "tags/1.7.4"
+                "reference": "tags/1.7.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/hivepress.1.7.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/hivepress.1.7.5.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
