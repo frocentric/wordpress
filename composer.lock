@@ -2870,23 +2870,68 @@
             "time": "2024-07-20T21:52:34+00:00"
         },
         {
-            "name": "wp-media/wp-rocket",
-            "version": "v3.16",
+            "name": "wp-media/apply-filters-typed",
+            "version": "v1.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "33167b273a324754b33e8573e9f215a8233072f7"
+                "url": "https://github.com/wp-media/apply-filters-typed.git",
+                "reference": "ba4e7864f354582a28eedf8ddac99034b2ea6915"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/33167b273a324754b33e8573e9f215a8233072f7",
-                "reference": "33167b273a324754b33e8573e9f215a8233072f7",
+                "url": "https://api.github.com/repos/wp-media/apply-filters-typed/zipball/ba4e7864f354582a28eedf8ddac99034b2ea6915",
+                "reference": "ba4e7864f354582a28eedf8ddac99034b2ea6915",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpcompatibility/phpcompatibility-wp": "^2.0",
+                "phpstan/extension-installer": "^1.4",
+                "szepeviktor/phpstan-wordpress": "^1.3",
+                "wp-coding-standards/wpcs": "^3",
+                "wp-media/phpunit": "^3"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "WP Media",
+                    "email": "contact@wp-media.me"
+                }
+            ],
+            "description": "Library for usage of WordPress filters in a safe-type way",
+            "support": {
+                "issues": "https://github.com/wp-media/apply-filters-typed/issues",
+                "source": "https://github.com/wp-media/apply-filters-typed/tree/v1.1"
+            },
+            "time": "2024-07-30T13:58:51+00:00"
+        },
+        {
+            "name": "wp-media/wp-rocket",
+            "version": "v3.16.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wp-media/wp-rocket.git",
+                "reference": "03881cdaaa14d34eb7d998bc0d66a17251a37f39"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/03881cdaaa14d34eb7d998bc0d66a17251a37f39",
+                "reference": "03881cdaaa14d34eb7d998bc0d66a17251a37f39",
                 "shasum": ""
             },
             "require": {
                 "cloudflare/cf-ip-rewrite": "^1.0",
                 "composer/installers": "^1.0 || ^2.0",
-                "php": ">=7.3"
+                "php": ">=7.3",
+                "wp-media/apply-filters-typed": "^1.0"
             },
             "require-dev": {
                 "brain/monkey": "^2.0",
@@ -2897,8 +2942,11 @@
                 "mnsami/composer-custom-directory-installer": "^2.0",
                 "mobiledetect/mobiledetectlib": "^2.8",
                 "php": "^7 || ^8",
+                "php-stubs/wordpress-tests-stubs": "^6.5",
                 "phpcompatibility/phpcompatibility-wp": "^2.0",
-                "phpstan/phpstan": "^1.8",
+                "phpstan/extension-installer": "^1.3",
+                "phpstan/phpstan-mockery": "^1.1",
+                "phpstan/phpstan-phpunit": "^1.4",
                 "phpunit/phpunit": "^7.5 || ^8 || ^9",
                 "psr/container": "1.1.1",
                 "roave/security-advisories": "dev-master",
@@ -2911,11 +2959,13 @@
                 "wp-media/rocket-lazyload-common": "^3.0.11",
                 "wp-media/wp-imagify-partner": "^1.0",
                 "wpackagist-plugin/amp": "^1.1.4",
+                "wpackagist-plugin/cloudflare": "4.12.7",
                 "wpackagist-plugin/hummingbird-performance": "2.0.1",
                 "wpackagist-plugin/jetpack": "9.3.2",
                 "wpackagist-plugin/pdf-embedder": "4.6.*",
                 "wpackagist-plugin/simple-custom-css": "^4.0.3",
                 "wpackagist-plugin/spinupwp": "^1.1",
+                "wpackagist-plugin/the-events-calendar": "6.5.0.1",
                 "wpackagist-plugin/woocommerce": "^8",
                 "wpackagist-plugin/wp-smushit": "^3"
             },
@@ -2982,7 +3032,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2024-05-08T09:41:09+00:00"
+            "time": "2024-08-14T11:09:58+00:00"
         },
         {
             "name": "wpackagist-plugin/authors-list",
