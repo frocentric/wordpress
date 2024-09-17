@@ -3202,15 +3202,15 @@
         },
         {
             "name": "wpackagist-plugin/event-tickets",
-            "version": "5.11.0.1",
+            "version": "5.13.3.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/event-tickets/",
-                "reference": "tags/5.11.0.1"
+                "reference": "tags/5.13.3.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/event-tickets.5.11.0.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/event-tickets.5.13.3.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
