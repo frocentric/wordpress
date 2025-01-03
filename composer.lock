@@ -3400,15 +3400,15 @@
         },
         {
             "name": "wpackagist-plugin/plausible-analytics",
-            "version": "2.0.9",
+            "version": "2.1.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/plausible-analytics/",
-                "reference": "tags/2.0.9"
+                "reference": "tags/2.1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/plausible-analytics.2.0.9.zip"
+                "url": "https://downloads.wordpress.org/plugin/plausible-analytics.2.1.4.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
