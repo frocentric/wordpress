@@ -3562,15 +3562,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-mail-smtp",
-            "version": "4.0.1",
+            "version": "4.1.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-mail-smtp/",
-                "reference": "tags/4.0.1"
+                "reference": "tags/4.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-mail-smtp.4.0.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-mail-smtp.4.1.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
