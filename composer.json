@@ -172,7 +172,7 @@
     "php": ">=5.6",
     "roots/bedrock-autoloader": "^1.0",
     "roots/wp-config": "1.0.0",
-    "roots/wp-password-bcrypt": "1.1.0",
+    "roots/wp-password-bcrypt": "1.2.0",
     "vlucas/phpdotenv": "^5.3",
     "wpackagist-plugin/authors-list": "^2.0",
     "wpackagist-plugin/autodescription": "^5.0",
