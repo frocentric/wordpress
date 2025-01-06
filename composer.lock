@@ -3216,15 +3216,15 @@
         },
         {
             "name": "wpackagist-plugin/authors-list",
-            "version": "2.0.4",
+            "version": "2.0.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/authors-list/",
-                "reference": "tags/2.0.4"
+                "reference": "tags/2.0.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/authors-list.2.0.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/authors-list.2.0.5.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
