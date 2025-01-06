@@ -8,7 +8,6 @@ web/app/e-backup/*
 !web/app/plugins/frocentric*
 !web/app/plugins/froware
 !web/app/plugins/gp-premium
-web/app/plugins/ninja-forms-addon-manager/*
 !web/app/plugins/ninja-forms-*
 !web/app/plugins/query-standard-format-posts
 !web/app/plugins/wp-event-aggregator-pro
