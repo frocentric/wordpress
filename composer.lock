@@ -3558,15 +3558,15 @@
         },
         {
             "name": "wpackagist-plugin/log-emails",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/log-emails/",
-                "reference": "tags/1.4.0"
+                "reference": "tags/1.5.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/log-emails.1.4.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/log-emails.1.5.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
