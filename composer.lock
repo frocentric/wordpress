@@ -3648,15 +3648,15 @@
         },
         {
             "name": "wpackagist-plugin/pods",
-            "version": "3.2.6",
+            "version": "3.2.8.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/pods/",
-                "reference": "tags/3.2.6"
+                "reference": "tags/3.2.8.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/pods.3.2.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/pods.3.2.8.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
