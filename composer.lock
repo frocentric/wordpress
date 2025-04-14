@@ -3283,15 +3283,15 @@
         },
         {
             "name": "wpackagist-plugin/autodescription",
-            "version": "5.0.6",
+            "version": "5.1.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/autodescription/",
-                "reference": "tags/5.0.6"
+                "reference": "tags/5.1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/autodescription.5.0.6.zip"
+                "url": "https://downloads.wordpress.org/plugin/autodescription.5.1.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
