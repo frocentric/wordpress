@@ -3787,15 +3787,15 @@
         },
         {
             "name": "wpackagist-plugin/the-events-calendar",
-            "version": "6.7.0",
+            "version": "6.9.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/the-events-calendar/",
-                "reference": "tags/6.7.0"
+                "reference": "tags/6.9.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.6.7.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.6.9.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
